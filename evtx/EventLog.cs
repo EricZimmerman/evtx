@@ -32,10 +32,7 @@ namespace evtx
                 throw new Exception("Invalid signature! Expected 'ElfFile'");
             }
 
-
-
             CurrentChunk = BitConverter.ToInt64(headerBytes, 0x10);
-            _logger.Trace($"Current chunk: 0x{CurrentChunk:X}");
             NextRecordId = BitConverter.ToInt64(headerBytes, 0x18);
             var size = BitConverter.ToInt32(headerBytes, 0x20);
             Revision = BitConverter.ToInt16(headerBytes, 0x24);
@@ -54,12 +51,11 @@ namespace evtx
 
             var chunkBuffer = new byte[0x10000];
 
-            var chunks = new List<ChunkInfo>();
+            Chunks = new List<ChunkInfo>();
 
             var chunkOffset = fileStream.Position;
             var bytesRead = fileStream.Read(chunkBuffer, 0, 0x10000);
-
-
+            
             var chunkNumber = 0;
             while (bytesRead > 0)
             {
@@ -67,11 +63,9 @@ namespace evtx
 
                 _logger.Trace($"chunk offset: {chunkOffset}, sig: {Encoding.ASCII.GetString(chunkBuffer, 0, 8)} signature val: 0x{chunkSig:X}");
              
-           
-
                 if (chunkSig == chunkSignature)
                 {
-                    chunks.Add(new ChunkInfo(chunkBuffer,chunkOffset,chunkNumber));
+                    Chunks.Add(new ChunkInfo(chunkBuffer,chunkOffset,chunkNumber));
                 }
                 else
                 {
@@ -84,16 +78,13 @@ namespace evtx
                 chunkNumber += 1;
             }
 
-            _logger.Debug($"Chunks found: {chunks.Count:N0}");
+            _logger.Debug($"Chunks found: {Chunks.Count:N0}");
 
-        
-            foreach (var chunk in chunks)
-            {
-              _logger.Info($"Chunk info: {chunk}");
-          
-            }
+       
 
         }
+
+        public List<ChunkInfo> Chunks { get; }
 
         public long CurrentChunk { get;  }
 

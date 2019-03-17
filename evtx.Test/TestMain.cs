@@ -50,6 +50,14 @@ namespace evtx.Test
                 l.Info($"Log full: {es.IsLogFull}");
                 l.Info($"CRC: {es.Crc:X}");
 
+                foreach (var chunk in es.Chunks)
+                {
+                    foreach (var chunkStringTableEntry in chunk.StringTableEntries)
+                    {
+                        l.Info(chunkStringTableEntry);
+                    }
+                }
+
             }
 
 
