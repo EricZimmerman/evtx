@@ -55,7 +55,7 @@ namespace evtx.Test
                     l.Info($"Events found: {chunk.EventRecords.Count:N0}");
                     foreach (var eventRecord in chunk.EventRecords)
                     {
-                        l.Info($"Chunk: {chunk.ChunkNumber} {eventRecord}");
+                        l.Info($"Chunk: {chunk.ChunkNumber} {eventRecord} Payload: {eventRecord.ConvertPayloadToXml()}");
                     }
                 }
 

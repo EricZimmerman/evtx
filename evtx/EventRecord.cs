@@ -3,11 +3,45 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NLog;
 
 namespace evtx
 {
    public class EventRecord
     {
+        public enum BinaryTag
+        {
+            EndOfBXmlStream = 0x0,
+            OpenStartElementTag = 0x1, //< <name >
+            CloseStartElementTag = 0x2, 
+            CloseEmptyElementTag = 0x3,//< name /> 
+            EndElementTag = 0x4, //</ name > 
+            Value = 0x5, //attribute = “value” <-- right side
+            Attribute = 0x6, // left side --> attribute = “value”
+            TemplateInstance = 0xc,
+            NormalSubstitution = 0xd,
+            OptionalSubstitution = 0xe,
+            StartOfBXmlStream = 0xf
+        }
+
+        public string ConvertPayloadToXml()
+        {
+            var sb = new StringBuilder();
+
+            var templateId = BitConverter.ToInt32(PayloadBytes, 0x6);
+            var templateoffset = BitConverter.ToInt32(PayloadBytes, 0xA);
+
+            var l = LogManager.GetLogger("asd");
+            sb.AppendLine($"Template id: 0x{templateId:X} template offset 0x{templateoffset:X}");
+
+          
+            sb.AppendLine("asdas");
+
+
+            return sb.ToString();
+        }
+
+
         public EventRecord(byte[] recordBytes)
         {
             Size = BitConverter.ToUInt32(recordBytes, 4);
