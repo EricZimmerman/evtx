@@ -29,10 +29,10 @@ namespace evtx
             var sb = new StringBuilder();
 
             var templateId = BitConverter.ToInt32(PayloadBytes, 0x6);
-            var templateoffset = BitConverter.ToInt32(PayloadBytes, 0xA);
+            var templateOffset = BitConverter.ToInt32(PayloadBytes, 0xA);
 
             var l = LogManager.GetLogger("asd");
-            sb.AppendLine($"Template id: 0x{templateId:X} template offset 0x{templateoffset:X}");
+            sb.AppendLine($"Template id: 0x{templateId:X} template offset 0x{templateOffset:X}");
 
           
             sb.AppendLine("asdas");
