@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using NLog;
 
 namespace evtx
 {
@@ -42,8 +44,6 @@ namespace evtx
                 }
 
                 stringOffsets.Add(stringOffset);
-
-              
             }
 
             foreach (var stringOffset in stringOffsets)
@@ -54,14 +54,59 @@ namespace evtx
                 var stringLen = BitConverter.ToUInt16(chunkBytes, index);
                 index += 2;
                 var stringVal = Encoding.Unicode.GetString(chunkBytes, index, stringLen * 2);
-                index += stringLen * 2;
-
 
                 StringTableEntries.Add(new StringTableEntry(stringOffset, hash, stringVal));
             }
 
+            var templateTableData = new byte[0x80];
+            Buffer.BlockCopy(chunkBytes,(int) tableOffset + 0x100,templateTableData,0,0x80);
+
+            var tableTemplateOffsets = new List<uint>();
+
+            index = 0;
+            while (index<templateTableData.Length)
+            {
+                var templateOffset = BitConverter.ToUInt32(templateTableData, index);
+                index += 4;
+                if (templateOffset == 0)
+                {
+                    continue;
+                }
+
+                tableTemplateOffsets.Add(templateOffset);
+            }
+
+            var l = LogManager.GetLogger("ChunkInfo");
+
+            //l.Info(tableTemplateOffsets.Count);
+
+            index = (int) tableOffset + 0x100 + 0x80; //get to start of event Records
+
+            EventRecords = new List<EventRecord>();
+
+            var recordSig = 0x2a2a;
+            while (index<chunkBytes.Length)
+            {
+                var sig = BitConverter.ToInt32(chunkBytes, index);
+              
+                if (sig != recordSig)
+                {
+                    break;
+                }
+
+                var recordSize = BitConverter.ToUInt32(chunkBytes, index + 4);
+                var recordBuff = new byte[recordSize];
+                Buffer.BlockCopy(chunkBytes,index,recordBuff,0,(int) recordSize);
+                index += (int)recordSize;
+
+                var er = new EventRecord(recordBuff);
+
+                EventRecords.Add(er);
+            }
 
         }
+
+        public List<EventRecord> EventRecords { get;  }
 
         public List<StringTableEntry> StringTableEntries { get; }
 

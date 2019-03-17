@@ -43,18 +43,19 @@ namespace evtx.Test
 
                 var l = LogManager.GetLogger("foo");
 
-                l.Info(es.NextRecordId);
-                l.Info($"Current chunk: {es.CurrentChunk:N0}, chunk count: {es.ChunkCount:N0}");
-                l.Info(es.Version + "." + es.Revision);
-                l.Info($"Dirty: {es.IsDirty}");
-                l.Info($"Log full: {es.IsLogFull}");
-                l.Info($"CRC: {es.Crc:X}");
+             //   l.Info(es.NextRecordId);
+              //  l.Info($"Current chunk: {es.CurrentChunk:N0}, chunk count: {es.ChunkCount:N0}");
+               // l.Info(es.Version + "." + es.Revision);
+              //  l.Info($"Dirty: {es.IsDirty}");
+              //  l.Info($"Log full: {es.IsLogFull}");
+              //  l.Info($"CRC: {es.Crc:X}");
 
                 foreach (var chunk in es.Chunks)
                 {
-                    foreach (var chunkStringTableEntry in chunk.StringTableEntries)
+                    l.Info($"Events found: {chunk.EventRecords.Count:N0}");
+                    foreach (var eventRecord in chunk.EventRecords)
                     {
-                        l.Info(chunkStringTableEntry);
+                        l.Info($"Chunk: {chunk.ChunkNumber} {eventRecord}");
                     }
                 }
 

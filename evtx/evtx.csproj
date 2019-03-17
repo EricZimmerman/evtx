@@ -51,6 +51,7 @@
   <ItemGroup>
     <Compile Include="ChunkInfo.cs" />
     <Compile Include="EventLog.cs" />
+    <Compile Include="EventRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringTableEntry.cs" />
   </ItemGroup>

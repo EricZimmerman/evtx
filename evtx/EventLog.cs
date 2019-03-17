@@ -78,8 +78,7 @@ namespace evtx
                 chunkNumber += 1;
             }
 
-            _logger.Debug($"Chunks found: {Chunks.Count:N0}");
-
+           
        
 
         }
