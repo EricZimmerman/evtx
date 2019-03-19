@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using Force.Crc32;
 using NLog;
 
 namespace evtx
@@ -16,15 +17,29 @@ namespace evtx
             Offset = offset;
             ChunkNumber = chunkNumber;
 
-            FirstLogRecord = BitConverter.ToInt64(chunkBytes, 0x8);
-            LastLogRecord= BitConverter.ToInt64(chunkBytes, 0x10);
-            FirstFileRecord = BitConverter.ToInt64(chunkBytes, 0x18);
-            LastFileRecord = BitConverter.ToInt64(chunkBytes, 0x20);
+            FirstEventRecordNumber = BitConverter.ToInt64(chunkBytes, 0x8);
+            LastEventRecordNumber= BitConverter.ToInt64(chunkBytes, 0x10);
+            FirstEventRecordIdentifier = BitConverter.ToInt64(chunkBytes, 0x18);
+            LastEventRecordIdentifier = BitConverter.ToInt64(chunkBytes, 0x20);
 
             var tableOffset = BitConverter.ToUInt32(chunkBytes, 0x28);
+
             var lastRecordOffset = BitConverter.ToUInt32(chunkBytes, 0x2C);
-            var nextRecordOffset = BitConverter.ToUInt32(chunkBytes, 0x30);
+            var freeSpaceOffset = BitConverter.ToUInt32(chunkBytes, 0x30);
+
+            //TODO how to calculate this? across what data? all event records?
+            var crcEventRecordsData = BitConverter.ToUInt32(chunkBytes, 0x34);
+
             Crc = BitConverter.ToInt32(chunkBytes, 0x7c);
+
+            var inputArray = new byte[120 + 384 + 4];
+            Buffer.BlockCopy(chunkBytes,0,inputArray,0,120);
+            Buffer.BlockCopy(chunkBytes,128,inputArray,120,384);
+            
+            Crc32Algorithm.ComputeAndWriteToEnd(inputArray); // last 4 bytes contains CRC
+            CalculatedCrc = BitConverter.ToInt32(inputArray, inputArray.Length - 4);
+
+
 
             var index = 0;
             var tableData = new byte[0x100];
@@ -111,14 +126,15 @@ namespace evtx
         public List<StringTableEntry> StringTableEntries { get; }
 
         public int Crc { get;  }
+        public int CalculatedCrc { get;  }
 
-        public long LastFileRecord { get;  }
+        public long LastEventRecordIdentifier { get;  }
 
-        public long FirstFileRecord { get;  }
+        public long FirstEventRecordIdentifier { get;  }
 
-        public long LastLogRecord { get;  }
+        public long LastEventRecordNumber { get;  }
 
-        public long FirstLogRecord { get;  }
+        public long FirstEventRecordNumber { get;  }
 
         public byte[] ChunkBytes { get; }
         public long Offset { get; }
@@ -126,7 +142,7 @@ namespace evtx
 
         public override string ToString()
         {
-            return $"Offset 0x{Offset:X8} Chunk #: {ChunkNumber.ToString().PadRight(5)} FirstLogRecord: {FirstLogRecord.ToString().PadRight(8)} LastLogRecord: {LastLogRecord.ToString().PadRight(8)} FirstFileRecord: {FirstFileRecord.ToString().PadRight(8)} LastFileRecord: {LastFileRecord.ToString().PadRight(8)}";
+            return $"Offset 0x{Offset:X8} Chunk #: {ChunkNumber.ToString().PadRight(5)} FirstEventRecordNumber: {FirstEventRecordNumber.ToString().PadRight(8)} LastEventRecordNumber: {LastEventRecordNumber.ToString().PadRight(8)} FirstEventRecordIdentifier: {FirstEventRecordIdentifier.ToString().PadRight(8)} LastEventRecordIdentifier: {LastEventRecordIdentifier.ToString().PadRight(8)}";
         }
     }
 }

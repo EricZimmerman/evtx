@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -50,6 +51,8 @@ namespace evtx
 
             PayloadBytes = new byte[recordBytes.Length - 28]; //4 for signature, 4 for first size, 8 for record #, 8 for timestamp, 4 for last size
             Buffer.BlockCopy(recordBytes,0x18,PayloadBytes,0,PayloadBytes.Length);
+
+         //   File.WriteAllBytes(@"C:\temp\PayloadBytes.bin",PayloadBytes);
         }
 
 

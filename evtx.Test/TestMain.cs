@@ -32,35 +32,44 @@ namespace evtx.Test
             config.LoggingRules.Add(rule1);
 
             LogManager.Configuration = config;
-
+            var l = LogManager.GetLogger("foo");
 
             var sysLog = @"D:\SynologyDrive\EventLogs\HP_Spec\System.evtx";
+
+            var total = 0;
 
             using (var fs = new FileStream(sysLog,FileMode.Open,FileAccess.Read))
             {
             
                 var es = new EventLog(fs);
 
-                var l = LogManager.GetLogger("foo");
+            
 
              //   l.Info(es.NextRecordId);
-              //  l.Info($"Current chunk: {es.CurrentChunk:N0}, chunk count: {es.ChunkCount:N0}");
-               // l.Info(es.Version + "." + es.Revision);
-              //  l.Info($"Dirty: {es.IsDirty}");
+              //  l.Info($"Current chunk: {es.LastChunkNumber:N0}, chunk count: {es.ChunkCount:N0}");
+               // l.Info(es.MajorVersion + "." + es.MinorVersion);
+              //  l.Info($"Dirty: {es.EventLogFlags}");
               //  l.Info($"Log full: {es.IsLogFull}");
               //  l.Info($"CRC: {es.Crc:X}");
 
+             
+
                 foreach (var chunk in es.Chunks)
                 {
-                    l.Info($"Events found: {chunk.EventRecords.Count:N0}");
+                 //   l.Info($"Events found: {chunk.EventRecords.Count:N0}");
+
+                    total += chunk.EventRecords.Count;
+
                     foreach (var eventRecord in chunk.EventRecords)
                     {
-                        l.Info($"Chunk: {chunk.ChunkNumber} {eventRecord} Payload: {eventRecord.ConvertPayloadToXml()}");
+                        eventRecord.ConvertPayloadToXml();
+                        //l.Info($"Chunk: {chunk.ChunkNumber} {eventRecord} Payload: {eventRecord.ConvertPayloadToXml()}");
                     }
                 }
 
             }
 
+            l.Info(total);
 
         }
     }

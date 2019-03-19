@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.ServiceModel.Channels;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
+using Force.Crc32;
 using NLog;
 using Exception = System.Exception;
 
@@ -13,6 +16,12 @@ namespace evtx
 {
     public class EventLog
     {
+        [Flags]
+        public enum EventLogFlag
+        {
+            IsDirty = 0x1,
+            IsFull = 0x2
+        }
         private static Logger _logger = LogManager.GetLogger("EventLog");
 
         public long NextRecordId { get; }
@@ -32,18 +41,27 @@ namespace evtx
                 throw new Exception("Invalid signature! Expected 'ElfFile'");
             }
 
-            CurrentChunk = BitConverter.ToInt64(headerBytes, 0x10);
+            FirstChunkNumber = BitConverter.ToInt64(headerBytes, 0x8);
+            LastChunkNumber = BitConverter.ToInt64(headerBytes, 0x10);
+
             NextRecordId = BitConverter.ToInt64(headerBytes, 0x18);
             var size = BitConverter.ToInt32(headerBytes, 0x20);
-            Revision = BitConverter.ToInt16(headerBytes, 0x24);
-            Version = BitConverter.ToInt16(headerBytes, 0x26);
+
+            MinorVersion = BitConverter.ToInt16(headerBytes, 0x24);
+            MajorVersion = BitConverter.ToInt16(headerBytes, 0x26);
+
             var headerSize = BitConverter.ToInt16(headerBytes, 0x28);
             ChunkCount = BitConverter.ToInt16(headerBytes, 0x2A);
           
-            IsDirty = BitConverter.ToInt16(headerBytes, 0x78);
-            IsLogFull = BitConverter.ToInt16(headerBytes, 0x80);
+            Flags = (EventLogFlag)BitConverter.ToInt32(headerBytes, 0x78);
 
             Crc = BitConverter.ToInt32(headerBytes, 0x7C);
+
+            var inputArray = new byte[120 + 4];
+            Buffer.BlockCopy(headerBytes,0,inputArray,0,120);
+
+            Crc32Algorithm.ComputeAndWriteToEnd(inputArray); // last 4 bytes contains CRC
+            CalculatedCrc = BitConverter.ToInt32(inputArray, inputArray.Length - 4);
 
             //we are at offset 0x1000 and ready to start
 
@@ -78,23 +96,29 @@ namespace evtx
                 chunkNumber += 1;
             }
 
-           
-       
+
+         
 
         }
 
+        
+
+
         public List<ChunkInfo> Chunks { get; }
 
-        public long CurrentChunk { get;  }
+        public long FirstChunkNumber { get;  }
+        public long LastChunkNumber { get;  }
 
         public short ChunkCount { get;  }
 
         public int Crc { get;  }
+        public int CalculatedCrc { get;  }
 
-        public short IsDirty { get;  }
-        public short IsLogFull { get;  }
 
-        public short Revision { get;  }
-        public short Version { get;  }
+
+        public EventLogFlag Flags { get;  }
+
+        public short MinorVersion { get;  }
+        public short MajorVersion { get;  }
     }
 }
