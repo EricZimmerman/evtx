@@ -130,10 +130,15 @@ namespace evtx
                 throw new Exception("Payload does not start with 0x1f!");
             }
 
-         l.Debug($"Record position: 0x{RecordPosition:X} Record #: {RecordNumber}");
+         l.Debug($"Chunk: 0x{ChunkOffset:X} Record position: 0x{RecordPosition:X} Record #: {RecordNumber}");
 
             var index = 0;
             var inStream = true;
+
+            if (RecordNumber == 4)
+            {
+                Debug.WriteLine(1);
+            }
 
             while (inStream && index<PayloadBytes.Length)
             {
@@ -143,10 +148,23 @@ namespace evtx
 
                 var opCode = (BinaryTag)op;
 
-                l.Debug($"     Opcode: {opCode} while Index is 0x{index:X}");
+                l.Debug($"     Opcode: {opCode} while Index is 0x{index:X} Rec pos plus index: 0x{(recordPosition+index):X} abs off:  0x{(chunkOffset+ recordPosition+index + 24):X} chunkOffset : 0x{chunkOffset:X}");
 
                 switch (opCode)
                 {
+                    //TODO THIS NEEDS FIXED
+                    case BinaryTag.TokenEntityRef:
+                    case BinaryTag.EndElementTag:
+                    case BinaryTag.TokenPITarget:
+                    case BinaryTag.CloseEmptyElementTag:
+                    case BinaryTag.CDataSection:
+                    case BinaryTag.TokenPIData:
+                    case BinaryTag.OpenStartElementTag:
+                        index = PayloadBytes.Length; 
+                        break;
+
+
+
                     case BinaryTag.EndOfBXmlStream:
                         index += 1;
                         inStream = false;
@@ -167,39 +185,91 @@ namespace evtx
 
                         var templateOffset = BitConverter.ToInt32(PayloadBytes, 10);
 
-                     
-
                         //length lives 30 bytes away from where we are
                         var templateSize = BitConverter.ToInt32(PayloadBytes, index + 30);
 
-                        templateSize += 0x21; //0x21 is the beginning part of the template info. the template size is for the nodes that make up the template
+                        templateSize += 0x22; //0x21 is the beginning part of the template info. the template size is for the nodes that make up the template
 
-                        if (Templates.SingleOrDefault(t1 => t1.TemplateOffset == templateOffset) !=null)
+                        if (Templates.SingleOrDefault(t1 => t1.TemplateOffset == templateOffset) == null)
                         {
-                            l.Info($"Fount template with offset 0x{templateOffset:X}");
+                            var templateBuffer = new byte[templateSize]; 
+                            Buffer.BlockCopy(PayloadBytes,index,templateBuffer,0,templateSize);
                             index += templateSize;
-                            continue;
+
+                            var t = new Template((int) chunkOffset,recordPosition, templateBuffer,templateOffset);
+                            Templates.Add(t);
+
+                            _template = t;
+
+                            l.Debug($"     template Index is 0x{index:X}");
+                            
+                        }
+                        else
+                        {
+                            l.Info($"Found template with offset 0x{templateOffset:X}");
+                            index += 10;
                         }
 
-                      
+                        //substitution array starts here
+                        //first is 32 bit # with how many to expect
+                        //followed by that # of pairs of 16 bit numbers, first is length, second is type
 
-                        var templateBuffer = new byte[templateSize]; 
-                        Buffer.BlockCopy(PayloadBytes,index,templateBuffer,0,templateSize);
-                        index += templateSize;
+                        var substitutionArrayLen = BitConverter.ToInt32(PayloadBytes, index);
+                        index += 4;
 
-                        var t = new Template((int) chunkOffset,recordPosition, templateBuffer,templateOffset);
-                        Templates.Add(t);
+                        l.Info($"      Substitution len: 0x{substitutionArrayLen:X}");
 
-                        _template = t;
+                        var subList = new List<SubstitutionArrayEntry>();
 
-                        l.Debug($"     template Index is 0x{index:X}");
+                        var totalSubsize = 0;
+                        for (var i = 0; i < substitutionArrayLen; i++)
+                        {
+                            //TODO FIX THIS
+                            if (index >= PayloadBytes.Length-2)
+                            {
+                                index = PayloadBytes.Length;
+                                break;
+                            }
+                            var subSize = BitConverter.ToInt16(PayloadBytes, index);
+                            index += 2;
+                            var subType = BitConverter.ToInt16(PayloadBytes, index);
+                            index += 2;
+
+                            totalSubsize += subSize;
+
+                            l.Info($"    Position: {i} Size: 0x{subSize:X} Type: {(ValueType)subType}");
+
+                            subList.Add(new SubstitutionArrayEntry(i, subSize,(ValueType)subType));
+                        }
+
+                        l.Debug($"     template Index post sub array is 0x{index:X} totalSubsize: 0x{totalSubsize:X}");
+
+                        //TODO FIX THIS
+                        if (index >= PayloadBytes.Length-2)
+                        {
+                            index = PayloadBytes.Length;
+                            break;
+                        }
+
+                        //get the data into the substitution array entries
+                        foreach (var substitutionArrayEntry in subList)
+                        {
+                            var data = new byte[substitutionArrayEntry.Size];
+
+                            Buffer.BlockCopy(PayloadBytes,index,data,0,substitutionArrayEntry.Size);
+                            index += substitutionArrayEntry.Size;
+                            substitutionArrayEntry.DataBytes = data;
+
+                            l.Info($"   Type: {substitutionArrayEntry.ValType} Data bytes: {BitConverter.ToString(data)}");
+                        }
+
 
                         break;
-                    case BinaryTag.OpenStartElementTag2:
-
-                        break;
+//                    case BinaryTag.OpenStartElementTag2:
+//
+//                        break;
                     default:
-                        throw new Exception($"Unknown opcode: {opCode} ({opCode:X})");
+                        throw new Exception($"Unknown opcode: {opCode} ({opCode:X}) index: 0x{index:X} chunkoffset: 0x{chunkOffset:X} abs offset: 0x{(chunkOffset+ recordPosition+index + 24):X}");
                 }
 
 
@@ -207,37 +277,26 @@ namespace evtx
 
             l.Debug($"     Post WHILE Loop index: 0x{index:X} Payload Size: 0x{PayloadBytes.Length:X}");
 
+          
+
+
         }
 
-        //        this.Position = log.BaseStream.Position;
+        public class SubstitutionArrayEntry
+        {
+            public SubstitutionArrayEntry(int position, int size, ValueType valType)
+            {
+                Position = position;
+                Size = size;
+                ValType = valType;
+            }
 
-//        this.ChunkOffset = chunkOffset;
-//        log.BaseStream.Position += 1;
-//        int templateID = log.ReadInt32();
-//        int ptr = log.ReadInt32();
-//			
-//        log.BaseStream.Position = this.ChunkOffset + ptr;
-//			
-//        int nextTemplate = log.ReadInt32();
-//        int templateID2 = log.ReadInt32();
-//			
-//        log.BaseStream.Position -= 4;
-//			
-//        byte[] g = log.ReadBytes(16);
-//        Guid templateGuid = new Guid(g);
-//            this.Length = log.ReadInt32();
-//        long i = this.Length;
-//            this.ChildNodes = new List<INode>();
-//        while(i >= 0 && !root.ReachedEOS)
-//        {
-//            Console.WriteLine("Current length: " + i);
-//            INode node = LogNode.NewNode(log, this, chunkOffset, root);
-//            this.ChildNodes.Add(node);
-//            i -= node.Length;
-//            if (node is _x00)
-//                root.ReachedEOS = true;
-//        }
+            public int Position { get; }
+            public int Size { get; }
+            public ValueType ValType { get; }
 
+            public byte[] DataBytes { get; set; }
+        }
 
 
         public int RecordPosition { get;  }
@@ -251,7 +310,7 @@ namespace evtx
 
         public override string ToString()
         {
-            return $"RecordPosition: 0x{RecordPosition:X} RecordNumber: 0x{RecordNumber:X} ({RecordNumber}) Timestamp: {Timestamp}";
+            return $"ChunkOffset: 0x{ChunkOffset:X} RecordPosition: 0x{RecordPosition:X} RecordNumber: 0x{RecordNumber:X} ({RecordNumber}) Timestamp: {Timestamp}";
         }
     }
 }
