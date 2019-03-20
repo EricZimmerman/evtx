@@ -26,12 +26,10 @@ namespace evtx
 
         public long NextRecordId { get; }
 
-        //TODO install alphafs and replace all system.io refs
         public EventLog(Stream fileStream)
         {
             const long evtxSignature = 0x00656c6946666c45;
             const long chunkSignature = 0x6B6E6843666C45;
-
             
             var headerBytes = new byte[4096];
             fileStream.Read(headerBytes, 0, 4096);
@@ -95,14 +93,18 @@ namespace evtx
 
                 chunkNumber += 1;
             }
-
-
-         
-
         }
 
-        
-
+        public IEnumerable<EventRecord> GetEventRecords()
+        {
+            foreach (var chunkInfo in Chunks)
+            {
+                foreach (var chunkInfoEventRecord in chunkInfo.EventRecords)
+                {
+                    yield return chunkInfoEventRecord;
+                }
+            }
+        }
 
         public List<ChunkInfo> Chunks { get; }
 
@@ -113,8 +115,6 @@ namespace evtx
 
         public int Crc { get;  }
         public int CalculatedCrc { get;  }
-
-
 
         public EventLogFlag Flags { get;  }
 

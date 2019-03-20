@@ -21,7 +21,7 @@ namespace evtx
 
         public override string ToString()
         {
-            return $"Offset: 0x{Offset:X} Hash: 0x{Hash:X} Value: {Value}";
+            return $"RecordPosition: 0x{Offset:X} Hash: 0x{Hash:X} Value: {Value}";
         }
     }
 }

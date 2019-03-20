@@ -11,6 +11,9 @@ namespace evtx
 {
    public class ChunkInfo
     {
+        public uint LastRecordOffset { get; }
+        public uint FreeSpaceOffset{ get; }
+
         public ChunkInfo(byte[] chunkBytes, long offset, int chunkNumber)
         {
             ChunkBytes = chunkBytes;
@@ -24,8 +27,8 @@ namespace evtx
 
             var tableOffset = BitConverter.ToUInt32(chunkBytes, 0x28);
 
-            var lastRecordOffset = BitConverter.ToUInt32(chunkBytes, 0x2C);
-            var freeSpaceOffset = BitConverter.ToUInt32(chunkBytes, 0x30);
+            LastRecordOffset = BitConverter.ToUInt32(chunkBytes, 0x2C);
+            FreeSpaceOffset = BitConverter.ToUInt32(chunkBytes, 0x30);
 
             //TODO how to calculate this? across what data? all event records?
             var crcEventRecordsData = BitConverter.ToUInt32(chunkBytes, 0x34);
@@ -38,8 +41,6 @@ namespace evtx
             
             Crc32Algorithm.ComputeAndWriteToEnd(inputArray); // last 4 bytes contains CRC
             CalculatedCrc = BitConverter.ToInt32(inputArray, inputArray.Length - 4);
-
-
 
             var index = 0;
             var tableData = new byte[0x100];
@@ -109,12 +110,14 @@ namespace evtx
                     break;
                 }
 
+                var recordOffset = index;
+
                 var recordSize = BitConverter.ToUInt32(chunkBytes, index + 4);
                 var recordBuff = new byte[recordSize];
                 Buffer.BlockCopy(chunkBytes,index,recordBuff,0,(int) recordSize);
                 index += (int)recordSize;
 
-                var er = new EventRecord(recordBuff);
+                var er = new EventRecord(recordBuff,recordOffset,Offset);
 
                 EventRecords.Add(er);
             }
@@ -142,7 +145,7 @@ namespace evtx
 
         public override string ToString()
         {
-            return $"Offset 0x{Offset:X8} Chunk #: {ChunkNumber.ToString().PadRight(5)} FirstEventRecordNumber: {FirstEventRecordNumber.ToString().PadRight(8)} LastEventRecordNumber: {LastEventRecordNumber.ToString().PadRight(8)} FirstEventRecordIdentifier: {FirstEventRecordIdentifier.ToString().PadRight(8)} LastEventRecordIdentifier: {LastEventRecordIdentifier.ToString().PadRight(8)}";
+            return $"RecordPosition 0x{Offset:X8} Chunk #: {ChunkNumber.ToString().PadRight(5)} FirstEventRecordNumber: {FirstEventRecordNumber.ToString().PadRight(8)} LastEventRecordNumber: {LastEventRecordNumber.ToString().PadRight(8)} FirstEventRecordIdentifier: {FirstEventRecordIdentifier.ToString().PadRight(8)} LastEventRecordIdentifier: {LastEventRecordIdentifier.ToString().PadRight(8)}";
         }
     }
 }

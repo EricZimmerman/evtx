@@ -43,29 +43,13 @@ namespace evtx.Test
             
                 var es = new EventLog(fs);
 
-            
+              foreach (var eventRecord in es.GetEventRecords())
+              {
+                  l.Info(eventRecord);
+                  eventRecord.ConvertPayloadToXml();
+              }
 
-             //   l.Info(es.NextRecordId);
-              //  l.Info($"Current chunk: {es.LastChunkNumber:N0}, chunk count: {es.ChunkCount:N0}");
-               // l.Info(es.MajorVersion + "." + es.MinorVersion);
-              //  l.Info($"Dirty: {es.EventLogFlags}");
-              //  l.Info($"Log full: {es.IsLogFull}");
-              //  l.Info($"CRC: {es.Crc:X}");
-
-             
-
-                foreach (var chunk in es.Chunks)
-                {
-                 //   l.Info($"Events found: {chunk.EventRecords.Count:N0}");
-
-                    total += chunk.EventRecords.Count;
-
-                    foreach (var eventRecord in chunk.EventRecords)
-                    {
-                        eventRecord.ConvertPayloadToXml();
-                        //l.Info($"Chunk: {chunk.ChunkNumber} {eventRecord} Payload: {eventRecord.ConvertPayloadToXml()}");
-                    }
-                }
+                
 
             }
 
