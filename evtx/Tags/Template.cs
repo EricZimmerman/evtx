@@ -35,6 +35,9 @@ public    class Template
 
         public List<IBinXml> Nodes { get; set; }
         
+        /// <summary>
+        /// The size of the template itself. The total size from op code 0xC to the end of the template is Size + 0x22
+        /// </summary>
         public int Size { get; }
         public string AsXml()
         {
@@ -49,7 +52,7 @@ public    class Template
 
         public override string ToString()
         {
-            return $"Absolute offset: 0x{TemplateAbsoluteOffset:X8} Template Offset 0x{TemplateOffset:X8} Guid: {TemplateGuid} Size: 0x{Size:X4}";
+            return $"Absolute offset: 0x{TemplateAbsoluteOffset:X8} Template Offset 0x{TemplateOffset:X8} Next Template Offset 0x{NextTemplateOffset:X8}  Guid: {TemplateGuid} Size: 0x{Size:X4}";
         }
     }
 }

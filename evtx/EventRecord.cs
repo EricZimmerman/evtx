@@ -93,6 +93,8 @@ namespace evtx
 
                         index += endStrean.Size;
 
+                       inStream = false; //done working
+
                         break;
                     case TagBuilder.BinaryTag.StartOfBXmlStream:
 
@@ -107,28 +109,19 @@ namespace evtx
 
                         index += tsss.Size;
 
-                        l.Debug($"Post template index: 0x {index:X}");
+                        l.Trace($"Post template index: 0x {index:X}");
 
 //                        //substitution array starts here
 //                        //first is 32 bit # with how many to expect
 //                        //followed by that # of pairs of 16 bit numbers, first is length, second is type
-//
-//                        //set index to where value spec lives
-//                        index = valueSpecOffset;
-//                        l.Trace($"      valueSpecOffset: 0x{valueSpecOffset:X}");
-//
                         var substitutionArrayLen = BitConverter.ToInt32(PayloadBytes, index);
                         index += 4;
-//
-                        l.Debug($"      Substitution len: 0x{substitutionArrayLen:X}");
-//
-//
+                        l.Trace($"      Substitution len: 0x{substitutionArrayLen:X}");
                         var subList = new List<SubstitutionArrayEntry>();
 //
                         var totalSubsize = 0;
                         for (var i = 0; i < substitutionArrayLen; i++)
                         {
-                   
                             var subSize = BitConverter.ToInt16(PayloadBytes, index);
                             index += 2;
                             var subType = BitConverter.ToInt16(PayloadBytes, index);
@@ -153,10 +146,10 @@ namespace evtx
                             index += substitutionArrayEntry.Size;
                             substitutionArrayEntry.DataBytes = data;
 
-                            l.Debug($"       {substitutionArrayEntry}");
+                            l.Trace($"       {substitutionArrayEntry}");
                         }
 
-                        inStream = false; //done working
+                    
 
 
                         break;

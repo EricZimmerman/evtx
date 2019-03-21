@@ -15,6 +15,8 @@ namespace evtx
         public uint LastRecordOffset { get; }
         public uint FreeSpaceOffset{ get; }
 
+        public List<Template> Templates { get; }
+
         public ChunkInfo(byte[] chunkBytes, long offset, int chunkNumber)
         {
             var l = LogManager.GetLogger("ChunkInfo");
@@ -100,7 +102,7 @@ namespace evtx
 
             Templates = new List<Template>();
 
-            l.Debug("------------------------------------------------\r\n");
+          //  l.Debug("------------------------------------------------\r\n");
 
             //to get all the templates and cache them
             foreach (var tableTemplateOffset in tableTemplateOffsets.OrderBy(t=>t))
@@ -108,12 +110,22 @@ namespace evtx
                 var actualOffset = offset + tableTemplateOffset - 10; //yea, -10
                 index = (int) tableTemplateOffset - 10;
 
-              //  l.Debug($"actualOffset: 0x {actualOffset:X} chunkBytes[index]: 0x{chunkBytes[index].ToString("X")}");
+                if (offset == 0x51000)
+                {
+                    l.Debug($"actualOffset: 0x {actualOffset:X} chunkBytes[index]: 0x{chunkBytes[index].ToString("X")}");
+                }
+
+
 
                 var aaa = GetTemplate(index);
-                l.Debug(aaa);
 
-                Templates.Add(aaa);
+                if (offset == 0x51000)
+                {
+                    l.Debug(aaa);
+                }
+              //  l.Debug(aaa);
+
+              Templates.Add(aaa);
 
                 if (aaa.NextTemplateOffset <= 0)
                 {
@@ -122,14 +134,14 @@ namespace evtx
 
                 var bbb = GetTemplate(aaa.NextTemplateOffset - 10);
                 Templates.Add(bbb);
-                l.Debug(bbb);
+              //  l.Debug(bbb);
             }
 
             index = (int) tableOffset + 0x100 + 0x80; //get to start of event Records
 
             EventRecords = new List<EventRecord>();
 
-            return;
+            
 
             var recordSig = 0x2a2a;
             while (index<chunkBytes.Length)
@@ -158,7 +170,6 @@ namespace evtx
 
         public Template GetTemplate(int startingOffset)
         {
-            var l = LogManager.GetLogger("ChunkInfo");
             var index = startingOffset; //go past op code
             index += 1;
 
@@ -178,20 +189,17 @@ namespace evtx
             Buffer.BlockCopy(ChunkBytes,index,gb,0,16);
             index += 16;
             var g = new Guid(gb);
-        //    l.Debug($"Guid: {g}");
 
             var length = BitConverter.ToInt32(ChunkBytes, index);
             index += 4;
-         //   l.Debug($"length: 0x{length:X}");
 
             var templateBytes = new byte[length];
             Buffer.BlockCopy(ChunkBytes,index,templateBytes,0,length);
-            //Size = length + 0x22; //template length + header when its a new template
 
             return new Template(templateId,templateOffset,g,templateBytes,nextTemplateOffset, Offset+startingOffset);
         }
 
-        public List<Template> Templates { get; }
+     
 
         public List<EventRecord> EventRecords { get;  }
 

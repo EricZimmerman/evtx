@@ -102,7 +102,7 @@ namespace evtx.Tags
             switch (opCode)
             {
                 case BinaryTag.TemplateInstance:
-                    return new TemplateInstance(chunkOffset, recordPosition, index, payload);
+                    return new TemplateInstance(chunkOffset, recordPosition, index, payload,templates);
 
                 case BinaryTag.StartOfBXmlStream:
 

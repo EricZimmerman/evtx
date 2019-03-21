@@ -27,7 +27,6 @@ namespace evtx
 
         public long NextRecordId { get; }
 
-     
 
         public EventLog(Stream fileStream)
         {
@@ -71,6 +70,8 @@ namespace evtx
             var chunkBuffer = new byte[0x10000];
 
             Chunks = new List<ChunkInfo>();
+
+         
 
             var chunkOffset = fileStream.Position;
             var bytesRead = fileStream.Read(chunkBuffer, 0, 0x10000);
