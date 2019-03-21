@@ -27,7 +27,7 @@ namespace evtx
 
         public long NextRecordId { get; }
 
-        private List<Template> _templates = new List<Template>();
+     
 
         public EventLog(Stream fileStream)
         {
@@ -84,7 +84,7 @@ namespace evtx
              
                 if (chunkSig == chunkSignature)
                 {
-                    Chunks.Add(new ChunkInfo(chunkBuffer,chunkOffset,chunkNumber,_templates));
+                    Chunks.Add(new ChunkInfo(chunkBuffer,chunkOffset,chunkNumber));
                 }
                 else
                 {

@@ -1,10 +1,11 @@
 ﻿using System;
+using evtx.Tags;
 
 namespace evtx
 {
     public class SubstitutionArrayEntry
     {
-        public SubstitutionArrayEntry(int position, int size, EventRecord.ValueType valType)
+        public SubstitutionArrayEntry(int position, int size, TagBuilder.ValueType valType)
         {
             Position = position;
             Size = size;
@@ -13,7 +14,7 @@ namespace evtx
 
         public int Position { get; }
         public int Size { get; }
-        public EventRecord.ValueType ValType { get; }
+        public TagBuilder.ValueType ValType { get; }
         public byte[] DataBytes { get; set; }
 
         public override string ToString()

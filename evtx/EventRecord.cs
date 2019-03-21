@@ -13,88 +13,7 @@ namespace evtx
 {
    public class EventRecord
     {
-        public enum BinaryTag
-        {
-            EndOfBXmlStream = 0x0,
-            OpenStartElementTag = 0x1, //< <name >
-            OpenStartElementTag2 = 0x41, //< <name >
-            CloseStartElementTag = 0x2, 
-            CloseEmptyElementTag = 0x3,//< name /> 
-            EndElementTag = 0x4, //</ name > 
-            Value = 0x5, //attribute = “value” <-- right side
-            Value2 = 0x45, //attribute = “value” <-- right side
-            Attribute = 0x6, // left side --> attribute = “value”
-            Attribute2 = 0x46, // left side --> attribute = “value”
-
-
-            CDataSection = 0x7,
-            CDataSection2 = 0x47,
-
-            TokenCharRef = 0x8,
-            TokenCharRef2 = 0x48,
-
-            TokenEntityRef = 0x9,
-            TokenEntityRef2 = 0x49,
-
-            TokenPITarget = 0xa,
-            TokenPIData = 0xb,
-            
-            TemplateInstance = 0xc,
-            NormalSubstitution = 0xd,
-            OptionalSubstitution = 0xe,
-            StartOfBXmlStream = 0xf
-        }
-
-        public enum ValueType
-        {
-            NullType = 0x0,
-            StringType = 0x1,
-            AnsiStringType = 0x2, 
-            Int8Type = 0x3,
-            UInt8Type = 0x4,
-            Int16Type = 0x5, 
-            UInt16Type = 0x6, 
-            Int32Type = 0x7,
-            UInt32Type = 0x8,
-            Int64Type = 0x9,
-            UInt64Type = 0xa,
-            Real32Type = 0xb,
-            Real64Type = 0xc,
-            BoolType = 0xd, //32-bit integer that MUST be 0x00 or 0x01 (mapping to true or false)
-            BinaryType = 0xe,
-            GuidType = 0xf, //little endian
-            SizeTType = 0x10,
-            FileTimeType=0x11,
-            SysTimeType = 0x12,
-            SidType = 0x13,
-            HexInt32Type = 0x14,
-            HexInt64Type = 0x15,
-            EvtHandle = 0x20,
-            BinXmlType = 0x21,
-            EvtXml = 0x23,
-            ArrayUnicodeString = 0x81,
-            ArrayAsciiString = 0x82,
-            Array8BitIntSigned = 0x83,
-            Array8BitIntUnsigned = 0x84,
-            Array16BitIntSigned = 0x85,
-            Array16BitIntUnsigned = 0x86,
-            Array32BitIntSigned = 0x87,
-            Array32BitIntUnsigned = 0x88,
-            Array64BitIntSigned = 0x89,
-            Array64BitIntUnsigned = 0x8a,
-            ArrayFloat32Bit = 0x8b,
-            ArrayFloat64Bit = 0x8c,
-            ArrayBool = 0x8d,
-            ArrayGuid = 0x8f, // or e?
-            ArraySizeType = 0x90,
-            ArrayFileTime = 0x91,
-            ArraySystemTime = 0x92, //Every 16 bytes are an individual value in little-endian
-            ArraySids = 0x93,
-            Array32BitHex = 0x94,
-            Array64BitHex = 0x95,
-
-
-        }
+    
         
 
 
@@ -141,7 +60,7 @@ namespace evtx
 
                 op = (byte)(op & 0x0f);
 
-                var opCode = (BinaryTag)op;
+                var opCode = (TagBuilder.BinaryTag)op;
 
                 l.Debug($"     Opcode: {opCode} at absolute offset:  0x {(chunkOffset+ recordPosition+index + 24):X}");
 
@@ -162,122 +81,50 @@ namespace evtx
 //                        break;
 //
 
-                    case BinaryTag.TokenPIData:
+                    case TagBuilder.BinaryTag.TokenPIData:
 
                         inStream = false; //not handled yet
                         continue;
-                        l.Debug($"pi index 1 = 0x {index:X}");
+                      
 
-                        index += 1; //past op code
-                        index += 15; //past unknown
 
-                        l.Debug(PayloadBytes[index].ToString("X"));
+                    case TagBuilder.BinaryTag.EndOfBXmlStream:
+                        var endStrean = TagBuilder.BuildTag(chunkOffset,recordPosition, PayloadBytes, index,templates);
 
-                        l.Debug($"pi index = 0x {index:X}");
-
-                        var piDataLen = BitConverter.ToInt32(PayloadBytes, index);
-                        index += 4;
-
-                        l.Debug(piDataLen.ToString("X") + " " + PayloadBytes[index].ToString("X"));
-
-                   
-
-                        var piBuff = new byte[piDataLen];
-                        Buffer.BlockCopy(PayloadBytes,index,piBuff,0,piDataLen);
-                        index += piDataLen ;
-                        l.Debug(PayloadBytes[index].ToString("X"));
-
-                        //TODO this needs made into functions
-                        var substitutionArrayLen1 = BitConverter.ToInt32(PayloadBytes, index);
-                        index += 4;
-
-                        l.Trace($"      Substitution len: 0x{substitutionArrayLen1:X}");
-
-                        var subList1 = new List<SubstitutionArrayEntry>();
-
-                        var totalSubsize1 = 0;
-                        for (var i = 0; i < substitutionArrayLen1; i++)
-                        {
-                   
-                            var subSize = BitConverter.ToInt16(PayloadBytes, index);
-                            index += 2;
-                            var subType = BitConverter.ToInt16(PayloadBytes, index);
-                            index += 2;
-
-                            totalSubsize1 += subSize;
-
-                            l.Trace($"     Position: {i.ToString().PadRight(5)} Size: 0x{subSize.ToString("X").PadRight(5)} Type: {(ValueType)subType}");
-
-                            subList1.Add(new SubstitutionArrayEntry(i, subSize,(ValueType)subType));
-                        }
-
-                        //todo is this right?
-                        inStream = false;
+                        index += endStrean.Size;
 
                         break;
+                    case TagBuilder.BinaryTag.StartOfBXmlStream:
 
-                    case BinaryTag.EndOfBXmlStream:
-                        index += 1;
-                        inStream = false; //quit looking since we are at the end of the defined information
+                        var startStream = TagBuilder.BuildTag(chunkOffset,recordPosition, PayloadBytes, index,templates);
 
+                        index += startStream.Size;
+                      
                         break;
-                    case BinaryTag.StartOfBXmlStream:
-                        index += 1;
-                        var majorVer = PayloadBytes[index];
-                        index += 1;
-                        var minorVer = PayloadBytes[index];
-                        index += 1;
-                        var flags = PayloadBytes[index];
-                        index += 1;
+                    case TagBuilder.BinaryTag.TemplateInstance:
 
-                        l.Trace($"Major: {majorVer} Minor: {minorVer} Flags: {flags}");
-                        break;
-                    case BinaryTag.TemplateInstance:
+                        var tsss = TagBuilder.BuildTag(chunkOffset,recordPosition,PayloadBytes, index,templates);
 
-                        var templateOffset = BitConverter.ToInt32(PayloadBytes, 10);
+                        index += tsss.Size;
 
-                        //length lives 30 bytes away from where we are if its a new template we havent seen before. if it is a template reference, thats a different story and this wont matter
-                        var templateSize = BitConverter.ToInt32(PayloadBytes, index + 30);
+                        l.Debug($"Post template index: 0x {index:X}");
 
-                        templateSize += 0x22; //0x22 is the beginning part of the template info. the template size is for the nodes that make up the template
-
-                        var valueSpecOffset = index + templateSize;
-
-                        if (templates.SingleOrDefault(t1 => t1.TemplateOffset == templateOffset) == null)
-                        {
-                            var templateBuffer = new byte[templateSize]; 
-                            Buffer.BlockCopy(PayloadBytes,index,templateBuffer,0,templateSize);
-                            index += templateSize;
-
-                            var t = new Template((int) chunkOffset,recordPosition, templateBuffer,templateOffset);
-                            templates.Add(t);
-
-                            _template = t;
-
-                            l.Trace($"     post template Index is 0x{index:X}");
-                            
-                        }
-                        else
-                        {
-                            l.Info($"Found template with offset 0x{templateOffset:X}");
-                            valueSpecOffset =  index + 10;
-                        }
-
-                        //substitution array starts here
-                        //first is 32 bit # with how many to expect
-                        //followed by that # of pairs of 16 bit numbers, first is length, second is type
-
-                        //set index to where value spec lives
-                        index = valueSpecOffset;
-                        l.Trace($"      valueSpecOffset: 0x{valueSpecOffset:X}");
-
+//                        //substitution array starts here
+//                        //first is 32 bit # with how many to expect
+//                        //followed by that # of pairs of 16 bit numbers, first is length, second is type
+//
+//                        //set index to where value spec lives
+//                        index = valueSpecOffset;
+//                        l.Trace($"      valueSpecOffset: 0x{valueSpecOffset:X}");
+//
                         var substitutionArrayLen = BitConverter.ToInt32(PayloadBytes, index);
                         index += 4;
-
-                        l.Trace($"      Substitution len: 0x{substitutionArrayLen:X}");
-
+//
+                        l.Debug($"      Substitution len: 0x{substitutionArrayLen:X}");
+//
+//
                         var subList = new List<SubstitutionArrayEntry>();
-
+//
                         var totalSubsize = 0;
                         for (var i = 0; i < substitutionArrayLen; i++)
                         {
@@ -289,9 +136,9 @@ namespace evtx
 
                             totalSubsize += subSize;
 
-                            l.Trace($"     Position: {i.ToString().PadRight(5)} Size: 0x{subSize.ToString("X").PadRight(5)} Type: {(ValueType)subType}");
+                            l.Trace($"     Position: {i.ToString().PadRight(5)} Size: 0x{subSize.ToString("X").PadRight(5)} Type: {(TagBuilder.ValueType)subType}");
 
-                            subList.Add(new SubstitutionArrayEntry(i, subSize,(ValueType)subType));
+                            subList.Add(new SubstitutionArrayEntry(i, subSize,(TagBuilder.ValueType)subType));
                         }
 
                         l.Trace($"     Index post sub array is 0x{index:X} totalSubsize: 0x{totalSubsize:X}");
@@ -306,8 +153,10 @@ namespace evtx
                             index += substitutionArrayEntry.Size;
                             substitutionArrayEntry.DataBytes = data;
 
-                            l.Trace($"       {substitutionArrayEntry}");
+                            l.Debug($"       {substitutionArrayEntry}");
                         }
+
+                        inStream = false; //done working
 
 
                         break;

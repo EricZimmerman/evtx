@@ -53,7 +53,12 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringTableEntry.cs" />
     <Compile Include="SubstitutionArrayEntry.cs" />
+    <Compile Include="Tags\EndOfBXmlStream.cs" />
+    <Compile Include="Tags\OpenStartElementTag.cs" />
+    <Compile Include="Tags\StartOfBXmlStream.cs" />
+    <Compile Include="Tags\TagBuilder.cs" />
     <Compile Include="Tags\Template.cs" />
+    <Compile Include="Tags\TemplateInstance.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="AlphaFS">

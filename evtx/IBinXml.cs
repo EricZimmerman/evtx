@@ -8,11 +8,11 @@ namespace evtx
 {
    public interface IBinXml
     {
-        int ChunkOffset { get; }
-        int RecordPosition { get; }
+        long ChunkOffset { get; }
+        long RecordPosition { get; }
 
         int Size { get; }
 
-
+        string AsXml();
     }
 }

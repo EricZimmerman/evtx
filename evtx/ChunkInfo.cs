@@ -15,7 +15,7 @@ namespace evtx
         public uint LastRecordOffset { get; }
         public uint FreeSpaceOffset{ get; }
 
-        public ChunkInfo(byte[] chunkBytes, long offset, int chunkNumber,List<Template> _templates)
+        public ChunkInfo(byte[] chunkBytes, long offset, int chunkNumber)
         {
             var l = LogManager.GetLogger("ChunkInfo");
             ChunkBytes = chunkBytes;
@@ -98,10 +98,38 @@ namespace evtx
                 l.Trace($"Template offset: 0x {templateOffset:X}");
             }
 
+            Templates = new List<Template>();
+
+            l.Debug("------------------------------------------------\r\n");
+
+            //to get all the templates and cache them
+            foreach (var tableTemplateOffset in tableTemplateOffsets.OrderBy(t=>t))
+            {
+                var actualOffset = offset + tableTemplateOffset - 10; //yea, -10
+                index = (int) tableTemplateOffset - 10;
+
+              //  l.Debug($"actualOffset: 0x {actualOffset:X} chunkBytes[index]: 0x{chunkBytes[index].ToString("X")}");
+
+                var aaa = GetTemplate(index);
+                l.Debug(aaa);
+
+                Templates.Add(aaa);
+
+                if (aaa.NextTemplateOffset <= 0)
+                {
+                    continue;
+                }
+
+                var bbb = GetTemplate(aaa.NextTemplateOffset - 10);
+                Templates.Add(bbb);
+                l.Debug(bbb);
+            }
 
             index = (int) tableOffset + 0x100 + 0x80; //get to start of event Records
 
             EventRecords = new List<EventRecord>();
+
+            return;
 
             var recordSig = 0x2a2a;
             while (index<chunkBytes.Length)
@@ -120,13 +148,50 @@ namespace evtx
                 Buffer.BlockCopy(chunkBytes,index,recordBuff,0,(int) recordSize);
                 index += (int)recordSize;
 
-                var er = new EventRecord(recordBuff,recordOffset,Offset,_templates);
+                var er = new EventRecord(recordBuff,recordOffset,Offset,Templates);
 
                 EventRecords.Add(er);
 
             }
 
         }
+
+        public Template GetTemplate(int startingOffset)
+        {
+            var l = LogManager.GetLogger("ChunkInfo");
+            var index = startingOffset; //go past op code
+            index += 1;
+
+            var version = ChunkBytes[index];
+            index += 1;
+
+            var templateId = BitConverter.ToInt32(ChunkBytes, index);
+            index += 4;
+
+            var  templateOffset = BitConverter.ToInt32(ChunkBytes, index);
+            index += 4;
+
+            var  nextTemplateOffset = BitConverter.ToInt32(ChunkBytes, index);
+            index += 4;
+
+            var gb = new byte[16];
+            Buffer.BlockCopy(ChunkBytes,index,gb,0,16);
+            index += 16;
+            var g = new Guid(gb);
+        //    l.Debug($"Guid: {g}");
+
+            var length = BitConverter.ToInt32(ChunkBytes, index);
+            index += 4;
+         //   l.Debug($"length: 0x{length:X}");
+
+            var templateBytes = new byte[length];
+            Buffer.BlockCopy(ChunkBytes,index,templateBytes,0,length);
+            //Size = length + 0x22; //template length + header when its a new template
+
+            return new Template(templateId,templateOffset,g,templateBytes,nextTemplateOffset, Offset+startingOffset);
+        }
+
+        public List<Template> Templates { get; }
 
         public List<EventRecord> EventRecords { get;  }
 
