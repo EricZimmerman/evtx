@@ -120,6 +120,7 @@ namespace evtx
                 var er = new EventRecord(recordBuff,recordOffset,Offset);
 
                 EventRecords.Add(er);
+
             }
 
         }

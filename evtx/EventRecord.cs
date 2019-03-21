@@ -130,15 +130,10 @@ namespace evtx
                 throw new Exception("Payload does not start with 0x1f!");
             }
 
-         l.Debug($"Chunk: 0x{ChunkOffset:X} Record position: 0x{RecordPosition:X} Record #: {RecordNumber}");
+         l.Debug($"\r\nChunk: 0x{ChunkOffset:X} Record position: 0x{RecordPosition:X} Record #: {RecordNumber}");
 
             var index = 0;
             var inStream = true;
-
-            if (RecordNumber == 4)
-            {
-                Debug.WriteLine(1);
-            }
 
             while (inStream && index<PayloadBytes.Length)
             {
@@ -148,26 +143,28 @@ namespace evtx
 
                 var opCode = (BinaryTag)op;
 
-                l.Debug($"     Opcode: {opCode} while Index is 0x{index:X} Rec pos plus index: 0x{(recordPosition+index):X} abs off:  0x{(chunkOffset+ recordPosition+index + 24):X} chunkOffset : 0x{chunkOffset:X}");
+                l.Debug($"     Opcode: {opCode} at absolute offset:  0x {(chunkOffset+ recordPosition+index + 24):X}");
 
                 switch (opCode)
                 {
-                    //TODO THIS NEEDS FIXED
-                    case BinaryTag.TokenEntityRef:
-                    case BinaryTag.EndElementTag:
-                    case BinaryTag.TokenPITarget:
-                    case BinaryTag.CloseEmptyElementTag:
-                    case BinaryTag.CDataSection:
-                    case BinaryTag.TokenPIData:
-                    case BinaryTag.OpenStartElementTag:
-                        index = PayloadBytes.Length; 
-                        break;
 
-
+//                    case BinaryTag.TokenEntityRef:
+//                    case BinaryTag.EndElementTag:
+//                    case BinaryTag.TokenPITarget:
+//                    case BinaryTag.CloseEmptyElementTag:
+//                    case BinaryTag.CDataSection:
+//                    case BinaryTag.TokenPIData:
+//                    case BinaryTag.OpenStartElementTag:
+//                        index = PayloadBytes.Length; 
+//                        break;
+//                    case BinaryTag.OpenStartElementTag2:
+//
+//                        break;
+//
 
                     case BinaryTag.EndOfBXmlStream:
                         index += 1;
-                        inStream = false;
+                        inStream = false; //quit looking since we are at the end of the defined information
 
                         break;
                     case BinaryTag.StartOfBXmlStream:
@@ -185,10 +182,12 @@ namespace evtx
 
                         var templateOffset = BitConverter.ToInt32(PayloadBytes, 10);
 
-                        //length lives 30 bytes away from where we are
+                        //length lives 30 bytes away from where we are if its a new template we havent seen before. if it is a template reference, thats a different story and this wont matter
                         var templateSize = BitConverter.ToInt32(PayloadBytes, index + 30);
 
-                        templateSize += 0x22; //0x21 is the beginning part of the template info. the template size is for the nodes that make up the template
+                        templateSize += 0x22; //0x22 is the beginning part of the template info. the template size is for the nodes that make up the template
+
+                        var valueSpecOffset = index + templateSize;
 
                         if (Templates.SingleOrDefault(t1 => t1.TemplateOffset == templateOffset) == null)
                         {
@@ -201,35 +200,34 @@ namespace evtx
 
                             _template = t;
 
-                            l.Debug($"     template Index is 0x{index:X}");
+                            l.Trace($"     post template Index is 0x{index:X}");
                             
                         }
                         else
                         {
                             l.Info($"Found template with offset 0x{templateOffset:X}");
-                            index += 10;
+                            valueSpecOffset =  index + 10;
                         }
 
                         //substitution array starts here
                         //first is 32 bit # with how many to expect
                         //followed by that # of pairs of 16 bit numbers, first is length, second is type
 
+                        //set index to where value spec lives
+                        index = valueSpecOffset;
+                        l.Trace($"      valueSpecOffset: 0x{valueSpecOffset:X}");
+
                         var substitutionArrayLen = BitConverter.ToInt32(PayloadBytes, index);
                         index += 4;
 
-                        l.Info($"      Substitution len: 0x{substitutionArrayLen:X}");
+                        l.Trace($"      Substitution len: 0x{substitutionArrayLen:X}");
 
                         var subList = new List<SubstitutionArrayEntry>();
 
                         var totalSubsize = 0;
                         for (var i = 0; i < substitutionArrayLen; i++)
                         {
-                            //TODO FIX THIS
-                            if (index >= PayloadBytes.Length-2)
-                            {
-                                index = PayloadBytes.Length;
-                                break;
-                            }
+                   
                             var subSize = BitConverter.ToInt16(PayloadBytes, index);
                             index += 2;
                             var subType = BitConverter.ToInt16(PayloadBytes, index);
@@ -237,20 +235,14 @@ namespace evtx
 
                             totalSubsize += subSize;
 
-                            l.Info($"    Position: {i} Size: 0x{subSize:X} Type: {(ValueType)subType}");
+                            l.Trace($"     Position: {i.ToString().PadRight(5)} Size: 0x{subSize.ToString("X").PadRight(5)} Type: {(ValueType)subType}");
 
                             subList.Add(new SubstitutionArrayEntry(i, subSize,(ValueType)subType));
                         }
 
-                        l.Debug($"     template Index post sub array is 0x{index:X} totalSubsize: 0x{totalSubsize:X}");
-
-                        //TODO FIX THIS
-                        if (index >= PayloadBytes.Length-2)
-                        {
-                            index = PayloadBytes.Length;
-                            break;
-                        }
-
+                        l.Trace($"     Index post sub array is 0x{index:X} totalSubsize: 0x{totalSubsize:X}");
+                        
+                        l.Trace("Substitution data");
                         //get the data into the substitution array entries
                         foreach (var substitutionArrayEntry in subList)
                         {
@@ -260,25 +252,19 @@ namespace evtx
                             index += substitutionArrayEntry.Size;
                             substitutionArrayEntry.DataBytes = data;
 
-                            l.Info($"   Type: {substitutionArrayEntry.ValType} Data bytes: {BitConverter.ToString(data)}");
+                            l.Trace($"     Position: {substitutionArrayEntry.Position.ToString().PadRight(5)} Size: 0x{substitutionArrayEntry.Size.ToString("X").PadRight(5)}  Type: {substitutionArrayEntry.ValType} Data bytes: {BitConverter.ToString(data)}");
                         }
 
 
                         break;
-//                    case BinaryTag.OpenStartElementTag2:
-//
-//                        break;
+
                     default:
                         throw new Exception($"Unknown opcode: {opCode} ({opCode:X}) index: 0x{index:X} chunkoffset: 0x{chunkOffset:X} abs offset: 0x{(chunkOffset+ recordPosition+index + 24):X}");
                 }
 
 
             }
-
-            l.Debug($"     Post WHILE Loop index: 0x{index:X} Payload Size: 0x{PayloadBytes.Length:X}");
-
-          
-
+            
 
         }
 
