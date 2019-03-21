@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using evtx.Tags;
 using Force.Crc32;
 using NLog;
 
@@ -14,8 +15,9 @@ namespace evtx
         public uint LastRecordOffset { get; }
         public uint FreeSpaceOffset{ get; }
 
-        public ChunkInfo(byte[] chunkBytes, long offset, int chunkNumber)
+        public ChunkInfo(byte[] chunkBytes, long offset, int chunkNumber,List<Template> _templates)
         {
+            var l = LogManager.GetLogger("ChunkInfo");
             ChunkBytes = chunkBytes;
             Offset = offset;
             ChunkNumber = chunkNumber;
@@ -29,6 +31,7 @@ namespace evtx
 
             LastRecordOffset = BitConverter.ToUInt32(chunkBytes, 0x2C);
             FreeSpaceOffset = BitConverter.ToUInt32(chunkBytes, 0x30);
+
 
             //TODO how to calculate this? across what data? all event records?
             var crcEventRecordsData = BitConverter.ToUInt32(chunkBytes, 0x34);
@@ -75,7 +78,7 @@ namespace evtx
             }
 
             var templateTableData = new byte[0x80];
-            Buffer.BlockCopy(chunkBytes,(int) tableOffset + 0x100,templateTableData,0,0x80);
+            Buffer.BlockCopy(chunkBytes,(int) 0x180,templateTableData,0,0x80);
 
             var tableTemplateOffsets = new List<uint>();
 
@@ -90,11 +93,11 @@ namespace evtx
                 }
 
                 tableTemplateOffsets.Add(templateOffset);
+
+                //the actual table defs live at this offset + 0x1000 for header, - 10 bytes for some reason. This is where the 0xc op code will be
+                l.Trace($"Template offset: 0x {templateOffset:X}");
             }
 
-            var l = LogManager.GetLogger("ChunkInfo");
-
-            //l.Info(tableTemplateOffsets.Count);
 
             index = (int) tableOffset + 0x100 + 0x80; //get to start of event Records
 
@@ -117,7 +120,7 @@ namespace evtx
                 Buffer.BlockCopy(chunkBytes,index,recordBuff,0,(int) recordSize);
                 index += (int)recordSize;
 
-                var er = new EventRecord(recordBuff,recordOffset,Offset);
+                var er = new EventRecord(recordBuff,recordOffset,Offset,_templates);
 
                 EventRecords.Add(er);
 

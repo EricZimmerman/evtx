@@ -7,6 +7,7 @@ using System.ServiceModel.Channels;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using evtx.Tags;
 using Force.Crc32;
 using NLog;
 using Exception = System.Exception;
@@ -25,6 +26,8 @@ namespace evtx
         private static Logger _logger = LogManager.GetLogger("EventLog");
 
         public long NextRecordId { get; }
+
+        private List<Template> _templates = new List<Template>();
 
         public EventLog(Stream fileStream)
         {
@@ -81,7 +84,7 @@ namespace evtx
              
                 if (chunkSig == chunkSignature)
                 {
-                    Chunks.Add(new ChunkInfo(chunkBuffer,chunkOffset,chunkNumber));
+                    Chunks.Add(new ChunkInfo(chunkBuffer,chunkOffset,chunkNumber,_templates));
                 }
                 else
                 {

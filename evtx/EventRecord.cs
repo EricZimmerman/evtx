@@ -105,13 +105,13 @@ namespace evtx
             return sb.ToString();
         }
 
-        public static List<Template> Templates = new List<Template>();
+        
 
         public List<IBinXml> Nodes { get; set; }
 
         private Template _template;
 
-        public EventRecord(byte[] recordBytes, int recordPosition, long chunkOffset)
+        public EventRecord(byte[] recordBytes, int recordPosition, long chunkOffset,List<Template> templates)
         {
             var l = LogManager.GetLogger("EventRecord");
 
@@ -162,6 +162,60 @@ namespace evtx
 //                        break;
 //
 
+                    case BinaryTag.TokenPIData:
+
+                        inStream = false; //not handled yet
+                        continue;
+                        l.Debug($"pi index 1 = 0x {index:X}");
+
+                        index += 1; //past op code
+                        index += 15; //past unknown
+
+                        l.Debug(PayloadBytes[index].ToString("X"));
+
+                        l.Debug($"pi index = 0x {index:X}");
+
+                        var piDataLen = BitConverter.ToInt32(PayloadBytes, index);
+                        index += 4;
+
+                        l.Debug(piDataLen.ToString("X") + " " + PayloadBytes[index].ToString("X"));
+
+                   
+
+                        var piBuff = new byte[piDataLen];
+                        Buffer.BlockCopy(PayloadBytes,index,piBuff,0,piDataLen);
+                        index += piDataLen ;
+                        l.Debug(PayloadBytes[index].ToString("X"));
+
+                        //TODO this needs made into functions
+                        var substitutionArrayLen1 = BitConverter.ToInt32(PayloadBytes, index);
+                        index += 4;
+
+                        l.Trace($"      Substitution len: 0x{substitutionArrayLen1:X}");
+
+                        var subList1 = new List<SubstitutionArrayEntry>();
+
+                        var totalSubsize1 = 0;
+                        for (var i = 0; i < substitutionArrayLen1; i++)
+                        {
+                   
+                            var subSize = BitConverter.ToInt16(PayloadBytes, index);
+                            index += 2;
+                            var subType = BitConverter.ToInt16(PayloadBytes, index);
+                            index += 2;
+
+                            totalSubsize1 += subSize;
+
+                            l.Trace($"     Position: {i.ToString().PadRight(5)} Size: 0x{subSize.ToString("X").PadRight(5)} Type: {(ValueType)subType}");
+
+                            subList1.Add(new SubstitutionArrayEntry(i, subSize,(ValueType)subType));
+                        }
+
+                        //todo is this right?
+                        inStream = false;
+
+                        break;
+
                     case BinaryTag.EndOfBXmlStream:
                         index += 1;
                         inStream = false; //quit looking since we are at the end of the defined information
@@ -189,14 +243,14 @@ namespace evtx
 
                         var valueSpecOffset = index + templateSize;
 
-                        if (Templates.SingleOrDefault(t1 => t1.TemplateOffset == templateOffset) == null)
+                        if (templates.SingleOrDefault(t1 => t1.TemplateOffset == templateOffset) == null)
                         {
                             var templateBuffer = new byte[templateSize]; 
                             Buffer.BlockCopy(PayloadBytes,index,templateBuffer,0,templateSize);
                             index += templateSize;
 
                             var t = new Template((int) chunkOffset,recordPosition, templateBuffer,templateOffset);
-                            Templates.Add(t);
+                            templates.Add(t);
 
                             _template = t;
 
@@ -252,14 +306,14 @@ namespace evtx
                             index += substitutionArrayEntry.Size;
                             substitutionArrayEntry.DataBytes = data;
 
-                            l.Trace($"     Position: {substitutionArrayEntry.Position.ToString().PadRight(5)} Size: 0x{substitutionArrayEntry.Size.ToString("X").PadRight(5)}  Type: {substitutionArrayEntry.ValType} Data bytes: {BitConverter.ToString(data)}");
+                            l.Trace($"       {substitutionArrayEntry}");
                         }
 
 
                         break;
 
                     default:
-                        throw new Exception($"Unknown opcode: {opCode} ({opCode:X}) index: 0x{index:X} chunkoffset: 0x{chunkOffset:X} abs offset: 0x{(chunkOffset+ recordPosition+index + 24):X}");
+                        throw new Exception($"Unknown opcode: {opCode} ({opCode:X}) index: 0x{index:X} chunkoffset: 0x{chunkOffset:X} abs offset: 0x {(chunkOffset+ recordPosition+index + 24):X}");
                 }
 
 
@@ -268,21 +322,6 @@ namespace evtx
 
         }
 
-        public class SubstitutionArrayEntry
-        {
-            public SubstitutionArrayEntry(int position, int size, ValueType valType)
-            {
-                Position = position;
-                Size = size;
-                ValType = valType;
-            }
-
-            public int Position { get; }
-            public int Size { get; }
-            public ValueType ValType { get; }
-
-            public byte[] DataBytes { get; set; }
-        }
 
 
         public int RecordPosition { get;  }

@@ -52,6 +52,7 @@
     <Compile Include="IBinXml.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="StringTableEntry.cs" />
+    <Compile Include="SubstitutionArrayEntry.cs" />
     <Compile Include="Tags\Template.cs" />
   </ItemGroup>
   <ItemGroup>
