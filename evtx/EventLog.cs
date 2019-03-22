@@ -27,6 +27,7 @@ namespace evtx
 
         public long NextRecordId { get; }
 
+        public Dictionary<int, Template> Templates { get; }
 
         public EventLog(Stream fileStream)
         {
@@ -71,7 +72,7 @@ namespace evtx
 
             Chunks = new List<ChunkInfo>();
 
-         
+            Templates = new Dictionary<int, Template>();
 
             var chunkOffset = fileStream.Position;
             var bytesRead = fileStream.Read(chunkBuffer, 0, 0x10000);
@@ -85,7 +86,7 @@ namespace evtx
              
                 if (chunkSig == chunkSignature)
                 {
-                    Chunks.Add(new ChunkInfo(chunkBuffer,chunkOffset,chunkNumber));
+                    Chunks.Add(new ChunkInfo(chunkBuffer,chunkOffset,chunkNumber,Templates));
                 }
                 else
                 {

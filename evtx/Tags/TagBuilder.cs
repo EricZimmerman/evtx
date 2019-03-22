@@ -87,7 +87,7 @@ namespace evtx.Tags
             Array64BitHex = 0x95
         }
 
-        public static IBinXml BuildTag(long chunkOffset, int recordPosition, byte[] payload, int index,List<Template> templates)
+        public static IBinXml BuildTag(long chunkOffset, int recordPosition, byte[] payload, int index,Dictionary<int, Template> templates)
         {
             var l = LogManager.GetLogger("BuildTag");
             //index will start at the opcode itself, so account for that

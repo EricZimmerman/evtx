@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using NLog;
@@ -10,7 +11,7 @@ namespace evtx.Tags
 {
     class TemplateInstance:IBinXml
     {
-        public TemplateInstance(long chunkOffset, long recordPosition, int index, byte[] payload,List<Template> templates)
+        public TemplateInstance(long chunkOffset, long recordPosition, int index, byte[] payload,Dictionary<int, Template> templates)
         {
             var l = LogManager.GetLogger("BuildTag");
             ChunkOffset = chunkOffset;
@@ -33,44 +34,33 @@ namespace evtx.Tags
             NextTemplateOffset = BitConverter.ToInt32(payload, index);
             index += 4;
 
-       //     l.Debug($"TemplateOffset: 0x{TemplateOffset:X} NextTemplateOffset: 0x{NextTemplateOffset:X}");
-
-            var existingTemplate = templates.SingleOrDefault(t => t.TemplateOffset == TemplateOffset);
-
-            if (existingTemplate == null)
+            if (templates.ContainsKey(TemplateOffset) == false)
             {
-                 index =  origIndex; //go past op code
-                index += 1;
+                var tt = GetTemplateFromPayload(origIndex,payload,chunkOffset+startPos); 
+               templates.Add(tt.TemplateOffset,tt);
+            }
+            else
+            {
+                Template tt1 = null;
 
-                 version = payload[index];
-                index += 1;
+                    try
+                    {
+                        tt1 = GetTemplateFromPayload(origIndex,payload,chunkOffset+startPos);
+                    }
+                    catch (Exception )
+                    {
+                        
+                    }
 
-                var templateId = BitConverter.ToInt32(payload, index);
-                index += 4;
+                    if (tt1 != null)
+                    {
+                        templates[tt1.TemplateOffset] = tt1;
+                    }
 
-                var  templateOffset = BitConverter.ToInt32(payload, index);
-                index += 4;
-
-                var  nextTemplateOffset = BitConverter.ToInt32(payload, index);
-                index += 4;
-
-                var gb = new byte[16];
-                Buffer.BlockCopy(payload,index,gb,0,16);
-                index += 16;
-                var g = new Guid(gb);
-
-                var length = BitConverter.ToInt32(payload, index);
-                index += 4;
-
-                var templateBytes = new byte[length];
-                Buffer.BlockCopy(payload,index,templateBytes,0,length);
-
-               var tt =  new Template(templateId,templateOffset,g,templateBytes,nextTemplateOffset, chunkOffset+startPos);
-               templates.Add(tt);
-               existingTemplate = tt;
             }
             
-            Template = existingTemplate;
+            
+            Template = templates[TemplateOffset];
             Size = Template.Size + 0x22;
             if (TemplateOffset < startPos)
             {
@@ -79,6 +69,37 @@ namespace evtx.Tags
             }
             
 
+        }
+
+        private Template GetTemplateFromPayload(int index, byte[] payload, long absoluteOffset)
+        {
+           
+            index += 1;
+
+           var version = payload[index];
+            index += 1;
+
+            var templateId = BitConverter.ToInt32(payload, index);
+            index += 4;
+
+            var  templateOffset = BitConverter.ToInt32(payload, index);
+            index += 4;
+
+            var  nextTemplateOffset = BitConverter.ToInt32(payload, index);
+            index += 4;
+
+            var gb = new byte[16];
+            Buffer.BlockCopy(payload,index,gb,0,16);
+            index += 16;
+            var g = new Guid(gb);
+
+            var length = BitConverter.ToInt32(payload, index);
+            index += 4;
+
+            var templateBytes = new byte[length];
+            Buffer.BlockCopy(payload,index,templateBytes,0,length);
+
+           return  new Template(templateId,templateOffset,g,templateBytes,nextTemplateOffset, absoluteOffset);
         }
 
         public long ChunkOffset { get; }

@@ -30,7 +30,7 @@ namespace evtx
 
         private Template _template;
 
-        public EventRecord(byte[] recordBytes, int recordPosition, long chunkOffset,List<Template> templates)
+        public EventRecord(byte[] recordBytes, int recordPosition, long chunkOffset,Dictionary<int, Template> templates)
         {
             var l = LogManager.GetLogger("EventRecord");
 
@@ -104,6 +104,11 @@ namespace evtx
                       
                         break;
                     case TagBuilder.BinaryTag.TemplateInstance:
+
+                        if (RecordNumber == 1629)
+                        {
+                            Debug.WriteLine(1);
+                        }
 
                         var tsss = TagBuilder.BuildTag(chunkOffset,recordPosition,PayloadBytes, index,templates);
 

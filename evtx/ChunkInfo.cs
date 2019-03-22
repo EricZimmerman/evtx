@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -15,9 +16,9 @@ namespace evtx
         public uint LastRecordOffset { get; }
         public uint FreeSpaceOffset{ get; }
 
-        public List<Template> Templates { get; }
+      //  public List<Template> Templates { get; }
 
-        public ChunkInfo(byte[] chunkBytes, long offset, int chunkNumber)
+        public ChunkInfo(byte[] chunkBytes, long offset, int chunkNumber,Dictionary<int, Template> templates)
         {
             var l = LogManager.GetLogger("ChunkInfo");
             ChunkBytes = chunkBytes;
@@ -100,7 +101,7 @@ namespace evtx
                 l.Trace($"Template offset: 0x {templateOffset:X}");
             }
 
-            Templates = new List<Template>();
+          //  Templates = new List<Template>();
 
           //  l.Debug("------------------------------------------------\r\n");
 
@@ -110,22 +111,34 @@ namespace evtx
                 var actualOffset = offset + tableTemplateOffset - 10; //yea, -10
                 index = (int) tableTemplateOffset - 10;
 
-                if (offset == 0x51000)
+              //  if (offset == 0x1E1000)
                 {
-                    l.Debug($"actualOffset: 0x {actualOffset:X} chunkBytes[index]: 0x{chunkBytes[index].ToString("X")}");
+              //      l.Debug($"actualOffset: 0x {actualOffset:X} chunkBytes[index]: 0x{chunkBytes[index].ToString("X")}");
                 }
 
 
 
                 var aaa = GetTemplate(index);
 
-                if (offset == 0x51000)
+               // if (offset == 0x1E1000)
                 {
-                    l.Debug(aaa);
+             //       l.Debug(aaa);
                 }
               //  l.Debug(aaa);
 
-              Templates.Add(aaa);
+
+              if (templates.ContainsKey(aaa.TemplateOffset) == false)
+              {
+                    templates.Add(aaa.TemplateOffset,aaa);
+              }
+              else
+              {
+                  templates[aaa.TemplateOffset] = aaa;
+              }
+
+              
+
+              //Templates.Add(aaa);
 
                 if (aaa.NextTemplateOffset <= 0)
                 {
@@ -133,8 +146,19 @@ namespace evtx
                 }
 
                 var bbb = GetTemplate(aaa.NextTemplateOffset - 10);
-                Templates.Add(bbb);
-              //  l.Debug(bbb);
+
+                if (templates.ContainsKey(bbb.TemplateOffset) == false)
+                {
+                    templates.Add(bbb.TemplateOffset,bbb);
+                }
+                else
+                {
+                    templates[bbb.TemplateOffset] = bbb;
+                }
+
+
+               // Templates.Add(bbb);
+           //     l.Debug(bbb);
             }
 
             index = (int) tableOffset + 0x100 + 0x80; //get to start of event Records
@@ -160,9 +184,20 @@ namespace evtx
                 Buffer.BlockCopy(chunkBytes,index,recordBuff,0,(int) recordSize);
                 index += (int)recordSize;
 
-                var er = new EventRecord(recordBuff,recordOffset,Offset,Templates);
+//                try
+//                {
+                    var er = new EventRecord(recordBuff,recordOffset,Offset,templates);
+                    EventRecords.Add(er);
+//                }
+//                catch (Exception e)
+//                {
+//                    //TODO
+//                    //The fix for this is sitting in the previous chunk, but ???
+//                    l.Error($"Error parsing record at offset 0x{offset+recordOffset:X} Offset: 0x{offset:X}");
+//                }
+                
 
-                EventRecords.Add(er);
+                
 
             }
 
