@@ -134,11 +134,11 @@ namespace evtx.Test
                     //     l.Info($"Record: {eventRecord}");
                     eventRecord.ConvertPayloadToXml();
                 }
-
-                foreach (var esTemplate in es.Templates)
-                {
-                    l.Debug(esTemplate);
-                }
+//
+//                foreach (var esTemplate in es.Templates)
+//                {
+//                    l.Debug(esTemplate);
+//                }
 
             }
 

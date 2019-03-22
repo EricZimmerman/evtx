@@ -16,9 +16,9 @@ namespace evtx
         public uint LastRecordOffset { get; }
         public uint FreeSpaceOffset{ get; }
 
-      //  public List<Template> Templates { get; }
+        public Dictionary<int,Template> Templates { get; }
 
-        public ChunkInfo(byte[] chunkBytes, long offset, int chunkNumber,Dictionary<int, Template> templates)
+        public ChunkInfo(byte[] chunkBytes, long offset, int chunkNumber)
         {
             var l = LogManager.GetLogger("ChunkInfo");
             ChunkBytes = chunkBytes;
@@ -100,7 +100,7 @@ namespace evtx
                 l.Trace($"Template offset: 0x {templateOffset:X}");
             }
 
-          //  Templates = new List<Template>();
+            Templates = new Dictionary<int, Template>();
 
            l.Debug("\r\n----------------------NEW CHUNK--------------------------\r\n");
 
@@ -110,34 +110,22 @@ namespace evtx
                 var actualOffset = offset + tableTemplateOffset - 10; //yea, -10
                 index = (int) tableTemplateOffset - 10;
 
-              //  if (offset == 0x1E1000)
                 {
                    l.Debug($"Chunk offset: 0x{Offset:X} tableTemplateOffset: 0x{tableTemplateOffset:X} actualOffset: 0x {actualOffset:X} chunkBytes[index]: 0x{chunkBytes[index].ToString("X")}");
                 }
 
-
-
                 var aaa = GetTemplate(index);
 
-               // if (offset == 0x1E1000)
-                {
-             //       l.Debug(aaa);
-                }
-              //  l.Debug(aaa);
 
-
-              if (templates.ContainsKey((int) (offset + aaa.TemplateOffset)) == false)
+              if (Templates.ContainsKey(aaa.TemplateOffset) == false)
               {
-                    templates.Add((int) (offset + aaa.TemplateOffset),aaa);
+                  Templates.Add(aaa.TemplateOffset,aaa);
               }
               else
               {
-                  templates[(int) (offset + aaa.TemplateOffset)] = aaa;
+                  Templates[(int) (offset + aaa.TemplateOffset)] = aaa;
               }
 
-              
-
-              //Templates.Add(aaa);
 
                 if (aaa.NextTemplateOffset <= 0)
                 {
@@ -146,19 +134,21 @@ namespace evtx
 
                 var bbb = GetTemplate(aaa.NextTemplateOffset - 10);
 
-                if (templates.ContainsKey((int) (offset + bbb.TemplateOffset)) == false)
+                if (Templates.ContainsKey(bbb.TemplateOffset) == false)
                 {
-                    templates.Add((int) (offset + bbb.TemplateOffset),bbb);
+                    Templates.Add(bbb.TemplateOffset,bbb);
                 }
                 else
                 {
-                    templates[(int) (offset + bbb.TemplateOffset)] = bbb;
+                    Templates[bbb.TemplateOffset] = bbb;
+                }
+            }
+
+                foreach (var esTemplate in Templates)
+                {
+                    l.Debug(esTemplate);
                 }
 
-
-               // Templates.Add(bbb);
-           //     l.Debug(bbb);
-            }
 
             index = (int) tableOffset + 0x100 + 0x80; //get to start of event Records
 
@@ -190,7 +180,7 @@ namespace evtx
 
 //                try
 //                {
-                    var er = new EventRecord(recordBuff,recordOffset,Offset,templates);
+                    var er = new EventRecord(recordBuff,recordOffset,Offset,Templates);
                     EventRecords.Add(er);
 //                }
 //                catch (Exception e)
