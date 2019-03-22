@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NLog;
 
 namespace evtx.Tags
 {
-public    class Template
+    public class Template
     {
-   
-
-        public Template(int templateId, int templateOffset, Guid guid, byte[] payload, int nextTemplateOffset, long templateAbsoluteOffset)
+        public Template(int templateId, int templateOffset, Guid guid, byte[] payload, int nextTemplateOffset,
+            long templateAbsoluteOffset)
         {
             var l = LogManager.GetLogger("Template");
 
@@ -30,19 +25,14 @@ public    class Template
 
             //TODO
             //process payload here at some point
-            
         }
 
         public List<IBinXml> Nodes { get; set; }
-        
+
         /// <summary>
-        /// The size of the template itself. The total size from op code 0xC to the end of the template is Size + 0x22
+        ///     The size of the template itself. The total size from op code 0xC to the end of the template is Size + 0x22
         /// </summary>
         public int Size { get; }
-        public string AsXml()
-        {
-            throw new NotImplementedException();
-        }
 
         public int TemplateOffset { get; }
         public int NextTemplateOffset { get; }
@@ -50,9 +40,15 @@ public    class Template
         public long TemplateAbsoluteOffset { get; }
         public Guid TemplateGuid { get; }
 
+        public string AsXml()
+        {
+            throw new NotImplementedException();
+        }
+
         public override string ToString()
         {
-            return $"Absolute offset: 0x{TemplateAbsoluteOffset:X8} Template Offset 0x{TemplateOffset:X8} Next Template Offset 0x{NextTemplateOffset:X8}  Guid: {TemplateGuid} Size: 0x{Size:X4}";
+            return
+                $"Absolute offset: 0x{TemplateAbsoluteOffset:X8} Template Offset 0x{TemplateOffset:X8} Next Template Offset 0x{NextTemplateOffset:X8}  Guid: {TemplateGuid} Size: 0x{Size:X4}";
         }
     }
 }

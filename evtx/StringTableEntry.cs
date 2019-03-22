@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace evtx
+﻿namespace evtx
 {
-   public class StringTableEntry
+    public class StringTableEntry
     {
         public StringTableEntry(uint offset, ushort hash, string value)
         {

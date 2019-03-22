@@ -19,7 +19,8 @@ namespace evtx
 
         public override string ToString()
         {
-            return $"Position: {Position.ToString().PadRight(5)} Size: 0x{Size.ToString("X").PadRight(5)}  Type: {ValType} Data bytes: {BitConverter.ToString(DataBytes)}";
+            return
+                $"Position: {Position.ToString().PadRight(5)} Size: 0x{Size.ToString("X").PadRight(5)}  Type: {ValType} Data bytes: {BitConverter.ToString(DataBytes)}";
         }
     }
 }

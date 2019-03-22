@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.IO;
 using NLog;
 using NLog.Config;
 using NLog.Targets;
@@ -11,7 +6,6 @@ using NUnit.Framework;
 
 namespace evtx.Test
 {
-    
     public class TestMain
     {
         [Test]
@@ -38,23 +32,18 @@ namespace evtx.Test
 
             var total = 0;
 
-            using (var fs = new FileStream(sysLog,FileMode.Open,FileAccess.Read))
+            using (var fs = new FileStream(sysLog, FileMode.Open, FileAccess.Read))
             {
-            
                 var es = new EventLog(fs);
 
-              foreach (var eventRecord in es.GetEventRecords())
-              {
-            //      l.Info($"Record: {eventRecord}");
-                  eventRecord.ConvertPayloadToXml();
-              }
-
-                
-
+                foreach (var eventRecord in es.GetEventRecords())
+                {
+                    //      l.Info($"Record: {eventRecord}");
+                    eventRecord.ConvertPayloadToXml();
+                }
             }
 
             l.Info($"Total: {total}");
-
         }
 
         [Test]
@@ -81,23 +70,18 @@ namespace evtx.Test
 
             var total = 0;
 
-            using (var fs = new FileStream(sysLog,FileMode.Open,FileAccess.Read))
+            using (var fs = new FileStream(sysLog, FileMode.Open, FileAccess.Read))
             {
-            
                 var es = new EventLog(fs);
 
                 foreach (var eventRecord in es.GetEventRecords())
                 {
-               //     l.Info($"Record: {eventRecord}");
+                    //     l.Info($"Record: {eventRecord}");
                     eventRecord.ConvertPayloadToXml();
                 }
-
-                
-
             }
 
             l.Info($"Total: {total}");
-
         }
 
         [Test]
@@ -124,9 +108,8 @@ namespace evtx.Test
 
             var total = 0;
 
-            using (var fs = new FileStream(sysLog,FileMode.Open,FileAccess.Read))
+            using (var fs = new FileStream(sysLog, FileMode.Open, FileAccess.Read))
             {
-            
                 var es = new EventLog(fs);
 
                 foreach (var eventRecord in es.GetEventRecords())
@@ -134,16 +117,15 @@ namespace evtx.Test
                     //     l.Info($"Record: {eventRecord}");
                     eventRecord.ConvertPayloadToXml();
                 }
+
 //
 //                foreach (var esTemplate in es.Templates)
 //                {
 //                    l.Debug(esTemplate);
 //                }
-
             }
 
             l.Info($"Total: {total}");
-
         }
 
         [Test]
@@ -171,34 +153,23 @@ namespace evtx.Test
 
             foreach (var file in files)
             {
-               
-                using (var fs = new FileStream(file,FileMode.Open,FileAccess.Read))
+                using (var fs = new FileStream(file, FileMode.Open, FileAccess.Read))
                 {
-             
-                        var es = new EventLog(fs);
+                    var es = new EventLog(fs);
 
-                        foreach (var eventRecord in es.GetEventRecords())
-                        {
-                            //      l.Info($"Record: {eventRecord}");
-                            eventRecord.ConvertPayloadToXml();
-                        }
-
-                    
-
-                
-
+                    foreach (var eventRecord in es.GetEventRecords())
+                    {
+                        //      l.Info($"Record: {eventRecord}");
+                        eventRecord.ConvertPayloadToXml();
+                    }
                 }
             }
 
 
-            var sysLog = @"D:\SynologyDrive\EventLogs\HP_Spec\Application.evtx";
-
             var total = 0;
 
-            
 
             l.Info($"Total: {total}");
-
         }
 
 
@@ -226,23 +197,18 @@ namespace evtx.Test
 
             var total = 0;
 
-            using (var fs = new FileStream(sysLog,FileMode.Open,FileAccess.Read))
+            using (var fs = new FileStream(sysLog, FileMode.Open, FileAccess.Read))
             {
-            
                 var es = new EventLog(fs);
 
                 foreach (var eventRecord in es.GetEventRecords())
                 {
-              //      l.Info($"Record: {eventRecord}");
+                    //      l.Info($"Record: {eventRecord}");
                     eventRecord.ConvertPayloadToXml();
                 }
-
-                
-
             }
 
             l.Info($"Total: {total}");
-
         }
     }
 }

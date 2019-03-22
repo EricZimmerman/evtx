@@ -1,36 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
-using System.Threading.Tasks;
 using evtx.Tags;
 using NLog;
 
 namespace evtx
 {
-   public class EventRecord
+    public class EventRecord
     {
-    
-        
-
-
-        public string ConvertPayloadToXml()
-        {
-            var sb = new StringBuilder();
-
-            return sb.ToString();
-        }
-
-        
-
-        public List<IBinXml> Nodes { get; set; }
-
         private Template _template;
 
-        public EventRecord(byte[] recordBytes, int recordPosition, long chunkOffset, Dictionary<int, Template> templates)
+        public EventRecord(byte[] recordBytes, int recordPosition, long chunkOffset,
+            Dictionary<int, Template> templates)
         {
             var l = LogManager.GetLogger("EventRecord");
 
@@ -41,32 +22,34 @@ namespace evtx
             RecordNumber = BitConverter.ToInt64(recordBytes, 8);
             Timestamp = DateTimeOffset.FromFileTime(BitConverter.ToInt64(recordBytes, 0x10)).ToUniversalTime();
 
-            PayloadBytes = new byte[recordBytes.Length - 28]; //4 for signature, 4 for first size, 8 for record #, 8 for timestamp, 4 for last size
-            Buffer.BlockCopy(recordBytes,0x18,PayloadBytes,0,PayloadBytes.Length);
+            PayloadBytes =
+                new byte[recordBytes.Length -
+                         28]; //4 for signature, 4 for first size, 8 for record #, 8 for timestamp, 4 for last size
+            Buffer.BlockCopy(recordBytes, 0x18, PayloadBytes, 0, PayloadBytes.Length);
 
-             if (PayloadBytes[0] != 0xf)
+            if (PayloadBytes[0] != 0xf)
             {
                 throw new Exception("Payload does not start with 0x1f!");
             }
 
-         l.Debug($"\r\nChunk: 0x{ChunkOffset:X} Record position: 0x{RecordPosition:X} Record #: {RecordNumber} Timestamp: {Timestamp}");
+            l.Trace(
+                $"\r\nChunk: 0x{ChunkOffset:X} Record position: 0x{RecordPosition:X} Record #: {RecordNumber} Timestamp: {Timestamp}");
 
             var index = 0;
             var inStream = true;
 
-            while (inStream && index<PayloadBytes.Length)
+            while (inStream && index < PayloadBytes.Length)
             {
-                var op = (byte)PayloadBytes[index];
+                var op = PayloadBytes[index];
 
-                op = (byte)(op & 0x0f);
+                op = (byte) (op & 0x0f);
 
-                var opCode = (TagBuilder.BinaryTag)op;
+                var opCode = (TagBuilder.BinaryTag) op;
 
-                l.Debug($"     Opcode: {opCode} at absolute offset:  0x {(chunkOffset+ recordPosition+index + 24):X}");
+                l.Trace($"     Opcode: {opCode} at absolute offset:  0x {chunkOffset + recordPosition + index + 24:X}");
 
                 switch (opCode)
                 {
-
 //                    case BinaryTag.TokenEntityRef:
 //                    case BinaryTag.EndElementTag:
 //                    case BinaryTag.TokenPITarget:
@@ -81,32 +64,27 @@ namespace evtx
 //                        break;
 //
 
-                    case TagBuilder.BinaryTag.TokenPIData:
-
-                        inStream = false; //not handled yet
-                        continue;
-                      
-
+                  //  case TagBuilder.BinaryTag.TokenPIData:
 
                     case TagBuilder.BinaryTag.EndOfBXmlStream:
-                        var endStrean = TagBuilder.BuildTag(chunkOffset,recordPosition, PayloadBytes, index,templates);
+                        var endStrean =
+                            TagBuilder.BuildTag(chunkOffset, recordPosition, PayloadBytes, index, templates);
 
                         index += endStrean.Size;
 
-                       inStream = false; //done working
+                        inStream = false; //done working
 
                         break;
                     case TagBuilder.BinaryTag.StartOfBXmlStream:
 
-                        var startStream = TagBuilder.BuildTag(chunkOffset,recordPosition, PayloadBytes, index,templates);
+                        var startStream =
+                            TagBuilder.BuildTag(chunkOffset, recordPosition, PayloadBytes, index, templates);
 
                         index += startStream.Size;
-                      
+
                         break;
                     case TagBuilder.BinaryTag.TemplateInstance:
-
-
-                        var tsss = TagBuilder.BuildTag(chunkOffset,recordPosition,PayloadBytes, index,templates);
+                        var tsss = TagBuilder.BuildTag(chunkOffset, recordPosition, PayloadBytes, index, templates);
 
                         index += tsss.Size;
 
@@ -130,52 +108,61 @@ namespace evtx
 
                             totalSubsize += subSize;
 
-                            l.Trace($"     Position: {i.ToString().PadRight(5)} Size: 0x{subSize.ToString("X").PadRight(5)} Type: {(TagBuilder.ValueType)subType}");
+                            l.Trace(
+                                $"     Position: {i.ToString().PadRight(5)} Size: 0x{subSize.ToString("X").PadRight(5)} Type: {(TagBuilder.ValueType) subType}");
 
-                            subList.Add(new SubstitutionArrayEntry(i, subSize,(TagBuilder.ValueType)subType));
+                            subList.Add(new SubstitutionArrayEntry(i, subSize, (TagBuilder.ValueType) subType));
                         }
 
                         l.Trace($"     Index post sub array is 0x{index:X} totalSubsize: 0x{totalSubsize:X}");
-                        
+
                         l.Trace("Substitution data");
                         //get the data into the substitution array entries
                         foreach (var substitutionArrayEntry in subList)
                         {
                             var data = new byte[substitutionArrayEntry.Size];
 
-                            Buffer.BlockCopy(PayloadBytes,index,data,0,substitutionArrayEntry.Size);
+                            Buffer.BlockCopy(PayloadBytes, index, data, 0, substitutionArrayEntry.Size);
                             index += substitutionArrayEntry.Size;
                             substitutionArrayEntry.DataBytes = data;
 
                             l.Trace($"       {substitutionArrayEntry}");
                         }
-                        
+
                         break;
 
                     default:
-                        throw new Exception($"Unknown opcode: {opCode} ({opCode:X}) index: 0x{index:X} chunkoffset: 0x{chunkOffset:X} abs offset: 0x {(chunkOffset+ recordPosition+index + 24):X}");
+                        throw new Exception(
+                            $"Unknown opcode: {opCode} ({opCode:X}) index: 0x{index:X} chunkoffset: 0x{chunkOffset:X} abs offset: 0x {chunkOffset + recordPosition + index + 24:X}");
                 }
-
-
             }
-            
-
         }
 
 
+        public List<IBinXml> Nodes { get; set; }
 
-        public int RecordPosition { get;  }
-        public long ChunkOffset { get;  }
-        
+
+        public int RecordPosition { get; }
+        public long ChunkOffset { get; }
+
         public uint Size { get; }
         public long RecordNumber { get; }
         public DateTimeOffset Timestamp { get; }
 
         public byte[] PayloadBytes { get; }
 
+
+        public string ConvertPayloadToXml()
+        {
+            var sb = new StringBuilder();
+
+            return sb.ToString();
+        }
+
         public override string ToString()
         {
-            return $"ChunkOffset: 0x{ChunkOffset:X} RecordPosition: 0x{RecordPosition:X} RecordNumber: 0x{RecordNumber:X} ({RecordNumber}) Timestamp: {Timestamp}";
+            return
+                $"ChunkOffset: 0x{ChunkOffset:X} RecordPosition: 0x{RecordPosition:X} RecordNumber: 0x{RecordNumber:X} ({RecordNumber}) Timestamp: {Timestamp}";
         }
     }
 }

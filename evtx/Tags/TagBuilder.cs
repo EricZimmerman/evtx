@@ -87,7 +87,8 @@ namespace evtx.Tags
             Array64BitHex = 0x95
         }
 
-        public static IBinXml BuildTag(long chunkOffset, int recordPosition, byte[] payload, int index,Dictionary<int, Template> templates)
+        public static IBinXml BuildTag(long chunkOffset, int recordPosition, byte[] payload, int index,
+            Dictionary<int, Template> templates)
         {
             var l = LogManager.GetLogger("BuildTag");
             //index will start at the opcode itself, so account for that
@@ -102,7 +103,7 @@ namespace evtx.Tags
             switch (opCode)
             {
                 case BinaryTag.TemplateInstance:
-                    return new TemplateInstance(chunkOffset, recordPosition, index, payload,templates);
+                    return new TemplateInstance(chunkOffset, recordPosition, index, payload, templates);
 
                 case BinaryTag.StartOfBXmlStream:
 
@@ -116,9 +117,9 @@ namespace evtx.Tags
                     return new EndOfBXmlStream(chunkOffset, recordPosition);
 
                 case BinaryTag.OpenStartElementTag:
-                    
 
-                    return new OpenStartElementTag(chunkOffset,recordPosition,0,payload);
+
+                    return new OpenStartElementTag(chunkOffset, recordPosition, 0, payload);
 
                 default:
                     throw new Exception($"unknown tag to build for opCode: {opCode}");
