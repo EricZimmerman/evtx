@@ -14,6 +14,8 @@ namespace evtx.Tags
             RecordPosition = recordPosition;
             Size = 10; //default size until we know better
 
+            SubstitutionEntries = new List<SubstitutionArrayEntry>();
+
             var startPos = recordPosition + index;
             var origIndex = index;
 
@@ -41,6 +43,8 @@ namespace evtx.Tags
         }
 
         public Template Template { get; }
+
+        public  List<SubstitutionArrayEntry> SubstitutionEntries { get; }
 
 
         public int TemplateOffset { get; }

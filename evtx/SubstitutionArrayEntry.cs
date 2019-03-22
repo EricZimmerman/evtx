@@ -226,8 +226,14 @@ namespace evtx
 
         public override string ToString()
         {
+            string vdb = string.Empty;
+            if (ValType != TagBuilder.ValueType.BinXmlType && ValType != TagBuilder.ValueType.NullType && ValType != TagBuilder.ValueType.StringType)
+            {
+                vdb = $" : Data bytes: {BitConverter.ToString(DataBytes)}";
+            } 
+
             return
-                $"Position: {Position.ToString().PadRight(5)} Size: 0x{Size.ToString("X").PadRight(5)}  Type: {ValType} Data bytes: {BitConverter.ToString(DataBytes)} : {GetDataAsString()}";
+                $"Position: {Position.ToString().PadRight(5)} Size: 0x{Size.ToString("X").PadRight(5)}  Type: {ValType.ToString().PadRight(15)} Value: : {GetDataAsString().PadRight(50)}{vdb}";
         }
     }
 }

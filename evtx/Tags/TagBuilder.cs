@@ -98,7 +98,7 @@ namespace evtx.Tags
 
             var opCode = (BinaryTag) op;
 
-            var subPayload = new byte[0];
+            byte[] subPayload;
 
             switch (opCode)
             {

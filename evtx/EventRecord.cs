@@ -84,9 +84,9 @@ namespace evtx
 
                         break;
                     case TagBuilder.BinaryTag.TemplateInstance:
-                        var tsss = TagBuilder.BuildTag(chunkOffset, recordPosition, PayloadBytes, index, templates);
+                        var ti = (TemplateInstance) TagBuilder.BuildTag(chunkOffset, recordPosition, PayloadBytes, index, templates);
 
-                        index += tsss.Size;
+                        index += ti.Size;
 
                         l.Trace($"Post template index: 0x {index:X}");
 
@@ -111,14 +111,14 @@ namespace evtx
                             l.Trace(
                                 $"     Position: {i.ToString().PadRight(5)} Size: 0x{subSize.ToString("X").PadRight(5)} Type: {(TagBuilder.ValueType) subType}");
 
-                            subList.Add(new SubstitutionArrayEntry(i, subSize, (TagBuilder.ValueType) subType));
+                            ti.SubstitutionEntries.Add(new SubstitutionArrayEntry(i, subSize, (TagBuilder.ValueType) subType));
                         }
 
                         l.Trace($"     Index post sub array is 0x{index:X} totalSubsize: 0x{totalSubsize:X}");
 
-                        l.Trace("Substitution data");
+                        l.Debug("Substitution data");
                         //get the data into the substitution array entries
-                        foreach (var substitutionArrayEntry in subList)
+                        foreach (var substitutionArrayEntry in ti.SubstitutionEntries)
                         {
                             var data = new byte[substitutionArrayEntry.Size];
 
@@ -128,6 +128,8 @@ namespace evtx
 
                             l.Debug($"       {substitutionArrayEntry}");
                         }
+
+                     //   ti.SubstitutionEntries.AddRange(subList);
 
                         break;
 

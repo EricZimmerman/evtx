@@ -22,6 +22,9 @@
       <NamedTestSelector>
         <TestName>evtx.Test.TestMain.DirTestRomanoff</TestName>
       </NamedTestSelector>
+      <NamedTestSelector>
+        <TestName>evtx.Test.TestMain.DirTestOther</TestName>
+      </NamedTestSelector>
     </IgnoredTests>
   </Settings>
 </ProjectConfiguration>
