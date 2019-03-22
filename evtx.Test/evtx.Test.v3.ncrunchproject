@@ -10,6 +10,18 @@
       <NamedTestSelector>
         <TestName>evtx.Test.TestMain.ApplicationLog</TestName>
       </NamedTestSelector>
+      <NamedTestSelector>
+        <TestName>evtx.Test.TestMain.DirTestDefConFS</TestName>
+      </NamedTestSelector>
+      <NamedTestSelector>
+        <TestName>evtx.Test.TestMain.DirTestEZW</TestName>
+      </NamedTestSelector>
+      <NamedTestSelector>
+        <TestName>evtx.Test.TestMain.DirTestFury</TestName>
+      </NamedTestSelector>
+      <NamedTestSelector>
+        <TestName>evtx.Test.TestMain.DirTestRomanoff</TestName>
+      </NamedTestSelector>
     </IgnoredTests>
   </Settings>
 </ProjectConfiguration>

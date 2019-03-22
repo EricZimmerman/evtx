@@ -71,7 +71,7 @@ namespace evtx
                 var chunkSig = BitConverter.ToInt64(chunkBuffer, 0);
 
                 _logger.Trace(
-                    $"chunk offset: {chunkOffset}, sig: {Encoding.ASCII.GetString(chunkBuffer, 0, 8)} signature val: 0x{chunkSig:X}");
+                    $"chunk offset: 0x{chunkOffset:X}, sig: {Encoding.ASCII.GetString(chunkBuffer, 0, 8)} signature val: 0x{chunkSig:X}");
 
                 if (chunkSig == chunkSignature)
                 {
@@ -79,7 +79,7 @@ namespace evtx
                 }
                 else
                 {
-                    _logger.Trace($"Skipping chunk at 0x{chunkOffset:X} as it does not have correct signature");
+                    _logger.Debug($"Skipping chunk at 0x{chunkOffset:X} as it does not have correct signature");
                 }
 
                 chunkOffset = fileStream.Position;
