@@ -30,7 +30,7 @@ namespace evtx
 
         private Template _template;
 
-        public EventRecord(byte[] recordBytes, int recordPosition, long chunkOffset,Dictionary<int, Template> templates)
+        public EventRecord(byte[] recordBytes, int recordPosition, long chunkOffset, Dictionary<int, Template> templates)
         {
             var l = LogManager.GetLogger("EventRecord");
 
@@ -49,7 +49,7 @@ namespace evtx
                 throw new Exception("Payload does not start with 0x1f!");
             }
 
-         l.Trace($"\r\nChunk: 0x{ChunkOffset:X} Record position: 0x{RecordPosition:X} Record #: {RecordNumber}");
+         l.Debug($"\r\nChunk: 0x{ChunkOffset:X} Record position: 0x{RecordPosition:X} Record #: {RecordNumber} Timestamp: {Timestamp}");
 
             var index = 0;
             var inStream = true;
@@ -62,7 +62,7 @@ namespace evtx
 
                 var opCode = (TagBuilder.BinaryTag)op;
 
-                l.Trace($"     Opcode: {opCode} at absolute offset:  0x {(chunkOffset+ recordPosition+index + 24):X}");
+                l.Debug($"     Opcode: {opCode} at absolute offset:  0x {(chunkOffset+ recordPosition+index + 24):X}");
 
                 switch (opCode)
                 {
@@ -105,10 +105,6 @@ namespace evtx
                         break;
                     case TagBuilder.BinaryTag.TemplateInstance:
 
-                        if (RecordNumber == 1629)
-                        {
-                            Debug.WriteLine(1);
-                        }
 
                         var tsss = TagBuilder.BuildTag(chunkOffset,recordPosition,PayloadBytes, index,templates);
 
@@ -127,9 +123,9 @@ namespace evtx
                         var totalSubsize = 0;
                         for (var i = 0; i < substitutionArrayLen; i++)
                         {
-                            var subSize = BitConverter.ToInt16(PayloadBytes, index);
+                            var subSize = BitConverter.ToUInt16(PayloadBytes, index);
                             index += 2;
-                            var subType = BitConverter.ToInt16(PayloadBytes, index);
+                            var subType = BitConverter.ToUInt16(PayloadBytes, index);
                             index += 2;
 
                             totalSubsize += subSize;
@@ -153,10 +149,7 @@ namespace evtx
 
                             l.Trace($"       {substitutionArrayEntry}");
                         }
-
-                    
-
-
+                        
                         break;
 
                     default:

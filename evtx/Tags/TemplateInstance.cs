@@ -34,10 +34,24 @@ namespace evtx.Tags
             NextTemplateOffset = BitConverter.ToInt32(payload, index);
             index += 4;
 
-            if (templates.ContainsKey(TemplateOffset) == false)
+            if (templates.ContainsKey((int) (chunkOffset + TemplateOffset)) == false)
             {
-                var tt = GetTemplateFromPayload(origIndex,payload,chunkOffset+startPos); 
-               templates.Add(tt.TemplateOffset,tt);
+                Template tt = null;
+
+                try
+                {
+                    tt = GetTemplateFromPayload(origIndex,payload,chunkOffset+startPos);
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e);
+                    //tt = GetTemplateFromPayload(origIndex,payload,chunkOffset+startPos - 0x10000);
+
+                    tt = templates[(int) (chunkOffset - 0x10000 + TemplateOffset)];
+                }
+
+
+               templates.Add((int) (chunkOffset + TemplateOffset),tt);
             }
             else
             {
@@ -54,13 +68,13 @@ namespace evtx.Tags
 
                     if (tt1 != null)
                     {
-                        templates[tt1.TemplateOffset] = tt1;
+                        templates[(int) (chunkOffset + TemplateOffset)] = tt1;
                     }
 
             }
             
             
-            Template = templates[TemplateOffset];
+            Template = templates[(int) (chunkOffset + TemplateOffset)];
             Size = Template.Size + 0x22;
             if (TemplateOffset < startPos)
             {

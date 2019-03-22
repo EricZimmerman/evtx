@@ -35,7 +35,6 @@ namespace evtx
             LastRecordOffset = BitConverter.ToUInt32(chunkBytes, 0x2C);
             FreeSpaceOffset = BitConverter.ToUInt32(chunkBytes, 0x30);
 
-
             //TODO how to calculate this? across what data? all event records?
             var crcEventRecordsData = BitConverter.ToUInt32(chunkBytes, 0x34);
 
@@ -127,13 +126,13 @@ namespace evtx
               //  l.Debug(aaa);
 
 
-              if (templates.ContainsKey(aaa.TemplateOffset) == false)
+              if (templates.ContainsKey((int) (offset + aaa.TemplateOffset)) == false)
               {
-                    templates.Add(aaa.TemplateOffset,aaa);
+                    templates.Add((int) (offset + aaa.TemplateOffset),aaa);
               }
               else
               {
-                  templates[aaa.TemplateOffset] = aaa;
+                  templates[(int) (offset + aaa.TemplateOffset)] = aaa;
               }
 
               
@@ -147,13 +146,13 @@ namespace evtx
 
                 var bbb = GetTemplate(aaa.NextTemplateOffset - 10);
 
-                if (templates.ContainsKey(bbb.TemplateOffset) == false)
+                if (templates.ContainsKey((int) (offset + bbb.TemplateOffset)) == false)
                 {
-                    templates.Add(bbb.TemplateOffset,bbb);
+                    templates.Add((int) (offset + bbb.TemplateOffset),bbb);
                 }
                 else
                 {
-                    templates[bbb.TemplateOffset] = bbb;
+                    templates[(int) (offset + bbb.TemplateOffset)] = bbb;
                 }
 
 
@@ -178,6 +177,11 @@ namespace evtx
                 }
 
                 var recordOffset = index;
+
+                if (recordOffset > LastRecordOffset)
+                {
+                    break;
+                }
 
                 var recordSize = BitConverter.ToUInt32(chunkBytes, index + 4);
                 var recordBuff = new byte[recordSize];
