@@ -45,7 +45,7 @@ namespace evtx.Test
 
               foreach (var eventRecord in es.GetEventRecords())
               {
-                  l.Info($"Record: {eventRecord}");
+            //      l.Info($"Record: {eventRecord}");
                   eventRecord.ConvertPayloadToXml();
               }
 
@@ -88,7 +88,7 @@ namespace evtx.Test
 
                 foreach (var eventRecord in es.GetEventRecords())
                 {
-                    l.Info($"Record: {eventRecord}");
+               //     l.Info($"Record: {eventRecord}");
                     eventRecord.ConvertPayloadToXml();
                 }
 
@@ -131,7 +131,7 @@ namespace evtx.Test
 
                 foreach (var eventRecord in es.GetEventRecords())
                 {
-                    l.Info($"Record: {eventRecord}");
+              //      l.Info($"Record: {eventRecord}");
                     eventRecord.ConvertPayloadToXml();
                 }
 

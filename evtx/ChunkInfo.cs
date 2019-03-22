@@ -103,7 +103,7 @@ namespace evtx
 
           //  Templates = new List<Template>();
 
-          //  l.Debug("------------------------------------------------\r\n");
+           l.Debug("\r\n----------------------NEW CHUNK--------------------------\r\n");
 
             //to get all the templates and cache them
             foreach (var tableTemplateOffset in tableTemplateOffsets.OrderBy(t=>t))
@@ -113,7 +113,7 @@ namespace evtx
 
               //  if (offset == 0x1E1000)
                 {
-              //      l.Debug($"actualOffset: 0x {actualOffset:X} chunkBytes[index]: 0x{chunkBytes[index].ToString("X")}");
+                   l.Debug($"Chunk offset: 0x{Offset:X} tableTemplateOffset: 0x{tableTemplateOffset:X} actualOffset: 0x {actualOffset:X} chunkBytes[index]: 0x{chunkBytes[index].ToString("X")}");
                 }
 
 
