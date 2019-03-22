@@ -32,7 +32,7 @@ namespace evtx
                 throw new Exception("Payload does not start with 0x1f!");
             }
 
-            l.Trace(
+            l.Debug(
                 $"\r\nChunk: 0x{ChunkOffset:X} Record position: 0x{RecordPosition:X} Record #: {RecordNumber} Timestamp: {Timestamp}");
 
             var index = 0;
@@ -126,7 +126,7 @@ namespace evtx
                             index += substitutionArrayEntry.Size;
                             substitutionArrayEntry.DataBytes = data;
 
-                            l.Trace($"       {substitutionArrayEntry}");
+                            l.Debug($"       {substitutionArrayEntry}");
                         }
 
                         break;
