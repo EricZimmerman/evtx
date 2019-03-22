@@ -2,9 +2,6 @@
   <Settings>
     <IgnoredTests>
       <NamedTestSelector>
-        <TestName>evtx.Test.TestMain.DirTest</TestName>
-      </NamedTestSelector>
-      <NamedTestSelector>
         <TestName>evtx.Test.TestMain.SecurityLog</TestName>
       </NamedTestSelector>
       <NamedTestSelector>

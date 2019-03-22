@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Linq;
 using NLog;
 using NLog.Config;
 using NLog.Targets;
@@ -129,10 +130,10 @@ namespace evtx.Test
         }
 
         [Test]
-        public void DirTest()
+        public void DirTestEZW()
         {
             var config = new LoggingConfiguration();
-            var loglevel = LogLevel.Debug;
+            var loglevel = LogLevel.Info;
 
             var layout = @"${message}";
 
@@ -149,7 +150,8 @@ namespace evtx.Test
             var l = LogManager.GetLogger("foo");
 
 
-            var files = Directory.GetFiles(@"D:\SynologyDrive\EventLogs\EZW_Home");
+            var files = Directory.GetFiles(@"D:\SynologyDrive\EventLogs\EZW_Home").ToList();
+
 
             foreach (var file in files)
             {
@@ -157,11 +159,11 @@ namespace evtx.Test
                 {
                     var es = new EventLog(fs);
 
-                    foreach (var eventRecord in es.GetEventRecords())
-                    {
-                        //      l.Info($"Record: {eventRecord}");
-                        eventRecord.ConvertPayloadToXml();
-                    }
+//                    foreach (var eventRecord in es.GetEventRecords())
+//                    {
+//                             l.Info($"Record: {eventRecord}");
+//                        eventRecord.ConvertPayloadToXml();
+//                    }
                 }
             }
 
@@ -171,6 +173,145 @@ namespace evtx.Test
 
             l.Info($"Total: {total}");
         }
+
+        [Test]
+        public void DirTestDefConFS()
+        {
+            var config = new LoggingConfiguration();
+            var loglevel = LogLevel.Info;
+
+            var layout = @"${message}";
+
+            var consoleTarget = new ColoredConsoleTarget();
+
+            config.AddTarget("console", consoleTarget);
+
+            consoleTarget.Layout = layout;
+
+            var rule1 = new LoggingRule("*", loglevel, consoleTarget);
+            config.LoggingRules.Add(rule1);
+
+            LogManager.Configuration = config;
+            var l = LogManager.GetLogger("foo");
+
+
+            var files = Directory.GetFiles(@"D:\SynologyDrive\EventLogs\DefConFS").ToList();
+
+
+            foreach (var file in files)
+            {
+                using (var fs = new FileStream(file, FileMode.Open, FileAccess.Read))
+                {
+                    var es = new EventLog(fs);
+
+//                    foreach (var eventRecord in es.GetEventRecords())
+//                    {
+//                             l.Info($"Record: {eventRecord}");
+//                        eventRecord.ConvertPayloadToXml();
+//                    }
+                }
+            }
+
+
+            var total = 0;
+
+
+            l.Info($"Total: {total}");
+        }
+
+
+        [Test]
+        public void DirTestFury()
+        {
+            var config = new LoggingConfiguration();
+            var loglevel = LogLevel.Info;
+
+            var layout = @"${message}";
+
+            var consoleTarget = new ColoredConsoleTarget();
+
+            config.AddTarget("console", consoleTarget);
+
+            consoleTarget.Layout = layout;
+
+            var rule1 = new LoggingRule("*", loglevel, consoleTarget);
+            config.LoggingRules.Add(rule1);
+
+            LogManager.Configuration = config;
+            var l = LogManager.GetLogger("foo");
+
+
+            var files = Directory.GetFiles(@"D:\SynologyDrive\EventLogs\Fury").ToList();
+
+            foreach (var file in files)
+            {
+                using (var fs = new FileStream(file, FileMode.Open, FileAccess.Read))
+                {
+                    var es = new EventLog(fs);
+
+//                    foreach (var eventRecord in es.GetEventRecords())
+//                    {
+//                             l.Info($"Record: {eventRecord}");
+//                        eventRecord.ConvertPayloadToXml();
+//                    }
+                }
+            }
+
+
+            var total = 0;
+
+
+            l.Info($"Total: {total}");
+        }
+
+
+        [Test]
+        public void DirTestRomanoff()
+        {
+            var config = new LoggingConfiguration();
+            var loglevel = LogLevel.Info;
+
+            var layout = @"${message}";
+
+            var consoleTarget = new ColoredConsoleTarget();
+
+            config.AddTarget("console", consoleTarget);
+
+            consoleTarget.Layout = layout;
+
+            var rule1 = new LoggingRule("*", loglevel, consoleTarget);
+            config.LoggingRules.Add(rule1);
+
+            LogManager.Configuration = config;
+            var l = LogManager.GetLogger("foo");
+
+
+            var files = Directory.GetFiles(@"D:\SynologyDrive\EventLogs\Romanoff").ToList();
+
+
+
+
+            foreach (var file in files)
+            {
+                using (var fs = new FileStream(file, FileMode.Open, FileAccess.Read))
+                {
+                    var es = new EventLog(fs);
+
+//                    foreach (var eventRecord in es.GetEventRecords())
+//                    {
+//                             l.Info($"Record: {eventRecord}");
+//                        eventRecord.ConvertPayloadToXml();
+//                    }
+                }
+            }
+
+
+            var total = 0;
+
+
+            l.Info($"Total: {total}");
+        }
+
 
 
         [Test]
