@@ -61,14 +61,15 @@ namespace evtx
 
             foreach (var stringOffset in stringOffsets)
             {
-                index = (int) stringOffset + 4;
-                var hash = BitConverter.ToUInt16(chunkBytes, index);
-                index += 2;
-                var stringLen = BitConverter.ToUInt16(chunkBytes, index);
-                index += 2;
-                var stringVal = Encoding.Unicode.GetString(chunkBytes, index, stringLen * 2);
+                var ste = GetStringTableEntry(stringOffset);
 
-                StringTableEntries.Add(new StringTableEntry(stringOffset, hash, stringVal));
+                StringTableEntries.Add(ste);
+            }
+
+            l.Debug($"String table entries");
+            foreach (var stringTableEntry in StringTableEntries.OrderBy(t=>t.Offset))
+            {
+                l.Debug(stringTableEntry);
             }
 
             var templateTableData = new byte[0x80];
@@ -167,10 +168,22 @@ namespace evtx
                 Buffer.BlockCopy(chunkBytes, index, recordBuff, 0, (int) recordSize);
                 index += (int) recordSize;
 
-                var er = new EventRecord(recordBuff, recordOffset, Offset, Templates);
+                var er = new EventRecord(recordBuff, recordOffset, Offset, Templates, this);
                 EventRecords.Add(er);
 
             }
+        }
+
+        public StringTableEntry GetStringTableEntry(uint offset)
+        {
+            var index = (int) offset + 4; //unknown
+            var hash = BitConverter.ToUInt16(ChunkBytes, index);
+            index += 2;
+            var stringLen = BitConverter.ToUInt16(ChunkBytes, index);
+            index += 2;
+            var stringVal = Encoding.Unicode.GetString(ChunkBytes, index, stringLen * 2);
+
+            return new StringTableEntry(offset,hash,stringVal);
         }
 
         public uint LastRecordOffset { get; }

@@ -11,7 +11,7 @@ namespace evtx
         private Template _template;
 
         public EventRecord(byte[] recordBytes, int recordPosition, long chunkOffset,
-            Dictionary<int, Template> templates)
+            Dictionary<int, Template> templates, ChunkInfo chunk)
         {
             var l = LogManager.GetLogger("EventRecord");
 
@@ -96,7 +96,6 @@ namespace evtx
                         var substitutionArrayLen = BitConverter.ToInt32(PayloadBytes, index);
                         index += 4;
                         l.Trace($"      Substitution len: 0x{substitutionArrayLen:X}");
-                        var subList = new List<SubstitutionArrayEntry>();
 //
                         var totalSubsize = 0;
                         for (var i = 0; i < substitutionArrayLen; i++)
@@ -114,9 +113,9 @@ namespace evtx
                             ti.SubstitutionEntries.Add(new SubstitutionArrayEntry(i, subSize, (TagBuilder.ValueType) subType));
                         }
 
-                        l.Trace($"     Index post sub array is 0x{index:X} totalSubsize: 0x{totalSubsize:X}");
+                        l.Trace($"     Index post sub array is 0x{index:X}");
 
-                        l.Debug("Substitution data");
+                        l.Debug($"Substitution data. Data length: 0x{totalSubsize:X}");
                         //get the data into the substitution array entries
                         foreach (var substitutionArrayEntry in ti.SubstitutionEntries)
                         {
@@ -129,7 +128,6 @@ namespace evtx
                             l.Debug($"       {substitutionArrayEntry}");
                         }
 
-                     //   ti.SubstitutionEntries.AddRange(subList);
 
                         break;
 

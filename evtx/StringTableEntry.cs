@@ -15,7 +15,7 @@
 
         public override string ToString()
         {
-            return $"RecordPosition: 0x{Offset:X} Hash: 0x{Hash:X} Value: {Value}";
+            return $"Offset: 0x{Offset:X} Hash: 0x{Hash:X} Value: {Value}";
         }
     }
 }
