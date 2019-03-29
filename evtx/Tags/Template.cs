@@ -21,7 +21,7 @@ namespace evtx.Tags
 
             Nodes = new List<IBinXml>();
 
-          //  var index = 0;
+            //  var index = 0;
 
             //TODO
             //process payload here at some point

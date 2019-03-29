@@ -18,12 +18,12 @@ namespace evtx
             RecordPosition = recordPosition;
             ChunkOffset = chunkOffset;
 
-            recordData.ReadInt32();//signature
+            recordData.ReadInt32(); //signature
 
             Size = recordData.ReadUInt32();
-            RecordNumber = recordData.ReadInt64();// .ToInt64(recordBytes, 8);
+            RecordNumber = recordData.ReadInt64(); // .ToInt64(recordBytes, 8);
             Timestamp = DateTimeOffset.FromFileTime(recordData.ReadInt64()).ToUniversalTime();
-            
+
             if (recordData.PeekChar() != 0xf)
             {
                 throw new Exception("Payload does not start with 0x1f!");

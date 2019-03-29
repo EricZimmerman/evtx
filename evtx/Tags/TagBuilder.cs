@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using NLog;
 
@@ -94,7 +93,7 @@ namespace evtx.Tags
         //payload should become a memorystream
         //chunk should be a reference to the chunk where this data is so it can get strings, templates, etc.
 
-        public static IBinXml BuildTag(long chunkOffset, long recordPosition, BinaryReader dataStream,ChunkInfo chunk)
+        public static IBinXml BuildTag(long chunkOffset, long recordPosition, BinaryReader dataStream, ChunkInfo chunk)
         {
             var l = LogManager.GetLogger("BuildTag");
             //op code is pulled from stream, so account for that
@@ -109,11 +108,10 @@ namespace evtx.Tags
             switch (opCode)
             {
                 case BinaryTag.TemplateInstance:
-                    return new TemplateInstance(chunkOffset, recordPosition, dataStream,chunk);
+                    return new TemplateInstance(chunkOffset, recordPosition, dataStream, chunk);
 
                 case BinaryTag.StartOfBXmlStream:
 
-                   
 
                     return new StartOfBXmlStream(chunkOffset, recordPosition, dataStream);
 

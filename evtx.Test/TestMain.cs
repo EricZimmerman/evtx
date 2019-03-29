@@ -211,6 +211,7 @@ namespace evtx.Test
 //                        eventRecord.ConvertPayloadToXml();
 //                    }
                 }
+
                 l.Info(file);
             }
 
@@ -338,8 +339,6 @@ namespace evtx.Test
             var files = Directory.GetFiles(@"D:\SynologyDrive\EventLogs\Romanoff").ToList();
 
 
-
-
             foreach (var file in files)
             {
                 using (var fs = new FileStream(file, FileMode.Open, FileAccess.Read))
@@ -360,7 +359,6 @@ namespace evtx.Test
 
             l.Info($"Total: {total}");
         }
-
 
 
         [Test]

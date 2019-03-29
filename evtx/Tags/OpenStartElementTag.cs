@@ -6,7 +6,7 @@ namespace evtx.Tags
 {
     public class OpenStartElementTag : IBinXml
     {
-        public OpenStartElementTag(long chunkOffset, long recordPosition, BinaryReader dataStream,ChunkInfo chunk)
+        public OpenStartElementTag(long chunkOffset, long recordPosition, BinaryReader dataStream, ChunkInfo chunk)
         {
             var l = LogManager.GetLogger("BuildTag");
 

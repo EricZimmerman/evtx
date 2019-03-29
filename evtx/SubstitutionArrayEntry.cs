@@ -27,7 +27,7 @@ namespace evtx
             {
                 case TagBuilder.ValueType.NullType:
                     return string.Empty;
-                    
+
                 case TagBuilder.ValueType.StringType:
                     return Encoding.Unicode.GetString(DataBytes);
                 case TagBuilder.ValueType.AnsiStringType:
@@ -35,7 +35,7 @@ namespace evtx
                 case TagBuilder.ValueType.Int8Type:
                     return ((sbyte) DataBytes[0]).ToString();
                 case TagBuilder.ValueType.UInt8Type:
-                    return ((byte) DataBytes[0]).ToString();
+                    return DataBytes[0].ToString();
                 case TagBuilder.ValueType.Int16Type:
                     return BitConverter.ToInt16(DataBytes, 0).ToString();
                 case TagBuilder.ValueType.UInt16Type:
@@ -59,14 +59,14 @@ namespace evtx
                 case TagBuilder.ValueType.GuidType:
                     var g = new Guid(DataBytes);
                     return g.ToString();
-                
+
                 case TagBuilder.ValueType.SizeTType:
                     return BitConverter.ToString(DataBytes);
 
                 case TagBuilder.ValueType.FileTimeType:
-                    var fts = DateTimeOffset.FromFileTime((BitConverter.ToInt64(DataBytes,0))).ToUniversalTime();
+                    var fts = DateTimeOffset.FromFileTime(BitConverter.ToInt64(DataBytes, 0)).ToUniversalTime();
                     return fts.ToString("yyyy-MM-dd HH:mm:ss.fffffff");
-                    
+
                 case TagBuilder.ValueType.SysTimeType:
                     var year = BitConverter.ToUInt16(DataBytes, 0);
                     var month = BitConverter.ToUInt16(DataBytes, 1);
@@ -77,7 +77,7 @@ namespace evtx
                     var secs = BitConverter.ToUInt16(DataBytes, 6);
                     var msecs = BitConverter.ToUInt16(DataBytes, 7);
 
-                    var sts = new DateTimeOffset(year,month,day,hours,mins,secs,msecs,TimeSpan.Zero);
+                    var sts = new DateTimeOffset(year, month, day, hours, mins, secs, msecs, TimeSpan.Zero);
 
                     return sts.ToString("yyyy-MM-dd HH:mm:ss.fffffff");
 
@@ -99,7 +99,7 @@ namespace evtx
                 case TagBuilder.ValueType.ArrayUnicodeString:
                     var tsu = Encoding.Unicode.GetString(DataBytes).Split('\0');
                     return string.Join(", ", tsu);
-                  
+
                 case TagBuilder.ValueType.ArrayAsciiString:
                     var tsa = Encoding.GetEncoding(1252).GetString(DataBytes).Split('\0');
                     return string.Join(", ", tsa);
@@ -226,11 +226,12 @@ namespace evtx
 
         public override string ToString()
         {
-            string vdb = string.Empty;
-            if (ValType != TagBuilder.ValueType.BinXmlType && ValType != TagBuilder.ValueType.NullType && ValType != TagBuilder.ValueType.StringType)
+            var vdb = string.Empty;
+            if (ValType != TagBuilder.ValueType.BinXmlType && ValType != TagBuilder.ValueType.NullType &&
+                ValType != TagBuilder.ValueType.StringType)
             {
                 vdb = $" : Data bytes: {BitConverter.ToString(DataBytes)}";
-            } 
+            }
 
             return
                 $"Position: {Position.ToString().PadRight(5)} Size: 0x{Size.ToString("X").PadRight(5)}  Type: {ValType.ToString().PadRight(15)} Value: : {GetDataAsString().PadRight(50)}{vdb}";

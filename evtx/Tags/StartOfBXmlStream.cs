@@ -11,11 +11,11 @@ namespace evtx.Tags
             ChunkOffset = chunkOffset;
             RecordPosition = recordPosition;
             Size = 4;
-            
+
             MajorVer = dataStream.ReadByte();
-            
+
             MinorVer = dataStream.ReadByte();
-            
+
             Flags = dataStream.ReadByte();
 
             var l = LogManager.GetLogger("BuildTag");

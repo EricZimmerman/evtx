@@ -15,8 +15,9 @@ namespace evtx
         {
             var l = LogManager.GetLogger("ChunkInfo");
 
-            l.Debug("\r\n-------------------------------------------- NEW CHUNK ------------------------------------------------\r\n");
-            
+            l.Debug(
+                "\r\n-------------------------------------------- NEW CHUNK ------------------------------------------------\r\n");
+
             ChunkBytes = chunkBytes;
             Offset = offset;
             ChunkNumber = chunkNumber;
@@ -68,11 +69,12 @@ namespace evtx
                 GetStringTableEntry(stringOffset);
             }
 
-            l.Debug($"String table entries");
-            foreach (var stringTableEntry in StringTableEntries.Keys.OrderBy(t=>t))
+            l.Debug("String table entries");
+            foreach (var stringTableEntry in StringTableEntries.Keys.OrderBy(t => t))
             {
                 l.Debug(StringTableEntries[stringTableEntry]);
             }
+
             l.Debug("");
 
             var templateTableData = new byte[0x80];
@@ -98,8 +100,6 @@ namespace evtx
 
             Templates = new Dictionary<int, Template>();
 
-          
-
             //to get all the templates and cache them
             foreach (var tableTemplateOffset in tableTemplateOffsets.OrderBy(t => t))
             {
@@ -109,20 +109,19 @@ namespace evtx
                 l.Trace(
                     $"Chunk offset: 0x{Offset:X} tableTemplateOffset: 0x{tableTemplateOffset:X} actualOffset: 0x {actualOffset:X} chunkBytes[index]: 0x{chunkBytes[index].ToString("X")} LastRecordOffset 0x{LastRecordOffset:X} FreeSpaceOffset 0x{FreeSpaceOffset:X}");
 
-                var aaa = GetTemplate(index);
+                var template = GetTemplate(index);
 
-
-                if (Templates.ContainsKey(aaa.TemplateOffset) == false)
+                if (Templates.ContainsKey(template.TemplateOffset) == false)
                 {
-                    Templates.Add(aaa.TemplateOffset, aaa);
+                    Templates.Add(template.TemplateOffset, template);
                 }
 
-                if (aaa.NextTemplateOffset <= 0)
+                if (template.NextTemplateOffset <= 0)
                 {
                     continue;
                 }
 
-                var nextTemplateId = aaa.NextTemplateOffset;
+                var nextTemplateId = template.NextTemplateOffset;
 
                 while (nextTemplateId > 0)
                 {
@@ -136,13 +135,14 @@ namespace evtx
                     }
                 }
             }
-          
+
             l.Debug("Template definitions");
-                foreach (var esTemplate in Templates)
-                {
-                    l.Debug($"key: 0x{esTemplate.Key:X4} {esTemplate.Value}");
-                }
-                l.Debug("");
+            foreach (var esTemplate in Templates)
+            {
+                l.Debug($"key: 0x{esTemplate.Key:X4} {esTemplate.Value}");
+            }
+
+            l.Debug("");
 
             index = (int) tableOffset + 0x100 + 0x80; //get to start of event Records
 
@@ -166,35 +166,15 @@ namespace evtx
                 }
 
                 var recordSize = BitConverter.ToUInt32(chunkBytes, index + 4);
-                
+
                 var ms = new MemoryStream(chunkBytes, index, (int) recordSize);
-                var br = new BinaryReader(ms,Encoding.UTF8);
+                var br = new BinaryReader(ms, Encoding.UTF8);
 
                 index += (int) recordSize;
 
                 var er = new EventRecord(br, recordOffset, Offset, this);
                 EventRecords.Add(er);
-
             }
-        }
-
-        public StringTableEntry GetStringTableEntry(uint offset)
-        {
-            if (StringTableEntries.ContainsKey(offset))
-            {
-                return StringTableEntries[offset];
-            }
-
-            var index = (int) offset + 4; //unknown
-            var hash = BitConverter.ToUInt16(ChunkBytes, index);
-            index += 2;
-            var stringLen = BitConverter.ToUInt16(ChunkBytes, index);
-            index += 2;
-            var stringVal = Encoding.Unicode.GetString(ChunkBytes, index, stringLen * 2);
-            
-            StringTableEntries.Add(offset,new StringTableEntry(offset,hash,stringVal));
-
-            return StringTableEntries[offset];
         }
 
         public uint LastRecordOffset { get; }
@@ -204,7 +184,7 @@ namespace evtx
 
         public List<EventRecord> EventRecords { get; }
 
-        public Dictionary<uint,StringTableEntry> StringTableEntries { get; }
+        public Dictionary<uint, StringTableEntry> StringTableEntries { get; }
 
         public int Crc { get; }
         public int CalculatedCrc { get; }
@@ -221,10 +201,29 @@ namespace evtx
         public long Offset { get; }
         public int ChunkNumber { get; }
 
+        public StringTableEntry GetStringTableEntry(uint offset)
+        {
+            if (StringTableEntries.ContainsKey(offset))
+            {
+                return StringTableEntries[offset];
+            }
+
+            var index = (int) offset + 4; //unknown bytes, so skip
+            var hash = BitConverter.ToUInt16(ChunkBytes, index);
+            index += 2;
+            var stringLen = BitConverter.ToUInt16(ChunkBytes, index);
+            index += 2;
+            var stringVal = Encoding.Unicode.GetString(ChunkBytes, index, stringLen * 2);
+
+            StringTableEntries.Add(offset, new StringTableEntry(offset, hash, stringVal));
+
+            return StringTableEntries[offset];
+        }
+
         public Template GetTemplate(int startingOffset)
         {
-            var index = startingOffset; //go past op code
-            index += 1;
+            var index = startingOffset; 
+            index += 1; //go past op code
 
             var version = ChunkBytes[index];
             index += 1;

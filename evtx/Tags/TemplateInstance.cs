@@ -7,7 +7,7 @@ namespace evtx.Tags
 {
     internal class TemplateInstance : IBinXml
     {
-        public TemplateInstance(long chunkOffset, long recordPosition,  BinaryReader dataStream, ChunkInfo chunk)
+        public TemplateInstance(long chunkOffset, long recordPosition, BinaryReader dataStream, ChunkInfo chunk)
         {
             var l = LogManager.GetLogger("BuildTag");
             ChunkOffset = chunkOffset;
@@ -18,15 +18,15 @@ namespace evtx.Tags
 
             var startPos = recordPosition + dataStream.BaseStream.Position;
             var origIndex = dataStream.BaseStream.Position;
-            
+
             var version = dataStream.ReadByte();
-            
+
             TemplateId = dataStream.ReadInt32();
-            
+
             TemplateOffset = dataStream.ReadInt32();
-            
+
             NextTemplateOffset = dataStream.ReadInt32();
-            
+
             Template = chunk.GetTemplate(TemplateOffset);
 
             Size = Template.Size + 0x22;
@@ -39,7 +39,7 @@ namespace evtx.Tags
 
         public Template Template { get; }
 
-        public  List<SubstitutionArrayEntry> SubstitutionEntries { get; }
+        public List<SubstitutionArrayEntry> SubstitutionEntries { get; }
 
 
         public int TemplateOffset { get; }
@@ -54,7 +54,5 @@ namespace evtx.Tags
         {
             throw new NotImplementedException();
         }
-
-       
     }
 }
