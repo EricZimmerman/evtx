@@ -1,36 +1,33 @@
 ﻿using System;
+using System.IO;
 using NLog;
 
 namespace evtx.Tags
 {
     public class OpenStartElementTag : IBinXml
     {
-        public OpenStartElementTag(long chunkOffset, long recordPosition, int size, byte[] payload)
+        public OpenStartElementTag(long chunkOffset, long recordPosition, BinaryReader dataStream,ChunkInfo chunk)
         {
             var l = LogManager.GetLogger("BuildTag");
 
             ChunkOffset = chunkOffset;
             RecordPosition = recordPosition;
-            Size = size;
 
-            throw new Exception("wtf over");
+            var dependencyId = dataStream.ReadInt16();
 
-            var index = 0;
+            Size = dataStream.ReadInt32();
 
-            index += 1; //move past op code
+            //throw new Exception("wtf over");
 
-            var dep = BitConverter.ToInt16(payload, index);
-            index += 2;
 
-            if (dep != -1)
+            if (dependencyId != -1)
             {
                 //there is a dependency
                 l.Debug("There is a dependency");
             }
 
-            var dataSize = BitConverter.ToInt32(payload, index);
-            index += 2;
-            l.Debug($"datasize is 0x{dataSize:X}");
+
+            l.Debug($"Size is 0x{Size:X}");
         }
 
         public long ChunkOffset { get; }

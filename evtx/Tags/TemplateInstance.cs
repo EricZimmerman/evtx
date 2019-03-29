@@ -1,13 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using NLog;
 
 namespace evtx.Tags
 {
     internal class TemplateInstance : IBinXml
     {
-        public TemplateInstance(long chunkOffset, long recordPosition, int index, byte[] payload,
-            Dictionary<int, Template> templates)
+        public TemplateInstance(long chunkOffset, long recordPosition,  BinaryReader dataStream, ChunkInfo chunk)
         {
             var l = LogManager.GetLogger("BuildTag");
             ChunkOffset = chunkOffset;
@@ -16,23 +16,18 @@ namespace evtx.Tags
 
             SubstitutionEntries = new List<SubstitutionArrayEntry>();
 
-            var startPos = recordPosition + index;
-            var origIndex = index;
-
-            index += 1; //move past op code
-            var version = payload[index];
-            index += 1;
-
-            TemplateId = BitConverter.ToInt32(payload, index);
-            index += 4;
-
-            TemplateOffset = BitConverter.ToInt32(payload, index);
-            index += 4;
-
-            NextTemplateOffset = BitConverter.ToInt32(payload, index);
-            index += 4;
-
-            Template = templates[TemplateOffset];
+            var startPos = recordPosition + dataStream.BaseStream.Position;
+            var origIndex = dataStream.BaseStream.Position;
+            
+            var version = dataStream.ReadByte();
+            
+            TemplateId = dataStream.ReadInt32();
+            
+            TemplateOffset = dataStream.ReadInt32();
+            
+            NextTemplateOffset = dataStream.ReadInt32();
+            
+            Template = chunk.GetTemplate(TemplateOffset);
 
             Size = Template.Size + 0x22;
             if (TemplateOffset < startPos)

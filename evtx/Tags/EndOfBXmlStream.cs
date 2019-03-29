@@ -1,6 +1,7 @@
-﻿using System;
+﻿ using System;
+ using System.IO;
 
-namespace evtx.Tags
+ namespace evtx.Tags
 {
     internal class EndOfBXmlStream : IBinXml
     {

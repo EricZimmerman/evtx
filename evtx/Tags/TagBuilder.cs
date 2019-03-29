@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using NLog;
 
 namespace evtx.Tags
@@ -87,14 +88,19 @@ namespace evtx.Tags
             Array64BitHex = 0x95
         }
 
-        public static IBinXml BuildTag(long chunkOffset, int recordPosition, byte[] payload, int index,
-            Dictionary<int, Template> templates)
+
+        //chunk offset == which chunk its in (absolute offset)
+        //record position == offset in chunk for where record was found
+        //payload should become a memorystream
+        //chunk should be a reference to the chunk where this data is so it can get strings, templates, etc.
+
+        public static IBinXml BuildTag(long chunkOffset, long recordPosition, BinaryReader dataStream,ChunkInfo chunk)
         {
             var l = LogManager.GetLogger("BuildTag");
-            //index will start at the opcode itself, so account for that
-            var op = payload[index];
+            //op code is pulled from stream, so account for that
+            var opOrg = dataStream.ReadByte();
 
-            op = (byte) (op & 0x0f);
+            var op = (byte) (opOrg & 0x0f);
 
             var opCode = (BinaryTag) op;
 
@@ -103,14 +109,13 @@ namespace evtx.Tags
             switch (opCode)
             {
                 case BinaryTag.TemplateInstance:
-                    return new TemplateInstance(chunkOffset, recordPosition, index, payload, templates);
+                    return new TemplateInstance(chunkOffset, recordPosition, dataStream,chunk);
 
                 case BinaryTag.StartOfBXmlStream:
 
-                    subPayload = new byte[4];
-                    Buffer.BlockCopy(payload, index, subPayload, 0, subPayload.Length);
+                   
 
-                    return new StartOfBXmlStream(chunkOffset, recordPosition, 4, subPayload);
+                    return new StartOfBXmlStream(chunkOffset, recordPosition, dataStream);
 
                 case BinaryTag.EndOfBXmlStream:
 
@@ -119,7 +124,7 @@ namespace evtx.Tags
                 case BinaryTag.OpenStartElementTag:
 
 
-                    return new OpenStartElementTag(chunkOffset, recordPosition, 0, payload);
+                    return new OpenStartElementTag(chunkOffset, recordPosition, dataStream, chunk);
 
                 default:
                     throw new Exception($"unknown tag to build for opCode: {opCode}");

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using evtx.Tags;
@@ -13,6 +14,9 @@ namespace evtx
         public ChunkInfo(byte[] chunkBytes, long offset, int chunkNumber)
         {
             var l = LogManager.GetLogger("ChunkInfo");
+
+            l.Debug("\r\n-------------------------------------------- NEW CHUNK ------------------------------------------------\r\n");
+            
             ChunkBytes = chunkBytes;
             Offset = offset;
             ChunkNumber = chunkNumber;
@@ -43,7 +47,7 @@ namespace evtx
             var tableData = new byte[0x100];
             Buffer.BlockCopy(chunkBytes, (int) tableOffset, tableData, 0, 0x100);
 
-            StringTableEntries = new List<StringTableEntry>();
+            StringTableEntries = new Dictionary<uint, StringTableEntry>();
 
             var stringOffsets = new List<uint>();
 
@@ -61,16 +65,15 @@ namespace evtx
 
             foreach (var stringOffset in stringOffsets)
             {
-                var ste = GetStringTableEntry(stringOffset);
-
-                StringTableEntries.Add(ste);
+                GetStringTableEntry(stringOffset);
             }
 
             l.Debug($"String table entries");
-            foreach (var stringTableEntry in StringTableEntries.OrderBy(t=>t.Offset))
+            foreach (var stringTableEntry in StringTableEntries.Keys.OrderBy(t=>t))
             {
-                l.Debug(stringTableEntry);
+                l.Debug(StringTableEntries[stringTableEntry]);
             }
+            l.Debug("");
 
             var templateTableData = new byte[0x80];
             Buffer.BlockCopy(chunkBytes, 0x180, templateTableData, 0, 0x80);
@@ -95,7 +98,7 @@ namespace evtx
 
             Templates = new Dictionary<int, Template>();
 
-            l.Trace("\r\n----------------------NEW CHUNK--------------------------\r\n");
+          
 
             //to get all the templates and cache them
             foreach (var tableTemplateOffset in tableTemplateOffsets.OrderBy(t => t))
@@ -133,14 +136,13 @@ namespace evtx
                     }
                 }
             }
-
-            if (l.IsTraceEnabled)
-            {
+          
+            l.Debug("Template definitions");
                 foreach (var esTemplate in Templates)
                 {
-                    l.Trace($"key: 0x{esTemplate.Key:X} {esTemplate.Value}");
+                    l.Debug($"key: 0x{esTemplate.Key:X4} {esTemplate.Value}");
                 }
-            }
+                l.Debug("");
 
             index = (int) tableOffset + 0x100 + 0x80; //get to start of event Records
 
@@ -164,11 +166,13 @@ namespace evtx
                 }
 
                 var recordSize = BitConverter.ToUInt32(chunkBytes, index + 4);
-                var recordBuff = new byte[recordSize];
-                Buffer.BlockCopy(chunkBytes, index, recordBuff, 0, (int) recordSize);
+                
+                var ms = new MemoryStream(chunkBytes, index, (int) recordSize);
+                var br = new BinaryReader(ms,Encoding.UTF8);
+
                 index += (int) recordSize;
 
-                var er = new EventRecord(recordBuff, recordOffset, Offset, Templates, this);
+                var er = new EventRecord(br, recordOffset, Offset, this);
                 EventRecords.Add(er);
 
             }
@@ -176,14 +180,21 @@ namespace evtx
 
         public StringTableEntry GetStringTableEntry(uint offset)
         {
+            if (StringTableEntries.ContainsKey(offset))
+            {
+                return StringTableEntries[offset];
+            }
+
             var index = (int) offset + 4; //unknown
             var hash = BitConverter.ToUInt16(ChunkBytes, index);
             index += 2;
             var stringLen = BitConverter.ToUInt16(ChunkBytes, index);
             index += 2;
             var stringVal = Encoding.Unicode.GetString(ChunkBytes, index, stringLen * 2);
+            
+            StringTableEntries.Add(offset,new StringTableEntry(offset,hash,stringVal));
 
-            return new StringTableEntry(offset,hash,stringVal);
+            return StringTableEntries[offset];
         }
 
         public uint LastRecordOffset { get; }
@@ -191,10 +202,9 @@ namespace evtx
 
         public Dictionary<int, Template> Templates { get; }
 
-
         public List<EventRecord> EventRecords { get; }
 
-        public List<StringTableEntry> StringTableEntries { get; }
+        public Dictionary<uint,StringTableEntry> StringTableEntries { get; }
 
         public int Crc { get; }
         public int CalculatedCrc { get; }
