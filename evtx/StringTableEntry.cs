@@ -2,14 +2,16 @@
 {
     public class StringTableEntry
     {
-        public StringTableEntry(uint offset, ushort hash, string value)
+        public StringTableEntry(uint offset, ushort hash, string value, int size)
         {
             Offset = offset;
             Hash = hash;
             Value = value;
+            Size = size;
         }
 
         public uint Offset { get; }
+        public int Size { get; }
         public ushort Hash { get; }
         public string Value { get; }
 

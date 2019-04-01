@@ -10,8 +10,6 @@ namespace evtx
 {
     public class EventRecord
     {
-        private Template _template;
-
         public EventRecord(BinaryReader recordData, int recordPosition, long chunkOffset, ChunkInfo chunk)
         {
             var l = LogManager.GetLogger("EventRecord");
@@ -22,7 +20,7 @@ namespace evtx
             recordData.ReadInt32(); //signature
 
             Size = recordData.ReadUInt32();
-            RecordNumber = recordData.ReadInt64(); // .ToInt64(recordBytes, 8);
+            RecordNumber = recordData.ReadInt64();
             Timestamp = DateTimeOffset.FromFileTime(recordData.ReadInt64()).ToUniversalTime();
 
             if (recordData.PeekChar() != 0xf)
@@ -33,18 +31,28 @@ namespace evtx
             l.Debug(
                 $"Chunk: 0x{ChunkOffset:X8} Record position: 0x{RecordPosition:X4} Record #: {RecordNumber.ToString().PadRight(3)} Timestamp: {Timestamp.ToString("yyyy-MM-dd HH:mm:ss.fffffff")}");
 
-            
-            var inStream = true;
-
             Nodes = new List<IBinXml>();
 
-            while (inStream)
+            while (true)
             {
                 var nextTag = TagBuilder.BuildTag(chunkOffset, recordPosition, recordData, chunk);
                 
                 if (nextTag is TemplateInstance nte)
                 {
-                    Nodes.AddRange(nte.Template.Nodes);
+                    var ms = new MemoryStream(nte.Template.PayloadBytes);
+                    var br = new BinaryReader(ms);
+
+                    while (true)
+                    {
+                        var templateTag = TagBuilder.BuildTag(chunkOffset, recordPosition, br, chunk);
+
+                        Nodes.Add(templateTag);
+
+                        
+                    }
+
+
+                    
                 }
                 else
                 {
@@ -54,7 +62,7 @@ namespace evtx
                 if (nextTag is EndOfBXmlStream)
                 {
                     //nothing left to do, so exit
-                    inStream = false;
+                  break;
                 }
 
             }
@@ -83,7 +91,7 @@ namespace evtx
         public override string ToString()
         {
             return
-                $"Chunk: 0x{ChunkOffset:X8} Record position: 0x{RecordPosition:X4} Record #: {RecordNumber.ToString().PadRight(3)} Timestamp: {Timestamp.ToString("yyyy-MM-dd HH:mm:ss.fffffff")}";
+                $"Chunk: 0x{ChunkOffset:X8} Record position: 0x{RecordPosition:X4} Record #: {RecordNumber.ToString().PadRight(3)} Timestamp: {Timestamp:yyyy-MM-dd HH:mm:ss.fffffff}";
         }
     }
 }

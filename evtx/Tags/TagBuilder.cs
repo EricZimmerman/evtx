@@ -109,19 +109,15 @@ namespace evtx.Tags
                     return new TemplateInstance(chunkOffset, recordPosition, dataStream, chunk);
 
                 case BinaryTag.StartOfBXmlStream:
-
-
                     return new StartOfBXmlStream(chunkOffset, recordPosition, dataStream);
 
                 case BinaryTag.EndOfBXmlStream:
-
                     return new EndOfBXmlStream(chunkOffset, recordPosition);
 
                 case BinaryTag.OpenStartElementTag:
-
-
                     return new OpenStartElementTag(chunkOffset, recordPosition, dataStream, chunk);
 
+                attribute
                 default:
                     throw new Exception($"unknown tag to build for opCode: {opCode}");
             }

@@ -215,7 +215,9 @@ namespace evtx
             index += 2;
             var stringVal = Encoding.Unicode.GetString(ChunkBytes, index, stringLen * 2);
 
-            StringTableEntries.Add(offset, new StringTableEntry(offset, hash, stringVal));
+            var s = 4 + 2 + 2 + stringLen * 2 + 2;//unknown + hash + len + null
+
+            StringTableEntries.Add(offset, new StringTableEntry(offset, hash, stringVal,s));
 
             return StringTableEntries[offset];
         }

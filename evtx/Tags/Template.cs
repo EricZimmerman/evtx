@@ -19,14 +19,9 @@ namespace evtx.Tags
             TemplateGuid = guid;
             NextTemplateOffset = nextTemplateOffset;
             TemplateAbsoluteOffset = templateAbsoluteOffset;
-
-            Nodes = new List<IBinXml>();
-
-            //TODO
-            //process payload here at some point
+            PayloadBytes = payload.ReadBytes((int) Size);
         }
-
-        public List<IBinXml> Nodes { get; set; }
+        public byte[] PayloadBytes { get; }
 
         /// <summary>
         ///     The size of the template itself. The total size from op code 0xC to the end of the template is Size + 0x22

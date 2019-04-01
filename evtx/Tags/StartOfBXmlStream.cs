@@ -34,5 +34,7 @@ namespace evtx.Tags
         {
             throw new NotImplementedException();
         }
+
+        public TagBuilder.BinaryTag TagType => TagBuilder.BinaryTag.StartOfBXmlStream;
     }
 }

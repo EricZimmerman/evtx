@@ -1,4 +1,6 @@
-﻿namespace evtx
+﻿using evtx.Tags;
+
+namespace evtx
 {
     public interface IBinXml
     {
@@ -8,5 +10,7 @@
         long Size { get; }
 
         string AsXml();
+
+        TagBuilder.BinaryTag TagType { get; }
     }
 }

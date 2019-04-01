@@ -43,7 +43,6 @@ namespace evtx.Tags
                 dataStream.BaseStream.Seek(0x14, SeekOrigin.Current);
                 //fake for now
                 dataStream.BaseStream.Seek(Size, SeekOrigin.Current);
-
             }
 
             //Template contains the...TEMPLATE and it has a Nodes collection to use later. This, along with the substitution stuff coming next, are what is needed to build an event record.
@@ -61,7 +60,6 @@ namespace evtx.Tags
             for (var i = 0; i < substitutionArrayLen; i++)
             {
                 var subSize = dataStream.ReadUInt16();
-                
                 var subType = dataStream.ReadUInt16();
 
                 totalSubsize += subSize;
@@ -81,8 +79,6 @@ namespace evtx.Tags
                 substitutionArrayEntry.DataBytes = dataStream.ReadBytes(substitutionArrayEntry.Size); 
                 l.Trace($"       {substitutionArrayEntry}");
             }
-
-
         }
 
         public Template Template { get; }
@@ -101,5 +97,7 @@ namespace evtx.Tags
         {
             throw new NotImplementedException();
         }
+
+        public TagBuilder.BinaryTag TagType => TagBuilder.BinaryTag.TemplateInstance;
     }
 }
