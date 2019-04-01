@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using NLog;
 
 namespace evtx.Tags
 {
     public class Template
     {
-        public Template(int templateId, int templateOffset, Guid guid, byte[] payload, int nextTemplateOffset,
+        public Template(int templateId, int templateOffset, Guid guid, BinaryReader payload, int nextTemplateOffset,
             long templateAbsoluteOffset)
         {
             var l = LogManager.GetLogger("Template");
@@ -14,14 +15,12 @@ namespace evtx.Tags
             TemplateId = templateId;
             TemplateOffset = templateOffset;
 
-            Size = payload.Length;
+            Size = payload.BaseStream.Length;
             TemplateGuid = guid;
             NextTemplateOffset = nextTemplateOffset;
             TemplateAbsoluteOffset = templateAbsoluteOffset;
 
             Nodes = new List<IBinXml>();
-
-            //  var index = 0;
 
             //TODO
             //process payload here at some point
@@ -32,7 +31,7 @@ namespace evtx.Tags
         /// <summary>
         ///     The size of the template itself. The total size from op code 0xC to the end of the template is Size + 0x22
         /// </summary>
-        public int Size { get; }
+        public long Size { get; }
 
         public int TemplateOffset { get; }
         public int NextTemplateOffset { get; }

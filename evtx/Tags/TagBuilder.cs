@@ -103,8 +103,6 @@ namespace evtx.Tags
 
             var opCode = (BinaryTag) op;
 
-            byte[] subPayload;
-
             switch (opCode)
             {
                 case BinaryTag.TemplateInstance:

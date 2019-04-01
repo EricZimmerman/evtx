@@ -69,13 +69,13 @@ namespace evtx
                 GetStringTableEntry(stringOffset);
             }
 
-            l.Debug("String table entries");
+            l.Trace("String table entries");
             foreach (var stringTableEntry in StringTableEntries.Keys.OrderBy(t => t))
             {
-                l.Debug(StringTableEntries[stringTableEntry]);
+                l.Trace(StringTableEntries[stringTableEntry]);
             }
 
-            l.Debug("");
+            l.Trace("");
 
             var templateTableData = new byte[0x80];
             Buffer.BlockCopy(chunkBytes, 0x180, templateTableData, 0, 0x80);
@@ -136,13 +136,13 @@ namespace evtx
                 }
             }
 
-            l.Debug("Template definitions");
+            l.Trace("Template definitions");
             foreach (var esTemplate in Templates)
             {
-                l.Debug($"key: 0x{esTemplate.Key:X4} {esTemplate.Value}");
+                l.Trace($"key: 0x{esTemplate.Key:X4} {esTemplate.Value}");
             }
 
-            l.Debug("");
+            l.Trace("");
 
             index = (int) tableOffset + 0x100 + 0x80; //get to start of event Records
 
@@ -222,6 +222,11 @@ namespace evtx
 
         public Template GetTemplate(int startingOffset)
         {
+            if (Templates.ContainsKey(startingOffset))
+            {
+                return Templates[startingOffset];
+            }
+
             var index = startingOffset; 
             index += 1; //go past op code
 
@@ -248,7 +253,9 @@ namespace evtx
             var templateBytes = new byte[length];
             Buffer.BlockCopy(ChunkBytes, index, templateBytes, 0, length);
 
-            return new Template(templateId, templateOffset, g, templateBytes, nextTemplateOffset,
+            var br = new BinaryReader(new MemoryStream(templateBytes));
+
+            return new Template(templateId, templateOffset, g, br, nextTemplateOffset,
                 Offset + startingOffset);
         }
 

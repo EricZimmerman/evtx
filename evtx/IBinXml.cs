@@ -5,7 +5,7 @@
         long ChunkOffset { get; }
         long RecordPosition { get; }
 
-        int Size { get; }
+        long Size { get; }
 
         string AsXml();
     }

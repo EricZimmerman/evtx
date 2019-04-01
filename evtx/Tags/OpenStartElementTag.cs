@@ -17,8 +17,6 @@ namespace evtx.Tags
 
             Size = dataStream.ReadInt32();
 
-            //throw new Exception("wtf over");
-
 
             if (dependencyId != -1)
             {
@@ -32,7 +30,7 @@ namespace evtx.Tags
 
         public long ChunkOffset { get; }
         public long RecordPosition { get; }
-        public int Size { get; }
+        public long Size { get; }
 
         public string AsXml()
         {

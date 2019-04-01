@@ -28,7 +28,7 @@ namespace evtx.Tags
 
         public long ChunkOffset { get; }
         public long RecordPosition { get; }
-        public int Size { get; }
+        public long Size { get; }
 
         public string AsXml()
         {
