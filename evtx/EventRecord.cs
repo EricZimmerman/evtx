@@ -10,12 +10,11 @@ namespace evtx
 {
     public class EventRecord
     {
-        public EventRecord(BinaryReader recordData, int recordPosition, long chunkOffset, ChunkInfo chunk)
+        public EventRecord(BinaryReader recordData, int recordPosition, ChunkInfo chunk)
         {
             var l = LogManager.GetLogger("EventRecord");
 
             RecordPosition = recordPosition;
-            ChunkOffset = chunkOffset;
 
             recordData.ReadInt32(); //signature
 
@@ -29,35 +28,38 @@ namespace evtx
             }
 
             l.Debug(
-                $"Chunk: 0x{ChunkOffset:X8} Record position: 0x{RecordPosition:X4} Record #: {RecordNumber.ToString().PadRight(3)} Timestamp: {Timestamp.ToString("yyyy-MM-dd HH:mm:ss.fffffff")}");
+                $"Record position: 0x{RecordPosition:X4} Record #: {RecordNumber.ToString().PadRight(3)} Timestamp: {Timestamp.ToString("yyyy-MM-dd HH:mm:ss.fffffff")}");
 
             Nodes = new List<IBinXml>();
 
             while (true)
             {
-                var nextTag = TagBuilder.BuildTag(chunkOffset, recordPosition, recordData, chunk);
+                var nextTag = TagBuilder.BuildTag(recordPosition, recordData, chunk);
+
                 
-                if (nextTag is TemplateInstance nte)
-                {
-                    var ms = new MemoryStream(nte.Template.PayloadBytes);
-                    var br = new BinaryReader(ms);
-
-                    while (true)
-                    {
-                        var templateTag = TagBuilder.BuildTag(chunkOffset, recordPosition, br, chunk);
-
-                        Nodes.Add(templateTag);
-
-                        
-                    }
+                
+//                if (nextTag is TemplateInstance nte)
+//                {
+//                    var ms = new MemoryStream(nte.Template.PayloadBytes);
+//                    var br = new BinaryReader(ms);
+//
+//                    while (true)
+//                    {
+//                        var templateTag = TagBuilder.BuildTag(recordPosition, br, chunk);
+//
+//                        Nodes.Add(templateTag);
+//
+//                        if (templateTag is EndOfBXmlStream)
+//                        {
+//                            break;
+//                        }
+//                    }
 
 
                     
-                }
-                else
-                {
+             
                     Nodes.Add(nextTag);    
-                }
+           
 
                 if (nextTag is EndOfBXmlStream)
                 {
@@ -75,7 +77,6 @@ namespace evtx
 
 
         public int RecordPosition { get; }
-        public long ChunkOffset { get; }
 
         public uint Size { get; }
         public long RecordNumber { get; }
@@ -91,7 +92,7 @@ namespace evtx
         public override string ToString()
         {
             return
-                $"Chunk: 0x{ChunkOffset:X8} Record position: 0x{RecordPosition:X4} Record #: {RecordNumber.ToString().PadRight(3)} Timestamp: {Timestamp:yyyy-MM-dd HH:mm:ss.fffffff}";
+                $"Record position: 0x{RecordPosition:X4} Record #: {RecordNumber.ToString().PadRight(3)} Timestamp: {Timestamp:yyyy-MM-dd HH:mm:ss.fffffff}";
         }
     }
 }

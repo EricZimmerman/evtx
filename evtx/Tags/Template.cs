@@ -20,6 +20,8 @@ namespace evtx.Tags
             NextTemplateOffset = nextTemplateOffset;
             TemplateAbsoluteOffset = templateAbsoluteOffset;
             PayloadBytes = payload.ReadBytes((int) Size);
+
+
         }
         public byte[] PayloadBytes { get; }
 
@@ -42,7 +44,7 @@ namespace evtx.Tags
         public override string ToString()
         {
             return
-                $"Absolute offset: 0x{TemplateAbsoluteOffset:X8} Template Offset 0x{TemplateOffset:X8} Next Template Offset 0x{NextTemplateOffset:X8}  Guid: {TemplateGuid} Size: 0x{Size:X4}";
+                $"Absolute offset: 0x{TemplateAbsoluteOffset:X8} Template AbsoluteOffset 0x{TemplateOffset:X8} Next Template AbsoluteOffset 0x{NextTemplateOffset:X8}  Guid: {TemplateGuid} Size: 0x{Size:X4}";
         }
     }
 }

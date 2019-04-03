@@ -7,10 +7,10 @@ namespace evtx.Tags
 {
     internal class TemplateInstance : IBinXml
     {
-        public TemplateInstance(long chunkOffset, long recordPosition, BinaryReader dataStream, ChunkInfo chunk)
+        public TemplateInstance(long recordPosition, BinaryReader dataStream, ChunkInfo chunk)
         {
             var l = LogManager.GetLogger("BuildTag");
-            ChunkOffset = chunkOffset;
+            
             RecordPosition = recordPosition;
             Size = 10; //default size until we know better
 
@@ -32,7 +32,7 @@ namespace evtx.Tags
             Template = chunk.GetTemplate(TemplateOffset);
 
             Size = Template.Size;
-            if (TemplateOffset < startPos)
+            if (TemplateOffset < startPos - chunk.AbsoluteOffset)
             {
                 //the template has already been defined, so we need to back up before NextTemplateOffset
                 dataStream.BaseStream.Seek(-4, SeekOrigin.Current);
@@ -89,7 +89,6 @@ namespace evtx.Tags
         public int NextTemplateOffset { get; }
         public int TemplateId { get; }
 
-        public long ChunkOffset { get; }
         public long RecordPosition { get; }
         public long Size { get; }
 

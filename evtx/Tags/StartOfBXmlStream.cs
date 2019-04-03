@@ -6,9 +6,9 @@ namespace evtx.Tags
 {
     public class StartOfBXmlStream : IBinXml
     {
-        public StartOfBXmlStream(long chunkOffset, long recordPosition, BinaryReader dataStream)
+        public StartOfBXmlStream( long recordPosition, BinaryReader dataStream)
         {
-            ChunkOffset = chunkOffset;
+            
             RecordPosition = recordPosition;
             Size = 4;
 
@@ -26,7 +26,6 @@ namespace evtx.Tags
         public int MinorVer { get; }
         public int Flags { get; }
 
-        public long ChunkOffset { get; }
         public long RecordPosition { get; }
         public long Size { get; }
 

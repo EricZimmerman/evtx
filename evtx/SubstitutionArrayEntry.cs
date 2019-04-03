@@ -105,41 +105,24 @@ namespace evtx
                     return string.Join(", ", tsa);
 
                 case TagBuilder.ValueType.Array8BitIntSigned:
-                    break;
                 case TagBuilder.ValueType.Array8BitIntUnsigned:
-                    break;
                 case TagBuilder.ValueType.Array16BitIntSigned:
-                    break;
                 case TagBuilder.ValueType.Array16BitIntUnsigned:
-                    break;
                 case TagBuilder.ValueType.Array32BitIntSigned:
-                    break;
                 case TagBuilder.ValueType.Array32BitIntUnsigned:
-                    break;
                 case TagBuilder.ValueType.Array64BitIntSigned:
-                    break;
                 case TagBuilder.ValueType.Array64BitIntUnsigned:
-                    break;
                 case TagBuilder.ValueType.ArrayFloat32Bit:
-                    break;
                 case TagBuilder.ValueType.ArrayFloat64Bit:
-                    break;
                 case TagBuilder.ValueType.ArrayBool:
-                    break;
                 case TagBuilder.ValueType.ArrayGuid:
-                    break;
                 case TagBuilder.ValueType.ArraySizeType:
-                    break;
                 case TagBuilder.ValueType.ArrayFileTime:
-                    break;
                 case TagBuilder.ValueType.ArraySystemTime:
-                    break;
                 case TagBuilder.ValueType.ArraySids:
-                    break;
                 case TagBuilder.ValueType.Array32BitHex:
-                    break;
                 case TagBuilder.ValueType.Array64BitHex:
-                    break;
+                   
                 default:
                     throw new ArgumentOutOfRangeException($"ValType: {ValType}");
             }

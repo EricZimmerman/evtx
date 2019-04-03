@@ -1,10 +1,14 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace evtx.Tags
 {
-    internal class EndOfBXmlStream : IBinXml
+    class CloseStartElementTag:IBinXml
     {
-        public EndOfBXmlStream( long recordPosition)
+        public CloseStartElementTag( long recordPosition)
         {
             RecordPosition = recordPosition;
             Size = 1;
@@ -12,12 +16,11 @@ namespace evtx.Tags
 
         public long RecordPosition { get; }
         public long Size { get; }
-
         public string AsXml()
         {
             throw new NotImplementedException();
         }
 
-        public TagBuilder.BinaryTag TagType => TagBuilder.BinaryTag.EndOfBXmlStream;
+        public TagBuilder.BinaryTag TagType { get; }
     }
 }

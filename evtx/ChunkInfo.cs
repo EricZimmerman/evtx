@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -11,15 +12,15 @@ namespace evtx
 {
     public class ChunkInfo
     {
-        public ChunkInfo(byte[] chunkBytes, long offset, int chunkNumber)
+        public ChunkInfo(byte[] chunkBytes, long absoluteOffset, int chunkNumber)
         {
             var l = LogManager.GetLogger("ChunkInfo");
 
             l.Debug(
-                "\r\n-------------------------------------------- NEW CHUNK ------------------------------------------------\r\n");
+                $"\r\n-------------------------------------------- NEW CHUNK at 0x{absoluteOffset:X} ------------------------------------------------\r\n");
 
             ChunkBytes = chunkBytes;
-            Offset = offset;
+            AbsoluteOffset = absoluteOffset;
             ChunkNumber = chunkNumber;
 
             FirstEventRecordNumber = BitConverter.ToInt64(chunkBytes, 0x8);
@@ -94,8 +95,8 @@ namespace evtx
 
                 tableTemplateOffsets.Add(templateOffset);
 
-                //the actual table defs live at this offset + 0x1000 for header, - 10 bytes for some reason. This is where the 0xc op code will be
-                l.Trace($"Template offset: 0x {templateOffset:X}");
+                //the actual table defs live at this absoluteOffset + 0x1000 for header, - 10 bytes for some reason. This is where the 0xc op code will be
+                l.Trace($"Template absoluteOffset: 0x {templateOffset:X}");
             }
 
             Templates = new Dictionary<int, Template>();
@@ -103,11 +104,11 @@ namespace evtx
             //to get all the templates and cache them
             foreach (var tableTemplateOffset in tableTemplateOffsets.OrderBy(t => t))
             {
-                var actualOffset = offset + tableTemplateOffset - 10; //yea, -10
+                var actualOffset = absoluteOffset + tableTemplateOffset - 10; //yea, -10
                 index = (int) tableTemplateOffset - 10;
 
                 l.Trace(
-                    $"Chunk offset: 0x{Offset:X} tableTemplateOffset: 0x{tableTemplateOffset:X} actualOffset: 0x {actualOffset:X} chunkBytes[index]: 0x{chunkBytes[index].ToString("X")} LastRecordOffset 0x{LastRecordOffset:X} FreeSpaceOffset 0x{FreeSpaceOffset:X}");
+                    $"Chunk absoluteOffset: 0x{AbsoluteOffset:X} tableTemplateOffset: 0x{tableTemplateOffset:X} actualOffset: 0x {actualOffset:X} chunkBytes[index]: 0x{chunkBytes[index].ToString("X")} LastRecordOffset 0x{LastRecordOffset:X} FreeSpaceOffset 0x{FreeSpaceOffset:X}");
 
                 var template = GetTemplate(index);
 
@@ -137,7 +138,7 @@ namespace evtx
             }
 
             l.Trace("Template definitions");
-            foreach (var esTemplate in Templates)
+            foreach (var esTemplate in Templates.OrderBy(t=>t.Key))
             {
                 l.Trace($"key: 0x{esTemplate.Key:X4} {esTemplate.Value}");
             }
@@ -158,9 +159,10 @@ namespace evtx
                     break;
                 }
 
-                var recordOffset = index;
+                var recordOffset = (int) AbsoluteOffset+ index;
 
-                if (recordOffset > LastRecordOffset)
+                //do not read past the last known defined record
+                if (recordOffset - absoluteOffset > LastRecordOffset)
                 {
                     break;
                 }
@@ -172,7 +174,7 @@ namespace evtx
 
                 index += (int) recordSize;
 
-                var er = new EventRecord(br, recordOffset, Offset, this);
+                var er = new EventRecord(br, recordOffset, this);
                 EventRecords.Add(er);
             }
         }
@@ -198,8 +200,13 @@ namespace evtx
         public long FirstEventRecordNumber { get; }
 
         public byte[] ChunkBytes { get; }
-        public long Offset { get; }
+        public long AbsoluteOffset { get; }
         public int ChunkNumber { get; }
+
+        public bool StringTableContainsOffset(uint offset)
+        {
+            return StringTableEntries.ContainsKey(offset);
+        }
 
         public StringTableEntry GetStringTableEntry(uint offset)
         {
@@ -258,13 +265,13 @@ namespace evtx
             var br = new BinaryReader(new MemoryStream(templateBytes));
 
             return new Template(templateId, templateOffset, g, br, nextTemplateOffset,
-                Offset + startingOffset);
+                AbsoluteOffset + startingOffset);
         }
 
         public override string ToString()
         {
             return
-                $"RecordPosition 0x{Offset:X8} Chunk #: {ChunkNumber.ToString().PadRight(5)} FirstEventRecordNumber: {FirstEventRecordNumber.ToString().PadRight(8)} LastEventRecordNumber: {LastEventRecordNumber.ToString().PadRight(8)} FirstEventRecordIdentifier: {FirstEventRecordIdentifier.ToString().PadRight(8)} LastEventRecordIdentifier: {LastEventRecordIdentifier.ToString().PadRight(8)}";
+                $"RecordPosition 0x{AbsoluteOffset:X8} Chunk #: {ChunkNumber.ToString().PadRight(5)} FirstEventRecordNumber: {FirstEventRecordNumber.ToString().PadRight(8)} LastEventRecordNumber: {LastEventRecordNumber.ToString().PadRight(8)} FirstEventRecordIdentifier: {FirstEventRecordIdentifier.ToString().PadRight(8)} LastEventRecordIdentifier: {LastEventRecordIdentifier.ToString().PadRight(8)}";
         }
     }
 }

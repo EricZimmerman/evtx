@@ -10,24 +10,24 @@ namespace evtx.Tags
         {
             EndOfBXmlStream = 0x0,
             OpenStartElementTag = 0x1, //< <name >
-            OpenStartElementTag2 = 0x41, //< <name >
+          OpenStartElementTag2 = 0x41, //< <name >
             CloseStartElementTag = 0x2,
             CloseEmptyElementTag = 0x3, //< name /> 
             EndElementTag = 0x4, //</ name > 
             Value = 0x5, //attribute = “value” <-- right side
-            Value2 = 0x45, //attribute = “value” <-- right side
+           Value2 = 0x45, //attribute = “value” <-- right side
             Attribute = 0x6, // left side --> attribute = “value”
-            Attribute2 = 0x46, // left side --> attribute = “value”
+          Attribute2 = 0x46, // left side --> attribute = “value”
 
 
             CDataSection = 0x7,
-            CDataSection2 = 0x47,
+          CDataSection2 = 0x47,
 
             TokenCharRef = 0x8,
-            TokenCharRef2 = 0x48,
+           TokenCharRef2 = 0x48,
 
             TokenEntityRef = 0x9,
-            TokenEntityRef2 = 0x49,
+         TokenEntityRef2 = 0x49,
 
             TokenPITarget = 0xa,
             TokenPIData = 0xb,
@@ -93,7 +93,7 @@ namespace evtx.Tags
         //payload should become a memorystream
         //chunk should be a reference to the chunk where this data is so it can get strings, templates, etc.
 
-        public static IBinXml BuildTag(long chunkOffset, long recordPosition, BinaryReader dataStream, ChunkInfo chunk)
+        public static IBinXml BuildTag(long recordPosition, BinaryReader dataStream, ChunkInfo chunk)
         {
             var l = LogManager.GetLogger("BuildTag");
             //op code is pulled from stream, so account for that
@@ -103,23 +103,41 @@ namespace evtx.Tags
 
             var opCode = (BinaryTag) op;
 
+            l.Debug($"BuildTag: opOrg: {opOrg:X} opCode: {opCode} recordPosition: 0x{recordPosition:X} dataStream position: 0x{(recordPosition+dataStream.BaseStream.Position):X}");
+
             switch (opCode)
             {
                 case BinaryTag.TemplateInstance:
-                    return new TemplateInstance(chunkOffset, recordPosition, dataStream, chunk);
+                    return new TemplateInstance( recordPosition, dataStream, chunk);
 
                 case BinaryTag.StartOfBXmlStream:
-                    return new StartOfBXmlStream(chunkOffset, recordPosition, dataStream);
+                    return new StartOfBXmlStream( recordPosition, dataStream);
 
                 case BinaryTag.EndOfBXmlStream:
-                    return new EndOfBXmlStream(chunkOffset, recordPosition);
+                    return new EndOfBXmlStream( recordPosition);
 
                 case BinaryTag.OpenStartElementTag:
-                    return new OpenStartElementTag(chunkOffset, recordPosition, dataStream, chunk);
+                    return new OpenStartElementTag( recordPosition, dataStream, chunk);
 
-                attribute
+                case BinaryTag.Attribute:
+                    return new Attribute( recordPosition, dataStream, chunk);
+
+                case BinaryTag.Value:
+                    return new Value( recordPosition, dataStream, chunk);
+
+                case BinaryTag.CloseStartElementTag:
+                    return new CloseStartElementTag( recordPosition);
+                case BinaryTag.CloseEmptyElementTag:
+                    return new CloseStartElementTag( recordPosition);
+
+                case BinaryTag.OptionalSubstitution:
+                    return new OptionalSubstitution( recordPosition, dataStream, chunk);
+
+                case BinaryTag.EndElementTag:
+                    return new EndElementTag( recordPosition);
+
                 default:
-                    throw new Exception($"unknown tag to build for opCode: {opCode}");
+                    throw new Exception($"unknown tag to build for opCode: {opCode} at position 0x{dataStream.BaseStream.Position:X}");
             }
         }
     }
