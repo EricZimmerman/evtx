@@ -6,6 +6,102 @@ namespace evtx.Tags
 {
     public static class TagBuilder
     {
+        public static string GetKeywordDescription(UInt64 keywordValue)
+        {
+            switch (keywordValue)
+            {
+                case 0x0000000000000000:
+                    return "AnyKeyword";
+                    
+                case 0x0000000000010000:
+                    return "Shell";
+                    
+                case 0x0000000000020000:
+
+                    return "Properties";
+                case 0x0000000000040000:
+
+                    return "FileClassStoreAndIconCache";
+                case 0x0000000000080000:
+
+                    return "Controls";
+                case 0x0000000000100000:
+
+                    return "APICalls";
+                case 0x0000000000200000:
+
+                    return "InternetExplorer";
+                case 0x0000000000400000:
+
+                    return "ShutdownUX";
+                case 0x0000000000800000:
+
+                    return "CopyEngine";
+                case 0x0000000001000000:
+
+                    return "Tasks";
+                case 0x0000000002000000:
+
+                    return "WDI";
+                case 0x0000000004000000:
+
+                    return "StartupPerf";
+                case 0x0000000008000000:
+
+                    return "StructuredQuery";
+                case 0x0001000000000000:
+
+                    return "Reserved";
+                case 0x0002000000000000:
+
+                    return "WDIContext";
+                case 0x0004000000000000:
+
+                    return "WDIDiag";
+                case 0x0008000000000000:
+
+                    return "SQM";
+                case 0x0010000000000000:
+
+                    return "AuditFailure";
+                case 0x0020000000000000:
+
+                    return "AuditSuccess";
+                case 0x0040000000000000:
+
+                    return "CorrelationHint";
+                case 0x0080000000000000:
+
+                    return "EventlogClassic";
+                case 0x0100000000000000:
+
+                    return "ReservedKeyword56";
+                case 0x0200000000000000:
+
+                    return "ReservedKeyword57";
+                case 0x0400000000000000:
+
+                    return "ReservedKeyword58";
+                case 0x0800000000000000:
+
+                    return "ReservedKeyword59";
+                case 0x1000000000000000:
+
+                    return "ReservedKeyword60";
+                case 0x2000000000000000:
+
+                    return "ReservedKeyword61";
+                case 0x4000000000000000:
+
+                    return "ReservedKeyword62";
+                case 0x8000000000000000:
+
+                    return "Microsoft-Windows-Shell-Core_Diagnostic";
+            }
+
+            return "Unknown";
+        }
+
         public enum BinaryTag
         {
             EndOfBXmlStream = 0x0,
@@ -88,9 +184,9 @@ namespace evtx.Tags
         }
 
 
-        //chunk offset == which chunk its in (absolute offset)
-        //record position == offset in chunk for where record was found
-        //payload should become a memorystream
+        
+        //record position == absolute offset for where record was found
+        //datastream are the bytes
         //chunk should be a reference to the chunk where this data is so it can get strings, templates, etc.
 
         public static IBinXml BuildTag(long recordPosition, BinaryReader dataStream, ChunkInfo chunk)
@@ -99,11 +195,15 @@ namespace evtx.Tags
             //op code is pulled from stream, so account for that
             var opOrg = dataStream.ReadByte();
 
-            var op = (byte) (opOrg & 0x0f);
+            var op = (byte) opOrg;// (opOrg & 0x0f);0.
 
             var opCode = (BinaryTag) op;
 
-            l.Debug($"BuildTag: opOrg: {opOrg:X} opCode: {opCode} recordPosition: 0x{recordPosition:X} dataStream position: 0x{(recordPosition+dataStream.BaseStream.Position):X}");
+            if (opCode != BinaryTag.StartOfBXmlStream && opCode != BinaryTag.EndOfBXmlStream)
+            {
+                l.Debug($"     BuildTag: opOrg: {opOrg:X} opCode: {opCode} recordPosition: 0x{recordPosition:X} dataStream position: 0x{(recordPosition+dataStream.BaseStream.Position):X}");
+            }
+            
 
             switch (opCode)
             {

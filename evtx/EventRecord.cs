@@ -28,7 +28,7 @@ namespace evtx
             }
 
             l.Debug(
-                $"Record position: 0x{RecordPosition:X4} Record #: {RecordNumber.ToString().PadRight(3)} Timestamp: {Timestamp.ToString("yyyy-MM-dd HH:mm:ss.fffffff")}");
+                $"Record position: 0x{RecordPosition:X4} Record #: {RecordNumber.ToString().PadRight(3)} Timestamp: {Timestamp:yyyy-MM-dd HH:mm:ss.fffffff}");
 
             Nodes = new List<IBinXml>();
 
@@ -36,10 +36,23 @@ namespace evtx
             {
                 var nextTag = TagBuilder.BuildTag(recordPosition, recordData, chunk);
 
-                
-                
-//                if (nextTag is TemplateInstance nte)
-//                {
+
+
+                if (nextTag is TemplateInstance nte)
+                {
+//                    var basedir = @"C:\temp\records";
+////                    if (Directory.Exists(basedir)==false)
+////                    {
+////                        Directory.CreateDirectory(basedir);
+////                    }
+////
+//                    var fname = $"{RecordNumber}_templateBytes_0x{(chunk.AbsoluteOffset+ nte.TemplateOffset - 10):X}.bin";
+////
+//                    var rando = Path.Combine(basedir, fname);
+////
+//                    File.WriteAllBytes(rando,nte.Template.PayloadBytes);
+
+                }
 //                    var ms = new MemoryStream(nte.Template.PayloadBytes);
 //                    var br = new BinaryReader(ms);
 //
@@ -69,7 +82,7 @@ namespace evtx
 
             }
 
-            l.Debug($"       Event Record node count: {Nodes.Count} ({string.Join(" | ", Nodes)})\r\n");
+          //  l.Debug($"       Event Record node count: {Nodes.Count} ({string.Join(" | ", Nodes)})\r\n");
         }
 
 

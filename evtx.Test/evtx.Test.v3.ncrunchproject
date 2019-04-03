@@ -2,9 +2,6 @@
   <Settings>
     <IgnoredTests>
       <NamedTestSelector>
-        <TestName>evtx.Test.TestMain.SecurityLog</TestName>
-      </NamedTestSelector>
-      <NamedTestSelector>
         <TestName>evtx.Test.TestMain.PSOLog</TestName>
       </NamedTestSelector>
       <NamedTestSelector>
@@ -24,6 +21,9 @@
       </NamedTestSelector>
       <NamedTestSelector>
         <TestName>evtx.Test.TestMain.DirTestOther</TestName>
+      </NamedTestSelector>
+      <NamedTestSelector>
+        <TestName>evtx.Test.TestMain.SecurityLog</TestName>
       </NamedTestSelector>
     </IgnoredTests>
   </Settings>

@@ -265,7 +265,7 @@ namespace evtx
             var br = new BinaryReader(new MemoryStream(templateBytes));
 
             return new Template(templateId, templateOffset, g, br, nextTemplateOffset,
-                AbsoluteOffset + startingOffset);
+                AbsoluteOffset + startingOffset, this);
         }
 
         public override string ToString()

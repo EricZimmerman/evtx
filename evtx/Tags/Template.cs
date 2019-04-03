@@ -8,7 +8,7 @@ namespace evtx.Tags
     public class Template
     {
         public Template(int templateId, int templateOffset, Guid guid, BinaryReader payload, int nextTemplateOffset,
-            long templateAbsoluteOffset)
+            long templateAbsoluteOffset, ChunkInfo chunk)
         {
             var l = LogManager.GetLogger("Template");
 
@@ -21,8 +21,13 @@ namespace evtx.Tags
             TemplateAbsoluteOffset = templateAbsoluteOffset;
             PayloadBytes = payload.ReadBytes((int) Size);
 
+            Nodes = new List<IBinXml>();
+
+
 
         }
+
+        public List<IBinXml> Nodes { get; }
         public byte[] PayloadBytes { get; }
 
         /// <summary>
