@@ -22,7 +22,7 @@ namespace evtx.Tags
             Size = dataStream.ReadInt32();
 
             var op = dataStream.ReadByte();
-            Trace.Assert(op==6);
+            Trace.Assert(op==6 || op ==0x46, $"op is 0x{op:X}");
 
             var nameOffset = dataStream.ReadUInt32();
             var nameElement = chunk.GetStringTableEntry(nameOffset);

@@ -15,6 +15,7 @@ namespace evtx.Tags
             RecordPosition = recordPosition;
             
             Nodes = new List<IBinXml>();
+            Attributes = new List<Attribute>();
             
             SubstitutionSlot = dataStream.ReadInt16();
             
@@ -45,35 +46,35 @@ namespace evtx.Tags
                 dataStream.BaseStream.Seek(elementName.Size, SeekOrigin.Current);    
             }
           
-            
-        
-                
-            
-            
-
-            Attribute attribute = null;
-
             if (hasAttribute)
             {
                 var attrSize = dataStream.ReadInt32();
-                if (attrSize == 0x15)
+                var attrStartPos = dataStream.BaseStream.Position;
+
+                while (dataStream.BaseStream.Position<attrStartPos+attrSize)
                 {
-                    Debug.WriteLine(1);
+                    var attrTag = TagBuilder.BuildTag( recordPosition, dataStream, chunk);
+
+                    if (attrTag is Attribute attrib)
+                    {
+                        Attributes.Add(attrib);
+                    }
+                  
                 }
-                attribute =(Attribute) TagBuilder.BuildTag( recordPosition, dataStream, chunk);
+           
             }
 
             var i = TagBuilder.BuildTag( recordPosition, dataStream, chunk);
-            
+      
             Trace.Assert(i is CloseStartElementTag);
 
             Nodes.Add(i);
             
 
             var att = string.Empty;
-            if (attribute != null)
+            if (Attributes.Count>0)
             {
-                att = $", attribute: {attribute}";
+                att = $", attributes: {string.Join(" | ",Attributes)}";
             }
 
             l.Debug($"Name: {elementName.Value}{subinfo}{att}");
@@ -97,6 +98,7 @@ namespace evtx.Tags
 
         }
 
+        public List<Attribute> Attributes { get; set; }
         public List<IBinXml> Nodes { get; set; }
 
         public long RecordPosition { get; }

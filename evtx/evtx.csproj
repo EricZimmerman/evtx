@@ -58,6 +58,7 @@
     <Compile Include="Tags\CloseStartElementTag.cs" />
     <Compile Include="Tags\EndElementTag.cs" />
     <Compile Include="Tags\EndOfBXmlStream.cs" />
+    <Compile Include="Tags\NormalSubstitution.cs" />
     <Compile Include="Tags\OpenStartElementTag.cs" />
     <Compile Include="Tags\OptionalSubstitution.cs" />
     <Compile Include="Tags\StartOfBXmlStream.cs" />

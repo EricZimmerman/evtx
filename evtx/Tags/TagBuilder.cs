@@ -222,6 +222,7 @@ namespace evtx.Tags
                     return new OpenStartElementTag( recordPosition, dataStream, chunk,true);
 
                 case BinaryTag.Attribute:
+                case BinaryTag.Attribute2:
                     return new Attribute( recordPosition, dataStream, chunk);
 
                 case BinaryTag.Value:
@@ -235,6 +236,8 @@ namespace evtx.Tags
                 case BinaryTag.OptionalSubstitution:
                     return new OptionalSubstitution( recordPosition, dataStream, chunk);
 
+                case BinaryTag.NormalSubstitution:
+                    return new NormalSubstitution( recordPosition, dataStream, chunk);
                 case BinaryTag.EndElementTag:
                     return new EndElementTag( recordPosition);
 
