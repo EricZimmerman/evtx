@@ -67,7 +67,8 @@ namespace evtx
 
             foreach (var stringOffset in stringOffsets)
             {
-                GetStringTableEntry(stringOffset);
+               GetStringTableEntry(stringOffset);
+            
             }
 
             l.Trace("String table entries");
@@ -224,9 +225,11 @@ namespace evtx
 
             var s = 4 + 2 + 2 + stringLen * 2 + 2;//unknown + hash + len + null
 
-            StringTableEntries.Add(offset, new StringTableEntry(offset, hash, stringVal,s));
+          StringTableEntries.Add(offset, new StringTableEntry(offset, hash, stringVal,s));
 
-            return StringTableEntries[offset];
+
+
+            return new StringTableEntry(offset, hash, stringVal,s);
         }
 
         public Template GetTemplate(int startingOffset)
@@ -263,6 +266,15 @@ namespace evtx
             Buffer.BlockCopy(ChunkBytes, index, templateBytes, 0, length);
 
             var br = new BinaryReader(new MemoryStream(templateBytes));
+
+            var l = LogManager.GetLogger("T");
+
+            l.Debug($"-------------- NEW TEMPLATE at 0x{AbsoluteOffset+ startingOffset:X} ---------------------");
+
+            if (AbsoluteOffset + startingOffset == 0x1F05)
+            {
+                Debug.WriteLine(1);
+            }
 
             return new Template(templateId, templateOffset, g, br, nextTemplateOffset,
                 AbsoluteOffset + startingOffset, this);

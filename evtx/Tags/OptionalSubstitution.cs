@@ -32,6 +32,11 @@ namespace evtx.Tags
             throw new NotImplementedException();
         }
 
+        public override string ToString()
+        {
+            return $"Optional substitution. Id: {SubstitutionId} Value type: {ValueType}";
+        }
+
         public TagBuilder.BinaryTag TagType { get; }
     }
 }

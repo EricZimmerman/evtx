@@ -199,10 +199,10 @@ namespace evtx.Tags
 
             var opCode = (BinaryTag) op;
 
-            if (opCode != BinaryTag.StartOfBXmlStream && opCode != BinaryTag.EndOfBXmlStream)
-            {
-                l.Debug($"     BuildTag: opOrg: {opOrg:X} opCode: {opCode} recordPosition: 0x{recordPosition:X} dataStream position: 0x{(recordPosition+dataStream.BaseStream.Position):X}");
-            }
+         //   if (opCode != BinaryTag.StartOfBXmlStream && opCode != BinaryTag.EndOfBXmlStream)
+         //   {
+                l.Debug($"     BuildTag opCode: {opCode}");
+        //    }
             
 
             switch (opCode)
@@ -217,7 +217,9 @@ namespace evtx.Tags
                     return new EndOfBXmlStream( recordPosition);
 
                 case BinaryTag.OpenStartElementTag:
-                    return new OpenStartElementTag( recordPosition, dataStream, chunk);
+                    return new OpenStartElementTag( recordPosition, dataStream, chunk,false);
+                case BinaryTag.OpenStartElementTag2:
+                    return new OpenStartElementTag( recordPosition, dataStream, chunk,true);
 
                 case BinaryTag.Attribute:
                     return new Attribute( recordPosition, dataStream, chunk);
@@ -237,7 +239,7 @@ namespace evtx.Tags
                     return new EndElementTag( recordPosition);
 
                 default:
-                    throw new Exception($"unknown tag to build for opCode: {opCode} at position 0x{dataStream.BaseStream.Position:X}");
+                    throw new Exception($"unknown tag to build for opCode: {opCode} (0x{opCode:X}) at position 0x{dataStream.BaseStream.Position:X}");
             }
         }
     }

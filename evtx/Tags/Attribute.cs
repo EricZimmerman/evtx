@@ -27,33 +27,54 @@ namespace evtx.Tags
             var nameOffset = dataStream.ReadUInt32();
             var nameElement = chunk.GetStringTableEntry(nameOffset);
 
-            dataStream.BaseStream.Seek(nameElement.Size, SeekOrigin.Current);
+            Name = nameElement.Value;
 
-            var v = TagBuilder.BuildTag( recordPosition, dataStream, chunk);
+            if (nameOffset < recordPosition )
+            {
+                Debug.WriteLine(1);
+            }
+            else
+            {
+                dataStream.BaseStream.Seek(nameElement.Size, SeekOrigin.Current);    
+            }
 
-            switch (v)
+
+            AttributeInfo = TagBuilder.BuildTag( recordPosition, dataStream, chunk);
+
+            switch (AttributeInfo)
             {
                 case OptionalSubstitution osv:
-                    l.Debug($"optional attribute {nameElement.Value} --> {osv.SubstitutionId} ({osv.ValueType})");
+                  //  l.Debug($"optional attribute {nameElement.Value} --> {osv.SubstitutionId} ({osv.ValueType})");
                     break;
                 case Value vv:
-                    l.Debug($"attribute {nameElement.Value} --> {vv.ValueData}");
+                    
+                    Value = vv.ValueData;
                     break;
                 default:
                     throw new Exception("does this happen?");
-                    l.Debug($"attribute {nameElement.Value} --> {v}");
+             //       l.Debug($"attribute {nameElement.Value} --> {v}");
                     break;
             }
             
             
-
+          //  l.Debug($"attribute {Name} --> {Value}");
         }
+
+        public IBinXml AttributeInfo { get; }
+
+        public string Name { get; }
+        public string Value { get; }
 
         public long RecordPosition { get; }
         public long Size { get; }
         public string AsXml()
         {
             throw new NotImplementedException();
+        }
+
+        public override string ToString()
+        {
+            return $"Attribute {AttributeInfo}";
         }
 
         public TagBuilder.BinaryTag TagType => TagBuilder.BinaryTag.Attribute;

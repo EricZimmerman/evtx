@@ -8,69 +8,75 @@ namespace evtx.Tags
 {
     public class OpenStartElementTag : IBinXml
     {
-        public OpenStartElementTag( long recordPosition, BinaryReader dataStream, ChunkInfo chunk)
+        public OpenStartElementTag( long recordPosition, BinaryReader dataStream, ChunkInfo chunk, bool hasAttribute)
         {
             var l = LogManager.GetLogger("BuildTag");
 
             RecordPosition = recordPosition;
-
             
-
             Nodes = new List<IBinXml>();
-
-            //l.Debug($"stream pos at start: 0x{dataStream.BaseStream.Position:X}");
-
-            //we need to know if this was a 1 vs a 41 so we know if there are attributes
-            dataStream.BaseStream.Seek(-1, SeekOrigin.Current);
-            var opTag = (TagBuilder.BinaryTag)dataStream.ReadByte();
-            //l.Debug($"opTag: {opTag}");
-
-            Dependency = dataStream.ReadInt16();
-
             
-
-            //l.Debug($"dependencyId: 0x{dependencyId:X}");
-
+            SubstitutionSlot = dataStream.ReadInt16();
+            
             Size = dataStream.ReadInt32();
-           // l.Debug($"OpenStartElementTag size: 0x{Size:X}");
-
-           //hack
-
-           dataStream.BaseStream.Seek(Size, SeekOrigin.Current);
-           return;
-
 
             var startPos = dataStream.BaseStream.Position;
+           
+           
             var elementOffset = dataStream.ReadUInt32();
 
-            var knownString = chunk.StringTableContainsOffset(elementOffset);
+          // var knownString = chunk.StringTableContainsOffset(elementOffset);
 
             var elementName = chunk.GetStringTableEntry(elementOffset);
 
-            l.Debug($"Name: {elementName.Value}, Dependency: {Dependency}");
+            var subinfo = string.Empty;
+            if (SubstitutionSlot > -1)
+            {
+                subinfo = $", SubstitutionSlot: {SubstitutionSlot}";
+            }
 
-            if (Dependency == 19)
+
+            if (elementOffset < recordPosition )
             {
                 Debug.WriteLine(1);
             }
-
-
-
-      
-
-             dataStream.BaseStream.Seek(elementName.Size, SeekOrigin.Current); 
-       
+            else
+            {
+                dataStream.BaseStream.Seek(elementName.Size, SeekOrigin.Current);    
+            }
+          
+            
+        
+                
+            
             
 
-            if (opTag == TagBuilder.BinaryTag.OpenStartElementTag2)
+            Attribute attribute = null;
+
+            if (hasAttribute)
             {
                 var attrSize = dataStream.ReadInt32();
-                var a = TagBuilder.BuildTag( recordPosition, dataStream, chunk);
+                if (attrSize == 0x15)
+                {
+                    Debug.WriteLine(1);
+                }
+                attribute =(Attribute) TagBuilder.BuildTag( recordPosition, dataStream, chunk);
             }
 
             var i = TagBuilder.BuildTag( recordPosition, dataStream, chunk);
+            
+            Trace.Assert(i is CloseStartElementTag);
 
-          
+            Nodes.Add(i);
+            
+
+            var att = string.Empty;
+            if (attribute != null)
+            {
+                att = $", attribute: {attribute}";
+            }
+
+            l.Debug($"Name: {elementName.Value}{subinfo}{att}");
 
             while (dataStream.BaseStream.Position<startPos+Size)
             {
@@ -79,6 +85,8 @@ namespace evtx.Tags
               //  l.Debug($"Dumping rest: {n}");
 
                 Nodes.Add(n);
+
+     
 
             }
 
@@ -93,7 +101,7 @@ namespace evtx.Tags
 
         public long RecordPosition { get; }
         public long Size { get; }
-        public int Dependency { get; }
+        public int SubstitutionSlot { get; }
 
         public string AsXml()
         {

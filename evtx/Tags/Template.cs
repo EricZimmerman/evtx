@@ -21,9 +21,24 @@ namespace evtx.Tags
             TemplateAbsoluteOffset = templateAbsoluteOffset;
             PayloadBytes = payload.ReadBytes((int) Size);
 
+            payload.BaseStream.Seek(0, SeekOrigin.Begin);
+
             Nodes = new List<IBinXml>();
 
+            while (true)
+            {
+                var t = TagBuilder.BuildTag(templateOffset, payload, chunk);
+                l.Debug($"IN Template: {t}");
 
+                Nodes.Add(t);
+
+                if (t is EndOfBXmlStream)
+                {
+                    break;
+                }
+
+                
+            }
 
         }
 
