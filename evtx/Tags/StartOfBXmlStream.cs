@@ -6,9 +6,8 @@ namespace evtx.Tags
 {
     public class StartOfBXmlStream : IBinXml
     {
-        public StartOfBXmlStream( long recordPosition, BinaryReader dataStream)
+        public StartOfBXmlStream(long recordPosition, BinaryReader dataStream)
         {
-            
             RecordPosition = recordPosition;
             Size = 4;
 

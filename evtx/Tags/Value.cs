@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using NLog;
 
 namespace evtx.Tags
 {
-   public class Value:IBinXml
+    public class Value : IBinXml
     {
-        public Value( long recordPosition, BinaryReader dataStream, ChunkInfo chunk)
+        public Value(long recordPosition, BinaryReader dataStream, ChunkInfo chunk)
         {
             var l = LogManager.GetLogger("Value");
 
@@ -18,7 +15,7 @@ namespace evtx.Tags
 
             ValueDataType = (TagBuilder.ValueType) dataStream.ReadByte();
 
-            Size = dataStream.ReadInt16(); 
+            Size = dataStream.ReadInt16();
 
             switch (ValueDataType)
             {
@@ -26,24 +23,28 @@ namespace evtx.Tags
                     ValueData = Encoding.Unicode.GetString(dataStream.ReadBytes((int) (Size * 2)));
                     break;
                 default:
-                    throw new ArgumentOutOfRangeException($"ValType: {ValueDataType}");
+                    throw new ArgumentOutOfRangeException($"Value Type {ValueDataType} is not handled! Handle it!");
             }
+
+            l.Trace(this);
         }
 
-        public override string ToString()
-        {
-            return $"Type: {ValueDataType}, ValueData: {ValueData}";
-        }
+        public string ValueData { get; }
+        public ValueType ValueDataType { get; }
 
         public long RecordPosition { get; }
         public long Size { get; }
-        public string ValueData { get; }
-        public ValueType ValueDataType { get; }
+
         public string AsXml()
         {
             throw new NotImplementedException();
         }
 
         public TagBuilder.BinaryTag TagType => TagBuilder.BinaryTag.Value;
+
+        public override string ToString()
+        {
+            return $"Type: {ValueDataType}, Value Data: {ValueData}";
+        }
     }
 }

@@ -4,7 +4,7 @@ namespace evtx.Tags
 {
     internal class EndOfBXmlStream : IBinXml
     {
-        public EndOfBXmlStream( long recordPosition)
+        public EndOfBXmlStream(long recordPosition)
         {
             RecordPosition = recordPosition;
             Size = 1;

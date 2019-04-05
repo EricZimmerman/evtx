@@ -8,21 +8,21 @@ namespace evtx.Tags
 {
     public class OpenStartElementTag : IBinXml
     {
-        public OpenStartElementTag( long recordPosition, BinaryReader dataStream, ChunkInfo chunk, bool hasAttribute)
+        public OpenStartElementTag(long recordPosition, BinaryReader dataStream, ChunkInfo chunk, bool hasAttribute)
         {
             var l = LogManager.GetLogger("BuildTag");
 
             RecordPosition = recordPosition;
-            
+
             Nodes = new List<IBinXml>();
             Attributes = new List<Attribute>();
-            
+
             SubstitutionSlot = dataStream.ReadInt16();
-            
+
             Size = dataStream.ReadInt32();
 
             var startPos = dataStream.BaseStream.Position;
-           
+
             var elementOffset = dataStream.ReadUInt32();
 
             var elementName = chunk.GetStringTableEntry(elementOffset);
@@ -33,19 +33,19 @@ namespace evtx.Tags
                 subinfo = $", Substitution Slot: {SubstitutionSlot}";
             }
 
-            if (elementOffset > recordPosition+startPos )
+            if (elementOffset > recordPosition + startPos)
             {
-                dataStream.BaseStream.Seek(elementName.Size, SeekOrigin.Current);    
+                dataStream.BaseStream.Seek(elementName.Size, SeekOrigin.Current);
             }
-          
+
             if (hasAttribute)
             {
                 var attrSize = dataStream.ReadInt32();
                 var attrStartPos = dataStream.BaseStream.Position;
 
-                while (dataStream.BaseStream.Position < attrStartPos+attrSize)
+                while (dataStream.BaseStream.Position < attrStartPos + attrSize)
                 {
-                    var attrTag = TagBuilder.BuildTag( recordPosition, dataStream, chunk);
+                    var attrTag = TagBuilder.BuildTag(recordPosition, dataStream, chunk);
 
                     if (attrTag is Attribute attribute)
                     {
@@ -54,33 +54,33 @@ namespace evtx.Tags
                 }
             }
 
-            var i = TagBuilder.BuildTag( recordPosition, dataStream, chunk);
-      
+            var i = TagBuilder.BuildTag(recordPosition, dataStream, chunk);
+
             Trace.Assert(i is CloseStartElementTag, "I didn't get a CloseStartElementTag");
 
             Nodes.Add(i);
 
             var att = string.Empty;
-            if (Attributes.Count>0)
+            if (Attributes.Count > 0)
             {
-                att = $", attributes: {string.Join(" | ",Attributes)}";
+                att = $", attributes: {string.Join(" | ", Attributes)}";
             }
 
             l.Debug($"Name: {elementName.Value}{subinfo}{att}");
 
-            while (dataStream.BaseStream.Position<startPos+Size)
+            while (dataStream.BaseStream.Position < startPos + Size)
             {
-                var n = TagBuilder.BuildTag( recordPosition, dataStream, chunk);
+                var n = TagBuilder.BuildTag(recordPosition, dataStream, chunk);
                 Nodes.Add(n);
             }
         }
 
         public List<Attribute> Attributes { get; set; }
         public List<IBinXml> Nodes { get; set; }
+        public int SubstitutionSlot { get; }
 
         public long RecordPosition { get; }
         public long Size { get; }
-        public int SubstitutionSlot { get; }
 
         public string AsXml()
         {

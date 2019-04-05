@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using NLog;
 
 namespace evtx.Tags
 {
@@ -10,8 +9,6 @@ namespace evtx.Tags
         public Template(int templateId, int templateOffset, Guid guid, BinaryReader payload, int nextTemplateOffset,
             long templateAbsoluteOffset, ChunkInfo chunk)
         {
-            var l = LogManager.GetLogger("Template");
-
             TemplateId = templateId;
             TemplateOffset = templateOffset;
 
@@ -19,27 +16,13 @@ namespace evtx.Tags
             TemplateGuid = guid;
             NextTemplateOffset = nextTemplateOffset;
             TemplateAbsoluteOffset = templateAbsoluteOffset;
-            PayloadBytes = payload.ReadBytes((int) Size);
-
             payload.BaseStream.Seek(0, SeekOrigin.Begin);
 
             Nodes = new List<IBinXml>();
 
-                              var basedir = @"C:\temp\records";
-                    if (Directory.Exists(basedir)==false)
-                    {
-                        Directory.CreateDirectory(basedir);
-                    }
-                    var fname = $"currentTemplate.bin";
-                    var rando = Path.Combine(basedir, fname);
-                    File.WriteAllBytes(rando,PayloadBytes);
-
-                
             while (true)
             {
                 var t = TagBuilder.BuildTag(templateOffset, payload, chunk);
-
-                
 
                 Nodes.Add(t);
 
@@ -47,14 +30,10 @@ namespace evtx.Tags
                 {
                     break;
                 }
-
-                
             }
-
         }
 
         public List<IBinXml> Nodes { get; }
-        public byte[] PayloadBytes { get; }
 
         /// <summary>
         ///     The size of the template itself. The total size from op code 0xC to the end of the template is Size + 0x22

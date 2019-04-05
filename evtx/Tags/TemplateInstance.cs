@@ -10,29 +10,26 @@ namespace evtx.Tags
         public TemplateInstance(long recordPosition, BinaryReader dataStream, ChunkInfo chunk)
         {
             var l = LogManager.GetLogger("BuildTag");
-            
+
             RecordPosition = recordPosition;
             Size = 10; //default size until we know better
 
             SubstitutionEntries = new List<SubstitutionArrayEntry>();
 
-            var startPos = recordPosition + dataStream.BaseStream.Position;
-            var origIndex = dataStream.BaseStream.Position;
-
             var version = dataStream.ReadByte();
 
             //TODO
-            //can we not tract these internally since they are just going to be in the Template itself anyways?
-            TemplateId = dataStream.ReadInt32();
+            //can we not track these internally since they are just going to be in the Template itself anyways?
+            dataStream.ReadInt32(); //TemplateId
 
-            TemplateOffset = dataStream.ReadInt32();
+            var templateOffset = dataStream.ReadInt32();
 
-            NextTemplateOffset = dataStream.ReadInt32();
+            dataStream.ReadInt32(); //NextTemplateOffset
 
-            Template = chunk.GetTemplate(TemplateOffset);
+            Template = chunk.GetTemplate(templateOffset);
 
             Size = Template.Size;
-            if (TemplateOffset <  recordPosition)
+            if (templateOffset < recordPosition)
             {
                 //the template has already been defined, so we need to back up before NextTemplateOffset
                 dataStream.BaseStream.Seek(-4, SeekOrigin.Current);
@@ -41,28 +38,26 @@ namespace evtx.Tags
             {
                 //new template, so we have to slide forward a bit to get to beginning of template
                 dataStream.BaseStream.Seek(0x14, SeekOrigin.Current);
-                //fake for now
+                //we do not need to process the template bytes here since we did it once when the chunk was originally processed
                 dataStream.BaseStream.Seek(Size, SeekOrigin.Current);
             }
 
             //Template contains the...TEMPLATE and it has a Nodes collection to use later. This, along with the substitution stuff coming next, are what is needed to build an event record.
-            
-            l.Trace($"     dataStream.BaseStream post template is 0x{dataStream.BaseStream.Position:X}");
 
             //substitution array starts here
             //first is 32 bit # with how many to expect
             //followed by that # of pairs of 16 bit numbers, first is length, second is type
             var substitutionArrayLen = dataStream.ReadInt32();
-            
+
             l.Trace($"      Substitution length: 0x{substitutionArrayLen:X}");
 
-            var totalSubsize = 0;
+            var totalSubstitutionSize = 0;
             for (var i = 0; i < substitutionArrayLen; i++)
             {
                 var subSize = dataStream.ReadUInt16();
                 var subType = dataStream.ReadUInt16();
 
-                totalSubsize += subSize;
+                totalSubstitutionSize += subSize;
 
                 l.Trace(
                     $"     Position: {i.ToString().PadRight(5)} Size: 0x{subSize.ToString("X").PadRight(5)} Type: {(TagBuilder.ValueType) subType}");
@@ -70,13 +65,11 @@ namespace evtx.Tags
                 SubstitutionEntries.Add(new SubstitutionArrayEntry(i, subSize, (TagBuilder.ValueType) subType));
             }
 
-            l.Trace($"     dataStream.BaseStream post sub array is 0x{dataStream.BaseStream.Position:X}");
-
-            l.Trace($"Substitution data length: 0x{totalSubsize:X}");
+            l.Trace($"Substitution data length: 0x{totalSubstitutionSize:X}");
             //get the data into the substitution array entries
             foreach (var substitutionArrayEntry in SubstitutionEntries)
             {
-                substitutionArrayEntry.DataBytes = dataStream.ReadBytes(substitutionArrayEntry.Size); 
+                substitutionArrayEntry.DataBytes = dataStream.ReadBytes(substitutionArrayEntry.Size);
                 l.Trace($"       {substitutionArrayEntry}");
             }
         }
@@ -85,9 +78,6 @@ namespace evtx.Tags
 
         public List<SubstitutionArrayEntry> SubstitutionEntries { get; }
 
-        public int TemplateOffset { get; }
-        public int NextTemplateOffset { get; }
-        public int TemplateId { get; }
 
         public long RecordPosition { get; }
         public long Size { get; }

@@ -1,19 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using NLog;
 
 namespace evtx.Tags
 {
-    class NormalSubstitution:IBinXml
+    public class NormalSubstitution : IBinXml
     {
-        public short SubstitutionId { get; }
-        public ValueType ValueType { get; }
-
-        public NormalSubstitution( long recordPosition, BinaryReader dataStream, ChunkInfo chunk)
+        public NormalSubstitution(long recordPosition, BinaryReader dataStream)
         {
             var l = LogManager.GetLogger("BuildTag");
             RecordPosition = recordPosition;
@@ -22,21 +15,25 @@ namespace evtx.Tags
             SubstitutionId = dataStream.ReadInt16();
             ValueType = (TagBuilder.ValueType) dataStream.ReadByte();
 
-             l.Trace(this);
+            l.Trace(this);
         }
+
+        public short SubstitutionId { get; }
+        public ValueType ValueType { get; }
 
         public long RecordPosition { get; }
         public long Size { get; }
+
         public string AsXml()
         {
             throw new NotImplementedException();
         }
 
+        public TagBuilder.BinaryTag TagType => TagBuilder.BinaryTag.NormalSubstitution;
+
         public override string ToString()
         {
             return $"Normal substitution. Id: {SubstitutionId} Value type: {ValueType}";
         }
-
-        public TagBuilder.BinaryTag TagType => TagBuilder.BinaryTag.NormalSubstitution;
     }
 }

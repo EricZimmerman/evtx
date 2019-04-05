@@ -1,14 +1,10 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace evtx.Tags
 {
-    class CloseStartElementTag:IBinXml
+    public class CloseStartElementTag : IBinXml
     {
-        public CloseStartElementTag( long recordPosition)
+        public CloseStartElementTag(long recordPosition)
         {
             RecordPosition = recordPosition;
             Size = 1;
@@ -16,11 +12,12 @@ namespace evtx.Tags
 
         public long RecordPosition { get; }
         public long Size { get; }
+
         public string AsXml()
         {
             throw new NotImplementedException();
         }
 
-        public TagBuilder.BinaryTag TagType { get; }
+        public TagBuilder.BinaryTag TagType => TagBuilder.BinaryTag.CloseStartElementTag;
     }
 }

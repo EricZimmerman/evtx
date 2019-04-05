@@ -8,8 +8,8 @@ namespace evtx
 
         long Size { get; }
 
-        string AsXml();
-
         TagBuilder.BinaryTag TagType { get; }
+
+        string AsXml();
     }
 }

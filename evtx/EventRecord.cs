@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Text;
 using evtx.Tags;
@@ -37,17 +36,7 @@ namespace evtx
             while (eof == false)
             {
                 var nextTag = TagBuilder.BuildTag(recordPosition, recordData, chunk);
-
-                if (nextTag is TemplateInstance nte)
-                {
-
-                    Debug.WriteLine(nte.Template.Nodes.Count);
-
-
-                }
-
                 Nodes.Add(nextTag);
-
 
                 if (nextTag is EndOfBXmlStream)
                 {
@@ -55,13 +44,9 @@ namespace evtx
                     eof = true;
                 }
             }
-
-            //  l.Debug($"       Event Record node count: {Nodes.Count} ({string.Join(" | ", Nodes)})\r\n");
         }
 
-
         public List<IBinXml> Nodes { get; set; }
-
 
         public int RecordPosition { get; }
 

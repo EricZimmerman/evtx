@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -122,14 +121,10 @@ namespace evtx
                 case TagBuilder.ValueType.ArraySids:
                 case TagBuilder.ValueType.Array32BitHex:
                 case TagBuilder.ValueType.Array64BitHex:
-                   
+
                 default:
                     throw new ArgumentOutOfRangeException($"ValType: {ValType}");
             }
-
-            Debug.WriteLine($"Data bytes: {BitConverter.ToString(DataBytes)}");
-
-            throw new ArgumentOutOfRangeException($"ValType: {ValType}");
         }
 
         private static string ConvertHexStringToSidString(byte[] hex)

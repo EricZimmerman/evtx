@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -16,7 +15,7 @@ namespace evtx
         {
             var l = LogManager.GetLogger("ChunkInfo");
 
-            l.Debug(
+            l.Trace(
                 $"\r\n-------------------------------------------- NEW CHUNK at 0x{absoluteOffset:X} ------------------------------------------------\r\n");
 
             ChunkBytes = chunkBytes;
@@ -67,8 +66,7 @@ namespace evtx
 
             foreach (var stringOffset in stringOffsets)
             {
-               GetStringTableEntry(stringOffset);
-            
+                GetStringTableEntry(stringOffset);
             }
 
             l.Trace("String table entries");
@@ -115,7 +113,7 @@ namespace evtx
 
                 if (Templates.ContainsKey(template.TemplateOffset) == false)
                 {
-                    Templates.Add((int) (template.TemplateOffset- 0x18 ), template);
+                    Templates.Add(template.TemplateOffset - 0x18, template);
                 }
 
                 if (template.NextTemplateOffset <= 0)
@@ -133,13 +131,13 @@ namespace evtx
 
                     if (Templates.ContainsKey(bbb.TemplateOffset) == false)
                     {
-                        Templates.Add((int) (bbb.TemplateOffset- 0x18 ), bbb);
+                        Templates.Add(bbb.TemplateOffset - 0x18, bbb);
                     }
                 }
             }
 
             l.Trace("Template definitions");
-            foreach (var esTemplate in Templates.OrderBy(t=>t.Key))
+            foreach (var esTemplate in Templates.OrderBy(t => t.Key))
             {
                 l.Trace($"key: 0x{esTemplate.Key:X4} {esTemplate.Value}");
             }
@@ -223,13 +221,11 @@ namespace evtx
             index += 2;
             var stringVal = Encoding.Unicode.GetString(ChunkBytes, index, stringLen * 2);
 
-            var s = 4 + 2 + 2 + stringLen * 2 + 2;//unknown + hash + len + null
+            var entrySize = 4 + 2 + 2 + stringLen * 2 + 2; //unknown + hash + len + null
 
-          StringTableEntries.Add(offset, new StringTableEntry(offset, hash, stringVal,s));
+            StringTableEntries.Add(offset, new StringTableEntry(offset, hash, stringVal, entrySize));
 
-
-
-            return new StringTableEntry(offset, hash, stringVal,s);
+            return new StringTableEntry(offset, hash, stringVal, entrySize);
         }
 
         public Template GetTemplate(int startingOffset)
@@ -239,7 +235,7 @@ namespace evtx
                 return Templates[startingOffset];
             }
 
-            var index = startingOffset; 
+            var index = startingOffset;
             index += 1; //go past op code
 
             var version = ChunkBytes[index];
@@ -269,8 +265,9 @@ namespace evtx
 
             var l = LogManager.GetLogger("T");
 
-            l.Debug($"\r\n-------------- NEW TEMPLATE at 0x{AbsoluteOffset+ templateOffset - 10:X} ID: 0x{templateId:X} templateOffset: 0x{templateOffset:X} ---------------------");
-            
+            l.Trace(
+                $"\r\n-------------- NEW TEMPLATE at 0x{AbsoluteOffset + templateOffset - 10:X} ID: 0x{templateId:X} templateOffset: 0x{templateOffset:X} ---------------------");
+
             //the offset + 18 gets us to the start of the actual template (0x0f 0x01, etc)
             return new Template(templateId, templateOffset + 0x18, g, br, nextTemplateOffset,
                 AbsoluteOffset + templateOffset, this);

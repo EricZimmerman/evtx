@@ -21,13 +21,13 @@ namespace evtx
 
         public EventLog(Stream fileStream)
         {
-            const long evtxSignature = 0x00656c6946666c45;
+            const long eventSignature = 0x00656c6946666c45;
             const long chunkSignature = 0x6B6E6843666C45;
 
             var headerBytes = new byte[4096];
             fileStream.Read(headerBytes, 0, 4096);
 
-            if (BitConverter.ToInt64(headerBytes, 0) != evtxSignature)
+            if (BitConverter.ToInt64(headerBytes, 0) != eventSignature)
             {
                 throw new Exception("Invalid signature! Expected 'ElfFile'");
             }
