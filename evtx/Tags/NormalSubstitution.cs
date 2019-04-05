@@ -22,7 +22,7 @@ namespace evtx.Tags
             SubstitutionId = dataStream.ReadInt16();
             ValueType = (TagBuilder.ValueType) dataStream.ReadByte();
 
-            //  l.Debug($"sub id: 0x{subId} val type: {valType}");
+             l.Trace(this);
         }
 
         public long RecordPosition { get; }
@@ -37,6 +37,6 @@ namespace evtx.Tags
             return $"Normal substitution. Id: {SubstitutionId} Value type: {ValueType}";
         }
 
-        public TagBuilder.BinaryTag TagType { get; }
+        public TagBuilder.BinaryTag TagType => TagBuilder.BinaryTag.NormalSubstitution;
     }
 }

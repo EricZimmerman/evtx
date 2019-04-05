@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Text;
 using evtx.Tags;
@@ -39,20 +40,10 @@ namespace evtx
 
                 if (nextTag is TemplateInstance nte)
                 {
-//                    var ms = new MemoryStream(nte.Template.PayloadBytes);
-//                    var br = new BinaryReader(ms);
-//
-//                    while (eof == false)
-//                    {
-//                        var templateTag = TagBuilder.BuildTag(recordPosition, br, chunk);
-//
-//                        Nodes.Add(templateTag);
-//
-//                        if (templateTag is EndOfBXmlStream)
-//                        {
-//                            eof = true;
-//                        }
-//                    }
+
+                    Debug.WriteLine(nte.Template.Nodes.Count);
+
+
                 }
 
                 Nodes.Add(nextTag);

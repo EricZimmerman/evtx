@@ -115,7 +115,7 @@ namespace evtx
 
                 if (Templates.ContainsKey(template.TemplateOffset) == false)
                 {
-                    Templates.Add(template.TemplateOffset, template);
+                    Templates.Add((int) (template.TemplateOffset- 0x18 ), template);
                 }
 
                 if (template.NextTemplateOffset <= 0)
@@ -133,7 +133,7 @@ namespace evtx
 
                     if (Templates.ContainsKey(bbb.TemplateOffset) == false)
                     {
-                        Templates.Add(bbb.TemplateOffset, bbb);
+                        Templates.Add((int) (bbb.TemplateOffset- 0x18 ), bbb);
                     }
                 }
             }
@@ -175,8 +175,8 @@ namespace evtx
 
                 index += (int) recordSize;
 
-              //  var er = new EventRecord(br, recordOffset, this);
-            //    EventRecords.Add(er);
+                var er = new EventRecord(br, recordOffset, this);
+                EventRecords.Add(er);
             }
         }
 

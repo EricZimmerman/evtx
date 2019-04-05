@@ -199,7 +199,7 @@ namespace evtx.Tags
 
             var opCode = (BinaryTag) op;
 
-                l.Debug($"     BuildTag opCode: {opCode}");
+                l.Trace($"     BuildTag opCode: {opCode}, Position: 0x{recordPosition:X} Chunk: {chunk}");
 
             switch (opCode)
             {

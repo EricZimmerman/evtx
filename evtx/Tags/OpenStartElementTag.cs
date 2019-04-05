@@ -12,13 +12,6 @@ namespace evtx.Tags
         {
             var l = LogManager.GetLogger("BuildTag");
 
-            l.Debug($"recordPositionrecordPosition: 0x{recordPosition:X}");
-
-            if (recordPosition == 0x7DB)
-            {
-                Debug.WriteLine(1);
-            }
-
             RecordPosition = recordPosition;
             
             Nodes = new List<IBinXml>();
@@ -30,7 +23,6 @@ namespace evtx.Tags
 
             var startPos = dataStream.BaseStream.Position;
            
-           
             var elementOffset = dataStream.ReadUInt32();
 
             var elementName = chunk.GetStringTableEntry(elementOffset);
@@ -38,7 +30,7 @@ namespace evtx.Tags
             var subinfo = string.Empty;
             if (SubstitutionSlot > -1)
             {
-                subinfo = $", SubstitutionSlot: {SubstitutionSlot}";
+                subinfo = $", Substitution Slot: {SubstitutionSlot}";
             }
 
             if (elementOffset > recordPosition+startPos )
@@ -55,16 +47,16 @@ namespace evtx.Tags
                 {
                     var attrTag = TagBuilder.BuildTag( recordPosition, dataStream, chunk);
 
-                    if (attrTag is Attribute attrib)
+                    if (attrTag is Attribute attribute)
                     {
-                        Attributes.Add(attrib);
+                        Attributes.Add(attribute);
                     }
                 }
             }
 
             var i = TagBuilder.BuildTag( recordPosition, dataStream, chunk);
       
-            Trace.Assert(i is CloseStartElementTag, "I didnt get a CloseStartElementTag");
+            Trace.Assert(i is CloseStartElementTag, "I didn't get a CloseStartElementTag");
 
             Nodes.Add(i);
 
@@ -79,22 +71,8 @@ namespace evtx.Tags
             while (dataStream.BaseStream.Position<startPos+Size)
             {
                 var n = TagBuilder.BuildTag( recordPosition, dataStream, chunk);
-
-
                 Nodes.Add(n);
-
-//                                        if (n is EndOfBXmlStream)
-//                        {
-//                            break;
-//                        }
-
             }
-
-            
-
-            
-
-
         }
 
         public List<Attribute> Attributes { get; set; }
