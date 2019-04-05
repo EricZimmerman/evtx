@@ -22,10 +22,17 @@ namespace evtx
             AbsoluteOffset = absoluteOffset;
             ChunkNumber = chunkNumber;
 
+            EventRecords = new List<EventRecord>();
+
             FirstEventRecordNumber = BitConverter.ToInt64(chunkBytes, 0x8);
             LastEventRecordNumber = BitConverter.ToInt64(chunkBytes, 0x10);
             FirstEventRecordIdentifier = BitConverter.ToInt64(chunkBytes, 0x18);
             LastEventRecordIdentifier = BitConverter.ToInt64(chunkBytes, 0x20);
+
+            if (FirstEventRecordIdentifier == -1)
+            {
+                return;
+            }
 
             var tableOffset = BitConverter.ToUInt32(chunkBytes, 0x28);
 
@@ -146,7 +153,7 @@ namespace evtx
 
             index = (int) tableOffset + 0x100 + 0x80; //get to start of event Records
 
-            EventRecords = new List<EventRecord>();
+            
 
             const int recordSig = 0x2a2a;
             while (index < chunkBytes.Length)

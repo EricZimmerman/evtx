@@ -403,5 +403,44 @@ namespace evtx.Test
 
             l.Info($"Total: {total}");
         }
+
+        [Test]
+        public void sixty8k()
+        {
+            var config = new LoggingConfiguration();
+            var loglevel = LogLevel.Trace;
+
+            var layout = @"${message}";
+
+            var consoleTarget = new ColoredConsoleTarget();
+
+            config.AddTarget("console", consoleTarget);
+
+            consoleTarget.Layout = layout;
+
+            var rule1 = new LoggingRule("*", loglevel, consoleTarget);
+            config.LoggingRules.Add(rule1);
+
+            LogManager.Configuration = config;
+            var l = LogManager.GetLogger("foo");
+
+            var sysLog = @"D:\SynologyDrive\EventLogs\DefConFS\Microsoft-Windows-TerminalServices-RemoteConnectionManager%4Admin.evtx";
+
+            var total = 0;
+
+            using (var fs = new FileStream(sysLog, FileMode.Open, FileAccess.Read))
+            {
+
+                var es = new EventLog(fs);
+
+                foreach (var eventRecord in es.GetEventRecords())
+                {
+                    //      l.Info($"Record: {eventRecord}");
+                    //       eventRecord.ConvertPayloadToXml();
+                }
+            }
+
+            l.Info($"Total: {total}");
+        }
     }
 }

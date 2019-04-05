@@ -26,8 +26,8 @@ namespace evtx
                 throw new Exception("Payload does not start with 0x1f!");
             }
 
-            l.Debug(
-                $"\r\nRecord position: 0x{RecordPosition:X4} Record #: {RecordNumber.ToString().PadRight(3)} Timestamp: {Timestamp:yyyy-MM-dd HH:mm:ss.fffffff}");
+            l.Trace(
+                $"Record position: 0x{RecordPosition:X4} Record #: {RecordNumber.ToString().PadRight(3)} Timestamp: {Timestamp:yyyy-MM-dd HH:mm:ss.fffffff}");
 
             Nodes = new List<IBinXml>();
 
