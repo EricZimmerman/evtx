@@ -12,6 +12,13 @@ namespace evtx.Tags
         {
             var l = LogManager.GetLogger("BuildTag");
 
+            l.Debug($"recordPositionrecordPosition: 0x{recordPosition:X}");
+
+            if (recordPosition == 0x7DB)
+            {
+                Debug.WriteLine(1);
+            }
+
             RecordPosition = recordPosition;
             
             Nodes = new List<IBinXml>();
@@ -26,8 +33,6 @@ namespace evtx.Tags
            
             var elementOffset = dataStream.ReadUInt32();
 
-          // var knownString = chunk.StringTableContainsOffset(elementOffset);
-
             var elementName = chunk.GetStringTableEntry(elementOffset);
 
             var subinfo = string.Empty;
@@ -36,12 +41,7 @@ namespace evtx.Tags
                 subinfo = $", SubstitutionSlot: {SubstitutionSlot}";
             }
 
-
-            if (elementOffset < recordPosition )
-            {
-                Debug.WriteLine(1);
-            }
-            else
+            if (elementOffset > recordPosition+startPos )
             {
                 dataStream.BaseStream.Seek(elementName.Size, SeekOrigin.Current);    
             }
@@ -51,7 +51,7 @@ namespace evtx.Tags
                 var attrSize = dataStream.ReadInt32();
                 var attrStartPos = dataStream.BaseStream.Position;
 
-                while (dataStream.BaseStream.Position<attrStartPos+attrSize)
+                while (dataStream.BaseStream.Position < attrStartPos+attrSize)
                 {
                     var attrTag = TagBuilder.BuildTag( recordPosition, dataStream, chunk);
 
@@ -59,17 +59,14 @@ namespace evtx.Tags
                     {
                         Attributes.Add(attrib);
                     }
-                  
                 }
-           
             }
 
             var i = TagBuilder.BuildTag( recordPosition, dataStream, chunk);
       
-            Trace.Assert(i is CloseStartElementTag);
+            Trace.Assert(i is CloseStartElementTag, "I didnt get a CloseStartElementTag");
 
             Nodes.Add(i);
-            
 
             var att = string.Empty;
             if (Attributes.Count>0)
@@ -83,11 +80,13 @@ namespace evtx.Tags
             {
                 var n = TagBuilder.BuildTag( recordPosition, dataStream, chunk);
 
-              //  l.Debug($"Dumping rest: {n}");
 
                 Nodes.Add(n);
 
-     
+//                                        if (n is EndOfBXmlStream)
+//                        {
+//                            break;
+//                        }
 
             }
 

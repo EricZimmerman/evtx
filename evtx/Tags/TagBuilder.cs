@@ -199,11 +199,7 @@ namespace evtx.Tags
 
             var opCode = (BinaryTag) op;
 
-         //   if (opCode != BinaryTag.StartOfBXmlStream && opCode != BinaryTag.EndOfBXmlStream)
-         //   {
                 l.Debug($"     BuildTag opCode: {opCode}");
-        //    }
-            
 
             switch (opCode)
             {

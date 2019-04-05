@@ -160,7 +160,7 @@ namespace evtx
                     break;
                 }
 
-                var recordOffset = (int) AbsoluteOffset+ index;
+                var recordOffset = index;
 
                 //do not read past the last known defined record
                 if (recordOffset - absoluteOffset > LastRecordOffset)
@@ -175,8 +175,8 @@ namespace evtx
 
                 index += (int) recordSize;
 
-                var er = new EventRecord(br, recordOffset, this);
-                EventRecords.Add(er);
+              //  var er = new EventRecord(br, recordOffset, this);
+            //    EventRecords.Add(er);
             }
         }
 
@@ -269,15 +269,11 @@ namespace evtx
 
             var l = LogManager.GetLogger("T");
 
-            l.Debug($"-------------- NEW TEMPLATE at 0x{AbsoluteOffset+ startingOffset:X} ---------------------");
-
-            if (AbsoluteOffset + startingOffset == 0x1F05)
-            {
-                Debug.WriteLine(1);
-            }
-
-            return new Template(templateId, templateOffset, g, br, nextTemplateOffset,
-                AbsoluteOffset + startingOffset, this);
+            l.Debug($"\r\n-------------- NEW TEMPLATE at 0x{AbsoluteOffset+ templateOffset - 10:X} ID: 0x{templateId:X} templateOffset: 0x{templateOffset:X} ---------------------");
+            
+            //the offset + 18 gets us to the start of the actual template (0x0f 0x01, etc)
+            return new Template(templateId, templateOffset + 0x18, g, br, nextTemplateOffset,
+                AbsoluteOffset + templateOffset, this);
         }
 
         public override string ToString()

@@ -32,7 +32,7 @@ namespace evtx.Tags
             Template = chunk.GetTemplate(TemplateOffset);
 
             Size = Template.Size;
-            if (TemplateOffset < startPos - chunk.AbsoluteOffset)
+            if (TemplateOffset <  chunk.AbsoluteOffset - recordPosition)
             {
                 //the template has already been defined, so we need to back up before NextTemplateOffset
                 dataStream.BaseStream.Seek(-4, SeekOrigin.Current);

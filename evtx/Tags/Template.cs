@@ -25,10 +25,21 @@ namespace evtx.Tags
 
             Nodes = new List<IBinXml>();
 
+                              var basedir = @"C:\temp\records";
+                    if (Directory.Exists(basedir)==false)
+                    {
+                        Directory.CreateDirectory(basedir);
+                    }
+                    var fname = $"currentTemplate.bin";
+                    var rando = Path.Combine(basedir, fname);
+                    File.WriteAllBytes(rando,PayloadBytes);
+
+                
             while (true)
             {
                 var t = TagBuilder.BuildTag(templateOffset, payload, chunk);
-                l.Debug($"IN Template: {t}");
+
+                
 
                 Nodes.Add(t);
 
