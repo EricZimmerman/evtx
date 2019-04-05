@@ -317,6 +317,51 @@ namespace evtx.Test
             l.Info($"Total: {total}");
         }
 
+        [Test]
+        public void DirTestToFix()
+        {
+            var config = new LoggingConfiguration();
+            var loglevel = LogLevel.Info;
+
+            var layout = @"${message}";
+
+            var consoleTarget = new ColoredConsoleTarget();
+
+            config.AddTarget("console", consoleTarget);
+
+            consoleTarget.Layout = layout;
+
+            var rule1 = new LoggingRule("*", loglevel, consoleTarget);
+            config.LoggingRules.Add(rule1);
+
+            LogManager.Configuration = config;
+            var l = LogManager.GetLogger("foo");
+
+
+            var files = Directory.GetFiles(@"D:\SynologyDrive\EventLogs\To Fix").ToList();
+
+            foreach (var file in files)
+            {
+                l.Info($"--------------------------{file}--------------------------");
+                using (var fs = new FileStream(file, FileMode.Open, FileAccess.Read))
+                {
+                    var es = new EventLog(fs);
+
+                    foreach (var eventRecord in es.GetEventRecords())
+                    {
+                        //                 l.Info($"Record: {eventRecord}");
+                        //           eventRecord.ConvertPayloadToXml();
+                    }
+                }
+            }
+
+
+            var total = 0;
+
+
+            l.Info($"Total: {total}");
+        }
+
 
         [Test]
         public void DirTestRomanoff()
