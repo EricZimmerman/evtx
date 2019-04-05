@@ -1,30 +1,9 @@
 ﻿<ProjectConfiguration>
   <Settings>
     <IgnoredTests>
-      <NamedTestSelector>
-        <TestName>evtx.Test.TestMain.PSOLog</TestName>
-      </NamedTestSelector>
-      <NamedTestSelector>
-        <TestName>evtx.Test.TestMain.ApplicationLog</TestName>
-      </NamedTestSelector>
-      <NamedTestSelector>
-        <TestName>evtx.Test.TestMain.DirTestDefConFS</TestName>
-      </NamedTestSelector>
-      <NamedTestSelector>
-        <TestName>evtx.Test.TestMain.DirTestEZW</TestName>
-      </NamedTestSelector>
-      <NamedTestSelector>
-        <TestName>evtx.Test.TestMain.DirTestFury</TestName>
-      </NamedTestSelector>
-      <NamedTestSelector>
-        <TestName>evtx.Test.TestMain.DirTestRomanoff</TestName>
-      </NamedTestSelector>
-      <NamedTestSelector>
-        <TestName>evtx.Test.TestMain.DirTestOther</TestName>
-      </NamedTestSelector>
-      <NamedTestSelector>
-        <TestName>evtx.Test.TestMain.SecurityLog</TestName>
-      </NamedTestSelector>
+      <FixtureTestSelector>
+        <FixtureName>evtx.Test.TestMain</FixtureName>
+      </FixtureTestSelector>
     </IgnoredTests>
   </Settings>
 </ProjectConfiguration>

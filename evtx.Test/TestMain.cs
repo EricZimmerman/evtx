@@ -40,7 +40,7 @@ namespace evtx.Test
                 foreach (var eventRecord in es.GetEventRecords())
                 {
                     //      l.Info($"Record: {eventRecord}");
-                    eventRecord.ConvertPayloadToXml();
+            //        eventRecord.ConvertPayloadToXml();
                 }
             }
 
@@ -78,7 +78,7 @@ namespace evtx.Test
                 foreach (var eventRecord in es.GetEventRecords())
                 {
                     //     l.Info($"Record: {eventRecord}");
-                    eventRecord.ConvertPayloadToXml();
+              //      eventRecord.ConvertPayloadToXml();
                 }
             }
 
@@ -105,7 +105,7 @@ namespace evtx.Test
             LogManager.Configuration = config;
             var l = LogManager.GetLogger("foo");
 
-            var sysLog = @"C:\Temp\tout\c\Windows\system32\winevt\logs\Microsoft-Windows-PowerShell%4Operational.evtx";
+            var sysLog = @"D:\SynologyDrive\EventLogs\EZW_Home\disabled\Microsoft-Windows-PowerShell%4Operational.evtx";
 
             var total = 0;
 
@@ -116,7 +116,7 @@ namespace evtx.Test
                 foreach (var eventRecord in es.GetEventRecords())
                 {
                     //     l.Info($"Record: {eventRecord}");
-                    eventRecord.ConvertPayloadToXml();
+            //        eventRecord.ConvertPayloadToXml();
                 }
 
 //
@@ -155,15 +155,16 @@ namespace evtx.Test
 
             foreach (var file in files)
             {
+                l.Info($"--------------------------{file}--------------------------");
                 using (var fs = new FileStream(file, FileMode.Open, FileAccess.Read))
                 {
                     var es = new EventLog(fs);
 
-//                    foreach (var eventRecord in es.GetEventRecords())
-//                    {
-//                             l.Info($"Record: {eventRecord}");
-//                        eventRecord.ConvertPayloadToXml();
-//                    }
+                    foreach (var eventRecord in es.GetEventRecords())
+                    {
+                 //            l.Info($"Record: {eventRecord}");
+                   //     eventRecord.ConvertPayloadToXml();
+                    }
                 }
             }
 
@@ -200,16 +201,16 @@ namespace evtx.Test
 
             foreach (var file in files)
             {
-                l.Info(file);
+                l.Info($"--------------------------{file}--------------------------");
                 using (var fs = new FileStream(file, FileMode.Open, FileAccess.Read))
                 {
                     var es = new EventLog(fs);
 
-//                    foreach (var eventRecord in es.GetEventRecords())
-//                    {
-//                             l.Info($"Record: {eventRecord}");
-//                        eventRecord.ConvertPayloadToXml();
-//                    }
+                    foreach (var eventRecord in es.GetEventRecords())
+                    {
+                   //          l.Info($"Record: {eventRecord}");
+                  //      eventRecord.ConvertPayloadToXml();
+                    }
                 }
 
                 l.Info(file);
@@ -250,15 +251,16 @@ namespace evtx.Test
 
             foreach (var file in files)
             {
+                l.Info($"--------------------------{file}--------------------------");
                 using (var fs = new FileStream(file, FileMode.Open, FileAccess.Read))
                 {
                     var es = new EventLog(fs);
 
-//                    foreach (var eventRecord in es.GetEventRecords())
-//                    {
-//                             l.Info($"Record: {eventRecord}");
-//                        eventRecord.ConvertPayloadToXml();
-//                    }
+                    foreach (var eventRecord in es.GetEventRecords())
+                    {
+                        //     l.Info($"Record: {eventRecord}");
+                     //   eventRecord.ConvertPayloadToXml();
+                    }
                 }
             }
 
@@ -295,15 +297,16 @@ namespace evtx.Test
 
             foreach (var file in files)
             {
+                l.Info($"--------------------------{file}--------------------------");
                 using (var fs = new FileStream(file, FileMode.Open, FileAccess.Read))
                 {
                     var es = new EventLog(fs);
 
-//                    foreach (var eventRecord in es.GetEventRecords())
-//                    {
-//                             l.Info($"Record: {eventRecord}");
-//                        eventRecord.ConvertPayloadToXml();
-//                    }
+                    foreach (var eventRecord in es.GetEventRecords())
+                    {
+            //                 l.Info($"Record: {eventRecord}");
+             //           eventRecord.ConvertPayloadToXml();
+                    }
                 }
             }
 
@@ -341,15 +344,16 @@ namespace evtx.Test
 
             foreach (var file in files)
             {
+                l.Info($"--------------------------{file}--------------------------");
                 using (var fs = new FileStream(file, FileMode.Open, FileAccess.Read))
                 {
                     var es = new EventLog(fs);
 
-//                    foreach (var eventRecord in es.GetEventRecords())
-//                    {
-//                             l.Info($"Record: {eventRecord}");
-//                        eventRecord.ConvertPayloadToXml();
-//                    }
+                    foreach (var eventRecord in es.GetEventRecords())
+                    {
+               //              l.Info($"Record: {eventRecord}");
+               //         eventRecord.ConvertPayloadToXml();
+                    }
                 }
             }
 
@@ -387,12 +391,13 @@ namespace evtx.Test
 
             using (var fs = new FileStream(sysLog, FileMode.Open, FileAccess.Read))
             {
+
                 var es = new EventLog(fs);
 
                 foreach (var eventRecord in es.GetEventRecords())
                 {
                     //      l.Info($"Record: {eventRecord}");
-                    eventRecord.ConvertPayloadToXml();
+             //       eventRecord.ConvertPayloadToXml();
                 }
             }
 
