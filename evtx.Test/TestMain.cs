@@ -338,7 +338,8 @@ namespace evtx.Test
             var l = LogManager.GetLogger("foo");
 
 
-            var files = Directory.GetFiles(@"D:\SynologyDrive\EventLogs\To Fix").ToList();
+          //  var files = Directory.GetFiles(@"D:\SynologyDrive\EventLogs\To Fix\Other","*.evtx").ToList();
+            var files = Directory.GetFiles(@"D:\SynologyDrive\EventLogs\To Fix\Template OK","*.evtx").ToList();
 
             foreach (var file in files)
             {

@@ -34,6 +34,7 @@ namespace evtx.Tags
 
             switch (AttributeInfo)
             {
+                case NormalSubstitution nsv:
                 case OptionalSubstitution osv:
                     //this will be substituted when actually populating the record with record data
                     break;

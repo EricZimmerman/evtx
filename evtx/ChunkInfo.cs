@@ -153,8 +153,6 @@ namespace evtx
 
             index = (int) tableOffset + 0x100 + 0x80; //get to start of event Records
 
-            
-
             const int recordSig = 0x2a2a;
             while (index < chunkBytes.Length)
             {
@@ -175,13 +173,29 @@ namespace evtx
 
                 var recordSize = BitConverter.ToUInt32(chunkBytes, index + 4);
 
+             
+
+                
+              var  recordNumber =BitConverter.ToInt64(chunkBytes, index + 8); //recordData.ReadInt64();
+
                 var ms = new MemoryStream(chunkBytes, index, (int) recordSize);
                 var br = new BinaryReader(ms, Encoding.UTF8);
 
                 index += (int) recordSize;
 
-                var er = new EventRecord(br, recordOffset, this);
-                EventRecords.Add(er);
+                try
+                {
+                    var er = new EventRecord(br, recordOffset, this);
+                    EventRecords.Add(er);
+                }
+                catch (Exception e)
+                {
+                    l.Error($"Record error at offset 0x{AbsoluteOffset+ recordOffset:X}, record #: {recordNumber} error: {e.Message} stack: {e.StackTrace}");
+                }
+
+                    
+
+                
             }
         }
 
