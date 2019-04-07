@@ -26,10 +26,7 @@ namespace evtx.Tags
 
                 Nodes.Add(t);
 
-                if (t is EndOfBXmlStream)
-                {
-                    break;
-                }
+                if (t is EndOfBXmlStream) break;
             }
         }
 

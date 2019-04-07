@@ -28,9 +28,7 @@ namespace evtx
             fileStream.Read(headerBytes, 0, 4096);
 
             if (BitConverter.ToInt64(headerBytes, 0) != eventSignature)
-            {
                 throw new Exception("Invalid signature! Expected 'ElfFile'");
-            }
 
             FirstChunkNumber = BitConverter.ToInt64(headerBytes, 0x8);
             LastChunkNumber = BitConverter.ToInt64(headerBytes, 0x10);
@@ -74,13 +72,9 @@ namespace evtx
                     $"chunk offset: 0x{chunkOffset:X}, sig: {Encoding.ASCII.GetString(chunkBuffer, 0, 8)} signature val: 0x{chunkSig:X}");
 
                 if (chunkSig == chunkSignature)
-                {
                     Chunks.Add(new ChunkInfo(chunkBuffer, chunkOffset, chunkNumber));
-                }
                 else
-                {
-                    _logger.Debug($"Skipping chunk at 0x{chunkOffset:X} as it does not have correct signature");
-                }
+                    _logger.Trace($"Skipping chunk at 0x{chunkOffset:X} as it does not have correct signature");
 
                 chunkOffset = fileStream.Position;
                 bytesRead = fileStream.Read(chunkBuffer, 0, 0x10000);
@@ -109,12 +103,8 @@ namespace evtx
         public IEnumerable<EventRecord> GetEventRecords()
         {
             foreach (var chunkInfo in Chunks)
-            {
-                foreach (var chunkInfoEventRecord in chunkInfo.EventRecords)
-                {
-                    yield return chunkInfoEventRecord;
-                }
-            }
+            foreach (var chunkInfoEventRecord in chunkInfo.EventRecords)
+                yield return chunkInfoEventRecord;
         }
     }
 }
