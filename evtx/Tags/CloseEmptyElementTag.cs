@@ -1,23 +1,22 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace evtx.Tags
 {
     public class CloseEmptyElementTag : IBinXml
     {
-        public CloseEmptyElementTag(long chunkOffset, long recordPosition)
+        public CloseEmptyElementTag( long recordPosition)
         {
-            ChunkOffset = chunkOffset;
             RecordPosition = recordPosition;
             Size = 1;
         }
 
-        public long ChunkOffset { get; }
         public long RecordPosition { get; }
         public long Size { get; }
 
-        public string AsXml()
+        public string AsXml(List<SubstitutionArrayEntry> substitutionEntries)
         {
-            throw new NotImplementedException();
+            return "/>";
         }
 
         public TagBuilder.BinaryTag TagType => TagBuilder.BinaryTag.CloseEmptyElementTag;

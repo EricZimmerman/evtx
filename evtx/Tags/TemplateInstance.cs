@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text;
 using NLog;
 
 namespace evtx.Tags
@@ -82,11 +83,36 @@ namespace evtx.Tags
         public long RecordPosition { get; }
         public long Size { get; }
 
-        public string AsXml()
+        public string AsXml(List<SubstitutionArrayEntry> substitutionEntries)
         {
-            throw new NotImplementedException();
+            var sb = new StringBuilder();
+
+            if (Template == null)
+            {
+                return "Template is null";
+            }
+
+            foreach (var templateNode in Template.Nodes)
+            {
+                switch (templateNode.TagType)
+                {
+                    case TagBuilder.BinaryTag.EndOfBXmlStream:
+                        break;
+                    case TagBuilder.BinaryTag.OpenStartElementTag:
+                        sb.AppendLine(templateNode.AsXml(SubstitutionEntries));
+                        break;
+                    
+                    case TagBuilder.BinaryTag.StartOfBXmlStream:
+                        break;
+                    default:
+                        throw new ArgumentOutOfRangeException();
+                }
+            }
+
+            return sb.ToString();
         }
 
         public TagBuilder.BinaryTag TagType => TagBuilder.BinaryTag.TemplateInstance;
+     
     }
 }

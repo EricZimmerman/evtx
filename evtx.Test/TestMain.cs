@@ -37,14 +37,24 @@ namespace evtx.Test
             {
                 var es = new EventLog(fs);
 
+//                var r = es.GetEventRecords().First();
+//
+//                l.Info(r.ConvertPayloadToXml());
+
+
                 foreach (var eventRecord in es.GetEventRecords())
                 {
-                    //      l.Info($"Record: {eventRecord}");
-                    //        eventRecord.ConvertPayloadToXml();
+                          l.Info($"{eventRecord.ConvertPayloadToXml()}");
+                            
+
+                    total += 1;
                 }
+
+                l.Info($"Total from here: {total:N0}");
+                l.Info($"Event log details: {es}");
             }
 
-            l.Info($"Total: {total}");
+         
         }
 
         [Test]

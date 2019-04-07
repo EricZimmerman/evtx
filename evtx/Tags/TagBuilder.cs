@@ -180,7 +180,7 @@ namespace evtx.Tags
                     return "Microsoft-Windows-Shell-Core_Diagnostic";
             }
 
-            return "Unknown";
+            return $"0x{keywordValue:X}";
         }
 
 
@@ -224,7 +224,7 @@ namespace evtx.Tags
                 case BinaryTag.CloseStartElementTag:
                     return new CloseStartElementTag(recordPosition);
                 case BinaryTag.CloseEmptyElementTag:
-                    return new CloseStartElementTag(recordPosition);
+                    return new CloseEmptyElementTag(recordPosition);
 
                 case BinaryTag.OptionalSubstitution:
                     return new OptionalSubstitution(recordPosition, dataStream, chunk);

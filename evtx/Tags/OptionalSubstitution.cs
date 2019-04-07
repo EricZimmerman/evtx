@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using NLog;
 
 namespace evtx.Tags
@@ -24,9 +26,17 @@ namespace evtx.Tags
         public long RecordPosition { get; }
         public long Size { get; }
 
-        public string AsXml()
+        public string AsXml(List<SubstitutionArrayEntry> substitutionEntries)
         {
-            throw new NotImplementedException();
+            var subEntry = substitutionEntries.Single(t => t.Position == SubstitutionId);
+            if (subEntry.ValType == TagBuilder.ValueType.NullType)
+            {
+                return "";
+            }
+            var  val = substitutionEntries.Single(t => t.Position == SubstitutionId).GetDataAsString();
+
+            return val;
+
         }
 
         public TagBuilder.BinaryTag TagType => TagBuilder.BinaryTag.OptionalSubstitution;

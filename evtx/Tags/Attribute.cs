@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using NLog;
 
 namespace evtx.Tags
@@ -56,12 +58,34 @@ namespace evtx.Tags
         public long RecordPosition { get; }
         public long Size { get; }
 
-        public string AsXml()
-        {
-            throw new NotImplementedException();
-        }
-
+      
         public TagBuilder.BinaryTag TagType => TagBuilder.BinaryTag.Attribute;
+        public string AsXml(List<SubstitutionArrayEntry> substitutionEntries)
+        {
+            string val;
+            if (AttributeInfo is Value)
+            {
+                val = Value;
+            }
+            else if (AttributeInfo is OptionalSubstitution os)
+            {
+                var se = substitutionEntries.Single(t => t.Position == os.SubstitutionId);
+
+                if (se.ValType == TagBuilder.ValueType.NullType)
+                {
+                    return "";
+                }
+
+                val = substitutionEntries.Single(t => t.Position == os.SubstitutionId).GetDataAsString();
+            }
+            else
+            {
+                var ns = (NormalSubstitution) AttributeInfo;
+                val = substitutionEntries.Single(t => t.Position == ns.SubstitutionId).GetDataAsString();
+            }
+
+            return $"{Name}={val}";
+        }
 
         public override string ToString()
         {

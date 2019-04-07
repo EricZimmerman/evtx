@@ -1,4 +1,5 @@
-﻿using evtx.Tags;
+﻿using System.Collections.Generic;
+using evtx.Tags;
 
 namespace evtx
 {
@@ -10,6 +11,6 @@ namespace evtx
 
         TagBuilder.BinaryTag TagType { get; }
 
-        string AsXml();
+        string AsXml(List<SubstitutionArrayEntry> substitutionEntries);
     }
 }

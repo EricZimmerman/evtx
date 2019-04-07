@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace evtx.Tags
 {
@@ -13,7 +14,7 @@ namespace evtx.Tags
         public long RecordPosition { get; }
         public long Size { get; }
 
-        public string AsXml()
+        public string AsXml(List<SubstitutionArrayEntry> substitutionEntries)
         {
             throw new NotImplementedException();
         }

@@ -75,7 +75,9 @@ namespace evtx
 
                 if (chunkSig == chunkSignature)
                 {
-                    Chunks.Add(new ChunkInfo(chunkBuffer, chunkOffset, chunkNumber));
+                    var ci = new ChunkInfo(chunkBuffer, chunkOffset, chunkNumber);
+                    Chunks.Add(ci);
+                    TotalEventLogs += ci.EventRecords.Count;
                 }
                 else
                 {
@@ -88,6 +90,8 @@ namespace evtx
                 chunkNumber += 1;
             }
         }
+
+        public int TotalEventLogs { get; }
 
         public long NextRecordId { get; }
 
@@ -105,6 +109,21 @@ namespace evtx
 
         public short MinorVersion { get; }
         public short MajorVersion { get; }
+
+        public override string ToString()
+        {
+            var sb = new StringBuilder();
+
+            sb.AppendLine($"Version: {MajorVersion}.{MinorVersion}");
+            sb.AppendLine($"Flags: {Flags}");
+            sb.AppendLine($"Chunk count: {ChunkCount}");
+            sb.AppendLine($"First/last Chunk #: {FirstChunkNumber}/{LastChunkNumber}");
+            sb.AppendLine($"Stored CRC: {Crc:X}");
+            sb.AppendLine($"Calculated CRC: {CalculatedCrc:X}");
+            sb.AppendLine($"Total event log records found: {TotalEventLogs:N0}");
+
+            return sb.ToString();
+        }
 
         public IEnumerable<EventRecord> GetEventRecords()
         {

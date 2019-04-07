@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using evtx.Tags;
 using NLog;
@@ -58,7 +59,15 @@ namespace evtx
         {
             var sb = new StringBuilder();
 
-            return sb.ToString();
+            var ti = Nodes.SingleOrDefault(t => t.TagType == TagBuilder.BinaryTag.TemplateInstance);
+
+            if (ti == null)
+            {
+                return $"Record does not contain a template instance!";
+            }
+
+            ti = (TemplateInstance) ti;
+            return ti.AsXml(null);
         }
 
         public override string ToString()
