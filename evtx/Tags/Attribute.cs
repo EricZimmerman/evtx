@@ -25,7 +25,10 @@ namespace evtx.Tags
 
             Name = nameElement.Value;
 
-            if (nameOffset > recordPosition) dataStream.BaseStream.Seek(nameElement.Size, SeekOrigin.Current);
+            if (nameOffset > recordPosition)
+            {
+                dataStream.BaseStream.Seek(nameElement.Size, SeekOrigin.Current);
+            }
 
             AttributeInfo = TagBuilder.BuildTag(recordPosition, dataStream, chunk);
 

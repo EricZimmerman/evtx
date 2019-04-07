@@ -28,10 +28,15 @@ namespace evtx.Tags
             var elementName = chunk.GetStringTableEntry(elementOffset);
 
             var subinfo = string.Empty;
-            if (SubstitutionSlot > -1) subinfo = $", Substitution Slot: {SubstitutionSlot}";
+            if (SubstitutionSlot > -1)
+            {
+                subinfo = $", Substitution Slot: {SubstitutionSlot}";
+            }
 
             if (elementOffset > recordPosition + startPos)
+            {
                 dataStream.BaseStream.Seek(elementName.Size, SeekOrigin.Current);
+            }
 
             if (hasAttribute)
             {
@@ -42,7 +47,10 @@ namespace evtx.Tags
                 {
                     var attrTag = TagBuilder.BuildTag(recordPosition, dataStream, chunk);
 
-                    if (attrTag is Attribute attribute) Attributes.Add(attribute);
+                    if (attrTag is Attribute attribute)
+                    {
+                        Attributes.Add(attribute);
+                    }
                 }
             }
 
@@ -53,7 +61,10 @@ namespace evtx.Tags
             Nodes.Add(i);
 
             var att = string.Empty;
-            if (Attributes.Count > 0) att = $", attributes: {string.Join(" | ", Attributes)}";
+            if (Attributes.Count > 0)
+            {
+                att = $", attributes: {string.Join(" | ", Attributes)}";
+            }
 
             l.Trace($"Name: {elementName.Value}{subinfo}{att}");
 

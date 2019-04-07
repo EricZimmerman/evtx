@@ -85,7 +85,6 @@ namespace evtx.Test
             l.Info($"Total: {total}");
         }
 
-       
 
         [Test]
         public void DirTestEZW()
@@ -295,8 +294,8 @@ namespace evtx.Test
             LogManager.Configuration = config;
             var l = LogManager.GetLogger("foo");
 
-           // var sourceDir = @"D:\SynologyDrive\EventLogs\To Fix\Damaged";
-              var sourceDir = @"D:\SynologyDrive\EventLogs\To Fix\Other";
+            // var sourceDir = @"D:\SynologyDrive\EventLogs\To Fix\Damaged";
+            var sourceDir = @"D:\SynologyDrive\EventLogs\To Fix\Other";
             var files = Directory.GetFiles(sourceDir, "*.evtx").ToList();
             //   var files = Directory.GetFiles(@"D:\SynologyDrive\EventLogs\To Fix\Template OK","*.evtx").ToList();
 

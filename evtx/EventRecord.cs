@@ -21,7 +21,10 @@ namespace evtx
             RecordNumber = recordData.ReadInt64();
             Timestamp = DateTimeOffset.FromFileTime(recordData.ReadInt64()).ToUniversalTime();
 
-            if (recordData.PeekChar() != 0xf) throw new Exception("Payload does not start with 0x1f!");
+            if (recordData.PeekChar() != 0xf)
+            {
+                throw new Exception("Payload does not start with 0x1f!");
+            }
 
             l.Trace(
                 $"Record position: 0x{RecordPosition:X4} Record #: {RecordNumber.ToString().PadRight(3)} Timestamp: {Timestamp:yyyy-MM-dd HH:mm:ss.fffffff}");
@@ -37,7 +40,9 @@ namespace evtx
 
                 if (nextTag is EndOfBXmlStream)
                     //nothing left to do, so exit
+                {
                     eof = true;
+                }
             }
         }
 

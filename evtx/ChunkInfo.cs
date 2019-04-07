@@ -29,7 +29,10 @@ namespace evtx
             FirstEventRecordIdentifier = BitConverter.ToInt64(chunkBytes, 0x18);
             LastEventRecordIdentifier = BitConverter.ToInt64(chunkBytes, 0x20);
 
-            if (FirstEventRecordIdentifier == -1) return;
+            if (FirstEventRecordIdentifier == -1)
+            {
+                return;
+            }
 
             var tableOffset = BitConverter.ToUInt32(chunkBytes, 0x28);
 
@@ -60,16 +63,24 @@ namespace evtx
             {
                 var stringOffset = BitConverter.ToUInt32(tableData, index);
                 index += 4;
-                if (stringOffset == 0) continue;
+                if (stringOffset == 0)
+                {
+                    continue;
+                }
 
                 stringOffsets.Add(stringOffset);
             }
 
-            foreach (var stringOffset in stringOffsets) GetStringTableEntry(stringOffset);
+            foreach (var stringOffset in stringOffsets)
+            {
+                GetStringTableEntry(stringOffset);
+            }
 
             l.Trace("String table entries");
             foreach (var stringTableEntry in StringTableEntries.Keys.OrderBy(t => t))
+            {
                 l.Trace(StringTableEntries[stringTableEntry]);
+            }
 
             l.Trace("");
 
@@ -83,12 +94,13 @@ namespace evtx
             {
                 var templateOffset = BitConverter.ToUInt32(templateTableData, index);
                 index += 4;
-                if (templateOffset == 0) continue;
-
+                if (templateOffset == 0)
+                {
+                    continue;
+                }
+                //the actual table definitions live at this Offset + 0x1000 for header, - 10 bytes for some reason.
+                //This is where the 0xc op code will be
                 tableTemplateOffsets.Add(templateOffset);
-
-                //the actual table defs live at this absoluteOffset + 0x1000 for header, - 10 bytes for some reason. This is where the 0xc op code will be
-                l.Trace($"Template absoluteOffset: 0x {templateOffset:X}");
             }
 
             Templates = new Dictionary<int, Template>();
@@ -100,7 +112,7 @@ namespace evtx
                 index = (int) tableTemplateOffset - 10;
 
                 l.Trace(
-                    $"Chunk absoluteOffset: 0x{AbsoluteOffset:X} tableTemplateOffset: 0x{tableTemplateOffset:X} actualOffset: 0x {actualOffset:X} chunkBytes[index]: 0x{chunkBytes[index].ToString("X")} LastRecordOffset 0x{LastRecordOffset:X} FreeSpaceOffset 0x{FreeSpaceOffset:X}");
+                    $"Chunk absoluteOffset: 0x{AbsoluteOffset:X} tableTemplateOffset: 0x{tableTemplateOffset:X} actualOffset: 0x {actualOffset:X} chunkBytes[index]: 0x{chunkBytes[index]:X} LastRecordOffset 0x{LastRecordOffset:X} FreeSpaceOffset 0x{FreeSpaceOffset:X}");
 
                 var template = GetTemplate(index);
 
@@ -112,9 +124,14 @@ namespace evtx
                 }
 
                 if (Templates.ContainsKey(template.TemplateOffset) == false)
+                {
                     Templates.Add(template.TemplateOffset - 0x18, template);
+                }
 
-                if (template.NextTemplateOffset <= 0) continue;
+                if (template.NextTemplateOffset <= 0)
+                {
+                    continue;
+                }
 
                 var nextTemplateId = template.NextTemplateOffset;
 
@@ -125,13 +142,17 @@ namespace evtx
                     nextTemplateId = bbb.NextTemplateOffset;
 
                     if (Templates.ContainsKey(bbb.TemplateOffset) == false)
+                    {
                         Templates.Add(bbb.TemplateOffset - 0x18, bbb);
+                    }
                 }
             }
 
             l.Trace("Template definitions");
             foreach (var esTemplate in Templates.OrderBy(t => t.Key))
+            {
                 l.Trace($"key: 0x{esTemplate.Key:X4} {esTemplate.Value}");
+            }
 
             l.Trace("");
 
@@ -142,16 +163,22 @@ namespace evtx
             {
                 var sig = BitConverter.ToInt32(chunkBytes, index);
 
-                if (sig != recordSig) break;
+                if (sig != recordSig)
+                {
+                    break;
+                }
 
                 var recordOffset = index;
 
                 //do not read past the last known defined record
-                if (recordOffset - absoluteOffset > LastRecordOffset) break;
+                if (recordOffset - absoluteOffset > LastRecordOffset)
+                {
+                    break;
+                }
 
                 var recordSize = BitConverter.ToUInt32(chunkBytes, index + 4);
 
-                var recordNumber = BitConverter.ToInt64(chunkBytes, index + 8); //recordData.ReadInt64();
+                var recordNumber = BitConverter.ToInt64(chunkBytes, index + 8);
 
                 var ms = new MemoryStream(chunkBytes, index, (int) recordSize);
                 var br = new BinaryReader(ms, Encoding.UTF8);
@@ -203,14 +230,12 @@ namespace evtx
         public long AbsoluteOffset { get; }
         public int ChunkNumber { get; }
 
-        public bool StringTableContainsOffset(uint offset)
-        {
-            return StringTableEntries.ContainsKey(offset);
-        }
-
         public StringTableEntry GetStringTableEntry(uint offset)
         {
-            if (StringTableEntries.ContainsKey(offset)) return StringTableEntries[offset];
+            if (StringTableEntries.ContainsKey(offset))
+            {
+                return StringTableEntries[offset];
+            }
 
             var index = (int) offset + 4; //unknown bytes, so skip
             var hash = BitConverter.ToUInt16(ChunkBytes, index);
@@ -228,12 +253,15 @@ namespace evtx
 
         public Template GetTemplate(int startingOffset)
         {
-            if (Templates.ContainsKey(startingOffset)) return Templates[startingOffset];
+            if (Templates.ContainsKey(startingOffset))
+            {
+                return Templates[startingOffset];
+            }
 
             var index = startingOffset;
             index += 1; //go past op code
 
-            var version = ChunkBytes[index];
+            var unusedVersion = ChunkBytes[index];
             index += 1;
 
             var templateId = BitConverter.ToInt32(ChunkBytes, index);
@@ -242,7 +270,10 @@ namespace evtx
             var templateOffset = BitConverter.ToInt32(ChunkBytes, index);
             index += 4;
 
-            if (templateOffset == 0x0) return null;
+            if (templateOffset == 0x0)
+            {
+                return null;
+            }
 
             var nextTemplateOffset = BitConverter.ToInt32(ChunkBytes, index);
             index += 4;
@@ -261,8 +292,6 @@ namespace evtx
             var br = new BinaryReader(new MemoryStream(templateBytes));
 
             var l = LogManager.GetLogger("T");
-
-            if (AbsoluteOffset + templateOffset - 10 == 0x370FF6) l.Debug(1111);
 
             l.Trace(
                 $"\r\n-------------- NEW TEMPLATE at 0x{AbsoluteOffset + templateOffset - 10:X} ID: 0x{templateId:X} templateOffset: 0x{templateOffset:X} ---------------------");

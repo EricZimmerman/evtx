@@ -17,7 +17,7 @@ namespace evtx
             IsFull = 0x2
         }
 
-        private static readonly Logger _logger = LogManager.GetLogger("EventLog");
+        private static readonly Logger Logger = LogManager.GetLogger("EventLog");
 
         public EventLog(Stream fileStream)
         {
@@ -28,18 +28,20 @@ namespace evtx
             fileStream.Read(headerBytes, 0, 4096);
 
             if (BitConverter.ToInt64(headerBytes, 0) != eventSignature)
+            {
                 throw new Exception("Invalid signature! Expected 'ElfFile'");
+            }
 
             FirstChunkNumber = BitConverter.ToInt64(headerBytes, 0x8);
             LastChunkNumber = BitConverter.ToInt64(headerBytes, 0x10);
 
             NextRecordId = BitConverter.ToInt64(headerBytes, 0x18);
-            var size = BitConverter.ToInt32(headerBytes, 0x20);
+            var unusedSize = BitConverter.ToInt32(headerBytes, 0x20);
 
             MinorVersion = BitConverter.ToInt16(headerBytes, 0x24);
             MajorVersion = BitConverter.ToInt16(headerBytes, 0x26);
 
-            var headerSize = BitConverter.ToInt16(headerBytes, 0x28);
+            var unusedHeaderSize = BitConverter.ToInt16(headerBytes, 0x28);
             ChunkCount = BitConverter.ToInt16(headerBytes, 0x2A);
 
             Flags = (EventLogFlag) BitConverter.ToInt32(headerBytes, 0x78);
@@ -68,13 +70,17 @@ namespace evtx
             {
                 var chunkSig = BitConverter.ToInt64(chunkBuffer, 0);
 
-                _logger.Trace(
+                Logger.Trace(
                     $"chunk offset: 0x{chunkOffset:X}, sig: {Encoding.ASCII.GetString(chunkBuffer, 0, 8)} signature val: 0x{chunkSig:X}");
 
                 if (chunkSig == chunkSignature)
+                {
                     Chunks.Add(new ChunkInfo(chunkBuffer, chunkOffset, chunkNumber));
+                }
                 else
-                    _logger.Trace($"Skipping chunk at 0x{chunkOffset:X} as it does not have correct signature");
+                {
+                    Logger.Trace($"Skipping chunk at 0x{chunkOffset:X} as it does not have correct signature");
+                }
 
                 chunkOffset = fileStream.Position;
                 bytesRead = fileStream.Read(chunkBuffer, 0, 0x10000);
@@ -104,7 +110,9 @@ namespace evtx
         {
             foreach (var chunkInfo in Chunks)
             foreach (var chunkInfoEventRecord in chunkInfo.EventRecords)
+            {
                 yield return chunkInfoEventRecord;
+            }
         }
     }
 }

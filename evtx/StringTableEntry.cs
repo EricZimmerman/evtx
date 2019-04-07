@@ -17,7 +17,7 @@
 
         public override string ToString()
         {
-            return $"AbsoluteOffset: 0x{Offset:X4} Hash: 0x{Hash:X4} Value: {Value}";
+            return $"Offset: 0x{Offset:X4} Hash: 0x{Hash:X4} Value: {Value}";
         }
     }
 }
