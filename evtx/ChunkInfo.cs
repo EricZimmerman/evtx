@@ -255,6 +255,7 @@ namespace evtx
         {
             if (Templates.ContainsKey(startingOffset))
             {
+               
                 return Templates[startingOffset];
             }
 

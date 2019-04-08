@@ -12,9 +12,13 @@ namespace evtx.Tags
     {
         public StringTableEntry Name { get; }
 
+        private readonly ChunkInfo _chunk;
+
         public OpenStartElementTag(long recordPosition, BinaryReader dataStream, ChunkInfo chunk, bool hasAttribute)
         {
             var l = LogManager.GetLogger("BuildTag");
+
+            _chunk = chunk;
 
             RecordPosition = recordPosition;
 
@@ -123,7 +127,7 @@ namespace evtx.Tags
                 else if (node is CloseStartElementTag )
                 {
                     sb.Append(node.AsXml(substitutionEntries));
-                }
+                } 
                 else
                 {
                     if (Name.Value == "Keywords")
@@ -133,6 +137,53 @@ namespace evtx.Tags
                             substitutionEntries.Single(t => t.Position == kw.SubstitutionId).DataBytes, 0);
 
                         sb.Append($"{TagBuilder.GetKeywordDescription(kwVal)}");
+                    }
+                    else if (node is OptionalSubstitution || node is NormalSubstitution)
+                    {
+                        if (node is OptionalSubstitution os)
+                        {
+                            if (os.ValueType == TagBuilder.ValueType.BinXmlType)
+                            {
+                                var osData = substitutionEntries.Single(t => t.Position == os.SubstitutionId);
+                                 var ms = new MemoryStream(osData.DataBytes);
+                                 var br = new BinaryReader(ms);
+                          
+                                var eof = false;
+
+                                while (br.BaseStream.Position < br.BaseStream.Length)
+                                {
+                                    var nextTag = TagBuilder.BuildTag(RecordPosition, br, _chunk);
+                                 
+                                    if (nextTag is TemplateInstance te)
+                                    {
+                                        sb.AppendLine(te.AsXml(te.SubstitutionEntries));
+                                        eof = true;
+                                    }
+
+                                    if (nextTag is EndOfBXmlStream)
+                                        //nothing left to do, so exit
+                                    {
+                                        break;
+                                    }
+                                 
+                                }
+
+                            }
+                            else
+                            {
+                                sb.Append(node.AsXml(substitutionEntries));
+                            }
+                        }
+                        else
+                        {
+                            var ns = (NormalSubstitution) node;
+                            {
+                                if (ns.ValueType == TagBuilder.ValueType.BinXmlType)
+                                {
+                                    sb.AppendLine("ns BIN XML");
+                                }
+                            }
+                        }
                     }
                     else
                     {

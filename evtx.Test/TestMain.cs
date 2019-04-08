@@ -44,6 +44,7 @@ namespace evtx.Test
 
                 foreach (var eventRecord in es.GetEventRecords())
                 {
+                    l.Info($"Record #: {eventRecord.RecordNumber}");
                           l.Info($"{eventRecord.ConvertPayloadToXml()}");
                             
 

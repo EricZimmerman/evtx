@@ -21,7 +21,7 @@ namespace evtx.Tags
         }
 
         public short SubstitutionId { get; }
-        public ValueType ValueType { get; }
+        public TagBuilder.ValueType ValueType { get; }
 
         public long RecordPosition { get; }
         public long Size { get; }

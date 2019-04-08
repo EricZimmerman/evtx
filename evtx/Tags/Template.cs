@@ -38,7 +38,7 @@ namespace evtx.Tags
         /// <summary>
         ///     The size of the template itself. The total size from op code 0xC to the end of the template is Size + 0x22
         /// </summary>
-        public long Size { get; }
+        public long Size { get; set; }
 
         public int TemplateOffset { get; }
         public int NextTemplateOffset { get; }
