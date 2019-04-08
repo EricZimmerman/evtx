@@ -11,6 +11,6 @@ namespace evtx
 
         TagBuilder.BinaryTag TagType { get; }
 
-        string AsXml(List<SubstitutionArrayEntry> substitutionEntries);
+        string AsXml(List<SubstitutionArrayEntry> substitutionEntries, long parentOffset);
     }
 }

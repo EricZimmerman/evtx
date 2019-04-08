@@ -83,7 +83,7 @@ namespace evtx.Tags
         public long RecordPosition { get; }
         public long Size { get; }
 
-        public string AsXml(List<SubstitutionArrayEntry> substitutionEntries)
+        public string AsXml(List<SubstitutionArrayEntry> substitutionEntries, long parentOffset)
         {
             var sb = new StringBuilder();
 
@@ -99,7 +99,7 @@ namespace evtx.Tags
                     case TagBuilder.BinaryTag.EndOfBXmlStream:
                         break;
                     case TagBuilder.BinaryTag.OpenStartElementTag:
-                        sb.AppendLine(templateNode.AsXml(SubstitutionEntries));
+                        sb.AppendLine(templateNode.AsXml(SubstitutionEntries,parentOffset));
                         break;
                     
                     case TagBuilder.BinaryTag.StartOfBXmlStream:

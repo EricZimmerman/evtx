@@ -91,7 +91,7 @@ namespace evtx.Tags
         public long Size { get; }
 
         public TagBuilder.BinaryTag TagType => TagBuilder.BinaryTag.OpenStartElementTag;
-        public string AsXml(List<SubstitutionArrayEntry> substitutionEntries)
+        public string AsXml(List<SubstitutionArrayEntry> substitutionEntries, long parentOffset)
         {
             var sb = new StringBuilder();
 
@@ -101,7 +101,7 @@ namespace evtx.Tags
 
             foreach (var attribute in Attributes)
             {
-                var attrVal = attribute.AsXml(substitutionEntries);
+                var attrVal = attribute.AsXml(substitutionEntries,parentOffset);
                 if (attrVal.Length > 0)
                 {
                     attrStrings.Add(attrVal);
@@ -122,11 +122,11 @@ namespace evtx.Tags
                 }
                 else if (node is CloseEmptyElementTag)
                 {
-                    sb.AppendLine(node.AsXml(substitutionEntries));
+                    sb.AppendLine(node.AsXml(substitutionEntries,parentOffset));
                 }
                 else if (node is CloseStartElementTag )
                 {
-                    sb.Append(node.AsXml(substitutionEntries));
+                    sb.Append(node.AsXml(substitutionEntries,parentOffset));
                 } 
                 else
                 {
@@ -152,11 +152,11 @@ namespace evtx.Tags
 
                                 while (br.BaseStream.Position < br.BaseStream.Length)
                                 {
-                                    var nextTag = TagBuilder.BuildTag(RecordPosition, br, _chunk);
+                                    var nextTag = TagBuilder.BuildTag(parentOffset, br, _chunk);
                                  
                                     if (nextTag is TemplateInstance te)
                                     {
-                                        sb.AppendLine(te.AsXml(te.SubstitutionEntries));
+                                        sb.AppendLine(te.AsXml(te.SubstitutionEntries,parentOffset));
                                         eof = true;
                                     }
 
@@ -171,23 +171,18 @@ namespace evtx.Tags
                             }
                             else
                             {
-                                sb.Append(node.AsXml(substitutionEntries));
+                                sb.Append(node.AsXml(substitutionEntries,parentOffset));
                             }
                         }
                         else
                         {
-                            var ns = (NormalSubstitution) node;
-                            {
-                                if (ns.ValueType == TagBuilder.ValueType.BinXmlType)
-                                {
-                                    sb.AppendLine("ns BIN XML");
-                                }
-                            }
+                            sb.Append(node.AsXml(substitutionEntries,parentOffset));
+
                         }
                     }
                     else
                     {
-                        sb.Append( node.AsXml(substitutionEntries));         
+                        sb.Append( node.AsXml(substitutionEntries,parentOffset));         
                     }
                        
                 }

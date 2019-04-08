@@ -28,9 +28,9 @@ namespace evtx
                     return string.Empty;
 
                 case TagBuilder.ValueType.StringType:
-                    return Encoding.Unicode.GetString(DataBytes);
+                    return Encoding.Unicode.GetString(DataBytes).Trim('\0');
                 case TagBuilder.ValueType.AnsiStringType:
-                    return Encoding.GetEncoding(1252).GetString(DataBytes);
+                    return Encoding.GetEncoding(1252).GetString(DataBytes).Trim('\0');
                 case TagBuilder.ValueType.Int8Type:
                     return ((sbyte) DataBytes[0]).ToString();
                 case TagBuilder.ValueType.UInt8Type:
@@ -96,12 +96,12 @@ namespace evtx
                     return "BinaryXML";
 
                 case TagBuilder.ValueType.ArrayUnicodeString:
-                    var tsu = Encoding.Unicode.GetString(DataBytes).Split('\0');
-                    return string.Join(", ", tsu);
+                    var tsu = Encoding.Unicode.GetString(DataBytes).Split(new [] {'\0'},StringSplitOptions.RemoveEmptyEntries);
+                    return string.Join(", ", tsu).Trim('\0');
 
                 case TagBuilder.ValueType.ArrayAsciiString:
-                    var tsa = Encoding.GetEncoding(1252).GetString(DataBytes).Split('\0');
-                    return string.Join(", ", tsa);
+                    var tsa = Encoding.GetEncoding(1252).GetString(DataBytes).Split(new [] {'\0'},StringSplitOptions.RemoveEmptyEntries);
+                    return string.Join(", ", tsa).Trim('\0');
 
                 case TagBuilder.ValueType.Array8BitIntSigned:
                 case TagBuilder.ValueType.Array8BitIntUnsigned:

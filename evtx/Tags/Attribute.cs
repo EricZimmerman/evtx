@@ -60,7 +60,7 @@ namespace evtx.Tags
 
       
         public TagBuilder.BinaryTag TagType => TagBuilder.BinaryTag.Attribute;
-        public string AsXml(List<SubstitutionArrayEntry> substitutionEntries)
+        public string AsXml(List<SubstitutionArrayEntry> substitutionEntries, long parentOffset)
         {
             string val;
             if (AttributeInfo is Value)
@@ -84,7 +84,7 @@ namespace evtx.Tags
                 val = substitutionEntries.Single(t => t.Position == ns.SubstitutionId).GetDataAsString();
             }
 
-            return $"{Name}={val}";
+            return $"{Name}=\"{val}\"";
         }
 
         public override string ToString()

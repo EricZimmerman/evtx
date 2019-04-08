@@ -26,7 +26,7 @@ namespace evtx.Tags
         public long RecordPosition { get; }
         public long Size { get; }
 
-        public string AsXml(List<SubstitutionArrayEntry> substitutionEntries)
+        public string AsXml(List<SubstitutionArrayEntry> substitutionEntries, long parentOffset)
         {
 //            var subEntry = substitutionEntries.Single(t => t.Position == SubstitutionId);
 //            if (subEntry.ValType == TagBuilder.ValueType.NullType)

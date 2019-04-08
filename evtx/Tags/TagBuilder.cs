@@ -1,11 +1,29 @@
 ﻿using System;
 using System.IO;
+using System.Text;
+using System.Xml;
 using NLog;
 
 namespace evtx.Tags
 {
     public static class TagBuilder
     {
+        static public string Beautify(this XmlDocument doc)
+        {
+            StringBuilder sb = new StringBuilder();
+            XmlWriterSettings settings = new XmlWriterSettings
+            {
+                Indent = true,
+                IndentChars = "  ",
+                NewLineChars = "\r\n",
+                NewLineHandling = NewLineHandling.Replace
+            };
+            using (XmlWriter writer = XmlWriter.Create(sb, settings)) {
+                doc.Save(writer);
+            }
+            return sb.ToString();
+        }
+
         public enum BinaryTag
         {
             EndOfBXmlStream = 0x0,

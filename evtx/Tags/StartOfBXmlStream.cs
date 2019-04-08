@@ -29,7 +29,7 @@ namespace evtx.Tags
         public long RecordPosition { get; }
         public long Size { get; }
 
-        public string AsXml(List<SubstitutionArrayEntry> substitutionEntries)
+        public string AsXml(List<SubstitutionArrayEntry> substitutionEntries, long parentOffset)
         {
             throw new NotImplementedException();
         }

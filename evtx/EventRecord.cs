@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml;
 using evtx.Tags;
 using NLog;
 
@@ -67,8 +68,26 @@ namespace evtx
             }
 
             ti = (TemplateInstance) ti;
-            return ti.AsXml(null);
+
+            var xmld = new XmlDocument();
+            var rawXml = ti.AsXml(null, RecordPosition);
+            var l = LogManager.GetLogger("S");
+            
+
+            try
+            {
+                xmld.LoadXml(rawXml.Replace("&","&amp;"));
+            }
+            catch (Exception e)
+            {
+                l.Error($"Error parsing XML: {e.Message}");
+                return rawXml;
+            }
+
+            return xmld.Beautify();
         }
+
+       
 
         public override string ToString()
         {
