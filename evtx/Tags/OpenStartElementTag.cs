@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Xml.Linq;
 using NLog;
 
 namespace evtx.Tags
@@ -171,12 +172,17 @@ namespace evtx.Tags
                             }
                             else
                             {
-                                sb.Append(node.AsXml(substitutionEntries,parentOffset));
+                                //optional sub
+                                var escapedo = new System.Xml.Linq.XText(node.AsXml(substitutionEntries,parentOffset)).ToString();
+                                sb.Append(escapedo);
                             }
                         }
                         else
                         {
-                            sb.Append(node.AsXml(substitutionEntries,parentOffset));
+                            //normal sub
+                            var escapedn = new System.Xml.Linq.XText(node.AsXml(substitutionEntries,parentOffset)).ToString();
+                            sb.Append(escapedn);
+                            //sb.Append(node.AsXml(substitutionEntries,parentOffset));
 
                         }
                     }
@@ -188,6 +194,8 @@ namespace evtx.Tags
                 }
             
             }
+
+            
 
             return sb.ToString();
         }

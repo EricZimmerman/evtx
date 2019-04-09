@@ -71,19 +71,20 @@ namespace evtx
 
             var xmld = new XmlDocument();
             var rawXml = ti.AsXml(null, RecordPosition);
-            var l = LogManager.GetLogger("S");
+         //   var l = LogManager.GetLogger("S");
             
+          
 
-            try
-            {
-                xmld.LoadXml(rawXml.Replace("&","&amp;"));
-            }
-            catch (Exception e)
-            {
-                l.Error($"Error parsing XML: {e.Message}");
-                return rawXml;
-            }
-
+//            try
+//            {
+//               
+//            }
+//            catch (Exception e)
+//            {
+//                l.Error($"Error parsing XML: {e.Message}");
+//                return rawXml;
+//            }
+            xmld.LoadXml(rawXml);
             return xmld.Beautify();
         }
 

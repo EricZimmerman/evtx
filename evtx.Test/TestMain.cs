@@ -45,12 +45,10 @@ namespace evtx.Test
 
                 foreach (var eventRecord in es.GetEventRecords())
                 {
-                    if (eventRecord.RecordNumber == 5796)
-                    {
-                        Debug.WriteLine(1);
-                    }
-                    l.Info($"Record #: {eventRecord.RecordNumber}");
-                          l.Info($"{eventRecord.ConvertPayloadToXml()}");
+                    //l.Info($"Record #: {eventRecord.RecordNumber}");
+                          //l.Info($"{eventRecord.ConvertPayloadToXml()}");
+
+                          eventRecord.ConvertPayloadToXml();
                             
                       //    File.AppendAllText(@"C:\temp\sys.txt",eventRecord.ConvertPayloadToXml());
 
