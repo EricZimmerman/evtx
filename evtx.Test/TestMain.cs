@@ -93,7 +93,7 @@ namespace evtx.Test
                 foreach (var eventRecord in es.GetEventRecords())
                 {
                     //     l.Info($"Record: {eventRecord}");
-                    //      eventRecord.ConvertPayloadToXml();
+                    eventRecord.ConvertPayloadToXml();
                 }
             }
 
@@ -135,7 +135,7 @@ namespace evtx.Test
                     foreach (var eventRecord in es.GetEventRecords())
                     {
                         //            l.Info($"Record: {eventRecord}");
-                        //     eventRecord.ConvertPayloadToXml();
+                             eventRecord.ConvertPayloadToXml();
                     }
                 }
             }
@@ -181,7 +181,7 @@ namespace evtx.Test
                     foreach (var eventRecord in es.GetEventRecords())
                     {
                         //          l.Info($"Record: {eventRecord}");
-                        //      eventRecord.ConvertPayloadToXml();
+                              eventRecord.ConvertPayloadToXml();
                     }
                 }
 
@@ -231,7 +231,7 @@ namespace evtx.Test
                     foreach (var eventRecord in es.GetEventRecords())
                     {
                         //     l.Info($"Record: {eventRecord}");
-                        //   eventRecord.ConvertPayloadToXml();
+                           eventRecord.ConvertPayloadToXml();
                     }
                 }
             }
@@ -277,7 +277,7 @@ namespace evtx.Test
                     foreach (var eventRecord in es.GetEventRecords())
                     {
                         //                 l.Info($"Record: {eventRecord}");
-                        //           eventRecord.ConvertPayloadToXml();
+                                   eventRecord.ConvertPayloadToXml();
                     }
                 }
             }
@@ -381,7 +381,7 @@ namespace evtx.Test
                     foreach (var eventRecord in es.GetEventRecords())
                     {
                         //              l.Info($"Record: {eventRecord}");
-                        //         eventRecord.ConvertPayloadToXml();
+                                 eventRecord.ConvertPayloadToXml();
                     }
                 }
             }
@@ -425,7 +425,7 @@ namespace evtx.Test
                 foreach (var eventRecord in es.GetEventRecords())
                 {
                     //      l.Info($"Record: {eventRecord}");
-                    //       eventRecord.ConvertPayloadToXml();
+                           eventRecord.ConvertPayloadToXml();
                 }
             }
 
@@ -464,7 +464,7 @@ namespace evtx.Test
                 foreach (var eventRecord in es.GetEventRecords())
                 {
                     //      l.Info($"Record: {eventRecord}");
-                    //       eventRecord.ConvertPayloadToXml();
+                           eventRecord.ConvertPayloadToXml();
                 }
             }
 
