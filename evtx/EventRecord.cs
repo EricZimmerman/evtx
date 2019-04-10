@@ -70,7 +70,7 @@ namespace evtx
             ti = (TemplateInstance) ti;
 
             var xmld = new XmlDocument();
-            var rawXml = ti.AsXml(null, RecordPosition);
+            var rawXml = ti.AsXml(null, RecordPosition).Replace("&","&amp;");
 
             xmld.LoadXml(rawXml);
             return xmld.Beautify();
