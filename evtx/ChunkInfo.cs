@@ -113,6 +113,7 @@ namespace evtx
 
                 l.Trace(
                     $"Chunk absoluteOffset: 0x{AbsoluteOffset:X} tableTemplateOffset: 0x{tableTemplateOffset:X} actualOffset: 0x {actualOffset:X} chunkBytes[index]: 0x{chunkBytes[index]:X} LastRecordOffset 0x{LastRecordOffset:X} FreeSpaceOffset 0x{FreeSpaceOffset:X}");
+                
 
                 var template = GetTemplate(index);
 
@@ -157,6 +158,7 @@ namespace evtx
             l.Trace("");
 
             index = (int) tableOffset + 0x100 + 0x80; //get to start of event Records
+
 
             const int recordSig = 0x2a2a;
             while (index < chunkBytes.Length)
@@ -305,7 +307,7 @@ namespace evtx
         public override string ToString()
         {
             return
-                $"RecordPosition 0x{AbsoluteOffset:X8} Chunk #: {ChunkNumber.ToString().PadRight(5)} FirstEventRecordNumber: {FirstEventRecordNumber.ToString().PadRight(8)} LastEventRecordNumber: {LastEventRecordNumber.ToString().PadRight(8)} FirstEventRecordIdentifier: {FirstEventRecordIdentifier.ToString().PadRight(8)} LastEventRecordIdentifier: {LastEventRecordIdentifier.ToString().PadRight(8)}";
+                $"Chunk absolute offset 0x{AbsoluteOffset:X8} Chunk #: {ChunkNumber.ToString().PadRight(5)} FirstEventRecordNumber: {FirstEventRecordNumber.ToString().PadRight(8)} LastEventRecordNumber: {LastEventRecordNumber.ToString().PadRight(8)} FirstEventRecordIdentifier: {FirstEventRecordIdentifier.ToString().PadRight(8)} LastEventRecordIdentifier: {LastEventRecordIdentifier.ToString().PadRight(8)}";
         }
     }
 }

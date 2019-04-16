@@ -111,6 +111,8 @@ namespace evtx.Tags
             {
                 case 0x0000000000000000:
                     return "AnyKeyword";
+                case 0x0000000000000001:
+                    return "Unknown (data not present)";
 
                 case 0x0000000000010000:
                     return "Shell";
@@ -213,8 +215,6 @@ namespace evtx.Tags
             var op = dataStream.ReadByte();
 
             var opCode = (BinaryTag) op;
-
-            l.Trace($"     BuildTag opCode: {opCode}, Position: 0x{recordPosition:X} Chunk: {chunk}");
 
             switch (opCode)
             {

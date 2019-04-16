@@ -20,9 +20,6 @@
         <TestName>evtx.Test.TestMain.DirTestOther</TestName>
       </NamedTestSelector>
       <NamedTestSelector>
-        <TestName>evtx.Test.TestMain.ApplicationLog</TestName>
-      </NamedTestSelector>
-      <NamedTestSelector>
         <TestName>evtx.Test.TestMain.sixty8k</TestName>
       </NamedTestSelector>
       <NamedTestSelector>
@@ -41,12 +38,6 @@
         <TestName>evtx.Test.TestMain.DirTestOther1</TestName>
       </NamedTestSelector>
       <NamedTestSelector>
-        <TestName>evtx.Test.TestMain.DirTestEZW1</TestName>
-      </NamedTestSelector>
-      <NamedTestSelector>
-        <TestName>evtx.Test.TestMain.DirTestEZW3</TestName>
-      </NamedTestSelector>
-      <NamedTestSelector>
         <TestName>evtx.Test.TestMain.DirTestOther2</TestName>
       </NamedTestSelector>
       <NamedTestSelector>
@@ -60,18 +51,6 @@
       </NamedTestSelector>
       <NamedTestSelector>
         <TestName>evtx.Test.TestMain.DirTestFury1</TestName>
-      </NamedTestSelector>
-      <NamedTestSelector>
-        <TestName>evtx.Test.TestMain.DirTestEZW2</TestName>
-      </NamedTestSelector>
-      <NamedTestSelector>
-        <TestName>evtx.Test.TestMain.DirTestDefConFS1</TestName>
-      </NamedTestSelector>
-      <NamedTestSelector>
-        <TestName>evtx.Test.TestMain.DirTestDefConFS2</TestName>
-      </NamedTestSelector>
-      <NamedTestSelector>
-        <TestName>evtx.Test.TestMain.DirTestDefConFS3</TestName>
       </NamedTestSelector>
     </IgnoredTests>
   </Settings>

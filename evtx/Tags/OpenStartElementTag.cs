@@ -65,6 +65,10 @@ namespace evtx.Tags
 
             var i = TagBuilder.BuildTag(recordPosition, dataStream, chunk);
 
+//            if (i is EndOfBXmlStream)
+//            {
+//                Debug.WriteLine(1);
+//            }
         
 
             Trace.Assert(i is CloseStartElementTag || i is CloseEmptyElementTag, $"I didn't get a CloseStartElementTag: {i.GetType().ToString()}");
@@ -82,6 +86,8 @@ namespace evtx.Tags
             while (dataStream.BaseStream.Position < startPos + Size)
             {
                 var n = TagBuilder.BuildTag(recordPosition, dataStream, chunk);
+
+        
                 Nodes.Add(n);
             }
         }
@@ -133,13 +139,22 @@ namespace evtx.Tags
                 } 
                 else
                 {
-                    if (Name.Value == "Keywords")
+                    if (Name.Value == "Keywords" && node is OptionalSubstitution)
                     {
                         var kw = (OptionalSubstitution) node;
-                        var kwVal = BitConverter.ToUInt64(
-                            substitutionEntries.Single(t => t.Position == kw.SubstitutionId).DataBytes, 0);
+                        
+                        var subBytes = substitutionEntries.Single(t => t.Position == kw.SubstitutionId).DataBytes;
 
-                        sb.Append($"{TagBuilder.GetKeywordDescription(kwVal)}");
+                        if (subBytes.Length >= 8)
+                        {
+                            var kwVal = BitConverter.ToUInt64(subBytes, 0);
+                            sb.Append($"{TagBuilder.GetKeywordDescription(kwVal)}");
+                        }
+                        else
+                        {
+                            sb.Append($"{TagBuilder.GetKeywordDescription(1)}");
+                        }
+                        
                     }
                     else if (node is OptionalSubstitution || node is NormalSubstitution)
                     {

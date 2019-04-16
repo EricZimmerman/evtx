@@ -731,15 +731,16 @@ namespace evtx.Test
 
                     foreach (var eventRecord in es.GetEventRecords())
                     {
-                        try
+                      //  try
                         {
-                          //l.Info( eventRecord.ConvertPayloadToXml());
+                      //    l.Info( eventRecord);
+                      //    l.Info( eventRecord.ConvertPayloadToXml());
                            eventRecord.ConvertPayloadToXml();
                         }
-                        catch (Exception e)
-                        {
-                           l.Error($"Record: {eventRecord} failed to parse: {e.Message} {e.StackTrace}");
-                        }
+//                        catch (Exception e)
+//                        {
+//                           l.Error($"Record: {eventRecord} failed to parse: {e.Message} {e.StackTrace}");
+//                        }
                                
                     }
 
