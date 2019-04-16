@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
-using Alphaleonis.Win32.Filesystem;
 using Exceptionless;
 using Fclp;
 using NLog;
 using NLog.Config;
 using NLog.Targets;
 using ServiceStack;
+using EventLog = evtx.EventLog;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace EvtxECmd
 {
@@ -39,7 +43,10 @@ namespace EvtxECmd
 
             _fluentCommandLineParser.Setup(arg => arg.File)
                 .As('f')
-                .WithDescription("File to process ($MFT | $J | $LogFile | $Boot | $SDS). Required\r\n");
+                .WithDescription("File to process. This or -d is required");
+            _fluentCommandLineParser.Setup(arg => arg.Directory)
+                .As('d')
+                .WithDescription("Directory to process that contains evtx files. This or -f is required\r\n");
 
             _fluentCommandLineParser.Setup(arg => arg.JsonDirectory)
                 .As("json")
@@ -80,12 +87,11 @@ namespace EvtxECmd
                 "\r\n\r\nAuthor: Eric Zimmerman (saericzimmerman@gmail.com)" +
                 "\r\nhttps://github.com/EricZimmerman/evtx";
 
-            var footer = @"Examples: MFTECmd.exe -f ""C:\Temp\SomeMFT"" --csv ""c:\temp\out"" --csvf MyOutputFile.csv" +
+            var footer = @"Examples: EvtxECmd.exe -f ""C:\Temp\Application.evtx"" --csv ""c:\temp\out"" --csvf MyOutputFile.csv" +
                          "\r\n\t " +
-                         @" MFTECmd.exe -f ""C:\Temp\SomeMFT"" --csv ""c:\temp\out""" + "\r\n\t " +
-                         @" MFTECmd.exe -f ""C:\Temp\SomeMFT"" --json ""c:\temp\jsonout""" + "\r\n\t " +
-                         @" MFTECmd.exe -f ""C:\Temp\SomeMFT"" --body ""c:\temp\bout"" --bdl c" + "\r\n\t " +
-                         @" MFTECmd.exe -f ""C:\Temp\SomeMFT"" --de 5-5" + "\r\n\t " +
+                         @" EvtxECmd.exe -f ""C:\Temp\Application.evtx"" --csv ""c:\temp\out""" + "\r\n\t " +
+                         @" EvtxECmd.exe -f ""C:\Temp\Application.evtx"" --json ""c:\temp\jsonout""" + "\r\n\t " +
+            
                          "\r\n\t" +
                          "  Short options (single letter) are prefixed with a single dash. Long commands are prefixed with two dashes\r\n";
 
@@ -110,13 +116,89 @@ namespace EvtxECmd
                 return;
             }
 
-            if (_fluentCommandLineParser.Object.File.IsNullOrEmpty())
+            if (_fluentCommandLineParser.Object.File.IsNullOrEmpty() && _fluentCommandLineParser.Object.Directory.IsNullOrEmpty())
             {
                 _fluentCommandLineParser.HelpOption.ShowHelp(_fluentCommandLineParser.Options);
 
-                _logger.Warn("-f is required. Exiting");
+                _logger.Warn("-f or -d is required. Exiting");
                 return;
             }
+
+
+            _logger.Info(header);
+            _logger.Info("");
+            _logger.Info($"Command line: {string.Join(" ", Environment.GetCommandLineArgs().Skip(1))}\r\n");
+
+            if (IsAdministrator() == false)
+            {
+                _logger.Fatal("Warning: Administrator privileges not found!\r\n");
+            }
+
+            if (_fluentCommandLineParser.Object.Debug)
+            {
+                LogManager.Configuration.LoggingRules.First().EnableLoggingForLevel(LogLevel.Debug);
+            }
+
+            if (_fluentCommandLineParser.Object.Trace)
+            {
+                LogManager.Configuration.LoggingRules.First().EnableLoggingForLevel(LogLevel.Trace);
+            }
+
+            LogManager.ReconfigExistingLoggers();
+
+            //do stuff here
+
+            var sw = new Stopwatch();
+            sw.Start();
+
+            if (_fluentCommandLineParser.Object.File.IsNullOrEmpty() == false)
+            {
+                using (var fs = new FileStream(_fluentCommandLineParser.Object.File,FileMode.Open))
+                {
+                    var evt = new EventLog(fs);
+
+                    var seenRecords = 0;
+                    var errors = 0;
+
+                    foreach (var eventRecord in evt.GetEventRecords())
+                    {
+                        try
+                        {
+                            _logger.Info(eventRecord.ConvertPayloadToXml);
+                            seenRecords += 1;
+                        }
+                        catch (Exception e)
+                        {
+                            _logger.Error($"Error processing record #{eventRecord.RecordNumber}: {e.Message}");
+                            errors += 1;
+                        }
+
+                       
+                    }
+
+                    sw.Stop();
+
+                    _logger.Info("");
+                    _logger.Fatal("Event log details");
+                    _logger.Info(evt);
+
+                    _logger.Info("");
+                    _logger.Info($"Records displayed: {seenRecords:N0} Errors: {errors:N0}");
+
+                    _logger.Info("");
+                    _logger.Info(
+                        $"Processed '{_fluentCommandLineParser.Object.File}' in {sw.Elapsed.TotalSeconds:N4} seconds\r\n");
+                }
+            }
+            else
+            {
+                //dir
+                _logger.Info("Directory mode not done yet");
+            }
+
+           
+
+         
 
         }
 
@@ -155,6 +237,7 @@ namespace EvtxECmd
     internal class ApplicationArguments
     {
         public string File { get; set; }
+        public string Directory { get; set; }
         public string CsvDirectory { get; set; }
         public string JsonDirectory { get; set; }
         public string DateTimeFormat { get; set; }
