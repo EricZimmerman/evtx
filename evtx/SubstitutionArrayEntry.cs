@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
@@ -77,7 +76,7 @@ namespace evtx
                 case TagBuilder.ValueType.SysTimeType:
 
                     var sts = GetSystemTime(DataBytes);
-                    
+
                     return sts.ToString("yyyy-MM-dd HH:mm:ss.fffffff");
 
                 case TagBuilder.ValueType.SidType:
@@ -96,187 +95,192 @@ namespace evtx
                     return "BinaryXML";
 
                 case TagBuilder.ValueType.ArrayUnicodeString:
-                    var tsu = Encoding.Unicode.GetString(DataBytes).Split(new [] {'\0'},StringSplitOptions.RemoveEmptyEntries);
+                    var tsu = Encoding.Unicode.GetString(DataBytes)
+                        .Split(new[] {'\0'}, StringSplitOptions.RemoveEmptyEntries);
                     return string.Join(", ", tsu).Trim('\0');
 
                 case TagBuilder.ValueType.ArrayAsciiString:
-                    var tsa = Encoding.GetEncoding(1252).GetString(DataBytes).Split(new [] {'\0'},StringSplitOptions.RemoveEmptyEntries);
+                    var tsa = Encoding.GetEncoding(1252).GetString(DataBytes)
+                        .Split(new[] {'\0'}, StringSplitOptions.RemoveEmptyEntries);
                     return string.Join(", ", tsa).Trim('\0');
 
                 case TagBuilder.ValueType.Array64BitIntSigned:
                     var a64i = new List<long>();
                     index = 0;
-                    while (index<DataBytes.Length)
+                    while (index < DataBytes.Length)
                     {
                         var ul = BitConverter.ToInt64(DataBytes, index);
                         index += 8;
                         a64i.Add(ul);
                     }
 
-                    return string.Join(",",a64i);
+                    return string.Join(",", a64i);
 
 
                 case TagBuilder.ValueType.Array64BitIntUnsigned:
                     var a64ui = new List<ulong>();
 
                     index = 0;
-                    while (index<DataBytes.Length)
+                    while (index < DataBytes.Length)
                     {
                         var ul = BitConverter.ToUInt64(DataBytes, index);
                         index += 8;
                         a64ui.Add(ul);
                     }
 
-                    return string.Join(",",a64ui);
+                    return string.Join(",", a64ui);
 
-                    case TagBuilder.ValueType.Array16BitIntUnsigned:
-                        var a16ui = new List<ushort>();
+                case TagBuilder.ValueType.Array16BitIntUnsigned:
+                    var a16ui = new List<ushort>();
 
-                        index = 0;
-                        while (index<DataBytes.Length)
-                        {
-                            var ul = BitConverter.ToUInt16(DataBytes, index);
-                            index += 2;
-                            a16ui.Add(ul);
-                        }
+                    index = 0;
+                    while (index < DataBytes.Length)
+                    {
+                        var ul = BitConverter.ToUInt16(DataBytes, index);
+                        index += 2;
+                        a16ui.Add(ul);
+                    }
 
-                        return string.Join(",",a16ui);
+                    return string.Join(",", a16ui);
 
-case TagBuilder.ValueType.Array16BitIntSigned:
-    var a16i = new List<short>();
-    index = 0;
-    while (index<DataBytes.Length)
-    {
-        var ul = BitConverter.ToInt16(DataBytes, index);
-        index += 2;
-        a16i.Add(ul);
-    }
+                case TagBuilder.ValueType.Array16BitIntSigned:
+                    var a16i = new List<short>();
+                    index = 0;
+                    while (index < DataBytes.Length)
+                    {
+                        var ul = BitConverter.ToInt16(DataBytes, index);
+                        index += 2;
+                        a16i.Add(ul);
+                    }
 
-    return string.Join(",",a16i);
+                    return string.Join(",", a16i);
 
                 case TagBuilder.ValueType.Array32BitIntSigned:
                     var a32i = new List<int>();
                     index = 0;
-                    while (index<DataBytes.Length)
+                    while (index < DataBytes.Length)
                     {
                         var ul = BitConverter.ToInt32(DataBytes, index);
                         index += 4;
                         a32i.Add(ul);
                     }
 
-                    return string.Join(",",a32i);
+                    return string.Join(",", a32i);
                 case TagBuilder.ValueType.Array32BitIntUnsigned:
                     var a32ui = new List<uint>();
                     index = 0;
-                    while (index<DataBytes.Length)
+                    while (index < DataBytes.Length)
                     {
                         var ul = BitConverter.ToUInt32(DataBytes, index);
                         index += 4;
                         a32ui.Add(ul);
                     }
-                    
-                    return string.Join(",",a32ui);
+
+                    return string.Join(",", a32ui);
 
                 case TagBuilder.ValueType.Array8BitIntSigned:
                     var sb = new List<sbyte>();
                     index = 0;
-                    while (index<DataBytes.Length)
+                    while (index < DataBytes.Length)
                     {
-                        sb.Add((sbyte)DataBytes[index]);
+                        sb.Add((sbyte) DataBytes[index]);
                         index += 1;
                     }
-                    
-                    return string.Join(",",sb);
+
+                    return string.Join(",", sb);
 
                 case TagBuilder.ValueType.Array8BitIntUnsigned:
                     var b = new List<byte>();
                     index = 0;
-                    while (index<DataBytes.Length)
+                    while (index < DataBytes.Length)
                     {
                         b.Add(DataBytes[index]);
                         index += 1;
                     }
-                    return string.Join(",",b);
-                
+
+                    return string.Join(",", b);
+
                 case TagBuilder.ValueType.ArrayFloat32Bit:
                     var sl = new List<float>();
                     index = 0;
-                    while (index<DataBytes.Length)
+                    while (index < DataBytes.Length)
                     {
                         var sn = BitConverter.ToSingle(DataBytes, index);
                         index += 4;
                         sl.Add(sn);
                     }
-                    return string.Join(",",sl);
+
+                    return string.Join(",", sl);
 
                 case TagBuilder.ValueType.ArrayFloat64Bit:
                     var dl = new List<double>();
                     index = 0;
-                    while (index<DataBytes.Length)
+                    while (index < DataBytes.Length)
                     {
                         var dn = BitConverter.ToDouble(DataBytes, index);
                         index += 4;
                         dl.Add(dn);
                     }
-                    return string.Join(",",dl);
-                
+
+                    return string.Join(",", dl);
+
                 case TagBuilder.ValueType.ArrayBool:
                     var boo = new List<bool>();
                     index = 0;
-                    while (index<DataBytes.Length)
+                    while (index < DataBytes.Length)
                     {
                         var bv = BitConverter.ToInt32(DataBytes, index) != 0;
                         boo.Add(bv);
                         index += 4;
                     }
-                    
-                    return string.Join(",",boo);
+
+                    return string.Join(",", boo);
 
                 case TagBuilder.ValueType.ArrayFileTime:
                     var dto = new List<string>();
                     index = 0;
-                    while (index<DataBytes.Length)
+                    while (index < DataBytes.Length)
                     {
                         var ts = DateTime.FromFileTime(BitConverter.ToInt64(DataBytes, index)).ToUniversalTime();
                         dto.Add(ts.ToString("yyyy-MM-dd HH:mm:ss.fffffff"));
                         index += 8;
                     }
 
-                    return string.Join(",",dto);
+                    return string.Join(",", dto);
 
                 case TagBuilder.ValueType.ArraySystemTime:
                     var st = new List<string>();
                     index = 0;
 
-                    while (index<DataBytes.Length)
+                    while (index < DataBytes.Length)
                     {
                         var stb = new byte[16];
-                        Buffer.BlockCopy(DataBytes,index,stb,0,16);
+                        Buffer.BlockCopy(DataBytes, index, stb, 0, 16);
                         index += 16;
 
                         var nst = GetSystemTime(stb).ToUniversalTime();
-                      
+
                         st.Add(nst.ToString("yyyy-MM-dd HH:mm:ss.fffffff"));
                     }
 
-                    return string.Join(",",st);
+                    return string.Join(",", st);
 
                 case TagBuilder.ValueType.ArrayGuid:
                     var gl = new List<string>();
                     index = 0;
 
-                    while (index<DataBytes.Length)
+                    while (index < DataBytes.Length)
                     {
                         var gb = new byte[16];
-                        Buffer.BlockCopy(DataBytes,index,gb,0,16);
+                        Buffer.BlockCopy(DataBytes, index, gb, 0, 16);
                         index += 16;
                         var ng = new Guid(gb);
                         gl.Add(ng.ToString());
                     }
 
-                    return string.Join(",",gl);
+                    return string.Join(",", gl);
                 case TagBuilder.ValueType.ArraySizeType:
-               
+
                 case TagBuilder.ValueType.ArraySids:
                 case TagBuilder.ValueType.Array32BitHex:
                 case TagBuilder.ValueType.Array64BitHex:

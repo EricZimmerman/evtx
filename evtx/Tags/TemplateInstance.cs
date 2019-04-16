@@ -99,9 +99,9 @@ namespace evtx.Tags
                     case TagBuilder.BinaryTag.EndOfBXmlStream:
                         break;
                     case TagBuilder.BinaryTag.OpenStartElementTag:
-                        sb.AppendLine(templateNode.AsXml(SubstitutionEntries,parentOffset));
+                        sb.AppendLine(templateNode.AsXml(SubstitutionEntries, parentOffset));
                         break;
-                    
+
                     case TagBuilder.BinaryTag.StartOfBXmlStream:
                         break;
                     default:
@@ -113,6 +113,5 @@ namespace evtx.Tags
         }
 
         public TagBuilder.BinaryTag TagType => TagBuilder.BinaryTag.TemplateInstance;
-     
     }
 }

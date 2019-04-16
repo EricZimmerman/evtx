@@ -58,8 +58,9 @@ namespace evtx.Tags
         public long RecordPosition { get; }
         public long Size { get; }
 
-      
+
         public TagBuilder.BinaryTag TagType => TagBuilder.BinaryTag.Attribute;
+
         public string AsXml(List<SubstitutionArrayEntry> substitutionEntries, long parentOffset)
         {
             string val;

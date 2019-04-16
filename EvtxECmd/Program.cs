@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security.Principal;
-using System.Text;
-using System.Threading.Tasks;
 using Exceptionless;
 using Fclp;
 using NLog;
@@ -19,7 +16,7 @@ using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace EvtxECmd
 {
-    class Program
+    internal class Program
     {
         private static Logger _logger;
 
@@ -28,9 +25,9 @@ namespace EvtxECmd
         private static readonly string BaseDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
 
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-             ExceptionlessClient.Default.Startup("tYeWS6A5K5uItgpB44dnNy2qSb2xJxiQWRRGWebq");
+            ExceptionlessClient.Default.Startup("tYeWS6A5K5uItgpB44dnNy2qSb2xJxiQWRRGWebq");
 
             SetupNLog();
 
@@ -87,13 +84,13 @@ namespace EvtxECmd
                 "\r\n\r\nAuthor: Eric Zimmerman (saericzimmerman@gmail.com)" +
                 "\r\nhttps://github.com/EricZimmerman/evtx";
 
-            var footer = @"Examples: EvtxECmd.exe -f ""C:\Temp\Application.evtx"" --csv ""c:\temp\out"" --csvf MyOutputFile.csv" +
-                         "\r\n\t " +
-                         @" EvtxECmd.exe -f ""C:\Temp\Application.evtx"" --csv ""c:\temp\out""" + "\r\n\t " +
-                         @" EvtxECmd.exe -f ""C:\Temp\Application.evtx"" --json ""c:\temp\jsonout""" + "\r\n\t " +
-            
-                         "\r\n\t" +
-                         "  Short options (single letter) are prefixed with a single dash. Long commands are prefixed with two dashes\r\n";
+            var footer =
+                @"Examples: EvtxECmd.exe -f ""C:\Temp\Application.evtx"" --csv ""c:\temp\out"" --csvf MyOutputFile.csv" +
+                "\r\n\t " +
+                @" EvtxECmd.exe -f ""C:\Temp\Application.evtx"" --csv ""c:\temp\out""" + "\r\n\t " +
+                @" EvtxECmd.exe -f ""C:\Temp\Application.evtx"" --json ""c:\temp\jsonout""" + "\r\n\t " +
+                "\r\n\t" +
+                "  Short options (single letter) are prefixed with a single dash. Long commands are prefixed with two dashes\r\n";
 
             _fluentCommandLineParser.SetupHelp("?", "help")
                 .WithHeader(header)
@@ -116,7 +113,8 @@ namespace EvtxECmd
                 return;
             }
 
-            if (_fluentCommandLineParser.Object.File.IsNullOrEmpty() && _fluentCommandLineParser.Object.Directory.IsNullOrEmpty())
+            if (_fluentCommandLineParser.Object.File.IsNullOrEmpty() &&
+                _fluentCommandLineParser.Object.Directory.IsNullOrEmpty())
             {
                 _fluentCommandLineParser.HelpOption.ShowHelp(_fluentCommandLineParser.Options);
 
@@ -153,7 +151,7 @@ namespace EvtxECmd
 
             if (_fluentCommandLineParser.Object.File.IsNullOrEmpty() == false)
             {
-                using (var fs = new FileStream(_fluentCommandLineParser.Object.File,FileMode.Open))
+                using (var fs = new FileStream(_fluentCommandLineParser.Object.File, FileMode.Open))
                 {
                     var evt = new EventLog(fs);
 
@@ -172,8 +170,6 @@ namespace EvtxECmd
                             _logger.Error($"Error processing record #{eventRecord.RecordNumber}: {e.Message}");
                             errors += 1;
                         }
-
-                       
                     }
 
                     sw.Stop();
@@ -191,15 +187,10 @@ namespace EvtxECmd
                 }
             }
             else
-            {
                 //dir
+            {
                 _logger.Info("Directory mode not done yet");
             }
-
-           
-
-         
-
         }
 
         public static bool IsAdministrator()
@@ -241,7 +232,7 @@ namespace EvtxECmd
         public string CsvDirectory { get; set; }
         public string JsonDirectory { get; set; }
         public string DateTimeFormat { get; set; }
-      
+
         public bool Debug { get; set; }
         public bool Trace { get; set; }
 

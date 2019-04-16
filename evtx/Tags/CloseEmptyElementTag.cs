@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace evtx.Tags
 {
     public class CloseEmptyElementTag : IBinXml
     {
-        public CloseEmptyElementTag( long recordPosition)
+        public CloseEmptyElementTag(long recordPosition)
         {
             RecordPosition = recordPosition;
             Size = 1;

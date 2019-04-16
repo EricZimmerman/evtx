@@ -11,8 +11,6 @@ namespace evtx.Tags
 {
     public class OpenStartElementTag : IBinXml
     {
-        public StringTableEntry Name { get; }
-
         private readonly ChunkInfo _chunk;
 
         public OpenStartElementTag(long recordPosition, BinaryReader dataStream, ChunkInfo chunk, bool hasAttribute)
@@ -65,7 +63,8 @@ namespace evtx.Tags
 
             var i = TagBuilder.BuildTag(recordPosition, dataStream, chunk);
 
-            Trace.Assert(i is CloseStartElementTag || i is CloseEmptyElementTag, $"I didn't get a CloseStartElementTag: {i.GetType().ToString()}");
+            Trace.Assert(i is CloseStartElementTag || i is CloseEmptyElementTag,
+                $"I didn't get a CloseStartElementTag: {i.GetType()}");
 
             Nodes.Add(i);
 
@@ -80,10 +79,12 @@ namespace evtx.Tags
             while (dataStream.BaseStream.Position < startPos + Size)
             {
                 var n = TagBuilder.BuildTag(recordPosition, dataStream, chunk);
-        
+
                 Nodes.Add(n);
             }
         }
+
+        public StringTableEntry Name { get; }
 
         public List<Attribute> Attributes { get; set; }
         public List<IBinXml> Nodes { get; set; }
@@ -93,6 +94,7 @@ namespace evtx.Tags
         public long Size { get; }
 
         public TagBuilder.BinaryTag TagType => TagBuilder.BinaryTag.OpenStartElementTag;
+
         public string AsXml(List<SubstitutionArrayEntry> substitutionEntries, long parentOffset)
         {
             var sb = new StringBuilder();
@@ -103,39 +105,39 @@ namespace evtx.Tags
 
             foreach (var attribute in Attributes)
             {
-                var attrVal = attribute.AsXml(substitutionEntries,parentOffset);
+                var attrVal = attribute.AsXml(substitutionEntries, parentOffset);
                 if (attrVal.Length > 0)
                 {
                     attrStrings.Add(attrVal);
                 }
             }
 
-            if (attrStrings.Count > 0) 
-            {
+            if (attrStrings.Count > 0)
                 //at least one attribute with a value
-                sb.Append(" " + string.Join(" ",attrStrings));
+            {
+                sb.Append(" " + string.Join(" ", attrStrings));
             }
 
             foreach (var node in Nodes)
             {
                 if (node is EndElementTag)
                 {
-                    sb.AppendLine( $"</{Name.Value}>");
+                    sb.AppendLine($"</{Name.Value}>");
                 }
                 else if (node is CloseEmptyElementTag)
                 {
-                    sb.AppendLine(node.AsXml(substitutionEntries,parentOffset));
+                    sb.AppendLine(node.AsXml(substitutionEntries, parentOffset));
                 }
-                else if (node is CloseStartElementTag )
+                else if (node is CloseStartElementTag)
                 {
-                    sb.Append(node.AsXml(substitutionEntries,parentOffset));
-                } 
+                    sb.Append(node.AsXml(substitutionEntries, parentOffset));
+                }
                 else
                 {
                     if (Name.Value == "Keywords" && node is OptionalSubstitution)
                     {
                         var kw = (OptionalSubstitution) node;
-                        
+
                         var subBytes = substitutionEntries.Single(t => t.Position == kw.SubstitutionId).DataBytes;
 
                         if (subBytes.Length >= 8)
@@ -147,7 +149,6 @@ namespace evtx.Tags
                         {
                             sb.Append($"{TagBuilder.GetKeywordDescription(1)}");
                         }
-                        
                     }
                     else if (node is OptionalSubstitution || node is NormalSubstitution)
                     {
@@ -156,16 +157,16 @@ namespace evtx.Tags
                             if (os.ValueType == TagBuilder.ValueType.BinXmlType)
                             {
                                 var osData = substitutionEntries.Single(t => t.Position == os.SubstitutionId);
-                                 var ms = new MemoryStream(osData.DataBytes);
-                                 var br = new BinaryReader(ms);
-                          
+                                var ms = new MemoryStream(osData.DataBytes);
+                                var br = new BinaryReader(ms);
+
                                 while (br.BaseStream.Position < br.BaseStream.Length)
                                 {
                                     var nextTag = TagBuilder.BuildTag(parentOffset, br, _chunk);
-                                 
+
                                     if (nextTag is TemplateInstance te)
                                     {
-                                        sb.AppendLine(te.AsXml(te.SubstitutionEntries,parentOffset));
+                                        sb.AppendLine(te.AsXml(te.SubstitutionEntries, parentOffset));
                                     }
 
                                     if (nextTag is EndOfBXmlStream)
@@ -173,36 +174,30 @@ namespace evtx.Tags
                                     {
                                         break;
                                     }
-                                 
                                 }
-
                             }
                             else
                             {
                                 //optional sub
-                                var escapedo = new System.Xml.Linq.XText(node.AsXml(substitutionEntries,parentOffset)).ToString();
+                                var escapedo = new XText(node.AsXml(substitutionEntries, parentOffset)).ToString();
                                 sb.Append(escapedo);
                             }
                         }
                         else
                         {
                             //normal sub
-                            var escapedn = new System.Xml.Linq.XText(node.AsXml(substitutionEntries,parentOffset)).ToString();
+                            var escapedn = new XText(node.AsXml(substitutionEntries, parentOffset)).ToString();
                             sb.Append(escapedn);
                             //sb.Append(node.AsXml(substitutionEntries,parentOffset));
-
                         }
                     }
                     else
                     {
-                        sb.Append( node.AsXml(substitutionEntries,parentOffset));         
+                        sb.Append(node.AsXml(substitutionEntries, parentOffset));
                     }
-                       
                 }
-            
             }
 
-            
 
             return sb.ToString();
         }

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using NLog;
@@ -33,7 +32,7 @@ namespace evtx.Tags
 //            {
 //                return "";
 //            }
-            var  val = substitutionEntries.Single(t => t.Position == SubstitutionId).GetDataAsString();
+            var val = substitutionEntries.Single(t => t.Position == SubstitutionId).GetDataAsString();
 
             return val;
         }

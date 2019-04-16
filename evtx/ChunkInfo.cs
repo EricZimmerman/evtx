@@ -98,6 +98,7 @@ namespace evtx
                 {
                     continue;
                 }
+
                 //the actual table definitions live at this Offset + 0x1000 for header, - 10 bytes for some reason.
                 //This is where the 0xc op code will be
                 tableTemplateOffsets.Add(templateOffset);
@@ -113,7 +114,7 @@ namespace evtx
 
                 l.Trace(
                     $"Chunk absoluteOffset: 0x{AbsoluteOffset:X} tableTemplateOffset: 0x{tableTemplateOffset:X} actualOffset: 0x {actualOffset:X} chunkBytes[index]: 0x{chunkBytes[index]:X} LastRecordOffset 0x{LastRecordOffset:X} FreeSpaceOffset 0x{FreeSpaceOffset:X}");
-                
+
 
                 var template = GetTemplate(index);
 
@@ -257,7 +258,6 @@ namespace evtx
         {
             if (Templates.ContainsKey(startingOffset))
             {
-               
                 return Templates[startingOffset];
             }
 

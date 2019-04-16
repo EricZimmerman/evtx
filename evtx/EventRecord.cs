@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Xml;
 using evtx.Tags;
 using NLog;
@@ -62,13 +61,13 @@ namespace evtx
 
             if (ti == null)
             {
-                return $"Record does not contain a template instance!";
+                return "Record does not contain a template instance!";
             }
 
             ti = (TemplateInstance) ti;
 
             var xmld = new XmlDocument();
-            var rawXml = ti.AsXml(null, RecordPosition).Replace("&","&amp;");
+            var rawXml = ti.AsXml(null, RecordPosition).Replace("&", "&amp;");
 
             xmld.LoadXml(rawXml);
             return xmld.Beautify();
