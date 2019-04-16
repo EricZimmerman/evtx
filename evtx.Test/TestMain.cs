@@ -729,7 +729,7 @@ namespace evtx.Test
                         //  try
                     {
                         //    l.Info( eventRecord);
-                        //    l.Info( eventRecord.ConvertPayloadToXml());
+                            l.Info( eventRecord.ConvertPayloadToXml());
                         eventRecord.ConvertPayloadToXml();
                     }
 

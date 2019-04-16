@@ -62,9 +62,6 @@
         <TestName>evtx.Test.TestMain.DirTestOther3</TestName>
       </NamedTestSelector>
       <NamedTestSelector>
-        <TestName>evtx.Test.TestMain.DirTestToFix</TestName>
-      </NamedTestSelector>
-      <NamedTestSelector>
         <TestName>evtx.Test.TestMain.DirTestRomanoff2</TestName>
       </NamedTestSelector>
       <NamedTestSelector>
