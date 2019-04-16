@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using evtx.Tags;
 
 namespace evtx
@@ -31,9 +32,13 @@ namespace evtx
                     return string.Empty;
 
                 case TagBuilder.ValueType.StringType:
-                    return Encoding.Unicode.GetString(DataBytes).Trim('\0');
+                    var s = Encoding.Unicode.GetString(DataBytes).Trim('\0');
+                    s = Regex.Replace(s, @"\p{C}+", string.Empty);
+                    return s;
                 case TagBuilder.ValueType.AnsiStringType:
-                    return Encoding.GetEncoding(1252).GetString(DataBytes).Trim('\0');
+                    var sa = Encoding.GetEncoding(1252).GetString(DataBytes).Trim('\0');
+                    sa = s = Regex.Replace(sa, @"\p{C}+", string.Empty);
+                    return sa;
                 case TagBuilder.ValueType.Int8Type:
                     return ((sbyte) DataBytes[0]).ToString();
                 case TagBuilder.ValueType.UInt8Type:

@@ -2,9 +2,6 @@
   <Settings>
     <IgnoredTests>
       <NamedTestSelector>
-        <TestName>evtx.Test.TestMain.DirTestToFix</TestName>
-      </NamedTestSelector>
-      <NamedTestSelector>
         <TestName>evtx.Test.TestMain.dirtest</TestName>
       </NamedTestSelector>
       <NamedTestSelector>
@@ -24,9 +21,6 @@
       </NamedTestSelector>
       <NamedTestSelector>
         <TestName>evtx.Test.TestMain.ApplicationLog</TestName>
-      </NamedTestSelector>
-      <NamedTestSelector>
-        <TestName>evtx.Test.TestMain.SystemLog</TestName>
       </NamedTestSelector>
       <NamedTestSelector>
         <TestName>evtx.Test.TestMain.sixty8k</TestName>

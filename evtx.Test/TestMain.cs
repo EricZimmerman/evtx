@@ -1,4 +1,5 @@
-﻿using System.Diagnostics;
+﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using NLog;
@@ -730,15 +731,19 @@ namespace evtx.Test
 
                     foreach (var eventRecord in es.GetEventRecords())
                     {
-                        //                 l.Info($"Record: {eventRecord}");
-                        //           eventRecord.ConvertPayloadToXml();
+                        try
+                        {
+                          //l.Info( eventRecord.ConvertPayloadToXml());
+                           eventRecord.ConvertPayloadToXml();
+                        }
+                        catch (Exception e)
+                        {
+                           l.Error($"Record: {eventRecord} failed to parse: {e.Message} {e.StackTrace}");
+                        }
+                               
                     }
 
-//                    }
-//                    catch (Exception e)
-//                    {
-                    //        l.Error($"***{Path.GetFileName(file)}*** had error: {e.Message}");
-                    //    }
+
                 }
             }
 

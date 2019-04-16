@@ -65,7 +65,9 @@ namespace evtx.Tags
 
             var i = TagBuilder.BuildTag(recordPosition, dataStream, chunk);
 
-            Trace.Assert(i is CloseStartElementTag || i is CloseEmptyElementTag, "I didn't get a CloseStartElementTag");
+        
+
+            Trace.Assert(i is CloseStartElementTag || i is CloseEmptyElementTag, $"I didn't get a CloseStartElementTag: {i.GetType().ToString()}");
 
             Nodes.Add(i);
 
