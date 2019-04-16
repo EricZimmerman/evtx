@@ -65,12 +65,6 @@ namespace evtx.Tags
 
             var i = TagBuilder.BuildTag(recordPosition, dataStream, chunk);
 
-//            if (i is EndOfBXmlStream)
-//            {
-//                Debug.WriteLine(1);
-//            }
-        
-
             Trace.Assert(i is CloseStartElementTag || i is CloseEmptyElementTag, $"I didn't get a CloseStartElementTag: {i.GetType().ToString()}");
 
             Nodes.Add(i);
@@ -86,7 +80,6 @@ namespace evtx.Tags
             while (dataStream.BaseStream.Position < startPos + Size)
             {
                 var n = TagBuilder.BuildTag(recordPosition, dataStream, chunk);
-
         
                 Nodes.Add(n);
             }
@@ -166,8 +159,6 @@ namespace evtx.Tags
                                  var ms = new MemoryStream(osData.DataBytes);
                                  var br = new BinaryReader(ms);
                           
-                                var eof = false;
-
                                 while (br.BaseStream.Position < br.BaseStream.Length)
                                 {
                                     var nextTag = TagBuilder.BuildTag(parentOffset, br, _chunk);
@@ -175,7 +166,6 @@ namespace evtx.Tags
                                     if (nextTag is TemplateInstance te)
                                     {
                                         sb.AppendLine(te.AsXml(te.SubstitutionEntries,parentOffset));
-                                        eof = true;
                                     }
 
                                     if (nextTag is EndOfBXmlStream)

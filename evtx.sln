@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "evtx", "evtx\evtx.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "evtx.Test", "evtx.Test\evtx.Test.csproj", "{95F2D7A0-54D6-435C-8567-35769D8850C8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EvtxECmd", "EvtxECmd\EvtxECmd.csproj", "{46DD4901-0E1E-4349-8E84-C8AEF0061019}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{95F2D7A0-54D6-435C-8567-35769D8850C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{95F2D7A0-54D6-435C-8567-35769D8850C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{95F2D7A0-54D6-435C-8567-35769D8850C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{46DD4901-0E1E-4349-8E84-C8AEF0061019}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{46DD4901-0E1E-4349-8E84-C8AEF0061019}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{46DD4901-0E1E-4349-8E84-C8AEF0061019}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{46DD4901-0E1E-4349-8E84-C8AEF0061019}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

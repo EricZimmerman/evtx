@@ -58,8 +58,6 @@ namespace evtx
 
         public string ConvertPayloadToXml()
         {
-            var sb = new StringBuilder();
-
             var ti = Nodes.SingleOrDefault(t => t.TagType == TagBuilder.BinaryTag.TemplateInstance);
 
             if (ti == null)
@@ -75,8 +73,6 @@ namespace evtx
             xmld.LoadXml(rawXml);
             return xmld.Beautify();
         }
-
-       
 
         public override string ToString()
         {
