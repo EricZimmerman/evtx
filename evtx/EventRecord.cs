@@ -63,8 +63,6 @@ namespace evtx
                 EventId = eventId.ValueAsInt;
                 Computer = computer.Value;
             }
-
-           
         }
 
         public string Computer { get; }
