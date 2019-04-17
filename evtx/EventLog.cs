@@ -13,6 +13,7 @@ namespace evtx
         [Flags]
         public enum EventLogFlag
         {
+            None = 0x0,
             IsDirty = 0x1,
             IsFull = 0x2
         }

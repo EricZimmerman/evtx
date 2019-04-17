@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security.Principal;
+using Alphaleonis.Win32.Filesystem;
 using Exceptionless;
 using Fclp;
 using NLog;
@@ -122,7 +124,6 @@ namespace EvtxECmd
                 return;
             }
 
-
             _logger.Info(header);
             _logger.Info("");
             _logger.Info($"Command line: {string.Join(" ", Environment.GetCommandLineArgs().Skip(1))}\r\n");
@@ -144,52 +145,121 @@ namespace EvtxECmd
 
             LogManager.ReconfigExistingLoggers();
 
-            //do stuff here
-
             var sw = new Stopwatch();
             sw.Start();
 
+            errorFiles = new Dictionary<string, int>();
+
             if (_fluentCommandLineParser.Object.File.IsNullOrEmpty() == false)
             {
-                using (var fs = new FileStream(_fluentCommandLineParser.Object.File, FileMode.Open))
+                if (File.Exists(_fluentCommandLineParser.Object.File) == false)
                 {
-                    var evt = new EventLog(fs);
-
-                    var seenRecords = 0;
-                    var errors = 0;
-
-                    foreach (var eventRecord in evt.GetEventRecords())
-                    {
-                        try
-                        {
-                            _logger.Info(eventRecord.ConvertPayloadToXml);
-                            seenRecords += 1;
-                        }
-                        catch (Exception e)
-                        {
-                            _logger.Error($"Error processing record #{eventRecord.RecordNumber}: {e.Message}");
-                            errors += 1;
-                        }
-                    }
-
-                    sw.Stop();
-
-                    _logger.Info("");
-                    _logger.Fatal("Event log details");
-                    _logger.Info(evt);
-
-                    _logger.Info("");
-                    _logger.Info($"Records displayed: {seenRecords:N0} Errors: {errors:N0}");
-
-                    _logger.Info("");
-                    _logger.Info(
-                        $"Processed '{_fluentCommandLineParser.Object.File}' in {sw.Elapsed.TotalSeconds:N4} seconds\r\n");
+                    _logger.Warn($"'{_fluentCommandLineParser.Object.File}' does not exist! Exiting");
+                    return;
                 }
+
+                ProcessFile(_fluentCommandLineParser.Object.File);
             }
             else
-                //dir
             {
-                _logger.Info("Directory mode not done yet");
+                _logger.Info($"Looking for event log files in '{_fluentCommandLineParser.Object.Directory}'");
+                _logger.Info("");
+
+                var f = new DirectoryEnumerationFilters();
+                f.InclusionFilter = fsei =>
+                {
+                    return fsei.Extension.ToUpperInvariant() == ".EVTX";
+                };
+
+                f.RecursionFilter = entryInfo => !entryInfo.IsMountPoint && !entryInfo.IsSymbolicLink;
+
+                f.ErrorFilter = (errorCode, errorMessage, pathProcessed) => true;
+
+                var dirEnumOptions =
+                    DirectoryEnumerationOptions.Files | DirectoryEnumerationOptions.Recursive |
+                    DirectoryEnumerationOptions.SkipReparsePoints | DirectoryEnumerationOptions.ContinueOnException |
+                    DirectoryEnumerationOptions.BasicSearch;
+
+                var files2 =
+                    Alphaleonis.Win32.Filesystem.Directory.EnumerateFileSystemEntries(_fluentCommandLineParser.Object.Directory, dirEnumOptions, f);
+
+                foreach (var file in files2)
+                {
+                    ProcessFile(file);
+                }
+
+            }
+
+            sw.Stop();
+            _logger.Info("");
+
+            var suff = string.Empty;
+            if (FileCount != 1)
+            {
+                suff = "s";
+            }
+
+            _logger.Error(
+                $"Processed {FileCount:N0} file{suff} in {sw.Elapsed.TotalSeconds:N4} seconds\r\n");
+
+            if (errorFiles.Count > 0)
+            {
+                _logger.Info("");
+                _logger.Info("Files with errors");
+                foreach (var errorFile in errorFiles)
+                {
+                    _logger.Error($"'{errorFile.Key}' error count: {errorFile.Value:N0}");
+                }
+            }
+        }
+
+        private static Dictionary<string, int> errorFiles;
+        private static int FileCount = 0;
+
+        private static void ProcessFile(string file)
+        {
+            if (File.Exists(file) == false)
+            {
+                _logger.Warn($"'{file}' does not exist! Skipping");
+                return;
+            }
+
+            _logger.Warn($"\r\nProcessing '{file}'...");
+
+            using (var fs = new FileStream(file, FileMode.Open))
+            {
+                var evt = new EventLog(fs);
+
+                var seenRecords = 0;
+                var errors = 0;
+
+                foreach (var eventRecord in evt.GetEventRecords())
+                {
+                    try
+                    {
+                        eventRecord.ConvertPayloadToXml();
+                        seenRecords += 1;
+                    }
+                    catch (Exception e)
+                    {
+                        _logger.Error($"Error processing record #{eventRecord.RecordNumber}: {e.Message}");
+                        errors += 1;
+                    }
+                }
+
+                if (errors > 0)
+                {
+                    errorFiles.Add(file,errors);
+                }
+              
+                    FileCount += 1;
+            
+
+                _logger.Info("");
+                _logger.Fatal("Event log details");
+                _logger.Info(evt);
+                
+                _logger.Info($"Records processed: {seenRecords:N0} Errors: {errors:N0}");
             }
         }
 

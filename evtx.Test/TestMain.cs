@@ -37,19 +37,12 @@ namespace evtx.Test
             {
                 var es = new EventLog(fs);
 
-//                var r = es.GetEventRecords().First();
-//
-//                l.Info(r.ConvertPayloadToXml());
-
-
                 foreach (var eventRecord in es.GetEventRecords())
                 {
                     //l.Info($"Record #: {eventRecord.RecordNumber}");
                     //l.Info($"{eventRecord.ConvertPayloadToXml()}");
 
                     eventRecord.ConvertPayloadToXml();
-
-                    //    File.AppendAllText(@"C:\temp\sys.txt",eventRecord.ConvertPayloadToXml());
 
                     total += 1;
                 }
