@@ -199,6 +199,7 @@ namespace evtx
 //                try
 //                {
                 var er = new EventRecord(br, recordOffset, this);
+                
                 EventRecords.Add(er);
 //                }
 //                catch (Exception e)

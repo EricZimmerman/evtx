@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Xml;
+using System.Xml.XPath;
 using evtx.Tags;
 using NLog;
 
@@ -45,7 +46,30 @@ namespace evtx
                     eof = true;
                 }
             }
+
+            var xml = ConvertPayloadToXml();
+
+            using (var sr = new StringReader(xml))
+            {
+                var  docNav = new XPathDocument(sr);
+               var nav = docNav.CreateNavigator();
+
+                var computer = nav.SelectSingleNode(@"//*[local-name()='Computer']");
+                var eventId = nav.SelectSingleNode(@"//*[local-name()='EventID']");
+                var timeCreated = nav.SelectSingleNode(@"//*[local-name()='TimeCreated']").GetAttribute("SystemTime","");
+
+
+                TimeCreated = DateTimeOffset.Parse(timeCreated,null,System.Globalization.DateTimeStyles.AssumeUniversal).ToUniversalTime();
+                EventId = eventId.ValueAsInt;
+                Computer = computer.Value;
+            }
+
+           
         }
+
+        public string Computer { get; }
+        public int EventId { get; }
+        public DateTimeOffset TimeCreated { get; }
 
         public List<IBinXml> Nodes { get; set; }
 
