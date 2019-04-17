@@ -148,7 +148,7 @@ namespace EvtxECmd
             var sw = new Stopwatch();
             sw.Start();
 
-            errorFiles = new Dictionary<string, int>();
+            _errorFiles = new Dictionary<string, int>();
 
             if (_fluentCommandLineParser.Object.File.IsNullOrEmpty() == false)
             {
@@ -166,10 +166,7 @@ namespace EvtxECmd
                 _logger.Info("");
 
                 var f = new DirectoryEnumerationFilters();
-                f.InclusionFilter = fsei =>
-                {
-                    return fsei.Extension.ToUpperInvariant() == ".EVTX";
-                };
+                f.InclusionFilter = fsei => fsei.Extension.ToUpperInvariant() == ".EVTX";
 
                 f.RecursionFilter = entryInfo => !entryInfo.IsMountPoint && !entryInfo.IsSymbolicLink;
 
@@ -194,27 +191,27 @@ namespace EvtxECmd
             _logger.Info("");
 
             var suff = string.Empty;
-            if (FileCount != 1)
+            if (_fileCount != 1)
             {
                 suff = "s";
             }
 
             _logger.Error(
-                $"Processed {FileCount:N0} file{suff} in {sw.Elapsed.TotalSeconds:N4} seconds\r\n");
+                $"Processed {_fileCount:N0} file{suff} in {sw.Elapsed.TotalSeconds:N4} seconds\r\n");
 
-            if (errorFiles.Count > 0)
+            if (_errorFiles.Count > 0)
             {
                 _logger.Info("");
                 _logger.Info("Files with errors");
-                foreach (var errorFile in errorFiles)
+                foreach (var errorFile in _errorFiles)
                 {
                     _logger.Error($"'{errorFile.Key}' error count: {errorFile.Value:N0}");
                 }
             }
         }
 
-        private static Dictionary<string, int> errorFiles;
-        private static int FileCount = 0;
+        private static Dictionary<string, int> _errorFiles;
+        private static int _fileCount = 0;
 
         private static void ProcessFile(string file)
         {
@@ -249,10 +246,10 @@ namespace EvtxECmd
 
                 if (errors > 0)
                 {
-                    errorFiles.Add(file,errors);
+                    _errorFiles.Add(file,errors);
                 }
               
-                    FileCount += 1;
+                    _fileCount += 1;
             
 
                 _logger.Info("");
