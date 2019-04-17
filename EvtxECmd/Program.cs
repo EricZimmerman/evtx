@@ -72,6 +72,12 @@ namespace EvtxECmd
                     "The custom date/time format to use when displaying time stamps. Default is: yyyy-MM-dd HH:mm:ss.fffffff")
                 .SetDefault("yyyy-MM-dd HH:mm:ss.fffffff");
 
+            _fluentCommandLineParser.Setup(arg => arg.ShowXml)
+                .As('x')
+                .WithDescription(
+                    "When true, show XML payload for event records. Default is FALSE.")
+                .SetDefault(false);
+
 
             _fluentCommandLineParser.Setup(arg => arg.Debug)
                 .As("debug")
@@ -234,7 +240,15 @@ namespace EvtxECmd
                 {
                     try
                     {
-                        eventRecord.ConvertPayloadToXml();
+                        if (_fluentCommandLineParser.Object.ShowXml)
+                        {
+                            _logger.Info(    eventRecord.ConvertPayloadToXml());
+                        }
+                        else
+                        {
+                            eventRecord.ConvertPayloadToXml();
+                        }
+                    
                         seenRecords += 1;
                     }
                     catch (Exception e)
@@ -302,6 +316,7 @@ namespace EvtxECmd
 
         public bool Debug { get; set; }
         public bool Trace { get; set; }
+        public bool ShowXml { get; set; }
 
         public string CsvName { get; set; }
         public string JsonName { get; set; }
