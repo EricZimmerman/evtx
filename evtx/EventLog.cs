@@ -66,6 +66,8 @@ namespace evtx
             var chunkOffset = fileStream.Position;
             var bytesRead = fileStream.Read(chunkBuffer, 0, 0x10000);
 
+            EventIdMetrics = new Dictionary<long, int>();
+
             var chunkNumber = 0;
             while (bytesRead > 0)
             {
@@ -89,6 +91,26 @@ namespace evtx
                 bytesRead = fileStream.Read(chunkBuffer, 0, 0x10000);
 
                 chunkNumber += 1;
+            }
+
+            ErrorRecords = new Dictionary<long, string>();
+
+            foreach (var chunkInfo in Chunks)
+            {
+                foreach (var eventIdMetric in chunkInfo.EventIdMetrics)
+                {
+                    if (EventIdMetrics.ContainsKey(eventIdMetric.Key) == false)
+                    {
+                        EventIdMetrics.Add(eventIdMetric.Key,0);
+                    }
+
+                    EventIdMetrics[eventIdMetric.Key] += eventIdMetric.Value;
+                }
+
+                foreach (var chunkInfoErrorRecord in chunkInfo.ErrorRecords)
+                {
+                    ErrorRecords.Add(chunkInfoErrorRecord.Key,chunkInfoErrorRecord.Value);
+                }
             }
         }
 
@@ -126,13 +148,20 @@ namespace evtx
             return sb.ToString();
         }
 
+        public Dictionary<long, int> EventIdMetrics;
+
+        public Dictionary<long,string> ErrorRecords { get; }
+
         public IEnumerable<EventRecord> GetEventRecords()
         {
             foreach (var chunkInfo in Chunks)
-            foreach (var chunkInfoEventRecord in chunkInfo.EventRecords)
             {
-                yield return chunkInfoEventRecord;
+                foreach (var chunkInfoEventRecord in chunkInfo.EventRecords)
+                { 
+                    yield return chunkInfoEventRecord;
+                }
             }
+            
         }
     }
 }

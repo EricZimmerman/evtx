@@ -160,6 +160,8 @@ namespace evtx
 
             index = (int) tableOffset + 0x100 + 0x80; //get to start of event Records
 
+            ErrorRecords = new Dictionary<long, string>();
+            EventIdMetrics = new Dictionary<long, int>();
 
             const int recordSig = 0x2a2a;
             while (index < chunkBytes.Length)
@@ -196,19 +198,30 @@ namespace evtx
                     continue;
                 }
 
-//                try
-//                {
-                var er = new EventRecord(br, recordOffset, this);
+                try
+                {
+                    var er = new EventRecord(br, recordOffset, this);
                 
-                EventRecords.Add(er);
-//                }
-//                catch (Exception e)
-//                {
-//                    l.Error($"First event record ident-num: {FirstEventRecordIdentifier}-{FirstEventRecordNumber} Last event record ident-num: {LastEventRecordIdentifier}-{LastEventRecordNumber} last record offset 0x{LastRecordOffset:X}");
-//                    l.Error($"Record error at offset 0x{AbsoluteOffset+ recordOffset:X}, record #: {recordNumber} error: {e.Message} stack: {e.StackTrace}");
-//                }
+                    EventRecords.Add(er);
+
+                    if (EventIdMetrics.ContainsKey(er.EventId) == false)
+                    {
+                        EventIdMetrics.Add(er.EventId,0);
+                    }
+
+                    EventIdMetrics[er.EventId] += 1;
+                }
+                catch (Exception e)
+                {
+                    l.Trace($"First event record ident-num: {FirstEventRecordIdentifier}-{FirstEventRecordNumber} Last event record ident-num: {LastEventRecordIdentifier}-{LastEventRecordNumber} last record offset 0x{LastRecordOffset:X}");
+                    l.Error($"Record error at offset 0x{AbsoluteOffset+ recordOffset:X}, record #: {recordNumber} error: {e.Message}");
+
+                    ErrorRecords.Add(recordNumber,e.Message);
+                }
             }
         }
+
+        public Dictionary<long, int> EventIdMetrics;
 
         public uint LastRecordOffset { get; }
         public uint FreeSpaceOffset { get; }
@@ -216,6 +229,7 @@ namespace evtx
         public Dictionary<int, Template> Templates { get; }
 
         public List<EventRecord> EventRecords { get; }
+        public Dictionary<long,string> ErrorRecords { get; }
 
         public Dictionary<uint, StringTableEntry> StringTableEntries { get; }
 
