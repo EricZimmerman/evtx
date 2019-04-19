@@ -48,7 +48,7 @@ namespace evtx.Test
 
                     }
                  
-                 //   eventRecord.ConvertPayloadToXml();
+                    //   eventRecord.ConvertPayloadToXml();
 
                     total += 1;
                 }
