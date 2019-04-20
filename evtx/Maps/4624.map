@@ -1,0 +1,67 @@
+Author: Eric Zimmerman saericzimmerman@gmail.com
+Description: "4624 event"
+Map: 
+  - 
+    Property: Username
+    PropertyValue: "%domain%\\%user%"
+    Values: 
+      - 
+        Name: domain
+        Value: "/Event/EventData/Data[@Name=\"\"SubjectDomainName\"\"]"
+      - 
+        Name: user
+        Value: "/Event/EventData/Data[@Name=\"\"SubjectUserName\"\"]"
+  - 
+    Property: RemoteHost
+    PropertyValue: "%workstation% (%ipAddress%)"
+    Values: 
+      - 
+        Name: ipAddress
+        Value: "/Event/EventData/Data[@Name=\"\"IpAddress\"\"]"
+      - 
+        Name: workstation
+        Value: "/Event/EventData/Data[@Name=\"\"WorkstationName\"\"]"
+  - 
+    Property: PayloadData1
+    PropertyValue: "%LogonType%"
+    Values: 
+      - 
+        Name: LogonType
+        Value: "/Event/EventData/Data[@Name=\"\"LogonType\"\"]"
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# PayloadData1 through PayloadData6
+
+# Example payload data
+#   </System>
+#   <EventData>
+#     <Data Name="SubjectUserSid">S-1-5-18</Data>
+#     <Data Name="SubjectUserName">DESKTOP-9L1HKC9$</Data>
+#     <Data Name="SubjectDomainName">WORKGROUP</Data>
+#     <Data Name="SubjectLogonId">E7-03-00-00-00-00-00-00</Data>
+#     <Data Name="TargetUserSid">S-1-5-18</Data>
+#     <Data Name="TargetUserName">SYSTEM</Data>
+#     <Data Name="TargetDomainName">NT AUTHORITY</Data>
+#     <Data Name="TargetLogonId">E7-03-00-00-00-00-00-00</Data>
+#     <Data Name="LogonType">5</Data>
+#     <Data Name="LogonProcessName">Advapi  </Data>
+#     <Data Name="AuthenticationPackageName">Negotiate</Data>
+#     <Data Name="WorkstationName">-</Data>
+#     <Data Name="LogonGuid">00000000-0000-0000-0000-000000000000</Data>
+#     <Data Name="TransmittedServices">-</Data>
+#     <Data Name="LmPackageName">-</Data>
+#     <Data Name="KeyLength">0</Data>
+#     <Data Name="ProcessId">FC-02-00-00-00-00-00-00</Data>
+#     <Data Name="ProcessName">C:\Windows\System32\services.exe</Data>
+#     <Data Name="IpAddress">-</Data>
+#     <Data Name="IpPort">-</Data>
+#     <Data Name="ImpersonationLevel">%%1833</Data>
+#     <Data Name="RestrictedAdminMode">-</Data>
+#     <Data Name="TargetOutboundUserName">-</Data>
+#     <Data Name="TargetOutboundDomainName">-</Data>
+#     <Data Name="VirtualAccount">%%1843</Data>
+#     <Data Name="TargetLinkedLogonId">00-00-00-00-00-00-00-00</Data>
+#     <Data Name="ElevatedToken">%%1842</Data>
+#   </EventData>
