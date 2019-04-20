@@ -44,16 +44,16 @@ namespace evtx.Test
                     //l.Info($"Record #: {eventRecord.RecordNumber}");
                     if (eventRecord.EventId == 4000)
                     {
-                         l.Info($"Record #: {eventRecord.RecordNumber} {eventRecord.Channel} {eventRecord.Computer} {eventRecord.TimeCreated}  {eventRecord.PayloadData1} {eventRecord.PayloadData2}");
-
+                        l.Info(
+                            $"Record #: {eventRecord.RecordNumber} {eventRecord.Channel} {eventRecord.Computer} {eventRecord.TimeCreated}  {eventRecord.PayloadData1} {eventRecord.PayloadData2}");
                     }
-                 
+
                     //   eventRecord.ConvertPayloadToXml();
 
                     total += 1;
                 }
 
-                foreach (var esEventIdMetric in es.EventIdMetrics.OrderBy(t=>t.Key))
+                foreach (var esEventIdMetric in es.EventIdMetrics.OrderBy(t => t.Key))
                 {
                     total2 += esEventIdMetric.Value;
                     l.Info($"{esEventIdMetric.Key}: {esEventIdMetric.Value:N0}");
@@ -738,7 +738,7 @@ namespace evtx.Test
                         //  try
                     {
                         //    l.Info( eventRecord);
-                            l.Info( eventRecord.ConvertPayloadToXml());
+                        l.Info(eventRecord.ConvertPayloadToXml());
                         eventRecord.ConvertPayloadToXml();
                     }
 

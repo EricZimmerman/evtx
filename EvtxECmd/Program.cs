@@ -185,53 +185,52 @@ namespace EvtxECmd
                     }
                 }
 
-                    var outName = $"{DateTimeOffset.Now:yyyyMMddHHmmss}_EvtxECmd_Output.csv";
+                var outName = $"{DateTimeOffset.Now:yyyyMMddHHmmss}_EvtxECmd_Output.csv";
 
-                    if (_fluentCommandLineParser.Object.CsvName.IsNullOrEmpty() == false)
-                    {
-                        outName = Path.GetFileName(_fluentCommandLineParser.Object.CsvName);
-                    }
+                if (_fluentCommandLineParser.Object.CsvName.IsNullOrEmpty() == false)
+                {
+                    outName = Path.GetFileName(_fluentCommandLineParser.Object.CsvName);
+                }
 
-                    var outFile = Path.Combine(_fluentCommandLineParser.Object.CsvDirectory, outName);
+                var outFile = Path.Combine(_fluentCommandLineParser.Object.CsvDirectory, outName);
 
-                    _logger.Warn($"CSV output will be saved to '{outFile}'\r\n");
+                _logger.Warn($"CSV output will be saved to '{outFile}'\r\n");
 
-                    _swCsv = new StreamWriter(outFile, false, Encoding.UTF8);
+                _swCsv = new StreamWriter(outFile, false, Encoding.UTF8);
 
-                    _csvWriter = new CsvWriter(_swCsv);
+                _csvWriter = new CsvWriter(_swCsv);
 
-                    var foo = _csvWriter.Configuration.AutoMap<EventRecord>();
+                var foo = _csvWriter.Configuration.AutoMap<EventRecord>();
 
-                    foo.Map(t => t.PayloadXml).Ignore();
-                    foo.Map(t => t.RecordPosition).Ignore();
-                    foo.Map(t => t.Size).Ignore();
-                    foo.Map(t => t.Timestamp).Ignore();
+                foo.Map(t => t.PayloadXml).Ignore();
+                foo.Map(t => t.RecordPosition).Ignore();
+                foo.Map(t => t.Size).Ignore();
+                foo.Map(t => t.Timestamp).Ignore();
 
 
-                    foo.Map(t => t.RecordNumber).Index(0);
-                    foo.Map(t => t.TimeCreated).Index(1);
-                    foo.Map(t => t.EventId).Index(2);
-                    foo.Map(t => t.Level).Index(3);
-                    foo.Map(t => t.Provider).Index(4);
-                    foo.Map(t => t.Channel).Index(5);
-                    foo.Map(t => t.ProcessId).Index(6);
-                    foo.Map(t => t.ThreadId).Index(7);
-                    foo.Map(t => t.Computer).Index(8);
-                    foo.Map(t => t.UserId).Index(9);
-                    foo.Map(t => t.UserName).Index(10);
-                    foo.Map(t => t.RemoteHost).Index(11);
-                    foo.Map(t => t.PayloadData1).Index(12);
-                    foo.Map(t => t.PayloadData2).Index(13);
-                    foo.Map(t => t.PayloadData3).Index(14);
-                    foo.Map(t => t.PayloadData4).Index(15);
-                    foo.Map(t => t.PayloadData5).Index(16);
-                    foo.Map(t => t.PayloadData6).Index(17);
-                    foo.Map(t => t.SourceFile).Index(18);
+                foo.Map(t => t.RecordNumber).Index(0);
+                foo.Map(t => t.TimeCreated).Index(1);
+                foo.Map(t => t.EventId).Index(2);
+                foo.Map(t => t.Level).Index(3);
+                foo.Map(t => t.Provider).Index(4);
+                foo.Map(t => t.Channel).Index(5);
+                foo.Map(t => t.ProcessId).Index(6);
+                foo.Map(t => t.ThreadId).Index(7);
+                foo.Map(t => t.Computer).Index(8);
+                foo.Map(t => t.UserId).Index(9);
+                foo.Map(t => t.UserName).Index(10);
+                foo.Map(t => t.RemoteHost).Index(11);
+                foo.Map(t => t.PayloadData1).Index(12);
+                foo.Map(t => t.PayloadData2).Index(13);
+                foo.Map(t => t.PayloadData3).Index(14);
+                foo.Map(t => t.PayloadData4).Index(15);
+                foo.Map(t => t.PayloadData5).Index(16);
+                foo.Map(t => t.PayloadData6).Index(17);
+                foo.Map(t => t.SourceFile).Index(18);
 
-                    _csvWriter.Configuration.RegisterClassMap(foo);
-                    _csvWriter.WriteHeader<EventRecord>();
-                    _csvWriter.NextRecord();
-               
+                _csvWriter.Configuration.RegisterClassMap(foo);
+                _csvWriter.WriteHeader<EventRecord>();
+                _csvWriter.NextRecord();
             }
 
 

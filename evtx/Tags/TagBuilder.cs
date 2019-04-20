@@ -58,8 +58,9 @@ namespace evtx.Tags
             Reservedc = 0xc,
             Reservedd = 0xd,
             Reservede = 0xe,
-            Reservedf = 0xf,
+            Reservedf = 0xf
         }
+
         public enum ValueType
         {
             NullType = 0x0,

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Xml;
@@ -53,20 +54,20 @@ namespace evtx
 
             using (var sr = new StringReader(xml))
             {
-                var  docNav = new XPathDocument(sr);
+                var docNav = new XPathDocument(sr);
                 var nav = docNav.CreateNavigator();
 
                 var computer = nav.SelectSingleNode(@"/Event/System/Computer");
                 var channel = nav.SelectSingleNode(@"/Event/System/Channel");
                 var eventId = nav.SelectSingleNode(@"/Event/System/EventID");
                 var level = nav.SelectSingleNode(@"/Event/System/Level");
-                var timeCreated = nav.SelectSingleNode(@"/Event/System/TimeCreated")?.GetAttribute("SystemTime","");
-                var provider = nav.SelectSingleNode(@"/Event/System/Provider")?.GetAttribute("Name","");
-                var processId = nav.SelectSingleNode(@"/Event/System/Execution")?.GetAttribute("ProcessID","");
-                var threadId = nav.SelectSingleNode(@"/Event/System/Execution")?.GetAttribute("ThreadID","");
-                var userId = nav.SelectSingleNode(@"/Event/System/Security")?.GetAttribute("UserID","");
+                var timeCreated = nav.SelectSingleNode(@"/Event/System/TimeCreated")?.GetAttribute("SystemTime", "");
+                var provider = nav.SelectSingleNode(@"/Event/System/Provider")?.GetAttribute("Name", "");
+                var processId = nav.SelectSingleNode(@"/Event/System/Execution")?.GetAttribute("ProcessID", "");
+                var threadId = nav.SelectSingleNode(@"/Event/System/Execution")?.GetAttribute("ThreadID", "");
+                var userId = nav.SelectSingleNode(@"/Event/System/Security")?.GetAttribute("UserID", "");
 
-                TimeCreated = DateTimeOffset.Parse(timeCreated,null,System.Globalization.DateTimeStyles.AssumeUniversal).ToUniversalTime();
+                TimeCreated = DateTimeOffset.Parse(timeCreated, null, DateTimeStyles.AssumeUniversal).ToUniversalTime();
                 if (eventId != null)
                 {
                     EventId = eventId.ValueAsInt;
@@ -92,6 +93,7 @@ namespace evtx
                 {
                     payloadNode = nav.SelectSingleNode(@"/Event/UserData");
                 }
+
                 var payloadXml = payloadNode?.OuterXml;
 
 //               ////child[@id='#grand']/@age
@@ -137,8 +139,10 @@ namespace evtx
         public int ThreadId { get; }
         public int Level { get; }
         public string SourceFile { get; set; }
+
         /// <summary>
-        /// This should match the Timestamp pulled from the data, but this one is explicitly from the XML via the substitution values
+        ///     This should match the Timestamp pulled from the data, but this one is explicitly from the XML via the substitution
+        ///     values
         /// </summary>
         public DateTimeOffset TimeCreated { get; }
 

@@ -44,7 +44,8 @@ namespace evtx.Tags
                     Value = vv.ValueData;
                     break;
                 default:
-                    throw new Exception($"Unknown attribute info ({AttributeInfo.GetType()})! Please send the file to saericzimmerman@gmail.com");
+                    throw new Exception(
+                        $"Unknown attribute info ({AttributeInfo.GetType()})! Please send the file to saericzimmerman@gmail.com");
             }
 
             l.Trace(this);

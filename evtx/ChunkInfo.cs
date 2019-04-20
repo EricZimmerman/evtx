@@ -11,6 +11,8 @@ namespace evtx
 {
     public class ChunkInfo
     {
+        public Dictionary<long, int> EventIdMetrics;
+
         public ChunkInfo(byte[] chunkBytes, long absoluteOffset, int chunkNumber)
         {
             var l = LogManager.GetLogger("ChunkInfo");
@@ -201,27 +203,27 @@ namespace evtx
                 try
                 {
                     var er = new EventRecord(br, recordOffset, this);
-                
+
                     EventRecords.Add(er);
 
                     if (EventIdMetrics.ContainsKey(er.EventId) == false)
                     {
-                        EventIdMetrics.Add(er.EventId,0);
+                        EventIdMetrics.Add(er.EventId, 0);
                     }
 
                     EventIdMetrics[er.EventId] += 1;
                 }
                 catch (Exception e)
                 {
-                    l.Trace($"First event record ident-num: {FirstEventRecordIdentifier}-{FirstEventRecordNumber} Last event record ident-num: {LastEventRecordIdentifier}-{LastEventRecordNumber} last record offset 0x{LastRecordOffset:X}");
-                    l.Error($"Record error at offset 0x{AbsoluteOffset+ recordOffset:X}, record #: {recordNumber} error: {e.Message}");
+                    l.Trace(
+                        $"First event record ident-num: {FirstEventRecordIdentifier}-{FirstEventRecordNumber} Last event record ident-num: {LastEventRecordIdentifier}-{LastEventRecordNumber} last record offset 0x{LastRecordOffset:X}");
+                    l.Error(
+                        $"Record error at offset 0x{AbsoluteOffset + recordOffset:X}, record #: {recordNumber} error: {e.Message}");
 
-                    ErrorRecords.Add(recordNumber,e.Message);
+                    ErrorRecords.Add(recordNumber, e.Message);
                 }
             }
         }
-
-        public Dictionary<long, int> EventIdMetrics;
 
         public uint LastRecordOffset { get; }
         public uint FreeSpaceOffset { get; }
@@ -229,7 +231,7 @@ namespace evtx
         public Dictionary<int, Template> Templates { get; }
 
         public List<EventRecord> EventRecords { get; }
-        public Dictionary<long,string> ErrorRecords { get; }
+        public Dictionary<long, string> ErrorRecords { get; }
 
         public Dictionary<uint, StringTableEntry> StringTableEntries { get; }
 

@@ -20,6 +20,8 @@ namespace evtx
 
         private static readonly Logger Logger = LogManager.GetLogger("EventLog");
 
+        public Dictionary<long, int> EventIdMetrics;
+
         public EventLog(Stream fileStream)
         {
             const long eventSignature = 0x00656c6946666c45;
@@ -101,7 +103,7 @@ namespace evtx
                 {
                     if (EventIdMetrics.ContainsKey(eventIdMetric.Key) == false)
                     {
-                        EventIdMetrics.Add(eventIdMetric.Key,0);
+                        EventIdMetrics.Add(eventIdMetric.Key, 0);
                     }
 
                     EventIdMetrics[eventIdMetric.Key] += eventIdMetric.Value;
@@ -109,7 +111,7 @@ namespace evtx
 
                 foreach (var chunkInfoErrorRecord in chunkInfo.ErrorRecords)
                 {
-                    ErrorRecords.Add(chunkInfoErrorRecord.Key,chunkInfoErrorRecord.Value);
+                    ErrorRecords.Add(chunkInfoErrorRecord.Key, chunkInfoErrorRecord.Value);
                 }
             }
         }
@@ -133,6 +135,8 @@ namespace evtx
         public short MinorVersion { get; }
         public short MajorVersion { get; }
 
+        public Dictionary<long, string> ErrorRecords { get; }
+
         public override string ToString()
         {
             var sb = new StringBuilder();
@@ -148,20 +152,15 @@ namespace evtx
             return sb.ToString();
         }
 
-        public Dictionary<long, int> EventIdMetrics;
-
-        public Dictionary<long,string> ErrorRecords { get; }
-
         public IEnumerable<EventRecord> GetEventRecords()
         {
             foreach (var chunkInfo in Chunks)
             {
                 foreach (var chunkInfoEventRecord in chunkInfo.EventRecords)
-                { 
+                {
                     yield return chunkInfoEventRecord;
                 }
             }
-            
         }
     }
 }
