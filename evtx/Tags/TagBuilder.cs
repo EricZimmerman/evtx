@@ -40,6 +40,26 @@ namespace evtx.Tags
             StartOfBXmlStream = 0xf
         }
 
+
+        public enum Level
+        {
+            Information0 = 0x0,
+            Critical = 0x1,
+            Error = 0x2,
+            Warning = 0x3,
+            Information = 0x4,
+            Verbose = 0x5,
+            Reserved6 = 0x6,
+            Reserved7 = 0x7,
+            Reserved8 = 0x8,
+            Reserved9 = 0x9,
+            Reserveda = 0xa,
+            Reservedb = 0xb,
+            Reservedc = 0xc,
+            Reservedd = 0xd,
+            Reservede = 0xe,
+            Reservedf = 0xf,
+        }
         public enum ValueType
         {
             NullType = 0x0,

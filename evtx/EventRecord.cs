@@ -59,13 +59,32 @@ namespace evtx
                 var computer = nav.SelectSingleNode(@"/Event/System/Computer");
                 var channel = nav.SelectSingleNode(@"/Event/System/Channel");
                 var eventId = nav.SelectSingleNode(@"/Event/System/EventID");
+                var level = nav.SelectSingleNode(@"/Event/System/Level");
                 var timeCreated = nav.SelectSingleNode(@"/Event/System/TimeCreated")?.GetAttribute("SystemTime","");
+                var provider = nav.SelectSingleNode(@"/Event/System/Provider")?.GetAttribute("Name","");
+                var processId = nav.SelectSingleNode(@"/Event/System/Execution")?.GetAttribute("ProcessID","");
+                var threadId = nav.SelectSingleNode(@"/Event/System/Execution")?.GetAttribute("ThreadID","");
                 var userId = nav.SelectSingleNode(@"/Event/System/Security")?.GetAttribute("UserID","");
 
                 TimeCreated = DateTimeOffset.Parse(timeCreated,null,System.Globalization.DateTimeStyles.AssumeUniversal).ToUniversalTime();
                 if (eventId != null)
                 {
                     EventId = eventId.ValueAsInt;
+                }
+
+                if (level != null)
+                {
+                    Level = level.ValueAsInt;
+                }
+
+                if (processId != null)
+                {
+                    ProcessId = int.Parse(processId);
+                }
+
+                if (threadId != null)
+                {
+                    ThreadId = int.Parse(threadId);
                 }
 
                 var payloadNode = nav.SelectSingleNode(@"/Event/EventData");
@@ -75,24 +94,25 @@ namespace evtx
                 }
                 var payloadXml = payloadNode?.OuterXml;
 
-               ////child[@id='#grand']/@age
-               //<Data Name="MajorVersion">10</Data>
-              // var foo = payloadNode.SelectSingleNode(@"Data[@Name=""MajorVersion""]");
-               var foo = nav.SelectSingleNode(@"/Event/EventData/Data[@Name=""MajorVersion""]");
-               var foo2 = nav.SelectSingleNode(@"/Event/EventData/Data[@Name=""BuildVersion""]");
+//               ////child[@id='#grand']/@age
+//               //<Data Name="MajorVersion">10</Data>
+//              // var foo = payloadNode.SelectSingleNode(@"Data[@Name=""MajorVersion""]");
+//               var foo = nav.SelectSingleNode(@"/Event/EventData/Data[@Name=""MajorVersion""]");
+//               var foo2 = nav.SelectSingleNode(@"/Event/EventData/Data[@Name=""BuildVersion""]");
 
-               if (foo != null)
-               {
-                   PayloadData1 = foo.Value;
-               }
-
-               if (foo2 != null)
-               {
-                   PayloadData2 = foo2.Value;
-               }
+//               if (foo != null)
+//               {
+//                   PayloadData1 = foo.Value;
+//               }
+//
+//               if (foo2 != null)
+//               {
+//                   PayloadData2 = foo2.Value;
+//               }
 
                 //sanity checks
                 UserId = userId ?? string.Empty;
+                Provider = provider ?? string.Empty;
                 Channel = channel?.Value ?? string.Empty;
                 Computer = computer?.Value ?? string.Empty;
                 PayloadXml = payloadXml ?? string.Empty;
@@ -111,7 +131,12 @@ namespace evtx
         public string PayloadXml { get; }
         public string UserId { get; }
         public string Channel { get; }
+        public string Provider { get; }
         public int EventId { get; }
+        public int ProcessId { get; }
+        public int ThreadId { get; }
+        public int Level { get; }
+        public string SourceFile { get; set; }
         /// <summary>
         /// This should match the Timestamp pulled from the data, but this one is explicitly from the XML via the substitution values
         /// </summary>

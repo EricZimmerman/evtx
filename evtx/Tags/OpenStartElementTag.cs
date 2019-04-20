@@ -134,10 +134,8 @@ namespace evtx.Tags
                 }
                 else
                 {
-                    if (Name.Value == "Keywords" && node is OptionalSubstitution)
+                    if (Name.Value == "Keywords" && node is OptionalSubstitution kw)
                     {
-                        var kw = (OptionalSubstitution) node;
-
                         var subBytes = substitutionEntries.Single(t => t.Position == kw.SubstitutionId).DataBytes;
 
                         if (subBytes.Length >= 8)
