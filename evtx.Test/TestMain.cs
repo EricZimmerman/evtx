@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Linq;
 using NFluent;
 using NLog;
@@ -727,25 +728,34 @@ namespace evtx.Test
 
             foreach (var file in files)
             {
-                l.Info($"-------------------------- file {Path.GetFileName(file)}--------------------------");
+                l.Info($"\r\n\r\n\r\n-------------------------- file {Path.GetFileName(file)}--------------------------");
                 using (var fs = new FileStream(file, FileMode.Open, FileAccess.Read))
                 {
-//                    try
-//                    {
-                    var es = new EventLog(fs);
 
-                    foreach (var eventRecord in es.GetEventRecords())
-                        //  try
+                    try
                     {
-                        //    l.Info( eventRecord);
-                        l.Info(eventRecord.ConvertPayloadToXml());
-                        eventRecord.ConvertPayloadToXml();
-                    }
+
+                        var es = new EventLog(fs);
+
+                        foreach (var eventRecord in es.GetEventRecords())
+                            //  try
+                        {
+                            //    l.Info( eventRecord);
+                            //l.Info(eventRecord.ConvertPayloadToXml());
+                            //eventRecord.ConvertPayloadToXml();
+                        }
 
 //                        catch (Exception e)
 //                        {
 //                           l.Error($"Record: {eventRecord} failed to parse: {e.Message} {e.StackTrace}");
 //                        }
+                    }
+                    catch (Exception e)
+                    {
+                        l.Error($"FILE : {file} failed to parse: {e.Message} {e.StackTrace}");
+                    }
+
+
                 }
             }
 

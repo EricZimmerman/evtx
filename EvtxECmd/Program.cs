@@ -308,7 +308,9 @@ namespace EvtxECmd
 
             using (var fs = new FileStream(file, FileMode.Open))
             {
-                var evt = new EventLog(fs);
+                try
+                {
+ var evt = new EventLog(fs);
 
                 var seenRecords = 0;
                 var errors = 0;
@@ -352,6 +354,12 @@ namespace EvtxECmd
                 _logger.Info(evt);
 
                 _logger.Info($"Records processed: {seenRecords:N0} Errors: {errors:N0}");
+                }
+                catch (Exception e)
+                {
+                   _logger.Error($"'{file}' is not an evtx file! Skipping...");
+                }
+               
             }
         }
 

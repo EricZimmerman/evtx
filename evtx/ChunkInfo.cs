@@ -165,6 +165,8 @@ namespace evtx
             ErrorRecords = new Dictionary<long, string>();
             EventIdMetrics = new Dictionary<long, int>();
 
+          
+
             const int recordSig = 0x2a2a;
             while (index < chunkBytes.Length)
             {
