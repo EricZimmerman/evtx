@@ -73,6 +73,15 @@
       <NamedTestSelector>
         <TestName>evtx.Test.TestMain.ApplicationLog</TestName>
       </NamedTestSelector>
+      <NamedTestSelector>
+        <TestName>evtx.Test.TestMain.DirTestToFix</TestName>
+      </NamedTestSelector>
+      <NamedTestSelector>
+        <TestName>evtx.Test.TestMain.vss15Sec</TestName>
+      </NamedTestSelector>
+      <NamedTestSelector>
+        <TestName>evtx.Test.TestMain.vss14Sec</TestName>
+      </NamedTestSelector>
     </IgnoredTests>
   </Settings>
 </ProjectConfiguration>

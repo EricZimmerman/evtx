@@ -123,7 +123,7 @@ namespace evtx.Test
                 l.Info($"Event log details: {es}");
                 l.Info($"Event log error count: {es.ErrorRecords.Count:N0}");
 
-                Check.That(es.ErrorRecords.Count).IsEqualTo(0);
+                Check.That(es.ErrorRecords.Count).IsEqualTo(2);
             }
         }
 
@@ -843,6 +843,9 @@ namespace evtx.Test
 
             l.Info($"{sourceDir}");
 
+            var total = 0;
+            var total2 = 0;
+
             foreach (var file in files)
             {
                 l.Info($"\r\n\r\n\r\n-------------------------- file {Path.GetFileName(file)}--------------------------");
@@ -857,7 +860,7 @@ namespace evtx.Test
                         foreach (var eventRecord in es.GetEventRecords())
                             //  try
                         {
-                            //    l.Info( eventRecord);
+                          //      l.Info( eventRecord);
                             //l.Info(eventRecord.ConvertPayloadToXml());
                             //eventRecord.ConvertPayloadToXml();
                         }
@@ -866,6 +869,19 @@ namespace evtx.Test
 //                        {
 //                           l.Error($"Record: {eventRecord} failed to parse: {e.Message} {e.StackTrace}");
 //                        }
+
+                        foreach (var esEventIdMetric in es.EventIdMetrics.OrderBy(t => t.Key))
+                        {
+                            total2 += esEventIdMetric.Value;
+                            l.Info($"{esEventIdMetric.Key}: {esEventIdMetric.Value:N0}");
+                        }
+
+                        l.Info($"Total from here: {total:N0}");
+                        l.Info($"Total2 from here: {total2:N0}");
+                        l.Info($"Event log details: {es}");
+                        l.Info($"Event log error count: {es.ErrorRecords.Count:N0}");
+
+                        Check.That(es.ErrorRecords.Count).IsEqualTo(0);
                     }
                     catch (Exception e)
                     {
@@ -874,13 +890,12 @@ namespace evtx.Test
 
 
                 }
+
+
             }
 
 
-            var total = 0;
 
-
-            l.Info($"Total: {total}");
         }
 
 
