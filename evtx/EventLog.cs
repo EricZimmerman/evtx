@@ -1,9 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Net;
 using System.Text;
+using Alphaleonis.Win32.Filesystem;
+using FluentValidation.Results;
 using Force.Crc32;
 using NLog;
+using ServiceStack;
+using ServiceStack.Text;
+using YamlDotNet.Core;
+using YamlDotNet.Serialization;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
 
 //TODO rename project to EventLog?
 namespace evtx
@@ -95,6 +106,8 @@ namespace evtx
                 chunkNumber += 1;
             }
 
+          
+
             ErrorRecords = new Dictionary<long, string>();
 
             foreach (var chunkInfo in Chunks)
@@ -114,6 +127,145 @@ namespace evtx
                     ErrorRecords.Add(chunkInfoErrorRecord.Key, chunkInfoErrorRecord.Value);
                 }
             }
+        }
+
+        public static Dictionary<int,EventLogMap> EventLogMaps { get; private set; }
+
+        public static void LoadMaps(string mapPath)
+        {
+            EventLogMaps = new Dictionary<int, EventLogMap>();
+
+            var f = new DirectoryEnumerationFilters();
+            f.InclusionFilter = fsei => fsei.Extension.ToUpperInvariant() == ".MAP";
+
+            f.RecursionFilter = entryInfo => !entryInfo.IsMountPoint && !entryInfo.IsSymbolicLink;
+
+            f.ErrorFilter = (errorCode, errorMessage, pathProcessed) => true;
+
+            var dirEnumOptions =
+                DirectoryEnumerationOptions.Files | 
+                DirectoryEnumerationOptions.SkipReparsePoints | DirectoryEnumerationOptions.ContinueOnException |
+                DirectoryEnumerationOptions.BasicSearch;
+
+            var mapFiles =
+                Directory.EnumerateFileSystemEntries(mapPath, dirEnumOptions, f);
+
+            var l = LogManager.GetLogger("LoadMaps");
+
+            var deserializer = new DeserializerBuilder()
+                .Build();
+
+            EventLogMap eventMapFile;
+
+            var errorMaps = new List<string>();
+
+            foreach (var mapFile in mapFiles)
+            {
+                try
+                {
+                    var validator = new EventLogMapValidator();
+
+                    eventMapFile = deserializer.Deserialize<EventLogMap>(Alphaleonis.Win32.Filesystem.File.ReadAllText(mapFile));
+
+                    var validate = validator.Validate(eventMapFile);
+
+                    if (DisplayValidationResults(validate, mapFile))
+                    {
+                        EventLogMaps.Add(eventMapFile.EventId,eventMapFile);
+                    }
+                    else
+                    {
+                        errorMaps.Add(Path.GetFileName(mapFile));
+                    }
+
+                }
+                catch (SyntaxErrorException se)
+                {
+                    Console.WriteLine();
+                    l.Warn($"Syntax error in '{mapFile}':");
+                    l.Fatal(se.Message);
+
+                    var lines = File.ReadLines(mapFile).ToList();
+                    var fileContents = mapFile.ReadAllText();
+
+                    var badLine = lines[se.Start.Line - 1];
+                    Console.WriteLine();
+                    l.Fatal(
+                        $"Bad line (or close to it) '{badLine}' has invalid data at column '{se.Start.Column}'");
+
+                    if (fileContents.Contains('\t'))
+                    {
+                        Console.WriteLine();
+                        l.Error(
+                            "Bad line contains one or more tab characters. Replace them with spaces");
+                        Console.WriteLine();
+                        l.Info(fileContents.Replace("\t", "<TAB>"));
+                    }
+
+                //    hasError = true;
+                }
+                catch (YamlException ye)
+                {
+                    Console.WriteLine();
+                    l.Warn($"Syntax error in '{mapFile}':");
+
+                    var fileContents = mapFile.ReadAllText();
+
+                    l.Info(fileContents);
+
+                    if (ye.InnerException != null)
+                    {
+                        l.Fatal(ye.InnerException.Message);
+                    }
+
+                    Console.WriteLine();
+                    l.Fatal("Verify all properties against example files or manual and try again.");
+
+                  //  hasError = true;
+                }
+                catch (Exception e)
+                {
+                    l.Error($"Error loading map file '{mapFile}': {e.Message}");
+                }
+            }
+
+            if (errorMaps.Count > 0)
+            {
+                l.Error("The following maps had errors. Scroll up to review errors, correct them, and try again.");
+                foreach (var errorMap in errorMaps)
+                {
+                    l.Info(errorMap);
+                }
+                Environment.Exit(0);
+            }
+
+
+        }
+
+        private static bool DisplayValidationResults(ValidationResult result, string source)
+        {
+            var l = LogManager.GetLogger("LoadMaps");
+            l.Trace($"Performing validation on '{source}': {result.Dump()}");
+            if (result.Errors.Count == 0)
+            {
+                return true;
+            }
+
+            Console.WriteLine();
+            l.Error($"{source} had validation errors:");
+
+            //   _loggerCopyLog.Error($"\r\n{source} had validation errors:");
+
+            foreach (var validationFailure in result.Errors)
+            {
+                l.Error(validationFailure);
+            }
+
+            Console.WriteLine();
+            l.Error("\r\nCorrect the errors and try again. Exiting");
+            //   _loggerCopyLog.Error("Correct the errors and try again. Exiting");
+
+            return false;
         }
 
         public int TotalEventLogs { get; }

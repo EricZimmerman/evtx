@@ -127,6 +127,35 @@ namespace evtx.Test
             }
         }
 
+        [Test]
+        public void MapTest1()
+        {
+            var config = new LoggingConfiguration();
+            var loglevel = LogLevel.Debug;
+
+            var layout = @"${message}";
+
+            var consoleTarget = new ColoredConsoleTarget();
+
+            config.AddTarget("console", consoleTarget);
+
+            consoleTarget.Layout = layout;
+
+            var rule1 = new LoggingRule("*", loglevel, consoleTarget);
+            config.LoggingRules.Add(rule1);
+
+            LogManager.Configuration = config;
+            var l = LogManager.GetLogger("foo");
+
+            var sysLog = @"D:\SynologyDrive\EventLogs\HP_Spec\System.evtx";
+
+
+            EventLog.LoadMaps(@"D:\Code\evtx\evtx\Maps");
+
+            Check.That(EventLog.EventLogMaps.Count).IsStrictlyGreaterThan(0);
+
+        }
+
 
         [Test]
         public void SystemLog()

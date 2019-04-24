@@ -1,6 +1,7 @@
 Author: Eric Zimmerman saericzimmerman@gmail.com
 Description: "4624 event"
-Map: 
+EventId: 4624
+Maps: 
   - 
     Property: Username
     PropertyValue: "%domain%\\%user%"
