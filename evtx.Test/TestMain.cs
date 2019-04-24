@@ -11,6 +11,123 @@ namespace evtx.Test
 {
     public class TestMain
     {
+          [Test]
+        public void vss14Sec()
+        {
+            var config = new LoggingConfiguration();
+            var loglevel = LogLevel.Debug;
+
+            var layout = @"${message}";
+
+            var consoleTarget = new ColoredConsoleTarget();
+
+            config.AddTarget("console", consoleTarget);
+
+            consoleTarget.Layout = layout;
+
+            var rule1 = new LoggingRule("*", loglevel, consoleTarget);
+            config.LoggingRules.Add(rule1);
+
+            LogManager.Configuration = config;
+            var l = LogManager.GetLogger("foo");
+
+            var sysLog = @"D:\Temp\KAPE\vss012\Windows\system32\winevt\logs\Microsoft-Windows-DeviceManagement-Enterprise-Diagnostics-Provider%4Operational.evtx";
+
+            var total = 0;
+            var total2 = 0;
+
+            using (var fs = new FileStream(sysLog, FileMode.Open, FileAccess.Read))
+            {
+                var es = new EventLog(fs);
+
+                foreach (var eventRecord in es.GetEventRecords())
+                {
+                    //l.Info($"Record #: {eventRecord.RecordNumber}");
+                    if (eventRecord.EventId == 4000)
+                    {
+                        l.Info(
+                            $"Record #: {eventRecord.RecordNumber} {eventRecord.Channel} {eventRecord.Computer} {eventRecord.TimeCreated}  {eventRecord.PayloadData1} {eventRecord.PayloadData2}");
+                    }
+
+                    //   eventRecord.ConvertPayloadToXml();
+
+                    total += 1;
+                }
+
+                foreach (var esEventIdMetric in es.EventIdMetrics.OrderBy(t => t.Key))
+                {
+                    total2 += esEventIdMetric.Value;
+                    l.Info($"{esEventIdMetric.Key}: {esEventIdMetric.Value:N0}");
+                }
+
+                l.Info($"Total from here: {total:N0}");
+                l.Info($"Total2 from here: {total2:N0}");
+                l.Info($"Event log details: {es}");
+                l.Info($"Event log error count: {es.ErrorRecords.Count:N0}");
+
+                Check.That(es.ErrorRecords.Count).IsEqualTo(0);
+            }
+        }
+
+             [Test]
+        public void vss15Sec()
+        {
+            var config = new LoggingConfiguration();
+            var loglevel = LogLevel.Debug;
+
+            var layout = @"${message}";
+
+            var consoleTarget = new ColoredConsoleTarget();
+
+            config.AddTarget("console", consoleTarget);
+
+            consoleTarget.Layout = layout;
+
+            var rule1 = new LoggingRule("*", loglevel, consoleTarget);
+            config.LoggingRules.Add(rule1);
+
+            LogManager.Configuration = config;
+            var l = LogManager.GetLogger("foo");
+
+            var sysLog = @"D:\Temp\KAPE\vss015\Windows\system32\winevt\logs\Security.evtx";
+
+            var total = 0;
+            var total2 = 0;
+
+            using (var fs = new FileStream(sysLog, FileMode.Open, FileAccess.Read))
+            {
+                var es = new EventLog(fs);
+
+                foreach (var eventRecord in es.GetEventRecords())
+                {
+                    //l.Info($"Record #: {eventRecord.RecordNumber}");
+                    if (eventRecord.EventId == 4000)
+                    {
+                        l.Info(
+                            $"Record #: {eventRecord.RecordNumber} {eventRecord.Channel} {eventRecord.Computer} {eventRecord.TimeCreated}  {eventRecord.PayloadData1} {eventRecord.PayloadData2}");
+                    }
+
+                    //   eventRecord.ConvertPayloadToXml();
+
+                    total += 1;
+                }
+
+                foreach (var esEventIdMetric in es.EventIdMetrics.OrderBy(t => t.Key))
+                {
+                    total2 += esEventIdMetric.Value;
+                    l.Info($"{esEventIdMetric.Key}: {esEventIdMetric.Value:N0}");
+                }
+
+                l.Info($"Total from here: {total:N0}");
+                l.Info($"Total2 from here: {total2:N0}");
+                l.Info($"Event log details: {es}");
+                l.Info($"Event log error count: {es.ErrorRecords.Count:N0}");
+
+                Check.That(es.ErrorRecords.Count).IsEqualTo(0);
+            }
+        }
+
+
         [Test]
         public void SystemLog()
         {

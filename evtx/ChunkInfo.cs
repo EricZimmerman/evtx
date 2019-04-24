@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,9 @@ namespace evtx
             ChunkBytes = chunkBytes;
             AbsoluteOffset = absoluteOffset;
             ChunkNumber = chunkNumber;
+
+            ErrorRecords = new Dictionary<long, string>();
+            EventIdMetrics = new Dictionary<long, int>();
 
             EventRecords = new List<EventRecord>();
 
@@ -108,6 +112,8 @@ namespace evtx
 
             Templates = new Dictionary<int, Template>();
 
+        
+
             //to get all the templates and cache them
             foreach (var tableTemplateOffset in tableTemplateOffsets.OrderBy(t => t))
             {
@@ -161,11 +167,6 @@ namespace evtx
             l.Trace("");
 
             index = (int) tableOffset + 0x100 + 0x80; //get to start of event Records
-
-            ErrorRecords = new Dictionary<long, string>();
-            EventIdMetrics = new Dictionary<long, int>();
-
-          
 
             const int recordSig = 0x2a2a;
             while (index < chunkBytes.Length)
@@ -281,6 +282,21 @@ namespace evtx
             }
 
             var index = startingOffset;
+
+            //verify we actually have a template sitting here
+            if (ChunkBytes[index] != 0x0C)
+            {   
+                //if the template list is fubar, it may still be ok!
+                if (ChunkBytes[index-10] != 0x0C)
+                {
+                    return null;
+                }
+                //in some cases the $(*&*&$#&*$ template offset list is full of garbage, so this is a fallback
+                {
+                    index = startingOffset - 10;
+                }
+            }
+
             index += 1; //go past op code
 
             var unusedVersion = ChunkBytes[index];

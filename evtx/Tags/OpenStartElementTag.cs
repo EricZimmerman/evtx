@@ -63,6 +63,13 @@ namespace evtx.Tags
 
             var i = TagBuilder.BuildTag(recordPosition, dataStream, chunk);
 
+            if (i is EndOfBXmlStream)
+            {
+                l.Warn($"Unexpected data at offset 0x{(chunk.AbsoluteOffset+recordPosition+dataStream.BaseStream.Position):X}! This usually means the record is corrupt or incomplete!");
+                return;
+                Debug.WriteLine(1);
+            }
+
             Trace.Assert(i is CloseStartElementTag || i is CloseEmptyElementTag,
                 $"I didn't get a CloseStartElementTag: {i.GetType()}");
 

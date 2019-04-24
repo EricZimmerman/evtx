@@ -310,54 +310,59 @@ namespace EvtxECmd
             {
                 try
                 {
- var evt = new EventLog(fs);
+                    var evt = new EventLog(fs);
 
-                var seenRecords = 0;
-                var errors = 0;
+                    var seenRecords = 0;
 
-                foreach (var eventRecord in evt.GetEventRecords())
-                {
-                    eventRecord.SourceFile = file;
-                    try
+                    foreach (var eventRecord in evt.GetEventRecords())
                     {
-                        if (_fluentCommandLineParser.Object.ShowXml)
+                        eventRecord.SourceFile = file;
+                        try
                         {
-                            _logger.Info(eventRecord.ConvertPayloadToXml());
+                            if (_fluentCommandLineParser.Object.ShowXml)
+                            {
+                                _logger.Info(eventRecord.ConvertPayloadToXml());
+                            }
+                            _csvWriter?.WriteRecord(eventRecord);
+                            _csvWriter?.NextRecord();
+
+                            seenRecords += 1;
                         }
-//                        else
-//                        {
-//                            eventRecord.ConvertPayloadToXml();
-//                        }
-
-                        _csvWriter?.WriteRecord(eventRecord);
-                        _csvWriter?.NextRecord();
-
-                        seenRecords += 1;
+                        catch (Exception e)
+                        {
+                            _logger.Error($"Error processing record #{eventRecord.RecordNumber}: {e.Message}");
+                        }
                     }
-                    catch (Exception e)
+
+                    if (evt.ErrorRecords.Count > 0)
                     {
-                        _logger.Error($"Error processing record #{eventRecord.RecordNumber}: {e.Message}");
-                        errors += 1;
+                        _errorFiles.Add(file, evt.ErrorRecords.Count);
                     }
-                }
 
-                if (errors > 0)
-                {
-                    _errorFiles.Add(file, errors);
-                }
+                    _fileCount += 1;
 
-                _fileCount += 1;
+                    _logger.Info("");
+                    _logger.Fatal("Event log details");
+                    _logger.Info(evt);
 
+                    _logger.Info($"Records processed: {seenRecords:N0} Errors: {evt.ErrorRecords.Count:N0}");
 
-                _logger.Info("");
-                _logger.Fatal("Event log details");
-                _logger.Info(evt);
+                    foreach (var evtErrorRecord in evt.ErrorRecords)
+                    {
+                        _logger.Warn($"Record #'{evtErrorRecord.Key}', Error: {evtErrorRecord.Value}");
+                    }
 
-                _logger.Info($"Records processed: {seenRecords:N0} Errors: {errors:N0}");
                 }
                 catch (Exception e)
                 {
-                   _logger.Error($"'{file}' is not an evtx file! Skipping...");
+                    if (e.Message.Contains("Invalid signature! Expected 'ElfFile"))
+                    {
+                        _logger.Info($"'{file}' is not an evtx file! Message: {e.Message} Skipping...");
+                    }
+                    else
+                    {
+                        _logger.Error($"Error processing '{file}'! Message: {e.Message}");
+                    }
                 }
                
             }
