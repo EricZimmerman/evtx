@@ -14,11 +14,14 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
   - 
     Property: RemoteHost
-    PropertyValue: "%ipAddress%"
+    PropertyValue: "%ipAddress%:%port%"
     Values: 
       - 
         Name: ipAddress
         Value: "/Event/EventData/Data[@Name=\"IpAddress\"]"
+      - 
+        Name: port
+        Value: "/Event/EventData/Data[@Name=\"IpPort\"]"
   - 
     Property: PayloadData1
     PropertyValue: Share %ShareName% (%ShareLocalPath%)
