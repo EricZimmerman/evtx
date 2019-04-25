@@ -1,28 +1,72 @@
-Map files are read in order, alphabetically. This means you can create your own alternative maps to the default by doing the following:
+Map files are used to convert the EventData (the unique part of an event) to a more standardized format. Map files are specific to a certain type of event log, such as Security, Application, etc.
 
-1. make a copy of the map you want to modify
-2. name it the same as the map you are interested in, but prepend 1_ to the front of the filename.
-3. edit the new map to meet your needs
+Because different event logs may reuse event IDs, maps need to be specific to a certain kind of log. This specificity is done by using the unique identifier for a given event log, the Provider Guid. We will see more about this in a moment.
 
-Example:
+Once you know what event log and event ID you want to make a map for, the first thing to do is dump the log's records to XML, using EvtxECmd.exe as follows:
 
-Security_4624.map is copied and renamed to:
+EvtxECmd.exe -f <your eventlog> -x > c:\temp\somefile.xml
 
-1_Security_4624.map
+When the command finishes, open c:\temp\somefile.xml and find your event ID of interest. Let's say its from the Security log and its event ID 4624, It might look like this:
 
-Edit 1_Security_4624.map and make your changes
+<Event>
+  <System>
+    <Provider Name="Microsoft-Windows-Security-Auditing" Guid="54849625-5478-4994-a5ba-3e3b0328c30d" />
+    <EventID>4624</EventID>
+    <Version>2</Version>
+    <Level>0</Level>
+    <Task>12544</Task>
+    <Opcode>0</Opcode>
+    <Keywords>0x8020000000000000</Keywords>
+    <TimeCreated SystemTime="2018-05-04 22:14:31.3192953" />
+    <EventRecordID>495</EventRecordID>
+    <Correlation ActivityID="69aa9df0-e3d4-0007-f39d-aa69d4e3d301" />
+    <Execution ProcessID="716" ThreadID="6724" />
+    <Channel>Security</Channel>
+    <Computer>win10-test</Computer>
+    <Security />
+  </System>
+  <EventData>
+    <Data Name="SubjectUserSid">S-1-5-18</Data>
+    <Data Name="SubjectUserName">WIN10-TEST$</Data>
+    <Data Name="SubjectDomainName">TEMP</Data>
+    <Data Name="SubjectLogonId">0x3E7</Data>
+    <Data Name="TargetUserSid">S-1-5-18</Data>
+    <Data Name="TargetUserName">SYSTEM</Data>
+    <Data Name="TargetDomainName">NT AUTHORITY</Data>
+    <Data Name="TargetLogonId">0x3E7</Data>
+    <Data Name="LogonType">5</Data>
+    <Data Name="LogonProcessName">Advapi  </Data>
+    <Data Name="AuthenticationPackageName">Negotiate</Data>
+    <Data Name="WorkstationName">-</Data>
+    <Data Name="LogonGuid">00000000-0000-0000-0000-000000000000</Data>
+    <Data Name="TransmittedServices">-</Data>
+    <Data Name="LmPackageName">-</Data>
+    <Data Name="KeyLength">0</Data>
+    <Data Name="ProcessId">0x2C4</Data>
+    <Data Name="ProcessName">C:\Windows\System32\services.exe</Data>
+    <Data Name="IpAddress">-</Data>
+    <Data Name="IpPort">-</Data>
+    <Data Name="ImpersonationLevel">%%1833</Data>
+    <Data Name="RestrictedAdminMode">-</Data>
+    <Data Name="TargetOutboundUserName">-</Data>
+    <Data Name="TargetOutboundDomainName">-</Data>
+    <Data Name="VirtualAccount">%%1843</Data>
+    <Data Name="TargetLinkedLogonId">0x0</Data>
+    <Data Name="ElevatedToken">%%1842</Data>
+  </EventData>
+</Event>
 
-When the maps are loaded, since 1_Security_4624.map comes before 4624.map, only the one with your changes will be loaded.
+Notice the Provider line has both a Name and a Guid attribute. The Guid is the first part we need to keep track of for our map. Everything in the <System> element is normalized by default, but if you want to include anything from there you can do so. 
 
-This also allows you to update default maps without having your customizations blown away every time there is an update.
+In most cases, the data in the <EventData> block is what you want to process. This is where xpath queries come into play.
 
-The following is a brief tutorial in map making
+So let's take a look at a map to make things a bit more clear.
 
-In the example below, there are 3 header properties that descrive the map: who wrote it, what its for, and the event id the map corresponds to. 
+In the example below, there are four header properties that descrive the map: who wrote it, what its for, the unique guid, and the event ID the map corresponds to. 
 
-The EventId property is what matters here, not the name of the file.
+The Guid and EventId property are what make a map unique, not the name of the file. As long as the map ends with '.map' it will be processed.
 
-The Guid is the unique identifier for a given log type. It can be seen in the Provider element with an attribute name of Guid.
+The Guid is the unique identifier for a given log type. It can be seen in the Provider element with an attribute name of Guid ("54849625-5478-4994-a5ba-3e3b0328c30d" in the example above).
 
 The Maps collection contains configurations for how to look for data in an events EventData and extract out particular properties into variables. These variables are then combined and mapped to the event record's first class properties.
 
@@ -40,7 +84,7 @@ It is that simple! Be sure to surround things in double quotes and/or escape quo
 ---- START MAP HERE ----
 
 Author: Eric Zimmerman saericzimmerman@gmail.com
-Description: "4624 event"
+Description: Security 4624 event
 EventId: 4624
 Guid: 54849625-5478-4994-a5ba-3e3b0328c30d 
 Maps: 
@@ -78,51 +122,23 @@ Maps:
 # ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
 # PayloadData1 through PayloadData6
 
-# Example payload data
-# <Event>
-#   <System>
-#     <Provider Name="Microsoft-Windows-Security-Auditing" Guid="54849625-5478-4994-a5ba-3e3b0328c30d" />
-#     <EventID>4624</EventID>
-#     <Version>2</Version>
-#     <Level>0</Level>
-#     <Task>12544</Task>
-#     <Opcode>0</Opcode>
-#     <Keywords>0x8020000000000000</Keywords>
-#     <TimeCreated SystemTime="2018-09-06 20:26:07.9341912" />
-#     <EventRecordID>57241</EventRecordID>
-#     <Correlation />
-#     <Execution ProcessID="776" ThreadID="780" />
-#     <Channel>Security</Channel>
-#     <Computer>base-rd-01.shieldbase.lan</Computer>
-#     <Security />
-#   </System>
-#   <EventData>
-#     <Data Name="SubjectUserSid">S-1-0-0</Data>
-#     <Data Name="SubjectUserName">-</Data>
-#     <Data Name="SubjectDomainName">-</Data>
-#     <Data Name="SubjectLogonId">0x0</Data>
-#     <Data Name="TargetUserSid">S-1-5-18</Data>
-#     <Data Name="TargetUserName">SYSTEM</Data>
-#     <Data Name="TargetDomainName">NT AUTHORITY</Data>
-#     <Data Name="TargetLogonId">0x3E7</Data>
-#     <Data Name="LogonType">0</Data>
-#     <Data Name="LogonProcessName">-</Data>
-#     <Data Name="AuthenticationPackageName">-</Data>
-#     <Data Name="WorkstationName">-</Data>
-#     <Data Name="LogonGuid">00000000-0000-0000-0000-000000000000</Data>
-#     <Data Name="TransmittedServices">-</Data>
-#     <Data Name="LmPackageName">-</Data>
-#     <Data Name="KeyLength">0</Data>
-#     <Data Name="ProcessId">0x4</Data>
-#     <Data Name="ProcessName"></Data>
-#     <Data Name="IpAddress">-</Data>
-#     <Data Name="IpPort">-</Data>
-#     <Data Name="ImpersonationLevel">-</Data>
-#     <Data Name="RestrictedAdminMode">-</Data>
-#     <Data Name="TargetOutboundUserName">-</Data>
-#     <Data Name="TargetOutboundDomainName">-</Data>
-#     <Data Name="VirtualAccount">%%1843</Data>
-#     <Data Name="TargetLinkedLogonId">0x0</Data>
-#     <Data Name="ElevatedToken">%%1842</Data>
-#   </EventData>
-# </Event>
+---- END MAP HERE ----
+
+
+Map files are read in order, alphabetically. This means you can create your own alternative maps to the default by doing the following:
+
+1. make a copy of the map you want to modify
+2. name it the same as the map you are interested in, but prepend 1_ to the front of the filename.
+3. edit the new map to meet your needs
+
+Example:
+
+Security_4624.map is copied and renamed to:
+
+1_Security_4624.map
+
+Edit 1_Security_4624.map and make your changes
+
+When the maps are loaded, since 1_Security_4624.map comes before 4624.map, only the one with your changes will be loaded.
+
+This also allows you to update default maps without having your customizations blown away every time there is an update.
