@@ -118,7 +118,8 @@ namespace evtx.Tags
                 Indent = true,
                 IndentChars = "  ",
                 NewLineChars = "\r\n",
-                NewLineHandling = NewLineHandling.Replace
+                NewLineHandling = NewLineHandling.Replace,
+                OmitXmlDeclaration =  true
             };
             using (var writer = XmlWriter.Create(sb, settings))
             {

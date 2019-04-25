@@ -169,7 +169,8 @@ namespace evtx
             var rawXml = ti.AsXml(null, RecordPosition).Replace("&", "&amp;");
 
             xmld.LoadXml(rawXml);
-            return xmld.Beautify();
+
+            return xmld.Beautify().Replace(" xmlns=\"http://schemas.microsoft.com/win/2004/08/events/event\"", "");
         }
 
         public override string ToString()

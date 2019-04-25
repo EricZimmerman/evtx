@@ -83,13 +83,13 @@ namespace evtx
                     return ConvertHexStringToSidString(DataBytes);
 
                 case TagBuilder.ValueType.HexInt32Type:
+                    return $"0x{BitConverter.ToInt32(DataBytes, 0):X}";
                 case TagBuilder.ValueType.HexInt64Type:
-                    return BitConverter.ToString(DataBytes);
+                    return $"0x{BitConverter.ToInt64(DataBytes, 0):X}";
 
                 case TagBuilder.ValueType.EvtXml:
                 case TagBuilder.ValueType.EvtHandle:
                     return "UNKNOWN: Please submit to saericzimmerman@gmail.com!";
-
 
                 case TagBuilder.ValueType.BinXmlType:
                     return "BinaryXML";
@@ -115,7 +115,6 @@ namespace evtx
                     }
 
                     return string.Join(",", a64i);
-
 
                 case TagBuilder.ValueType.Array64BitIntUnsigned:
                     var a64ui = new List<ulong>();
@@ -286,7 +285,7 @@ namespace evtx
                 case TagBuilder.ValueType.Array64BitHex:
 
                 default:
-                    throw new ArgumentOutOfRangeException($"ValType: {ValType}");
+                    throw new ArgumentOutOfRangeException($"When converting substitution array entry to string, ran into unknown Value type: {ValType}. Please submit to saericzimmerman@gmail.com!");
             }
         }
 

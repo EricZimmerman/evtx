@@ -347,9 +347,14 @@ namespace EvtxECmd
 
                     _logger.Info($"Records processed: {seenRecords:N0} Errors: {evt.ErrorRecords.Count:N0}");
 
+                    if (evt.ErrorRecords.Count > 0)
+                    {
+                        _logger.Warn("\r\nErrors");
+                    }
+
                     foreach (var evtErrorRecord in evt.ErrorRecords)
                     {
-                        _logger.Warn($"Record #'{evtErrorRecord.Key}', Error: {evtErrorRecord.Value}");
+                        _logger.Info($"Record #{evtErrorRecord.Key}: Error: {evtErrorRecord.Value}");
                     }
 
                 }

@@ -147,7 +147,7 @@ namespace evtx.Test
             LogManager.Configuration = config;
             var l = LogManager.GetLogger("foo");
 
-            var sysLog = @"D:\SynologyDrive\EventLogs\HP_Spec\System.evtx";
+            //var sysLog = @"D:\SynologyDrive\EventLogs\HP_Spec\System.evtx";
 
 
             EventLog.LoadMaps(@"D:\Code\evtx\evtx\Maps");
