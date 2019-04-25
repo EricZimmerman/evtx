@@ -155,8 +155,6 @@ namespace evtx
             var deserializer = new DeserializerBuilder()
                 .Build();
 
-            EventLogMap eventMapFile;
-
             var errorMaps = new List<string>();
 
             foreach (var mapFile in mapFiles)
@@ -165,7 +163,7 @@ namespace evtx
                 {
                     var validator = new EventLogMapValidator();
 
-                    eventMapFile = deserializer.Deserialize<EventLogMap>(Alphaleonis.Win32.Filesystem.File.ReadAllText(mapFile));
+                    var eventMapFile = deserializer.Deserialize<EventLogMap>(Alphaleonis.Win32.Filesystem.File.ReadAllText(mapFile));
 
                     var validate = validator.Validate(eventMapFile);
 
@@ -202,7 +200,6 @@ namespace evtx
                         l.Info(fileContents.Replace("\t", "<TAB>"));
                     }
 
-                //    hasError = true;
                 }
                 catch (YamlException ye)
                 {
@@ -221,7 +218,6 @@ namespace evtx
                     Console.WriteLine();
                     l.Fatal("Verify all properties against example files or manual and try again.");
 
-                  //  hasError = true;
                 }
                 catch (Exception e)
                 {

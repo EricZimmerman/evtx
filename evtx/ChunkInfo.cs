@@ -175,6 +175,8 @@ namespace evtx
 
                 if (sig != recordSig)
                 {
+                    l.Trace(
+                        $"Found an invalid signature at 0x{(absoluteOffset+index):X}");
                     break;
                 }
 
@@ -183,6 +185,8 @@ namespace evtx
                 //do not read past the last known defined record
                 if (recordOffset - absoluteOffset > LastRecordOffset)
                 {
+                    l.Trace(
+                        $"Reached last record offset. Stopping");
                     break;
                 }
 
