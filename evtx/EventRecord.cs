@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -75,6 +76,11 @@ namespace evtx
                     EventId = eventId.ValueAsInt;
                 }
 
+                if (EventId == 4672)
+                {
+                    Debug.WriteLine(1);
+                }
+
                 if (level != null)
                 {
                     Level = level.ValueAsInt;
@@ -112,7 +118,15 @@ namespace evtx
                         {
                             //xpath out variables
                             var propVal = nav.SelectSingleNode(me.Value);
-                            valProps.Add(me.Name,propVal.Value);
+                            if (propVal != null)
+                            {
+                                valProps.Add(me.Name,propVal.Value);
+                            }
+                            else
+                            {
+                                l.Warn($"In map for event '{map.EventId}', Property '{me.Value}' not found! It will not be substituted.");
+                            }
+
                         }
 
                         //we have the values, now substitute
@@ -122,8 +136,15 @@ namespace evtx
                             propertyValue = propertyValue.Replace($"%{valProp.Key}%", valProp.Value);
                         }
 
+                        var propertyToUpdate = mapEntry.Property.ToUpperInvariant();
+
+                        if (valProps.Count == 0)
+                        {
+                            propertyToUpdate = "NOMATCH"; //prevents variables from showing up in the CSV
+                        }
+
                         //we should now have our new value, so stick it in its place
-                     switch (mapEntry.Property.ToUpperInvariant())
+                     switch (propertyToUpdate)
                         {
                             case "USERNAME":
                                 UserName = propertyValue;
@@ -152,8 +173,11 @@ namespace evtx
                             case "PAYLOADDATA6":
                                 PayloadData6 = propertyValue;
                                 break;
+                            case "NOMATCH":
+                                //when a property was not found.
+                                break;
                             default:
-                                l.Warn($"Unknown property name '{mapEntry.Property}'! Dropping mapping value of '{propertyValue}'");
+                                l.Warn($"Unknown property name '{propertyToUpdate}'! Dropping mapping value of '{propertyValue}'");
                                 break;
                         }
 
@@ -217,6 +241,8 @@ namespace evtx
             }
 
             ti = (TemplateInstance) ti;
+
+      
 
             var xmld = new XmlDocument();
             var rawXml = ti.AsXml(null, RecordPosition).Replace("&", "&amp;");

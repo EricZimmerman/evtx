@@ -92,7 +92,7 @@
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Maps\4624.map" />
+    <Folder Include="Maps\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -32,11 +32,11 @@ namespace evtx
 
                 case TagBuilder.ValueType.StringType:
                     var s = Encoding.Unicode.GetString(DataBytes).Trim('\0');
-                    s = Regex.Replace(s, @"\p{C}+", string.Empty);
+                    s = Regex.Replace(s, @"\p{C}+", ", ");
                     return s;
                 case TagBuilder.ValueType.AnsiStringType:
                     var sa = Encoding.GetEncoding(1252).GetString(DataBytes).Trim('\0');
-                    sa = s = Regex.Replace(sa, @"\p{C}+", string.Empty);
+                    sa = s = Regex.Replace(sa, @"\p{C}+", ", ");
                     return sa;
                 case TagBuilder.ValueType.Int8Type:
                     return ((sbyte) DataBytes[0]).ToString();

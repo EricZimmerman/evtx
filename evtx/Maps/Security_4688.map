@@ -28,6 +28,13 @@ Maps:
         Name: ProcessId
         Value: "/Event/EventData/Data[@Name=\"ProcessId\"]"
   - 
+    Property: PayloadData3
+    PropertyValue: "Mandatory label: %MandatoryLabel%"
+    Values: 
+      - 
+        Name: MandatoryLabel
+        Value: "/Event/EventData/Data[@Name=\"MandatoryLabel\"]"
+  - 
     Property: ExecutableInfo
     PropertyValue: "%NewProcessName% %CommandLine%"
     Values: 

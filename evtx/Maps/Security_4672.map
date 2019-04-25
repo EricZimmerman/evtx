@@ -1,0 +1,40 @@
+Author: Eric Zimmerman saericzimmerman@gmail.com
+Description: Security 4672 event
+EventId: 4672
+Guid: 54849625-5478-4994-a5ba-3e3b0328c30d 
+Maps: 
+  - 
+    Property: Username
+    PropertyValue: "%domain%\\%user% (%sid%)"
+    Values: 
+      - 
+        Name: domain
+        Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
+      - 
+        Name: user
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
+      - 
+        Name: sid
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserSid\"]"
+  - 
+    Property: PayloadData1
+    PropertyValue: "%PrivilegeList%"
+    Values: 
+      - 
+        Name: PrivilegeList
+        Value: "/Event/EventData/Data[@Name=\"PrivilegeList\"]"
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+# Example payload data
+#  <EventData>
+#     <Data Name="SubjectUserSid">S-1-5-18</Data>
+#     <Data Name="SubjectUserName">SYSTEM</Data>
+#     <Data Name="SubjectDomainName">NT AUTHORITY</Data>
+#     <Data Name="SubjectLogonId">0x3E7</Data>
+#     <Data Name="PrivilegeList">SeAssignPrimaryTokenPrivilegeSeTcbPrivilegeSeSecurityPrivilegeSeTakeOwnershipPrivilegeSeLoadDriverPrivilegeSeBackupPrivilegeSeRestorePrivilegeSeDebugPrivilegeSeAuditPrivilegeSeSystemEnvironmentPrivilegeSeImpersonatePrivilegeSeDelegateSessionUserImpersonatePrivilege</Data>
+#   </EventData>
