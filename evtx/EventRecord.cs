@@ -67,6 +67,7 @@ namespace evtx
                 var processId = nav.SelectSingleNode(@"/Event/System/Execution")?.GetAttribute("ProcessID", "");
                 var threadId = nav.SelectSingleNode(@"/Event/System/Execution")?.GetAttribute("ThreadID", "");
                 var userId = nav.SelectSingleNode(@"/Event/System/Security")?.GetAttribute("UserID", "");
+                var eventGuid = nav.SelectSingleNode(@"/Event/System/Provider")?.GetAttribute("Guid", "");
 
                 TimeCreated = DateTimeOffset.Parse(timeCreated, null, DateTimeStyles.AssumeUniversal).ToUniversalTime();
                 if (eventId != null)
@@ -98,10 +99,10 @@ namespace evtx
                 var payloadXml = payloadNode?.OuterXml;
 
                 
-                if (EventLog.EventLogMaps.ContainsKey(EventId))
+                if (EventLog.EventLogMaps.ContainsKey($"{EventId}-{eventGuid}"))
                 {
-                    l.Trace($"Found map for event id {EventId}!");
-                    var map = EventLog.EventLogMaps[EventId];
+                    l.Trace($"Found map for event id {EventId} with Guid '{eventGuid}'!");
+                    var map = EventLog.EventLogMaps[$"{EventId}-{eventGuid}"];
 
                     foreach (var mapEntry in map.Maps)
                     {

@@ -129,11 +129,11 @@ namespace evtx
             }
         }
 
-        public static Dictionary<int,EventLogMap> EventLogMaps { get; private set; } = new Dictionary<int, EventLogMap>();
+        public static Dictionary<string,EventLogMap> EventLogMaps { get; private set; } = new Dictionary<string, EventLogMap>();
 
         public static void LoadMaps(string mapPath)
         {
-            EventLogMaps = new Dictionary<int, EventLogMap>();
+            EventLogMaps = new Dictionary<string, EventLogMap>();
 
             var f = new DirectoryEnumerationFilters();
             f.InclusionFilter = fsei => fsei.Extension.ToUpperInvariant() == ".MAP";
@@ -169,13 +169,13 @@ namespace evtx
 
                     if (DisplayValidationResults(validate, mapFile))
                     {
-                        if (EventLogMaps.ContainsKey(eventMapFile.EventId) == false)
+                        if (EventLogMaps.ContainsKey($"{eventMapFile.EventId}-{eventMapFile.Guid}") == false)
                         {
-                            EventLogMaps.Add(eventMapFile.EventId,eventMapFile);
+                            EventLogMaps.Add($"{eventMapFile.EventId}-{eventMapFile.Guid}",eventMapFile);
                         }
                         else
                         {
-                            l.Warn($"A map for event id '{eventMapFile.EventId}' already exists. Map '{Path.GetFileName(mapFile)}' will be skipped");
+                            l.Warn($"A map for event id '{eventMapFile.EventId}' with Guid '{eventMapFile.Guid}' already exists. Map '{Path.GetFileName(mapFile)}' will be skipped");
                         }
                     }
                     else
