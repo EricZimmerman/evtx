@@ -140,21 +140,6 @@ namespace evtx.Tags
                 }
                 else
                 {
-//                    if (Name.Value == "Keywords" && node is OptionalSubstitution kw)
-//                    {
-//                        var subBytes = substitutionEntries.Single(t => t.Position == kw.SubstitutionId).DataBytes;
-//
-//                        if (subBytes.Length >= 8)
-//                        {
-//                            var kwVal = BitConverter.ToUInt64(subBytes, 0);
-//                            sb.Append($"{TagBuilder.GetKeywordDescription(kwVal)}");
-//                        }
-//                        else
-//                        {
-//                            sb.Append($"{TagBuilder.GetKeywordDescription(1)}");
-//                        }
-//                    }
-//                    else 
                     if (node is OptionalSubstitution || node is NormalSubstitution)
                     {
                         if (node is OptionalSubstitution os)
