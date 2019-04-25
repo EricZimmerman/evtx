@@ -129,7 +129,7 @@ namespace evtx
             }
         }
 
-        public static Dictionary<int,EventLogMap> EventLogMaps { get; private set; }
+        public static Dictionary<int,EventLogMap> EventLogMaps { get; private set; } = new Dictionary<int, EventLogMap>();
 
         public static void LoadMaps(string mapPath)
         {

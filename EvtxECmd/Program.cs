@@ -88,6 +88,11 @@ namespace EvtxECmd
                     "When true, show XML payload for event records. Default is FALSE.")
                 .SetDefault(false);
 
+            _fluentCommandLineParser.Setup(arg => arg.MapsDirectory)
+                .As("maps")
+                .WithDescription(
+                    "The path where event maps are located. Defaults to 'Maps' folder where program was executed from.")
+                .SetDefault(Path.Combine(BaseDirectory,"Maps"));
 
             _fluentCommandLineParser.Setup(arg => arg.Debug)
                 .As("debug")
@@ -185,7 +190,7 @@ namespace EvtxECmd
                     }
                 }
 
-                var outName = $"{DateTimeOffset.Now:yyyyMMddHHmmss}_EvtxECmd_Output.csv";
+                var outName = $"{DateTimeOffset.UtcNow:yyyyMMddHHmmss}_EvtxECmd_Output.csv";
 
                 if (_fluentCommandLineParser.Object.CsvName.IsNullOrEmpty() == false)
                 {
@@ -226,11 +231,22 @@ namespace EvtxECmd
                 foo.Map(t => t.PayloadData4).Index(15);
                 foo.Map(t => t.PayloadData5).Index(16);
                 foo.Map(t => t.PayloadData6).Index(17);
-                foo.Map(t => t.SourceFile).Index(18);
+                foo.Map(t => t.ExecutableInfo).Index(18);
+                foo.Map(t => t.SourceFile).Index(19);
 
                 _csvWriter.Configuration.RegisterClassMap(foo);
                 _csvWriter.WriteHeader<EventRecord>();
                 _csvWriter.NextRecord();
+            }
+
+            if (Directory.Exists(_fluentCommandLineParser.Object.MapsDirectory) == false)
+            {
+                _logger.Warn($"Maps directory '{_fluentCommandLineParser.Object.MapsDirectory}' does not exist! Event ID maps will not be loaded!!");
+            }
+            else
+            {
+                _logger.Debug($"Loading maps from '{Path.GetFullPath(_fluentCommandLineParser.Object.MapsDirectory)}'");
+                EventLog.LoadMaps(Path.GetFullPath(_fluentCommandLineParser.Object.MapsDirectory));
             }
 
 
@@ -419,5 +435,6 @@ namespace EvtxECmd
 
         public string CsvName { get; set; }
         public string JsonName { get; set; }
+        public string MapsDirectory { get; set; }
     }
 }

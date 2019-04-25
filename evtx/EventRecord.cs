@@ -7,6 +7,7 @@ using System.Xml;
 using System.Xml.XPath;
 using evtx.Tags;
 using NLog;
+using ServiceStack.Text;
 
 namespace evtx
 {
@@ -96,21 +97,68 @@ namespace evtx
 
                 var payloadXml = payloadNode?.OuterXml;
 
-//               ////child[@id='#grand']/@age
-//               //<Data Name="MajorVersion">10</Data>
-//              // var foo = payloadNode.SelectSingleNode(@"Data[@Name=""MajorVersion""]");
-//               var foo = nav.SelectSingleNode(@"/Event/EventData/Data[@Name=""MajorVersion""]");
-//               var foo2 = nav.SelectSingleNode(@"/Event/EventData/Data[@Name=""BuildVersion""]");
+                
+                if (EventLog.EventLogMaps.ContainsKey(EventId))
+                {
+                    l.Trace($"Found map for event id {EventId}!");
+                    var map = EventLog.EventLogMaps[EventId];
 
-//               if (foo != null)
-//               {
-//                   PayloadData1 = foo.Value;
-//               }
-//
-//               if (foo2 != null)
-//               {
-//                   PayloadData2 = foo2.Value;
-//               }
+                    foreach (var mapEntry in map.Maps)
+                    {
+                        var valProps = new Dictionary<string,string>();
+
+                        foreach (var me in mapEntry.Values)
+                        {
+                            //xpath out variables
+                            var propVal = nav.SelectSingleNode(me.Value);
+                            valProps.Add(me.Name,propVal.Value);
+                        }
+
+                        //we have the values, now substitute
+                        var propertyValue = mapEntry.PropertyValue;
+                        foreach (var valProp in valProps)
+                        {
+                            propertyValue = propertyValue.Replace($"%{valProp.Key}%", valProp.Value);
+                        }
+
+                        //we should now have our new value, so stick it in its place
+                     switch (mapEntry.Property.ToUpperInvariant())
+                        {
+                            case "USERNAME":
+                                UserName = propertyValue;
+                                break;
+                            case "REMOTEHOST":
+                                RemoteHost = propertyValue;
+                                break;
+                            case "EXECUTABLEINFO":
+                                ExecutableInfo = propertyValue;
+                                break;
+                            case "PAYLOADDATA1":
+                                PayloadData1 = propertyValue;
+                                break;
+                            case "PAYLOADDATA2":
+                                PayloadData2 = propertyValue;
+                                break;
+                            case "PAYLOADDATA3":
+                                PayloadData3 = propertyValue;
+                                break;
+                            case "PAYLOADDATA4":
+                                PayloadData4 = propertyValue;
+                                break;
+                            case "PAYLOADDATA5":
+                                PayloadData5 = propertyValue;
+                                break;
+                            case "PAYLOADDATA6":
+                                PayloadData6 = propertyValue;
+                                break;
+                            default:
+                                l.Warn($"Unknown property name '{mapEntry.Property}'! Dropping mapping value of '{propertyValue}'");
+                                break;
+                        }
+
+                    }
+                    
+                }
 
                 //sanity checks
                 UserId = userId ?? string.Empty;
@@ -129,6 +177,10 @@ namespace evtx
         public string PayloadData6 { get; }
         public string UserName { get; }
         public string RemoteHost { get; }
+        public string ExecutableInfo { get; }
+
+
+
         public string Computer { get; }
         public string PayloadXml { get; }
         public string UserId { get; }

@@ -8,31 +8,32 @@ Maps:
     Values: 
       - 
         Name: domain
-        Value: "/Event/EventData/Data[@Name=\"\"SubjectDomainName\"\"]"
+        Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
       - 
         Name: user
-        Value: "/Event/EventData/Data[@Name=\"\"SubjectUserName\"\"]"
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
   - 
     Property: RemoteHost
     PropertyValue: "%workstation% (%ipAddress%)"
     Values: 
       - 
         Name: ipAddress
-        Value: "/Event/EventData/Data[@Name=\"\"IpAddress\"\"]"
+        Value: "/Event/EventData/Data[@Name=\"IpAddress\"]"
       - 
         Name: workstation
-        Value: "/Event/EventData/Data[@Name=\"\"WorkstationName\"\"]"
+        Value: "/Event/EventData/Data[@Name=\"WorkstationName\"]"
   - 
     Property: PayloadData1
-    PropertyValue: "%LogonType%"
+    PropertyValue: LogonType %LogonType%
     Values: 
       - 
         Name: LogonType
-        Value: "/Event/EventData/Data[@Name=\"\"LogonType\"\"]"
+        Value: "/Event/EventData/Data[@Name=\"LogonType\"]"
 
 # Valid properties include:
 # UserName
 # RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
 # PayloadData1 through PayloadData6
 
 # Example payload data

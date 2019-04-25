@@ -238,16 +238,32 @@ namespace evtx.Test
             var sysLog = @"D:\SynologyDrive\EventLogs\HP_Spec\Security.evtx";
 
             var total = 0;
+            var total2 = 0;
 
             using (var fs = new FileStream(sysLog, FileMode.Open, FileAccess.Read))
             {
+                EventLog.LoadMaps(@"D:\Code\evtx\evtx\Maps");
+
                 var es = new EventLog(fs);
 
                 foreach (var eventRecord in es.GetEventRecords())
                     //     l.Info($"Record: {eventRecord}");
                 {
-                    eventRecord.ConvertPayloadToXml();
+                  //  eventRecord.ConvertPayloadToXml();
                 }
+
+                foreach (var esEventIdMetric in es.EventIdMetrics.OrderBy(t => t.Key))
+                {
+                    total2 += esEventIdMetric.Value;
+                    l.Info($"{esEventIdMetric.Key}: {esEventIdMetric.Value:N0}");
+                }
+
+                l.Info($"Total from here: {total:N0}");
+                l.Info($"Total2 from here: {total2:N0}");
+                l.Info($"Event log details: {es}");
+                l.Info($"Event log error count: {es.ErrorRecords.Count:N0}");
+
+                Check.That(es.ErrorRecords.Count).IsEqualTo(0);
             }
 
             l.Info($"Total: {total}");
