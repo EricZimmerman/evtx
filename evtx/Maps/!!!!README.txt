@@ -6,13 +6,13 @@ Map files are read in order, alphabetically. This means you can create your own 
 
 Example:
 
-4624.map is copied and renamed to:
+Security_4624.map is copied and renamed to:
 
-1_4624.map
+1_Security_4624.map
 
-Edit 1_4624.map and make your changes
+Edit 1_Security_4624.map and make your changes
 
-When the maps are loaded, since 1_4624.map comes before 4624.map, only the one with your changes will be loaded.
+When the maps are loaded, since 1_Security_4624.map comes before 4624.map, only the one with your changes will be loaded.
 
 This also allows you to update default maps without having your customizations blown away every time there is an update.
 
@@ -21,6 +21,8 @@ The following is a brief tutorial in map making
 In the example below, there are 3 header properties that descrive the map: who wrote it, what its for, and the event id the map corresponds to. 
 
 The EventId property is what matters here, not the name of the file.
+
+The Guid is the unique identifier for a given log type. It can be seen in the Provider element with an attribute name of Guid.
 
 The Maps collection contains configurations for how to look for data in an events EventData and extract out particular properties into variables. These variables are then combined and mapped to the event record's first class properties.
 
@@ -40,6 +42,7 @@ It is that simple! Be sure to surround things in double quotes and/or escape quo
 Author: Eric Zimmerman saericzimmerman@gmail.com
 Description: "4624 event"
 EventId: 4624
+Guid:54849625-5478-4994-a5ba-3e3b0328c30d 
 Maps: 
   - 
     Property: Username
@@ -76,33 +79,50 @@ Maps:
 # PayloadData1 through PayloadData6
 
 # Example payload data
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-Security-Auditing" Guid="54849625-5478-4994-a5ba-3e3b0328c30d" />
+#     <EventID>4624</EventID>
+#     <Version>2</Version>
+#     <Level>0</Level>
+#     <Task>12544</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x8020000000000000</Keywords>
+#     <TimeCreated SystemTime="2018-09-06 20:26:07.9341912" />
+#     <EventRecordID>57241</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="776" ThreadID="780" />
+#     <Channel>Security</Channel>
+#     <Computer>base-rd-01.shieldbase.lan</Computer>
+#     <Security />
 #   </System>
 #   <EventData>
-#     <Data Name="SubjectUserSid">S-1-5-18</Data>
-#     <Data Name="SubjectUserName">DESKTOP-9L1HKC9$</Data>
-#     <Data Name="SubjectDomainName">WORKGROUP</Data>
-#     <Data Name="SubjectLogonId">E7-03-00-00-00-00-00-00</Data>
+#     <Data Name="SubjectUserSid">S-1-0-0</Data>
+#     <Data Name="SubjectUserName">-</Data>
+#     <Data Name="SubjectDomainName">-</Data>
+#     <Data Name="SubjectLogonId">0x0</Data>
 #     <Data Name="TargetUserSid">S-1-5-18</Data>
 #     <Data Name="TargetUserName">SYSTEM</Data>
 #     <Data Name="TargetDomainName">NT AUTHORITY</Data>
-#     <Data Name="TargetLogonId">E7-03-00-00-00-00-00-00</Data>
-#     <Data Name="LogonType">5</Data>
-#     <Data Name="LogonProcessName">Advapi  </Data>
-#     <Data Name="AuthenticationPackageName">Negotiate</Data>
+#     <Data Name="TargetLogonId">0x3E7</Data>
+#     <Data Name="LogonType">0</Data>
+#     <Data Name="LogonProcessName">-</Data>
+#     <Data Name="AuthenticationPackageName">-</Data>
 #     <Data Name="WorkstationName">-</Data>
 #     <Data Name="LogonGuid">00000000-0000-0000-0000-000000000000</Data>
 #     <Data Name="TransmittedServices">-</Data>
 #     <Data Name="LmPackageName">-</Data>
 #     <Data Name="KeyLength">0</Data>
-#     <Data Name="ProcessId">FC-02-00-00-00-00-00-00</Data>
-#     <Data Name="ProcessName">C:\Windows\System32\services.exe</Data>
+#     <Data Name="ProcessId">0x4</Data>
+#     <Data Name="ProcessName"></Data>
 #     <Data Name="IpAddress">-</Data>
 #     <Data Name="IpPort">-</Data>
-#     <Data Name="ImpersonationLevel">%%1833</Data>
+#     <Data Name="ImpersonationLevel">-</Data>
 #     <Data Name="RestrictedAdminMode">-</Data>
 #     <Data Name="TargetOutboundUserName">-</Data>
 #     <Data Name="TargetOutboundDomainName">-</Data>
 #     <Data Name="VirtualAccount">%%1843</Data>
-#     <Data Name="TargetLinkedLogonId">00-00-00-00-00-00-00-00</Data>
+#     <Data Name="TargetLinkedLogonId">0x0</Data>
 #     <Data Name="ElevatedToken">%%1842</Data>
 #   </EventData>
+# </Event>

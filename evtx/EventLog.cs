@@ -177,7 +177,6 @@ namespace evtx
                         {
                             l.Warn($"A map for event id '{eventMapFile.EventId}' already exists. Map '{Path.GetFileName(mapFile)}' will be skipped");
                         }
-                        
                     }
                     else
                     {
