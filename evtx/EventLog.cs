@@ -148,7 +148,7 @@ namespace evtx
                 DirectoryEnumerationOptions.BasicSearch;
 
             var mapFiles =
-                Directory.EnumerateFileSystemEntries(mapPath, dirEnumOptions, f);
+                Directory.EnumerateFileSystemEntries(mapPath, dirEnumOptions, f).ToList();
 
             var l = LogManager.GetLogger("LoadMaps");
 
@@ -157,7 +157,7 @@ namespace evtx
 
             var errorMaps = new List<string>();
 
-            foreach (var mapFile in mapFiles)
+            foreach (var mapFile in mapFiles.OrderBy(t=>t))
             {
                 try
                 {
@@ -169,7 +169,15 @@ namespace evtx
 
                     if (DisplayValidationResults(validate, mapFile))
                     {
-                        EventLogMaps.Add(eventMapFile.EventId,eventMapFile);
+                        if (EventLogMaps.ContainsKey(eventMapFile.EventId) == false)
+                        {
+                            EventLogMaps.Add(eventMapFile.EventId,eventMapFile);
+                        }
+                        else
+                        {
+                            l.Warn($"A map for event id '{eventMapFile.EventId}' already exists. Map '{Path.GetFileName(mapFile)}' will be skipped");
+                        }
+                        
                     }
                     else
                     {

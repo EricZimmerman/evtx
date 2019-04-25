@@ -1,0 +1,63 @@
+Author: Eric Zimmerman saericzimmerman@gmail.com
+Description: "4688 event"
+EventId: 4688
+Maps: 
+  - 
+    Property: Username
+    PropertyValue: "%domain%\\%user%"
+    Values: 
+      - 
+        Name: domain
+        Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
+      - 
+        Name: user
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
+  - 
+    Property: PayloadData1
+    PropertyValue: "Parent process: %ParentProcessName%"
+    Values: 
+      - 
+        Name: ParentProcessName
+        Value: "/Event/EventData/Data[@Name=\"ParentProcessName\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "PID: %ProcessId%"
+    Values: 
+      - 
+        Name: ProcessId
+        Value: "/Event/EventData/Data[@Name=\"ProcessId\"]"
+  - 
+    Property: ExecutableInfo
+    PropertyValue: "%NewProcessName% %CommandLine%"
+    Values: 
+      - 
+        Name: NewProcessName
+        Value: "/Event/EventData/Data[@Name=\"NewProcessName\"]"
+      - 
+        Name: CommandLine
+        Value: "/Event/EventData/Data[@Name=\"CommandLine\"]"
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+# Example payload data
+#   <EventData>
+#     <Data Name="SubjectUserSid">S-1-5-18</Data>
+#     <Data Name="SubjectUserName">-</Data>
+#     <Data Name="SubjectDomainName">-</Data>
+#     <Data Name="SubjectLogonId">0x3E7</Data>
+#     <Data Name="NewProcessId">0x260</Data>
+#     <Data Name="NewProcessName">C:\Windows\System32\wininit.exe</Data>
+#     <Data Name="TokenElevationType">%%1936</Data>
+#     <Data Name="ProcessId">0x1E8</Data>
+#     <Data Name="CommandLine"></Data>
+#     <Data Name="TargetUserSid">S-1-0-0</Data>
+#     <Data Name="TargetUserName">-</Data>
+#     <Data Name="TargetDomainName">-</Data>
+#     <Data Name="TargetLogonId">0x0</Data>
+#     <Data Name="ParentProcessName">C:\Windows\System32\smss.exe</Data>
+#     <Data Name="MandatoryLabel">S-1-16-16384</Data>
+#   </EventData>

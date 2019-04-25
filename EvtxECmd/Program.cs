@@ -247,6 +247,8 @@ namespace EvtxECmd
             {
                 _logger.Debug($"Loading maps from '{Path.GetFullPath(_fluentCommandLineParser.Object.MapsDirectory)}'");
                 EventLog.LoadMaps(Path.GetFullPath(_fluentCommandLineParser.Object.MapsDirectory));
+
+                _logger.Info($"Maps loaded: {EventLog.EventLogMaps.Count:N0}");
             }
 
 
@@ -304,11 +306,12 @@ namespace EvtxECmd
             if (_errorFiles.Count > 0)
             {
                 _logger.Info("");
-                _logger.Info("Files with errors");
+                _logger.Error("Files with errors");
                 foreach (var errorFile in _errorFiles)
                 {
-                    _logger.Error($"'{errorFile.Key}' error count: {errorFile.Value:N0}");
+                    _logger.Info($"'{errorFile.Key}' error count: {errorFile.Value:N0}");
                 }
+                _logger.Info("");
             }
         }
 
