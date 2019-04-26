@@ -62,7 +62,7 @@ In most cases, the data in the <EventData> block is what you want to process. Th
 
 So let's take a look at a map to make things a bit more clear.
 
-In the example below, there are four header properties that descrive the map: who wrote it, what its for, the Channel, and the event ID the map corresponds to. 
+In the example below, there are four header properties that describe the map: who wrote it, what its for, the Channel, and the event ID the map corresponds to. 
 
 The Channel and EventId property are what make a map unique, not the name of the file. As long as the map ends with '.map' it will be processed.
 
