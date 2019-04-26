@@ -12,7 +12,7 @@ namespace evtx
     {
         public string Author { get; set; }
         public int EventId { get; set; }
-        public string Guid { get; set; }
+        public string Channel { get; set; }
         public string Description { get; set; }
 
         public List<MapEntry> Maps { get; set; }
@@ -20,7 +20,7 @@ namespace evtx
         public override string ToString()
         {
             return
-                $"EventId: {EventId} Guid: {Guid} Author: {Author} Description: {Description}, Map count: {Maps.Count:N0}";
+                $"EventId: {EventId} Channel: {Channel} Author: {Author} Description: {Description}, Map count: {Maps.Count:N0}";
         }
     }
 
@@ -79,7 +79,7 @@ namespace evtx
        public EventLogMapValidator()
        {
            RuleFor(target => target.EventId).NotEmpty();
-           RuleFor(target => target.Guid).NotEmpty();
+           RuleFor(target => target.Channel).NotEmpty();
            RuleFor(target => target.Author).NotEmpty();
            RuleFor(target => target.Description).NotEmpty();
 

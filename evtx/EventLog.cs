@@ -169,13 +169,13 @@ namespace evtx
 
                     if (DisplayValidationResults(validate, mapFile))
                     {
-                        if (EventLogMaps.ContainsKey($"{eventMapFile.EventId}-{eventMapFile.Guid}") == false)
+                        if (EventLogMaps.ContainsKey($"{eventMapFile.EventId}-{eventMapFile.Channel.ToUpperInvariant()}") == false)
                         {
-                            EventLogMaps.Add($"{eventMapFile.EventId}-{eventMapFile.Guid}",eventMapFile);
+                            EventLogMaps.Add($"{eventMapFile.EventId}-{eventMapFile.Channel.ToUpperInvariant()}",eventMapFile);
                         }
                         else
                         {
-                            l.Warn($"A map for event id '{eventMapFile.EventId}' with Guid '{eventMapFile.Guid}' already exists. Map '{Path.GetFileName(mapFile)}' will be skipped");
+                            l.Warn($"A map for event id '{eventMapFile.EventId}' with Channel '{eventMapFile.Channel}' already exists. Map '{Path.GetFileName(mapFile)}' will be skipped");
                         }
                     }
                     else

@@ -6,15 +6,18 @@ using System.Linq;
 using System.Reflection;
 using System.Security.Principal;
 using System.Text;
+using System.Xml;
 using Alphaleonis.Win32.Filesystem;
-using CsvHelper;
 using evtx;
 using Exceptionless;
 using Fclp;
+using Newtonsoft.Json;
 using NLog;
 using NLog.Config;
 using NLog.Targets;
 using ServiceStack;
+using ServiceStack.Text;
+using CsvWriter = CsvHelper.CsvWriter;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using EventLog = evtx.EventLog;
 using File = Alphaleonis.Win32.Filesystem.File;
@@ -35,6 +38,8 @@ namespace EvtxECmd
 
         private static CsvWriter _csvWriter;
         private static StreamWriter _swCsv;
+        private static StreamWriter _swJson;
+        private static StreamWriter _swXml;
 
 
         private static void Main(string[] args)
@@ -52,29 +57,39 @@ namespace EvtxECmd
 
             _fluentCommandLineParser.Setup(arg => arg.File)
                 .As('f')
-                .WithDescription("File to process. This or -d is required");
+                .WithDescription("File to process. This or -d is required\r\n");
             _fluentCommandLineParser.Setup(arg => arg.Directory)
                 .As('d')
-                .WithDescription("Directory to process that contains evtx files. This or -f is required\r\n");
+                .WithDescription("Directory to process that contains evtx files. This or -f is required");
+
+            _fluentCommandLineParser.Setup(arg => arg.CsvDirectory)
+                .As("csv")
+                .WithDescription(
+                    "Directory to save CSV formatted results to."); // This, --json, or --xml required
+
+            _fluentCommandLineParser.Setup(arg => arg.CsvName)
+                .As("csvf")
+                .WithDescription(
+                    "File name to save CSV formatted results to. When present, overrides default name");
 
             _fluentCommandLineParser.Setup(arg => arg.JsonDirectory)
                 .As("json")
                 .WithDescription(
-                    "Directory to save JSON formatted results to. This or --csv required");
+                    "Directory to save JSON formatted results to."); // This, --csv, or --xml required
             _fluentCommandLineParser.Setup(arg => arg.JsonName)
                 .As("jsonf")
                 .WithDescription(
                     "File name to save JSON formatted results to. When present, overrides default name");
 
-            _fluentCommandLineParser.Setup(arg => arg.CsvDirectory)
-                .As("csv")
+            _fluentCommandLineParser.Setup(arg => arg.XmlDirectory)
+                .As("xml")
                 .WithDescription(
-                    "Directory to save CSV formatted results to. This or --json required");
+                    "Directory to save XML formatted results to."); // This, --csv, or --json required
 
-            _fluentCommandLineParser.Setup(arg => arg.CsvName)
-                .As("csvf")
+            _fluentCommandLineParser.Setup(arg => arg.XmlName)
+                .As("xmlf")
                 .WithDescription(
-                    "File name to save CSV formatted results to. When present, overrides default name\r\n");
+                    "File name to save XML formatted results to. When present, overrides default name\r\n");
 
             _fluentCommandLineParser.Setup(arg => arg.DateTimeFormat)
                 .As("dt")
@@ -82,16 +97,16 @@ namespace EvtxECmd
                     "The custom date/time format to use when displaying time stamps. Default is: yyyy-MM-dd HH:mm:ss.fffffff")
                 .SetDefault("yyyy-MM-dd HH:mm:ss.fffffff");
 
-            _fluentCommandLineParser.Setup(arg => arg.ShowXml)
-                .As('x')
+            _fluentCommandLineParser.Setup(arg => arg.FullJson)
+                .As("fj")
                 .WithDescription(
-                    "When true, show XML payload for event records. Default is FALSE.")
+                    "When true, export all available data when using --json. Default is FALSE.\r\n")
                 .SetDefault(false);
 
             _fluentCommandLineParser.Setup(arg => arg.MapsDirectory)
                 .As("maps")
                 .WithDescription(
-                    "The path where event maps are located. Defaults to 'Maps' folder where program was executed from.")
+                    "The path where event maps are located. Defaults to 'Maps' folder where program was executed from.\r\n  ")
                 .SetDefault(Path.Combine(BaseDirectory,"Maps"));
 
             _fluentCommandLineParser.Setup(arg => arg.Debug)
@@ -169,7 +184,78 @@ namespace EvtxECmd
             var sw = new Stopwatch();
             sw.Start();
 
+            var ts = DateTimeOffset.UtcNow;
+
             _errorFiles = new Dictionary<string, int>();
+
+            if (_fluentCommandLineParser.Object.JsonDirectory.IsNullOrEmpty() == false)
+            {
+                if (Directory.Exists(_fluentCommandLineParser.Object.JsonDirectory) == false)
+                {
+                    _logger.Warn(
+                        $"Path to '{_fluentCommandLineParser.Object.JsonDirectory}' doesn't exist. Creating...");
+
+                    try
+                    {
+                        Directory.CreateDirectory(_fluentCommandLineParser.Object.JsonDirectory);
+                    }
+                    catch (Exception)
+                    {
+                        _logger.Fatal(
+                            $"Unable to create directory '{_fluentCommandLineParser.Object.JsonDirectory}'. Does a file with the same name exist? Exiting");
+                        return;
+                    }
+                }
+
+                var outName = $"{ts:yyyyMMddHHmmss}_EvtxECmd_Output.json";
+
+                if (_fluentCommandLineParser.Object.JsonName.IsNullOrEmpty() == false)
+                {
+                    outName = Path.GetFileName(_fluentCommandLineParser.Object.JsonName);
+                }
+
+                var outFile = Path.Combine(_fluentCommandLineParser.Object.JsonDirectory, outName);
+
+                _logger.Warn($"json output will be saved to '{outFile}'\r\n");
+
+                _swJson = new StreamWriter(outFile, false, Encoding.UTF8);
+
+            }
+
+            if (_fluentCommandLineParser.Object.XmlDirectory.IsNullOrEmpty() == false)
+            {
+                if (Directory.Exists(_fluentCommandLineParser.Object.XmlDirectory) == false)
+                {
+                    _logger.Warn(
+                        $"Path to '{_fluentCommandLineParser.Object.XmlDirectory}' doesn't exist. Creating...");
+
+                    try
+                    {
+                        Directory.CreateDirectory(_fluentCommandLineParser.Object.XmlDirectory);
+                    }
+                    catch (Exception)
+                    {
+                        _logger.Fatal(
+                            $"Unable to create directory '{_fluentCommandLineParser.Object.XmlDirectory}'. Does a file with the same name exist? Exiting");
+                        return;
+                    }
+                }
+
+                var outName = $"{ts:yyyyMMddHHmmss}_EvtxECmd_Output.xml";
+
+                if (_fluentCommandLineParser.Object.XmlName.IsNullOrEmpty() == false)
+                {
+                    outName = Path.GetFileName(_fluentCommandLineParser.Object.XmlName);
+                }
+
+                var outFile = Path.Combine(_fluentCommandLineParser.Object.XmlDirectory, outName);
+
+                _logger.Warn($"XML output will be saved to '{outFile}'\r\n");
+
+                _swXml = new StreamWriter(outFile, false, Encoding.UTF8);
+
+            }
+
 
             if (_fluentCommandLineParser.Object.CsvDirectory.IsNullOrEmpty() == false)
             {
@@ -190,7 +276,7 @@ namespace EvtxECmd
                     }
                 }
 
-                var outName = $"{DateTimeOffset.UtcNow:yyyyMMddHHmmss}_EvtxECmd_Output.csv";
+                var outName = $"{ts:yyyyMMddHHmmss}_EvtxECmd_Output.csv";
 
                 if (_fluentCommandLineParser.Object.CsvName.IsNullOrEmpty() == false)
                 {
@@ -291,6 +377,12 @@ namespace EvtxECmd
             _swCsv?.Flush();
             _swCsv?.Close();
 
+            _swJson?.Flush();
+            _swJson?.Close();
+
+            _swXml?.Flush();
+            _swXml?.Close();
+
             sw.Stop();
             _logger.Info("");
 
@@ -338,12 +430,31 @@ namespace EvtxECmd
                         eventRecord.SourceFile = file;
                         try
                         {
-                            if (_fluentCommandLineParser.Object.ShowXml)
-                            {
-                                _logger.Info(eventRecord.ConvertPayloadToXml());
-                            }
+                        
                             _csvWriter?.WriteRecord(eventRecord);
                             _csvWriter?.NextRecord();
+
+                            var xml = string.Empty;
+                            if (_swXml != null)
+                            {
+                                 xml = eventRecord.ConvertPayloadToXml();
+                                 _swXml.WriteLine(xml);
+                            }
+                            
+                            if (_swJson != null)
+                            {
+                                JsConfig.IncludeNullValues = true;
+                                var jsOut = eventRecord.ToJson();
+                                if (_fluentCommandLineParser.Object.FullJson)
+                                {
+                                    var xd =new XmlDocument();
+                                    xd.LoadXml(xml);
+                                    
+
+                                    jsOut = JsonConvert.SerializeXmlNode(xd);
+                                }
+                                _swJson.WriteLine(jsOut);
+                            }
 
                             seenRecords += 1;
                         }
@@ -369,11 +480,19 @@ namespace EvtxECmd
                     if (evt.ErrorRecords.Count > 0)
                     {
                         _logger.Warn("\r\nErrors");
+                        foreach (var evtErrorRecord in evt.ErrorRecords)
+                        {
+                            _logger.Info($"Record #{evtErrorRecord.Key}: Error: {evtErrorRecord.Value}");
+                        }
                     }
 
-                    foreach (var evtErrorRecord in evt.ErrorRecords)
+                    var total2 = 0;
+                    _logger.Fatal("\r\nMetrics");
+                    _logger.Warn($"Event Id\tCount");
+                    foreach (var esEventIdMetric in evt.EventIdMetrics.OrderBy(t => t.Key))
                     {
-                        _logger.Info($"Record #{evtErrorRecord.Key}: Error: {evtErrorRecord.Value}");
+                        total2 += esEventIdMetric.Value;
+                        _logger.Info($"{esEventIdMetric.Key}\t\t{esEventIdMetric.Value:N0}");
                     }
 
                 }
@@ -430,14 +549,19 @@ namespace EvtxECmd
         public string Directory { get; set; }
         public string CsvDirectory { get; set; }
         public string JsonDirectory { get; set; }
+        public string XmlDirectory { get; set; }
+
         public string DateTimeFormat { get; set; }
 
         public bool Debug { get; set; }
         public bool Trace { get; set; }
-        public bool ShowXml { get; set; }
+        
 
         public string CsvName { get; set; }
         public string JsonName { get; set; }
+        public string XmlName { get; set; }
         public string MapsDirectory { get; set; }
+
+        public bool FullJson { get; set; }
     }
 }

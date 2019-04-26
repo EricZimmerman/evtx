@@ -1,7 +1,7 @@
 Author: Eric Zimmerman saericzimmerman@gmail.com
 Description: Security 4688 event
 EventId: 4688
-Guid: 54849625-5478-4994-a5ba-3e3b0328c30d 
+Channel: Security
 Maps: 
   - 
     Property: Username

@@ -1,12 +1,12 @@
 Map files are used to convert the EventData (the unique part of an event) to a more standardized format. Map files are specific to a certain type of event log, such as Security, Application, etc.
 
-Because different event logs may reuse event IDs, maps need to be specific to a certain kind of log. This specificity is done by using the unique identifier for a given event log, the Provider Guid. We will see more about this in a moment.
+Because different event logs may reuse event IDs, maps need to be specific to a certain kind of log. This specificity is done by using a unique identifier for a given event log, the Channel. We will see more about this in a moment.
 
 Once you know what event log and event ID you want to make a map for, the first thing to do is dump the log's records to XML, using EvtxECmd.exe as follows:
 
-EvtxECmd.exe -f <your eventlog> -x > c:\temp\somefile.xml
+EvtxECmd.exe -f <your eventlog> --xml c:\temp\xml
 
-When the command finishes, open c:\temp\somefile.xml and find your event ID of interest. Let's say its from the Security log and its event ID 4624, It might look like this:
+When the command finishes, open the generated xml file in c:\temp\ and find your event ID of interest. Let's say its from the Security log and its event ID 4624, It might look like this:
 
 <Event>
   <System>
@@ -56,17 +56,17 @@ When the command finishes, open c:\temp\somefile.xml and find your event ID of i
   </EventData>
 </Event>
 
-Notice the Provider line has both a Name and a Guid attribute. The Guid is the first part we need to keep track of for our map. Everything in the <System> element is normalized by default, but if you want to include anything from there you can do so. 
+Just about everything in the <System> element is normalized by default, but if you want to include anything from there you can do so using the techniques we will see below.
 
 In most cases, the data in the <EventData> block is what you want to process. This is where xpath queries come into play.
 
 So let's take a look at a map to make things a bit more clear.
 
-In the example below, there are four header properties that descrive the map: who wrote it, what its for, the unique guid, and the event ID the map corresponds to. 
+In the example below, there are four header properties that descrive the map: who wrote it, what its for, the Channel, and the event ID the map corresponds to. 
 
-The Guid and EventId property are what make a map unique, not the name of the file. As long as the map ends with '.map' it will be processed.
+The Channel and EventId property are what make a map unique, not the name of the file. As long as the map ends with '.map' it will be processed.
 
-The Guid is the unique identifier for a given log type. It can be seen in the Provider element with an attribute name of Guid ("54849625-5478-4994-a5ba-3e3b0328c30d" in the example above).
+The Channel is a useful identifier for a given log type. It can be seen in the <Channel> element ("Security" in the example above).
 
 The Maps collection contains configurations for how to look for data in an events EventData and extract out particular properties into variables. These variables are then combined and mapped to the event record's first class properties.
 
@@ -86,7 +86,7 @@ It is that simple! Be sure to surround things in double quotes and/or escape quo
 Author: Eric Zimmerman saericzimmerman@gmail.com
 Description: Security 4624 event
 EventId: 4624
-Guid: 54849625-5478-4994-a5ba-3e3b0328c30d 
+Channel: Security
 Maps: 
   - 
     Property: Username

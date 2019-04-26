@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Xml;
 using System.Xml.XPath;
 using evtx.Tags;
@@ -68,17 +69,12 @@ namespace evtx
                 var processId = nav.SelectSingleNode(@"/Event/System/Execution")?.GetAttribute("ProcessID", "");
                 var threadId = nav.SelectSingleNode(@"/Event/System/Execution")?.GetAttribute("ThreadID", "");
                 var userId = nav.SelectSingleNode(@"/Event/System/Security")?.GetAttribute("UserID", "");
-                var eventGuid = nav.SelectSingleNode(@"/Event/System/Provider")?.GetAttribute("Guid", "");
+                
 
                 TimeCreated = DateTimeOffset.Parse(timeCreated, null, DateTimeStyles.AssumeUniversal).ToUniversalTime();
                 if (eventId != null)
                 {
                     EventId = eventId.ValueAsInt;
-                }
-
-                if (EventId == 4672)
-                {
-                    Debug.WriteLine(1);
                 }
 
                 if (level != null)
@@ -105,10 +101,10 @@ namespace evtx
                 var payloadXml = payloadNode?.OuterXml;
 
                 
-                if (EventLog.EventLogMaps.ContainsKey($"{EventId}-{eventGuid}"))
+                if (EventLog.EventLogMaps.ContainsKey($"{EventId}-{channel.ToString().ToUpperInvariant()}"))
                 {
-                    l.Trace($"Found map for event id {EventId} with Guid '{eventGuid}'!");
-                    var map = EventLog.EventLogMaps[$"{EventId}-{eventGuid}"];
+                    l.Trace($"Found map for event id {EventId} with Guid '{channel}'!");
+                    var map = EventLog.EventLogMaps[$"{EventId}-{channel.ToString().ToUpperInvariant()}"];
 
                     foreach (var mapEntry in map.Maps)
                     {
@@ -207,6 +203,7 @@ namespace evtx
 
 
         public string Computer { get; }
+        [IgnoreDataMember]
         public string PayloadXml { get; }
         public string UserId { get; }
         public string Channel { get; }
@@ -221,14 +218,19 @@ namespace evtx
         ///     This should match the Timestamp pulled from the data, but this one is explicitly from the XML via the substitution
         ///     values
         /// </summary>
+       
         public DateTimeOffset TimeCreated { get; }
 
+        [IgnoreDataMember]
         public List<IBinXml> Nodes { get; set; }
 
+        [IgnoreDataMember]
         public int RecordPosition { get; }
 
+        [IgnoreDataMember]
         public uint Size { get; }
         public long RecordNumber { get; }
+        [IgnoreDataMember]
         public DateTimeOffset Timestamp { get; }
 
         public string ConvertPayloadToXml()
