@@ -244,8 +244,6 @@ namespace evtx
 
             ti = (TemplateInstance) ti;
 
-      
-
             var xmld = new XmlDocument();
             var rawXml = ti.AsXml(null, RecordPosition).Replace("&", "&amp;");
 

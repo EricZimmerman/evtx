@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net.Mime;
 using System.Reflection;
 using System.Security.Principal;
 using System.Text;
@@ -15,6 +16,7 @@ using Newtonsoft.Json;
 using NLog;
 using NLog.Config;
 using NLog.Targets;
+using RawCopy;
 using ServiceStack;
 using ServiceStack.Text;
 using CsvWriter = CsvHelper.CsvWriter;
@@ -91,17 +93,23 @@ namespace EvtxECmd
                 .WithDescription(
                     "File name to save XML formatted results to. When present, overrides default name\r\n");
 
-            _fluentCommandLineParser.Setup(arg => arg.DateTimeFormat)
-                .As("dt")
-                .WithDescription(
-                    "The custom date/time format to use when displaying time stamps. Default is: yyyy-MM-dd HH:mm:ss.fffffff")
-                .SetDefault("yyyy-MM-dd HH:mm:ss.fffffff");
+//            _fluentCommandLineParser.Setup(arg => arg.DateTimeFormat)
+//                .As("dt")
+//                .WithDescription(
+//                    "The custom date/time format to use when displaying time stamps. Default is: yyyy-MM-dd HH:mm:ss.fffffff")
+//                .SetDefault("yyyy-MM-dd HH:mm:ss.fffffff");
 
             _fluentCommandLineParser.Setup(arg => arg.FullJson)
                 .As("fj")
                 .WithDescription(
-                    "When true, export all available data when using --json. Default is FALSE.\r\n")
+                    "When true, export all available data when using --json. Default is FALSE.")
                 .SetDefault(false);
+
+            _fluentCommandLineParser.Setup(arg => arg.Metrics)
+                .As("met")
+                .WithDescription(
+                    "When true, show metrics about processed event log. Default is TRUE.\r\n")
+                .SetDefault(true);
 
             _fluentCommandLineParser.Setup(arg => arg.MapsDirectory)
                 .As("maps")
@@ -219,7 +227,6 @@ namespace EvtxECmd
                 _logger.Warn($"json output will be saved to '{outFile}'\r\n");
 
                 _swJson = new StreamWriter(outFile, false, Encoding.UTF8);
-
             }
 
             if (_fluentCommandLineParser.Object.XmlDirectory.IsNullOrEmpty() == false)
@@ -298,7 +305,6 @@ namespace EvtxECmd
                 foo.Map(t => t.Size).Ignore();
                 foo.Map(t => t.Timestamp).Ignore();
 
-
                 foo.Map(t => t.RecordNumber).Index(0);
                 foo.Map(t => t.TimeCreated).Index(1);
                 foo.Map(t => t.EventId).Index(2);
@@ -332,7 +338,14 @@ namespace EvtxECmd
             else
             {
                 _logger.Debug($"Loading maps from '{Path.GetFullPath(_fluentCommandLineParser.Object.MapsDirectory)}'");
-                EventLog.LoadMaps(Path.GetFullPath(_fluentCommandLineParser.Object.MapsDirectory));
+               var errors= EventLog.LoadMaps(Path.GetFullPath(_fluentCommandLineParser.Object.MapsDirectory));
+
+
+               if (errors)
+               {
+
+                   return;
+               }
 
                 _logger.Info($"Maps loaded: {EventLog.EventLogMaps.Count:N0}");
             }
@@ -417,98 +430,122 @@ namespace EvtxECmd
 
             _logger.Warn($"\r\nProcessing '{file}'...");
 
-            using (var fs = new FileStream(file, FileMode.Open))
+            Stream fileS;
+
+            try
             {
-                try
+                fileS = new FileStream(file, FileMode.Open, FileAccess.Read);
+            }
+            catch (Exception e)
+            {
+                //file is in use
+
+                if (Helper.IsAdministrator() == false)
                 {
-                    var evt = new EventLog(fs);
+                    throw new UnauthorizedAccessException("Administrator privileges not found!");
+                }
 
-                    var seenRecords = 0;
+                _logger.Warn($"\r\n'{file}' is in use. Rerouting...");
 
-                    foreach (var eventRecord in evt.GetEventRecords())
+                var files = new List<string>();
+                files.Add(file);
+                
+                var rawFiles = Helper.GetFiles(files);
+                fileS = rawFiles.First().FileStream;
+            }
+
+        
+            try
+            {
+                var evt = new EventLog(fileS);
+
+                var seenRecords = 0;
+
+                foreach (var eventRecord in evt.GetEventRecords())
+                {
+                    eventRecord.SourceFile = file;
+                    try
                     {
-                        eventRecord.SourceFile = file;
-                        try
+                        _csvWriter?.WriteRecord(eventRecord);
+                        _csvWriter?.NextRecord();
+
+                        var xml = string.Empty;
+                        if (_swXml != null)
                         {
+                             xml = eventRecord.ConvertPayloadToXml();
+                             _swXml.WriteLine(xml);
+                        }
                         
-                            _csvWriter?.WriteRecord(eventRecord);
-                            _csvWriter?.NextRecord();
-
-                            var xml = string.Empty;
-                            if (_swXml != null)
-                            {
-                                 xml = eventRecord.ConvertPayloadToXml();
-                                 _swXml.WriteLine(xml);
-                            }
-                            
-                            if (_swJson != null)
-                            {
-                                JsConfig.IncludeNullValues = true;
-                                var jsOut = eventRecord.ToJson();
-                                if (_fluentCommandLineParser.Object.FullJson)
-                                {
-                                    var xd =new XmlDocument();
-                                    xd.LoadXml(xml);
-                                    
-
-                                    jsOut = JsonConvert.SerializeXmlNode(xd);
-                                }
-                                _swJson.WriteLine(jsOut);
-                            }
-
-                            seenRecords += 1;
-                        }
-                        catch (Exception e)
+                        if (_swJson != null)
                         {
-                            _logger.Error($"Error processing record #{eventRecord.RecordNumber}: {e.Message}");
+                            JsConfig.IncludeNullValues = true;
+                            var jsOut = eventRecord.ToJson();
+                            if (_fluentCommandLineParser.Object.FullJson)
+                            {
+                                var xd =new XmlDocument();
+                                xd.LoadXml(xml);
+
+                                jsOut = JsonConvert.SerializeXmlNode(xd);
+                            }
+                            _swJson.WriteLine(jsOut);
                         }
-                    }
 
-                    if (evt.ErrorRecords.Count > 0)
+                        seenRecords += 1;
+                    }
+                    catch (Exception e)
                     {
-                        _errorFiles.Add(file, evt.ErrorRecords.Count);
+                        _logger.Error($"Error processing record #{eventRecord.RecordNumber}: {e.Message}");
                     }
+                }
 
-                    _fileCount += 1;
+                if (evt.ErrorRecords.Count > 0)
+                {
+                    _errorFiles.Add(file, evt.ErrorRecords.Count);
+                }
 
-                    _logger.Info("");
-                    _logger.Fatal("Event log details");
-                    _logger.Info(evt);
+                _fileCount += 1;
 
-                    _logger.Info($"Records processed: {seenRecords:N0} Errors: {evt.ErrorRecords.Count:N0}");
+                _logger.Info("");
+                _logger.Fatal("Event log details");
+                _logger.Info(evt);
 
-                    if (evt.ErrorRecords.Count > 0)
+                _logger.Info($"Records processed: {seenRecords:N0} Errors: {evt.ErrorRecords.Count:N0}");
+
+                if (evt.ErrorRecords.Count > 0)
+                {
+                    _logger.Warn("\r\nErrors");
+                    foreach (var evtErrorRecord in evt.ErrorRecords)
                     {
-                        _logger.Warn("\r\nErrors");
-                        foreach (var evtErrorRecord in evt.ErrorRecords)
-                        {
-                            _logger.Info($"Record #{evtErrorRecord.Key}: Error: {evtErrorRecord.Value}");
-                        }
+                        _logger.Info($"Record #{evtErrorRecord.Key}: Error: {evtErrorRecord.Value}");
                     }
+                }
 
-                    var total2 = 0;
+                if (_fluentCommandLineParser.Object.Metrics && evt.EventIdMetrics.Count>0)
+                {
                     _logger.Fatal("\r\nMetrics");
                     _logger.Warn($"Event Id\tCount");
                     foreach (var esEventIdMetric in evt.EventIdMetrics.OrderBy(t => t.Key))
                     {
-                        total2 += esEventIdMetric.Value;
                         _logger.Info($"{esEventIdMetric.Key}\t\t{esEventIdMetric.Value:N0}");
                     }
+                }
+                
 
-                }
-                catch (Exception e)
-                {
-                    if (e.Message.Contains("Invalid signature! Expected 'ElfFile"))
-                    {
-                        _logger.Info($"'{file}' is not an evtx file! Message: {e.Message} Skipping...");
-                    }
-                    else
-                    {
-                        _logger.Error($"Error processing '{file}'! Message: {e.Message}");
-                    }
-                }
-               
             }
+            catch (Exception e)
+            {
+                if (e.Message.Contains("Invalid signature! Expected 'ElfFile"))
+                {
+                    _logger.Info($"'{file}' is not an evtx file! Message: {e.Message} Skipping...");
+                }
+                else
+                {
+                    _logger.Error($"Error processing '{file}'! Message: {e.Message}");
+                }
+            }
+               
+            fileS?.Close();
+            
         }
 
         public static bool IsAdministrator()
@@ -563,5 +600,6 @@ namespace EvtxECmd
         public string MapsDirectory { get; set; }
 
         public bool FullJson { get; set; }
+        public bool Metrics { get; set; }
     }
 }

@@ -131,7 +131,7 @@ namespace evtx
 
         public static Dictionary<string,EventLogMap> EventLogMaps { get; private set; } = new Dictionary<string, EventLogMap>();
 
-        public static void LoadMaps(string mapPath)
+        public static bool LoadMaps(string mapPath)
         {
             EventLogMaps = new Dictionary<string, EventLogMap>();
 
@@ -186,6 +186,8 @@ namespace evtx
                 }
                 catch (SyntaxErrorException se)
                 {
+                    errorMaps.Add(Path.GetFileName(mapFile));
+
                     Console.WriteLine();
                     l.Warn($"Syntax error in '{mapFile}':");
                     l.Fatal(se.Message);
@@ -210,6 +212,8 @@ namespace evtx
                 }
                 catch (YamlException ye)
                 {
+                    errorMaps.Add(Path.GetFileName(mapFile));
+
                     Console.WriteLine();
                     l.Warn($"Syntax error in '{mapFile}':");
 
@@ -234,15 +238,16 @@ namespace evtx
 
             if (errorMaps.Count > 0)
             {
-                l.Error("The following maps had errors. Scroll up to review errors, correct them, and try again.");
+
+                l.Error("\r\nThe following maps had errors. Scroll up to review errors, correct them, and try again.");
                 foreach (var errorMap in errorMaps)
                 {
                     l.Info(errorMap);
                 }
-                Environment.Exit(0);
+                l.Info("");
             }
 
-
+            return errorMaps.Count > 0;
         }
 
         private static bool DisplayValidationResults(ValidationResult result, string source)
