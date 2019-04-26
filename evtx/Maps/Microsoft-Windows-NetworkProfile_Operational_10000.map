@@ -1,0 +1,46 @@
+Author: Mike Brewer michealb40@gmail.com
+Description: Connect to the Internet
+EventId: 10000
+Channel: "Microsoft-Windows-NetworkProfile/Operational"
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "%PayloadData1%"
+    Values: 
+      - 
+        Name: PayloadData1
+        Value: "/Event/EventData/Data[@Name=\"Description\"]"
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+# Example payload data
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-NetworkProfile" Guid="fbcfac3f-8459-419f-8e48-1f0b49cdb85e" />
+#    <EventID>10000</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>0</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x4000200000000000</Keywords>
+#    <TimeCreated SystemTime="2019-02-15 01:49:32.5265655" />
+#    <EventRecordID>17844</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="1116" ThreadID="3964" />
+#    <Channel>Microsoft-Windows-NetworkProfile/Operational</Channel>
+#    <Computer>Mike-Desktop-PC.local</Computer>
+#    <Security UserID="S-1-5-19" />
+#  </System>
+#  <EventData>
+#    <Data Name="Name">RioRancho.local</Data>
+#    <Data Name="Description">RioRancho.local</Data>
+#    <Data Name="Guid">b3154be7-0cca-4b3d-964f-90abca3f09eb</Data>
+#    <Data Name="Type">1</Data>
+#    <Data Name="State">9</Data>
+#    <Data Name="Category">2</Data>
+#  </EventData>
+#</Event>

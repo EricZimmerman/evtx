@@ -11,7 +11,7 @@ namespace evtx.Test
 {
     public class TestMain
     {
-          [Test]
+        [Test]
         public void vss14Sec()
         {
             var config = new LoggingConfiguration();
@@ -31,7 +31,8 @@ namespace evtx.Test
             LogManager.Configuration = config;
             var l = LogManager.GetLogger("foo");
 
-            var sysLog = @"D:\Temp\KAPE\vss012\Windows\system32\winevt\logs\Microsoft-Windows-DeviceManagement-Enterprise-Diagnostics-Provider%4Operational.evtx";
+            var sysLog =
+                @"D:\Temp\KAPE\vss012\Windows\system32\winevt\logs\Microsoft-Windows-DeviceManagement-Enterprise-Diagnostics-Provider%4Operational.evtx";
 
             var total = 0;
             var total2 = 0;
@@ -69,7 +70,7 @@ namespace evtx.Test
             }
         }
 
-             [Test]
+        [Test]
         public void vss15Sec()
         {
             var config = new LoggingConfiguration();
@@ -153,7 +154,6 @@ namespace evtx.Test
             EventLog.LoadMaps(@"D:\Code\evtx\evtx\Maps");
 
             Check.That(EventLog.EventLogMaps.Count).IsStrictlyGreaterThan(0);
-
         }
 
 
@@ -249,7 +249,7 @@ namespace evtx.Test
                 foreach (var eventRecord in es.GetEventRecords())
                     //     l.Info($"Record: {eventRecord}");
                 {
-                  //  eventRecord.ConvertPayloadToXml();
+                    //  eventRecord.ConvertPayloadToXml();
                 }
 
                 foreach (var esEventIdMetric in es.EventIdMetrics.OrderBy(t => t.Key))
@@ -893,19 +893,18 @@ namespace evtx.Test
 
             foreach (var file in files)
             {
-                l.Info($"\r\n\r\n\r\n-------------------------- file {Path.GetFileName(file)}--------------------------");
+                l.Info(
+                    $"\r\n\r\n\r\n-------------------------- file {Path.GetFileName(file)}--------------------------");
                 using (var fs = new FileStream(file, FileMode.Open, FileAccess.Read))
                 {
-
                     try
                     {
-
                         var es = new EventLog(fs);
 
                         foreach (var eventRecord in es.GetEventRecords())
                             //  try
                         {
-                          //      l.Info( eventRecord);
+                            //      l.Info( eventRecord);
                             //l.Info(eventRecord.ConvertPayloadToXml());
                             //eventRecord.ConvertPayloadToXml();
                         }
@@ -932,15 +931,8 @@ namespace evtx.Test
                     {
                         l.Error($"FILE : {file} failed to parse: {e.Message} {e.StackTrace}");
                     }
-
-
                 }
-
-
             }
-
-
-
         }
 
 

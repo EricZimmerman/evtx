@@ -1,5 +1,5 @@
 Author: Eric Zimmerman saericzimmerman@gmail.com
-Description: Security 4720 event
+Description: New user created
 EventId: 4720
 Channel: Security
 Maps: 

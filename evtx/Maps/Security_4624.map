@@ -1,5 +1,5 @@
 Author: Eric Zimmerman saericzimmerman@gmail.com
-Description: Security 4624 event
+Description: Successful logon
 EventId: 4624
 Channel: Security
 Maps: 

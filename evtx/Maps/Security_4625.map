@@ -1,5 +1,5 @@
 Author: Eric Zimmerman saericzimmerman@gmail.com
-Description: Security 4625 event
+Description: Failed logon
 EventId: 4625
 Channel: Security
 Maps: 

@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Runtime.Serialization;
+using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.XPath;
 using evtx.Tags;
 using NLog;
-using ServiceStack.Text;
 
 namespace evtx
 {
@@ -53,7 +52,6 @@ namespace evtx
 
             var xml = ConvertPayloadToXml();
 
-            xml = xml.Replace(" xmlns=\"http://schemas.microsoft.com/win/2004/08/events/event\"", "");
 
             using (var sr = new StringReader(xml))
             {
@@ -69,7 +67,6 @@ namespace evtx
                 var processId = nav.SelectSingleNode(@"/Event/System/Execution")?.GetAttribute("ProcessID", "");
                 var threadId = nav.SelectSingleNode(@"/Event/System/Execution")?.GetAttribute("ThreadID", "");
                 var userId = nav.SelectSingleNode(@"/Event/System/Security")?.GetAttribute("UserID", "");
-                
 
                 TimeCreated = DateTimeOffset.Parse(timeCreated, null, DateTimeStyles.AssumeUniversal).ToUniversalTime();
                 if (eventId != null)
@@ -100,15 +97,17 @@ namespace evtx
 
                 var payloadXml = payloadNode?.OuterXml;
 
-                
+
                 if (EventLog.EventLogMaps.ContainsKey($"{EventId}-{channel.ToString().ToUpperInvariant()}"))
                 {
-                    l.Trace($"Found map for event id {EventId} with Guid '{channel}'!");
+                    l.Trace($"Found map for event id {EventId} with Channel '{channel}'!");
                     var map = EventLog.EventLogMaps[$"{EventId}-{channel.ToString().ToUpperInvariant()}"];
+
+                    MapDescription = map.Description;
 
                     foreach (var mapEntry in map.Maps)
                     {
-                        var valProps = new Dictionary<string,string>();
+                        var valProps = new Dictionary<string, string>();
 
                         foreach (var me in mapEntry.Values)
                         {
@@ -116,13 +115,13 @@ namespace evtx
                             var propVal = nav.SelectSingleNode(me.Value);
                             if (propVal != null)
                             {
-                                valProps.Add(me.Name,propVal.Value);
+                                valProps.Add(me.Name, propVal.Value);
                             }
                             else
                             {
-                                l.Warn($"In map for event '{map.EventId}', Property '{me.Value}' not found! It will not be substituted.");
+                                l.Warn(
+                                    $"Record # ({RecordNumber}): In map for event '{map.EventId}', Property '{me.Value}' not found! It will not be substituted.");
                             }
-
                         }
 
                         //we have the values, now substitute
@@ -140,7 +139,7 @@ namespace evtx
                         }
 
                         //we should now have our new value, so stick it in its place
-                     switch (propertyToUpdate)
+                        switch (propertyToUpdate)
                         {
                             case "USERNAME":
                                 UserName = propertyValue;
@@ -173,12 +172,11 @@ namespace evtx
                                 //when a property was not found.
                                 break;
                             default:
-                                l.Warn($"Unknown property name '{propertyToUpdate}'! Dropping mapping value of '{propertyValue}'");
+                                l.Warn(
+                                    $"Unknown property name '{propertyToUpdate}'! Dropping mapping value of '{propertyValue}'");
                                 break;
                         }
-
                     }
-                    
                 }
 
                 //sanity checks
@@ -199,12 +197,13 @@ namespace evtx
         public string UserName { get; }
         public string RemoteHost { get; }
         public string ExecutableInfo { get; }
-
+        public string MapDescription { get; }
 
 
         public string Computer { get; }
-        [IgnoreDataMember]
-        public string PayloadXml { get; }
+
+        [IgnoreDataMember] public string PayloadXml { get; }
+
         public string UserId { get; }
         public string Channel { get; }
         public string Provider { get; }
@@ -218,20 +217,18 @@ namespace evtx
         ///     This should match the Timestamp pulled from the data, but this one is explicitly from the XML via the substitution
         ///     values
         /// </summary>
-       
+
         public DateTimeOffset TimeCreated { get; }
 
-        [IgnoreDataMember]
-        public List<IBinXml> Nodes { get; set; }
+        [IgnoreDataMember] public List<IBinXml> Nodes { get; set; }
 
-        [IgnoreDataMember]
-        public int RecordPosition { get; }
+        [IgnoreDataMember] public int RecordPosition { get; }
 
-        [IgnoreDataMember]
-        public uint Size { get; }
+        [IgnoreDataMember] public uint Size { get; }
+
         public long RecordNumber { get; }
-        [IgnoreDataMember]
-        public DateTimeOffset Timestamp { get; }
+
+        [IgnoreDataMember] public DateTimeOffset Timestamp { get; }
 
         public string ConvertPayloadToXml()
         {
@@ -249,13 +246,15 @@ namespace evtx
 
             xmld.LoadXml(rawXml);
 
-            return xmld.Beautify().Replace(" xmlns=\"http://schemas.microsoft.com/win/2004/08/events/event\"", "");
+          return  Regex.Replace(xmld.Beautify(), " xmlns=\".+\"", "",
+                RegexOptions.IgnoreCase | RegexOptions.Multiline);
+
         }
 
         public override string ToString()
         {
             return
-                $"Record position: 0x{RecordPosition:X4} Record #: {RecordNumber.ToString().PadRight(3)} Timestamp: {Timestamp:yyyy-MM-dd HH:mm:ss.fffffff}";
+                $"Record position: 0x{RecordPosition:X4} Record #: {RecordNumber.ToString().PadRight(3)} Timestamp: {Timestamp:yyyy-MM-dd HH:mm:ss.fffffff} Event Id: {EventId}";
         }
     }
 }

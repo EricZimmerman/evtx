@@ -1,0 +1,57 @@
+Author: Eric Zimmerman saericzimmerman@gmail.com
+Description: Event log cleared
+EventId: 1102
+Channel: Security
+Maps: 
+  - 
+    Property: Username
+    PropertyValue: "%domain%\\%user%"
+    Values: 
+      - 
+        Name: domain
+        Value: "/Event/UserData/LogFileCleared/SubjectDomainName"
+      - 
+        Name: user
+        Value: "/Event/UserData/LogFileCleared/SubjectUserName"
+  - 
+    Property: PayloadData1
+    PropertyValue: SID (%SubjectUserSid%)
+    Values: 
+      - 
+        Name: SubjectUserSid
+        Value: "/Event/UserData/LogFileCleared/SubjectUserSid"
+
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+# Example payload data
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-Eventlog" Guid="{fc65ddd8-d6ef-4962-83d5-6e5cfe9ce148}" />
+#     <EventID>1102</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>104</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x4020000000000000</Keywords>
+#     <TimeCreated SystemTime="2018-05-04 22:14:29.1305755" />
+#     <EventRecordID>494</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="1444" ThreadID="256" />
+#     <Channel>Security</Channel>
+#     <Computer>win10-test</Computer>
+#     <Security />
+#   </System>
+#   <UserData>
+#     <LogFileCleared>
+#       <SubjectUserSid>S-1-5-21-3204118025-1178511089-2137043725-500</SubjectUserSid>
+#       <SubjectUserName>Administrator</SubjectUserName>
+#       <SubjectDomainName>WIN10-TEST</SubjectDomainName>
+#       <SubjectLogonId>0x21FCB6</SubjectLogonId>
+#     </LogFileCleared>
+#   </UserData>
+# </Event>

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -112,8 +111,6 @@ namespace evtx
 
             Templates = new Dictionary<int, Template>();
 
-        
-
             //to get all the templates and cache them
             foreach (var tableTemplateOffset in tableTemplateOffsets.OrderBy(t => t))
             {
@@ -122,7 +119,6 @@ namespace evtx
 
                 l.Trace(
                     $"Chunk absoluteOffset: 0x{AbsoluteOffset:X} tableTemplateOffset: 0x{tableTemplateOffset:X} actualOffset: 0x {actualOffset:X} chunkBytes[index]: 0x{chunkBytes[index]:X} LastRecordOffset 0x{LastRecordOffset:X} FreeSpaceOffset 0x{FreeSpaceOffset:X}");
-
 
                 var template = GetTemplate(index);
 
@@ -168,6 +164,8 @@ namespace evtx
 
             index = (int) tableOffset + 0x100 + 0x80; //get to start of event Records
 
+            l.Debug($"\r\nChunk data before processing records: {this}");
+
             const int recordSig = 0x2a2a;
             while (index < chunkBytes.Length)
             {
@@ -176,7 +174,7 @@ namespace evtx
                 if (sig != recordSig)
                 {
                     l.Trace(
-                        $"Found an invalid signature at 0x{(absoluteOffset+index):X}");
+                        $"Found an invalid signature at 0x{absoluteOffset + index:X}");
                     break;
                 }
 
@@ -186,7 +184,7 @@ namespace evtx
                 if (recordOffset - absoluteOffset > LastRecordOffset)
                 {
                     l.Trace(
-                        $"Reached last record offset. Stopping");
+                        "Reached last record offset. Stopping");
                     break;
                 }
 
@@ -194,22 +192,26 @@ namespace evtx
 
                 var recordNumber = BitConverter.ToInt64(chunkBytes, index + 8);
 
-                var ms = new MemoryStream(chunkBytes, index, (int) recordSize);
-                var br = new BinaryReader(ms, Encoding.UTF8);
-
-                index += (int) recordSize;
-
-                if (recordNumber < FirstEventRecordIdentifier || recordNumber > LastEventRecordIdentifier)
-                {
-                    //outside known good range, so ignore
-                    l.Trace(
-                        $"Record at offset 0x{AbsoluteOffset + recordOffset:X} falls outside valid record identifier range. Skipping");
-                    continue;
-                }
+          
 
                 try
                 {
+                    if (recordNumber < FirstEventRecordIdentifier || recordNumber > LastEventRecordIdentifier)
+                    {
+                        //outside known good range, so ignore
+                        l.Debug(
+                            $"Record at offset 0x{AbsoluteOffset + recordOffset:X} falls outside valid record identifier range. Skipping");
+                        break;
+                    }
+
+                    var ms = new MemoryStream(chunkBytes, index, (int) recordSize);
+                    var br = new BinaryReader(ms, Encoding.UTF8);
+
+                    index += (int) recordSize;
+
                     var er = new EventRecord(br, recordOffset, this);
+
+                    l.Debug(er);
 
                     EventRecords.Add(er);
 
@@ -227,7 +229,12 @@ namespace evtx
                     l.Error(
                         $"Record error at offset 0x{AbsoluteOffset + recordOffset:X}, record #: {recordNumber} error: {e.Message}");
 
-                    ErrorRecords.Add(recordNumber, e.Message);
+                    if (ErrorRecords.ContainsKey(recordNumber) == false)
+                    {
+                        ErrorRecords.Add(recordNumber, e.Message);
+                    }
+
+                    
                 }
             }
         }
@@ -289,12 +296,13 @@ namespace evtx
 
             //verify we actually have a template sitting here
             if (ChunkBytes[index] != 0x0C)
-            {   
+            {
                 //if the template list is fubar, it may still be ok!
-                if (ChunkBytes[index-10] != 0x0C)
+                if (ChunkBytes[index - 10] != 0x0C)
                 {
                     return null;
                 }
+
                 //in some cases the $(*&*&$#&*$ template offset list is full of garbage, so this is a fallback
                 {
                     index = startingOffset - 10;

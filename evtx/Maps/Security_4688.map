@@ -1,5 +1,5 @@
 Author: Eric Zimmerman saericzimmerman@gmail.com
-Description: Security 4688 event
+Description: Process tracking
 EventId: 4688
 Channel: Security
 Maps: 

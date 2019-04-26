@@ -1,0 +1,59 @@
+Author: Eric Zimmerman saericzimmerman@gmail.com
+Description: Scheduled task completed
+EventId: 201
+Channel: "Microsoft-Windows-TaskScheduler/Operational"
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: Task %TaskName%
+    Values: 
+      - 
+        Name: TaskName
+        Value: "/Event/EventData/Data[@Name=\"TaskName\"]"
+  - 
+    Property: ExecutableInfo
+    PropertyValue: "%ActionName%"
+    Values: 
+      - 
+        Name: ActionName
+        Value: "/Event/EventData/Data[@Name=\"ActionName\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: Instance Id %TaskInstanceId%
+    Values: 
+      - 
+        Name: TaskInstanceId
+        Value: "/Event/EventData/Data[@Name=\"TaskInstanceId\"]"
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+# Example payload data
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-TaskScheduler" Guid="de7b24ea-73c8-4a09-985d-5bdadcfa9017" />
+#     <EventID>201</EventID>
+#     <Version>2</Version>
+#     <Level>4</Level>
+#     <Task>201</Task>
+#     <Opcode>2</Opcode>
+#     <Keywords>0x8000000000000000</Keywords>
+#     <TimeCreated SystemTime="2018-08-19 06:41:30.9768299" />
+#     <EventRecordID>181939</EventRecordID>
+#     <Correlation ActivityID="8e59add8-6b31-4dbc-a869-5b698117421c" />
+#     <Execution ProcessID="1484" ThreadID="1580" />
+#     <Channel>Microsoft-Windows-TaskScheduler/Operational</Channel>
+#     <Computer>base-rd-01.shieldbase.lan</Computer>
+#     <Security UserID="S-1-5-18" />
+#   </System>
+#   <EventData Name="ActionSuccess">
+#     <Data Name="TaskName">\Microsoft\Windows\Windows Error Reporting\QueueReporting</Data>
+#     <Data Name="TaskInstanceId">8e59add8-6b31-4dbc-a869-5b698117421c</Data>
+#     <Data Name="ActionName">%windir%\system32\wermgr.exe</Data>
+#     <Data Name="ResultCode">0</Data>
+#     <Data Name="EnginePID">13936</Data>
+#   </EventData>
+# </Event>

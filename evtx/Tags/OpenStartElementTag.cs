@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -65,7 +64,8 @@ namespace evtx.Tags
 
             if (i is EndOfBXmlStream)
             {
-                l.Warn($"Unexpected data at offset 0x{(chunk.AbsoluteOffset+recordPosition+dataStream.BaseStream.Position):X}! This usually means the record is corrupt or incomplete!");
+                l.Warn(
+                    $"Unexpected data at offset 0x{chunk.AbsoluteOffset + recordPosition + dataStream.BaseStream.Position:X}! This usually means the record is corrupt or incomplete!");
                 return;
             }
 

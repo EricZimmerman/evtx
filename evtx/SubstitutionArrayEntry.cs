@@ -285,7 +285,8 @@ namespace evtx
                 case TagBuilder.ValueType.Array64BitHex:
 
                 default:
-                    throw new ArgumentOutOfRangeException($"When converting substitution array entry to string, ran into unknown Value type: {ValType}. Please submit to saericzimmerman@gmail.com!");
+                    throw new ArgumentOutOfRangeException(
+                        $"When converting substitution array entry to string, ran into unknown Value type: {ValType}. Please submit to saericzimmerman@gmail.com!");
             }
         }
 

@@ -1,5 +1,5 @@
 Author: Eric Zimmerman saericzimmerman@gmail.com
-Description: Security 4672 event
+Description: Administrative logon
 EventId: 4672
 Channel: Security
 Maps: 

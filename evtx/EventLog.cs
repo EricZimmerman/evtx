@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Text;
 using Alphaleonis.Win32.Filesystem;
 using FluentValidation.Results;
@@ -81,6 +80,8 @@ namespace evtx
 
             EventIdMetrics = new Dictionary<long, int>();
 
+            Logger.Debug($"Event Log data before processing chunks:\r\n{this}");
+
             var chunkNumber = 0;
             while (bytesRead > 0)
             {
@@ -106,8 +107,6 @@ namespace evtx
                 chunkNumber += 1;
             }
 
-          
-
             ErrorRecords = new Dictionary<long, string>();
 
             foreach (var chunkInfo in Chunks)
@@ -129,7 +128,29 @@ namespace evtx
             }
         }
 
-        public static Dictionary<string,EventLogMap> EventLogMaps { get; private set; } = new Dictionary<string, EventLogMap>();
+        public static Dictionary<string, EventLogMap> EventLogMaps { get; private set; } =
+            new Dictionary<string, EventLogMap>();
+
+        public int TotalEventLogs { get; }
+
+        public long NextRecordId { get; }
+
+        public List<ChunkInfo> Chunks { get; }
+
+        public long FirstChunkNumber { get; }
+        public long LastChunkNumber { get; }
+
+        public short ChunkCount { get; }
+
+        public int Crc { get; }
+        public int CalculatedCrc { get; }
+
+        public EventLogFlag Flags { get; }
+
+        public short MinorVersion { get; }
+        public short MajorVersion { get; }
+
+        public Dictionary<long, string> ErrorRecords { get; }
 
         public static bool LoadMaps(string mapPath)
         {
@@ -143,7 +164,7 @@ namespace evtx
             f.ErrorFilter = (errorCode, errorMessage, pathProcessed) => true;
 
             var dirEnumOptions =
-                DirectoryEnumerationOptions.Files | 
+                DirectoryEnumerationOptions.Files |
                 DirectoryEnumerationOptions.SkipReparsePoints | DirectoryEnumerationOptions.ContinueOnException |
                 DirectoryEnumerationOptions.BasicSearch;
 
@@ -157,32 +178,35 @@ namespace evtx
 
             var errorMaps = new List<string>();
 
-            foreach (var mapFile in mapFiles.OrderBy(t=>t))
+            foreach (var mapFile in mapFiles.OrderBy(t => t))
             {
                 try
                 {
                     var validator = new EventLogMapValidator();
 
-                    var eventMapFile = deserializer.Deserialize<EventLogMap>(Alphaleonis.Win32.Filesystem.File.ReadAllText(mapFile));
+                    var eventMapFile = deserializer.Deserialize<EventLogMap>(File.ReadAllText(mapFile));
 
                     var validate = validator.Validate(eventMapFile);
 
                     if (DisplayValidationResults(validate, mapFile))
                     {
-                        if (EventLogMaps.ContainsKey($"{eventMapFile.EventId}-{eventMapFile.Channel.ToUpperInvariant()}") == false)
+                        if (EventLogMaps.ContainsKey(
+                                $"{eventMapFile.EventId}-{eventMapFile.Channel.ToUpperInvariant()}") == false)
                         {
-                            EventLogMaps.Add($"{eventMapFile.EventId}-{eventMapFile.Channel.ToUpperInvariant()}",eventMapFile);
+                            l.Debug($"'{Path.GetFileName(mapFile)}' is valid. Adding to maps...");
+                            EventLogMaps.Add($"{eventMapFile.EventId}-{eventMapFile.Channel.ToUpperInvariant()}",
+                                eventMapFile);
                         }
                         else
                         {
-                            l.Warn($"A map for event id '{eventMapFile.EventId}' with Channel '{eventMapFile.Channel}' already exists. Map '{Path.GetFileName(mapFile)}' will be skipped");
+                            l.Warn(
+                                $"A map for event id '{eventMapFile.EventId}' with Channel '{eventMapFile.Channel}' already exists. Map '{Path.GetFileName(mapFile)}' will be skipped");
                         }
                     }
                     else
                     {
                         errorMaps.Add(Path.GetFileName(mapFile));
                     }
-
                 }
                 catch (SyntaxErrorException se)
                 {
@@ -208,7 +232,6 @@ namespace evtx
                         Console.WriteLine();
                         l.Info(fileContents.Replace("\t", "<TAB>"));
                     }
-
                 }
                 catch (YamlException ye)
                 {
@@ -228,7 +251,6 @@ namespace evtx
 
                     Console.WriteLine();
                     l.Fatal("Verify all properties against example files or manual and try again.");
-
                 }
                 catch (Exception e)
                 {
@@ -238,12 +260,12 @@ namespace evtx
 
             if (errorMaps.Count > 0)
             {
-
                 l.Error("\r\nThe following maps had errors. Scroll up to review errors, correct them, and try again.");
                 foreach (var errorMap in errorMaps)
                 {
                     l.Info(errorMap);
                 }
+
                 l.Info("");
             }
 
@@ -275,27 +297,6 @@ namespace evtx
 
             return false;
         }
-
-        public int TotalEventLogs { get; }
-
-        public long NextRecordId { get; }
-
-        public List<ChunkInfo> Chunks { get; }
-
-        public long FirstChunkNumber { get; }
-        public long LastChunkNumber { get; }
-
-        public short ChunkCount { get; }
-
-        public int Crc { get; }
-        public int CalculatedCrc { get; }
-
-        public EventLogFlag Flags { get; }
-
-        public short MinorVersion { get; }
-        public short MajorVersion { get; }
-
-        public Dictionary<long, string> ErrorRecords { get; }
 
         public override string ToString()
         {
