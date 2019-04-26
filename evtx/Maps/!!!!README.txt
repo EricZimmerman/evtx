@@ -80,6 +80,16 @@ When a map is processed, each map entry has its Values items processed so the va
 
 It is that simple! Be sure to surround things in double quotes and/or escape quotes as in the examples. When in doubt, test your map against real data!
 
+NOTE! The filenames for maps should be in the following format:
+
+Channel_EventID.map
+
+Where Channel is EXACTLY what is in the XML <Channel> element with any '/' characters replaced with an underscore.
+
+For example, for event Id '201' and channel 'Microsoft-Windows-TaskScheduler/Operational' the file should be named:
+
+Microsoft-Windows-TaskScheduler_Operational_201.map
+
 
 ---- START MAP HERE ----
 
