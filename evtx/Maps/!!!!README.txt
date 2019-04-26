@@ -62,7 +62,7 @@ In most cases, the data in the <EventData> block is what you want to process. Th
 
 So let's take a look at a map to make things a bit more clear.
 
-In the example below, there are four header properties that descrive the map: who wrote it, what its for, the Channel, and the event ID the map corresponds to. 
+In the example below, there are four header properties that describe the map: who wrote it, what its for, the Channel, and the event ID the map corresponds to. 
 
 The Channel and EventId property are what make a map unique, not the name of the file. As long as the map ends with '.map' it will be processed.
 
@@ -72,7 +72,7 @@ The Maps collection contains configurations for how to look for data in an event
 
 For example, consider the first map, for Username, below.
 
-The PropertyValue defines the pattern that will be used to build the final value that will be assigned to the Username field in the CSV. Variables in patterns are surrouned by % on both sides, so we see two variables defined: %domain% and %user%
+The PropertyValue defines the pattern that will be used to build the final value that will be assigned to the Username field in the CSV. Variables in patterns are surrounded by % on both sides, so we see two variables defined: %domain% and %user%
 
 In the map entries Values collection, we actually populate these variables by giving the value a name (domain in the first case) and an xpath query that will be used to set the value for the variable ("/Event/EventData/Data[@Name=\"SubjectDomainName\"]" in the first case).
 
