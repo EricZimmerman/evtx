@@ -25,6 +25,16 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"WorkstationName\"]"
   - 
     Property: PayloadData1
+    PropertyValue: "Target: %TargetDomainName%\\%TargetUserName%"
+    Values: 
+      - 
+        Name: TargetDomainName
+        Value: "/Event/EventData/Data[@Name=\"TargetDomainName\"]"
+      - 
+        Name: TargetUserName
+        Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
+  - 
+    Property: PayloadData2
     PropertyValue: LogonType %LogonType%
     Values: 
       - 
