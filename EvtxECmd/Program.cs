@@ -238,7 +238,18 @@ namespace EvtxECmd
 
                 _logger.Warn($"json output will be saved to '{outFile}'\r\n");
 
-                _swJson = new StreamWriter(outFile, false, Encoding.UTF8);
+               
+
+                try
+                {
+                    _swJson = new StreamWriter(outFile, false, Encoding.UTF8);
+                }
+                catch (Exception)
+                {
+                    _logger.Error($"Unable to open '{outFile}'! Is it in use? Exiting!\r\n");
+                    Environment.Exit(0);
+                }
+
             }
 
             if (_fluentCommandLineParser.Object.XmlDirectory.IsNullOrEmpty() == false)
@@ -271,9 +282,16 @@ namespace EvtxECmd
 
                 _logger.Warn($"XML output will be saved to '{outFile}'\r\n");
 
-                _swXml = new StreamWriter(outFile, false, Encoding.UTF8);
+                try
+                {
+                    _swXml = new StreamWriter(outFile, false, Encoding.UTF8);
+                }
+                catch (Exception)
+                {
+                    _logger.Error($"Unable to open '{outFile}'! Is it in use? Exiting!\r\n");
+                    Environment.Exit(0);
+                }
             }
-
 
             if (_fluentCommandLineParser.Object.CsvDirectory.IsNullOrEmpty() == false)
             {
@@ -305,9 +323,17 @@ namespace EvtxECmd
 
                 _logger.Warn($"CSV output will be saved to '{outFile}'\r\n");
 
-                _swCsv = new StreamWriter(outFile, false, Encoding.UTF8);
+                try
+                {
+                    _swCsv = new StreamWriter(outFile, false, Encoding.UTF8);
 
-                _csvWriter = new CsvWriter(_swCsv);
+                    _csvWriter = new CsvWriter(_swCsv);
+                }
+                catch (Exception)
+                {
+                    _logger.Error($"Unable to open '{outFile}'! Is it in use? Exiting!\r\n");
+                    Environment.Exit(0);
+                }
 
                 var foo = _csvWriter.Configuration.AutoMap<EventRecord>();
 

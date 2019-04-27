@@ -9,6 +9,7 @@ using System.Xml;
 using System.Xml.XPath;
 using evtx.Tags;
 using NLog;
+using ServiceStack;
 
 namespace evtx
 {
@@ -115,7 +116,36 @@ namespace evtx
                             var propVal = nav.SelectSingleNode(me.Value);
                             if (propVal != null)
                             {
-                                valProps.Add(me.Name, propVal.Value);
+                                var propValue = propVal.Value;
+
+                                if (me.Refine.IsNullOrEmpty() == false)
+                                {
+                                    var hits = new List<string>();
+
+                                    //regex time
+                                    MatchCollection allMatchResults = null;
+                                    try {
+                                        Regex regexObj = new Regex(me.Refine, RegexOptions.IgnoreCase);
+                                        allMatchResults = regexObj.Matches(propValue);
+                                        if (allMatchResults.Count > 0) {
+                                            // Access individual matches using allMatchResults.Item[]
+
+                                            foreach (Match allMatchResult in allMatchResults)
+                                            {
+                                                hits.Add(allMatchResult.Value);
+                                            }
+
+                                            propValue = string.Join(" | ", hits);
+
+                                        } 
+
+                                    } catch (ArgumentException ) {
+                                        // Syntax error in the regular expression
+                                    }
+
+                                }
+
+                                valProps.Add(me.Name, propValue);
                             }
                             else
                             {

@@ -37,10 +37,14 @@ namespace evtx
     {
         public string Name { get; set; }
         public string Value { get; set; }
+        /// <summary>
+        /// A regex pattern to run against Value. Optional
+        /// </summary>
+        public string Refine { get; set; }
 
         public override string ToString()
         {
-            return $"Name: {Name} Value: {Value}";
+            return $"Name: {Name} Value: {Value} Refine: {Refine}";
         }
     }
 
