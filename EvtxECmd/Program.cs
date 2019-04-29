@@ -568,6 +568,7 @@ namespace EvtxECmd
                         if (_swJson != null)
                         {
                             JsConfig.IncludeNullValues = true;
+                            JsConfig.DateHandler = DateHandler.ISO8601;
                             var jsOut = eventRecord.ToJson();
                             if (_fluentCommandLineParser.Object.FullJson)
                             {
