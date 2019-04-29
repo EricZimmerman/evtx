@@ -29,7 +29,7 @@ namespace evtx
         public override string ToString()
         {
             return
-                $"Author: {Property} Description: {PropertyValue}, Values count: {Values.Count:N0}";
+                $"Property: {Property} PropertyValue: {PropertyValue}, Values count: {Values.Count:N0}";
         }
     }
 
