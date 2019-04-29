@@ -77,7 +77,7 @@ namespace evtx
     {
         public EventLogMapValidator()
         {
-            RuleFor(target => target.EventId).NotEmpty();
+            RuleFor(target => target.EventId).NotNull();
             RuleFor(target => target.Channel).NotEmpty();
             RuleFor(target => target.Author).NotEmpty();
             RuleFor(target => target.Description).NotEmpty();

@@ -449,7 +449,7 @@ namespace EvtxECmd
                     DirectoryEnumerationOptions.BasicSearch;
 
                 var files2 =
-                    Directory.EnumerateFileSystemEntries(_fluentCommandLineParser.Object.Directory, dirEnumOptions, f);
+                    Directory.EnumerateFileSystemEntries(Path.GetFullPath(_fluentCommandLineParser.Object.Directory), dirEnumOptions, f);
 
                 foreach (var file in files2)
                 {
