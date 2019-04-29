@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using FluentValidation;
 
 namespace evtx
@@ -62,6 +63,12 @@ namespace evtx
         public MapEntryValidator()
         {
             RuleFor(target => target.Property).NotEmpty();
+
+            RuleFor(target => target.Property)
+                .Matches(
+                    "^UserName$|^RemoteHost$|^ExecutableInfo$|^PayloadData1$|^PayloadData2$|^PayloadData3$|^PayloadData4$|^PayloadData5$|^PayloadData6$",
+                    System.Text.RegularExpressions.RegexOptions.IgnoreCase).WithMessage("\r\n'Property' must be one of the following: UserName|RemoteHost|ExecutableInfo|PayloadData1|PayloadData2|PayloadData3|PayloadData4|PayloadData5|PayloadData6");
+
             RuleFor(target => target.PropertyValue).NotEmpty();
 
             RuleFor(target => target.Values.Count).GreaterThan(0).When(t => t.Values != null);
@@ -71,7 +78,10 @@ namespace evtx
                     "Values")
                 .SetValidator(new ValueEntryValidator());
         }
+
     }
+
+   
 
     public class EventLogMapValidator : AbstractValidator<EventLogMap>
     {

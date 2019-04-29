@@ -159,7 +159,7 @@ namespace evtx
             var f = new DirectoryEnumerationFilters();
             f.InclusionFilter = fsei => fsei.Extension.ToUpperInvariant() == ".MAP";
 
-            f.RecursionFilter = entryInfo => !entryInfo.IsMountPoint && !entryInfo.IsSymbolicLink;
+            f.RecursionFilter = null;//entryInfo => !entryInfo.IsMountPoint && !entryInfo.IsSymbolicLink;
 
             f.ErrorFilter = (errorCode, errorMessage, pathProcessed) => true;
 
@@ -176,15 +176,17 @@ namespace evtx
             var deserializer = new DeserializerBuilder()
                 .Build();
 
+            var validator = new EventLogMapValidator();
+
             var errorMaps = new List<string>();
 
             foreach (var mapFile in mapFiles.OrderBy(t => t))
             {
                 try
                 {
-                    var validator = new EventLogMapValidator();
-
                     var eventMapFile = deserializer.Deserialize<EventLogMap>(File.ReadAllText(mapFile));
+
+                    l.Trace(eventMapFile.Dump);
 
                     var validate = validator.Validate(eventMapFile);
 
