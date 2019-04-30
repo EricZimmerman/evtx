@@ -1,0 +1,55 @@
+Author: Mike Cary
+Description: User authentication succeeded
+EventId: 1149
+Channel: Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational
+Maps: 
+  - 
+    Property: UserName
+    PropertyValue: "%domain%\\%user%"
+    Values: 
+      - 
+        Name: user
+        Value: "/Event/UserData/EventXML/Param1"
+      - 
+        Name: domain
+        Value: "/Event/UserData/EventXML/Param2"		
+  - 
+    Property: RemoteHost
+    PropertyValue: "%ipAddress%"
+    Values: 
+      - 
+        Name: ipAddress
+        Value: "/Event/UserData/EventXML/Param3"
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+# Example payload data
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-TerminalServices-RemoteConnectionManager" Guid="c76baa63-ae81-421c-b425-340b4b24157f" />
+#     <EventID>1149</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x1000000000000000</Keywords>
+#     <TimeCreated SystemTime="2019-02-15 21:46:01.0013838" />
+#     <EventRecordID>11</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="1144" ThreadID="4076" />
+#     <Channel>Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational</Channel>
+#     <Computer>WIN-Q745ADN5K5R</Computer>
+#     <Security UserID="S-1-5-20" />
+#   </System>
+#   <UserData>
+#     <EventXML>
+#       <Param1>testuser</Param1>
+#       <Param2>MicrosoftAccount</Param2>
+#       <Param3>192.168.1.40</Param3>
+#     </EventXML>
+#   </UserData>
+# </Event>
