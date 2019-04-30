@@ -1,0 +1,44 @@
+Author: Eric Zimmerman saericzimmerman@gmail.com
+Description: RDP Connected to domain
+EventId: 1027
+Channel: Microsoft-Windows-TerminalServices-RDPClient/Operational
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "Domain: %DomainName%"
+    Values: 
+      - 
+        Name: DomainName
+        Value: "/Event/EventData/Data[@Name=\"DomainName\"]"
+ 
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+
+#Connected to domain (SERVER-01) with session 12.
+#
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-TerminalServices-ClientActiveXCore" Guid="28aa95bb-d444-4719-a36f-40462168127e" />
+#    <EventID>1027</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>101</Task>
+#    <Opcode>10</Opcode>
+#    <Keywords>0x4000000000000000</Keywords>
+#    <TimeCreated SystemTime="2019-03-09 00:13:38.5088396" />
+#    <EventRecordID>54</EventRecordID>
+#    <Correlation ActivityID="f27cc7dc-446a-42d7-9a0f-cc3ab4f90000" />
+#    <Execution ProcessID="16768" ThreadID="19860" />
+#    <Channel>Microsoft-Windows-TerminalServices-RDPClient/Operational</Channel>
+#    <Computer>EZ-W.Zim.local</Computer>
+#    <Security UserID="S-1-5-21-238543598-4054144643-4261915534-1114" />
+#  </System>
+#  <EventData>
+#    <Data Name="DomainName">ZIM</Data>
+#    <Data Name="SessionId">1</Data>
+#  </EventData>
+#</Event>

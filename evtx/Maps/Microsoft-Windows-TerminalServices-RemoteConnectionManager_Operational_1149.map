@@ -1,0 +1,57 @@
+Author: Eric Zimmerman saericzimmerman@gmail.com
+Description: RDP network connection established
+EventId: 1149
+Channel: Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational
+Maps: 
+  - 
+    Property: UserName
+    PropertyValue: "%domain%\\%user%"
+    Values: 
+      - 
+        Name: domain
+        Value: "/Event/EventData/Data[@Name=\"Param2\"]"
+      - 
+        Name: user
+        Value: "/Event/EventData/Data[@Name=\"Param1\"]"
+  - 
+    Property: RemoteHost
+    PropertyValue: "%Address%"
+    Values: 
+      - 
+        Name: Address
+        Value: "/Event/EventData/Data[@Name=\"Param3\"]"
+ 
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+
+#RDP network connection established
+#
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-TerminalServices-RemoteConnectionManager" Guid="c76baa63-ae81-421c-b425-340b4b24157f" />
+#    <EventID>1149</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>0</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x1000000000000000</Keywords>
+#    <TimeCreated SystemTime="2018-11-06 21:45:50.4112641" />
+#    <EventRecordID>6</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="812" ThreadID="1956" />
+#    <Channel>Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational</Channel>
+#    <Computer>IEWIN7</Computer>
+#    <Security UserID="S-1-5-20" />
+#  </System>
+#  <UserData>
+#    <EventXML>
+#      <Param1>administrator</Param1>
+#      <Param2>ie11win7</Param2>
+#      <Param3>10.0.2.16</Param3>
+#    </EventXML>
+#  </UserData>
+#</Event>

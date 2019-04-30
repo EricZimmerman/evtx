@@ -1,0 +1,88 @@
+Author: Eric Zimmerman saericzimmerman@gmail.com
+Description: The Windows Filtering Platform has allowed a connection
+EventId: 5156
+Channel: Security
+Maps: 
+  -
+    Property: ExecutableInfo
+    PropertyValue: "%Application%"
+    Values: 
+      - 
+        Name: Application
+        Value: "/Event/EventData/Data[@Name=\"Application\"]"
+  - 
+    Property: PayloadData1
+    PropertyValue: "Source: %SourceAddress%:%SourcePort%"
+    Values: 
+      - 
+        Name: SourceAddress
+        Value: "/Event/EventData/Data[@Name=\"SourceAddress\"]"
+      - 
+        Name: SourcePort
+        Value: "/Event/EventData/Data[@Name=\"SourcePort\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "Dest: %DestAddress%:%DestPort%"
+    Values: 
+      - 
+        Name: DestAddress
+        Value: "/Event/EventData/Data[@Name=\"DestAddress\"]"
+      - 
+        Name: DestPort
+        Value: "/Event/EventData/Data[@Name=\"DestPort\"]"
+  - 
+    Property: PayloadData3
+    PropertyValue: "Protocol: %Protocol%"
+    Values: 
+      - 
+        Name: Protocol
+        Value: "/Event/EventData/Data[@Name=\"Protocol\"]"
+  - 
+    Property: PayloadData4
+    PropertyValue: "PID: %ProcessID%"
+    Values: 
+      - 
+        Name: ProcessID
+        Value: "/Event/EventData/Data[@Name=\"ProcessID\"]"
+
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+# Example payload data
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Security-Auditing" Guid="54849625-5478-4994-a5ba-3e3b0328c30d" />
+#    <EventID>5156</EventID>
+#    <Version>1</Version>
+#    <Level>0</Level>
+#    <Task>12810</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8020000000000000</Keywords>
+#    <TimeCreated SystemTime="2019-03-19 23:35:08.7860165" />
+#    <EventRecordID>452812</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="4" ThreadID="60" />
+#    <Channel>Security</Channel>
+#    <Computer>PC01.example.corp</Computer>
+#    <Security />
+#  </System>
+#  <EventData>
+#    <Data Name="ProcessID">812</Data>
+#    <Data Name="Application">\device\harddiskvolume1\windows\system32\svchost.exe</Data>
+#    <Data Name="Direction">%%14593</Data>
+#    <Data Name="SourceAddress">fe80::80ac:4126:fa58:1b81</Data>
+#    <Data Name="SourcePort">546</Data>
+#    <Data Name="DestAddress">ff02::1:2</Data>
+#    <Data Name="DestPort">547</Data>
+#    <Data Name="Protocol">17</Data>
+#    <Data Name="FilterRTID">65853</Data>
+#    <Data Name="LayerName">%%14611</Data>
+#    <Data Name="LayerRTID">50</Data>
+#    <Data Name="RemoteUserID">S-1-0-0</Data>
+#    <Data Name="RemoteMachineID">S-1-0-0</Data>
+#  </EventData>
+#</Event>

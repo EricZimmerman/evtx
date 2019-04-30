@@ -61,6 +61,7 @@ namespace evtx
 
                 var computer = nav.SelectSingleNode(@"/Event/System/Computer");
                 var channel = nav.SelectSingleNode(@"/Event/System/Channel");
+                var eventRecordId = nav.SelectSingleNode(@"/Event/System/EventRecordID");
                 var eventId = nav.SelectSingleNode(@"/Event/System/EventID");
                 var level = nav.SelectSingleNode(@"/Event/System/Level");
                 var timeCreated = nav.SelectSingleNode(@"/Event/System/TimeCreated")?.GetAttribute("SystemTime", "");
@@ -78,6 +79,11 @@ namespace evtx
                 if (level != null)
                 {
                     Level = level.ValueAsInt;
+                }
+
+                if (eventRecordId != null)
+                {
+                    EventRecordId = eventRecordId.Value;
                 }
 
                 if (processId != null)
@@ -149,8 +155,9 @@ namespace evtx
                             }
                             else
                             {
+                                valProps.Add(me.Name, string.Empty);
                                 l.Warn(
-                                    $"Record # ({RecordNumber}): In map for event '{map.EventId}', Property '{me.Value}' not found! It will not be substituted.");
+                                    $"Record # {RecordNumber} (Event Record Id: {EventRecordId}): In map for event '{map.EventId}', Property '{me.Value}' not found! Replacing with empty string");
                             }
                         }
 
@@ -238,6 +245,7 @@ namespace evtx
         public string Channel { get; }
         public string Provider { get; }
         public int EventId { get; }
+        public string EventRecordId { get; }
         public int ProcessId { get; }
         public int ThreadId { get; }
         public int Level { get; }

@@ -1,0 +1,69 @@
+Author: Eric Zimmerman saericzimmerman@gmail.com
+Description: "Remote Desktop Services: Session logoff succeeded"
+EventId: 5860
+Channel: WMI Registration of Temporary Event Consumer
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "Query: %Query%"
+    Values: 
+      - 
+        Name: Query
+        Value: "/Event/UserData/Operation_TemporaryEssStarted/Query"
+  - 
+    Property: PayloadData2
+    PropertyValue: "PID: %Processid%"
+    Values: 
+      - 
+        Name: Processid
+        Value: "/Event/UserData/Operation_TemporaryEssStarted/Processid"
+  - 
+    Property: PayloadData3
+    PropertyValue: "Client machine: %ClientMachine%"
+    Values: 
+      - 
+        Name: ClientMachine
+        Value: "/Event/UserData/Operation_TemporaryEssStarted/ClientMachine"
+      - 
+    Property: PayloadData4
+    PropertyValue: "User: %User%"
+    Values: 
+      - 
+        Name: User
+        Value: "/Event/UserData/Operation_TemporaryEssStarted/User"    
+ 
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+#WMI Registration of Temporary Event Consumer
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-WMI-Activity" Guid="1418ef04-b0b4-4623-bf7e-d74ab47bbdaa" />
+#    <EventID>5860</EventID>
+#    <Version>0</Version>
+#    <Level>0</Level>
+#    <Task>0</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x4000000000000000</Keywords>
+#    <TimeCreated SystemTime="2018-08-06 19:22:10.9433075" />
+#    <EventRecordID>5156</EventRecordID>
+#    <Correlation ActivityID="7e5ddd23-2dba-0000-96ec-5d7eba2dd401" />
+#    <Execution ProcessID="1484" ThreadID="5592" />
+#    <Channel>Microsoft-Windows-WMI-Activity/Operational</Channel>
+#    <Computer>base-rd-01.shieldbase.lan</Computer>
+#    <Security UserID="S-1-5-18" />
+#  </System>
+#  <UserData>
+#    <Operation_TemporaryEssStarted>
+#      <NamespaceName>ROOT\CIMV2</NamespaceName>
+#      <Query>SELECT * FROM Win32_ProcessStartTrace WHERE ProcessName = 'wsmprovhost.exe'</Query>
+#      <User></User>
+#      <Processid>1484</Processid>
+#      <ClientMachine>BASE-RD-01</ClientMachine>
+#      <PossibleCause>Temporary</PossibleCause>
+#    </Operation_TemporaryEssStarted>
+#  </UserData>
+#</Event>

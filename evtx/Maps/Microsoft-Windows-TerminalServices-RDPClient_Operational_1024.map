@@ -1,0 +1,45 @@
+Author: Eric Zimmerman saericzimmerman@gmail.com
+Description: RDP Client is trying to connect to the server
+EventId: 1024
+Channel: Microsoft-Windows-TerminalServices-RDPClient/Operational
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "Dest: %DestServer%"
+    Values: 
+      - 
+        Name: DestServer
+        Value: "/Event/EventData/Data[@Name=\"Value\"]"
+ 
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+
+#RDP ClientActiveX is trying to connect to the server ([Destination Host Name]).
+#
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-TerminalServices-ClientActiveXCore" Guid="28aa95bb-d444-4719-a36f-40462168127e" />
+#    <EventID>1024</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>101</Task>
+#    <Opcode>10</Opcode>
+#    <Keywords>0x4000000000000000</Keywords>
+#    <TimeCreated SystemTime="2018-08-31 14:53:31.6512242" />
+#    <EventRecordID>1</EventRecordID>
+#    <Correlation ActivityID="6e1e588c-e540-4405-b784-16ca89260000" />
+#    <Execution ProcessID="11636" ThreadID="10688" />
+#    <Channel>Microsoft-Windows-TerminalServices-RDPClient/Operational</Channel>
+#    <Computer>base-rd-01.shieldbase.lan</Computer>
+#    <Security UserID="S-1-5-21-3445421715-2530590580-3149308974-1193" />
+#  </System>
+#  <EventData>
+#    <Data Name="Name">Server Name</Data>
+#    <Data Name="Value">172.16.6.14</Data>
+#    <Data Name="CustomLevel">Info</Data>
+#  </EventData>
+#</Event>

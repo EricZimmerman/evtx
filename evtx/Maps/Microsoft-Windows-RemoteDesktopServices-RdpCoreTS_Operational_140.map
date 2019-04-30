@@ -1,0 +1,43 @@
+Author: Eric Zimmerman saericzimmerman@gmail.com
+Description: RDP connection from the client computer failed
+EventId: 140
+Channel: Microsoft-Windows-RemoteDesktopServices-RdpCoreTS/Operational
+Maps: 
+  - 
+    Property: RemoteHost
+    PropertyValue: "%Address%"
+    Values: 
+      - 
+        Name: Address
+        Value: "/Event/EventData/Data[@Name=\"IPString\"]"
+ 
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+
+#A connection from the client computer with an IP address of 172.x.x.x failed because the user name or password is not correct.
+#
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-RemoteDesktopServices-RdpCoreTS" Guid="1139c61b-b549-4251-8ed3-27250a1edec8" />
+#    <EventID>140</EventID>
+#    <Version>0</Version>
+#    <Level>3</Level>
+#    <Task>4</Task>
+#    <Opcode>14</Opcode>
+#    <Keywords>0x4000000000000000</Keywords>
+#    <TimeCreated SystemTime="2018-08-07 19:30:04.3133888" />
+#    <EventRecordID>6952087</EventRecordID>
+#    <Correlation ActivityID="f420fd63-cfd5-43fc-9ac5-e36cecd30000" />
+#    <Execution ProcessID="332" ThreadID="18376" />
+#    <Channel>Microsoft-Windows-RemoteDesktopServices-RdpCoreTS/Operational</Channel>
+#    <Computer>DESKTOP-1N4R894</Computer>
+#    <Security UserID="S-1-5-20" />
+#  </System>
+#  <EventData>
+#    <Data Name="IPString">212.92.124.161</Data>
+#  </EventData>
+#</Event>

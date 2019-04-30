@@ -1,0 +1,59 @@
+Author: Eric Zimmerman saericzimmerman@gmail.com
+Description: A Kerberos authentication ticket (TGT) was requested
+EventId: 4768
+Channel: Security
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "Target: %domain%\\%user%"
+    Values: 
+      - 
+        Name: domain
+        Value: "/Event/EventData/Data[@Name=\"TargetDomainName\"]"
+      - 
+        Name: user
+        Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
+
+
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+# Example payload data
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Security-Auditing" Guid="54849625-5478-4994-a5ba-3e3b0328c30d" />
+#    <EventID>4768</EventID>
+#    <Version>0</Version>
+#    <Level>0</Level>
+#    <Task>14339</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8020000000000000</Keywords>
+#    <TimeCreated SystemTime="2019-03-21 06:37:12.6680825" />
+#    <EventRecordID>128531349</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="604" ThreadID="6208" />
+#    <Channel>Security</Channel>
+#    <Computer>server.billiet-co.lan</Computer>
+#    <Security />
+#  </System>
+#  <EventData>
+#    <Data Name="TargetUserName">SERVER$</Data>
+#    <Data Name="TargetDomainName">BILLIET-CO.LAN</Data>
+#    <Data Name="TargetSid">S-1-5-21-1833861939-1120613419-2377096841-1168</Data>
+#    <Data Name="ServiceName">krbtgt</Data>
+#    <Data Name="ServiceSid">S-1-5-21-1833861939-1120613419-2377096841-502</Data>
+#    <Data Name="TicketOptions">0x40810010</Data>
+#    <Data Name="Status">0x0</Data>
+#    <Data Name="TicketEncryptionType">0x12</Data>
+#    <Data Name="PreAuthType">2</Data>
+#    <Data Name="IpAddress">::1</Data>
+#    <Data Name="IpPort">0</Data>
+#    <Data Name="CertIssuerName"></Data>
+#    <Data Name="CertSerialNumber"></Data>
+#    <Data Name="CertThumbprint"></Data>
+#  </EventData>
+#</Event>

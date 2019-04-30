@@ -1,0 +1,55 @@
+Author: Eric Zimmerman saericzimmerman@gmail.com
+Description: WMI wmiprvse execution
+EventId: 5857
+Channel: Microsoft-Windows-WMI-Activity/Operational
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "PID: %ProcessID%"
+    Values: 
+      - 
+        Name: ProcessID
+        Value: "/Event/UserData/Operation_StartedOperational/ProcessID"
+  - 
+    Property: PayloadData2
+    PropertyValue: "Path: %ProviderPath%"
+    Values: 
+      - 
+        Name: ProviderPath
+        Value: "/Event/UserData/Operation_StartedOperational/ProviderPath"
+        
+ 
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+#Indicates time of wmiprvse execution and path to provider DLL – attackers sometimes install malicious WMI provider DLLs
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-WMI-Activity" Guid="1418ef04-b0b4-4623-bf7e-d74ab47bbdaa" />
+#    <EventID>5857</EventID>
+#    <Version>0</Version>
+#    <Level>0</Level>
+#    <Task>0</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x4000000000000000</Keywords>
+#    <TimeCreated SystemTime="2018-08-04 15:57:45.6043407" />
+#    <EventRecordID>4957</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="3184" ThreadID="10584" />
+#    <Channel>Microsoft-Windows-WMI-Activity/Operational</Channel>
+#    <Computer>base-rd-01.shieldbase.lan</Computer>
+#    <Security UserID="S-1-5-20" />
+#  </System>
+#  <UserData>
+#    <Operation_StartedOperational>
+#      <ProviderName>CIMWin32a</ProviderName>
+#      <Code>0x0</Code>
+#      <HostProcess>wmiprvse.exe</HostProcess>
+#      <ProcessID>3184</ProcessID>
+#      <ProviderPath>%systemroot%\system32\wbem\wmipcima.dll</ProviderPath>
+#    </Operation_StartedOperational>
+#  </UserData>
+#</Event>

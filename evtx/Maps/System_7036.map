@@ -1,0 +1,76 @@
+Author: Barrie Hill barrie0482@gmail.com
+Description: Service started or stopped
+EventId: 7036
+Channel: System
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "Name: %ServiceName%%ServiceName2%" #This is a special case in that data may exist in several forms. Here we look for both and use the one we find. =)
+    Values: 
+      - 
+        Name: ServiceName
+        Value: "/Event/EventData/Data[@Name=\"param1\"]"
+      - 
+        Name: ServiceName2
+        Value: "/Event/EventData/Data"
+  - 
+    Property: PayloadData2
+    PropertyValue: "Status: %Status%"
+    Values: 
+      - 
+        Name: Status
+        Value: "/Event/EventData/Data[@Name=\"param2\"]"
+
+
+        
+# Event 6006 occurs at shutdown time showing that the Event Log service was stopped and indicating a clean shutdown. 
+# 
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+#<Event>
+#  <System>
+#    <Provider Name="Service Control Manager" Guid="{555908d1-a6d7-4695-8e1e-26931d2012f4}" EventSourceName="Service Control Manager" />
+#    <EventID Qualifiers="16384">7036</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>0</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8080000000000000</Keywords>
+#    <TimeCreated SystemTime="2012-03-13 20:11:22.3763130" />
+#    <EventRecordID>11894</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="560" ThreadID="3280" />
+#    <Channel>System</Channel>
+#    <Computer>WKS-WIN732BITA.shieldbase.local</Computer>
+#    <Security />
+#  </System>
+#  <EventData>
+#    <Data Name="param1">Multimedia Class Scheduler</Data>
+#    <Data Name="param2">running</Data>
+#    <Binary>4D-00-4D-00-43-00-53-00-53-00-2F-00-34-00-00-00</Binary>
+#  </EventData>
+#</Event>
+
+
+#<Event>
+#  <System>
+#    <Provider Name="Netwtw06" />
+#    <EventID Qualifiers="16384">7036</EventID>
+#    <Level>4</Level>
+#    <Task>0</Task>
+#    <Keywords>0x80000000000000</Keywords>
+#    <TimeCreated SystemTime="2018-12-23 00:23:18.7175960" />
+#    <EventRecordID>696</EventRecordID>
+#    <Channel>System</Channel>
+#    <Computer>DESKTOP-9L1HKC9</Computer>
+#    <Security />
+#  </System>
+#  <EventData>
+#    <Data>\Device\NDMP1, Intel(R) Dual Band Wireless-AC 8265</Data>
+#    <Binary>00-00-08-00-02-00-38-00-00-00-00-00-7C-1B-00-40-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-57-44-52-56-AB-00-00-00</Binary>
+#  </EventData>
+#</Event>

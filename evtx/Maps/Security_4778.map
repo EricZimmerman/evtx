@@ -1,0 +1,66 @@
+Author: Eric Zimmerman saericzimmerman@gmail.com
+Description: RDP reconnecting
+EventId: 4778
+Channel: Security
+Maps: 
+  - 
+    Property: Username
+    PropertyValue: "%domain%\\%user%"
+    Values: 
+      - 
+        Name: domain
+        Value: "/Event/EventData/Data[@Name=\"AccountDomain\"]"
+      - 
+        Name: user
+        Value: "/Event/EventData/Data[@Name=\"AccountName\"]"
+  - 
+    Property: RemoteHost
+    PropertyValue: "%ClientName% (%ClientAddress%)"
+    Values: 
+      - 
+        Name: ClientAddress
+        Value: "/Event/EventData/Data[@Name=\"ClientAddress\"]"
+      - 
+        Name: ClientName
+        Value: "/Event/EventData/Data[@Name=\"ClientName\"]"
+  - 
+    Property: PayloadData1
+    PropertyValue: "LogonId: %LogonID%"
+    Values: 
+      - 
+        Name: LogonID
+        Value: "/Event/EventData/Data[@Name=\"LogonID\"]"
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+# Example payload data
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Security-Auditing" Guid="54849625-5478-4994-a5ba-3e3b0328c30d" />
+#    <EventID>4778</EventID>
+#    <Version>0</Version>
+#    <Level>0</Level>
+#    <Task>12551</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8020000000000000</Keywords>
+#    <TimeCreated SystemTime="2018-07-17 19:03:44.9851573" />
+#    <EventRecordID>25332</EventRecordID>
+#    <Correlation ActivityID="3fd16c43-fc41-0001-ad6c-d13f41fcd301" />
+#    <Execution ProcessID="744" ThreadID="2756" />
+#    <Channel>Security</Channel>
+#    <Computer>base-rd-01.shieldbase.lan</Computer>
+#    <Security />
+#  </System>
+#  <EventData>
+#    <Data Name="AccountName">tdungan</Data>
+#    <Data Name="AccountDomain">shieldbase</Data>
+#    <Data Name="LogonID">0x2A8EACE</Data>
+#    <Data Name="SessionName">RDP-Tcp#5</Data>
+#    <Data Name="ClientName">DUNGANATOR</Data>
+#    <Data Name="ClientAddress">192.168.30.10</Data>
+#  </EventData>
+#</Event>

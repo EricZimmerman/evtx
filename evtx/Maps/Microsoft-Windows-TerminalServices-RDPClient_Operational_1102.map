@@ -1,0 +1,44 @@
+Author: Eric Zimmerman saericzimmerman@gmail.com
+Description: RDP client has initiated a multi-transport connection to the server
+EventId: 1102
+Channel: Microsoft-Windows-TerminalServices-RDPClient/Operational
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "Address: %Address%"
+    Values: 
+      - 
+        Name: Address
+        Value: "/Event/EventData/Data[@Name=\"Value\"]"
+ 
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+
+#The client has initiated a multi-transport connection to the server 192.168.1.179.
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-TerminalServices-ClientActiveXCore" Guid="28aa95bb-d444-4719-a36f-40462168127e" />
+#    <EventID>1102</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>101</Task>
+#    <Opcode>10</Opcode>
+#    <Keywords>0x4000000000000000</Keywords>
+#    <TimeCreated SystemTime="2018-09-05 11:53:15.6282883" />
+#    <EventRecordID>83</EventRecordID>
+#    <Correlation ActivityID="a5c05495-8936-44ea-a09b-da190c410000" />
+#    <Execution ProcessID="5012" ThreadID="8892" />
+#    <Channel>Microsoft-Windows-TerminalServices-RDPClient/Operational</Channel>
+#    <Computer>base-rd-01.shieldbase.lan</Computer>
+#    <Security UserID="S-1-5-21-3445421715-2530590580-3149308974-1193" />
+#  </System>
+#  <EventData>
+#    <Data Name="Name">ServerAddress</Data>
+#    <Data Name="Value">172.16.4.5</Data>
+#    <Data Name="CustomLevel">Info</Data>
+#  </EventData>
+#</Event>

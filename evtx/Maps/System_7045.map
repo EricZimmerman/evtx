@@ -1,0 +1,67 @@
+Author: Barrie Hill barrie0482@gmail.com
+Description: A new service was installed in the system
+EventId: 7045
+Channel: System
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "Name: %ServiceName%"
+    Values: 
+      - 
+        Name: ServiceName
+        Value: "/Event/EventData/Data[@Name=\"ServiceName\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "StartType: %StartType%"
+    Values: 
+      - 
+        Name: StartType
+        Value: "/Event/EventData/Data[@Name=\"StartType\"]"
+  - 
+    Property: PayloadData3
+    PropertyValue: "Account: %AccountName%"
+    Values: 
+      - 
+        Name: AccountName
+        Value: "/Event/EventData/Data[@Name=\"AccountName\"]"
+  - 
+    Property: ExecutableInfo
+    PropertyValue: "%ImagePath%"
+    Values: 
+      - 
+        Name: ImagePath
+        Value: "/Event/EventData/Data[@Name=\"ImagePath\"]"
+        
+# Event 6006 occurs at shutdown time showing that the Event Log service was stopped and indicating a clean shutdown. 
+# 
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+#<Event>
+#  <System>
+#    <Provider Name="Service Control Manager" Guid="{555908d1-a6d7-4695-8e1e-26931d2012f4}" EventSourceName="Service Control Manager" />
+#    <EventID Qualifiers="16384">7045</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>0</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8080000000000000</Keywords>
+#    <TimeCreated SystemTime="2018-05-07 19:24:11.6922354" />
+#    <EventRecordID>382</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="620" ThreadID="1196" />
+#    <Channel>System</Channel>
+#    <Computer>win10-test</Computer>
+#    <Security UserID="S-1-5-18" />
+#  </System>
+#  <EventData>
+#    <Data Name="ServiceName">vmxnet3 NDIS 6 Ethernet Adapter Driver</Data>
+#    <Data Name="ImagePath">\SystemRoot\System32\drivers\vmxnet3.sys</Data>
+#    <Data Name="ServiceType">kernel mode driver</Data>
+#    <Data Name="StartType">demand start</Data>
+#    <Data Name="AccountName"></Data>
+#  </EventData>
+#</Event>

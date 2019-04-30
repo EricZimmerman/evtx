@@ -1,0 +1,52 @@
+Author: Eric Zimmerman saericzimmerman@gmail.com
+Description: "Remote Desktop Services: Shell start notification received"
+EventId: 22
+Channel: Microsoft-Windows-TerminalServices-LocalSessionManager/Operational
+Maps: 
+  - 
+    Property: UserName
+    PropertyValue: "%User%"
+    Values: 
+      - 
+        Name: User
+        Value: "/Event/UserData/EventXML/User"
+  - 
+    Property: RemoteHost
+    PropertyValue: "%Address%"
+    Values: 
+      - 
+        Name: Address
+        Value: "/Event/UserData/EventXML/Address"
+        
+ 
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-TerminalServices-LocalSessionManager" Guid="5d896912-022d-40aa-a3a8-4fa5515c76d7" />
+#    <EventID>22</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>0</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x1000000000000000</Keywords>
+#    <TimeCreated SystemTime="2018-08-06 19:22:30.5070915" />
+#    <EventRecordID>275</EventRecordID>
+#    <Correlation ActivityID="61a55000-55e5-1017-0000-000000000000" />
+#    <Execution ProcessID="864" ThreadID="3640" />
+#    <Channel>Microsoft-Windows-TerminalServices-LocalSessionManager/Operational</Channel>
+#    <Computer>base-rd-01.shieldbase.lan</Computer>
+#    <Security UserID="S-1-5-18" />
+#  </System>
+#  <UserData>
+#    <EventXML>
+#      <User>shieldbase\tdungan</User>
+#      <SessionID>1</SessionID>
+#      <Address>LOCAL</Address>
+#    </EventXML>
+#  </UserData>
+#</Event>
