@@ -5,19 +5,14 @@ Channel: Security
 Maps: 
   - 
     Property: PayloadData1
-    PropertyValue: "User: %user%"
+    PropertyValue: "Target: %TargetDomainName%\\%TargetUserName%"
     Values: 
       - 
-        Name: user
-        Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
-        
-  - 
-    Property: PayloadData2
-    PropertyValue: "Domain: %domain%"
-    Values: 
-      - 
-        Name: domain
+        Name: TargetDomainName
         Value: "/Event/EventData/Data[@Name=\"TargetDomainName\"]"
+      - 
+        Name: TargetUserName
+        Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
  
 # Valid properties include:
 # UserName

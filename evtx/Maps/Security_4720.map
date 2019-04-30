@@ -18,7 +18,7 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"SubjectUserSid\"]"
   - 
     Property: PayloadData1
-    PropertyValue: "%TargetDomainName%\\%TargetUserName% (%TargetSid%)"
+    PropertyValue: "Target: %TargetDomainName%\\%TargetUserName% (%TargetSid%)"
     Values: 
       - 
         Name: TargetUserName
