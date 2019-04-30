@@ -1,0 +1,99 @@
+Author: Barrie Hill barrie0482@gmail.com
+Description: Printing a document
+EventId: 307
+Channel: "Microsoft-Windows-PrintService/Operational"
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "Print User: %PrintUser%"
+    Values: 
+      - 
+        Name: PrintUser
+        Value: "/Event/UserData/DocumentPrinted/Param3"
+  - 
+    Property: PayloadData2
+    PropertyValue: "Print Host: %PrintHost%"
+    Values: 
+      - 
+        Name: PrintHost
+        Value: "/Event/UserData/DocumentPrinted/Param4"
+  - 
+    Property: PayloadData3
+    PropertyValue: "Printer Name: %PrinterName%"
+    Values: 
+      - 
+        Name: PrinterName
+        Value: "/Event/UserData/DocumentPrinted/Param5"
+
+  -
+    Property: PayloadData4
+    PropertyValue: "Document Name: %DocumentName%"
+    Values: 
+      - 
+        Name: DocumentName
+        Value: "/Event/UserData/DocumentPrinted/Param6"
+        
+  - 
+    Property: PayloadData5
+    PropertyValue: "Size in Bytes: %Bytes%"
+    Values: 
+      - 
+        Name: Bytes
+        Value: "/Event/UserData/DocumentPrinted/Param7"
+  - 
+    Property: PayloadData6
+    PropertyValue: "Pages: %Pages%"
+    Values: 
+      - 
+        Name: Pages
+        Value: "/Event/UserData/DocumentPrinted/Param8"
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+# Example payload data
+
+# Param1 --> Document Number
+# Param2 --> Event Operation
+# Param3 --> PrintUser
+# Param4 --> PrintHost
+# Param5 --> Printer Name
+# Param6 --> Document Name
+# Param7 --> Document size in Bytes
+# Param8 --> Number of Pages
+
+# <Event>
+#    <System>
+#       <Provider Name="Microsoft-Windows-PrintService" Guid="{747ef6fd-e535-4d16-b510-42c90f6873a1}" /> 
+#       <EventID>307</EventID> 
+#       <Version>0</Version> 
+#       <Level>4</Level> 
+#       <Task>26</Task> 
+#       <Opcode>11</Opcode> 
+#       <Keywords>0x4000000000000840</Keywords> 
+#       <TimeCreated SystemTime="2019-03-03T09:11:15.100788800Z" /> 
+#       <EventRecordID>29</EventRecordID> 
+#       <Correlation /> 
+#       <Execution ProcessID="3944" ThreadID="11336" /> 
+#       <Channel>Microsoft-Windows-PrintService/Operational</Channel> 
+#       <Computer>pooh</Computer> 
+#       <Security UserID="S-1-5-21-1987904521-730768085-2188298509-1001" /> 
+#     </System>
+#     <UserData>
+#         <DocumentPrinted xmlns="http://manifests.microsoft.com/win/2005/08/windows/printing/spooler/core/events">
+#            <Param1>3</Param1> 
+#            <Param2>Print Document</Param2> 
+#            <Param3>baz</Param3> 
+#            <Param4>\\POOH</Param4> 
+#            <Param5>Microsoft Print to PDF</Param5> 
+#            <Param6>D:\ownCloud\SANS\Investigating WMI Attacks\Investigating WMI Attacks Confirmation1.pdf</Param6> 
+#            <Param7>772216</Param7> 
+#            <Param8>2</Param8> 
+#         </DocumentPrinted>
+#      </UserData>
+# </Event>
+  
+  

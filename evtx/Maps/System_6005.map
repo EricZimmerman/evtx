@@ -1,0 +1,39 @@
+Author: Barrie Hill barrie0482@gmail.com
+Description: The Event log service was started
+EventId: 6005
+Channel: System
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "Computer: %Computer%"
+    Values: 
+      - 
+        Name: Computer
+        Value: "/Event/System/Computer"
+        
+# Event 6005 is occurs at boot time showing that the Event Log service was started. It is also used to identify
+# when a computer is started.
+#
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+#<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#   <System>
+#       <Provider Name="EventLog" /> 
+#       <EventID Qualifiers="32768">6005</EventID> 
+#       <Level>4</Level> 
+#       <Task>0</Task> 
+#       <Keywords>0x80000000000000</Keywords> 
+#       <TimeCreated SystemTime="2019-03-16T07:35:00.128212400Z" /> 
+#       <EventRecordID>346053</EventRecordID> 
+#       <Channel>System</Channel> 
+#       <Computer>pooh</Computer> 
+#       <Security /> 
+#   </System>
+#   <EventData>
+#       <Binary>E30703000600100007002300000080000000000000000000</Binary> 
+#   </EventData>
+#</Event>
