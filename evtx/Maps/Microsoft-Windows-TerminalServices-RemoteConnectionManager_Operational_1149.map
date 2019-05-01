@@ -4,7 +4,7 @@ EventId: 1149
 Channel: Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational
 Maps: 
   - 
-    Property: UserName
+    Property: Username
     PropertyValue: "%domain%\\%user%"
     Values: 
       - 

@@ -1,4 +1,4 @@
-Author: Barrie Hill barrie0482@gmail.com
+Author: Eric Zimmerman saericzimmerman@gmail.com
 Description: A new service was installed in the system
 EventId: 7045
 Channel: System
@@ -32,8 +32,6 @@ Maps:
         Name: ImagePath
         Value: "/Event/EventData/Data[@Name=\"ImagePath\"]"
         
-# Event 6006 occurs at shutdown time showing that the Event Log service was stopped and indicating a clean shutdown. 
-# 
 # Valid properties include:
 # UserName
 # RemoteHost

@@ -17,7 +17,6 @@ Maps:
       - 
         Name: SessionID
         Value: "/Event/UserData/EventXML/SessionID"
-
         
  
 # Valid properties include:

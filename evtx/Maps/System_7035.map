@@ -1,4 +1,4 @@
-Author: Barrie Hill barrie0482@gmail.com
+Author: Eric Zimmerman saericzimmerman@gmail.com
 Description: Service sent a Start/Stop control
 EventId: 7035
 Channel: System
@@ -20,8 +20,6 @@ Maps:
 
 
         
-# Event 6006 occurs at shutdown time showing that the Event Log service was stopped and indicating a clean shutdown. 
-# 
 # Valid properties include:
 # UserName
 # RemoteHost

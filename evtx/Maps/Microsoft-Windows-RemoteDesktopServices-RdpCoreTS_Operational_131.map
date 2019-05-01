@@ -17,7 +17,6 @@ Maps:
       - 
         Name: ConnType
         Value: "/Event/EventData/Data[@Name=\"ConnType\"]"
-
  
 # Valid properties include:
 # UserName
