@@ -26,7 +26,14 @@ NEEDS REGEX WORK
 
 ------------------TO DO TO DO TO DO--------------------------------
 
-------------------------------------------------
+Stumbled across this:
+Microsoft-Windows-MBAM/Operational
+
+Event ID 39 & 40
+
+Tracks RemovableDriveMounted and RemovableDriveDismounted
+
+---------------------------
 
 Audit against
 https://github.com/keydet89/Tools/blob/master/exe/eventmap.txt
