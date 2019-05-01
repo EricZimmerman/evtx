@@ -1,0 +1,54 @@
+Author: Eric Zimmerman saericzimmerman@gmail.com
+Description: WMI Registration of Permanent Event Consumer
+EventId: 5861
+Channel: Microsoft-Windows-WMI-Activity/Operational
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "Ess: %ESS%"
+    Values: 
+      - 
+        Name: ESS
+        Value: "/Event/UserData/Operation_ESStoConsumerBinding/ESS"
+  - 
+    Property: PayloadData2
+    PropertyValue: "%ESS%"
+    Values: 
+      - 
+        Name: PossibleCause
+        Value: "/Event/UserData/Operation_ESStoConsumerBinding/PossibleCause"
+        
+ 
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+#WMI Registration of Permanent Event Consumer
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-WMI-Activity" Guid="1418ef04-b0b4-4623-bf7e-d74ab47bbdaa" />
+#    <EventID>5861</EventID>
+#    <Version>0</Version>
+#    <Level>0</Level>
+#    <Task>0</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x4000000000000000</Keywords>
+#    <TimeCreated SystemTime="2018-08-06 19:21:16.8143539" />
+#    <EventRecordID>5150</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="1484" ThreadID="4652" />
+#    <Channel>Microsoft-Windows-WMI-Activity/Operational</Channel>
+#    <Computer>base-rd-01.shieldbase.lan</Computer>
+#    <Security UserID="S-1-5-18" />
+#  </System>
+#  <UserData>
+#    <Operation_ESStoConsumerBinding>
+#      <Namespace>//./root/subscription</Namespace>
+#      <ESS>SCM Event Log Filter</ESS>
+#      <CONSUMER>NTEventLogEventConsumer="SCM Event Log Consumer"</CONSUMER>
+#      <PossibleCause>Binding EventFilter: , instance of __EventFilter, {, CreatorSID = {1, 2, 0, 0, 0, 0, 0, 5, 32, 0, 0, 0, 32, 2, 0, 0};, EventNamespace = "root\\cimv2";, Name = "SCM Event Log Filter";, Query = "select * from MSFT_SCMEventLogEvent";, QueryLanguage = "WQL";, };, Perm. Consumer: , instance of NTEventLogEventConsumer, {, Category = 0;, CreatorSID = {1, 2, 0, 0, 0, 0, 0, 5, 32, 0, 0, 0, 32, 2, 0, 0};, EventType = 1;, Name = "SCM Event Log Consumer";, NameOfUserSIDProperty = "sid";, SourceName = "Service Control Manager";, };, </PossibleCause>
+#    </Operation_ESStoConsumerBinding>
+#  </UserData>
+#</Event>
