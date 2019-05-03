@@ -221,7 +221,7 @@ namespace evtx
                 Provider = provider ?? string.Empty;
                 Channel = channel?.Value ?? string.Empty;
                 Computer = computer?.Value ?? string.Empty;
-                PayloadXml = payloadXml ?? string.Empty;
+                Payload = payloadXml ?? string.Empty;
             }
         }
 
@@ -239,7 +239,7 @@ namespace evtx
 
         public string Computer { get; }
 
-        [IgnoreDataMember] public string PayloadXml { get; }
+         public string Payload { get; set; }
 
         public string UserId { get; }
         public string Channel { get; }
@@ -284,9 +284,8 @@ namespace evtx
 
             xmld.LoadXml(rawXml);
 
-          return  Regex.Replace(xmld.Beautify(), " xmlns.+\"", "",
+            return  Regex.Replace(xmld.Beautify(), " xmlns.+\"", "",
                 RegexOptions.IgnoreCase | RegexOptions.Multiline);
-
         }
 
         public override string ToString()

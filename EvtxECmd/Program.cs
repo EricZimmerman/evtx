@@ -116,6 +116,11 @@ namespace EvtxECmd
                 .WithDescription(
                     "When true, export all available data when using --json. Default is FALSE.")
                 .SetDefault(false);
+            _fluentCommandLineParser.Setup(arg => arg.PayloadAsJson)
+                .As("pj")
+                .WithDescription(
+                    "When true, include event *payload* as json. Default is TRUE.")
+                .SetDefault(true);
 
             _fluentCommandLineParser.Setup(arg => arg.Metrics)
                 .As("met")
@@ -250,6 +255,8 @@ namespace EvtxECmd
                     Environment.Exit(0);
                 }
 
+                JsConfig.IncludeNullValues = true;
+                JsConfig.DateHandler = DateHandler.ISO8601;
             }
 
             if (_fluentCommandLineParser.Object.XmlDirectory.IsNullOrEmpty() == false)
@@ -337,7 +344,15 @@ namespace EvtxECmd
 
                 var foo = _csvWriter.Configuration.AutoMap<EventRecord>();
 
-                foo.Map(t => t.PayloadXml).Ignore();
+                if (_fluentCommandLineParser.Object.PayloadAsJson == false)
+                {
+                    foo.Map(t => t.Payload).Ignore();
+                }
+                else
+                {
+                    foo.Map(t => t.Payload).Index(22);
+                }
+                
                 foo.Map(t => t.RecordPosition).Ignore();
                 foo.Map(t => t.Size).Ignore();
                 foo.Map(t => t.Timestamp).Ignore();
@@ -552,10 +567,19 @@ namespace EvtxECmd
                         }
                     }
 
-
                     eventRecord.SourceFile = file;
                     try
                     {
+
+                        if (_fluentCommandLineParser.Object.PayloadAsJson)
+                        {
+                            var xdo = new XmlDocument();
+                            xdo.LoadXml(eventRecord.Payload);
+
+                           var payOut = JsonConvert.SerializeXmlNode(xdo);
+                           eventRecord.Payload = payOut;
+                        }
+
                         _csvWriter?.WriteRecord(eventRecord);
                         _csvWriter?.NextRecord();
 
@@ -568,8 +592,6 @@ namespace EvtxECmd
 
                         if (_swJson != null)
                         {
-                            JsConfig.IncludeNullValues = true;
-                            JsConfig.DateHandler = DateHandler.ISO8601;
                             var jsOut = eventRecord.ToJson();
                             if (_fluentCommandLineParser.Object.FullJson)
                             {
@@ -577,10 +599,8 @@ namespace EvtxECmd
                                 {
                                     xml = eventRecord.ConvertPayloadToXml();
                                 }
-                                var xd = new XmlDocument();
-                                xd.LoadXml(xml);
-
-                                jsOut = JsonConvert.SerializeXmlNode(xd);
+                             
+                                jsOut = GetPayloadAsJson(xml);
                             }
 
                             _swJson.WriteLine(jsOut);
@@ -658,6 +678,13 @@ namespace EvtxECmd
             fileS?.Close();
         }
 
+        public static string GetPayloadAsJson(string xmlPayload)
+        {
+            var xdo = new XmlDocument();
+            xdo.LoadXml(xmlPayload);
+            return JsonConvert.SerializeXmlNode(xdo);
+        }
+
         public static bool IsAdministrator()
         {
             var identity = WindowsIdentity.GetCurrent();
@@ -711,6 +738,7 @@ namespace EvtxECmd
         public string ExcludeIds { get; set; }
 
         public bool FullJson { get; set; }
+        public bool PayloadAsJson { get; set; }
         public bool Metrics { get; set; }
     }
 }
