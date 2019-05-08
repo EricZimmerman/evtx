@@ -97,7 +97,7 @@
       <Version>1.5.0.20-commands</Version>
     </PackageReference>
     <PackageReference Include="Fody">
-      <Version>5.0.3</Version>
+      <Version>5.0.5</Version>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>

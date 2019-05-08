@@ -44,6 +44,10 @@ namespace EvtxECmd
         private static HashSet<int> _includeIds;
         private static HashSet<int> _excludeIds;
 
+        private static DateTimeOffset? _startDate;
+        private static DateTimeOffset? _endDate;
+        private static int _droppedEvents;
+
         private static void Main(string[] args)
         {
             ExceptionlessClient.Default.Startup("tYeWS6A5K5uItgpB44dnNy2qSb2xJxiQWRRGWebq");
@@ -109,6 +113,18 @@ namespace EvtxECmd
                 .As("exc")
                 .WithDescription(
                     "List of event IDs to IGNORE. All others are included. Format is 4624,4625,5410")
+                .SetDefault(string.Empty);
+
+            _fluentCommandLineParser.Setup(arg => arg.StartDate)
+                .As("sd")
+                .WithDescription(
+                    "Start date for including events (UTC). Anything OLDER than this is dropped. Format should match --dt")
+                .SetDefault(string.Empty);
+
+            _fluentCommandLineParser.Setup(arg => arg.EndDate)
+                .As("ed")
+                .WithDescription(
+                    "End date for including events (UTC). Anything NEWER than this is dropped. Format should match --dt")
                 .SetDefault(string.Empty);
 
             _fluentCommandLineParser.Setup(arg => arg.FullJson)
@@ -299,6 +315,37 @@ namespace EvtxECmd
                     Environment.Exit(0);
                 }
             }
+
+            if (_fluentCommandLineParser.Object.StartDate.IsNullOrEmpty() == false)
+            {
+                if (DateTimeOffset.TryParse(_fluentCommandLineParser.Object.StartDate, out var dt))
+                {
+                    _startDate = dt;
+                    _logger.Info($"Setting Start date to '{_startDate.Value.ToUniversalTime().ToString(_fluentCommandLineParser.Object.DateTimeFormat)}'");
+                }
+                else
+                {
+                    _logger.Warn($"Count not parse '{_fluentCommandLineParser.Object.StartDate}' to a valud datetime! Events will not be filtered by Start date!");
+                }
+            }
+            if (_fluentCommandLineParser.Object.EndDate.IsNullOrEmpty() == false)
+            {
+                if (DateTimeOffset.TryParse(_fluentCommandLineParser.Object.EndDate, out var dt))
+                {
+                    _endDate = dt;
+                    _logger.Info($"Setting End date to '{_endDate.Value.ToUniversalTime().ToString(_fluentCommandLineParser.Object.DateTimeFormat)}'");
+                }
+                else
+                {
+                    _logger.Warn($"Count not parse '{_fluentCommandLineParser.Object.EndDate}' to a valud datetime! Events will not be filtered by End date!");
+                }
+            }
+
+            if (_startDate.HasValue || _endDate.HasValue)
+            {
+                _logger.Info("");
+            }
+
 
             if (_fluentCommandLineParser.Object.CsvDirectory.IsNullOrEmpty() == false)
             {
@@ -555,6 +602,7 @@ namespace EvtxECmd
                         if (_includeIds.Contains(eventRecord.EventId) == false)
                         {
                             //it is NOT in the list, so skip
+                            _droppedEvents += 1;
                             continue;
                         }
                     }
@@ -563,6 +611,29 @@ namespace EvtxECmd
                         if (_excludeIds.Contains(eventRecord.EventId))
                         {
                             //it IS in the list, so skip
+                            _droppedEvents += 1;
+                            continue;
+                        }
+                    }
+
+                    if (_startDate.HasValue)
+                    {
+                        if (eventRecord.TimeCreated < _startDate.Value)
+                        {
+                            //too old
+                            _logger.Debug($"Dropping record Id '{eventRecord.EventRecordId}' with timestamp '{eventRecord.TimeCreated.ToUniversalTime().ToString(_fluentCommandLineParser.Object.DateTimeFormat)}' as its too old.");
+                            _droppedEvents += 1;
+                            continue;
+                        }
+                    }
+
+                    if (_endDate.HasValue)
+                    {
+                        if (eventRecord.TimeCreated > _endDate.Value)
+                        {
+                            //too new
+                            _logger.Debug($"Dropping record Id '{eventRecord.EventRecordId}' with timestamp '{eventRecord.TimeCreated.ToUniversalTime().ToString(_fluentCommandLineParser.Object.DateTimeFormat)}' as its too new.");
+                            _droppedEvents += 1;
                             continue;
                         }
                     }
@@ -570,7 +641,6 @@ namespace EvtxECmd
                     eventRecord.SourceFile = file;
                     try
                     {
-
                         if (_fluentCommandLineParser.Object.PayloadAsJson)
                         {
                             var xdo = new XmlDocument();
@@ -625,7 +695,7 @@ namespace EvtxECmd
                 _logger.Fatal("Event log details");
                 _logger.Info(evt);
 
-                _logger.Info($"Records processed: {seenRecords:N0} Errors: {evt.ErrorRecords.Count:N0}");
+                _logger.Info($"Records included: {seenRecords:N0} Errors: {evt.ErrorRecords.Count:N0} Events dropped: {_droppedEvents:N0}");
 
                 if (evt.ErrorRecords.Count > 0)
                 {
@@ -638,7 +708,7 @@ namespace EvtxECmd
 
                 if (_fluentCommandLineParser.Object.Metrics && evt.EventIdMetrics.Count > 0)
                 {
-                    _logger.Fatal("\r\nMetrics");
+                    _logger.Fatal("\r\nMetrics (including dropped events)");
                     _logger.Warn("Event Id\tCount");
                     foreach (var esEventIdMetric in evt.EventIdMetrics.OrderBy(t => t.Key))
                     {
@@ -726,6 +796,8 @@ namespace EvtxECmd
         public string XmlDirectory { get; set; }
 
         public string DateTimeFormat { get; set; }
+        public string StartDate { get; set; }
+        public string EndDate { get; set; }
 
         public bool Debug { get; set; }
         public bool Trace { get; set; }
