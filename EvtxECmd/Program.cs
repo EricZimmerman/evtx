@@ -48,6 +48,8 @@ namespace EvtxECmd
         private static DateTimeOffset? _endDate;
         private static int _droppedEvents;
 
+        private static readonly string VssDir = @"C:\____vssMount";
+
         private static void Main(string[] args)
         {
             ExceptionlessClient.Default.Startup("tYeWS6A5K5uItgpB44dnNy2qSb2xJxiQWRRGWebq");
@@ -150,6 +152,17 @@ namespace EvtxECmd
                     "The path where event maps are located. Defaults to 'Maps' folder where program was executed\r\n  ")
                 .SetDefault(Path.Combine(BaseDirectory, "Maps"));
 
+            _fluentCommandLineParser.Setup(arg => arg.Vss)
+                .As("vss")
+                .WithDescription(
+                    "Process all Volume Shadow Copies that exist on drive specified by -f or -d . Default is FALSE")
+                .SetDefault(false);
+            _fluentCommandLineParser.Setup(arg => arg.Dedupe)
+                .As("dedupe")
+                .WithDescription(
+                    "Deduplicate -f or -d & VSCs based on SHA-1. First file found wins. Default is TRUE\r\n")
+                .SetDefault(true);
+
             _fluentCommandLineParser.Setup(arg => arg.Debug)
                 .As("debug")
                 .WithDescription("Show debug information during processing").SetDefault(false);
@@ -222,6 +235,12 @@ namespace EvtxECmd
 
             LogManager.ReconfigExistingLoggers();
 
+            if (_fluentCommandLineParser.Object.Vss & (IsAdministrator() == false))
+            {
+                _logger.Error("--vss is present, but administrator rights not found. Exiting\r\n");
+                return;
+            }
+
             var sw = new Stopwatch();
             sw.Start();
 
@@ -258,9 +277,7 @@ namespace EvtxECmd
                 var outFile = Path.Combine(_fluentCommandLineParser.Object.JsonDirectory, outName);
 
                 _logger.Warn($"json output will be saved to '{outFile}'\r\n");
-
-               
-
+                
                 try
                 {
                     _swJson = new StreamWriter(outFile, false, Encoding.UTF8);
@@ -443,8 +460,7 @@ namespace EvtxECmd
             {
                 _logger.Debug($"Loading maps from '{Path.GetFullPath(_fluentCommandLineParser.Object.MapsDirectory)}'");
                 var errors = EventLog.LoadMaps(Path.GetFullPath(_fluentCommandLineParser.Object.MapsDirectory));
-
-
+                
                 if (errors)
                 {
                     return;
@@ -483,6 +499,24 @@ namespace EvtxECmd
                 }
             }
 
+            if (_fluentCommandLineParser.Object.Vss)
+            {
+                string driveLetter;
+                if (_fluentCommandLineParser.Object.File.IsEmpty() == false)
+                {
+                    driveLetter = Path.GetPathRoot(Path.GetFullPath(_fluentCommandLineParser.Object.File))
+                        .Substring(0, 1);
+                }
+                else
+                {
+                    driveLetter = Path.GetPathRoot(Path.GetFullPath(_fluentCommandLineParser.Object.Directory))
+                        .Substring(0, 1);
+                }
+
+                Helper.MountVss(driveLetter,VssDir);
+                Console.WriteLine();
+            }
+
 
             if (_fluentCommandLineParser.Object.File.IsNullOrEmpty() == false)
             {
@@ -493,6 +527,20 @@ namespace EvtxECmd
                 }
 
                 ProcessFile(_fluentCommandLineParser.Object.File);
+
+                var vssDirs = Directory.GetDirectories(VssDir);
+
+                var root = Path.GetPathRoot(Path.GetFullPath(_fluentCommandLineParser.Object.File));
+                var stem = Path.GetFullPath(_fluentCommandLineParser.Object.File).Replace(root, "");
+
+                foreach (var vssDir in vssDirs)
+                {
+                    var newPath = Path.Combine(vssDir, stem);
+                    if (File.Exists(newPath))
+                    {
+                        ProcessFile(newPath);
+                    }
+                }
             }
             else
             {
@@ -517,6 +565,31 @@ namespace EvtxECmd
                 foreach (var file in files2)
                 {
                     ProcessFile(file);
+                }
+
+                if (_fluentCommandLineParser.Object.Vss)
+                {
+                    var vssDirs = Directory.GetDirectories(VssDir);
+
+                    Console.WriteLine();
+
+                    foreach (var vssDir in vssDirs)
+                    {
+                        var root = Path.GetPathRoot(Path.GetFullPath(_fluentCommandLineParser.Object.Directory));
+                        var stem = Path.GetFullPath(_fluentCommandLineParser.Object.Directory).Replace(root, "");
+
+                        var target = Path.Combine(vssDir, stem);
+
+                        _logger.Fatal($"\r\nSearching 'VSS{target.Replace($"{VssDir}\\","")}' for event logs...");
+
+                        var vssFiles = Helper.GetFilesFromPath(target, true, "*.evtx");
+
+                        foreach (var file in vssFiles)
+                        {
+                            ProcessFile(file);
+                        }                        
+                    }
+
                 }
             }
 
@@ -552,7 +625,21 @@ namespace EvtxECmd
 
                 _logger.Info("");
             }
+
+            if (_fluentCommandLineParser.Object.Vss)
+            {
+                if (Directory.Exists(VssDir))
+                {
+                    foreach (var directory in Directory.GetDirectories(VssDir))
+                    {
+                        Directory.Delete(directory);
+                    }
+                    Directory.Delete(VssDir,true,true);
+                }
+            }
         }
+
+        private static HashSet<string> _seenHashes = new HashSet<string>();
 
         private static void ProcessFile(string file)
         {
@@ -562,7 +649,14 @@ namespace EvtxECmd
                 return;
             }
 
-            _logger.Warn($"\r\nProcessing '{file}'...");
+            if (file.StartsWith(VssDir))
+            {
+                _logger.Warn($"\r\nProcessing 'VSS{file.Replace($"{VssDir}\\", "")}'");
+            }
+            else
+            {
+                _logger.Warn($"\r\nProcessing '{file}'...");
+            }
 
             Stream fileS;
 
@@ -591,6 +685,17 @@ namespace EvtxECmd
 
             try
             {
+                if (_fluentCommandLineParser.Object.Dedupe)
+                {
+                    var sha = Helper.GetSha1FromStream(fileS,0);
+                    if (_seenHashes.Contains(sha))
+                    {
+                        _logger.Debug($"Skipping '{file}' as a file with SHA-1 '{sha}' has already been processed");
+                        return;
+                    }
+
+                    _seenHashes.Add(sha);
+                }
                 var evt = new EventLog(fileS);
 
                 var seenRecords = 0;
@@ -638,7 +743,15 @@ namespace EvtxECmd
                         }
                     }
 
-                    eventRecord.SourceFile = file;
+                    if (file.StartsWith(VssDir))
+                    {
+                        eventRecord.SourceFile = $"VSS{file.Replace($"{VssDir}\\", "")}";
+                    }
+                    else
+                    {
+                        eventRecord.SourceFile = file;    
+                    }
+                    
                     try
                     {
                         if (_fluentCommandLineParser.Object.PayloadAsJson)
@@ -681,12 +794,19 @@ namespace EvtxECmd
                     catch (Exception e)
                     {
                         _logger.Error($"Error processing record #{eventRecord.RecordNumber}: {e.Message}");
+                        evt.ErrorRecords.Add(21,e.Message);
                     }
                 }
 
                 if (evt.ErrorRecords.Count > 0)
                 {
-                    _errorFiles.Add(file, evt.ErrorRecords.Count);
+                    var fn = file;
+                    if (file.StartsWith(VssDir))
+                    {
+                        fn=$"VSS{file.Replace($"{VssDir}\\", "")}";
+                    }
+
+                    _errorFiles.Add(fn, evt.ErrorRecords.Count);
                 }
 
                 _fileCount += 1;
@@ -735,13 +855,19 @@ namespace EvtxECmd
             }
             catch (Exception e)
             {
+                var fn = file;
+                if (file.StartsWith(VssDir))
+                {
+                    fn=$"VSS{file.Replace($"{VssDir}\\", "")}";
+                }
+
                 if (e.Message.Contains("Invalid signature! Expected 'ElfFile"))
                 {
-                    _logger.Info($"'{file}' is not an evtx file! Message: {e.Message} Skipping...");
+                    _logger.Info($"'{fn}' is not an evtx file! Message: {e.Message} Skipping...");
                 }
                 else
                 {
-                    _logger.Error($"Error processing '{file}'! Message: {e.Message}");
+                    _logger.Error($"Error processing '{fn}'! Message: {e.Message}");
                 }
             }
 
@@ -812,5 +938,8 @@ namespace EvtxECmd
         public bool FullJson { get; set; }
         public bool PayloadAsJson { get; set; }
         public bool Metrics { get; set; }
+
+        public bool Vss { get; set; }
+        public bool Dedupe { get; set; }
     }
 }

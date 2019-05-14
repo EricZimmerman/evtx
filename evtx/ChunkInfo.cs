@@ -164,7 +164,7 @@ namespace evtx
 
             index = (int) tableOffset + 0x100 + 0x80; //get to start of event Records
 
-            l.Debug($"\r\nChunk data before processing records: {this}");
+            l.Trace($"\r\nChunk data before processing records: {this}");
 
             const int recordSig = 0x2a2a;
             while (index < chunkBytes.Length)
@@ -211,7 +211,7 @@ namespace evtx
 
                     var er = new EventRecord(br, recordOffset, this);
 
-                    l.Debug(er);
+                   
 
                     EventRecords.Add(er);
 

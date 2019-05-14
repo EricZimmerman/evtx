@@ -16,7 +16,7 @@ namespace evtx.Tags
 
         public string AsXml(List<SubstitutionArrayEntry> substitutionEntries, long parentOffset)
         {
-            throw new NotImplementedException();
+            return string.Empty;
         }
 
         public TagBuilder.BinaryTag TagType => TagBuilder.BinaryTag.EndOfBXmlStream;

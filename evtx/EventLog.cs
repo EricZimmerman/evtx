@@ -80,7 +80,7 @@ namespace evtx
 
             EventIdMetrics = new Dictionary<long, int>();
 
-            Logger.Debug($"Event Log data before processing chunks:\r\n{this}");
+            Logger.Trace($"Event Log data before processing chunks:\r\n{this}");
 
             var chunkNumber = 0;
             while (bytesRead > 0)
@@ -304,12 +304,12 @@ namespace evtx
         {
             var sb = new StringBuilder();
 
-            sb.AppendLine($"Version: {MajorVersion}.{MinorVersion}");
+            //sb.AppendLine($"Version: {MajorVersion}.{MinorVersion}");
             sb.AppendLine($"Flags: {Flags}");
             sb.AppendLine($"Chunk count: {ChunkCount}");
-            sb.AppendLine($"First/last Chunk #: {FirstChunkNumber}/{LastChunkNumber}");
-            sb.AppendLine($"Stored CRC: {Crc:X}");
-            sb.AppendLine($"Calculated CRC: {CalculatedCrc:X}");
+            //sb.AppendLine($"First/last Chunk #: {FirstChunkNumber}/{LastChunkNumber}");
+            sb.AppendLine($"Stored/Calculated CRC: {Crc:X}/{CalculatedCrc:X}");
+            //sb.AppendLine($"Calculated CRC: {CalculatedCrc:X}");
             sb.AppendLine($"Total event log records found: {TotalEventLogs:N0}");
 
             return sb.ToString();
