@@ -528,17 +528,20 @@ namespace EvtxECmd
 
                 ProcessFile(_fluentCommandLineParser.Object.File);
 
-                var vssDirs = Directory.GetDirectories(VssDir);
-
-                var root = Path.GetPathRoot(Path.GetFullPath(_fluentCommandLineParser.Object.File));
-                var stem = Path.GetFullPath(_fluentCommandLineParser.Object.File).Replace(root, "");
-
-                foreach (var vssDir in vssDirs)
+                if (_fluentCommandLineParser.Object.Vss)
                 {
-                    var newPath = Path.Combine(vssDir, stem);
-                    if (File.Exists(newPath))
+                    var vssDirs = Directory.GetDirectories(VssDir);
+
+                    var root = Path.GetPathRoot(Path.GetFullPath(_fluentCommandLineParser.Object.File));
+                    var stem = Path.GetFullPath(_fluentCommandLineParser.Object.File).Replace(root, "");
+
+                    foreach (var vssDir in vssDirs)
                     {
-                        ProcessFile(newPath);
+                        var newPath = Path.Combine(vssDir, stem);
+                        if (File.Exists(newPath))
+                        {
+                            ProcessFile(newPath);
+                        }
                     }
                 }
             }
