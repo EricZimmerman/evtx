@@ -513,6 +513,7 @@ namespace EvtxECmd
                         .Substring(0, 1);
                 }
 
+
                 Helper.MountVss(driveLetter,VssDir);
                 Console.WriteLine();
             }
