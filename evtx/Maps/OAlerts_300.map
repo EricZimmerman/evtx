@@ -1,0 +1,51 @@
+Author: Lennaert Oudshoorn @lennaert89
+Description: OAlerts 300 event
+EventId: 300
+Channel: OAlerts
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "Program: %PayloadData1%"
+    Values: 
+      - 
+        Name: PayloadData1
+        Value: "/Event/EventData/Data"
+        Refine: "^(.*)"
+  - 
+    Property: PayloadData2
+    PropertyValue: "Alert: %PayloadData2%"
+    Values: 
+      - 
+        Name: PayloadData2
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=, )[^,\\d]+(?=,)"       
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+# Example XML, from Dutch office:
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft Office 16 Alerts" />
+#    <EventID Qualifiers="0">300</EventID>
+#    <Level>4</Level>
+#    <Task>0</Task>
+#    <Keywords>0x80000000000000</Keywords>
+#    <TimeCreated SystemTime="2019-03-27 13:58:42.5609578" />
+#    <EventRecordID>7</EventRecordID>
+#    <Channel>OAlerts</Channel>
+#    <Computer>FOR-LT03</Computer>
+#    <Security />
+#  </System>
+#  <EventData>
+#    <Data>Microsoft Excel
+#, Wilt u de wijzigingen in full_application_event_log.csv opslaan?
+#, 100216
+#, 16.0.4822.1000
+#, 
+#, 
+#</Data>
+#    <Binary></Binary>
+#  </EventData>
+#</Event>
