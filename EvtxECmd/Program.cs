@@ -288,7 +288,6 @@ namespace EvtxECmd
                     Environment.Exit(0);
                 }
 
-                JsConfig.IncludeNullValues = true;
                 JsConfig.DateHandler = DateHandler.ISO8601;
             }
 
