@@ -192,8 +192,6 @@ namespace evtx
 
                 var recordNumber = BitConverter.ToInt64(chunkBytes, index + 8);
 
-          
-
                 try
                 {
                     if (recordNumber < FirstEventRecordIdentifier || recordNumber > LastEventRecordIdentifier)
@@ -210,8 +208,6 @@ namespace evtx
                     index += (int) recordSize;
 
                     var er = new EventRecord(br, recordOffset, this);
-
-                   
 
                     EventRecords.Add(er);
 
@@ -241,6 +237,9 @@ namespace evtx
 
         public uint LastRecordOffset { get; }
         public uint FreeSpaceOffset { get; }
+
+        public DateTimeOffset? EarliestTimestamp => EventRecords.OrderBy(t => t.TimeCreated).FirstOrDefault()?.TimeCreated;
+        public DateTimeOffset? LatestTimestamp => EventRecords.OrderBy(t => t.TimeCreated).LastOrDefault()?.TimeCreated;
 
         public Dictionary<int, Template> Templates { get; }
 

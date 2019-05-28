@@ -128,6 +128,23 @@ namespace evtx
             }
         }
 
+        private DateTimeOffset? GetTimestamp(bool earliest)
+        {
+            if (earliest)
+            {
+                var fc = Chunks.OrderBy(t => t.FirstEventRecordIdentifier).FirstOrDefault();
+                return fc?.EarliestTimestamp;
+            }
+          
+            var lc = Chunks.OrderBy(t => t.FirstEventRecordIdentifier).LastOrDefault();
+            return lc?.LatestTimestamp;
+
+        }
+
+        public DateTimeOffset? EarliestTimestamp => GetTimestamp(true);
+        public DateTimeOffset? LatestTimestamp => GetTimestamp(false);
+     
+
         public static Dictionary<string, EventLogMap> EventLogMaps { get; private set; } =
             new Dictionary<string, EventLogMap>();
 
@@ -309,6 +326,8 @@ namespace evtx
             sb.AppendLine($"Chunk count: {ChunkCount}");
             //sb.AppendLine($"First/last Chunk #: {FirstChunkNumber}/{LastChunkNumber}");
             sb.AppendLine($"Stored/Calculated CRC: {Crc:X}/{CalculatedCrc:X}");
+            sb.AppendLine($"Earliest timestamp: {EarliestTimestamp?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}");
+            sb.AppendLine($"Latest timestamp:   {LatestTimestamp?.ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}");
             //sb.AppendLine($"Calculated CRC: {CalculatedCrc:X}");
             sb.AppendLine($"Total event log records found: {TotalEventLogs:N0}");
 
