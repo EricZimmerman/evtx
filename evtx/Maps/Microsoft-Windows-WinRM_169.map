@@ -1,0 +1,31 @@
+Author: Mike Pilkington
+Description: WinRM Authentication
+EventId: 169
+Channel: "Microsoft-Windows-WinRM/Operational"
+Maps:
+  - 
+    Property: Username
+    PropertyValue: "%username%"
+    Values: 
+      - 
+        Name: username
+        Value: "/Event/EventData/Data[@Name=\"username\"]" 
+  - 
+    Property: PayloadData1
+    PropertyValue: "AuthenticationMechanism: %authenticationMechanism%"
+    Values: 
+      - 
+        Name: authenticationMechanism
+        Value: "/Event/EventData/Data[@Name=\"authenticationMechanism\"]"
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+# Example payload data
+#  <EventData>
+#    <Data Name="username">iewin7\ieuser</Data>
+#    <Data Name="authenticationMechanism">NTLM</Data>
+#  </EventData>

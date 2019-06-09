@@ -1,0 +1,60 @@
+Author: Mike Pilkington
+Description: Operation performed on an object 
+EventId: 4662
+Channel: Security
+Maps: 
+  - 
+    Property: Username
+    PropertyValue: "%domain%\\%user%"
+    Values: 
+      - 
+        Name: domain
+        Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
+      - 
+        Name: user
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
+  - 
+    Property: PayloadData1
+    PropertyValue: "ObjectServer: %ObjectServer%"
+    Values: 
+      - 
+        Name: ObjectServer
+        Value: "/Event/EventData/Data[@Name=\"ObjectServer\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "ObjectType: %ObjectType%"
+    Values: 
+      - 
+        Name: ObjectType
+        Value: "/Event/EventData/Data[@Name=\"ObjectType\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "ObjectName: %ObjectName%"
+    Values: 
+      - 
+        Name: ObjectName
+        Value: "/Event/EventData/Data[@Name=\"ObjectName\"]"
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+# Example payload data
+#  <EventData>
+#    <Data Name="SubjectUserSid">S-1-5-21-738609754-2819869699-4189121830-1108</Data>
+#    <Data Name="SubjectUserName">bob</Data>
+#    <Data Name="SubjectDomainName">insecurebank</Data>
+#    <Data Name="SubjectLogonId">0x40F2719</Data>
+#    <Data Name="ObjectServer">DS</Data>
+#    <Data Name="ObjectType">%{19195a5b-6da0-11d0-afd3-00c04fd930c9}</Data>
+#    <Data Name="ObjectName">%{c6faf700-bfe4-452a-a766-424f84c29583}</Data>
+#    <Data Name="OperationType">Object Access</Data>
+#    <Data Name="HandleId">0x0</Data>
+#    <Data Name="AccessList">%%1539, </Data>
+#    <Data Name="AccessMask">0x40000</Data>
+#    <Data Name="Properties">%%1539, {19195a5b-6da0-11d0-afd3-00c04fd930c9}, </Data>
+#    <Data Name="AdditionalInfo">-</Data>
+#    <Data Name="AdditionalInfo2"></Data>
+#  </EventData>

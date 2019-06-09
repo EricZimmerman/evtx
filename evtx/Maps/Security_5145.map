@@ -1,0 +1,83 @@
+Author: Mike Pilkington
+Description: Network share object access
+EventId: 5145
+Channel: Security
+Maps: 
+  - 
+    Property: Username
+    PropertyValue: "%domain%\\%user%"
+    Values: 
+      - 
+        Name: domain
+        Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
+      - 
+        Name: user
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
+  - 
+    Property: RemoteHost
+    PropertyValue: "%ipAddress%:%port%"
+    Values: 
+      - 
+        Name: ipAddress
+        Value: "/Event/EventData/Data[@Name=\"IpAddress\"]"
+      - 
+        Name: port
+        Value: "/Event/EventData/Data[@Name=\"IpPort\"]"
+  - 
+    Property: PayloadData1
+    PropertyValue: "Share: %ShareName% (%ShareLocalPath%)"
+    Values: 
+      - 
+        Name: ShareName
+        Value: "/Event/EventData/Data[@Name=\"ShareName\"]"
+      - 
+        Name: ShareLocalPath
+        Value: "/Event/EventData/Data[@Name=\"ShareLocalPath\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "Object: %RelativeTargetName%"
+    Values: 
+      - 
+        Name: RelativeTargetName
+        Value: "/Event/EventData/Data[@Name=\"RelativeTargetName\"]"
+  - 
+    Property: PayloadData3
+    PropertyValue: "AccessList: %AccessList% (AccessMask: %AccessMask%)"
+    Values: 
+      - 
+        Name: AccessList
+        Value: "/Event/EventData/Data[@Name=\"AccessList\"]"
+      - 
+        Name: AccessMask
+        Value: "/Event/EventData/Data[@Name=\"AccessMask\"]"
+  - 
+    Property: PayloadData4
+    PropertyValue: "SID: %SubjectUserSid%"
+    Values: 
+      - 
+        Name: SubjectUserSid
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserSid\"]"
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+# Example payload data
+#  <EventData>
+#    <Data Name="SubjectUserSid">S-1-5-21-3583694148-1414552638-2922671848-1000</Data>
+#    <Data Name="SubjectUserName">IEUser</Data>
+#    <Data Name="SubjectDomainName">PC01</Data>
+#    <Data Name="SubjectLogonId">0x95C2E</Data>
+#    <Data Name="ObjectType">File</Data>
+#    <Data Name="IpAddress">10.0.2.16</Data>
+#    <Data Name="IpPort">59492</Data>
+#    <Data Name="ShareName">\\*\ADMIN$</Data>
+#    <Data Name="ShareLocalPath">\??\C:\Windows</Data>
+#    <Data Name="RelativeTargetName">\</Data>
+#    <Data Name="AccessMask">0x100088</Data>
+#    <Data Name="AccessList">%%1541, %%4419, %%4423, </Data>
+#    <Data Name="AccessReason">-</Data>
+#  </EventData>
+#</Event>

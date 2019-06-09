@@ -1,0 +1,65 @@
+Author: Mike Pilkington
+Description: Attempt was made to access an object 
+EventId: 4663
+Channel: Security
+Maps: 
+  - 
+    Property: Username
+    PropertyValue: "%domain%\\%user%"
+    Values: 
+      - 
+        Name: domain
+        Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
+      - 
+        Name: user
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
+  - 
+    Property: PayloadData1
+    PropertyValue: "ObjectServer: %ObjectServer%"
+    Values: 
+      - 
+        Name: ObjectServer
+        Value: "/Event/EventData/Data[@Name=\"ObjectServer\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "ObjectType: %ObjectType%"
+    Values: 
+      - 
+        Name: ObjectType
+        Value: "/Event/EventData/Data[@Name=\"ObjectType\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "ObjectName: %ObjectName%"
+    Values: 
+      - 
+        Name: ObjectName
+        Value: "/Event/EventData/Data[@Name=\"ObjectName\"]"
+  - 
+    Property: ExecutableInfo
+    PropertyValue: "%ProcessName%"
+    Values: 
+      - 
+        Name: ProcessName
+        Value: "/Event/EventData/Data[@Name=\"ProcessName\"]"
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+# Example payload data
+#  <EventData>
+#    <Data Name="SubjectUserSid">S-1-5-21-3583694148-1414552638-2922671848-1000</Data>
+#    <Data Name="SubjectUserName">IEUser</Data>
+#    <Data Name="SubjectDomainName">IEWIN7</Data>
+#    <Data Name="SubjectLogonId">0xFFA8</Data>
+#    <Data Name="ObjectServer">Security</Data>
+#    <Data Name="ObjectType">File</Data>
+#    <Data Name="ObjectName">C:\Users\IEUser\AppData\Roaming\Opera Software\Opera Stable\Login Data</Data>
+#    <Data Name="HandleId">0x50</Data>
+#    <Data Name="AccessList">%%4416, </Data>
+#    <Data Name="AccessMask">0x1</Data>
+#    <Data Name="ProcessId">0x134C</Data>
+#    <Data Name="ProcessName">C:\Users\Defau1t\wsus.exe</Data>
+#  </EventData>

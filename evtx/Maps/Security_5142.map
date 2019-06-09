@@ -1,0 +1,53 @@
+Author: Mike Pilkington
+Description: Local network share added
+EventId: 5142
+Channel: Security
+Maps: 
+  - 
+    Property: Username
+    PropertyValue: "%domain%\\%user%"
+    Values: 
+      - 
+        Name: domain
+        Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
+      - 
+        Name: user
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
+  - 
+    Property: PayloadData1
+    PropertyValue: "ShareName: %ShareName%"
+    Values: 
+      - 
+        Name: ShareName
+        Value: "/Event/EventData/Data[@Name=\"ShareName\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "SharePath: %ShareLocalPath%"
+    Values: 
+      - 
+        Name: ShareLocalPath
+        Value: "/Event/EventData/Data[@Name=\"ShareLocalPath\"]"
+  - 
+    Property: PayloadData3
+    PropertyValue: "SID: %SubjectUserSid%"
+    Values: 
+      - 
+        Name: SubjectUserSid
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserSid\"]"
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+# Example payload data
+#  <EventData>
+#    <Data Name="SubjectUserSid">S-1-5-21-3583694148-1414552638-2922671848-1000</Data>
+#    <Data Name="SubjectUserName">IEUser</Data>
+#    <Data Name="SubjectDomainName">PC04</Data>
+#    <Data Name="SubjectLogonId">0x128A9</Data>
+#    <Data Name="ShareName">\\*\PRINT</Data>
+#    <Data Name="ShareLocalPath">c:\windows\system32</Data>
+#  </EventData>
+#</Event>
