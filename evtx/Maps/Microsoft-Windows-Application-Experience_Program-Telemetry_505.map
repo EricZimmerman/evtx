@@ -1,0 +1,44 @@
+Author: Mike Pilkington
+Description: Application Experience Program Telemetry
+EventId: 505
+Channel: "Microsoft-Windows-Application-Experience/Program-Telemetry"
+Maps:
+  - 
+    Property: ExecutableInfo
+    PropertyValue: "%ExePath%"
+    Values: 
+      - 
+        Name: ExePath
+        Value: "/Event/UserData/CompatibilityFixEvent/ExePath" 
+  - 
+    Property: PayloadData1
+    PropertyValue: "ProcessId: %ProcessId%"
+    Values: 
+      - 
+        Name: ProcessId
+        Value: "/Event/UserData/CompatibilityFixEvent/ProcessId"
+  - 
+    Property: PayloadData2
+    PropertyValue: "StartTime: %StartTime%"
+    Values: 
+      - 
+        Name: StartTime
+        Value: "/Event/UserData/CompatibilityFixEvent/StartTime"
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+# Example payload data
+#  <UserData>
+#    <CompatibilityFixEvent>
+#      <ProcessId>3724</ProcessId>
+#      <StartTime>2019-03-19 20:48:33.4095392</StartTime>
+#      <FixID>8a23a24a-9a8d-44b6-a6d4-556c53a289b5</FixID>
+#      <Flags>0x10205</Flags>
+#      <ExePath>C:\Windows\System32\osk.exe</ExePath>
+#      <FixName>CorrectFilePaths</FixName>
+#    </CompatibilityFixEvent>
+#  </UserData>

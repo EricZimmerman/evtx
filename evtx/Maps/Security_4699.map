@@ -1,0 +1,45 @@
+Author: Mike Pilkington
+Description: Scheduled task deleted
+EventId: 4699
+Channel: Security
+Maps: 
+  - 
+    Property: Username
+    PropertyValue: "%domain%\\%user%"
+    Values: 
+      - 
+        Name: domain
+        Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
+      - 
+        Name: user
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
+  - 
+    Property: PayloadData1
+    PropertyValue: "TaskName: %TaskName%"
+    Values: 
+      - 
+        Name: TaskName
+        Value: "/Event/EventData/Data[@Name=\"TaskName\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "TaskContent: %TaskContent%"
+    Values: 
+      - 
+        Name: TaskContent
+        Value: "/Event/EventData/Data[@Name=\"TaskContent\"]"
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+# Example payload data
+#  <EventData>
+#    <Data Name="SubjectUserSid">S-1-5-21-1587066498-1489273250-1035260531-500</Data>
+#    <Data Name="SubjectUserName">Administrator</Data>
+#    <Data Name="SubjectDomainName">EXAMPLE</Data>
+#    <Data Name="SubjectLogonId">0x17E2D2</Data>
+#    <Data Name="TaskName">\CYAlyNSS</Data>
+#    <Data Name="TaskContent">&amp;lt;?xml version="1.0" encoding="UTF-16"?&amp;gt;, &amp;lt;Task version="1.2"&amp;gt;,     &amp;lt;Exec&amp;gt;,       &amp;lt;Command&amp;gt;cmd.exe&amp;lt;/Command&amp;gt;,       &amp;lt;Arguments&amp;gt;/C tasklist &amp;amp;gt; %windir%\Temp\CYAlyNSS.tmp 2&amp;amp;gt;&amp;amp;amp;1&amp;lt;/Arguments&amp;gt;,     &amp;lt;/Exec&amp;gt;,   &amp;lt;/Actions&amp;gt;, &amp;lt;/Task&amp;gt;</Data>
+#  </EventData>

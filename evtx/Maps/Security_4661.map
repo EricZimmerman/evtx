@@ -1,0 +1,69 @@
+Author: Mike Pilkington
+Description: Handle requested to an object 
+EventId: 4661
+Channel: Security
+Maps: 
+  - 
+    Property: Username
+    PropertyValue: "%domain%\\%user%"
+    Values: 
+      - 
+        Name: domain
+        Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
+      - 
+        Name: user
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
+  - 
+    Property: PayloadData1
+    PropertyValue: "ObjectServer: %ObjectServer%"
+    Values: 
+      - 
+        Name: ObjectServer
+        Value: "/Event/EventData/Data[@Name=\"ObjectServer\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "ObjectType: %ObjectType%"
+    Values: 
+      - 
+        Name: ObjectType
+        Value: "/Event/EventData/Data[@Name=\"ObjectType\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "ObjectName: %ObjectName%"
+    Values: 
+      - 
+        Name: ObjectName
+        Value: "/Event/EventData/Data[@Name=\"ObjectName\"]"
+  - 
+    Property: ExecutableInfo
+    PropertyValue: "%ProcessName%"
+    Values: 
+      - 
+        Name: ProcessName
+        Value: "/Event/EventData/Data[@Name=\"ProcessName\"]"
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+# Example payload data
+#  <EventData>
+#    <Data Name="SubjectUserSid">S-1-5-21-1587066498-1489273250-1035260531-500</Data>
+#    <Data Name="SubjectUserName">administrator</Data>
+#    <Data Name="SubjectDomainName">EXAMPLE</Data>
+#    <Data Name="SubjectLogonId">0x4FD77</Data>
+#    <Data Name="ObjectServer">Security Account Manager</Data>
+#    <Data Name="ObjectType">SAM_DOMAIN</Data>
+#    <Data Name="ObjectName">DC=example,DC=corp</Data>
+#    <Data Name="HandleId">0x14C7B8AB0</Data>
+#    <Data Name="TransactionId">00000000-0000-0000-0000-000000000000</Data>
+#    <Data Name="AccessList">%%1537, %%1538, %%1539, %%1540, %%5392, %%5393, %%5394, %%5395, %%5396, %%5397, %%5398, %%5399, %%5400, </Data>
+#    <Data Name="AccessMask">0x2D</Data>
+#    <Data Name="PrivilegeList">ǿ, -</Data>
+#    <Data Name="Properties">---, {19195a5a-6da0-11d0-afd3-00c04fd930c9}, %%1537, %%1538, %%1539, %%1540, %%5392, %%5393, %%5394, %%5395, %%5396, %%5397, %%5398, %%5399, %%5400, {c7407360-20bf-11d0-a768-00aa006e0529}, {bf9679a4-0de6-11d0-a285-00aa003049e2}, {bf9679a5-0de6-11d0-a285-00aa003049e2}, {bf9679a6-0de6-11d0-a285-00aa003049e2}, {bf9679bb-0de6-11d0-a285-00aa003049e2}, {bf9679c2-0de6-11d0-a285-00aa003049e2}, {bf9679c3-0de6-11d0-a285-00aa003049e2}, {bf967a09-0de6-11d0-a285-00aa003049e2}, {bf967a0b-0de6-11d0-a285-00aa003049e2}, {b8119fd0-04f6-4762-ab7a-4986c76b3f9a}, {bf967a34-0de6-11d0-a285-00aa003049e2}, {bf967a33-0de6-11d0-a285-00aa003049e2}, {bf9679c5-0de6-11d0-a285-00aa003049e2}, {bf967a61-0de6-11d0-a285-00aa003049e2}, {bf967977-0de6-11d0-a285-00aa003049e2}, {bf96795e-0de6-11d0-a285-00aa003049e2}, {bf9679ea-0de6-11d0-a285-00aa003049e2}, {ab721a52-1e2f-11d0-9819-00aa0040529b}, </Data>
+#    <Data Name="RestrictedSidCount">0</Data>
+#    <Data Name="ProcessId">0x1C4</Data>
+#    <Data Name="ProcessName">C:\Windows\System32\lsass.exe</Data>
+#  </EventData>
+#</Event>

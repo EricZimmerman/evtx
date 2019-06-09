@@ -1,0 +1,120 @@
+Author: Mike Pilkington
+Description: A user account was changed
+EventId: 4738
+Channel: Security
+Maps: 
+  - 
+    Property: Username
+    PropertyValue: "%domain%\\%user%"
+    Values: 
+      - 
+        Name: domain
+        Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
+      - 
+        Name: user
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
+  - 
+    Property: PayloadData1
+    PropertyValue: "Target: %TargetDomainName%\\%TargetUserName%"
+    Values: 
+      - 
+        Name: TargetDomainName
+        Value: "/Event/EventData/Data[@Name=\"TargetDomainName\"]"
+      - 
+        Name: TargetUserName
+        Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "Changed Attribute SamAccountName: %SamAccountName% DisplayName: %DisplayName% UserPrincipalName: %UserPrincipalName% HomeDirectory: %HomeDirectory% HomePath: %HomePath% ScriptPath: %ScriptPath% ProfilePath: %ProfilePath% UserWorkstations: %UserWorkstations% PasswordLastSet: %PasswordLastSet% AccountExpires: %AccountExpires% PrimaryGroupId: %PrimaryGroupId% AllowedToDelegateTo: %AllowedToDelegateTo% OldUacValue: %OldUacValue% NewUacValue: %NewUacValue% UserAccountControl: %UserAccountControl% UserParameters: %UserParameters% SidHistory: %SidHistory% LogonHours: %LogonHours%"
+    Values: 
+      - 
+        Name: SamAccountName
+        Value: "/Event/EventData/Data[@Name=\"SamAccountName\"]"
+      - 
+        Name: DisplayName
+        Value: "/Event/EventData/Data[@Name=\"DisplayName\"]"
+      - 
+        Name: UserPrincipalName
+        Value: "/Event/EventData/Data[@Name=\"UserPrincipalName\"]"
+      - 
+        Name: HomeDirectory
+        Value: "/Event/EventData/Data[@Name=\"HomeDirectory\"]"
+      - 
+        Name: HomePath
+        Value: "/Event/EventData/Data[@Name=\"HomePath\"]"
+      - 
+        Name: ScriptPath
+        Value: "/Event/EventData/Data[@Name=\"ScriptPath\"]"
+      - 
+        Name: ProfilePath
+        Value: "/Event/EventData/Data[@Name=\"ProfilePath\"]"
+      - 
+        Name: UserWorkstations
+        Value: "/Event/EventData/Data[@Name=\"UserWorkstations\"]"
+      - 
+        Name: PasswordLastSet
+        Value: "/Event/EventData/Data[@Name=\"PasswordLastSet\"]"
+      - 
+        Name: AccountExpires
+        Value: "/Event/EventData/Data[@Name=\"AccountExpires\"]"
+      - 
+        Name: PrimaryGroupId
+        Value: "/Event/EventData/Data[@Name=\"PrimaryGroupId\"]"
+      - 
+        Name: AllowedToDelegateTo
+        Value: "/Event/EventData/Data[@Name=\"AllowedToDelegateTo\"]"
+      - 
+        Name: OldUacValue
+        Value: "/Event/EventData/Data[@Name=\"OldUacValue\"]"
+      - 
+        Name: NewUacValue
+        Value: "/Event/EventData/Data[@Name=\"NewUacValue\"]"
+      - 
+        Name: UserAccountControl
+        Value: "/Event/EventData/Data[@Name=\"UserAccountControl\"]"
+      - 
+        Name: UserParameters
+        Value: "/Event/EventData/Data[@Name=\"UserParameters\"]"
+      - 
+        Name: SidHistory
+        Value: "/Event/EventData/Data[@Name=\"SidHistory\"]"
+      - 
+        Name: LogonHours
+        Value: "/Event/EventData/Data[@Name=\"LogonHours\"]"
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+# Example payload data
+#  <EventData>
+#    <Data Name="Dummy">-</Data>
+#    <Data Name="TargetUserName">alice</Data>
+#    <Data Name="TargetDomainName">insecurebank</Data>
+#    <Data Name="TargetSid">S-1-5-21-738609754-2819869699-4189121830-1107</Data>
+#    <Data Name="SubjectUserSid">S-1-5-21-738609754-2819869699-4189121830-1108</Data>
+#    <Data Name="SubjectUserName">bob</Data>
+#    <Data Name="SubjectDomainName">insecurebank</Data>
+#    <Data Name="SubjectLogonId">0x3D8E8DB</Data>
+#    <Data Name="PrivilegeList">-</Data>
+#    <Data Name="SamAccountName">-</Data>
+#    <Data Name="DisplayName">-</Data>
+#    <Data Name="UserPrincipalName">-</Data>
+#    <Data Name="HomeDirectory">-</Data>
+#    <Data Name="HomePath">-</Data>
+#    <Data Name="ScriptPath">-</Data>
+#    <Data Name="ProfilePath">-</Data>
+#    <Data Name="UserWorkstations">-</Data>
+#    <Data Name="PasswordLastSet">-</Data>
+#    <Data Name="AccountExpires">-</Data>
+#    <Data Name="PrimaryGroupId">-</Data>
+#    <Data Name="AllowedToDelegateTo">-</Data>
+#    <Data Name="OldUacValue">-</Data>
+#    <Data Name="NewUacValue">-</Data>
+#    <Data Name="UserAccountControl">-</Data>
+#    <Data Name="UserParameters">-</Data>
+#    <Data Name="SidHistory">-</Data>
+#    <Data Name="LogonHours">-</Data>
+#  </EventData>

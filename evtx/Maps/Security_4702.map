@@ -1,0 +1,45 @@
+Author: Mike Pilkington
+Description: A scheduled task was updated
+EventId: 4702
+Channel: Security
+Maps: 
+  - 
+    Property: Username
+    PropertyValue: "%domain%\\%user%"
+    Values: 
+      - 
+        Name: domain
+        Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
+      - 
+        Name: user
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
+  - 
+    Property: PayloadData1
+    PropertyValue: "TaskName: %TaskName%"
+    Values: 
+      - 
+        Name: TaskName
+        Value: "/Event/EventData/Data[@Name=\"TaskName\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "TaskContentNew: %TaskContentNew%"
+    Values: 
+      - 
+        Name: TaskContentNew
+        Value: "/Event/EventData/Data[@Name=\"TaskContentNew\"]"
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+# Example payload data
+#  <EventData>
+#    <Data Name="SubjectUserSid">S-1-5-20</Data>
+#    <Data Name="SubjectUserName">DC1$</Data>
+#    <Data Name="SubjectDomainName">insecurebank</Data>
+#    <Data Name="SubjectLogonId">0x3E4</Data>
+#    <Data Name="TaskName">\Microsoft\Windows\SoftwareProtectionPlatform\SvcRestartTask</Data>
+#    <Data Name="TaskContentNew">&amp;lt;?xml version="1.0" encoding="UTF-16"?&amp;gt;, &amp;lt;Task version="1.4"&amp;gt;,     &amp;lt;ComHandler&amp;gt;,       &amp;lt;ClassId&amp;gt;{B1AEBB5D-EAD9-4476-B375-9C3ED9F32AFC}&amp;lt;/ClassId&amp;gt;,       &amp;lt;Data&amp;gt;&amp;lt;![CDATA[timer]]&amp;gt;&amp;lt;/Data&amp;gt;,     &amp;lt;/ComHandler&amp;gt;,   &amp;lt;/Actions&amp;gt;, &amp;lt;/Task&amp;gt;</Data>
+#  </EventData>
