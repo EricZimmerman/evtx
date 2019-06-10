@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -210,6 +211,13 @@ namespace evtx
                     var er = new EventRecord(br, recordOffset, this);
 
                     EventRecords.Add(er);
+
+                    if (EventLog.LastSeenTicks > 0 && EventLog.LastSeenTicks > er.TimeCreated.Ticks)
+                    {
+                        l.Warn($"Record #: {er.RecordNumber} (timestamp: {er.TimeCreated:yyyy-MM-dd HH:mm:ss.fffffff}): Warning! Time just went backwards! Last seen time before change: {new DateTimeOffset(EventLog.LastSeenTicks,TimeSpan.Zero).ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}");
+                    }
+
+                    EventLog.LastSeenTicks = er.TimeCreated.Ticks;
 
                     if (EventIdMetrics.ContainsKey(er.EventId) == false)
                     {

@@ -28,6 +28,8 @@ namespace evtx
             IsFull = 0x2
         }
 
+        public static long LastSeenTicks;
+
         private static readonly Logger Logger = LogManager.GetLogger("EventLog");
 
         public Dictionary<long, int> EventIdMetrics;

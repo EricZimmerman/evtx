@@ -27,7 +27,7 @@ namespace evtx.Tags
 
             Name = nameElement.Value;
 
-            if (nameOffset > recordPosition)
+            if (nameOffset > recordPosition && Size>9) //if size == 9 then it cannot contain a name
             {
                 dataStream.BaseStream.Seek(nameElement.Size, SeekOrigin.Current);
             }
@@ -43,9 +43,10 @@ namespace evtx.Tags
                 case Value vv:
                     Value = vv.ValueData;
                     break;
+ 
                 default:
-                    throw new Exception(
-                        $"Unknown attribute info ({AttributeInfo.GetType()})! Please send the file to saericzimmerman@gmail.com");
+                    throw new Exception($"Unknown attribute info ({AttributeInfo.GetType()})! Please send the file to saericzimmerman@gmail.com");
+                  
             }
 
             l.Trace(this);

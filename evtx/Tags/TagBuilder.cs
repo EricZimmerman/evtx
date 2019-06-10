@@ -277,8 +277,9 @@ namespace evtx.Tags
                     return new EndElementTag(recordPosition);
 
                 default:
-                    throw new Exception(
-                        $"unknown tag to build for opCode: {opCode} (0x{opCode:X}) at position 0x{dataStream.BaseStream.Position:X}");
+                   // l.Warn($"unknown tag to build for opCode: {opCode} (0x{opCode:X}) at position 0x{dataStream.BaseStream.Position:X}");
+                    throw new Exception($"unknown tag to build for opCode: {opCode} (0x{opCode:X}) at position 0x{dataStream.BaseStream.Position:X}");
+                  
             }
         }
     }

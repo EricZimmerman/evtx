@@ -4,7 +4,7 @@ EventId: 4647
 Channel: Security
 Maps: 
   - 
-    Property: PayloadData1
+    Property: UserName
     PropertyValue: "Target: %TargetDomainName%\\%TargetUserName%"
     Values: 
       - 
