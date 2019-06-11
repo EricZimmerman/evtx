@@ -9,17 +9,17 @@ Maps:
     Values: 
       - 
         Name: domain
-        Value: "/Event/EventData/Data[@Name=\"Param2\"]"
+        Value: "/Event/UserData/EventXML/Param2"
       - 
         Name: user
-        Value: "/Event/EventData/Data[@Name=\"Param1\"]"
+        Value: "/Event/UserData/EventXML/Param1"
   - 
     Property: RemoteHost
     PropertyValue: "%Address%"
     Values: 
       - 
         Name: Address
-        Value: "/Event/EventData/Data[@Name=\"Param3\"]"
+        Value: "/Event/UserData/EventXML/Param3"
  
 # Valid properties include:
 # UserName
