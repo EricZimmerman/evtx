@@ -1,0 +1,38 @@
+Author: Troy Larson
+Description: RunOnceEx commands started
+EventId: 9701
+Channel: Microsoft-Windows-Shell-Core/Operational
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "%PayloadData1%"
+    Values: 
+      - 
+        Name: PayloadData1
+        Value: "/Event/EventData/Data"
+   
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+# XML for this event (based on event template):
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Shell-Core" Guid="30336ed4-e327-447c-9de0-51b652c86108" />
+#    <EventID>9701</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>9701</Task>
+#    <Opcode>1</Opcode>
+#    <Keywords></Keywords>
+#    <TimeCreated SystemTime="" />
+#    <EventRecordID></EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="" ThreadID="" />
+#    <Channel>Microsoft-Windows-Shell-Core/Operational</Channel>
+#    <Computer></Computer>
+#    <Security UserID="" />
+#  </System>
+#  <EventData></EventData>
+#</Event>

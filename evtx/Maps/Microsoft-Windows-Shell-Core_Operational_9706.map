@@ -1,0 +1,40 @@
+Author: Troy Larson
+Description: Finished enumeration of commands for registry key
+EventId: 9706
+Channel: Microsoft-Windows-Shell-Core/Operational
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "%PayloadData1%"
+    Values: 
+      - 
+        Name: PayloadData1
+        Value: "/Event/EventData/Data[@Name=\"KeyName\"]"
+   
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+# Example XML for this event:
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Shell-Core" Guid="30336ed4-e327-447c-9de0-51b652c86108" />
+#    <EventID>9706</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>9705</Task>
+#    <Opcode>2</Opcode>
+#    <Keywords>0x2000000004010000</Keywords>
+#    <TimeCreated SystemTime="" />
+#    <EventRecordID></EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="" ThreadID="" />
+#    <Channel>Microsoft-Windows-Shell-Core/Operational</Channel>
+#    <Computer></Computer>
+#    <Security UserID="" />
+#  </System>
+#  <EventData>
+#    <Data Name="KeyName">Software\Microsoft\Windows\CurrentVersion\Run</Data> 
+#  </EventData>
+#</Event>

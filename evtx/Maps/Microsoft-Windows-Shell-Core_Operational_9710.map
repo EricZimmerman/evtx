@@ -1,0 +1,48 @@
+Author: Troy Larson
+Description: Finished Executing From RunKey As Job
+EventId: 9710
+Channel: Microsoft-Windows-Shell-Core/Operational
+Maps: 
+  - 
+    Property: ExecutableInfo
+    PropertyValue: "%CommandLine%"
+    Values: 
+      - 
+        Name: CommandLine
+        Value: "/Event/EventData/Data[@Name=\"Command\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "PID: %ProcessId%"
+    Values: 
+      - 
+        Name: ProcessId
+        Value: "/Event/EventData/Data[@Name=\"PID\"]"
+   
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+# XML for this event (based on event template):
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Shell-Core" Guid="30336ed4-e327-447c-9de0-51b652c86108" />
+#    <EventID>9710</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>9709</Task>
+#    <Opcode>2</Opcode>
+#    <Keywords>0x2000000004010000</Keywords>
+#    <TimeCreated SystemTime="" />
+#    <EventRecordID></EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="" ThreadID="" />
+#    <Channel>Microsoft-Windows-Shell-Core/Operational</Channel>
+#    <Computer></Computer>
+#    <Security UserID="" />
+#  </System>
+#  <EventData>
+#    <Data Name="PID"></Data> 
+#    <Data Name="Command"></Data> 
+#  </EventData>
+#</Event>

@@ -1,0 +1,40 @@
+Author: Troy Larson
+Description: Executing From RunKey As Job
+EventId: 9709
+Channel: Microsoft-Windows-Shell-Core/Operational
+Maps: 
+  - 
+    Property: ExecutableInfo
+    PropertyValue: "%CommandLine%"
+    Values: 
+      - 
+        Name: CommandLine
+        Value: "/Event/EventData/Data[@Name=\"Command\"]"
+   
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+# XML for this event (based on event template):
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Shell-Core" Guid="30336ed4-e327-447c-9de0-51b652c86108" />
+#    <EventID>9709</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>9709</Task>
+#    <Opcode>1</Opcode>
+#    <Keywords></Keywords>
+#    <TimeCreated SystemTime="" />
+#    <EventRecordID></EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="" ThreadID="" />
+#    <Channel>Microsoft-Windows-Shell-Core/Operational</Channel>
+#    <Computer></Computer>
+#    <Security UserID="" />
+#  </System>
+#  <EventData>
+#    <Data Name="Command"></Data> 
+#  </EventData>
+#</Event>
