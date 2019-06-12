@@ -53,12 +53,12 @@ namespace evtx.Tags
             Reserved7 = 0x7,
             Reserved8 = 0x8,
             Reserved9 = 0x9,
-            Reserveda = 0xa,
-            Reservedb = 0xb,
-            Reservedc = 0xc,
-            Reservedd = 0xd,
-            Reservede = 0xe,
-            Reservedf = 0xf
+            ReservedA = 0xa,
+            ReservedB = 0xb,
+            ReservedC = 0xc,
+            ReservedD = 0xd,
+            ReservedE = 0xe,
+            ReservedF = 0xf
         }
 
         public enum ValueType
