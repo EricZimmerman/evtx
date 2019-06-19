@@ -36,7 +36,7 @@ namespace evtx
                     return s;
                 case TagBuilder.ValueType.AnsiStringType:
                     var sa = Encoding.GetEncoding(1252).GetString(DataBytes).Trim('\0');
-                    sa = s = Regex.Replace(sa, @"\p{C}+", ", ");
+                    sa = Regex.Replace(sa, @"\p{C}+", ", ");
                     return sa;
                 case TagBuilder.ValueType.Int8Type:
                     return ((sbyte) DataBytes[0]).ToString();

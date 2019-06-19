@@ -526,6 +526,8 @@ namespace EvtxECmd
                     return;
                 }
 
+                _fluentCommandLineParser.Object.Dedupe = false;
+
                 ProcessFile(_fluentCommandLineParser.Object.File);
 
                 if (_fluentCommandLineParser.Object.Vss)
@@ -564,7 +566,7 @@ namespace EvtxECmd
 
                 var files2 =
                     Directory.EnumerateFileSystemEntries(Path.GetFullPath(_fluentCommandLineParser.Object.Directory), dirEnumOptions, f);
-
+                
                 foreach (var file in files2)
                 {
                     ProcessFile(file);
@@ -699,12 +701,21 @@ namespace EvtxECmd
 
                     _seenHashes.Add(sha);
                 }
+
+                var fsw = new Stopwatch();
+                fsw.Start();
+
                 var evt = new EventLog(fileS);
 
+                fsw.Stop();
                 var seenRecords = 0;
+
+                _logger.Info($"File processing completed in {fsw.Elapsed.TotalSeconds:N3} seconds. Iterating records...");
+                
 
                 foreach (var eventRecord in evt.GetEventRecords())
                 {
+                    eventRecord.BuildProperties();
                     if (_includeIds.Count > 0)
                     {
                         if (_includeIds.Contains(eventRecord.EventId) == false)

@@ -50,7 +50,54 @@ namespace evtx
                     eof = true;
                 }
             }
+        }
 
+        public string PayloadData1 { get; private set; }
+        public string PayloadData2 { get; private set; }
+        public string PayloadData3 { get; private set; }
+        public string PayloadData4 { get; private set; }
+        public string PayloadData5 { get; private set; }
+        public string PayloadData6 { get; private set; }
+        public string UserName { get; private set; }
+        public string RemoteHost { get; private set; }
+        public string ExecutableInfo { get; private set; }
+        public string MapDescription { get; private set; }
+
+
+        public string Computer { get; private set; }
+
+        public string Payload { get; set; }
+
+        public string UserId { get; private set; }
+        public string Channel { get; private set; }
+        public string Provider { get; private set; }
+        public int EventId { get; private set; }
+        public string EventRecordId { get; private set; }
+        public int ProcessId { get; private set; }
+        public int ThreadId { get; private set; }
+        public int Level { get; private set; }
+        public string SourceFile { get; set; }
+
+        /// <summary>
+        ///     This should match the Timestamp pulled from the data, but this one is explicitly from the XML via the substitution
+        ///     values
+        /// </summary>
+
+        public DateTimeOffset TimeCreated { get; private set; }
+
+        [IgnoreDataMember] public List<IBinXml> Nodes { get; set; }
+
+        [IgnoreDataMember] public int RecordPosition { get; }
+
+        [IgnoreDataMember] public uint Size { get; }
+
+        public long RecordNumber { get; }
+
+        [IgnoreDataMember] public DateTimeOffset Timestamp { get; }
+
+        public void BuildProperties()
+        {
+            var l = LogManager.GetLogger("EventRecord");
             var xml = ConvertPayloadToXml();
 
 
@@ -130,10 +177,12 @@ namespace evtx
 
                                     //regex time
                                     MatchCollection allMatchResults = null;
-                                    try {
-                                        Regex regexObj = new Regex(me.Refine, RegexOptions.IgnoreCase);
+                                    try
+                                    {
+                                        var regexObj = new Regex(me.Refine, RegexOptions.IgnoreCase);
                                         allMatchResults = regexObj.Matches(propValue);
-                                        if (allMatchResults.Count > 0) {
+                                        if (allMatchResults.Count > 0)
+                                        {
                                             // Access individual matches using allMatchResults.Item[]
 
                                             foreach (Match allMatchResult in allMatchResults)
@@ -142,13 +191,12 @@ namespace evtx
                                             }
 
                                             propValue = string.Join(" | ", hits);
-
-                                        } 
-
-                                    } catch (ArgumentException ) {
+                                        }
+                                    }
+                                    catch (ArgumentException)
+                                    {
                                         // Syntax error in the regular expression
                                     }
-
                                 }
 
                                 valProps.Add(me.Name, propValue);
@@ -225,49 +273,6 @@ namespace evtx
             }
         }
 
-        public string PayloadData1 { get; }
-        public string PayloadData2 { get; }
-        public string PayloadData3 { get; }
-        public string PayloadData4 { get; }
-        public string PayloadData5 { get; }
-        public string PayloadData6 { get; }
-        public string UserName { get; }
-        public string RemoteHost { get; }
-        public string ExecutableInfo { get; }
-        public string MapDescription { get; }
-
-
-        public string Computer { get; }
-
-         public string Payload { get; set; }
-
-        public string UserId { get; }
-        public string Channel { get; }
-        public string Provider { get; }
-        public int EventId { get; }
-        public string EventRecordId { get; }
-        public int ProcessId { get; }
-        public int ThreadId { get; }
-        public int Level { get; }
-        public string SourceFile { get; set; }
-
-        /// <summary>
-        ///     This should match the Timestamp pulled from the data, but this one is explicitly from the XML via the substitution
-        ///     values
-        /// </summary>
-
-        public DateTimeOffset TimeCreated { get; }
-
-        [IgnoreDataMember] public List<IBinXml> Nodes { get; set; }
-
-        [IgnoreDataMember] public int RecordPosition { get; }
-
-        [IgnoreDataMember] public uint Size { get; }
-
-        public long RecordNumber { get; }
-
-        [IgnoreDataMember] public DateTimeOffset Timestamp { get; }
-
         public string ConvertPayloadToXml()
         {
             var ti = Nodes.SingleOrDefault(t => t.TagType == TagBuilder.BinaryTag.TemplateInstance);
@@ -279,12 +284,14 @@ namespace evtx
 
             ti = (TemplateInstance) ti;
 
+           
+
             var xmld = new XmlDocument();
             var rawXml = ti.AsXml(null, RecordPosition).Replace("&", "&amp;");
 
             xmld.LoadXml(rawXml);
 
-            return  Regex.Replace(xmld.Beautify(), " xmlns.+\"", "",
+            return Regex.Replace(xmld.Beautify(), " xmlns.+\"", "",
                 RegexOptions.IgnoreCase | RegexOptions.Multiline);
         }
 

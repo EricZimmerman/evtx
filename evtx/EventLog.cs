@@ -84,14 +84,18 @@ namespace evtx
 
             Logger.Trace($"Event Log data before processing chunks:\r\n{this}");
 
+            Logger.Debug("Chunk processing beginning");
+
             var chunkNumber = 0;
             while (bytesRead > 0)
             {
                 var chunkSig = BitConverter.ToInt64(chunkBuffer, 0);
 
+                Logger.Debug($"Processing chunk at offset 0x{chunkOffset:X}. Events found so far: {TotalEventLogs:N0}");
+
                 Logger.Trace(
                     $"chunk offset: 0x{chunkOffset:X}, sig: {Encoding.ASCII.GetString(chunkBuffer, 0, 8)} signature val: 0x{chunkSig:X}");
-
+                
                 if (chunkSig == chunkSignature)
                 {
                     var ci = new ChunkInfo(chunkBuffer, chunkOffset, chunkNumber);
@@ -108,6 +112,8 @@ namespace evtx
 
                 chunkNumber += 1;
             }
+
+            Logger.Debug("Chunk processing complete. Building metrics");
 
             ErrorRecords = new Dictionary<long, string>();
 
@@ -128,6 +134,8 @@ namespace evtx
                     ErrorRecords.Add(chunkInfoErrorRecord.Key, chunkInfoErrorRecord.Value);
                 }
             }
+
+            Logger.Debug("Metrics complete");
         }
 
         private DateTimeOffset? GetTimestamp(bool earliest)

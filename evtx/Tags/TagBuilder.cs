@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Text;
+using System.Threading;
 using System.Xml;
 using NLog;
 
@@ -112,7 +113,9 @@ namespace evtx.Tags
 
         public static string Beautify(this XmlDocument doc)
         {
-            var sb = new StringBuilder();
+           // var sb = new StringBuilder();
+            var ms = new MemoryStream();
+
             var settings = new XmlWriterSettings
             {
                 Indent = true,
@@ -121,12 +124,17 @@ namespace evtx.Tags
                 NewLineHandling = NewLineHandling.Replace,
                 OmitXmlDeclaration = true
             };
-            using (var writer = XmlWriter.Create(sb, settings))
+            using (var writer = XmlWriter.Create(ms, settings))
             {
                 doc.Save(writer);
             }
 
-            return sb.ToString();
+            ms.Flush();
+            ms.Position = 0;
+
+            var sr = new StreamReader(ms);
+
+            return sr.ReadToEnd();
         }
 
         public static string GetKeywordDescription(ulong keywordValue)

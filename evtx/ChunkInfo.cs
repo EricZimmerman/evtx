@@ -198,7 +198,7 @@ namespace evtx
                     if (recordNumber < FirstEventRecordIdentifier || recordNumber > LastEventRecordIdentifier)
                     {
                         //outside known good range, so ignore
-                        l.Debug(
+                        l.Trace(
                             $"Record at offset 0x{AbsoluteOffset + recordOffset:X} falls outside valid record identifier range. Skipping");
                         break;
                     }

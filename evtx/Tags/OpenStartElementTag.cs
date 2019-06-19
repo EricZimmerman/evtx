@@ -103,9 +103,9 @@ namespace evtx.Tags
 
         public string AsXml(List<SubstitutionArrayEntry> substitutionEntries, long parentOffset)
         {
-            var sb = new StringBuilder();
+            var sb = string.Empty;
 
-            sb.Append($"<{Name.Value}");
+            sb +=($"<{Name.Value}");
 
             var attrStrings = new List<string>();
 
@@ -121,22 +121,22 @@ namespace evtx.Tags
             if (attrStrings.Count > 0)
                 //at least one attribute with a value
             {
-                sb.Append(" " + string.Join(" ", attrStrings));
+                sb+=(" " + string.Join(" ", attrStrings));
             }
 
             foreach (var node in Nodes)
             {
                 if (node is EndElementTag)
                 {
-                    sb.AppendLine($"</{Name.Value}>");
+                    sb+=($"</{Name.Value}>");
                 }
                 else if (node is CloseEmptyElementTag)
                 {
-                    sb.AppendLine(node.AsXml(substitutionEntries, parentOffset));
+                    sb+=(node.AsXml(substitutionEntries, parentOffset));
                 }
                 else if (node is CloseStartElementTag)
                 {
-                    sb.Append(node.AsXml(substitutionEntries, parentOffset));
+                    sb+=(node.AsXml(substitutionEntries, parentOffset));
                 }
                 else
                 {
@@ -156,7 +156,7 @@ namespace evtx.Tags
 
                                     if (nextTag is TemplateInstance te)
                                     {
-                                        sb.AppendLine(te.AsXml(te.SubstitutionEntries, parentOffset));
+                                        sb+=(te.AsXml(te.SubstitutionEntries, parentOffset));
                                     }
 
                                     if (nextTag is EndOfBXmlStream)
@@ -170,26 +170,26 @@ namespace evtx.Tags
                             {
                                 //optional sub
                                 var escapedo = new XText(node.AsXml(substitutionEntries, parentOffset)).ToString();
-                                sb.Append(escapedo);
+                                sb+=(escapedo);
                             }
                         }
                         else
                         {
                             //normal sub
                             var escapedn = new XText(node.AsXml(substitutionEntries, parentOffset)).ToString();
-                            sb.Append(escapedn);
+                            sb+=(escapedn);
                             //sb.Append(node.AsXml(substitutionEntries,parentOffset));
                         }
                     }
                     else
                     {
-                        sb.Append(node.AsXml(substitutionEntries, parentOffset));
+                        sb+=(node.AsXml(substitutionEntries, parentOffset));
                     }
                 }
             }
 
 
-            return sb.ToString();
+            return sb;
         }
     }
 }
