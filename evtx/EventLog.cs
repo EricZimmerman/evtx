@@ -99,6 +99,8 @@ namespace evtx
                 if (chunkSig == chunkSignature)
                 {
                     var ci = new ChunkInfo(chunkBuffer, chunkOffset, chunkNumber);
+                    ci.CleanupData();
+                    
                     Chunks.Add(ci);
                     TotalEventLogs += ci.EventRecords.Count;
                 }

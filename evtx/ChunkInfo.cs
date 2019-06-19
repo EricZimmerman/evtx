@@ -267,9 +267,16 @@ namespace evtx
 
         public long FirstEventRecordNumber { get; }
 
-        public byte[] ChunkBytes { get; }
+        public byte[] ChunkBytes { get; set; }
         public long AbsoluteOffset { get; }
         public int ChunkNumber { get; }
+
+        public void CleanupData()
+        {
+            ChunkBytes = null;
+            StringTableEntries.Clear();
+            Templates.Clear();
+        }
 
         public StringTableEntry GetStringTableEntry(uint offset)
         {

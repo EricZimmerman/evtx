@@ -152,177 +152,120 @@ namespace evtx
 
        
 
-            //OLD
-//            using (var sr = new StringReader(xml))
-//            {
-                var docNav = new XPathDocument(new StringReader(Payload));
-                var nav = docNav.CreateNavigator();
-//
-//                var computer = nav.SelectSingleNode(@"/Event/System/Computer");
-//                var channel = nav.SelectSingleNode(@"/Event/System/Channel");
-//                var eventRecordId = nav.SelectSingleNode(@"/Event/System/EventRecordID");
-//                var eventId = nav.SelectSingleNode(@"/Event/System/EventID");
-//                var level = nav.SelectSingleNode(@"/Event/System/Level");
-//                var timeCreated = nav.SelectSingleNode(@"/Event/System/TimeCreated")?.GetAttribute("SystemTime", "");
-//                var provider = nav.SelectSingleNode(@"/Event/System/Provider")?.GetAttribute("Name", "");
-//                var processId = nav.SelectSingleNode(@"/Event/System/Execution")?.GetAttribute("ProcessID", "");
-//                var threadId = nav.SelectSingleNode(@"/Event/System/Execution")?.GetAttribute("ThreadID", "");
-//                var userId = nav.SelectSingleNode(@"/Event/System/Security")?.GetAttribute("UserID", "");
-//
-//                TimeCreated = DateTimeOffset.Parse(timeCreated, null, DateTimeStyles.AssumeUniversal).ToUniversalTime();
-//                if (eventId != null)
-//                {
-//                    EventId = eventId.ValueAsInt;
-//                }
-//
-//                if (level != null)
-//                {
-//                    Level = level.ValueAsInt;
-//                }
-//
-//                if (eventRecordId != null)
-//                {
-//                    EventRecordId = eventRecordId.Value;
-//                }
-//
-//                if (processId != null)
-//                {
-//                    ProcessId = int.Parse(processId);
-//                }
-//
-//                if (threadId != null)
-//                {
-//                    ThreadId = int.Parse(threadId);
-//                }
-//
-//                var payloadNode = nav.SelectSingleNode(@"/Event/EventData");
-//                if (payloadNode == null)
-//                {
-//                    payloadNode = nav.SelectSingleNode(@"/Event/UserData");
-//                }
-//
-//                var payloadXml = payloadNode?.OuterXml;
+            var docNav = new XPathDocument(new StringReader(Payload));
+            var nav = docNav.CreateNavigator();
 
+            if (EventLog.EventLogMaps.ContainsKey($"{EventId}-{Channel.ToString().ToUpperInvariant()}"))
+            {
+                l.Trace($"Found map for event id {EventId} with Channel '{Channel}'!");
+                var map = EventLog.EventLogMaps[$"{EventId}-{Channel.ToString().ToUpperInvariant()}"];
 
-                if (EventLog.EventLogMaps.ContainsKey($"{EventId}-{Channel.ToString().ToUpperInvariant()}"))
+                MapDescription = map.Description;
+
+                foreach (var mapEntry in map.Maps)
                 {
-                    l.Trace($"Found map for event id {EventId} with Channel '{Channel}'!");
-                    var map = EventLog.EventLogMaps[$"{EventId}-{Channel.ToString().ToUpperInvariant()}"];
+                    var valProps = new Dictionary<string, string>();
 
-                    MapDescription = map.Description;
-
-                    foreach (var mapEntry in map.Maps)
+                    foreach (var me in mapEntry.Values)
                     {
-                        var valProps = new Dictionary<string, string>();
-
-                        foreach (var me in mapEntry.Values)
+                        //xpath out variables
+                        var propVal = nav.SelectSingleNode(me.Value.Replace("/Event/","/")); //strip this off since its now missing from the xml we need to search
+                        if (propVal != null)
                         {
-                            //xpath out variables
-                            var propVal = nav.SelectSingleNode(me.Value.Replace("/Event/","/")); //strip this off since its now missing from the xml we need to search
-                            if (propVal != null)
+                            var propValue = propVal.Value;
+
+                            if (me.Refine.IsNullOrEmpty() == false)
                             {
-                                var propValue = propVal.Value;
+                                var hits = new List<string>();
 
-                                if (me.Refine.IsNullOrEmpty() == false)
+                                //regex time
+                                MatchCollection allMatchResults = null;
+                                try
                                 {
-                                    var hits = new List<string>();
-
-                                    //regex time
-                                    MatchCollection allMatchResults = null;
-                                    try
+                                    var regexObj = new Regex(me.Refine, RegexOptions.IgnoreCase);
+                                    allMatchResults = regexObj.Matches(propValue);
+                                    if (allMatchResults.Count > 0)
                                     {
-                                        var regexObj = new Regex(me.Refine, RegexOptions.IgnoreCase);
-                                        allMatchResults = regexObj.Matches(propValue);
-                                        if (allMatchResults.Count > 0)
+                                        // Access individual matches using allMatchResults.Item[]
+
+                                        foreach (Match allMatchResult in allMatchResults)
                                         {
-                                            // Access individual matches using allMatchResults.Item[]
-
-                                            foreach (Match allMatchResult in allMatchResults)
-                                            {
-                                                hits.Add(allMatchResult.Value);
-                                            }
-
-                                            propValue = string.Join(" | ", hits);
+                                            hits.Add(allMatchResult.Value);
                                         }
-                                    }
-                                    catch (ArgumentException)
-                                    {
-                                        // Syntax error in the regular expression
+
+                                        propValue = string.Join(" | ", hits);
                                     }
                                 }
-
-                                valProps.Add(me.Name, propValue);
+                                catch (ArgumentException)
+                                {
+                                    // Syntax error in the regular expression
+                                }
                             }
-                            else
-                            {
-                                valProps.Add(me.Name, string.Empty);
-                                l.Warn(
-                                    $"Record # {RecordNumber} (Event Record Id: {EventRecordId}): In map for event '{map.EventId}', Property '{me.Value}' not found! Replacing with empty string");
-                            }
+
+                            valProps.Add(me.Name, propValue);
                         }
-
-                        //we have the values, now substitute
-                        var propertyValue = mapEntry.PropertyValue;
-                        foreach (var valProp in valProps)
+                        else
                         {
-                            propertyValue = propertyValue.Replace($"%{valProp.Key}%", valProp.Value);
-                        }
-
-                        var propertyToUpdate = mapEntry.Property.ToUpperInvariant();
-
-                        if (valProps.Count == 0)
-                        {
-                            propertyToUpdate = "NOMATCH"; //prevents variables from showing up in the CSV
-                        }
-
-                        //we should now have our new value, so stick it in its place
-                        switch (propertyToUpdate)
-                        {
-                            case "USERNAME":
-                                UserName = propertyValue;
-                                break;
-                            case "REMOTEHOST":
-                                RemoteHost = propertyValue;
-                                break;
-                            case "EXECUTABLEINFO":
-                                ExecutableInfo = propertyValue;
-                                break;
-                            case "PAYLOADDATA1":
-                                PayloadData1 = propertyValue;
-                                break;
-                            case "PAYLOADDATA2":
-                                PayloadData2 = propertyValue;
-                                break;
-                            case "PAYLOADDATA3":
-                                PayloadData3 = propertyValue;
-                                break;
-                            case "PAYLOADDATA4":
-                                PayloadData4 = propertyValue;
-                                break;
-                            case "PAYLOADDATA5":
-                                PayloadData5 = propertyValue;
-                                break;
-                            case "PAYLOADDATA6":
-                                PayloadData6 = propertyValue;
-                                break;
-                            case "NOMATCH":
-                                //when a property was not found.
-                                break;
-                            default:
-                                l.Warn(
-                                    $"Unknown property name '{propertyToUpdate}'! Dropping mapping value of '{propertyValue}'");
-                                break;
+                            valProps.Add(me.Name, string.Empty);
+                            l.Warn(
+                                $"Record # {RecordNumber} (Event Record Id: {EventRecordId}): In map for event '{map.EventId}', Property '{me.Value}' not found! Replacing with empty string");
                         }
                     }
-                }
 
-                //sanity checks
-//                UserId = userId ?? string.Empty;
-//                Provider = provider ?? string.Empty;
-//                Channel = channel?.Value ?? string.Empty;
-//                Computer = computer?.Value ?? string.Empty;
-//                Payload = payloadXml ?? string.Empty;
-          //  }
+                    //we have the values, now substitute
+                    var propertyValue = mapEntry.PropertyValue;
+                    foreach (var valProp in valProps)
+                    {
+                        propertyValue = propertyValue.Replace($"%{valProp.Key}%", valProp.Value);
+                    }
+
+                    var propertyToUpdate = mapEntry.Property.ToUpperInvariant();
+
+                    if (valProps.Count == 0)
+                    {
+                        propertyToUpdate = "NOMATCH"; //prevents variables from showing up in the CSV
+                    }
+
+                    //we should now have our new value, so stick it in its place
+                    switch (propertyToUpdate)
+                    {
+                        case "USERNAME":
+                            UserName = propertyValue;
+                            break;
+                        case "REMOTEHOST":
+                            RemoteHost = propertyValue;
+                            break;
+                        case "EXECUTABLEINFO":
+                            ExecutableInfo = propertyValue;
+                            break;
+                        case "PAYLOADDATA1":
+                            PayloadData1 = propertyValue;
+                            break;
+                        case "PAYLOADDATA2":
+                            PayloadData2 = propertyValue;
+                            break;
+                        case "PAYLOADDATA3":
+                            PayloadData3 = propertyValue;
+                            break;
+                        case "PAYLOADDATA4":
+                            PayloadData4 = propertyValue;
+                            break;
+                        case "PAYLOADDATA5":
+                            PayloadData5 = propertyValue;
+                            break;
+                        case "PAYLOADDATA6":
+                            PayloadData6 = propertyValue;
+                            break;
+                        case "NOMATCH":
+                            //when a property was not found.
+                            break;
+                        default:
+                            l.Warn(
+                                $"Unknown property name '{propertyToUpdate}'! Dropping mapping value of '{propertyValue}'");
+                            break;
+                    }
+                }
+            }
         }
 
         public string ConvertPayloadToXml()
