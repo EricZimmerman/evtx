@@ -715,7 +715,6 @@ namespace EvtxECmd
 
                 foreach (var eventRecord in evt.GetEventRecords())
                 {
-                    eventRecord.BuildProperties();
                     if (_includeIds.Count > 0)
                     {
                         if (_includeIds.Contains(eventRecord.EventId) == false)

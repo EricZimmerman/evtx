@@ -360,7 +360,6 @@ namespace evtx.Test
                     var es = new EventLog(fs);
 
                     foreach (var eventRecord in es.GetEventRecords())
-                        //            l.Info($"Record: {eventRecord}");
                     {
                         eventRecord.ConvertPayloadToXml();
                     }

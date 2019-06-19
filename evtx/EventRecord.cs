@@ -50,6 +50,8 @@ namespace evtx
                     eof = true;
                 }
             }
+
+            BuildProperties();
         }
 
         public string PayloadData1 { get; private set; }
@@ -99,63 +101,113 @@ namespace evtx
         {
             var l = LogManager.GetLogger("EventRecord");
             var xml = ConvertPayloadToXml();
-
-
-            using (var sr = new StringReader(xml))
+            
+            var reader = XmlReader.Create(new StringReader(xml));
+            reader.MoveToContent();
+            // Parse the file and display each of the nodes.
+            while (reader.Read())
             {
-                var docNav = new XPathDocument(sr);
+                if (reader.IsStartElement())
+                {
+                    switch (reader.Name)
+                    {
+                        case "Computer":
+                            reader.Read();
+                            Computer = reader.Value;
+                            break;
+                        case "Channel":
+                            reader.Read();
+                            Channel = reader.Value;
+                            break;
+                        case "EventRecordID":
+                            EventRecordId = reader.ReadElementContentAsString();
+                            break;
+                        case "EventID":
+                            EventId = reader.ReadElementContentAsInt();
+                            break;
+                        case "Level":
+                            Level = reader.ReadElementContentAsInt();
+                            break;
+                        case "TimeCreated":
+                            var st = reader.GetAttribute("SystemTime");
+                            TimeCreated = DateTimeOffset.Parse(st, null, DateTimeStyles.AssumeUniversal).ToUniversalTime();
+                            break;
+                        case "Provider":
+                            Provider = reader.GetAttribute("Name");
+                            break;
+                        case "Execution":
+                            ProcessId = int.Parse(reader.GetAttribute("ProcessID"));
+                            ThreadId = int.Parse(reader.GetAttribute("ThreadID"));
+                            break;
+                        case "Security":
+                            UserId = reader.GetAttribute("UserID");
+                            break;
+                        case "EventData":
+                        case "UserData":
+                            Payload = reader.ReadOuterXml();
+                            break;
+                    }
+                }
+            }
+
+            return;
+
+            //OLD
+//            using (var sr = new StringReader(xml))
+//            {
+                var docNav = new XPathDocument(new StringReader(Payload));
                 var nav = docNav.CreateNavigator();
+//
+//                var computer = nav.SelectSingleNode(@"/Event/System/Computer");
+//                var channel = nav.SelectSingleNode(@"/Event/System/Channel");
+//                var eventRecordId = nav.SelectSingleNode(@"/Event/System/EventRecordID");
+//                var eventId = nav.SelectSingleNode(@"/Event/System/EventID");
+//                var level = nav.SelectSingleNode(@"/Event/System/Level");
+//                var timeCreated = nav.SelectSingleNode(@"/Event/System/TimeCreated")?.GetAttribute("SystemTime", "");
+//                var provider = nav.SelectSingleNode(@"/Event/System/Provider")?.GetAttribute("Name", "");
+//                var processId = nav.SelectSingleNode(@"/Event/System/Execution")?.GetAttribute("ProcessID", "");
+//                var threadId = nav.SelectSingleNode(@"/Event/System/Execution")?.GetAttribute("ThreadID", "");
+//                var userId = nav.SelectSingleNode(@"/Event/System/Security")?.GetAttribute("UserID", "");
+//
+//                TimeCreated = DateTimeOffset.Parse(timeCreated, null, DateTimeStyles.AssumeUniversal).ToUniversalTime();
+//                if (eventId != null)
+//                {
+//                    EventId = eventId.ValueAsInt;
+//                }
+//
+//                if (level != null)
+//                {
+//                    Level = level.ValueAsInt;
+//                }
+//
+//                if (eventRecordId != null)
+//                {
+//                    EventRecordId = eventRecordId.Value;
+//                }
+//
+//                if (processId != null)
+//                {
+//                    ProcessId = int.Parse(processId);
+//                }
+//
+//                if (threadId != null)
+//                {
+//                    ThreadId = int.Parse(threadId);
+//                }
+//
+//                var payloadNode = nav.SelectSingleNode(@"/Event/EventData");
+//                if (payloadNode == null)
+//                {
+//                    payloadNode = nav.SelectSingleNode(@"/Event/UserData");
+//                }
+//
+//                var payloadXml = payloadNode?.OuterXml;
 
-                var computer = nav.SelectSingleNode(@"/Event/System/Computer");
-                var channel = nav.SelectSingleNode(@"/Event/System/Channel");
-                var eventRecordId = nav.SelectSingleNode(@"/Event/System/EventRecordID");
-                var eventId = nav.SelectSingleNode(@"/Event/System/EventID");
-                var level = nav.SelectSingleNode(@"/Event/System/Level");
-                var timeCreated = nav.SelectSingleNode(@"/Event/System/TimeCreated")?.GetAttribute("SystemTime", "");
-                var provider = nav.SelectSingleNode(@"/Event/System/Provider")?.GetAttribute("Name", "");
-                var processId = nav.SelectSingleNode(@"/Event/System/Execution")?.GetAttribute("ProcessID", "");
-                var threadId = nav.SelectSingleNode(@"/Event/System/Execution")?.GetAttribute("ThreadID", "");
-                var userId = nav.SelectSingleNode(@"/Event/System/Security")?.GetAttribute("UserID", "");
 
-                TimeCreated = DateTimeOffset.Parse(timeCreated, null, DateTimeStyles.AssumeUniversal).ToUniversalTime();
-                if (eventId != null)
+                if (EventLog.EventLogMaps.ContainsKey($"{EventId}-{Channel.ToString().ToUpperInvariant()}"))
                 {
-                    EventId = eventId.ValueAsInt;
-                }
-
-                if (level != null)
-                {
-                    Level = level.ValueAsInt;
-                }
-
-                if (eventRecordId != null)
-                {
-                    EventRecordId = eventRecordId.Value;
-                }
-
-                if (processId != null)
-                {
-                    ProcessId = int.Parse(processId);
-                }
-
-                if (threadId != null)
-                {
-                    ThreadId = int.Parse(threadId);
-                }
-
-                var payloadNode = nav.SelectSingleNode(@"/Event/EventData");
-                if (payloadNode == null)
-                {
-                    payloadNode = nav.SelectSingleNode(@"/Event/UserData");
-                }
-
-                var payloadXml = payloadNode?.OuterXml;
-
-
-                if (EventLog.EventLogMaps.ContainsKey($"{EventId}-{channel.ToString().ToUpperInvariant()}"))
-                {
-                    l.Trace($"Found map for event id {EventId} with Channel '{channel}'!");
-                    var map = EventLog.EventLogMaps[$"{EventId}-{channel.ToString().ToUpperInvariant()}"];
+                    l.Trace($"Found map for event id {EventId} with Channel '{Channel}'!");
+                    var map = EventLog.EventLogMaps[$"{EventId}-{Channel.ToString().ToUpperInvariant()}"];
 
                     MapDescription = map.Description;
 
@@ -166,7 +218,7 @@ namespace evtx
                         foreach (var me in mapEntry.Values)
                         {
                             //xpath out variables
-                            var propVal = nav.SelectSingleNode(me.Value);
+                            var propVal = nav.SelectSingleNode(me.Value.Replace("/Event/","/")); //strip this off since its now missing from the xml we need to search
                             if (propVal != null)
                             {
                                 var propValue = propVal.Value;
@@ -265,12 +317,12 @@ namespace evtx
                 }
 
                 //sanity checks
-                UserId = userId ?? string.Empty;
-                Provider = provider ?? string.Empty;
-                Channel = channel?.Value ?? string.Empty;
-                Computer = computer?.Value ?? string.Empty;
-                Payload = payloadXml ?? string.Empty;
-            }
+//                UserId = userId ?? string.Empty;
+//                Provider = provider ?? string.Empty;
+//                Channel = channel?.Value ?? string.Empty;
+//                Computer = computer?.Value ?? string.Empty;
+//                Payload = payloadXml ?? string.Empty;
+          //  }
         }
 
         public string ConvertPayloadToXml()

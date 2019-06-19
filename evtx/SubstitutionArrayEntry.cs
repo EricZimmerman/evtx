@@ -24,7 +24,7 @@ namespace evtx
 
         public string GetDataAsString()
         {
-            var index = 0;
+            int index;
             switch (ValType)
             {
                 case TagBuilder.ValueType.NullType:
