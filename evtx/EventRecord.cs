@@ -150,7 +150,7 @@ namespace evtx
                 }
             }
 
-            return;
+       
 
             //OLD
 //            using (var sr = new StringReader(xml))
