@@ -12,7 +12,6 @@ namespace evtx
 {
     public class ChunkInfo
     {
-        public Dictionary<long, int> EventIdMetrics;
 
         public ChunkInfo(byte[] chunkBytes, long absoluteOffset, int chunkNumber)
         {
@@ -26,7 +25,6 @@ namespace evtx
             ChunkNumber = chunkNumber;
 
             ErrorRecords = new Dictionary<long, string>();
-            EventIdMetrics = new Dictionary<long, int>();
 
             EventRecords = new List<EventRecord>();
 
@@ -64,6 +62,8 @@ namespace evtx
             StringTableEntries = new Dictionary<uint, StringTableEntry>();
 
             var stringOffsets = new List<uint>();
+
+            var ticksForTimeDelta = 10000000 * EventLog.TimeDiscrepancyThreshold; //10000000 == ticks in a second
 
             while (index < tableData.Length)
             {
@@ -212,19 +212,15 @@ namespace evtx
 
                     EventRecords.Add(er);
 
-                    if (EventLog.LastSeenTicks > 0 && EventLog.LastSeenTicks > er.TimeCreated.Ticks)
+
+                    //ticksForTimeDelta == totalticks for discrepancy value
+                    if (EventLog.LastSeenTicks > 0 && EventLog.LastSeenTicks - ticksForTimeDelta > er.TimeCreated.Ticks)
                     {
                         l.Warn($"Record #: {er.RecordNumber} (timestamp: {er.TimeCreated:yyyy-MM-dd HH:mm:ss.fffffff}): Warning! Time just went backwards! Last seen time before change: {new DateTimeOffset(EventLog.LastSeenTicks,TimeSpan.Zero).ToUniversalTime():yyyy-MM-dd HH:mm:ss.fffffff}");
                     }
 
                     EventLog.LastSeenTicks = er.TimeCreated.Ticks;
 
-                    if (EventIdMetrics.ContainsKey(er.EventId) == false)
-                    {
-                        EventIdMetrics.Add(er.EventId, 0);
-                    }
-
-                    EventIdMetrics[er.EventId] += 1;
                 }
                 catch (Exception e)
                 {
@@ -237,17 +233,12 @@ namespace evtx
                     {
                         ErrorRecords.Add(recordNumber, e.Message);
                     }
-
-                    
                 }
             }
         }
 
         public uint LastRecordOffset { get; }
         public uint FreeSpaceOffset { get; }
-
-        public DateTimeOffset? EarliestTimestamp => EventRecords.OrderBy(t => t.TimeCreated).FirstOrDefault()?.TimeCreated;
-        public DateTimeOffset? LatestTimestamp => EventRecords.OrderBy(t => t.TimeCreated).LastOrDefault()?.TimeCreated;
 
         public Dictionary<int, Template> Templates { get; }
 
@@ -270,13 +261,6 @@ namespace evtx
         public byte[] ChunkBytes { get; set; }
         public long AbsoluteOffset { get; }
         public int ChunkNumber { get; }
-
-        public void CleanupData()
-        {
-            ChunkBytes = null;
-            StringTableEntries.Clear();
-            Templates.Clear();
-        }
 
         public StringTableEntry GetStringTableEntry(uint offset)
         {

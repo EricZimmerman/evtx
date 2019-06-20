@@ -20,9 +20,6 @@
         <TestName>evtx.Test.TestMain.DirTestOther</TestName>
       </NamedTestSelector>
       <NamedTestSelector>
-        <TestName>evtx.Test.TestMain.ApplicationLog</TestName>
-      </NamedTestSelector>
-      <NamedTestSelector>
         <TestName>evtx.Test.TestMain.DBlakeSystemLog</TestName>
       </NamedTestSelector>
       <NamedTestSelector>

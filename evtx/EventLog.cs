@@ -28,21 +28,31 @@ namespace evtx
             IsFull = 0x2
         }
 
+        private const long EventSignature = 0x00656c6946666c45;
+        private const long ChunkSignature = 0x6B6E6843666C45;
+
         public static long LastSeenTicks;
 
         private static readonly Logger Logger = LogManager.GetLogger("EventLog");
+
+        /// <summary>
+        ///     The number of seconds to use when comparing timestamps. Only event records greater than this value from the
+        ///     previous record will be reported as a timestamp anomaly.
+        /// </summary>
+        public static int TimeDiscrepancyThreshold = 1;
+
+        private readonly Stream _stream;
 
         public Dictionary<long, int> EventIdMetrics;
 
         public EventLog(Stream fileStream)
         {
-            const long eventSignature = 0x00656c6946666c45;
-            const long chunkSignature = 0x6B6E6843666C45;
+            _stream = fileStream;
 
             var headerBytes = new byte[4096];
             fileStream.Read(headerBytes, 0, 4096);
 
-            if (BitConverter.ToInt64(headerBytes, 0) != eventSignature)
+            if (BitConverter.ToInt64(headerBytes, 0) != EventSignature)
             {
                 throw new Exception("Invalid signature! Expected 'ElfFile'");
             }
@@ -69,102 +79,20 @@ namespace evtx
             Crc32Algorithm.ComputeAndWriteToEnd(inputArray); // last 4 bytes contains CRC
             CalculatedCrc = BitConverter.ToInt32(inputArray, inputArray.Length - 4);
 
-            //we are at offset 0x1000 and ready to start
-
-            //chunk size == 65536, or 0x10000
-
-            var chunkBuffer = new byte[0x10000];
-
-            Chunks = new List<ChunkInfo>();
-
-            var chunkOffset = fileStream.Position;
-            var bytesRead = fileStream.Read(chunkBuffer, 0, 0x10000);
-
-            EventIdMetrics = new Dictionary<long, int>();
-
-            Logger.Trace($"Event Log data before processing chunks:\r\n{this}");
-
-            Logger.Debug("Chunk processing beginning");
-
-            var chunkNumber = 0;
-            while (bytesRead > 0)
-            {
-                var chunkSig = BitConverter.ToInt64(chunkBuffer, 0);
-
-                Logger.Debug($"Processing chunk at offset 0x{chunkOffset:X}. Events found so far: {TotalEventLogs:N0}");
-
-                Logger.Trace(
-                    $"chunk offset: 0x{chunkOffset:X}, sig: {Encoding.ASCII.GetString(chunkBuffer, 0, 8)} signature val: 0x{chunkSig:X}");
-                
-                if (chunkSig == chunkSignature)
-                {
-                    var ci = new ChunkInfo(chunkBuffer, chunkOffset, chunkNumber);
-                    ci.CleanupData();
-                    
-                    Chunks.Add(ci);
-                    TotalEventLogs += ci.EventRecords.Count;
-                }
-                else
-                {
-                    Logger.Trace($"Skipping chunk at 0x{chunkOffset:X} as it does not have correct signature");
-                }
-
-                chunkOffset = fileStream.Position;
-                bytesRead = fileStream.Read(chunkBuffer, 0, 0x10000);
-
-                chunkNumber += 1;
-            }
-
-            Logger.Debug("Chunk processing complete. Building metrics");
-
             ErrorRecords = new Dictionary<long, string>();
-
-            foreach (var chunkInfo in Chunks)
-            {
-                foreach (var eventIdMetric in chunkInfo.EventIdMetrics)
-                {
-                    if (EventIdMetrics.ContainsKey(eventIdMetric.Key) == false)
-                    {
-                        EventIdMetrics.Add(eventIdMetric.Key, 0);
-                    }
-
-                    EventIdMetrics[eventIdMetric.Key] += eventIdMetric.Value;
-                }
-
-                foreach (var chunkInfoErrorRecord in chunkInfo.ErrorRecords)
-                {
-                    ErrorRecords.Add(chunkInfoErrorRecord.Key, chunkInfoErrorRecord.Value);
-                }
-            }
-
-            Logger.Debug("Metrics complete");
         }
 
-        private DateTimeOffset? GetTimestamp(bool earliest)
-        {
-            if (earliest)
-            {
-                var fc = Chunks.OrderBy(t => t.FirstEventRecordIdentifier).FirstOrDefault();
-                return fc?.EarliestTimestamp;
-            }
-          
-            var lc = Chunks.OrderBy(t => t.FirstEventRecordIdentifier).LastOrDefault();
-            return lc?.LatestTimestamp;
 
-        }
+        public DateTimeOffset? EarliestTimestamp { get; private set; }
+        public DateTimeOffset? LatestTimestamp { get; private set; }
 
-        public DateTimeOffset? EarliestTimestamp => GetTimestamp(true);
-        public DateTimeOffset? LatestTimestamp => GetTimestamp(false);
-     
 
         public static Dictionary<string, EventLogMap> EventLogMaps { get; private set; } =
             new Dictionary<string, EventLogMap>();
 
-        public int TotalEventLogs { get; }
+        public int TotalEventLogs { get; private set; }
 
         public long NextRecordId { get; }
-
-        public List<ChunkInfo> Chunks { get; }
 
         public long FirstChunkNumber { get; }
         public long LastChunkNumber { get; }
@@ -188,7 +116,7 @@ namespace evtx
             var f = new DirectoryEnumerationFilters();
             f.InclusionFilter = fsei => fsei.Extension.ToUpperInvariant() == ".MAP";
 
-            f.RecursionFilter = null;//entryInfo => !entryInfo.IsMountPoint && !entryInfo.IsSymbolicLink;
+            f.RecursionFilter = null; //entryInfo => !entryInfo.IsMountPoint && !entryInfo.IsSymbolicLink;
 
             f.ErrorFilter = (errorCode, errorMessage, pathProcessed) => true;
 
@@ -348,13 +276,83 @@ namespace evtx
 
         public IEnumerable<EventRecord> GetEventRecords()
         {
-            foreach (var chunkInfo in Chunks)
+            //we are at offset 0x1000 and ready to start
+
+            //chunk size == 65536, or 0x10000
+            var chunkBuffer = new byte[0x10000];
+
+            var chunkOffset = _stream.Position;
+            var bytesRead = _stream.Read(chunkBuffer, 0, 0x10000);
+
+            EventIdMetrics = new Dictionary<long, int>();
+
+            var chunkNumber = 0;
+            while (bytesRead > 0)
             {
-                foreach (var chunkInfoEventRecord in chunkInfo.EventRecords)
+                var chunkSig = BitConverter.ToInt64(chunkBuffer, 0);
+
+                Logger.Debug($"Processing chunk at offset 0x{chunkOffset:X}. Events found so far: {TotalEventLogs:N0}");
+
+                if (chunkSig == ChunkSignature)
                 {
-                    yield return chunkInfoEventRecord;
+                    var ci = new ChunkInfo(chunkBuffer, chunkOffset, chunkNumber);
+
+                    foreach (var er in ci.EventRecords)
+                    {
+                        if (EarliestTimestamp == null)
+                        {
+                            EarliestTimestamp = er.Timestamp;
+                        }
+                        else
+                        {
+                            if (er.Timestamp.Ticks < EarliestTimestamp.Value.Ticks)
+                            {
+                                EarliestTimestamp = er.Timestamp;
+                            }
+                        }
+
+                        if (LatestTimestamp == null)
+                        {
+                            LatestTimestamp = er.Timestamp;
+                        }
+                        else
+                        {
+                            if (er.Timestamp.Ticks > LatestTimestamp.Value.Ticks)
+                            {
+                                LatestTimestamp = er.Timestamp;
+                            }
+                        }
+
+                        if (EventIdMetrics.ContainsKey(er.EventId) == false)
+                        {
+                            EventIdMetrics.Add(er.EventId, 0);
+                        }
+
+                        EventIdMetrics[er.EventId] += 1;
+
+                        yield return er;
+                    }
+
+                    foreach (var chunkInfoErrorRecord in ci.ErrorRecords)
+                    {
+                        ErrorRecords.Add(chunkInfoErrorRecord.Key, chunkInfoErrorRecord.Value);
+                    }
+
+                    TotalEventLogs += ci.EventRecords.Count;
                 }
+                else
+                {
+                    Logger.Trace($"Skipping chunk at 0x{chunkOffset:X} as it does not have correct signature");
+                }
+
+                chunkOffset = _stream.Position;
+                bytesRead = _stream.Read(chunkBuffer, 0, 0x10000);
+
+                chunkNumber += 1;
             }
+
+
+
         }
     }
 }

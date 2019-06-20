@@ -1090,7 +1090,7 @@ namespace evtx.Test
         public void ApplicationLog()
         {
             var config = new LoggingConfiguration();
-            var loglevel = LogLevel.Debug;
+            var loglevel = LogLevel.Info;
 
             var layout = @"${message}";
 
@@ -1112,16 +1112,20 @@ namespace evtx.Test
 
             using (var fs = new FileStream(sysLog, FileMode.Open, FileAccess.Read))
             {
+                
                 var es = new EventLog(fs);
 
                 foreach (var eventRecord in es.GetEventRecords())
                     //      l.Info($"Record: {eventRecord}");
                 {
-                    eventRecord.ConvertPayloadToXml();
+                   // eventRecord.ConvertPayloadToXml();
                 }
+
+                   l.Info($"early : {es.EarliestTimestamp}");
+                l.Info($"last: {es.LatestTimestamp}");
             }
 
-            l.Info($"Total: {total}");
+         
         }
 
         [Test]
