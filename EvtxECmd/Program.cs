@@ -140,6 +140,12 @@ namespace EvtxECmd
                     "When true, include event *payload* as json. Default is TRUE.")
                 .SetDefault(true);
 
+            _fluentCommandLineParser.Setup(arg => arg.TimeDiscrepancyThreshold)
+                .As("tdt")
+                .WithDescription(
+                    "The number of seconds to use for time discrepancy detection. Default is 1 second")
+                .SetDefault(1);
+
             _fluentCommandLineParser.Setup(arg => arg.Metrics)
                 .As("met")
                 .WithDescription(
@@ -517,6 +523,7 @@ namespace EvtxECmd
                 Console.WriteLine();
             }
 
+            EventLog.TimeDiscrepancyThreshold = _fluentCommandLineParser.Object.TimeDiscrepancyThreshold;
 
             if (_fluentCommandLineParser.Object.File.IsNullOrEmpty() == false)
             {
@@ -524,6 +531,13 @@ namespace EvtxECmd
                 {
                     _logger.Warn($"'{_fluentCommandLineParser.Object.File}' does not exist! Exiting");
                     return;
+                }
+
+                if (_swXml == null && _swJson == null && _swCsv == null)
+                {
+                    //no need for maps
+                    _logger.Debug("Clearing map collection since no output specified");
+                    EventLog.EventLogMaps.Clear();
                 }
 
                 _fluentCommandLineParser.Object.Dedupe = false;
@@ -566,6 +580,13 @@ namespace EvtxECmd
 
                 var files2 =
                     Directory.EnumerateFileSystemEntries(Path.GetFullPath(_fluentCommandLineParser.Object.Directory), dirEnumOptions, f);
+
+                if (_swXml == null && _swJson == null && _swCsv == null)
+                {
+                    //no need for maps
+                    _logger.Debug("Clearing map collection since no output specified");
+                    EventLog.EventLogMaps.Clear();
+                }
                 
                 foreach (var file in files2)
                 {
@@ -702,19 +723,15 @@ namespace EvtxECmd
                     _seenHashes.Add(sha);
                 }
 
-                var fsw = new Stopwatch();
-                fsw.Start();
-
                 var evt = new EventLog(fileS);
 
-                fsw.Stop();
-                var seenRecords = 0;
+                _logger.Info($"Chunk count: {evt.ChunkCount:N0}, Iterating records...");
 
-                _logger.Info($"File processing completed in {fsw.Elapsed.TotalSeconds:N3} seconds. Iterating records...");
-                
+                var seenRecords = 0;
 
                 foreach (var eventRecord in evt.GetEventRecords())
                 {
+                    Console.Title = $"Processing chunk {eventRecord.ChunkNumber:N0} of {evt.ChunkCount} % complete: {((double)eventRecord.ChunkNumber/(double)evt.ChunkCount):P} Records found: {seenRecords:N0}";
                     if (_includeIds.Count > 0)
                     {
                         if (_includeIds.Contains(eventRecord.EventId) == false)
@@ -951,6 +968,8 @@ namespace EvtxECmd
         public bool FullJson { get; set; }
         public bool PayloadAsJson { get; set; }
         public bool Metrics { get; set; }
+
+        public int TimeDiscrepancyThreshold { get; set; }
 
         public bool Vss { get; set; }
         public bool Dedupe { get; set; }

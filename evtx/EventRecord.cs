@@ -21,6 +21,8 @@ namespace evtx
 
             RecordPosition = recordPosition;
 
+            ChunkNumber = chunk.ChunkNumber;
+
             recordData.ReadInt32(); //signature
 
             Size = recordData.ReadUInt32();
@@ -65,6 +67,7 @@ namespace evtx
         public string ExecutableInfo { get; private set; }
         public string MapDescription { get; private set; }
 
+        public int ChunkNumber { get; }
 
         public string Computer { get; private set; }
 
@@ -136,8 +139,18 @@ namespace evtx
                             Provider = reader.GetAttribute("Name");
                             break;
                         case "Execution":
-                            ProcessId = int.Parse(reader.GetAttribute("ProcessID"));
-                            ThreadId = int.Parse(reader.GetAttribute("ThreadID"));
+                            var pid = reader.GetAttribute("ProcessID");
+                            var tid = reader.GetAttribute("ThreadID");
+                            if (pid!=null)
+                            {
+                                ProcessId = int.Parse(pid);
+                            }
+
+                            if (tid != null)
+                            {
+                                ThreadId = int.Parse(tid);
+                            }
+                            
                             break;
                         case "Security":
                             UserId = reader.GetAttribute("UserID");
@@ -150,15 +163,18 @@ namespace evtx
                 }
             }
 
-       
-
-            var docNav = new XPathDocument(new StringReader(Payload));
-            var nav = docNav.CreateNavigator();
-
-            if (EventLog.EventLogMaps.ContainsKey($"{EventId}-{Channel.ToString().ToUpperInvariant()}"))
+            if (EventLog.EventLogMaps.Count == 0)
             {
+                return;
+            }
+
+            if (EventLog.EventLogMaps.ContainsKey($"{EventId}-{Channel.ToUpperInvariant()}"))
+            {
+                var docNav = new XPathDocument(new StringReader(Payload));
+                var nav = docNav.CreateNavigator();
+
                 l.Trace($"Found map for event id {EventId} with Channel '{Channel}'!");
-                var map = EventLog.EventLogMaps[$"{EventId}-{Channel.ToString().ToUpperInvariant()}"];
+                var map = EventLog.EventLogMaps[$"{EventId}-{Channel.ToUpperInvariant()}"];
 
                 MapDescription = map.Description;
 
@@ -179,15 +195,13 @@ namespace evtx
                                 var hits = new List<string>();
 
                                 //regex time
-                                MatchCollection allMatchResults = null;
                                 try
                                 {
                                     var regexObj = new Regex(me.Refine, RegexOptions.IgnoreCase);
-                                    allMatchResults = regexObj.Matches(propValue);
+                                    var allMatchResults = regexObj.Matches(propValue);
                                     if (allMatchResults.Count > 0)
                                     {
                                         // Access individual matches using allMatchResults.Item[]
-
                                         foreach (Match allMatchResult in allMatchResults)
                                         {
                                             hits.Add(allMatchResult.Value);
@@ -278,8 +292,6 @@ namespace evtx
             }
 
             ti = (TemplateInstance) ti;
-
-           
 
             var xmld = new XmlDocument();
             var rawXml = ti.AsXml(null, RecordPosition).Replace("&", "&amp;");
