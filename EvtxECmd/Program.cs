@@ -739,7 +739,7 @@ namespace EvtxECmd
                     if (seenRecords % 10 == 0)
                     {
                         Console.Title = $"Processing chunk {eventRecord.ChunkNumber:N0} of {evt.ChunkCount} % complete: {((double)eventRecord.ChunkNumber/(double)evt.ChunkCount):P} Records found: {seenRecords:N0}";
-                    }
+                    }   
                     if (_includeIds.Count > 0)
                     {
                         if (_includeIds.Contains(eventRecord.EventId) == false)

@@ -67,7 +67,7 @@ namespace evtx
             MajorVersion = BitConverter.ToInt16(headerBytes, 0x26);
 
             var unusedHeaderSize = BitConverter.ToInt16(headerBytes, 0x28);
-            ChunkCount = BitConverter.ToInt16(headerBytes, 0x2A);
+            ChunkCount = BitConverter.ToUInt16(headerBytes, 0x2A);
 
             Flags = (EventLogFlag) BitConverter.ToInt32(headerBytes, 0x78);
 
@@ -97,7 +97,7 @@ namespace evtx
         public long FirstChunkNumber { get; }
         public long LastChunkNumber { get; }
 
-        public short ChunkCount { get; }
+        public ushort ChunkCount { get; }
 
         public int Crc { get; }
         public int CalculatedCrc { get; }
