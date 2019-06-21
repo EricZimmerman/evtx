@@ -734,21 +734,11 @@ namespace EvtxECmd
 
                 foreach (var eventRecord in evt.GetEventRecords())
                 {
-                    double something = evt.ChunkCount - eventRecord.ChunkNumber;
-                    var recPerSec = seenRecords / fsw.Elapsed.TotalSeconds;
-                    something /= recPerSec;
-
-                    if (double.IsPositiveInfinity(something))
-                    {
-                        something = 1;
-                    }
-
-                    var tsRemaining = TimeSpan.FromSeconds(something);
+           
 
                     if (seenRecords % 10 == 0)
                     {
-                        Console.Title = $"Processing chunk {eventRecord.ChunkNumber:N0} of {evt.ChunkCount} % complete: {((double)eventRecord.ChunkNumber/(double)evt.ChunkCount):P} Records found: {seenRecords:N0} Time remaining: {tsRemaining:g}";
-
+                        Console.Title = $"Processing chunk {eventRecord.ChunkNumber:N0} of {evt.ChunkCount} % complete: {((double)eventRecord.ChunkNumber/(double)evt.ChunkCount):P} Records found: {seenRecords:N0}";
                     }
                     if (_includeIds.Count > 0)
                     {
