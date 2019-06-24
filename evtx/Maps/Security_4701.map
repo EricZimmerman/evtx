@@ -1,0 +1,24 @@
+Author: Mark Hallman mark.hallman@gmail.com
+Description: A scheduled task was disabled
+EventId: 4701
+Channel: Security
+Maps: 
+  - 
+    Property: Username
+    PropertyValue: "%domain%\\%user%"
+    Values: 
+      - 
+        Name: domain
+        Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
+      - 
+        Name: user
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
+  - 
+    Property: PayloadData1
+    PropertyValue: "<name>: %<name>%"
+    Values: 
+      - 
+        Name: <name>
+        Value: "/Event/EventData/Data[@Name=\"<name>\"]"
+  
+# Valid properties include:

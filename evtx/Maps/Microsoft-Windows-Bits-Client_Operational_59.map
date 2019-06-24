@@ -1,0 +1,47 @@
+Author: Mark Hallman mark.hallman@gmail.com
+Description: Potential artifacts for Bitsadminexec
+EventId: 59
+Channel: Microsoft-Windows-Bits-Client/Operational
+Maps:
+#   -  
+#     Property: PayloadData1
+#     PropertyValue: desc "%desc%"
+#     Values: 
+#       - 
+#         Name: desc
+#         Value: "/Event/EventData/Data[@Name=\"name\"]"
+   -
+    Property: PayloadData2
+    PropertyValue: url "%url%"
+    Values: 
+      - 
+        Name: url
+        Value: "/Event/EventData/Data[@Name=\"url\"]"
+   -
+    Property: PayloadData3
+    PropertyValue: peer "%peer%"
+    Values: 
+      - 
+        Name: peer
+        Value: "/Event/EventData/Data[@Name=\"peer\"]"     
+   -
+    Property: PayloadData4
+    PropertyValue: fileLength "%fileLength%"
+    Values: 
+      - 
+        Name: fileLength
+        Value: "/Event/EventData/Data[@Name=\"fileLength\"]" 
+
+#       <EventData>
+#       <Data Name="transferId">{2515f08c-3969-4086-b4ec-6e8eca6b722e}</Data>
+#       <Data Name="name">backdoor</Data>
+#       <Data Name="Id">{b35c4a1d-4425-45be-92d1-b67183ae222f}</Data>
+#       <Data Name="url">C:\Windows\system32\cmd.exe</Data>
+#       <Data Name="peer">
+#       </Data>
+#       <Data Name="fileTime">2010-11-20T12:17:00.401000000Z</Data>
+#       <Data Name="fileLength">302592</Data>
+#       <Data Name="bytesTotal">302592</Data>
+#       <Data Name="bytesTransferred">0</Data>
+#       <Data Name="bytesTransferredFromPeer">0</Data>
+#     </EventData>

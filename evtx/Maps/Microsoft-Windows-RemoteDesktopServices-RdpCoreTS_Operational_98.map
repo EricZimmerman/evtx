@@ -1,0 +1,30 @@
+Author: Mark Hallman mark.hallman@gmail.com
+Description: Successful RDP Connections
+EventId: 98
+Channel: "Microsoft-Windows-RemoteDesktopServices-RdpCoreTS/Operational"
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "Path: %Path%"
+    Values: 
+      - 
+        Name: Path
+        Value: "/Event/EventData/Data[@Name=\"Path\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "ScriptBlockText: %ScriptBlockText%"
+    Values: 
+      - 
+        Name: ScriptBlockText
+        Value: "/Event/EventData/Data[@Name=\"ScriptBlockText\"]"
+        
+ 
+# Valid properties include:
+
+# <EventData>
+#     <Data Name="MessageNumber">2</Data>
+#     <Data Name="MessageTotal">8</Data>
+#     <Data Name="ScriptBlockText">eviceInfoList(DevInfoSet);, return ERROR_CLASS_MISMATCH;, }, return 0;, }, public static void ReleaseDeviceInfoSet(IntPtr DevInfoSet), {, SetupDiDestroyDeviceInfoList(DevInfoSet);, }, public static UInt32 ReinstallDevice(string DeviceID), {, UInt32 ResultCode = 0;, IntPtr LocalMachineInstance = IntPtr.Zero;, UInt32 DeviceInstance = 0;, UInt32 PendingTime = INFINITE;, UInt32 PendingTimeDetecting = 100;, UInt32 MaxTimes = 100;, IntPtr DeviceInfoSet = IntPtr.Zero;, SP_DEVINFO_DATA DeviceInfoData = new SP_DEVINFO_DATA();, </Data>
+#     <Data Name="ScriptBlockId">6bd602a5-9efa-41cf-ab3c-f3e71250f735</Data>
+#     <Data Name="Path">C:\Windows\TEMP\SDIAG_3ba8d316-e8df-4d71-83c7-3da214bee387\CL_Utility.ps1  DATA TRUNCATED IN THIS EXAMPLE</Data>
+#   </EventData>
