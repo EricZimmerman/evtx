@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Security.Principal;
 using System.Text;
 using System.Xml;
 using Alphaleonis.Win32.Filesystem;
+using Alphaleonis.Win32.Security;
 using evtx;
 using Exceptionless;
 using Fclp;
+using ICSharpCode.SharpZipLib.Zip;
 using Newtonsoft.Json;
 using NLog;
 using NLog.Config;
@@ -22,6 +25,7 @@ using CsvWriter = CsvHelper.CsvWriter;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using EventLog = evtx.EventLog;
 using File = Alphaleonis.Win32.Filesystem.File;
+using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
 using Path = Alphaleonis.Win32.Filesystem.Path;
 
 namespace EvtxECmd
@@ -169,6 +173,12 @@ namespace EvtxECmd
                     "Deduplicate -f or -d & VSCs based on SHA-1. First file found wins. Default is TRUE\r\n")
                 .SetDefault(true);
 
+            _fluentCommandLineParser.Setup(arg => arg.Sync)
+                .As("sync")
+                .WithDescription(
+                    "If true, the latest maps from https://github.com/EricZimmerman/evtx/tree/master/evtx/Maps are downloaded and local maps updated. Default is FALSE\r\n")
+                .SetDefault(false);
+
             _fluentCommandLineParser.Setup(arg => arg.Debug)
                 .As("debug")
                 .WithDescription("Show debug information during processing").SetDefault(false);
@@ -211,6 +221,21 @@ namespace EvtxECmd
                 return;
             }
 
+            if (_fluentCommandLineParser.Object.Sync)
+            {
+                try
+                {
+                    _logger.Info(header);
+                    UpdateFromRepo();
+                }
+                catch (Exception e)
+                {
+                    _logger.Error(e, $"There was an error checking for updates: {e.Message}");
+                }
+
+                Environment.Exit(0);
+            }
+
             if (_fluentCommandLineParser.Object.File.IsNullOrEmpty() &&
                 _fluentCommandLineParser.Object.Directory.IsNullOrEmpty())
             {
@@ -223,6 +248,8 @@ namespace EvtxECmd
             _logger.Info(header);
             _logger.Info("");
             _logger.Info($"Command line: {string.Join(" ", Environment.GetCommandLineArgs().Skip(1))}\r\n");
+
+           
 
             if (IsAdministrator() == false)
             {
@@ -566,12 +593,12 @@ namespace EvtxECmd
                 _logger.Info($"Looking for event log files in '{_fluentCommandLineParser.Object.Directory}'");
                 _logger.Info("");
 
-                var f = new DirectoryEnumerationFilters();
-                f.InclusionFilter = fsei => fsei.Extension.ToUpperInvariant() == ".EVTX";
-
-                f.RecursionFilter = entryInfo => !entryInfo.IsMountPoint && !entryInfo.IsSymbolicLink;
-
-                f.ErrorFilter = (errorCode, errorMessage, pathProcessed) => true;
+                var f = new DirectoryEnumerationFilters
+                {
+                    InclusionFilter = fsei => fsei.Extension.ToUpperInvariant() == ".EVTX",
+                    RecursionFilter = entryInfo => !entryInfo.IsMountPoint && !entryInfo.IsSymbolicLink,
+                    ErrorFilter = (errorCode, errorMessage, pathProcessed) => true
+                };
 
                 var dirEnumOptions =
                     DirectoryEnumerationOptions.Files | DirectoryEnumerationOptions.Recursive |
@@ -665,7 +692,120 @@ namespace EvtxECmd
             }
         }
 
-        private static HashSet<string> _seenHashes = new HashSet<string>();
+        private static readonly HashSet<string> _seenHashes = new HashSet<string>();
+
+        private static void UpdateFromRepo()
+        {
+            Console.WriteLine();
+
+            _logger.Info(
+                "Checking for updated maps at https://github.com/EricZimmerman/evtx/tree/master/evtx/Maps...");
+            Console.WriteLine();
+            var archivePath = Path.Combine(BaseDirectory, "____master.zip");
+
+            if (File.Exists(archivePath))
+            {
+                File.Delete(archivePath);
+            }
+
+            using (var client = new WebClient())
+            {
+                ServicePointManager.Expect100Continue = true;
+                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+                client.DownloadFile("https://github.com/EricZimmerman/evtx/archive/master.zip", archivePath);
+            }
+
+            var fff = new FastZip();
+
+            var directoryFilter = "Maps";
+
+            // Will prompt to overwrite if target file names already exist
+            fff.ExtractZip(archivePath, BaseDirectory, FastZip.Overwrite.Always, null,
+                null, directoryFilter, true);
+
+            if (File.Exists(archivePath))
+            {
+                File.Delete(archivePath);
+            }
+
+            var newMapPath = Path.Combine(BaseDirectory, "evtx-master","evtx", "Maps");
+
+            var orgMapMath = Path.Combine(BaseDirectory, "Maps");
+
+            var newMaps = Directory.GetFiles(newMapPath);
+
+            var newlocalMaps = new List<string>();
+
+            var updatedlocalMaps = new List<string>();
+
+            foreach (var newMap in newMaps)
+            {
+                var mName = Path.GetFileName(newMap);
+                var dest = Path.Combine(orgMapMath, mName);
+
+                if (File.Exists(dest) == false)
+                {
+                    //new target
+                    newlocalMaps.Add(mName);
+                }
+                else
+                {
+                    //current destination file exists, so compare to new
+                    var fiNew = new FileInfo(newMap);
+                    var fi = new FileInfo(dest);
+
+                    if (fiNew.GetHash(HashType.SHA1) != fi.GetHash(HashType.SHA1))
+                    {
+                        //updated file
+                        updatedlocalMaps.Add(mName);
+
+                      
+                    }
+                }
+
+                File.Copy(newMap, dest, CopyOptions.None);
+            }
+
+            
+
+            if (newlocalMaps.Count > 0 || updatedlocalMaps.Count > 0)
+            {
+                _logger.Fatal("Updates found!");
+                Console.WriteLine();
+
+                if (newlocalMaps.Count > 0)
+                {
+                    _logger.Error("New maps");
+                    foreach (var newLocalMap in newlocalMaps)
+                    {
+                        _logger.Info(Path.GetFileNameWithoutExtension(newLocalMap));
+                    }
+
+                    Console.WriteLine();
+                }
+
+                if (updatedlocalMaps.Count > 0)
+                {
+                    _logger.Error("Updated maps");
+                    foreach (var um in updatedlocalMaps)
+                    {
+                        _logger.Info(Path.GetFileNameWithoutExtension(um));
+                    }
+
+                    Console.WriteLine();
+                }
+
+                Console.WriteLine();
+            }
+            else
+            {
+                Console.WriteLine();
+                _logger.Info("No new maps available");
+                Console.WriteLine();
+            }
+
+            Directory.Delete(Path.Combine(BaseDirectory, "evtx-master"), true);
+        }
 
         private static void ProcessFile(string file)
         {
@@ -702,8 +842,10 @@ namespace EvtxECmd
 
                 _logger.Warn($"\r\n'{file}' is in use. Rerouting...");
 
-                var files = new List<string>();
-                files.Add(file);
+                var files = new List<string>
+                {
+                    file
+                };
 
                 var rawFiles = Helper.GetFiles(files);
                 fileS = rawFiles.First().FileStream;
@@ -983,5 +1125,6 @@ namespace EvtxECmd
 
         public bool Vss { get; set; }
         public bool Dedupe { get; set; }
+        public bool Sync { get; set; }
     }
 }

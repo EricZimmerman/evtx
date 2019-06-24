@@ -59,7 +59,8 @@ namespace evtx.Tags
             ReservedC = 0xc,
             ReservedD = 0xd,
             ReservedE = 0xe,
-            ReservedF = 0xf
+            ReservedF = 0xf,
+            Success = 0x10
         }
 
         public enum ValueType
@@ -242,7 +243,6 @@ namespace evtx.Tags
 
         public static IBinXml BuildTag(long recordPosition, BinaryReader dataStream, ChunkInfo chunk)
         {
-            var l = LogManager.GetLogger("BuildTag");
             //op code is pulled from stream, so account for that
             var op = dataStream.ReadByte();
 
