@@ -1108,7 +1108,7 @@ namespace evtx.Test
 
             var sysLog = @"D:\SynologyDrive\EventLogs\HP_Spec\Application.evtx";
 
-            var total = 0;
+           // var total = 0;
 
             using (var fs = new FileStream(sysLog, FileMode.Open, FileAccess.Read))
             {

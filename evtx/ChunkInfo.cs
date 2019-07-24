@@ -212,7 +212,6 @@ namespace evtx
 
                     EventRecords.Add(er);
 
-
                     //ticksForTimeDelta == totalticks for discrepancy value
                     if (EventLog.LastSeenTicks > 0 && EventLog.LastSeenTicks - ticksForTimeDelta > er.TimeCreated.Ticks)
                     {

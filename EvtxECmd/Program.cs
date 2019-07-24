@@ -865,6 +865,7 @@ namespace EvtxECmd
                     _seenHashes.Add(sha);
                 }
 
+                EventLog.LastSeenTicks = 0;
                 var evt = new EventLog(fileS);
 
                 _logger.Info($"Chunk count: {evt.ChunkCount:N0}, Iterating records...");
