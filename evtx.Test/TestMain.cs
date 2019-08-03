@@ -1086,6 +1086,51 @@ namespace evtx.Test
             l.Info($"Total: {total}");
         }
 
+        //
+
+        [Test]
+        public void OneOff()
+        {
+            var config = new LoggingConfiguration();
+            var loglevel = LogLevel.Info;
+
+            var layout = @"${message}";
+
+            var consoleTarget = new ColoredConsoleTarget();
+
+            config.AddTarget("console", consoleTarget);
+
+            consoleTarget.Layout = layout;
+
+            var rule1 = new LoggingRule("*", loglevel, consoleTarget);
+            config.LoggingRules.Add(rule1);
+
+            LogManager.Configuration = config;
+            var l = LogManager.GetLogger("foo");
+
+            var sysLog = @"C:\Users\eric\Desktop\aii-ks-dc2\c__windows_system32_winevt_logs_Microsoft-Windows-TerminalServices-LocalSessionManager%4Operational.evtx";
+
+            // var total = 0;
+
+            using (var fs = new FileStream(sysLog, FileMode.Open, FileAccess.Read))
+            {
+                
+                var es = new EventLog(fs);
+
+                foreach (var eventRecord in es.GetEventRecords())
+                    //      l.Info($"Record: {eventRecord}");
+                {
+                     eventRecord.ConvertPayloadToXml();
+                }
+
+                l.Info($"early : {es.EarliestTimestamp}");
+                l.Info($"last: {es.LatestTimestamp}");
+            }
+
+         
+        }
+
+
         [Test]
         public void ApplicationLog()
         {

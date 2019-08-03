@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -104,7 +105,7 @@ namespace evtx
         {
             var l = LogManager.GetLogger("EventRecord");
             var xml = ConvertPayloadToXml();
-            
+
             var reader = XmlReader.Create(new StringReader(xml));
             reader.MoveToContent();
             // Parse the file and display each of the nodes.
@@ -155,12 +156,29 @@ namespace evtx
                         case "Security":
                             UserId = reader.GetAttribute("UserID");
                             break;
+                      
                         case "EventData":
                         case "UserData":
                             Payload = reader.ReadOuterXml();
+
                             break;
                     }
                 }
+
+               
+            }
+
+
+            if (Payload == null)
+            {
+                reader = XmlReader.Create(new StringReader(xml));
+                reader.MoveToContent();
+
+                reader.ReadToDescendant("System");
+                reader.ReadOuterXml();
+                reader.ReadOuterXml();
+                Payload=  reader.ReadOuterXml();
+
             }
 
             if (EventLog.EventLogMaps.Count == 0)
