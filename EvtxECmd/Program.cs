@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -367,26 +368,26 @@ namespace EvtxECmd
 
             if (_fluentCommandLineParser.Object.StartDate.IsNullOrEmpty() == false)
             {
-                if (DateTimeOffset.TryParse(_fluentCommandLineParser.Object.StartDate, out var dt))
+                if (DateTimeOffset.TryParse(_fluentCommandLineParser.Object.StartDate,null,DateTimeStyles.AssumeUniversal, out var dt))
                 {
                     _startDate = dt;
                     _logger.Info($"Setting Start date to '{_startDate.Value.ToUniversalTime().ToString(_fluentCommandLineParser.Object.DateTimeFormat)}'");
                 }
                 else
                 {
-                    _logger.Warn($"Count not parse '{_fluentCommandLineParser.Object.StartDate}' to a valud datetime! Events will not be filtered by Start date!");
+                    _logger.Warn($"Could not parse '{_fluentCommandLineParser.Object.StartDate}' to a valud datetime! Events will not be filtered by Start date!");
                 }
             }
             if (_fluentCommandLineParser.Object.EndDate.IsNullOrEmpty() == false)
             {
-                if (DateTimeOffset.TryParse(_fluentCommandLineParser.Object.EndDate, out var dt))
+                if (DateTimeOffset.TryParse(_fluentCommandLineParser.Object.EndDate,null,DateTimeStyles.AssumeUniversal, out var dt))
                 {
                     _endDate = dt;
                     _logger.Info($"Setting End date to '{_endDate.Value.ToUniversalTime().ToString(_fluentCommandLineParser.Object.DateTimeFormat)}'");
                 }
                 else
                 {
-                    _logger.Warn($"Count not parse '{_fluentCommandLineParser.Object.EndDate}' to a valud datetime! Events will not be filtered by End date!");
+                    _logger.Warn($"Could not parse '{_fluentCommandLineParser.Object.EndDate}' to a valud datetime! Events will not be filtered by End date!");
                 }
             }
 
