@@ -1,0 +1,50 @@
+Author: Troy Larson
+Description: Session (Payload 1) has been disconnected by session (Payload 2)
+EventId: 39
+Channel: Microsoft-Windows-TerminalServices-LocalSessionManager/Operational
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "TargetSession: %TargetSession%"
+    Values: 
+      - 
+        Name: TargetSession
+        Value: "/Event/UserData/EventXML/TargetSession"
+  - 
+    Property: PayloadData2
+    PropertyValue: "Source: %Source%"
+    Values: 
+      - 
+        Name: Source
+        Value: "/Event/UserData/EventXML/Source"
+ 
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+# Example XML for this event:
+#<Event>
+# <System>
+#   <Provider Name="Microsoft-Windows-TerminalServices-LocalSessionManager" Guid="{5d896912-022d-40aa-a3a8-4fa5515c76d7}" /> 
+#    <EventID>39</EventID> 
+#    <Version>0</Version> 
+#    <Level>4</Level> 
+#    <Task>0</Task> 
+#    <Opcode>0</Opcode> 
+#    <Keywords>0x1000000000000000</Keywords> 
+#    <TimeCreated SystemTime="2019-05-26T19:34:48.998791400Z" /> 
+#    <EventRecordID>683</EventRecordID> 
+#    <Correlation ActivityID="{[GUID]}" /> 
+#    <Execution ProcessID="1200" ThreadID="16612" /> 
+#    <Channel>Microsoft-Windows-TerminalServices-LocalSessionManager/Operational</Channel> 
+#    <Computer>ComputerName</Computer> 
+#    <Security UserID="S-1-5-18" /> 
+# </System>
+# <UserData>
+#   <EventXML xmlns="Event_NS">
+#     <TargetSession>6</TargetSession> 
+#     <Source>8</Source> 
+#   </EventXML>
+# </UserData>
+#</Event>
