@@ -570,7 +570,7 @@ namespace EvtxECmd
 
                 _fluentCommandLineParser.Object.Dedupe = false;
 
-                ProcessFile(_fluentCommandLineParser.Object.File);
+                ProcessFile(Path.GetFullPath(_fluentCommandLineParser.Object.File));
 
                 if (_fluentCommandLineParser.Object.Vss)
                 {
