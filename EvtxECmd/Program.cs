@@ -831,13 +831,19 @@ namespace EvtxECmd
             {
                 fileS = new FileStream(file, FileMode.Open, FileAccess.Read);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 //file is in use
-
+                
                 if (Helper.IsAdministrator() == false)
                 {
                     _logger.Fatal("\r\nAdministrator privileges not found! Exiting!!\r\n");
+                    Environment.Exit(0);
+                }
+
+                if (file.StartsWith("\\\\"))
+                {
+                    _logger.Fatal($"Raw access across UNC shares is not supported! Run locally on the system or extract logs via other means and try again. Exiting");
                     Environment.Exit(0);
                 }
 
