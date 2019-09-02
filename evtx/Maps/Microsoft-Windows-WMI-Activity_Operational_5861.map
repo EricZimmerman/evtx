@@ -12,7 +12,7 @@ Maps:
         Value: "/Event/UserData/Operation_ESStoConsumerBinding/ESS"
   - 
     Property: PayloadData2
-    PropertyValue: "%ESS%"
+    PropertyValue: "%PossibleCause%"
     Values: 
       - 
         Name: PossibleCause
