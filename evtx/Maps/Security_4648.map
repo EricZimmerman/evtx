@@ -48,7 +48,7 @@ Maps:
         Name: ProcessName
         Value: "/Event/EventData/Data[@Name=\"ProcessName\"]"
   -
-    Property: PayloadData2
+    Property: PayloadData3
     PropertyValue: "PID: %ProcessId%"
     Values: 
       - 
