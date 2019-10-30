@@ -1,0 +1,126 @@
+Author: Troy Larson
+Description: Detection - malware or other potentially unwanted software.
+EventId: 1116
+Channel: Microsoft-Windows-Windows Defender/Operational
+Maps: 
+  - 
+    Property: UserName
+    PropertyValue: "Detection User: %User%"
+    Values: 
+      - 
+        Name: User
+        Value: "/Event/EventData/Data[@Name=\"Detection User\"]"
+  - 
+    Property: ExecutableInfo
+    PropertyValue: "%DetectionPath%"
+    Values: 
+      - 
+        Name: DetectionPath
+        Value: "/Event/EventData/Data[@Name=\"Path\"]"
+  - 
+    Property: PayloadData1
+    PropertyValue: "Malware name: %ThreatName%"
+    Values: 
+      - 
+        Name: ThreatName
+        Value: "/Event/EventData/Data[@Name=\"Threat Name\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "Description: %Category% (%Severity%)"
+    Values: 
+      - 
+        Name: Category
+        Value: "/Event/EventData/Data[@Name=\"Category Name\"]"
+      - 
+        Name: Severity
+        Value: "/Event/EventData/Data[@Name=\"Severity Name\"]"
+  - 
+    Property: PayloadData3
+    PropertyValue: "Detection Time: %Time%"
+    Values: 
+      - 
+        Name: Time
+        Value: "/Event/EventData/Data[@Name=\"Detection Time\"]"
+  - 
+    Property: PayloadData4
+    PropertyValue: "Process (if real-time detection): %Process%"
+    Values: 
+      - 
+        Name: Process
+        Value: "/Event/EventData/Data[@Name=\"Process Name\"]"
+  - 
+    Property: PayloadData5
+    PropertyValue: "Detection ID: %DetectionID%"
+    Values: 
+      - 
+        Name: DetectionID
+        Value: "/Event/EventData/Data[@Name=\"Detection ID\"]"
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+# Example XML for this event:
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Windows Defender" Guid="{11cd958a-c507-4ef3-b3f2-5fd9dfbd2c78}" /> 
+#    <EventID>1116</EventID> 
+#    <Version>0</Version> 
+#    <Level>3</Level> 
+#    <Task>0</Task> 
+#    <Opcode>0</Opcode> 
+#    <Keywords>0x8000000000000000</Keywords> 
+#    <TimeCreated SystemTime="2019-07-13T13:14:44.410427800Z" /> 
+#    <EventRecordID>186</EventRecordID> 
+#    <Correlation /> 
+#    <Execution ProcessID="3536" ThreadID="3948" /> 
+#    <Channel>Microsoft-Windows-Windows Defender/Operational</Channel> 
+#    <Computer>Thunder.cloud.corp.com</Computer> 
+#    <Security UserID="S-1-5-18" /> 
+#  </System>
+#  <EventData>
+#    <Data Name="Product Name">%%827</Data> 
+#    <Data Name="Product Version">4.18.1907.4</Data> 
+#    <Data Name="Detection ID">{A3A6A7BE-20E5-4E55-BDAA-A218EB402A47}</Data> 
+#    <Data Name="Detection Time">2019-07-13T13:14:42.582Z</Data> 
+#    <Data Name="Unused" /> 
+#    <Data Name="Unused2" /> 
+#    <Data Name="Threat ID">2147726780</Data> 
+#    <Data Name="Threat Name">Trojan:Win32/Occamy.C</Data> 
+#    <Data Name="Severity ID">5</Data> 
+#    <Data Name="Severity Name">Severe</Data> 
+#    <Data Name="Category ID">8</Data> 
+#    <Data Name="Category Name">Trojan</Data> 
+#    <Data Name="FWLink">https://go.microsoft.com/fwlink/?linkid=37020&name=Trojan:Win32/Occamy.C&threatid=2147726780&enterprise=0</Data> 
+#    <Data Name="Status Code">1</Data> 
+#    <Data Name="Status Description" /> 
+#    <Data Name="State">1</Data> 
+#    <Data Name="Source ID">3</Data> 
+#    <Data Name="Source Name">%%818</Data> 
+#    <Data Name="Process Name">C:\Windows\explorer.exe</Data> 
+#    <Data Name="Detection User">Cloud\BadUser</Data> 
+#    <Data Name="Unused3" /> 
+#    <Data Name="Path">file:_C:\svchost\svchost.exe</Data> 
+#    <Data Name="Origin ID">1</Data> 
+#    <Data Name="Origin Name">%%845</Data> 
+#    <Data Name="Execution ID">1</Data> 
+#    <Data Name="Execution Name">%%813</Data> 
+#    <Data Name="Type ID">0</Data> 
+#    <Data Name="Type Name">%%822</Data> 
+#    <Data Name="Pre Execution Status">0</Data> 
+#    <Data Name="Action ID">9</Data> 
+#    <Data Name="Action Name">%%887</Data> 
+#    <Data Name="Unused4" /> 
+#    <Data Name="Error Code">0x00000000</Data> 
+#    <Data Name="Error Description">The operation completed successfully.</Data> 
+#    <Data Name="Unused5" /> 
+#    <Data Name="Post Clean Status">0</Data> 
+#    <Data Name="Additional Actions ID">0</Data> 
+#    <Data Name="Additional Actions String">No additional actions required</Data> 
+#    <Data Name="Remediation User" /> 
+#    <Data Name="Unused6" /> 
+#    <Data Name="Signature Version">AV: 1.301.1131.0, AS: 1.301.1131.0, NIS: 1.301.1131.0</Data> 
+#    <Data Name="Engine Version">AM: 1.1.12300.1, NIS: 1.1.12300.1</Data> 
+#  </EventData>
+#</Event>

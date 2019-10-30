@@ -1,0 +1,91 @@
+Author: Troy Larson
+Description: Error - Scan has encountered an error and terminated.
+EventId: 1005
+Channel: Microsoft-Windows-Windows Defender/Operational
+Maps: 
+  - 
+    Property: UserName
+    PropertyValue: "%Domain%\\%User%"
+    Values: 
+      - 
+        Name: Domain
+        Value: "/Event/EventData/Data[@Name=\"Domain\"]"
+      - 
+        Name: User
+        Value: "/Event/EventData/Data[@Name=\"User\"]"
+  - 
+    Property: PayloadData1
+    PropertyValue: "Scan ID: %ScanID%"
+    Values: 
+      - 
+        Name: ScanID
+        Value: "/Event/EventData/Data[@Name=\"Scan ID\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "Scan type \\ index: %ScanType% \\ %ScanTypeIndex%"
+    Values: 
+      - 
+        Name: ScanType
+        Value: "/Event/EventData/Data[@Name=\"Scan Type\"]"
+      - 
+        Name: ScanTypeIndex
+        Value: "/Event/EventData/Data[@Name=\"Scan Type Index\"]"        
+  - 
+    Property: PayloadData3
+    PropertyValue: "Scan parameters \\ index: %ScanParameters% \\ %ScanParametersIndex%"
+    Values: 
+      - 
+        Name: ScanParameters
+        Value: "/Event/EventData/Data[@Name=\"Scan Parameters\"]"
+      - 
+        Name: ScanParametersIndex
+        Value: "/Event/EventData/Data[@Name=\"Scan Parameters Index\"]"
+  - 
+    Property: PayloadData5
+    PropertyValue: "Error code & Description: %Code% \\ %Description%"
+    Values: 
+      - 
+        Name: Code
+        Value: "/Event/EventData/Data[@Name=\"Error Code\"]"
+      - 
+        Name: Description
+        Value: "/Event/EventData/Data[@Name=\"Error Description\"]"
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+# Example XML for this event:
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Windows Defender" Guid="{11cd958a-c507-4ef3-b3f2-5fd9dfbd2c78}" /> 
+#    <EventID>1005</EventID> 
+#    <Version>0</Version> 
+#    <Level>2</Level> 
+#    <Task>0</Task> 
+#    <Opcode>0</Opcode> 
+#    <Keywords>0x8000000000000000</Keywords> 
+#    <TimeCreated SystemTime="2019-08-22T09:09:43.865940500Z" /> 
+#    <EventRecordID>6030</EventRecordID> 
+#    <Correlation ActivityID="{b606d1ec-bc8c-4210-9ffa-c5b2bc6450ca}" /> 
+#    <Execution ProcessID="5176" ThreadID="73544"  /> 
+#    <Channel>Microsoft-Windows-Windows Defender/Operational</Channel> 
+#    <Computer>Thunder.cloud.corp.com</Computer> 
+#    <Security UserID="S-1-5-18" /> 
+#  </System>
+#  <EventData>
+#    <Data Name="Product Name">%%827</Data> 
+#    <Data Name="Product Version">4.18.1909.6</Data> 
+#    <Data Name="Scan ID">{FD32ABC7-0C04-44B0-8BCA-3AADA1666089}</Data> 
+#    <Data Name="Scan Type Index">1</Data> 
+#    <Data Name="Scan Type">%%802</Data> 
+#    <Data Name="Scan Parameters Index">1</Data> 
+#    <Data Name="Scan Parameters">%%806</Data> 
+#    <Data Name="Domain">NT AUTHORITY</Data> 
+#    <Data Name="User">SYSTEM</Data> 
+#    <Data Name="SID">S-1-5-18</Data> 
+#    <Data Name="Error Code">[something]</Data> 
+#    <Data Name="Error Description">[something]</Data> 
+#  </EventData>
+#</Event>

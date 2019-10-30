@@ -1,0 +1,44 @@
+Author: Troy Larson
+Description: Defender is up and running in a healthy state.
+EventId: 1150
+Channel: Microsoft-Windows-Windows Defender/Operational
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "Signature ver.: %Signature%"
+    Values: 
+      - 
+        Name: Signature
+        Value: "/Event/EventData/Data[@Name=\"Signature version\"]"
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+# Example XML for this event:
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Windows Defender" Guid="{11cd958a-c507-4ef3-b3f2-5fd9dfbd2c78}" /> 
+#    <EventID>1150</EventID> 
+#    <Version>0</Version> 
+#    <Level>4</Level> 
+#    <Task>0</Task> 
+#    <Opcode>0</Opcode> 
+#    <Keywords>0x8000000000000000</Keywords> 
+#    <TimeCreated SystemTime="2019-08-29T09:02:33.122130100Z" /> 
+#    <EventRecordID>31179</EventRecordID> 
+#    <Correlation /> 
+#    <Execution ProcessID="767" ThreadID="4532" /> 
+#    <Channel>Microsoft-Windows-Windows Defender/Operational</Channel> 
+#    <Computer>Thunder.cloud.corp.com</Computer> 
+#    <Security UserID="S-1-5-18" /> 
+#  </System>
+#  <EventData>
+#    <Data Name="Product Name">%%827</Data> 
+#    <Data Name="Platform version">4.18.1910.4</Data> 
+#    <Data Name="Unused" /> 
+#    <Data Name="Engine version">1.1.16500.1</Data> 
+#    <Data Name="Signature version">1.305.903.0</Data> 
+#  </EventData>
+#</Event>
