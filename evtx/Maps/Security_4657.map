@@ -1,0 +1,114 @@
+Author: Troy Larson
+Description: A registry value was modified.
+EventId: 4657
+Channel: Security
+Maps: 
+  - 
+    Property: UserName
+    PropertyValue: "%domain%\\%user%"
+    Values: 
+      - 
+        Name: domain
+        Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
+      - 
+        Name: user
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
+  - 
+    Property: ExecutableInfo
+    PropertyValue: "%Process% (PID: %ProcessId%)"
+    Values: 
+      - 
+        Name: Process
+        Value: "/Event/EventData/Data[@Name=\"ProcessName\"]"
+      - 
+        Name: ProcessId
+        Value: "/Event/EventData/Data[@Name=\"ProcessId\"]"        
+  - 
+    Property: PayloadData1
+    PropertyValue: "Logon ID: %SubjectLogonId%"
+    Values: 
+      - 
+        Name: SubjectLogonId
+        Value: "/Event/EventData/Data[@Name=\"SubjectLogonId\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "Operation Type: %OperationType%"
+    Values: 
+      - 
+        Name: OperationType
+        Value: "/Event/EventData/Data[@Name=\"OperationType\"]"
+  - 
+    Property: PayloadData3
+    PropertyValue: "Registry Key: %ObjectName%"
+    Values: 
+      - 
+        Name: ObjectName
+        Value: "/Event/EventData/Data[@Name=\"ObjectName\"]"
+  - 
+    Property: PayloadData4
+    PropertyValue: "Value Name: %ObjectValueName%"
+    Values: 
+      - 
+        Name: ObjectValueName
+        Value: "/Event/EventData/Data[@Name=\"ObjectValueName\"]"
+  - 
+    Property: PayloadData5
+    PropertyValue: "Old type \\ value: %OldValueType% \\ %OldValue%"
+    Values: 
+      - 
+        Name: OldValueType
+        Value: "/Event/EventData/Data[@Name=\"OldValueType\"]"
+      - 
+        Name: OldValue
+        Value: "/Event/EventData/Data[@Name=\"OldValue\"]"        
+  - 
+    Property: PayloadData6
+    PropertyValue: "New type \\ value: %NewValueType% \\ %NewValue%"
+    Values: 
+      - 
+        Name: NewValueType
+        Value: "/Event/EventData/Data[@Name=\"NewValueType\"]"
+      - 
+        Name: NewValue
+        Value: "/Event/EventData/Data[@Name=\"NewValue\"]"
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+# Example XML for this event:
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-a5ba-3e3b0328c30d}" /> 
+#    <EventID>4657</EventID> 
+#    <Version>0</Version> 
+#    <Level>0</Level> 
+#    <Task>12801</Task> 
+#    <Opcode>0</Opcode> 
+#    <Keywords>0x8020000000000000</Keywords> 
+#    <TimeCreated SystemTime="2019-09-23T02:13:15.307834500Z" /> 
+#    <EventRecordID>24338565</EventRecordID> 
+#    <Correlation /> 
+#    <Execution ProcessID="4" ThreadID="12406" /> 
+#    <Channel>Security</Channel> 
+#    <Computer>Thunder.cloud.corp.com</Computer> 
+#    <Security /> 
+#  </System>
+#  <EventData>
+#    <Data Name="SubjectUserSid">S-1-5-18</Data> 
+#    <Data Name="SubjectUserName">THUNDER$</Data> 
+#    <Data Name="SubjectDomainName">CLOUD</Data> 
+#    <Data Name="SubjectLogonId">0x3e7</Data> 
+#    <Data Name="ObjectName">\REGISTRY\MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System\Audit</Data> 
+#    <Data Name="ObjectValueName">ProcessCreationIncludeCmdLine_Enabled</Data> 
+#    <Data Name="HandleId">0x314</Data> 
+#    <Data Name="OperationType">%%1904</Data> 
+#    <Data Name="OldValueType">-</Data> 
+#    <Data Name="OldValue">-</Data> 
+#    <Data Name="NewValueType">%%1876</Data> 
+#    <Data Name="NewValue">1</Data> 
+#    <Data Name="ProcessId">0x3788</Data> 
+#    <Data Name="ProcessName">C:\Windows\System32\svchost.exe</Data> 
+#  </EventData>
+#</Event>
