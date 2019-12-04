@@ -11,8 +11,8 @@ Maps:
         Name: TaskName
         Value: "/Event/EventData/Data[@Name=\"TaskName\"]"
   - 
-    Property: PayloadData2
-    PropertyValue: Action %ActionName%
+    Property: ExecutableInfo
+    PropertyValue: "%ActionName%"
     Values: 
       - 
         Name: ActionName
