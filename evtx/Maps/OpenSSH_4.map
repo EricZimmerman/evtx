@@ -1,0 +1,48 @@
+Author: Troy Larson
+Description: SSH activity.
+EventId: 4
+Channel: "OpenSSH/Operational"
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "%Process%"
+    Values: 
+      - 
+        Name: Process
+        Value: "/Event/EventData/Data[@Name=\"process\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "%Payload%"
+    Values: 
+      - 
+        Name: Payload
+        Value: "/Event/EventData/Data[@Name=\"payload\"]"
+        
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+#Sample Event
+#<System>
+# <Provider Name="OpenSSH" Guid="{c4b57d35-0636-4bc3-a262-370f249f9802}" /> 
+# <EventID>4</EventID> 
+# <Version>0</Version> 
+# <Level>4</Level> 
+# <Task>0</Task> 
+# <Opcode>0</Opcode> 
+# <Keywords>0x4000000000000000</Keywords> 
+# <TimeCreated SystemTime="2019-11-13T00:21:44.657927700Z" /> 
+# <EventRecordID>30</EventRecordID> 
+# <Correlation /> 
+# <Execution ProcessID="6960" ThreadID="6136" /> 
+# <Channel>OpenSSH/Operational</Channel> 
+# <Computer>Thunder.cloud.corp.com</Computer> 
+# <Security UserID="S-1-5-18" /> 
+#</System>
+#<EventData>
+# <Data Name="process">sshd</Data> 
+# <Data Name="payload">Accepted password for cloud\\thor from 2001:4358:95:100b:3e33:3247:ad99:c756 port 52443 ssh2</Data> 
+# </EventData>
+#</Event>

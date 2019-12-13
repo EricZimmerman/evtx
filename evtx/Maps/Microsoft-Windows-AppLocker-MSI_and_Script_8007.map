@@ -1,0 +1,95 @@
+Author: Troy Larson
+Description: A script or MSI was prevented from running.
+EventId: 8007
+Channel: Microsoft-Windows-AppLocker/MSI and Script
+Maps: 
+  - 
+    Property: ExecutableInfo
+    PropertyValue: "%FilePath%"
+    Values: 
+      - 
+        Name: FilePath
+        Value: "/Event/UserData/RuleAndFileData/FilePath"
+  - 
+    Property: PayloadData1
+    PropertyValue: "%FileHash%"
+    Values: 
+      - 
+        Name: FileHash
+        Value: "/Event/UserData/RuleAndFileData/FileHash"
+  - 
+    Property: PayloadData2
+    PropertyValue: "%Fqbn%"
+    Values: 
+      - 
+        Name: Fqbn
+        Value: "/Event/UserData/RuleAndFileData/Fqbn"
+  - 
+    Property: PayloadData3
+    PropertyValue: "TargetUser"
+    Values: 
+      - 
+        Name: TargetUser
+        Value: "/Event/UserData/RuleAndFileData/TargetUser"
+  - 
+    Property: PayloadData4
+    PropertyValue: "%TargetLogonId%"
+    Values: 
+      - 
+        Name: TargetLogonId
+        Value: "/Event/UserData/RuleAndFileData/TargetLogonId"
+  - 
+    Property: PayloadData5
+    PropertyValue: "%FullFilePath%"
+    Values: 
+      - 
+        Name: FullFilePath
+        Value: "/Event/UserData/RuleAndFileData/FullFilePath"
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+# Sample event:
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-AppLocker" Guid="{cbda4dbf-8d5d-4f69-9578-be14aa540d22}" /> 
+#     <EventID>8007</EventID> 
+#     <Version>0</Version> 
+#     <Level>2</Level> 
+#     <Task>0</Task> 
+#     <Opcode>0</Opcode> 
+#     <Keywords>0x4000000000000000</Keywords> 
+#     <TimeCreated SystemTime="2019-12-03T19:09:38.421899600Z" /> 
+#     <EventRecordID>37</EventRecordID> 
+#     <Correlation ActivityID="{c8287304-a3c6-0001-fb01-37c8c6a3d501}" /> 
+#     <Execution ProcessID="14600" ThreadID="696" /> 
+#     <Channel>Microsoft-Windows-AppLocker/MSI and Script</Channel> 
+#     <Computer>Thunder.cloud.corp.com</Computer> 
+#     <Security UserID="[SID]" /> 
+#   </System>
+#   <UserData>
+#     <RuleAndFileData xmlns="http://schemas.microsoft.com/schemas/event/Microsoft.Windows/1.0.0.0">
+#       <PolicyNameLength>6</PolicyNameLength> 
+#       <PolicyName>SCRIPT</PolicyName> 
+#       <RuleId>{0d3dab6e-2049-45a9-bfce-68dd9373a62d}</RuleId> 
+#       <RuleNameLength>16</RuleNameLength> 
+#       <RuleName>%OSDRIVE%\TEMP\*</RuleName> 
+#       <RuleSddlLength>63</RuleSddlLength> 
+#       <RuleSddl>D:(XA;;FX;;;S-1-5-32-544;(APPID://PATH Contains "*"))</RuleSddl> 
+#       <TargetUser>[SID]</TargetUser> 
+#       <TargetProcessId>14600</TargetProcessId> 
+#       <FilePathLength>32</FilePathLength> 
+#       <FilePath>%OSDRIVE%\TEMP\GET-CATVIDEOS.PS1</FilePath> 
+#       <FileHashLength>32</FileHashLength> 
+#       <FileHash>EE805925E38BFAB69D49FCCE20382EB01804A8F7F9897D98D44C945861CAE9A8</FileHash> 
+#       <FqbnLength>1</FqbnLength> 
+#       <Fqbn>-</Fqbn> 
+#       <TargetLogonId>0x3b3057</TargetLogonId> 
+#       <FullFilePathLength>25</FullFilePathLength> 
+#       <FullFilePath>C:\temp\get-catvideos.ps1</FullFilePath> 
+#     </RuleAndFileData>
+#   </UserData>
+# </Event>

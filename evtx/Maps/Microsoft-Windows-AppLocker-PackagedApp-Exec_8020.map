@@ -1,0 +1,69 @@
+Author: Troy Larson
+Description: A packaged app was allowed to run.
+EventId: 8020
+Channel: Microsoft-Windows-AppLocker/Packaged app-Execution
+Maps: 
+  - 
+    Property: ExecutableInfo
+    PropertyValue: "%Package%"
+    Values: 
+      - 
+        Name: Package
+        Value: "/Event/UserData/RuleAndFileData/Package"
+  - 
+    Property: PayloadData2
+    PropertyValue: "%Fqbn%"
+    Values: 
+      - 
+        Name: Fqbn
+        Value: "/Event/UserData/RuleAndFileData/Fqbn"
+  - 
+    Property: PayloadData3
+    PropertyValue: "TargetUser"
+    Values: 
+      - 
+        Name: TargetUser
+        Value: "/Event/UserData/RuleAndFileData/TargetUser"
+        
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+# Sample event:
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-AppLocker" Guid="{cbda4dbf-8d5d-4f69-9578-be14aa540d22}" /> 
+#      <EventID>8020</EventID> 
+#      <Version>0</Version> 
+#      <Level>4</Level> 
+#      <Task>0</Task> 
+#      <Opcode>0</Opcode> 
+#      <Keywords>0x2000000000000000</Keywords> 
+#      <TimeCreated SystemTime="2019-12-03T00:38:37.962228500Z" /> 
+#      <EventRecordID>52605</EventRecordID> 
+#      <Correlation /> 
+#      <Execution ProcessID="756" ThreadID="14288" /> 
+#      <Channel>Microsoft-Windows-AppLocker/Packaged app-Execution</Channel> 
+#      <Computer>Thunder.cloud.corp.com</Computer> 
+#      <Security UserID="[SID]" /> 
+#   </System>
+#   <UserData>
+#     <RuleAndFileData xmlns="http://schemas.microsoft.com/schemas/event/Microsoft.Windows/1.0.0.0">
+#     <PolicyNameLength>4</PolicyNameLength> 
+#     <PolicyName>APPX</PolicyName> 
+#     <RuleId>{[GUID]}</RuleId> 
+#     <RuleNameLength>39</RuleNameLength> 
+#     <RuleName>(Default Rule) All signed Appx packages</RuleName> 
+#     <RuleSddlLength>81</RuleSddlLength> 
+#     <RuleSddl>D:(XA;;FX;;;S-1-1-0;((Exists APPID://FQBN) && ((APPID://FQBN) >= ({"*\*\*",0}))))</RuleSddl> 
+#     <TargetUser>[SID]</TargetUser> 
+#     <TargetProcessId>20176</TargetProcessId> 
+#     <PackageLength>26</PackageLength> 
+#     <Package>MICROSOFT.AAD.BROKERPLUGIN</Package> 
+#     <FqbnLength>126</FqbnLength> 
+#     <Fqbn>CN=MICROSOFT WINDOWS, O=MICROSOFT CORPORATION, L=REDMOND, S=WASHINGTON, C=US\MICROSOFT.AAD.BROKERPLUGIN\APPX\1000.18362.449.00</Fqbn> 
+#     </RuleAndFileData>
+#   </UserData>
+# </Event>

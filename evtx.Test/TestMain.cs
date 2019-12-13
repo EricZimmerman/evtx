@@ -1108,7 +1108,7 @@ namespace evtx.Test
             LogManager.Configuration = config;
             var l = LogManager.GetLogger("foo");
 
-            var sysLog = @"C:\Users\eric\Desktop\aii-ks-dc2\c__windows_system32_winevt_logs_Microsoft-Windows-TerminalServices-LocalSessionManager%4Operational.evtx";
+            var sysLog = @"C:\temp\Archive-ForwardedEvents-test.evtx";
 
             // var total = 0;
 
