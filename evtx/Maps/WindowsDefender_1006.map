@@ -1,0 +1,104 @@
+Author: Brian MacKenna
+Description:  Found - Malware or Potentially unwanted software.
+EventId: 1006
+Channel: Microsoft-Windows-Windows Defender/Operational
+Maps: 
+  - 
+    Property: UserName
+    PropertyValue: "%Domain%\\%User%"
+    Values: 
+      - 
+        Name: Domain
+        Value: "/Event/EventData/Data[@Name=\"Domain\"]"
+      - 
+        Name: User
+        Value: "/Event/EventData/Data[@Name=\"User\"]"
+  - 
+    Property: PayloadData1
+    PropertyValue: "Threat Name: %ThreatName%"
+    Values: 
+      - 
+        Name: ThreatName
+        Value: "/Event/EventData/Data[@Name=\"Threat Name\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "Severity: %SeverityID%:%SeverityName% -- Category: %CategoryName%"
+    Values: 
+      - 
+        Name: SeverityID
+        Value: "/Event/EventData/Data[@Name=\"Severity ID\"]"
+      - 
+        Name: SeverityName
+        Value: "/Event/EventData/Data[@Name=\"Severity Name\"]"
+      - 
+        Name: CategoryName
+        Value: "/Event/EventData/Data[@Name=\"Category Name\"]"
+  - 
+    Property: PayloadData3
+    PropertyValue: "Link: %FWLink%"
+    Values: 
+      - 
+        Name: FWLink
+        Value: "/Event/EventData/Data[@Name=\"FWLink\"]"
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+# Example XML for this event:
+#<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#  <System>
+#    <Provider Name="Microsoft-Windows-Windows Defender" Guid="{11cd958a-c507-4ef3-b3f2-5fd9dfbd2c78}" />
+#    <EventID>1006</EventID>
+#    <Version>0</Version>
+#    <Level>3</Level>
+#    <Task>0</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8000000000000000</Keywords>
+#    <TimeCreated SystemTime="2019-01-01T00:00:01.012345678Z" />
+#    <EventRecordID>303</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="3956" ThreadID="9712" />
+#    <Channel>Microsoft-Windows-Windows Defender/Operational</Channel>
+#    <Computer>hostname.domain.tld</Computer>
+#    <Security UserID="S-1-5-18" />
+#  </System>
+#  <EventData>
+#    <Data Name="Product Name">%%827</Data>
+#    <Data Name="Product Version">6.1.7601.18170</Data>
+#    <Data Name="Detection ID">{FC6CB97E-8309-43F1-953F-7F51883330B5}</Data>
+#    <Data Name="Detection Source Index">3</Data>
+#    <Data Name="Detection Source">%%818</Data>
+#    <Data Name="Unused">
+#    </Data>
+#    <Data Name="Process Name">
+#    </Data>
+#    <Data Name="Domain">
+#    </Data>
+#    <Data Name="User">
+#    </Data>
+#    <Data Name="SID">
+#    </Data>
+#    <Data Name="Threat Name">PWS:Win32/Fareit.gen!E</Data>
+#    <Data Name="Threat ID">170611</Data>
+#    <Data Name="Severity ID">5</Data>
+#    <Data Name="Category ID">3</Data>
+#    <Data Name="FWLink">http://go.microsoft.com/fwlink/?linkid=37020&amp;name=PWS:Win32/Fareit.gen!E&amp;threatid=170611</Data>
+#    <Data Name="Path Found">process:pid:9660</Data>
+#    <Data Name="Unused2">
+#    </Data>
+#    <Data Name="Unused3">
+#    </Data>
+#    <Data Name="Execution Status Index">0</Data>
+#    <Data Name="Execution Status">%%812</Data>
+#    <Data Name="Detection Type Index">2</Data>
+#    <Data Name="Detection Type">%%823</Data>
+#    <Data Name="Unused4">
+#    </Data>
+#    <Data Name="Unused5">
+#    </Data>
+#    <Data Name="Severity Name">Severe</Data>
+#    <Data Name="Category Name">Password Stealer</Data>
+#  </EventData>
+#</Event>
