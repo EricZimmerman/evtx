@@ -431,7 +431,7 @@ namespace EvtxECmd
                 {
                     _swCsv = new StreamWriter(outFile, false, Encoding.UTF8);
 
-                    _csvWriter = new CsvWriter(_swCsv);
+                    _csvWriter = new CsvWriter(_swCsv,CultureInfo.InvariantCulture);
                 }
                 catch (Exception)
                 {
