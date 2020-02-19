@@ -1,0 +1,28 @@
+Author: Phill Moore
+Description: Hyper-V VM started successfully
+EventId: 18500
+Channel: "Microsoft-Windows-Hyper-V-Worker-Admin"
+Maps:
+  - 
+    Property: PayloadData1
+    PropertyValue: "%VmName% started successfully. (Virtual machine ID %VmId%)"
+    Values: 
+      - 
+        Name: VmId
+        Value: "/Event/UserData/VmlEventLog/VmId"
+      - 
+        Name: VmName
+        Value: "/Event/UserData/VmlEventLog/VmName"
+
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+# <UserData>
+#    <VmlEventLog>
+#      <VmName>AIM_K1381101B.E01_391C73D9</VmName>
+#      <VmId>5E2DC4C8-F44C-4020-A91F-0C53BD339F3D</VmId>
+#    </VmlEventLog>

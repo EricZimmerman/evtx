@@ -1,0 +1,45 @@
+Author: Phill Moore
+Description: A VHD has been removed
+EventId: 2
+Channel: "Microsoft-Windows-VHDMP/Operational"
+Maps:
+  - 
+    Property: PayloadData1
+    PropertyValue: "The VHD %VhdName% has been removed (unsurfaced) as disk number %VhdNumber%"
+    Values: 
+      - 
+        Name: VhdName
+        Value: "/Event/EventData/Data[@Name=\"VhdFileName\"]"
+      - 
+        Name: VhdNumber
+        Value: "/Event/EventData/Data[@Name=\"VhdDiskNumber\"]"
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-VHDMP" Guid="e2816346-87f4-4f85-95c3-0c79409aa89d" />
+#    <EventID>2</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>0</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8000000000000000</Keywords>
+#    <TimeCreated SystemTime="2014-11-27 22:06:20.9705312" />
+#    <EventRecordID>1</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="3768" ThreadID="4368" />
+#    <Channel>Microsoft-Windows-VHDMP/Operational</Channel>
+#    <Computer>COMPUTERNAME</Computer>
+#    <Security UserID="S-1-5-83-1-1234567890-1234567890-1234567890-1234567890" />
+#  </System>
+#  <EventData>
+#    <Data Name="VhdFileName">C:\Users\user\Documents\Hyper-V\Virtual Hard Disks\testdisk.vhdx</Data>
+#    <Data Name="VhdDiskNumber">0</Data>
+#  </EventData>
+#</Event>

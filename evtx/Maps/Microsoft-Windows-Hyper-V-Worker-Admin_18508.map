@@ -1,0 +1,21 @@
+Author: Phill Moore
+Description: Hyper-V VM started successfully
+EventId: 18508
+Channel: "Microsoft-Windows-Hyper-V-Worker-Admin"
+Maps:
+  - 
+    Property: PayloadData1
+    PropertyValue: "%VmName% was shut down by the guest operating system. (Virtual machine ID %VmId%)"
+    Values: 
+      - 
+        Name: VmName
+        Value: "/Event/UserData/VmlEventLog/VmName"
+      - 
+        Name: VmId
+        Value: "/Event/UserData/VmlEventLog/VmId"
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6

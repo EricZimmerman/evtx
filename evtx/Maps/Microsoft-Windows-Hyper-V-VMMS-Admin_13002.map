@@ -1,0 +1,21 @@
+Author: Phill Moore
+Description: A new Hyper-V VM was created
+EventId: 13002
+Channel: "Microsoft-Windows-Hyper-V-VMMS-Admin"
+Maps:
+  - 
+    Property: PayloadData1
+    PropertyValue: "A new virtual machine %VmName% was created. (Virtual machine ID %VmId%)"
+    Values: 
+      - 
+        Name: VmName
+        Value: "/Event/UserData/VmlEventLog/VmName"
+      - 
+        Name: VmId
+        Value: "/Event/UserData/VmlEventLog/VmId"
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
