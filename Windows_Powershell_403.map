@@ -1,0 +1,69 @@
+Author: Brian MacKenna
+Description: Engine state is changed from Available to Stopped.
+EventId: 403
+Channel: Windows PowerShell
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "%HostApplication%"
+    Values: 
+      - 
+        Name: HostApplication
+        Value: "/Event/EventData/Data"
+        Refine: "HostApplication=(.+)"
+  - 
+    Property: PayloadData2
+    PropertyValue: "%HostName%"
+    Values: 
+      - 
+        Name: HostName
+        Value: "/Event/EventData/Data"
+        Refine: "HostName=(.+)"
+  - 
+    Property: PayloadData3
+    PropertyValue: "%HostVersion%"
+    Values: 
+      - 
+        Name: HostVersion
+        Value: "/Event/EventData/Data"
+        Refine: "HostVersion=(.+)"
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+# Example XML for this event:
+#<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <System>
+#    <Provider Name="PowerShell" /> 
+#    <EventID Qualifiers="0">403</EventID> 
+#    <Level>4</Level> 
+#    <Task>4</Task> 
+#    <Keywords>0x80000000000000</Keywords> 
+#    <TimeCreated SystemTime="2001-01-01T01:02:03.012345678Z" /> 
+#    <EventRecordID>9</EventRecordID> 
+#    <Channel>Windows PowerShell</Channel> 
+#    <Computer>hostname.domain.tld</Computer> 
+#    <Security /> 
+#  </System>
+#  <EventData>
+#    <Data>Stopped, Available, 	NewEngineState=Stopped
+#	PreviousEngineState=Available
+#
+#	SequenceNumber=15
+#
+#	HostName=ConsoleHost
+#	HostVersion=5.1.18362.145
+#	HostId=b3dfcb89-d2f8-4b8b-a784-a6a9bcf61bd8
+#	HostApplication=powershell  -command Set-ItemProperty -Path HKCU:\Software\Microsoft\Office\16.0\Outlook\AutoDiscover -Name 'ExcludeExplicitO365Endpoint' -Value 1 -Type DWORD -Force 
+#	EngineVersion=5.1.18362.145
+#	RunspaceId=edc7b831-61a1-42d5-ba48-cc1759a51d98
+#	PipelineId=
+#	CommandName=
+#	CommandType=
+#	ScriptName=
+#	CommandPath=
+#	CommandLine=</Data>
+#    <Binary></Binary>
+#  </EventData>
+#</Event>

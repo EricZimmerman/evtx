@@ -1,0 +1,69 @@
+Author: Brian MacKenna
+Description: Engine state is changed from None to Available.
+EventId: 400
+Channel: Windows PowerShell
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "%HostApplication%"
+    Values: 
+      - 
+        Name: HostApplication
+        Value: "/Event/EventData/Data"
+        Refine: "HostApplication=(.+)"
+  - 
+    Property: PayloadData2
+    PropertyValue: "%HostName%"
+    Values: 
+      - 
+        Name: HostName
+        Value: "/Event/EventData/Data"
+        Refine: "HostName=(.+)"
+  - 
+    Property: PayloadData3
+    PropertyValue: "%HostVersion%"
+    Values: 
+      - 
+        Name: HostVersion
+        Value: "/Event/EventData/Data"
+        Refine: "HostVersion=(.+)"
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+# Example XML for this event:
+#<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#  <System>
+#    <Provider Name="PowerShell" /> 
+#    <EventID Qualifiers="0">400</EventID> 
+#    <Level>4</Level> 
+#    <Task>6</Task> 
+#    <Keywords>0x80000000000000</Keywords> 
+#    <TimeCreated SystemTime="2001-01-01T01:01:01.012345678Z" /> 
+#    <EventRecordID>18</EventRecordID> 
+#    <Channel>Windows PowerShell</Channel> 
+#    <Computer>name.domain.tld</Computer> 
+#    <Security /> 
+#  </System>
+#  <EventData>
+#    <Data>Available, None, 	NewEngineState=Available
+#	PreviousEngineState=None
+#
+#	SequenceNumber=13
+#
+#	HostName=ConsoleHost
+#	HostVersion=5.1.18362.145
+#	HostId=3820a72c-10dc-4989-9388-3d4b6523c35f
+#	HostApplication=powershell -nop -w hidden -encodedcommand JAB...(bad command stuff removed)...ADsA
+#	EngineVersion=5.1.18362.145
+#	RunspaceId=b21e91e8-9068-48ae-ac10-15430944932b
+#	PipelineId=
+#	CommandName=
+#	CommandType=
+#	ScriptName=
+#	CommandPath=
+#	CommandLine=</Data>
+#    <Binary></Binary>
+#  </EventData>
+#</Event>
