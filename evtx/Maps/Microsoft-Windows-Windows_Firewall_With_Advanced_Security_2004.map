@@ -1,0 +1,87 @@
+Author: peter.snyder@kroll.com
+Description: FW rule added to exception list
+EventId: 2004
+Channel: Microsoft-Windows-Windows Firewall With Advanced Security/Firewall
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "%ServiceName%: %RuleName%"
+    Values: 
+      - 
+        Name: ServiceName
+        Value: "/Event/EventData/Data[@Name=\"ServiceName\"]"
+      - 
+        Name: RuleName
+        Value: "/Event/EventData/Data[@Name=\"RuleName\"]"
+  - 
+    Property: RemoteHost
+    PropertyValue: "%RemoteAddresses%: %RemotePorts%"
+    Values: 
+      - 
+        Name: RemoteAddresses
+        Value: "/Event/EventData/Data[@Name=\"RemoteAddresses\"]"
+      - 
+        Name: RemotePorts
+        Value: "/Event/EventData/Data[@Name=\"RemotePorts\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "%ApplicationPath%"
+    Values: 
+      - 
+        Name: ApplicationPath
+        Value: "/Event/EventData/Data[@Name=\"ApplicationPath\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "Direction: %Direction%"
+    Values: 
+      - 
+        Name: Direction
+        Value: "/Event/EventData/Data[@Name=\"Direction\"]"
+     
+
+#Example Payload Data
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Windows Firewall With Advanced Security" Guid="d1bc9aff-2abf-4d71-9146-ecb2a986eb85" />
+#   <EventID>2004</EventID>
+#   <Version>0</Version>
+#   <Level>4</Level>
+#   <Task>0</Task>
+#   <Opcode>0</Opcode>
+#   <Keywords>0x8000020000000000</Keywords>
+#   <TimeCreated SystemTime="2020-02-12 14:45:13.3651450" />
+#   <EventRecordID>6327</EventRecordID>
+#   <Correlation />
+#   <Execution ProcessID="1900" ThreadID="10824" />
+#   <Channel>Microsoft-Windows-Windows Firewall With Advanced Security/Firewall</Channel>
+#   <Computer>ANS-4.anshealth.com</Computer>
+#   <Security UserID="S-1-5-19" />
+# </System>
+# <EventData>
+#   <Data Name="RuleId">{21B2FB86-8218-4839-ACF3-CEE5F6CC6793}</Data>
+#   <Data Name="RuleName">windows_ie_ac_001</Data>
+#   <Data Name="Origin">1</Data>
+#   <Data Name="ApplicationPath"></Data>
+#   <Data Name="ServiceName"></Data>
+#   <Data Name="Direction">1</Data>
+#   <Data Name="Protocol">256</Data>
+#   <Data Name="LocalPorts"></Data>
+#   <Data Name="RemotePorts"></Data>
+#   <Data Name="Action">2</Data>
+#   <Data Name="Profiles">2147483647</Data>
+#   <Data Name="LocalAddresses">*</Data>
+#   <Data Name="RemoteAddresses">*</Data>
+#   <Data Name="RemoteMachineAuthorizationList"></Data>
+#   <Data Name="RemoteUserAuthorizationList"></Data>
+#   <Data Name="EmbeddedContext">windows_ie_ac_001</Data>
+#   <Data Name="Flags">1</Data>
+#   <Data Name="Active">1</Data>
+#  <Data Name="EdgeTraversal">0</Data>
+#   <Data Name="LooseSourceMapped">0</Data>
+#   <Data Name="SecurityOptions">0</Data>
+#   <Data Name="ModifyingUser">S-1-5-80-3088073201-1464728630-1879813800-1107566885-823218052</Data>
+#   <Data Name="ModifyingApplication">C:\WINDOWS\System32\svchost.exe</Data>
+#   <Data Name="SchemaVersion">542</Data>
+#   <Data Name="RuleStatus">65536</Data>
+#   <Data Name="LocalOnlyMapped">0</Data>
+# </EventData>
