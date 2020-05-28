@@ -1,0 +1,38 @@
+Author: Mike Stewart mstew1968@gmail.com
+Description: Sophos Alert Identified
+EventId: 32
+Channel: Application
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "Name: %Data%"
+    Values: 
+      - 
+        Name: Data
+        Value: "/Event/EventData/Data"
+
+        
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+#<Event>
+#  <System>
+#    <Provider Name="Sophos Anti-Virus" />
+#    <EventID Qualifiers="8229">32</EventID>
+#    <Level>3</Level>
+#    <Task>1</Task>
+#    <Keywords>0x80000000000000</Keywords>
+#    <TimeCreated SystemTime="2019-09-27 15:36:58.6320552" />
+#    <EventRecordID>2222</EventRecordID>
+#    <Channel>Application</Channel>
+#    <Computer>HostName.Domain.local</Computer>
+#    <Security UserID="S-1-5-19" />
+#  </System>
+#  <EventData>
+#    <Data>File, C:\Users\REDACTED\AppData\Local\Microsoft\Windows\INetCache\Content.Outlook\VUDOXZG2\97381594644272367.doc, Troj/DocDl-VWM, -1, VEA, A threat has been blocked and quarantined., 539295806</Data>
+#    <Binary></Binary>
+#  </EventData>
+#</Event>
