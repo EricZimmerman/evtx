@@ -40,7 +40,14 @@ Maps:
       - 
         Name: LogonType
         Value: "/Event/EventData/Data[@Name=\"LogonType\"]"
-
+  - 
+    Property: ExecutableInfo
+    PropertyValue: "%ProcessName%"
+    Values: 
+      - 
+        Name: ProcessName
+        Value: "/Event/EventData/Data[@Name=\"ProcessName\"]"
+		
 # Valid properties include:
 # UserName
 # RemoteHost
