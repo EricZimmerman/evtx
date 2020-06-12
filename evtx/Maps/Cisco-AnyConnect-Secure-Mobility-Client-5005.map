@@ -1,0 +1,36 @@
+Author: Mike Brewer 
+Description: Cisco AnyConnect VPN connecting to target gateway X
+EventId: 5005
+Channel: "Cisco AnyConnect Secure Mobility Client"
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "%PayloadData1%"
+    Values: 
+      - 
+        Name: PayloadData1
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=, )[^,\\d]+(?=,)"
+
+# Valid properties include:
+# 
+# PayloadData1
+
+# <Event>
+  # <System>
+    # <Provider Name="acvpndownloader" />
+    # <EventID Qualifiers="25600">5005</EventID>
+    # <Level>4</Level>
+    # <Task>0</Task>
+    # <Keywords>0x80000000000000</Keywords>
+    # <TimeCreated SystemTime="2020-04-14 15:35:05.9153410" />
+    # <EventRecordID>32628</EventRecordID>
+    # <Channel>Cisco AnyConnect Secure Mobility Client</Channel>
+    # <Computer>My-Laptop123.domain.local</Computer>
+    # <Security />
+  # </System>
+    # <EventData>
+      #<Data>Connecting to mdgegtwy1.acme.com.</Data>
+        # <Binary></Binary>
+        # </EventData>
+    # </Event>

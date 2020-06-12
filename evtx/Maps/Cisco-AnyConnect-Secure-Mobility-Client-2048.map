@@ -1,0 +1,37 @@
+
+Author: Mike Brewer 
+Description: Cisco AnyConnect VPN encrypted connection type
+EventId: 2048
+Channel: "Cisco AnyConnect Secure Mobility Client"
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "%PayloadData1%"
+    Values: 
+      - 
+        Name: PayloadData1
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=, )[^,\\d]+(?=,)"
+
+# Valid properties include:
+# 
+# PayloadData1
+
+# <Event>
+  # <System>
+    # <Provider Name="acvpnagent" />
+    # <EventID Qualifiers="25600">2048</EventID>
+    # <Level>4</Level>
+    # <Task>0</Task>
+    # <Keywords>0x80000000000000</Keywords>
+    # <TimeCreated SystemTime="2020-04-14 15:35:05.9153410" />
+    # <EventRecordID>32685</EventRecordID>
+    # <Channel>Cisco AnyConnect Secure Mobility Client</Channel>
+    # <Computer>My-Laptop123.domain.local</Computer>
+    # <Security />
+  # </System>
+    # <EventData>
+      #<Data>A SSL connection has been established using cipher AES256-SHA256</Data>
+        # <Binary></Binary>
+        # </EventData>
+    # </Event>

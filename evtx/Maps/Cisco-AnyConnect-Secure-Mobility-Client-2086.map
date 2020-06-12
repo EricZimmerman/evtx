@@ -1,0 +1,36 @@
+Author: Mike Brewer 
+Description: Cisco AnyConnect VPN reading host's IP 
+EventId: 2086
+Channel: "Cisco AnyConnect Secure Mobility Client"
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "%PayloadData1%"
+    Values: 
+      - 
+        Name: PayloadData1
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=, )[^,\\d]+(?=,)"
+
+# Valid properties include:
+# 
+# PayloadData1
+
+# <Event>
+  # <System>
+    # <Provider Name="acvpnagent" />
+    # <EventID Qualifiers="25600">2086</EventID>
+    # <Level>4</Level>
+    # <Task>0</Task>
+    # <Keywords>0x80000000000000</Keywords>
+    # <TimeCreated SystemTime="2020-04-14 15:35:05.9153410" />
+    # <EventRecordID>32628</EventRecordID>
+    # <Channel>Cisco AnyConnect Secure Mobility Client</Channel>
+    # <Computer>My-Laptop123.domain.local</Computer>
+    # <Security />
+  # </System>
+    # <EventData>
+      #<Data>The client's public address is now set to 192.168.1.235</Data>
+        # <Binary></Binary>
+        # </EventData>
+    # </Event>
