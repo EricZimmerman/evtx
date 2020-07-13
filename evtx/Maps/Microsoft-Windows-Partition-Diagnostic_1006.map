@@ -1,5 +1,5 @@
 Author: Mark Hallman mark.hallman@gmail.com
-Description: USB Insertation 1006 EventId
+Description: USB Insertion/Removal - EventId 1006
 EventId: 1006
 Channel: "Microsoft-Windows-Partition/Diagnostic"
 Maps: 
