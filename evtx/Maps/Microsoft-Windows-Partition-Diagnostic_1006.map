@@ -1,0 +1,33 @@
+Author: Mark Hallman mark.hallman@gmail.com
+Description: USB Insertion/Removal - EventId 1006
+EventId: 1006
+Channel: "Microsoft-Windows-Partition/Diagnostic"
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "Model: %Model%"
+    Values: 
+      - 
+        Name: Model
+        Value: "/Event/EventData/Data[@Name=\"Model\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "SerialNumber: %SerialNumber%"
+    Values: 
+      - 
+        Name: SerialNumber
+        Value: "/Event/EventData/Data[@Name=\"SerialNumber\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "DiskId: %DiskId%"
+    Values: 
+      - 
+        Name: DiskId
+        Value: "/Event/EventData/Data[@Name=\"DiskId\"]"
+  -
+    Property: PayloadData4
+    PropertyValue: "ParentId: %ParentId%"
+    Values: 
+      - 
+        Name: ParentId
+        Value: "/Event/EventData/Data[@Name=\"ParentId\"]"
