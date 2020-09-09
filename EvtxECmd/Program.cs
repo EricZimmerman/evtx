@@ -647,14 +647,22 @@ namespace EvtxECmd
                 }
             }
 
-            _swCsv?.Flush();
-            _swCsv?.Close();
+            try
+            {
+                _swCsv?.Flush();
+                _swCsv?.Close();
 
-            _swJson?.Flush();
-            _swJson?.Close();
+                _swJson?.Flush();
+                _swJson?.Close();
 
-            _swXml?.Flush();
-            _swXml?.Close();
+                _swXml?.Flush();
+                _swXml?.Close();
+            }
+            catch (Exception e)
+            {
+                _logger.Error($"Error when flushing output files to disk! Error message: {e.Message}");
+            }
+            
 
             sw.Stop();
             _logger.Info("");
