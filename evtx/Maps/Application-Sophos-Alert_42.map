@@ -27,9 +27,7 @@ Maps:
         Name: Size
         Value: "/Event/EventData/Data"
         Refine: "FileSize\":\"(.+)\",\"F"
-	 
-	
-	
+
 # Valid properties include:
 # UserName
 # RemoteHost

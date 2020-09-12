@@ -47,7 +47,7 @@ Maps:
       - 
         Name: ProcessName
         Value: "/Event/EventData/Data[@Name=\"ProcessName\"]"
-		
+
 # Valid properties include:
 # UserName
 # RemoteHost
