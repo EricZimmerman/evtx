@@ -156,6 +156,61 @@ namespace evtx.Test
             Check.That(EventLog.EventLogMaps.Count).IsStrictlyGreaterThan(0);
         }
 
+           [Test]
+        public void DanderTest()
+        {
+            var config = new LoggingConfiguration();
+            var loglevel = LogLevel.Info;
+
+            var layout = @"${message}";
+
+            var consoleTarget = new ColoredConsoleTarget();
+
+            config.AddTarget("console", consoleTarget);
+
+            consoleTarget.Layout = layout;
+
+            var rule1 = new LoggingRule("*", loglevel, consoleTarget);
+            config.LoggingRules.Add(rule1);
+
+            LogManager.Configuration = config;
+            var l = LogManager.GetLogger("foo");
+
+            var sysLog = @"D:\!Downloads\System2.evtx";
+
+            var total = 0;
+            var total2 = 0;
+
+            using (var fs = new FileStream(sysLog, FileMode.Open, FileAccess.Read))
+            {
+                var es = new EventLog(fs);
+
+                foreach (var eventRecord in es.GetEventRecords())
+                {
+                   
+                        l.Info(
+                            $"Record #: {eventRecord.RecordNumber} Hidden: {eventRecord.HiddenRecord}, Timestamp: {eventRecord.TimeCreated.ToUniversalTime()} Channel: {eventRecord.Channel} Computer: {eventRecord.Computer} {eventRecord.PayloadData1} {eventRecord.PayloadData2}");
+                   
+
+                    //   eventRecord.ConvertPayloadToXml();
+
+                    total += 1;
+                }
+
+                foreach (var esEventIdMetric in es.EventIdMetrics.OrderBy(t => t.Key))
+                {
+                    total2 += esEventIdMetric.Value;
+                    l.Info($"{esEventIdMetric.Key}: {esEventIdMetric.Value:N0}");
+                }
+
+                l.Info($"Total from here: {total:N0}");
+                l.Info($"Total2 from here: {total2:N0}");
+                l.Info($"Event log details: {es}");
+                l.Info($"Event log error count: {es.ErrorRecords.Count:N0}");
+
+                Check.That(es.ErrorRecords.Count).IsEqualTo(0);
+            }
+        }
 
         [Test]
         public void SystemLog()

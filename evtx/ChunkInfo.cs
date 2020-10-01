@@ -212,6 +212,26 @@ namespace evtx
 
                     EventRecords.Add(er);
 
+                    if (er.ExtraDataOffset > 0)
+                    {
+                        //hidden data!
+                         recordSize = BitConverter.ToUInt32(ms.ToArray(), (int)er.ExtraDataOffset + 4);
+
+                         recordNumber = BitConverter.ToInt64(ms.ToArray(), (int)er.ExtraDataOffset + 8);
+
+                          ms = new MemoryStream(ms.ToArray(), (int)er.ExtraDataOffset, (int)recordSize);
+                          br = new BinaryReader(ms, Encoding.UTF8);
+
+                          er = new EventRecord(br, (int) (recordOffset + er.ExtraDataOffset), this);
+                          er.HiddenRecord = true;
+
+                          l.Warn($"Record #: {er.RecordNumber} (timestamp: {er.TimeCreated:yyyy-MM-dd HH:mm:ss.fffffff}): Warning! A hidden record was found! Possible DanderSpritz use detected!");
+
+                          EventRecords.Add(er);
+                    }
+
+                   
+
                     //ticksForTimeDelta == totalticks for discrepancy value
                     if (EventLog.LastSeenTicks > 0 && EventLog.LastSeenTicks - ticksForTimeDelta > er.TimeCreated.Ticks)
                     {

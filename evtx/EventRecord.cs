@@ -36,7 +36,7 @@ namespace evtx
             }
 
             l.Trace(
-                $"Record position: 0x{RecordPosition:X4} Record #: {RecordNumber.ToString().PadRight(3)} Timestamp: {Timestamp:yyyy-MM-dd HH:mm:ss.fffffff}");
+                $"\r\nRecord position: 0x{RecordPosition:X4} Record #: {RecordNumber.ToString().PadRight(3)} Timestamp: {Timestamp:yyyy-MM-dd HH:mm:ss.fffffff}");
 
             Nodes = new List<IBinXml>();
 
@@ -48,9 +48,33 @@ namespace evtx
                 Nodes.Add(nextTag);
 
                 if (nextTag is EndOfBXmlStream)
-                    //nothing left to do, so exit
+                  
                 {
+                    //nothing left to do, so exit
                     eof = true;
+
+                    //check here if there is a 0x2a0x2a and if so, another record!
+
+                    var found2a = true; //danderspritz test
+                    while (recordData.ReadByte() != 0x2a)
+                    {
+                        if (recordData.BaseStream.Position == recordData.BaseStream.Length)
+                        {
+                            found2a = false;
+                            break; //out of data
+                        }
+                      
+                    }
+
+                    if (found2a)
+                    {
+                        //back up one, and pull a log!
+                        recordData.BaseStream.Seek(-1, SeekOrigin.Current);
+
+                        ExtraDataOffset = recordData.BaseStream.Position;
+                      
+                    }
+                    
                 }
             }
 
@@ -83,6 +107,9 @@ namespace evtx
         public int ThreadId { get; private set; }
         public int Level { get; private set; }
         public string SourceFile { get; set; }
+
+        public long ExtraDataOffset { get; set; }
+        public bool HiddenRecord { get; set; }
 
         /// <summary>
         ///     This should match the Timestamp pulled from the data, but this one is explicitly from the XML via the substitution
