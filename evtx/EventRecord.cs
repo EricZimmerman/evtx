@@ -56,22 +56,29 @@ namespace evtx
                     //check here if there is a 0x2a0x2a and if so, another record!
 
                     var found2a = true; //danderspritz test
-                    while (recordData.ReadByte() != 0x2a)
+                    var maxCount = 0;
+                    while (recordData.ReadByte() != 0x2a && maxCount<15)
                     {
                         if (recordData.BaseStream.Position == recordData.BaseStream.Length)
                         {
                             found2a = false;
                             break; //out of data
                         }
-                      
+                    
+                        maxCount += 1;
                     }
-
+                    
                     if (found2a)
                     {
-                        //back up one, and pull a log!
-                        recordData.BaseStream.Seek(-1, SeekOrigin.Current);
-
-                        ExtraDataOffset = recordData.BaseStream.Position;
+                        //a secondary check to eliminate false positives
+                        if (recordData.ReadByte() == 0x2a)
+                        {
+                            //back up two
+                            recordData.BaseStream.Seek(-2, SeekOrigin.Current);
+                    
+                            ExtraDataOffset = recordData.BaseStream.Position;
+                        }
+                        
                       
                     }
                     

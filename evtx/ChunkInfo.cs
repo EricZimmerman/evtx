@@ -168,6 +168,9 @@ namespace evtx
             l.Trace($"\r\nChunk data before processing records: {this}");
 
             const int recordSig = 0x2a2a;
+
+            long lastRecordNumber = 0;
+
             while (index < chunkBytes.Length)
             {
                 var sig = BitConverter.ToInt32(chunkBytes, index);
@@ -212,22 +215,38 @@ namespace evtx
 
                     EventRecords.Add(er);
 
+                     lastRecordNumber = er.RecordNumber;
+
                     if (er.ExtraDataOffset > 0)
                     {
-                        //hidden data!
-                         recordSize = BitConverter.ToUInt32(ms.ToArray(), (int)er.ExtraDataOffset + 4);
+                        try
+                        {
+                            //hidden data!
+                            recordSize = BitConverter.ToUInt32(ms.ToArray(), (int)er.ExtraDataOffset + 4);
 
-                         recordNumber = BitConverter.ToInt64(ms.ToArray(), (int)er.ExtraDataOffset + 8);
+                            recordNumber = BitConverter.ToInt64(ms.ToArray(), (int)er.ExtraDataOffset + 8);
 
-                          ms = new MemoryStream(ms.ToArray(), (int)er.ExtraDataOffset, (int)recordSize);
-                          br = new BinaryReader(ms, Encoding.UTF8);
+                            if (recordNumber != lastRecordNumber)
+                            {
 
-                          er = new EventRecord(br, (int) (recordOffset + er.ExtraDataOffset), this);
-                          er.HiddenRecord = true;
+                                ms = new MemoryStream(ms.ToArray(), (int)er.ExtraDataOffset, (int)recordSize);
+                                br = new BinaryReader(ms, Encoding.UTF8);
 
-                          l.Warn($"Record #: {er.RecordNumber} (timestamp: {er.TimeCreated:yyyy-MM-dd HH:mm:ss.fffffff}): Warning! A hidden record was found! Possible DanderSpritz use detected!");
+                                er = new EventRecord(br, (int) (recordOffset + er.ExtraDataOffset), this);
+                                er.HiddenRecord = true;
 
-                          EventRecords.Add(er);
+                                l.Warn($"Record #: {er.RecordNumber} (timestamp: {er.TimeCreated:yyyy-MM-dd HH:mm:ss.fffffff}): Warning! A hidden record was found! Possible DanderSpritz use detected!");
+
+                                EventRecords.Add(er);
+                            }
+
+                        }
+                        catch (Exception e)
+                        {
+                            //oh well, we tried
+                            //l.Warn($"Error when attemping to recover possible hidden record: {e.Message}");
+                        }
+                        
                     }
 
                    
