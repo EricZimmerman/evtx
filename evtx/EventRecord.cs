@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Diagnostics.Eventing.Reader;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -112,7 +113,8 @@ namespace evtx
         public string EventRecordId { get; private set; }
         public int ProcessId { get; private set; }
         public int ThreadId { get; private set; }
-        public int Level { get; private set; }
+        public string Level { get; private set; }
+        public string Keywords { get; private set; }
         public string SourceFile { get; set; }
 
         public long ExtraDataOffset { get; set; }
@@ -164,8 +166,79 @@ namespace evtx
                             EventId = reader.ReadElementContentAsInt();
                             break;
                         case "Level":
-                            Level = reader.ReadElementContentAsInt();
+                            var lvl = reader.ReadElementContentAsInt();
+                            
+                            switch (lvl)
+                            {
+                                case 1:
+                                    Level = "Critical";
+                                    break;
+                                case 2:
+                                    Level = "Error";
+                                    break;
+                                case 3:
+                                    Level = "Warning";
+                                    break;
+                                case 4:
+                                    Level = "Info";
+                                    break;
+                                case 5:
+                                    Level = "Verbose";
+                                    break;
+                            
+                                case 8:
+                                    Level = "Success";
+                                    break;
+                                case 16:
+                                    Level = "Failure";
+                                    break;
+                                default:
+                                    Level = lvl.ToString();
+                                    break;
+                            }
+
                             break;
+
+                        case "Keywords":
+
+                            var kw = reader.ReadElementContentAsString();
+
+                            switch (kw)
+                            {
+                                case "0x8010000000000000":
+                                    Keywords = "Audit failure";
+                                    break;
+                                case "0x8020000000000000":
+                                    Keywords = "Audit success";
+                                    break;
+                                case "0x8000000000000010":
+                                    Keywords = "Time";
+                                    break;
+                                case "0x8000000000000080":
+                                    Keywords = "State";
+                                    break;
+                                case "0x8000000000000040":
+                                    Keywords = "Reboot";
+                                    break;
+                                case "0x8000000000000018":
+                                    Keywords = "Installation";
+                                    break;
+                                case "0x8000000000000014":
+                                    Keywords = "Download";
+                                    break;
+                                case "0x8080000000000000":
+                                    Keywords = "Audit success, classic";
+                                    break;
+                                case "0x8000000000000000":
+                                    Keywords = "Classic";
+                                    break;
+                                default:
+                                    Keywords = kw;
+                                    break;
+                            }
+
+                                break;
+
                         case "TimeCreated":
                             var st = reader.GetAttribute("SystemTime");
                             TimeCreated = DateTimeOffset.Parse(st, null, DateTimeStyles.AssumeUniversal).ToUniversalTime();
@@ -198,10 +271,7 @@ namespace evtx
                             break;
                     }
                 }
-
-               
             }
-
 
             if (Payload == null)
             {
@@ -220,116 +290,146 @@ namespace evtx
                 return;
             }
 
-            if (EventLog.EventLogMaps.ContainsKey($"{EventId}-{Channel.ToUpperInvariant()}"))
+            if (!EventLog.EventLogMaps.ContainsKey($"{EventId}-{Channel.ToUpperInvariant()}"))
             {
-                var docNav = new XPathDocument(new StringReader(Payload));
-                var nav = docNav.CreateNavigator();
+                return;
+            }
 
-                l.Trace($"Found map for event id {EventId} with Channel '{Channel}'!");
-                var map = EventLog.EventLogMaps[$"{EventId}-{Channel.ToUpperInvariant()}"];
+            var docNav = new XPathDocument(new StringReader(Payload));
+            var nav = docNav.CreateNavigator();
 
-                MapDescription = map.Description;
+            l.Trace($"Found map for event id {EventId} with Channel '{Channel}'!");
+            var map = EventLog.EventLogMaps[$"{EventId}-{Channel.ToUpperInvariant()}"];
 
-                foreach (var mapEntry in map.Maps)
+            if (map.Provider.IsNullOrEmpty() == false)
+            {
+                l.Trace($"Map specifies a provider. Checking...");
+
+                if (!string.Equals(map.Provider, Provider, StringComparison.InvariantCultureIgnoreCase))
                 {
-                    var valProps = new Dictionary<string, string>();
+                        
+                    l.Debug($"The Provider in the event log does not match the provider in the map. Map not applicable.");
+                    return;
+                }
+            }
 
-                    foreach (var me in mapEntry.Values)
+            MapDescription = map.Description;
+
+            foreach (var mapEntry in map.Maps)
+            {
+                var valProps = new Dictionary<string, string>();
+
+                foreach (var me in mapEntry.Values)
+                {
+                    //xpath out variables
+                    var propVal = nav.SelectSingleNode(me.Value.Replace("/Event/","/")); //strip this off since its now missing from the xml we need to search
+                    if (propVal != null)
                     {
-                        //xpath out variables
-                        var propVal = nav.SelectSingleNode(me.Value.Replace("/Event/","/")); //strip this off since its now missing from the xml we need to search
-                        if (propVal != null)
+                        var propValue = propVal.Value;
+
+                        if (me.Refine.IsNullOrEmpty() == false)
                         {
-                            var propValue = propVal.Value;
+                            var hits = new List<string>();
 
-                            if (me.Refine.IsNullOrEmpty() == false)
+                            //regex time
+                            try
                             {
-                                var hits = new List<string>();
-
-                                //regex time
-                                try
+                                var regexObj = new Regex(me.Refine, RegexOptions.IgnoreCase);
+                                var allMatchResults = regexObj.Matches(propValue);
+                                if (allMatchResults.Count > 0)
                                 {
-                                    var regexObj = new Regex(me.Refine, RegexOptions.IgnoreCase);
-                                    var allMatchResults = regexObj.Matches(propValue);
-                                    if (allMatchResults.Count > 0)
+                                    // Access individual matches using allMatchResults.Item[]
+                                    foreach (Match allMatchResult in allMatchResults)
                                     {
-                                        // Access individual matches using allMatchResults.Item[]
-                                        foreach (Match allMatchResult in allMatchResults)
-                                        {
-                                            hits.Add(allMatchResult.Value);
-                                        }
-
-                                        propValue = string.Join(" | ", hits);
+                                        hits.Add(allMatchResult.Value);
                                     }
-                                }
-                                catch (ArgumentException)
-                                {
-                                    // Syntax error in the regular expression
+
+                                    propValue = string.Join(" | ", hits);
                                 }
                             }
-
-                            valProps.Add(me.Name, propValue);
+                            catch (ArgumentException)
+                            {
+                                // Syntax error in the regular expression
+                            }
                         }
-                        else
+
+                        var lu = map.Lookups.SingleOrDefault(t =>
+                            t.Name.ToUpperInvariant() == me.Name.ToUpperInvariant());
+
+                        if (lu != null)
                         {
-                            valProps.Add(me.Name, string.Empty);
-                            l.Warn(
-                                $"Record # {RecordNumber} (Event Record Id: {EventRecordId}): In map for event '{map.EventId}', Property '{me.Value}' not found! Replacing with empty string");
+                           
+                            if (lu.Values.ContainsKey(propValue))
+                            {
+                                propValue = lu.Values[propValue]; //set it to lookup value
+                            }
+                            else
+                            {
+                                propValue = $"{lu.Default} ({propValue})"; //include the default and original value
+                            }
                         }
-                    }
 
-                    //we have the values, now substitute
-                    var propertyValue = mapEntry.PropertyValue;
-                    foreach (var valProp in valProps)
+                        valProps.Add(me.Name, propValue);
+                    }
+                    else
                     {
-                        propertyValue = propertyValue.Replace($"%{valProp.Key}%", valProp.Value);
+                        valProps.Add(me.Name, string.Empty);
+                        l.Warn(
+                            $"Record # {RecordNumber} (Event Record Id: {EventRecordId}): In map for event '{map.EventId}', Property '{me.Value}' not found! Replacing with empty string");
                     }
+                }
 
-                    var propertyToUpdate = mapEntry.Property.ToUpperInvariant();
+                //we have the values, now substitute
+                var propertyValue = mapEntry.PropertyValue;
+                foreach (var valProp in valProps)
+                {
+                    propertyValue = propertyValue.Replace($"%{valProp.Key}%", valProp.Value);
+                }
 
-                    if (valProps.Count == 0)
-                    {
-                        propertyToUpdate = "NOMATCH"; //prevents variables from showing up in the CSV
-                    }
+                var propertyToUpdate = mapEntry.Property.ToUpperInvariant();
 
-                    //we should now have our new value, so stick it in its place
-                    switch (propertyToUpdate)
-                    {
-                        case "USERNAME":
-                            UserName = propertyValue;
-                            break;
-                        case "REMOTEHOST":
-                            RemoteHost = propertyValue;
-                            break;
-                        case "EXECUTABLEINFO":
-                            ExecutableInfo = propertyValue;
-                            break;
-                        case "PAYLOADDATA1":
-                            PayloadData1 = propertyValue;
-                            break;
-                        case "PAYLOADDATA2":
-                            PayloadData2 = propertyValue;
-                            break;
-                        case "PAYLOADDATA3":
-                            PayloadData3 = propertyValue;
-                            break;
-                        case "PAYLOADDATA4":
-                            PayloadData4 = propertyValue;
-                            break;
-                        case "PAYLOADDATA5":
-                            PayloadData5 = propertyValue;
-                            break;
-                        case "PAYLOADDATA6":
-                            PayloadData6 = propertyValue;
-                            break;
-                        case "NOMATCH":
-                            //when a property was not found.
-                            break;
-                        default:
-                            l.Warn(
-                                $"Unknown property name '{propertyToUpdate}'! Dropping mapping value of '{propertyValue}'");
-                            break;
-                    }
+                if (valProps.Count == 0)
+                {
+                    propertyToUpdate = "NOMATCH"; //prevents variables from showing up in the CSV
+                }
+
+                //we should now have our new value, so stick it in its place
+                switch (propertyToUpdate)
+                {
+                    case "USERNAME":
+                        UserName = propertyValue;
+                        break;
+                    case "REMOTEHOST":
+                        RemoteHost = propertyValue;
+                        break;
+                    case "EXECUTABLEINFO":
+                        ExecutableInfo = propertyValue;
+                        break;
+                    case "PAYLOADDATA1":
+                        PayloadData1 = propertyValue;
+                        break;
+                    case "PAYLOADDATA2":
+                        PayloadData2 = propertyValue;
+                        break;
+                    case "PAYLOADDATA3":
+                        PayloadData3 = propertyValue;
+                        break;
+                    case "PAYLOADDATA4":
+                        PayloadData4 = propertyValue;
+                        break;
+                    case "PAYLOADDATA5":
+                        PayloadData5 = propertyValue;
+                        break;
+                    case "PAYLOADDATA6":
+                        PayloadData6 = propertyValue;
+                        break;
+                    case "NOMATCH":
+                        //when a property was not found.
+                        break;
+                    default:
+                        l.Warn(
+                            $"Unknown property name '{propertyToUpdate}'! Dropping mapping value of '{propertyValue}'");
+                        break;
                 }
             }
         }

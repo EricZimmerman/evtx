@@ -479,6 +479,7 @@ namespace EvtxECmd
                 foo.Map(t => t.ExecutableInfo).Index(20);
                 foo.Map(t => t.HiddenRecord).Index(21);
                 foo.Map(t => t.SourceFile).Index(22);
+                foo.Map(t => t.Keywords).Index(23);
 
                 _csvWriter.Configuration.RegisterClassMap(foo);
                 _csvWriter.WriteHeader<EventRecord>();

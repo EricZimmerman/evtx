@@ -1,0 +1,54 @@
+Author: Eric Zimmerman
+Description: Sleep/wake events
+EventId: 42
+Channel: "System"
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: Reason "%Reason%"
+    Values: 
+      - 
+        Name: Reason
+        Value: "/Event/EventData/Data[@Name=\"Reason\"]"
+Lookups:
+  -
+    Name: Reason
+    Default: Unknown code
+    Values:
+        0: Button or lid
+        2: Battery
+        6: Hibernate from sleep - Fixed timeout
+        7: System idle
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+#Sample Event - derived from the event template.
+#<Event>
+  #<System>
+    #<Provider Name="Microsoft-Windows-Kernel-Power" Guid="331c3b3a-2005-44c2-ac5e-77220c37d6b4" />
+    #<EventID>42</EventID>
+    #<Version>3</Version>
+    #<Level>4</Level>
+    #<Task>64</Task>
+    #<Opcode>0</Opcode>
+    #<Keywords>0x8000000000000404</Keywords>
+    #<TimeCreated SystemTime="2019-07-23 16:07:17.6831355" />
+    #<EventRecordID>1189</EventRecordID>
+    #<Correlation />
+    #<Execution ProcessID="4" ThreadID="8112" />
+    #<Channel>System</Channel>
+    #<Computer>DESKTOP-LOJVG3N</Computer>
+    #<Security />
+  #</System>
+  #<EventData>
+    #<Data Name="TargetState">4</Data>
+    #<Data Name="EffectiveState">4</Data>
+    #<Data Name="Reason">0</Data>
+    #<Data Name="Flags">4</Data>
+    #<Data Name="TransitionsToOn">1</Data>
+  #</EventData>
+#</Event>

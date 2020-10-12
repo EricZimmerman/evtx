@@ -153,8 +153,17 @@ namespace evtx
                                 $"{eventMapFile.EventId}-{eventMapFile.Channel.ToUpperInvariant()}") == false)
                         {
                             l.Debug($"'{Path.GetFileName(mapFile)}' is valid. Adding to maps...");
-                            EventLogMaps.Add($"{eventMapFile.EventId}-{eventMapFile.Channel.ToUpperInvariant()}",
-                                eventMapFile);
+
+                            // if (eventMapFile.Provider.IsNullOrEmpty() == false)
+                            // {
+                            //     EventLogMaps.Add($"{eventMapFile.EventId}-{eventMapFile.Channel.ToUpperInvariant()}-{eventMapFile.Provider.ToUpperInvariant()}", eventMapFile);
+                            // }
+                            // else
+                            // {
+                            //     
+                            // }
+                            EventLogMaps.Add($"{eventMapFile.EventId}-{eventMapFile.Channel.ToUpperInvariant()}", eventMapFile);    
+                            
                         }
                         else
                         {
@@ -198,6 +207,7 @@ namespace evtx
 
                     Console.WriteLine();
                     l.Warn($"Syntax error in '{mapFile}':");
+                    l.Info($"Message: {ye.Message}\r\n");
 
                     var fileContents = mapFile.ReadAllText();
 

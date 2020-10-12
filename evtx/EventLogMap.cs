@@ -9,15 +9,28 @@ namespace evtx
         public string Author { get; set; }
         public int EventId { get; set; }
         public string Channel { get; set; }
+        /// <summary>
+        /// Optional field that, when present, will limit the processing of the map to those matching Provider and EventId
+        /// </summary>
+        public string Provider { get; set; }
         public string Description { get; set; }
 
         public List<MapEntry> Maps { get; set; }
+        public List<LookupEntry> Lookups { get; set; }
 
         public override string ToString()
         {
             return
                 $"EventId: {EventId} Channel: {Channel} Author: {Author} Description: {Description}, Map count: {Maps.Count:N0}";
         }
+    }
+
+    public class LookupEntry
+    {
+        public string Name { get; set; }
+        public string Default { get; set; }
+
+        public Dictionary<string,string> Values { get; set; }
     }
 
     public class MapEntry
@@ -49,6 +62,23 @@ namespace evtx
         }
     }
 
+    public class LookupEntryValidator : AbstractValidator<LookupEntry>
+    {
+        public LookupEntryValidator()
+        {
+            RuleFor(target => target.Name).NotEmpty();
+            RuleFor(target => target.Default).NotEmpty();
+            
+
+            RuleFor(target => target.Values.Count).GreaterThan(0).When(t => t.Values != null);
+
+            RuleForEach(t => t.Values.Keys).NotNull().WithMessage("Keys");
+            RuleForEach(t => t.Values.Values).NotNull().WithMessage("Values");
+        }
+    }
+
+  
+
     public class ValueEntryValidator : AbstractValidator<ValueEntry>
     {
         public ValueEntryValidator()
@@ -76,7 +106,7 @@ namespace evtx
             RuleForEach(target => target.Values).NotNull()
                 .WithMessage(
                     "Values")
-                .SetValidator(new ValueEntryValidator());
+                .NotEmpty();
         }
 
     }
