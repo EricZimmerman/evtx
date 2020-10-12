@@ -170,6 +170,9 @@ namespace evtx
                             
                             switch (lvl)
                             {
+                                case 0:
+                                    Level = "LogAlways";
+                                    break;
                                 case 1:
                                     Level = "Critical";
                                     break;
@@ -353,7 +356,7 @@ namespace evtx
                             }
                         }
 
-                        var lu = map.Lookups.SingleOrDefault(t =>
+                        var lu = map.Lookups?.SingleOrDefault(t =>
                             t.Name.ToUpperInvariant() == me.Name.ToUpperInvariant());
 
                         if (lu != null)
