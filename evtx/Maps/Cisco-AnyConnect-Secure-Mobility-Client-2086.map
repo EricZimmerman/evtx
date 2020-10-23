@@ -1,6 +1,6 @@
 Author: Mike Brewer 
 Description: Cisco AnyConnect VPN reading host's IP 
-EventId: 2086
+EventId: 2085
 Channel: "Cisco AnyConnect Secure Mobility Client"
 Maps: 
   - 
@@ -19,7 +19,7 @@ Maps:
 # <Event>
   # <System>
     # <Provider Name="acvpnagent" />
-    # <EventID Qualifiers="25600">2086</EventID>
+    # <EventID Qualifiers="25600">2085</EventID>
     # <Level>4</Level>
     # <Task>0</Task>
     # <Keywords>0x80000000000000</Keywords>
