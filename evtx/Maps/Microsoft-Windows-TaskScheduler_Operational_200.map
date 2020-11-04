@@ -1,5 +1,5 @@
 Author: Eric Zimmerman saericzimmerman@gmail.com
-Description: Scheduled task executed
+Description: Scheduled Task executed
 EventId: 200
 Channel: "Microsoft-Windows-TaskScheduler/Operational"
 Maps: 
