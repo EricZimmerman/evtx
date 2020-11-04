@@ -1,5 +1,5 @@
 Author: Eric Zimmerman saericzimmerman@gmail.com
-Description: Scheduled task completed
+Description: Scheduled Task completed
 EventId: 201
 Channel: "Microsoft-Windows-TaskScheduler/Operational"
 Maps: 
