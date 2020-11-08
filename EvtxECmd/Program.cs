@@ -113,13 +113,13 @@ namespace EvtxECmd
             _fluentCommandLineParser.Setup(arg => arg.IncludeIds)
                 .As("inc")
                 .WithDescription(
-                    "List of event IDs to process. All others are ignored. Overrides --exc Format is 4624,4625,5410")
+                    "List of Event IDs to process. All others are ignored. Overrides --exc Format is 4624,4625,5410")
                 .SetDefault(string.Empty);
 
             _fluentCommandLineParser.Setup(arg => arg.ExcludeIds)
                 .As("exc")
                 .WithDescription(
-                    "List of event IDs to IGNORE. All others are included. Format is 4624,4625,5410")
+                    "List of Event IDs to IGNORE. All others are included. Format is 4624,4625,5410")
                 .SetDefault(string.Empty);
 
             _fluentCommandLineParser.Setup(arg => arg.StartDate)
@@ -1029,7 +1029,7 @@ namespace EvtxECmd
                 if (_fluentCommandLineParser.Object.Metrics && evt.EventIdMetrics.Count > 0)
                 {
                     _logger.Fatal("\r\nMetrics (including dropped events)");
-                    _logger.Warn("Event Id\tCount");
+                    _logger.Warn("Event ID\tCount");
                     foreach (var esEventIdMetric in evt.EventIdMetrics.OrderBy(t => t.Key))
                     {
                         if (_includeIds.Count > 0)

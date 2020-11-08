@@ -1,12 +1,12 @@
 Map files are used to convert the EventData (the unique part of an event) to a more standardized format. Map files are specific to a certain type of event log, such as Security, Application, etc.
 
-Because different event logs may reuse event IDs, maps need to be specific to a certain kind of log. This specificity is done by using a unique identifier for a given event log, the Channel. We will see more about this in a moment.
+Because different event logs may reuse Event IDs, maps need to be specific to a certain kind of log. This specificity is done by using a unique identifier for a given event log, the Channel. We will see more about this in a moment.
 
-Once you know what event log and event ID you want to make a map for, the first thing to do is dump the log's records to XML, using EvtxECmd.exe as follows:
+Once you know what event log and Event ID you want to make a map for, the first thing to do is dump the log's records to XML, using EvtxECmd.exe as follows:
 
 EvtxECmd.exe -f <your eventlog> --xml c:\temp\xml
 
-When the command finishes, open the generated xml file in c:\temp\ and find your event ID of interest. Let's say its from the Security log and its event ID 4624, It might look like this:
+When the command finishes, open the generated xml file in c:\temp\ and find your Event ID of interest. Let's say its from the Security log and its Event ID 4624, It might look like this:
 
 <Event>
   <System>
@@ -62,9 +62,9 @@ In most cases, the data in the <EventData> block is what you want to process. Th
 
 So let's take a look at a map to make things a bit more clear.
 
-In the example below, there are four header properties that describe the map: who wrote it, what its for, the Channel, and the event ID the map corresponds to. 
+In the example below, there are four header properties that describe the map: who wrote it, what its for, the Channel, and the Event ID the map corresponds to. 
 
-The Channel and EventId property are what make a map unique, not the name of the file. As long as the map ends with '.map' it will be processed.
+The Channel and Event ID property are what make a map unique, not the name of the file. As long as the map ends with '.map' it will be processed.
 
 The Channel is a useful identifier for a given log type. It can be seen in the <Channel> element ("Security" in the example above).
 
@@ -76,7 +76,7 @@ The PropertyValue defines the pattern that will be used to build the final value
 
 In the map entries Values collection, we actually populate these variables by giving the value a name (domain in the first case) and an xpath query that will be used to set the value for the variable ("/Event/EventData/Data[@Name=\"SubjectDomainName\"]" in the first case).
 
-When a map is processed, each map entry has its Values items processed so the variables are populated with data. Then the PropertyValue is updated and the variables are replaced with the actual values. This final PropertyValue is then updated in the event record which then ends up in the CSV/json, etc.
+When a map is processed, each map entry has its Values items processed so the variables are populated with data. Then the PropertyValue is updated and the variables are replaced with the actual values. This final PropertyValue is then updated in the event record which then ends up in the CSV/JSON, etc.
 
 It is that simple! Be sure to surround things in double quotes and/or escape quotes as in the examples. When in doubt, test your map against real data!
 
@@ -86,7 +86,7 @@ Channel_EventID.map
 
 Where Channel is EXACTLY what is in the XML <Channel> element with any '/' characters replaced with an underscore.
 
-For example, for event Id '201' and channel 'Microsoft-Windows-TaskScheduler/Operational' the file should be named:
+For example, for Event ID '201' and Channel 'Microsoft-Windows-TaskScheduler/Operational' the file should be named:
 
 Microsoft-Windows-TaskScheduler_Operational_201.map
 
@@ -126,7 +126,7 @@ Maps:
         Name: LogonType
         Value: "/Event/EventData/Data[@Name=\"LogonType\"]"
 
-# Valid properties include:
+# Valid values for the Property field include:
 # UserName
 # RemoteHost
 # ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
