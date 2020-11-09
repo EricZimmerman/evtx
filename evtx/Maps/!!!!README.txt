@@ -90,6 +90,52 @@ For example, for Event ID '201' and Channel 'Microsoft-Windows-TaskScheduler/Ope
 
 Microsoft-Windows-TaskScheduler_Operational_201.map
 
+As of v06 or so, you can also add optional properties 'Provider' and 'Lookups'
+
+Provider is used at the header level and looks like this:
+
+Provider: "Microsoft-Windows-Power-Troubleshooter"
+
+This lets you further narrow down when a map will be used. See System_1.map for an example.
+
+Lookups allow you to define lookup tables that match one value and replace them with another. Here is an example, also from System_1.map:
+
+Lookups:
+  -
+    Name: WakeSourceType
+    Default: Unknown code
+    Values:
+        0: Unknown
+        1: Power button
+        3: Waking from sleep to hibernate
+        5: Device (See WakeSourceText for details)
+        6: Timer (See WakeSourceText for details)
+       
+The name of the lookup table determines when it will be used and should match the name of the property you want to apply the lookup to. Example:
+
+  - 
+    Property: PayloadData2
+    PropertyValue: Wake source "%WakeSourceType%"
+    Values: 
+      - 
+        Name: WakeSourceType
+        Value: "/Event/EventData/Data[@Name=\"WakeSourceType\"]"
+        
+Here, when the map is applied, the numerical value for WakeSourceType is filtered through the Lookup with the same name, and the value is updated to reflect the more human readable version. If you want BOTH the original value and  the lookup value, simply reference the original using a different Name under Values, then reference that adjusted name as a variable, like this:
+
+  - 
+    Property: PayloadData2
+    PropertyValue: Wake source "%WakeSourceType%" (%WakeSourceTypeOrg%)
+    Values: 
+      - 
+        Name: WakeSourceType
+        Value: "/Event/EventData/Data[@Name=\"WakeSourceType\"]"
+      - 
+        Name: WakeSourceTypeOrg
+        Value: "/Event/EventData/Data[@Name=\"WakeSourceType\"]"
+  
+
+here is another example of a map:
 
 ---- START MAP HERE ----
 
