@@ -301,7 +301,7 @@ namespace evtx
             var docNav = new XPathDocument(new StringReader(xml));
             var nav = docNav.CreateNavigator();
 
-            l.Trace($"Found map for event id {EventId} with Channel '{Channel}'!");
+            l.Trace($"Found map for Event ID {EventId} with Channel '{Channel}'!");
             var map = EventLog.EventLogMaps[$"{EventId}-{Channel.ToUpperInvariant()}"];
 
             if (map.Provider.IsNullOrEmpty() == false)
@@ -460,7 +460,7 @@ namespace evtx
         public override string ToString()
         {
             return
-                $"Record position: 0x{RecordPosition:X4} Record #: {RecordNumber.ToString().PadRight(3)} Timestamp: {Timestamp:yyyy-MM-dd HH:mm:ss.fffffff} Event Id: {EventId}";
+                $"Record position: 0x{RecordPosition:X4} Record #: {RecordNumber.ToString().PadRight(3)} Timestamp: {Timestamp:yyyy-MM-dd HH:mm:ss.fffffff} Event ID: {EventId}";
         }
     }
 }
