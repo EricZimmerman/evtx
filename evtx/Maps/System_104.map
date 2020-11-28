@@ -1,0 +1,56 @@
+Author: Gabriele Zambelli @gazambelli
+Description: Event log cleared
+EventId: 104
+Channel: System
+Provider: Microsoft-Windows-Eventlog
+Maps: 
+  - 
+    Property: Username
+    PropertyValue: "%domain%\\%user%" 
+    Values: 
+      - 
+        Name: domain
+        Value: "/Event/UserData/LogFileCleared/SubjectDomainName"
+      - 
+        Name: user
+        Value: "/Event/UserData/LogFileCleared/SubjectUserName"
+  - 
+    Property: PayloadData1
+    PropertyValue: The %Channel% log file was cleared 
+    Values: 
+      - 
+        Name: Channel
+        Value: "/Event/UserData/LogFileCleared/Channel"
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+# <Event>
+  # <System>
+    # <Provider Name="Microsoft-Windows-Eventlog" Guid="{fc65ddd8-d6ef-4962-83d5-6e5cfe9ce148}" />
+    # <EventID>104</EventID>
+    # <Version>0</Version>
+    # <Level>4</Level>
+    # <Task>104</Task>
+    # <Opcode>0</Opcode>
+    # <Keywords>0x8000000000000000</Keywords>
+    # <TimeCreated SystemTime="2020-11-27 18:43:29.7273880" />
+    # <EventRecordID>5170</EventRecordID>
+    # <Correlation />
+    # <Execution ProcessID="788" ThreadID="2200" />
+    # <Channel>System</Channel>
+    # <Computer>IEWIN7</Computer>
+    # <Security UserID="S-1-5-21-1610009768-122519599-941061767-1000" />
+  # </System>
+  # <UserData>
+    # <LogFileCleared>
+      # <SubjectUserName>IEUser</SubjectUserName>
+      # <SubjectDomainName>IEWIN7</SubjectDomainName>
+      # <Channel>System</Channel>
+      # <BackupPath></BackupPath>
+    # </LogFileCleared>
+  # </UserData>
+# </Event>
