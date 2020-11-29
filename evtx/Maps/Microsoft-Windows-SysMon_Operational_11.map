@@ -1,15 +1,9 @@
 Author: Andrew Rathbun
-Description: Process terminated
-EventId: 5
+Description: FileCreate
+EventId: 11
 Channel: Microsoft-Windows-Sysmon/Operational
 Maps: 
-  - 
-    Property: ExecutableInfo
-    PropertyValue: "%FilePath%"
-    Values: 
-      - 
-        Name: FilePath
-        Value: "/Event/EventData/Data[@Name=\"Image\"]"
+
   - 
     Property: PayloadData1
     PropertyValue: "ProcessID: %ProcessID%, ProcessGUID: %ProcessGUID%"
@@ -20,6 +14,27 @@ Maps:
       - 
         Name: ProcessID
         Value: "/Event/EventData/Data[@Name=\"ProcessId\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "RuleName: %RuleName%"
+    Values: 
+      - 
+        Name: RuleName
+        Value: "/Event/EventData/Data[@Name=\"RuleName\"]"
+  - 
+    Property: PayloadData3
+    PropertyValue: "Image: %Image%"
+    Values: 
+      - 
+        Name: Image
+        Value: "/Event/EventData/Data[@Name=\"Image\"]"   
+  - 
+    Property: PayloadData4
+    PropertyValue: "TargetFilename: %TargetFilename%"
+    Values: 
+      - 
+        Name: TargetFilename
+        Value: "/Event/EventData/Data[@Name=\"TargetFilename\"]"
         
 # Valid properties include:
 # UserName

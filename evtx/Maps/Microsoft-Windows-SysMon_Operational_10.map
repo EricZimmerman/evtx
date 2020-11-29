@@ -1,26 +1,58 @@
 Author: Andrew Rathbun
-Description: Process terminated
-EventId: 5
+Description: ProcessAccess
+EventId: 10
 Channel: Microsoft-Windows-Sysmon/Operational
 Maps: 
   - 
     Property: ExecutableInfo
-    PropertyValue: "%FilePath%"
+    PropertyValue: "CallTrace: %CallTrace%"
     Values: 
       - 
-        Name: FilePath
-        Value: "/Event/EventData/Data[@Name=\"Image\"]"
+        Name: CallTrace
+        Value: "/Event/EventData/Data[@Name=\"CallTrace\"]"
   - 
     Property: PayloadData1
-    PropertyValue: "ProcessID: %ProcessID%, ProcessGUID: %ProcessGUID%"
+    PropertyValue: "SourceProcessID: %SourceProcessID%, SourceProcessGUID: %SourceProcessGUID%"
     Values: 
       - 
-        Name: ProcessGUID
-        Value: "/Event/EventData/Data[@Name=\"ProcessGuid\"]"
+        Name: SourceProcessGUID
+        Value: "/Event/EventData/Data[@Name=\"SourceProcessGUID\"]"
       - 
-        Name: ProcessID
-        Value: "/Event/EventData/Data[@Name=\"ProcessId\"]"
-        
+        Name: SourceProcessID
+        Value: "/Event/EventData/Data[@Name=\"SourceProcessId\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "SourceImage: %SourceImage%"
+    Values: 
+      - 
+        Name: SourceImage
+        Value: "/Event/EventData/Data[@Name=\"SourceImage\"]"
+
+  - 
+    Property: PayloadData3
+    PropertyValue: "TargetProcessID: %TargetProcessID%, TargetProcessGUID: %TargetProcessGUID%"
+    Values: 
+      - 
+        Name: TargetProcessGUID
+        Value: "/Event/EventData/Data[@Name=\"TargetProcessGUID\"]"
+      - 
+        Name: TargetProcessID
+        Value: "/Event/EventData/Data[@Name=\"TargetProcessId\"]"
+  - 
+    Property: PayloadData4
+    PropertyValue: "TargetImage: %TargetImage%"
+    Values: 
+      - 
+        Name: TargetImage
+        Value: "/Event/EventData/Data[@Name=\"TargetImage\"]"
+  - 
+    Property: PayloadData5
+    PropertyValue: "GrantedAccess: %GrantedAccess%"
+    Values: 
+      - 
+        Name: GrantedAccess
+        Value: "/Event/EventData/Data[@Name=\"GrantedAccess\"]" 
+
 # Valid properties include:
 # UserName
 # RemoteHost
