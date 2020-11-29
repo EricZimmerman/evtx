@@ -1,0 +1,82 @@
+Author: Gabriele Zambelli @gazambelli
+Description: The system time was changed
+EventId: 4616
+Channel: "Security"
+Maps: 
+  - 
+    Property: UserName
+    PropertyValue: "%domain%\\%user% (%sid%)"
+    Values: 
+      - 
+        Name: domain
+        Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
+      - 
+        Name: user
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
+      - 
+        Name: sid
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserSid\"]"
+  - 
+    Property: ExecutableInfo
+    PropertyValue: "%ProcessName%"
+    Values: 
+      - 
+        Name: ProcessName
+        Value: "/Event/EventData/Data[@Name=\"ProcessName\"]"
+  - 
+    Property: PayloadData1
+    PropertyValue: "Previous Time: %PreviousTime%"
+    Values: 
+      - 
+        Name: PreviousTime
+        Value: "/Event/EventData/Data[@Name=\"PreviousTime\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "New Time: %NewTime%"
+    Values: 
+      - 
+        Name: NewTime
+        Value: "/Event/EventData/Data[@Name=\"NewTime\"]"
+  - 
+    Property: PayloadData3
+    PropertyValue: "LogonId: %SubjectLogonId%"
+    Values: 
+      - 
+        Name: SubjectLogonId
+        Value: "/Event/EventData/Data[@Name=\"SubjectLogonId\"]"
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+# Example payload data
+# <Event>
+  # <System>
+    # <Provider Name="Microsoft-Windows-Security-Auditing" Guid="54849625-5478-4994-a5ba-3e3b0328c30d" />
+    # <EventID>4616</EventID>
+    # <Version>1</Version>
+    # <Level>0</Level>
+    # <Task>12288</Task>
+    # <Opcode>0</Opcode>
+    # <Keywords>0x8020000000000000</Keywords>
+    # <TimeCreated SystemTime="2020-11-24 15:18:34.0000000" />
+    # <EventRecordID>9403</EventRecordID>
+    # <Correlation />
+    # <Execution ProcessID="4" ThreadID="56" />
+    # <Channel>Security</Channel>
+    # <Computer>IEWIN7</Computer>
+    # <Security />
+  # </System>
+  # <EventData>
+    # <Data Name="SubjectUserSid">S-1-5-21-1610009768-122519599-941061767-1000</Data>
+    # <Data Name="SubjectUserName">IEUser</Data>
+    # <Data Name="SubjectDomainName">IEWIN7</Data>
+    # <Data Name="SubjectLogonId">0x1011B</Data>
+    # <Data Name="PreviousTime">2020-11-27 15:18:34.6217800</Data>
+    # <Data Name="NewTime">2020-11-24 15:18:34.0000000</Data>
+    # <Data Name="ProcessId">0x798</Data>
+    # <Data Name="ProcessName">C:\Windows\System32\rundll32.exe</Data>
+  # </EventData>
+# </Event>

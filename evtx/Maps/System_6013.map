@@ -1,0 +1,46 @@
+Author: Gabriele Zambelli @gazambelli
+Description: System uptime
+EventId: 6013
+Channel: System
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "The system uptime is %Seconds% seconds"
+    Values: 
+      - 
+        Name: Seconds
+        Value: "/Event/EventData/Data"
+        Refine: "^[0-9]*"
+  - 
+    Property: PayloadData2
+    PropertyValue: "TimeZone: %TZ%"
+    Values: 
+      - 
+        Name: TZ
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=, ).*"
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+#Sample Event - derived from the event template.
+# <Event>
+  # <System>
+    # <Provider Name="EventLog" />
+    # <EventID Qualifiers="32768">6013</EventID>
+    # <Level>4</Level>
+    # <Task>0</Task>
+    # <Keywords>0x80000000000000</Keywords>
+    # <TimeCreated SystemTime="2019-03-19 20:59:25.2427944" />
+    # <EventRecordID>147</EventRecordID>
+    # <Channel>System</Channel>
+    # <Computer>MSEDGEWIN10</Computer>
+    # <Security />
+  # </System>
+  # <EventData>
+    # <Data>131, 0, 480 Pacific Standard Time</Data>
+    # <Binary>31-00-2E-00-31-00-00-00-30-00-00-00-57-00-69-00-6E-00-64-00-6F-00-77-00-73-00-20-00-31-00-30-00-20-00-45-00-6E-00-74-00-65-00-72-00-70-00-72-00-69-00-73-00-65-00-20-00-45-00-76-00-61-00-6C-00-75-00-61-00-74-00-69-00-6F-00-6E-00-00-00-31-00-30-00-2E-00-30-00-2E-00-31-00-37-00-37-00-36-00-33-00-20-00-42-00-75-00-69-00-6C-00-64-00-20-00-31-00-37-00-37-00-36-00-33-00-20-00-20-00-00-00-4D-00-75-00-6C-00-74-00-69-00-70-00-72-00-6F-00-63-00-65-00-73-00-73-00-6F-00-72-00-20-00-46-00-72-00-65-00-65-00-00-00-31-00-37-00-37-00-36-00-33-00-2E-00-72-00-73-00-35-00-5F-00-72-00-65-00-6C-00-65-00-61-00-73-00-65-00-2E-00-31-00-38-00-30-00-39-00-31-00-34-00-2D-00-31-00-34-00-33-00-34-00-00-00-35-00-63-00-39-00-31-00-35-00-37-00-39-00-62-00-00-00-4E-00-6F-00-74-00-20-00-41-00-76-00-61-00-69-00-6C-00-61-00-62-00-6C-00-65-00-00-00-4E-00-6F-00-74-00-20-00-41-00-76-00-61-00-69-00-6C-00-61-00-62-00-6C-00-65-00-00-00-39-00-00-00-32-00-00-00-34-00-30-00-39-00-36-00-00-00-34-00-30-00-39-00-00-00-4D-00-53-00-45-00-44-00-47-00-45-00-57-00-49-00-4E-00-31-00-30-00-00-00-00-00</Binary>
+  # </EventData>
