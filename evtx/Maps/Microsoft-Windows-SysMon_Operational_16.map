@@ -3,6 +3,7 @@ Description: ServiceConfigurationChange
 EventId: 16
 Channel: Microsoft-Windows-Sysmon/Operational
 Maps: 
+
   - 
     Property: ExecutableInfo
     PropertyValue: "%Configuration%"

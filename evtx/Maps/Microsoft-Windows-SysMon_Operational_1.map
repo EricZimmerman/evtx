@@ -3,6 +3,7 @@ Description: Process creation
 EventId: 1
 Channel: Microsoft-Windows-Sysmon/Operational
 Maps: 
+
   - 
     Property: ExecutableInfo
     PropertyValue: "%CommandLine%"
@@ -22,20 +23,27 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"ProcessId\"]"
   - 
     Property: PayloadData2
-    PropertyValue: "%SHA1%"
+    PropertyValue: "RuleName: %RuleName%"
     Values: 
       - 
-        Name: SHA1
-        Value: "/Event/EventData/Data[@Name=\"Hashes\"]"
+        Name: RuleName
+        Value: "/Event/EventData/Data[@Name=\"RuleName\"]"
   - 
     Property: PayloadData3
+    PropertyValue: "%Hashes%"
+    Values: 
+      - 
+        Name: Hashes
+        Value: "/Event/EventData/Data[@Name=\"Hashes\"]"
+  - 
+    Property: PayloadData4
     PropertyValue: "ParentProcess: %ParentProcess%"
     Values: 
       - 
         Name: ParentProcess
         Value: "/Event/EventData/Data[@Name=\"ParentImage\"]"  
   - 
-    Property: PayloadData4
+    Property: PayloadData5
     PropertyValue: "ParentProcessID: %ParentProcessID%, ParentProcessGUID: %ParentProcessGUID%"
     Values: 
       - 
@@ -45,7 +53,7 @@ Maps:
         Name: ParentProcessID
         Value: "/Event/EventData/Data[@Name=\"ParentProcessId\"]"
   - 
-    Property: PayloadData5
+    Property: PayloadData6
     PropertyValue: "ParentCommandLine: %ParentCommandLine%"
     Values: 
       - 

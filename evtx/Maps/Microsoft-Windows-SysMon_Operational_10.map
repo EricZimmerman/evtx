@@ -3,6 +3,7 @@ Description: ProcessAccess
 EventId: 10
 Channel: Microsoft-Windows-Sysmon/Operational
 Maps: 
+
   - 
     Property: ExecutableInfo
     PropertyValue: "CallTrace: %CallTrace%"

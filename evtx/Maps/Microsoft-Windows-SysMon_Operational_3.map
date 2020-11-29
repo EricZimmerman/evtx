@@ -1,30 +1,61 @@
 Author: Andrew Rathbun
-Description: Sysmon service state changed
-EventId: 4
+Description: Network connection
+EventId: 3
 Channel: Microsoft-Windows-Sysmon/Operational
 Maps: 
 
   - 
     Property: PayloadData1
-    PropertyValue: "Sysmon Version %Version%"
+    PropertyValue: "ProcessID: %ProcessID%, ProcessGUID: %ProcessGUID%"
     Values: 
       - 
-        Name: Version
-        Value: "/Event/EventData/Data[@Name=\"Version\"]"
+        Name: ProcessGUID
+        Value: "/Event/EventData/Data[@Name=\"ProcessGuid\"]"
+      - 
+        Name: ProcessID
+        Value: "/Event/EventData/Data[@Name=\"ProcessId\"]"
   - 
     Property: PayloadData2
-    PropertyValue: "Status: %State%"
+    PropertyValue: "RuleName: %RuleName%"
     Values: 
       - 
-        Name: State
-        Value: "/Event/EventData/Data[@Name=\"State\"]"
+        Name: RuleName
+        Value: "/Event/EventData/Data[@Name=\"RuleName\"]"
   - 
     Property: PayloadData3
-    PropertyValue: "Timestamp: %Timestamp%"
+    PropertyValue: "SourceHostname: %SourceHostname%"
     Values: 
       - 
-        Name: Timestamp
-        Value: "/Event/EventData/Data[@Name=\"UtcTime\"]"   
+        Name: SourceHostname
+        Value: "/Event/EventData/Data[@Name=\"SourceHostname\"]"   
+  - 
+    Property: PayloadData4
+    PropertyValue: "SourceIp: %SourceIp%"
+    Values: 
+      - 
+        Name: SourceIp
+        Value: "/Event/EventData/Data[@Name=\"SourceIp\"]"  
+  - 
+    Property: PayloadData5
+    PropertyValue: "DestinationHostname: %DestinationHostname%"
+    Values: 
+      - 
+        Name: DestinationHostname
+        Value: "/Event/EventData/Data[@Name=\"DestinationHostname\"]"  
+  - 
+    Property: PayloadData6
+    PropertyValue: "DestinationIp: %DestinationIp%"
+    Values: 
+      - 
+        Name: DestinationIp
+        Value: "/Event/EventData/Data[@Name=\"DestinationIp\"]"  
+  - 
+    Property: UserName
+    PropertyValue: "Account: %User%"
+    Values: 
+      - 
+        Name: User
+        Value: "/Event/EventData/Data[@Name=\"User\"]"
         
 # Valid properties include:
 # UserName

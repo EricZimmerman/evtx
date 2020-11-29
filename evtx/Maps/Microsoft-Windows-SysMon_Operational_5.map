@@ -3,6 +3,7 @@ Description: Process terminated
 EventId: 5
 Channel: Microsoft-Windows-Sysmon/Operational
 Maps: 
+
   - 
     Property: ExecutableInfo
     PropertyValue: "%FilePath%"
