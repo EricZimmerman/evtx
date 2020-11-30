@@ -1,0 +1,90 @@
+Author: Andrew Rathbun
+Description: WmiEvent (WmiEventConsumerToFilter activity detected)
+EventId: 21
+Channel: Microsoft-Windows-Sysmon/Operational
+Maps: 
+
+  - 
+    Property: PayloadData1
+    PropertyValue: "Operation: %Operation%"
+    Values: 
+      - 
+        Name: Operation
+        Value: "/Event/EventData/Data[@Name=\"Operation\"]"   
+  - 
+    Property: PayloadData2
+    PropertyValue: "RuleName: %RuleName%"
+    Values: 
+      - 
+        Name: RuleName
+        Value: "/Event/EventData/Data[@Name=\"RuleName\"]"
+  - 
+    Property: PayloadData3
+    PropertyValue: "EventType: %EventType%"
+    Values: 
+      - 
+        Name: EventType
+        Value: "/Event/EventData/Data[@Name=\"EventType\"]" 
+  - 
+    Property: PayloadData4
+    PropertyValue: "Consumer: %Consumer%"
+    Values: 
+      - 
+        Name: Consumer
+        Value: "/Event/EventData/Data[@Name=\"Consumer\"]"
+  - 
+    Property: PayloadData5
+    PropertyValue: "Filter: %Filter%"
+    Values: 
+      - 
+        Name: Filter
+        Value: "/Event/EventData/Data[@Name=\"Filter\"]"   
+  - 
+    Property: UserName
+    PropertyValue: "Account: %User%"
+    Values: 
+      - 
+        Name: User
+        Value: "/Event/EventData/Data[@Name=\"User\"]"
+
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+# Example XML for this event:
+#<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#  <System>
+#    <Provider Name="PowerShell" /> 
+#    <EventID Qualifiers="0">400</EventID> 
+#    <Level>4</Level> 
+#    <Task>6</Task> 
+#    <Keywords>0x80000000000000</Keywords> 
+#    <TimeCreated SystemTime="2001-01-01T01:01:01.012345678Z" /> 
+#    <EventRecordID>18</EventRecordID> 
+#    <Channel>Windows PowerShell</Channel> 
+#    <Computer>name.domain.tld</Computer> 
+#    <Security /> 
+#  </System>
+#  <EventData>
+#    <Data>Available, None, 	NewEngineState=Available
+#	PreviousEngineState=None
+#
+#	SequenceNumber=13
+#
+#	HostName=ConsoleHost
+#	HostVersion=5.1.18362.145
+#	HostId=3820a72c-10dc-4989-9388-3d4b6523c35f
+#	HostApplication=powershell -nop -w hidden -encodedcommand JAB...(bad command stuff removed)...ADsA
+#	EngineVersion=5.1.18362.145
+#	RunspaceId=b21e91e8-9068-48ae-ac10-15430944932b
+#	PipelineId=
+#	CommandName=
+#	CommandType=
+#	ScriptName=
+#	CommandPath=
+#	CommandLine=</Data>
+#    <Binary></Binary>
+#  </EventData>
+#</Event>

@@ -1,23 +1,22 @@
 Author: Andrew Rathbun
-Description: ProcessAccess
-EventId: 10
+Description: CreateRemoteThread
+EventId: 8
 Channel: Microsoft-Windows-Sysmon/Operational
 Maps: 
-
   - 
-    Property: ExecutableInfo
-    PropertyValue: "CallTrace: %CallTrace%"
+    Property: PayloadData1
+    PropertyValue: "StartAddress: %StartAddress%"
     Values: 
       - 
-        Name: CallTrace
-        Value: "/Event/EventData/Data[@Name=\"CallTrace\"]"
+        Name: StartAddress
+        Value: "/Event/EventData/Data[@Name=\"StartAddress\"]"
   - 
     Property: PayloadData2
-    PropertyValue: "GrantedAccess: %GrantedAccess%"
+    PropertyValue: "RuleName: %RuleName%"
     Values: 
       - 
-        Name: GrantedAccess
-        Value: "/Event/EventData/Data[@Name=\"GrantedAccess\"]" 
+        Name: RuleName
+        Value: "/Event/EventData/Data[@Name=\"RuleName\"]"
   - 
     Property: PayloadData3
     PropertyValue: "SourceProcessID: %SourceProcessID%, SourceProcessGUID: %SourceProcessGUID%"
@@ -35,7 +34,6 @@ Maps:
       - 
         Name: SourceImage
         Value: "/Event/EventData/Data[@Name=\"SourceImage\"]"
-
   - 
     Property: PayloadData5
     PropertyValue: "TargetProcessID: %TargetProcessID%, TargetProcessGUID: %TargetProcessGUID%"
@@ -53,8 +51,7 @@ Maps:
       - 
         Name: TargetImage
         Value: "/Event/EventData/Data[@Name=\"TargetImage\"]"
-
-
+        
 # Valid properties include:
 # UserName
 # RemoteHost

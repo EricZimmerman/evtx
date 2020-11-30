@@ -1,60 +1,48 @@
 Author: Andrew Rathbun
-Description: ProcessAccess
-EventId: 10
+Description: RegistryEvent (Object create and delete)
+EventId: 12
 Channel: Microsoft-Windows-Sysmon/Operational
 Maps: 
 
   - 
-    Property: ExecutableInfo
-    PropertyValue: "CallTrace: %CallTrace%"
+    Property: PayloadData1
+    PropertyValue: "ProcessID: %ProcessID%, ProcessGUID: %ProcessGUID%"
     Values: 
       - 
-        Name: CallTrace
-        Value: "/Event/EventData/Data[@Name=\"CallTrace\"]"
+        Name: ProcessGUID
+        Value: "/Event/EventData/Data[@Name=\"ProcessGuid\"]"
+      - 
+        Name: ProcessID
+        Value: "/Event/EventData/Data[@Name=\"ProcessId\"]"
   - 
     Property: PayloadData2
-    PropertyValue: "GrantedAccess: %GrantedAccess%"
+    PropertyValue: "RuleName: %RuleName%"
     Values: 
       - 
-        Name: GrantedAccess
-        Value: "/Event/EventData/Data[@Name=\"GrantedAccess\"]" 
+        Name: RuleName
+        Value: "/Event/EventData/Data[@Name=\"RuleName\"]"
   - 
     Property: PayloadData3
-    PropertyValue: "SourceProcessID: %SourceProcessID%, SourceProcessGUID: %SourceProcessGUID%"
+    PropertyValue: "Image: %Image%"
     Values: 
       - 
-        Name: SourceProcessGUID
-        Value: "/Event/EventData/Data[@Name=\"SourceProcessGuid\"]"
-      - 
-        Name: SourceProcessID
-        Value: "/Event/EventData/Data[@Name=\"SourceProcessId\"]"
+        Name: Image
+        Value: "/Event/EventData/Data[@Name=\"Image\"]"   
   - 
     Property: PayloadData4
-    PropertyValue: "SourceImage: %SourceImage%"
+    PropertyValue: "EventType: %EventType%"
     Values: 
       - 
-        Name: SourceImage
-        Value: "/Event/EventData/Data[@Name=\"SourceImage\"]"
-
+        Name: EventType
+        Value: "/Event/EventData/Data[@Name=\"EventType\"]"   
   - 
     Property: PayloadData5
-    PropertyValue: "TargetProcessID: %TargetProcessID%, TargetProcessGUID: %TargetProcessGUID%"
+    PropertyValue: "TargetObject: %TargetObject%"
     Values: 
       - 
-        Name: TargetProcessGUID
-        Value: "/Event/EventData/Data[@Name=\"TargetProcessGuid\"]"
-      - 
-        Name: TargetProcessID
-        Value: "/Event/EventData/Data[@Name=\"TargetProcessId\"]"
-  - 
-    Property: PayloadData6
-    PropertyValue: "TargetImage: %TargetImage%"
-    Values: 
-      - 
-        Name: TargetImage
-        Value: "/Event/EventData/Data[@Name=\"TargetImage\"]"
-
-
+        Name: TargetObject
+        Value: "/Event/EventData/Data[@Name=\"TargetObject\"]"  
+        
 # Valid properties include:
 # UserName
 # RemoteHost
