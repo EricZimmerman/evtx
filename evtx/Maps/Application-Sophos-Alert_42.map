@@ -2,6 +2,7 @@ Author: Mike Stewart mstew1968@gmail.com
 Description: Sophos System Protection
 EventId: 42
 Channel: Application
+Provider: "Sophos System Protection"
 Maps: 
   - 
     Property: PayloadData1
