@@ -1,13 +1,18 @@
+# Event log maps
+
 Map files are used to convert the EventData (the unique part of an event) to a more standardized format. Map files are specific to a certain type of event log, such as Security, Application, etc.
 
 Because different event logs may reuse Event IDs, maps need to be specific to a certain kind of log. This specificity is done by using a unique identifier for a given event log, the Channel. We will see more about this in a moment.
 
 Once you know what event log and Event ID you want to make a map for, the first thing to do is dump the log's records to XML, using EvtxECmd.exe as follows:
 
+```
 EvtxECmd.exe -f <your eventlog> --xml c:\temp\xml
+```
 
 When the command finishes, open the generated xml file in c:\temp\ and find your Event ID of interest. Let's say its from the Security log and its Event ID 4624, It might look like this:
 
+```xml
 <Event>
   <System>
     <Provider Name="Microsoft-Windows-Security-Auditing" Guid="54849625-5478-4994-a5ba-3e3b0328c30d" />
@@ -55,8 +60,9 @@ When the command finishes, open the generated xml file in c:\temp\ and find your
     <Data Name="ElevatedToken">%%1842</Data>
   </EventData>
 </Event>
+```
 
-Just about everything in the <System> element is normalized by default, but if you want to include anything from there you can do so using the techniques we will see below.
+Just about everything in the `<System>` element is normalized by default, but if you want to include anything from there you can do so using the techniques we will see below.
 
 In most cases, the data in the <EventData> block is what you want to process. This is where xpath queries come into play.
 
@@ -66,17 +72,17 @@ In the example below, there are four header properties that describe the map: wh
 
 The Channel and Event ID property are what make a map unique, not the name of the file. As long as the map ends with '.map' it will be processed.
 
-The Channel is a useful identifier for a given log type. It can be seen in the <Channel> element ("Security" in the example above).
+The Channel is a useful identifier for a given log type. It can be seen in the `<Channel>` element ("Security" in the example above).
 
 The Maps collection contains configurations for how to look for data in an events EventData and extract out particular properties into variables. These variables are then combined and mapped to the event record's first class properties.
 
-For example, consider the first map, for Username, below.
+For example, consider the first map, for `Username`, below.
 
-The PropertyValue defines the pattern that will be used to build the final value that will be assigned to the Username field in the CSV. Variables in patterns are surrounded by % on both sides, so we see two variables defined: %domain% and %user%
+The `PropertyValue` defines the pattern that will be used to build the final value that will be assigned to the Username field in the CSV. Variables in patterns are surrounded by % on both sides, so we see two variables defined: `%domain%` and `%user%`
 
-In the map entries Values collection, we actually populate these variables by giving the value a name (domain in the first case) and an xpath query that will be used to set the value for the variable ("/Event/EventData/Data[@Name=\"SubjectDomainName\"]" in the first case).
+In the map entries `Values` collection, we actually populate these variables by giving the value a name (domain in the first case) and an xpath query that will be used to set the value for the variable (`"/Event/EventData/Data[@Name=\"SubjectDomainName\"]"` in the first case).
 
-When a map is processed, each map entry has its Values items processed so the variables are populated with data. Then the PropertyValue is updated and the variables are replaced with the actual values. This final PropertyValue is then updated in the event record which then ends up in the CSV/JSON, etc.
+When a map is processed, each map entry has its `Values` items processed so the variables are populated with data. Then the `PropertyValue` is updated and the variables are replaced with the actual values. This final PropertyValue is then updated in the event record which then ends up in the CSV/JSON, etc.
 
 It is that simple! Be sure to surround things in double quotes and/or escape quotes as in the examples. When in doubt, test your map against real data!
 
@@ -88,11 +94,61 @@ Where Channel is EXACTLY what is in the XML <Channel> element with any '/' chara
 
 For example, for Event ID '201' and Channel 'Microsoft-Windows-TaskScheduler/Operational' the file should be named:
 
-Microsoft-Windows-TaskScheduler_Operational_201.map
+`Microsoft-Windows-TaskScheduler_Operational_201.map`
 
+As of v06 or so, you can also add optional properties `Provider` and `Lookups`
+
+Provider is used at the header level and looks like this:
+
+`Provider: "Microsoft-Windows-Power-Troubleshooter"`
+
+This lets you further narrow down when a map will be used. See System_1.map for an example.
+
+Lookups allow you to define lookup tables that match one value and replace them with another. Here is an example, also from System_1.map:
+
+Lookups:
+```
+  -
+    Name: WakeSourceType
+    Default: Unknown code
+    Values:
+        0: Unknown
+        1: Power button
+        3: Waking from sleep to hibernate
+        5: Device (See WakeSourceText for details)
+        6: Timer (See WakeSourceText for details)
+```
+       
+The name of the lookup table determines when it will be used and should match the name of the property you want to apply the lookup to. Example:
+
+```
+  - 
+    Property: PayloadData2
+    PropertyValue: Wake source "%WakeSourceType%"
+    Values: 
+      - 
+        Name: WakeSourceType
+        Value: "/Event/EventData/Data[@Name=\"WakeSourceType\"]"
+```
+
+Here, when the map is applied, the numerical value for WakeSourceType is filtered through the Lookup with the same name, and the value is updated to reflect the more human readable version. If you want BOTH the original value and  the lookup value, simply reference the original using a different Name under Values, then reference that adjusted name as a variable, like this:
+```
+  - 
+    Property: PayloadData2
+    PropertyValue: Wake source "%WakeSourceType%" (%WakeSourceTypeOrg%)
+    Values: 
+      - 
+        Name: WakeSourceType
+        Value: "/Event/EventData/Data[@Name=\"WakeSourceType\"]"
+      - 
+        Name: WakeSourceTypeOrg
+        Value: "/Event/EventData/Data[@Name=\"WakeSourceType\"]"
+```
+
+here is another example of a map:
 
 ---- START MAP HERE ----
-
+```
 Author: Eric Zimmerman saericzimmerman@gmail.com
 Description: Security 4624 event
 EventId: 4624
@@ -131,7 +187,7 @@ Maps:
 # RemoteHost
 # ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
 # PayloadData1 through PayloadData6
-
+```
 ---- END MAP HERE ----
 
 

@@ -298,7 +298,7 @@ namespace evtx
                 return;
             }
 
-            var docNav = new XPathDocument(new StringReader(Payload));
+            var docNav = new XPathDocument(new StringReader(xml));
             var nav = docNav.CreateNavigator();
 
             l.Trace($"Found map for Event ID {EventId} with Channel '{Channel}'!");
@@ -325,7 +325,7 @@ namespace evtx
                 foreach (var me in mapEntry.Values)
                 {
                     //xpath out variables
-                    var propVal = nav.SelectSingleNode(me.Value.Replace("/Event/","/")); //strip this off since its now missing from the xml we need to search
+                    var propVal = nav.SelectSingleNode(me.Value); 
                     if (propVal != null)
                     {
                         var propValue = propVal.Value;
