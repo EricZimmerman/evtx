@@ -1,33 +1,48 @@
 Author: Mark Hallman mark.hallman@gmail.com
+Author: Hyun Yi @hyuunnn (2020-12-03)
 Description: USB Insertion/Removal - EventId 1006
 EventId: 1006
 Channel: "Microsoft-Windows-Partition/Diagnostic"
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "Model: %Model%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Model
         Value: "/Event/EventData/Data[@Name=\"Model\"]"
-  - 
+  -
     Property: PayloadData2
+    PropertyValue: "Capacity: %Capacity%"
+    Values:
+      -
+        Name: Capacity
+        Value: "/Event/EventData/Data[@Name=\"Capacity\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "Manufacturer: %Manufacturer%"
+    Values:
+      -
+        Name: Manufacturer
+        Value: "/Event/EventData/Data[@Name=\"Manufacturer\"]"
+  -
+    Property: PayloadData4
     PropertyValue: "SerialNumber: %SerialNumber%"
-    Values: 
-      - 
+    Values:
+      -
         Name: SerialNumber
         Value: "/Event/EventData/Data[@Name=\"SerialNumber\"]"
   -
-    Property: PayloadData3
+    Property: PayloadData5
     PropertyValue: "DiskId: %DiskId%"
-    Values: 
-      - 
+    Values:
+      -
         Name: DiskId
         Value: "/Event/EventData/Data[@Name=\"DiskId\"]"
   -
-    Property: PayloadData4
+    Property: PayloadData6
     PropertyValue: "ParentId: %ParentId%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ParentId
         Value: "/Event/EventData/Data[@Name=\"ParentId\"]"
