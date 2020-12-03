@@ -1,0 +1,82 @@
+Author: Hyun Yi @hyuunnn
+Description: WIFI connection was successful.
+EventId: 8001
+Channel: "Microsoft-Windows-WLAN-AutoConfig/Operational"
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "ConnectionMode: %ConnectionMode%"
+    Values:
+      -
+        Name: ConnectionMode
+        Value: "/Event/EventData/Data[@Name=\"ConnectionMode\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "ProfileName: %ProfileName%"
+    Values:
+      -
+        Name: ProfileName
+        Value: "/Event/EventData/Data[@Name=\"ProfileName\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "SSID: %SSID%"
+    Values:
+      -
+        Name: SSID
+        Value: "/Event/EventData/Data[@Name=\"SSID\"]"
+  -
+    Property: PayloadData4
+    PropertyValue: "BSSType: %BSSType%"
+    Values:
+      -
+        Name: BSSType
+        Value: "/Event/EventData/Data[@Name=\"BSSType\"]"
+  -
+    Property: PayloadData5
+    PropertyValue: "Reason: %AuthenticationAlgorithm%"
+    Values:
+      -
+        Name: AuthenticationAlgorithm
+        Value: "/Event/EventData/Data[@Name=\"AuthenticationAlgorithm\"]"
+  -
+    Property: PayloadData5
+    PropertyValue: "CipherAlgorithm: %CipherAlgorithm%"
+    Values:
+      -
+        Name: CipherAlgorithm
+        Value: "/Event/EventData/Data[@Name=\"CipherAlgorithm\"]"
+
+# Valid properties include:
+
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#   <System>
+#     <Provider Name="Microsoft-Windows-WLAN-AutoConfig" Guid="{GUID}" /> 
+#     <EventID>8001</EventID> 
+#     <Version>0</Version> 
+#     <Level>4</Level> 
+#     <Task>24010</Task> 
+#     <Opcode>190</Opcode> 
+#     <Keywords>0x8000000020000600</Keywords> 
+#     <TimeCreated SystemTime="2020-12-02T23:00:51.0749521Z" /> 
+#     <EventRecordID>6</EventRecordID> 
+#     <Correlation /> 
+#     <Execution ProcessID="3352" ThreadID="3516" /> 
+#     <Channel>Microsoft-Windows-WLAN-AutoConfig/Operational</Channel> 
+#     <Computer>ComputerName</Computer> 
+#     <Security UserID="S-1-5-18" /> 
+#   </System>
+#   <EventData>
+#     <Data Name="InterfaceGuid">{InterfaceGuid}</Data> 
+#     <Data Name="InterfaceDescription">Intel(R) Dual Band Wireless-AC 7265</Data> 
+#     <Data Name="ConnectionMode">{ConnectionMode}</Data> 
+#     <Data Name="ProfileName">asdf</Data> 
+#     <Data Name="SSID">asdf</Data> 
+#     <Data Name="BSSType">Infrastructure</Data> 
+#     <Data Name="PHYType">802.11n</Data> 
+#     <Data Name="AuthenticationAlgorithm">WPA-Personal</Data> 
+#     <Data Name="CipherAlgorithm">AES-CCMP</Data> 
+#     <Data Name="OnexEnabled">0</Data> 
+#     <Data Name="ConnectionId">0x2</Data> 
+#     <Data Name="NonBroadcast">true</Data> 
+#   </EventData>
+# </Event>

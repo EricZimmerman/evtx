@@ -1,0 +1,73 @@
+Author: Hyun Yi @hyuunnn
+Description: WIFI connection was failed.
+EventId: 8002
+Channel: "Microsoft-Windows-WLAN-AutoConfig/Operational"
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "ConnectionMode: %ConnectionMode%"
+    Values:
+      -
+        Name: ConnectionMode
+        Value: "/Event/EventData/Data[@Name=\"ConnectionMode\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "ProfileName: %ProfileName%"
+    Values:
+      -
+        Name: ProfileName
+        Value: "/Event/EventData/Data[@Name=\"ProfileName\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "SSID: %SSID%"
+    Values:
+      -
+        Name: SSID
+        Value: "/Event/EventData/Data[@Name=\"SSID\"]"
+  -
+    Property: PayloadData4
+    PropertyValue: "BSSType: %BSSType%"
+    Values:
+      -
+        Name: BSSType
+        Value: "/Event/EventData/Data[@Name=\"BSSType\"]"
+  -
+    Property: PayloadData5
+    PropertyValue: "Reason: %FailureReason%"
+    Values:
+      -
+        Name: FailureReason
+        Value: "/Event/EventData/Data[@Name=\"FailureReason\"]"
+
+# Valid properties include:
+
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#   <System>
+#     <Provider Name="Microsoft-Windows-WLAN-AutoConfig" Guid="{GUID}" /> 
+#     <EventID>8002</EventID> 
+#     <Version>0</Version> 
+#     <Level>2</Level> 
+#     <Task>24010</Task> 
+#     <Opcode>191</Opcode> 
+#     <Keywords>0x8000000020000600</Keywords> 
+#     <TimeCreated SystemTime="2020-12-02T23:01:46.0772956Z" /> 
+#     <EventRecordID>31</EventRecordID> 
+#     <Correlation /> 
+#     <Execution ProcessID="3352" ThreadID="16636" /> 
+#     <Channel>Microsoft-Windows-WLAN-AutoConfig/Operational</Channel> 
+#     <Computer>ComputerName</Computer> 
+#     <Security UserID="S-1-5-18" /> 
+#   </System>
+#   <EventData>
+#     <Data Name="InterfaceGuid">{InterfaceGuid}</Data> 
+#     <Data Name="InterfaceDescription">Intel(R) Dual Band Wireless-AC 7265</Data> 
+#     <Data Name="ConnectionMode">{ConnectionMode}</Data> 
+#     <Data Name="ProfileName">asdf</Data> 
+#     <Data Name="SSID">asdf</Data> 
+#     <Data Name="BSSType">Infrastructure</Data> 
+#     <Data Name="FailureReason">{FailureReason}</Data> 
+#     <Data Name="ReasonCode">229377</Data> 
+#     <Data Name="ConnectionId">0x7</Data> 
+#     <Data Name="RSSI">-63</Data> 
+#   </EventData>
+# </Event>
