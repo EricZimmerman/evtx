@@ -1,5 +1,5 @@
 Author: Hyun Yi @hyuunnn
-Description: OS was ended.
+Description: OS was shutdown.
 EventId: 13
 Channel: "System"
 Provider: "Microsoft-Windows-Kernel-General"
