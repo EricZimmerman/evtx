@@ -6,39 +6,11 @@ Provider: "MsiInstaller"
 Maps:
   -
     Property: PayloadData1
-    PropertyValue: "Name: %Name%"
+    PropertyValue: "Name, Version, Lang, Status, Manufacturer: %Data%"
     Values:
       -
-        Name: Name
-        Value: "/Event/EventData/Data[1]"
-  -
-    Property: PayloadData2
-    PropertyValue: "Version: %Version%"
-    Values:
-      -
-        Name: Version
-        Value: "/Event/EventData/Data[2]"
-  -
-    Property: PayloadData3
-    PropertyValue: "Lang: %Lang%"
-    Values:
-      -
-        Name: Lang
-        Value: "/Event/EventData/Data[3]"
-  -
-    Property: PayloadData4
-    PropertyValue: "Status: %Status%"
-    Values:
-      -
-        Name: Status
-        Value: "/Event/EventData/Data[4]"
-  -
-    Property: PayloadData5
-    PropertyValue: "Manufacturer: %Manufacturer%"
-    Values:
-      -
-        Name: Manufacturer
-        Value: "/Event/EventData/Data[5]"
+        Name: Data
+        Value: "/Event/EventData/Data[text()]"
 
 # Valid properties include:
 
