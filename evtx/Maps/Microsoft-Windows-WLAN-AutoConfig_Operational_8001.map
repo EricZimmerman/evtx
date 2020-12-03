@@ -33,13 +33,13 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"BSSType\"]"
   -
     Property: PayloadData5
-    PropertyValue: "Reason: %AuthenticationAlgorithm%"
+    PropertyValue: "AuthenticationAlgorithm: %AuthenticationAlgorithm%"
     Values:
       -
         Name: AuthenticationAlgorithm
         Value: "/Event/EventData/Data[@Name=\"AuthenticationAlgorithm\"]"
   -
-    Property: PayloadData5
+    Property: PayloadData6
     PropertyValue: "CipherAlgorithm: %CipherAlgorithm%"
     Values:
       -
