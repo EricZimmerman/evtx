@@ -1,5 +1,4 @@
-Author: Mark Hallman mark.hallman@gmail.com
-Author: Hyun Yi @hyuunnn (2020-12-03)
+Author: Mark Hallman mark.hallman@gmail.com, Hyun Yi @hyuunnn
 Description: USB Insertion/Removal - EventId 1006
 EventId: 1006
 Channel: "Microsoft-Windows-Partition/Diagnostic"
