@@ -1,0 +1,66 @@
+Author: Hyun Yi @hyuunnn
+Description: Windows System was shutdown.
+EventId: 200
+Channel: "Microsoft-Windows-Diagnostics-Performance/Operational"
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "ShutdownStartTime: %ShutdownStartTime%"
+    Values:
+      -
+        Name: ShutdownStartTime
+        Value: "/Event/EventData/Data[@Name=\"ShutdownStartTime\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "ShutdownEndTime: %ShutdownEndTime%"
+    Values:
+      -
+        Name: ShutdownEndTime
+        Value: "/Event/EventData/Data[@Name=\"ShutdownEndTime\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "ShutdownTime: %ShutdownTime%ms"
+    Values:
+      -
+        Name: ShutdownTime
+        Value: "/Event/EventData/Data[@Name=\"ShutdownTime\"]"
+
+# Valid properties include:
+
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#   <System>
+#     <Provider Name="Microsoft-Windows-Diagnostics-Performance" Guid="{GUID}" /> 
+#     <EventID>200</EventID> 
+#     <Version>1</Version> 
+#     <Level>3</Level> 
+#     <Task>4007</Task> 
+#     <Opcode>40</Opcode> 
+#     <Keywords>0x8000000000010000</Keywords> 
+#     <TimeCreated SystemTime="2020-10-09T17:04:07.8978367Z" /> 
+#     <EventRecordID>18</EventRecordID> 
+#     <Correlation ActivityID="{ActivityID}" /> 
+#     <Execution ProcessID="3624" ThreadID="4608" /> 
+#     <Channel>Microsoft-Windows-Diagnostics-Performance/Operational</Channel> 
+#     <Computer>ComputerName</Computer> 
+#     <Security UserID="S-1-5-19" /> 
+#   </System>
+#   <EventData>
+#     <Data Name="ShutdownTsVersion">1</Data> 
+#     <Data Name="ShutdownStartTime">2020-10-09T17:00:48.2298106Z</Data> 
+#     <Data Name="ShutdownEndTime">2020-10-09T17:01:19.5423828Z</Data> 
+#     <Data Name="ShutdownTime">31312</Data> 
+#     <Data Name="ShutdownUserSessionTime">2612</Data> 
+#     <Data Name="ShutdownUserPolicyTime">37</Data> 
+#     <Data Name="ShutdownUserProfilesTime">6</Data> 
+#     <Data Name="ShutdownSystemSessionsTime">12428</Data> 
+#     <Data Name="ShutdownPreShutdownNotificationsTime">7385</Data> 
+#     <Data Name="ShutdownServicesTime">4997</Data> 
+#     <Data Name="ShutdownKernelTime">16271</Data> 
+#     <Data Name="ShutdownRootCauseStepImprovementBits">0</Data> 
+#     <Data Name="ShutdownRootCauseGradualImprovementBits">0</Data> 
+#     <Data Name="ShutdownRootCauseStepDegradationBits">121</Data> 
+#     <Data Name="ShutdownRootCauseGradualDegradationBits">121</Data> 
+#     <Data Name="ShutdownIsDegradation">true</Data> 
+#     <Data Name="ShutdownTimeChange">15562</Data> 
+#   </EventData>
+# </Event>
