@@ -1,0 +1,44 @@
+Author: Hyun Yi @hyuunnn
+Description: Installation completed successfully.
+EventId: 11707
+Channel: "Application"
+Provider: "MsiInstaller"
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "Data: %Data%"
+    Values:
+      -
+        Name: Data
+        Value: "/Event/EventData/Data[1]"
+
+# Valid properties include:
+
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#   <System>
+#     <Provider Name="MsiInstaller" /> 
+#     <EventID Qualifiers="0">11707</EventID> 
+#     <Version>0</Version> 
+#     <Level>4</Level> 
+#     <Task>0</Task> 
+#     <Opcode>0</Opcode> 
+#     <Keywords>0x80000000000000</Keywords> 
+#     <TimeCreated SystemTime="2020-11-18T15:09:05.4721457Z" /> 
+#     <EventRecordID>15491</EventRecordID> 
+#     <Correlation /> 
+#     <Execution ProcessID="0" ThreadID="0" /> 
+#     <Channel>Application</Channel> 
+#     <Computer>ComputerName</Computer> 
+#     <Security UserID="{UserID}" /> 
+#   </System>
+#   <EventData>
+#     <Data>Product: Strawberry Perl (64-bit) -- Installation completed successfully.</Data> 
+#     <Data>(NULL)</Data> 
+#     <Data>(NULL)</Data> 
+#     <Data>(NULL)</Data> 
+#     <Data>(NULL)</Data> 
+#     <Data>(NULL)</Data> 
+#     <Data /> 
+#     <Binary>{Binary}</Binary> 
+#   </EventData>
+# </Event>

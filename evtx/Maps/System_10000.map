@@ -1,0 +1,40 @@
+Author: Hyun Yi @hyuunnn
+Description: Device driver was installed. (Device was connected.)
+EventId: 10000
+Channel: "System"
+Provider: "Microsoft-Windows-DriverFrameworks-UserMode"
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "DeviceId: %DeviceId%"
+    Values:
+      -
+        Name: DeviceId
+        Value: "/Event/UserData/UMDFDeviceInstallBegin/DeviceId"
+
+# Valid properties include:
+
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#   <System>
+#     <Provider Name="Microsoft-Windows-DriverFrameworks-UserMode" Guid="{GUID}" /> 
+#     <EventID>10000</EventID> 
+#     <Version>1</Version> 
+#     <Level>4</Level> 
+#     <Task>48</Task> 
+#     <Opcode>1</Opcode> 
+#     <Keywords>0x2000000000000000</Keywords> 
+#     <TimeCreated SystemTime="2020-10-06T16:31:23.4588506Z" /> 
+#     <EventRecordID>59</EventRecordID> 
+#     <Correlation /> 
+#     <Execution ProcessID="3264" ThreadID="2428" /> 
+#     <Channel>System</Channel> 
+#     <Computer>ComputerName</Computer> 
+#     <Security UserID="S-1-5-18" /> 
+#   </System>
+#   <UserData>
+#     <UMDFDeviceInstallBegin xmlns="http://www.microsoft.com/DriverFrameworks/UserMode/Event">
+#         <DeviceId>{DeviceId}</DeviceId> 
+#     <FrameworkVersion>2.31.0</FrameworkVersion> 
+#     </UMDFDeviceInstallBegin>
+#   </UserData>
+# </Event>
