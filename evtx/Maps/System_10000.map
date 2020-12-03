@@ -16,7 +16,7 @@ Maps:
 
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
-#     <Provider Name="Microsoft-Windows-DriverFrameworks-UserMode" Guid="{2e35aaeb-857f-4beb-a418-2e6c0e54d988}" /> 
+#     <Provider Name="Microsoft-Windows-DriverFrameworks-UserMode" Guid="{GUID}" /> 
 #     <EventID>10000</EventID> 
 #     <Version>1</Version> 
 #     <Level>4</Level> 
