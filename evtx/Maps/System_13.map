@@ -1,0 +1,37 @@
+Author: Hyun Yi @hyuunnn
+Description: OS was ended.
+EventId: 13
+Channel: "System"
+Provider: "Microsoft-Windows-Kernel-General"
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "StopTime: %StopTime%"
+    Values:
+      -
+        Name: StopTime
+        Value: "/Event/EventData/Data[@Name=\"StopTime\"]"
+
+# Valid properties include:
+
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#   <System>
+#     <Provider Name="Microsoft-Windows-Kernel-General" Guid="{GUID}" /> 
+#     <EventID>13</EventID> 
+#     <Version>0</Version> 
+#     <Level>4</Level> 
+#     <Task>2</Task> 
+#     <Opcode>0</Opcode> 
+#     <Keywords>0x8000000000000080</Keywords> 
+#     <TimeCreated SystemTime="2020-11-14T19:23:05.1847787Z" /> 
+#     <EventRecordID>6574</EventRecordID> 
+#     <Correlation /> 
+#     <Execution ProcessID="4" ThreadID="15224" /> 
+#     <Channel>System</Channel> 
+#     <Computer>ComputerName</Computer> 
+#     <Security /> 
+#   </System>
+#   <EventData>
+#     <Data Name="StopTime">2020-11-14T19:23:05.1847598Z</Data> 
+#   </EventData>
+# </Event>
