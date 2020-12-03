@@ -1,5 +1,5 @@
 Author: Hyun Yi @hyuunnn
-Description: Windows System has started.
+Description: Windows System was started.
 EventId: 100
 Channel: "Microsoft-Windows-Diagnostics-Performance/Operational"
 Maps:

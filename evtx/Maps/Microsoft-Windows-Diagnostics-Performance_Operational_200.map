@@ -1,5 +1,5 @@
 Author: Hyun Yi @hyuunnn
-Description: Windows System has been shutdown.
+Description: Windows System was shutdown.
 EventId: 200
 Channel: "Microsoft-Windows-Diagnostics-Performance/Operational"
 Maps:
