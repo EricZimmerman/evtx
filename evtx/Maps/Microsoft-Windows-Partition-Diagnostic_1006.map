@@ -1,4 +1,4 @@
-Author: Mark Hallman mark.hallman@gmail.com, Hyun Yi @hyuunnn
+Author: Mark Hallman mark.hallman@gmail.com, Hyun Yi @hyuunnn, Andrew Rathbun
 Description: USB Insertion/Removal - EventId 1006
 EventId: 1006
 Channel: "Microsoft-Windows-Partition/Diagnostic"
@@ -45,3 +45,5 @@ Maps:
       -
         Name: ParentId
         Value: "/Event/EventData/Data[@Name=\"ParentId\"]"
+        
+# Frankly, there is too much data to fit within 6 PayloadData columns. As always, all data is in the Payload column but there isn't enough room to map out all the information cleanly. There is a great blog post with more information here: https://www.atropos4n6.com/windows/extract-vsns-that-reside-in-windows-partition4diagnostic-evtx/. 

@@ -35,7 +35,7 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
   - 
     Property: PayloadData2
-    PropertyValue: LogonType %LogonType%
+    PropertyValue: "LogonType %LogonType%"
     Values: 
       - 
         Name: LogonType

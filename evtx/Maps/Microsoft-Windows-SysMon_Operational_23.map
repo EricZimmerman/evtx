@@ -58,7 +58,7 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"Archived\"]"
   - 
     Property: UserName
-    PropertyValue: "Account: %User%"
+    PropertyValue: "%User%"
     Values: 
       - 
         Name: User

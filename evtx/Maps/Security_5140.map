@@ -25,7 +25,7 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"IpPort\"]"
   - 
     Property: PayloadData1
-    PropertyValue: Share %ShareName% (%ShareLocalPath%)
+    PropertyValue: Share: %ShareName% (%ShareLocalPath%)
     Values: 
       - 
         Name: ShareName
@@ -35,7 +35,7 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"ShareLocalPath\"]"
   - 
     Property: PayloadData2
-    PropertyValue: Sid %SubjectUserSid%
+    PropertyValue: Sid: %SubjectUserSid%
     Values: 
       - 
         Name: SubjectUserSid
