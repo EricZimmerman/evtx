@@ -51,7 +51,7 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"DestinationIp\"]"  
   - 
     Property: UserName
-"%User%"
+    PropertyValue: "%User%"
     Values: 
       - 
         Name: User

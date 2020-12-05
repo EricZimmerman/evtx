@@ -47,7 +47,7 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"EventNamespace\"]"   
   - 
     Property: UserName
-"%User%"
+    PropertyValue: "%User%"
     Values: 
       - 
         Name: User

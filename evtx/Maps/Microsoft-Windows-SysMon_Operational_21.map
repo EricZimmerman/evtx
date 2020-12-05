@@ -41,7 +41,7 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"Filter\"]"   
   - 
     Property: UserName
-"%User%"
+    PropertyValue: "%User%"
     Values: 
       - 
         Name: User
