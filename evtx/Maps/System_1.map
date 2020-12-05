@@ -6,14 +6,14 @@ Provider: "Microsoft-Windows-Power-Troubleshooter"
 Maps: 
   - 
     Property: PayloadData1
-    PropertyValue: Sleep duration "%SleepDuration%"
+    PropertyValue: Sleep duration: "%SleepDuration%"
     Values: 
       - 
         Name: SleepDuration
         Value: "/Event/EventData/Data[@Name=\"SleepDuration\"]"
   - 
     Property: PayloadData2
-    PropertyValue: Wake source "%WakeSourceType%"
+    PropertyValue: Wake source: "%WakeSourceType%"
     Values: 
       - 
         Name: WakeSourceType

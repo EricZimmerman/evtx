@@ -1,0 +1,75 @@
+Author: Andrew Rathbun
+Description: A user account was disabled
+EventId: 4725
+Channel: Security
+Maps: 
+  - 
+    Property: UserName
+    PropertyValue: "%domain%\\%user% (%sid%)"
+    Values: 
+      - 
+        Name: domain
+        Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
+      - 
+        Name: user
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
+      - 
+        Name: sid
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserSid\"]"
+  - 
+    Property: PayloadData1
+    PropertyValue: "Target: %TargetDomainName%\\%TargetUserName% (%TargetSid%)"
+    Values: 
+      - 
+        Name: TargetUserName
+        Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
+      - 
+        Name: TargetDomainName
+        Value: "/Event/EventData/Data[@Name=\"TargetDomainName\"]"
+      - 
+        Name: TargetSid
+        Value: "/Event/EventData/Data[@Name=\"TargetSid\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "SubjectLogonId: %SubjectLogonId%"
+    Values: 
+      - 
+        Name: SubjectLogonId
+        Value: "/Event/EventData/Data[@Name=\"SubjectLogonId\"]"
+
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+# Example payload data
+#   <EventData>
+#     <Data Name="TargetUserName">defaultuser1</Data>
+#     <Data Name="TargetDomainName">MICROSO-F9QCQ4I</Data>
+#     <Data Name="TargetSid">S-1-5-21-3634127885-2815721165-4177678784-1004</Data>
+#     <Data Name="SubjectUserSid">S-1-5-18</Data>
+#     <Data Name="SubjectUserName">MICROSO-F9QCQ4I$</Data>
+#     <Data Name="SubjectDomainName">TEMP</Data>
+#     <Data Name="SubjectLogonId">0x3E7</Data>
+#     <Data Name="PrivilegeList">-</Data>
+#     <Data Name="SamAccountName">defaultuser1</Data>
+#     <Data Name="DisplayName">%%1793</Data>
+#     <Data Name="UserPrincipalName">-</Data>
+#     <Data Name="HomeDirectory">%%1793</Data>
+#     <Data Name="HomePath">%%1793</Data>
+#     <Data Name="ScriptPath">%%1793</Data>
+#     <Data Name="ProfilePath">%%1793</Data>
+#     <Data Name="UserWorkstations">%%1793</Data>
+#     <Data Name="PasswordLastSet">%%1794</Data>
+#     <Data Name="AccountExpires">%%1794</Data>
+#     <Data Name="PrimaryGroupId">513</Data>
+#     <Data Name="AllowedToDelegateTo">-</Data>
+#     <Data Name="OldUacValue">0x0</Data>
+#     <Data Name="NewUacValue">0x15</Data>
+#     <Data Name="UserAccountControl">%%2080%%2082%%2084</Data>
+#     <Data Name="UserParameters">%%1793</Data>
+#     <Data Name="SidHistory">-</Data>
+#     <Data Name="LogonHours">%%1797</Data>
+#   </EventData>

@@ -15,7 +15,7 @@ Maps:
         Value: "/Event/UserData/LogFileCleared/SubjectUserName"
   - 
     Property: PayloadData1
-    PropertyValue: SID (%SubjectUserSid%)
+PropertyValue: "SID: (%SubjectUserSid%)"
     Values: 
       - 
         Name: SubjectUserSid

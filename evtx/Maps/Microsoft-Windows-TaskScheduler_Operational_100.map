@@ -5,21 +5,21 @@ Channel: "Microsoft-Windows-TaskScheduler/Operational"
 Maps: 
   - 
     Property: PayloadData1
-    PropertyValue: Task %TaskName%
+PropertyValue: "Task: %TaskName%"
     Values: 
       - 
         Name: TaskName
         Value: "/Event/EventData/Data[@Name=\"TaskName\"]"
   - 
     Property: PayloadData2
-    PropertyValue: Context %UserContext%
+    PropertyValue: Context: %UserContext%
     Values: 
       - 
         Name: UserContext
         Value: "/Event/EventData/Data[@Name=\"UserContext\"]"
   -
     Property: PayloadData3
-    PropertyValue: Instance Id %InstanceId%
+    PropertyValue: Instance Id: %InstanceId%
     Values: 
       - 
         Name: InstanceId
