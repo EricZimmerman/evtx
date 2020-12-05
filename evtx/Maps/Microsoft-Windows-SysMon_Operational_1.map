@@ -61,7 +61,7 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"ParentCommandLine\"]"
   - 
     Property: UserName
-"%User%"
+    PropertyValue: "%User%"
     Values: 
       - 
         Name: User
