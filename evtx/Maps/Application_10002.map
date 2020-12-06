@@ -2,6 +2,7 @@ Author: Hyun Yi @hyuunnn
 Description: Terminated due to non-response
 EventId: 10002
 Channel: "Application"
+Provider: "Microsoft-Windows-RestartManager"
 Maps:
   -
     Property: PayloadData1
