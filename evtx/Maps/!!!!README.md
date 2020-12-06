@@ -208,3 +208,7 @@ Edit 1_Security_4624.map and make your changes
 When the maps are loaded, since 1_Security_4624.map comes before 4624.map, only the one with your changes will be loaded.
 
 This also allows you to update default maps without having your customizations blown away every time there is an update.
+
+TIPS:
+
+If you are looking to make an Application.evtx map, please includence a Provider as they are many instances where the same event ID number is used for multiple providers. I've personally observed 4 Providers use Event ID 1 which without a Provider being listed for that map it made all 4 events, regardless of Provider, be mapped incorrectly. When in doubt, add a Provider to your map. Follow a template from a previously created map to ensure it's made correctly.add
