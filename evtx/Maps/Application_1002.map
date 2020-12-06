@@ -32,16 +32,16 @@ Maps:
 #     <Security /> 
 #   </System>
 #   <EventData>
-#     <Data>explorer.exe</Data> 
-#     <Data>10.0.19041.546</Data> 
-#     <Data>1b78</Data> 
-#     <Data>Value</Data> 
-#     <Data>0</Data> 
-#     <Data>C:\Windows\explorer.exe</Data> 
+#     <Data>FTK Imager.exe</Data> 
+#     <Data>4.5.0.3</Data> 
+#     <Data>19e4</Data> 
+#     <Data>01d6a8f4a7784904</Data> 
+#     <Data>80</Data> 
+#     <Data>C:\Program Files\AccessData\FTK Imager\FTK Imager.exe</Data> 
 #     <Data>Value</Data> 
 #     <Data /> 
 #     <Data /> 
-#     <Data>Cross-thread</Data> 
+#     <Data>Unknown</Data> 
 #     <Binary>{Binary}</Binary> 
 #   </EventData>
 # </Event>
