@@ -20,5 +20,3 @@ Maps:
       - 
         Name: <name>
         Value: "/Event/EventData/Data[@Name=\"<name>\"]"
-  
-# Valid properties include:

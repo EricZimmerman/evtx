@@ -1,0 +1,29 @@
+Author: Andrew Rathbun
+Description: Windows is starting up
+EventId: 4608
+Channel: Security
+Provider: "Microsoft-Windows-Security-Auditing"
+Maps: 
+  - 
+    Property: Username
+    PropertyValue: "%domain%\\%user%"
+    Values: 
+      - 
+        Name: domain
+        Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
+      - 
+        Name: user
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
+  - 
+    Property: PayloadData1
+    PropertyValue: "Target: %TargetDomainName%\\%TargetUserName%"
+    Values: 
+      - 
+        Name: TargetDomainName
+        Value: "/Event/EventData/Data[@Name=\"TargetDomainName\"]"
+      - 
+        Name: TargetUserName
+        Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
+
+# https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4608
+# This event is logged when LSASS.EXE process starts and the auditing subsystem is initialized. It typically generates during operating system startup process.
