@@ -1,0 +1,47 @@
+Author: Hyun Yi @hyuunnn
+Description: The program has been terminated.
+EventId: 1002
+Channel: "Application"
+Provider: "Application Hang"
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "Data: %Data%"
+    Values:
+      -
+        Name: Data
+        Value: "/Event/EventData/Data[text()]"
+        
+# Valid properties include:
+
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#   <System>
+#     <Provider Name="Application Hang" /> 
+#     <EventID Qualifiers="0">1002</EventID> 
+#     <Version>0</Version> 
+#     <Level>2</Level> 
+#     <Task>101</Task> 
+#     <Opcode>0</Opcode> 
+#     <Keywords>0x80000000000000</Keywords> 
+#     <TimeCreated SystemTime="2020-10-24T20:28:45.1914826Z" /> 
+#     <EventRecordID>6529</EventRecordID> 
+#     <Correlation /> 
+#     <Execution ProcessID="0" ThreadID="0" /> 
+#     <Channel>Application</Channel> 
+#     <Computer>ComputerName</Computer> 
+#     <Security /> 
+#   </System>
+#   <EventData>
+#     <Data>explorer.exe</Data> 
+#     <Data>10.0.19041.546</Data> 
+#     <Data>1b78</Data> 
+#     <Data>Value</Data> 
+#     <Data>0</Data> 
+#     <Data>C:\Windows\explorer.exe</Data> 
+#     <Data>Value</Data> 
+#     <Data /> 
+#     <Data /> 
+#     <Data>Cross-thread</Data> 
+#     <Binary>{Binary}</Binary> 
+#   </EventData>
+# </Event>
