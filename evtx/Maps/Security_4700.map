@@ -1,0 +1,37 @@
+Author: Andrew Rathbun
+Description: A scheduled task was enabled
+EventId: 4700
+Channel: Security
+Maps: 
+  - 
+    Property: UserName
+    PropertyValue: "%domain%\\%user%"
+    Values: 
+      - 
+        Name: domain
+        Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
+      - 
+        Name: user
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
+  - 
+    Property: PayloadData1
+    PropertyValue: "TaskName: %TaskName%"
+    Values: 
+      - 
+        Name: TaskName
+        Value: "/Event/EventData/Data[@Name=\"TaskName\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "TaskContent: %TaskContent%"
+    Values: 
+      - 
+        Name: TaskContent
+        Value: "/Event/EventData/Data[@Name=\"TaskContent\"]"
+  - 
+    Property: PayloadData3
+    PropertyValue: "SubjectUserSid: %SubjectUserSid%"
+    Values: 
+      - 
+        Name: SubjectUserSid
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserSid\"]"
+
