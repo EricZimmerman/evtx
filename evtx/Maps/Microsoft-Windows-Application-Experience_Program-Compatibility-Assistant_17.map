@@ -4,7 +4,7 @@ EventId: 17
 Channel: "Microsoft-Windows-Application-Experience/Program-Compatibility-Assistant"
 Maps:
   -
-    Property: PayloadData1
+    Property: ExecutableInfo
     PropertyValue: "ExePath: %ExePath%"
     Values:
       -
