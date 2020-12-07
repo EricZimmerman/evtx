@@ -5,7 +5,7 @@ Channel: "Microsoft-Windows-Application-Experience/Program-Compatibility-Assista
 Maps:
   -
     Property: ExecutableInfo
-    PropertyValue: "ExePath: %ExePath%"
+    PropertyValue: "%ExePath%"
     Values:
       -
         Name: ExePath
