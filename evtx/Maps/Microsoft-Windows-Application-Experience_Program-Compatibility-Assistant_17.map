@@ -1,0 +1,39 @@
+Author: Hyun Yi @hyuunnn
+Description: Path of executed program
+EventId: 17
+Channel: "Microsoft-Windows-Application-Experience/Program-Compatibility-Assistant"
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "ExePath: %ExePath%"
+    Values:
+      -
+        Name: ExePath
+        Value: "/Event/UserData/ResolverFiredEvent/ExePath"
+        
+# Valid properties include:
+
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#   <System>
+#     <Provider Name="Microsoft-Windows-Program-Compatibility-Assistant" Guid="{GUID}" /> 
+#     <EventID>17</EventID> 
+#     <Version>0</Version> 
+#     <Level>4</Level> 
+#     <Task>0</Task> 
+#     <Opcode>0</Opcode> 
+#     <Keywords>0x4000000000000000</Keywords> 
+#     <TimeCreated SystemTime="2020-11-25T05:49:55.2080293Z" /> 
+#     <EventRecordID>204</EventRecordID> 
+#     <Correlation /> 
+#     <Execution ProcessID="5848" ThreadID="16956" /> 
+#     <Channel>Microsoft-Windows-Application-Experience/Program-Compatibility-Assistant</Channel> 
+#     <Computer>ComputerName</Computer> 
+#     <Security UserID="S-1-5-18" /> 
+#   </System>
+#   <UserData>
+#     <ResolverFiredEvent xmlns="http://www.microsoft.com/Windows/Diagnosis/PCA/events">
+#         <ExePath>C:\Users\hyuunnn\Desktop\arsenalRecon\Arsenal-Image-Mounter-v3.2.128\ArsenalImageMounter.exe</ExePath> 
+#         <ResolverName>DetectorShim_Win32Exception</ResolverName> 
+#     </ResolverFiredEvent>
+#   </UserData>
+# </Event>
