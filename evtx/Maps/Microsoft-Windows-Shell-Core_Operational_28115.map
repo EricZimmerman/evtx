@@ -5,14 +5,14 @@ Channel: "Microsoft-Windows-Shell-Core/Operational"
 Provider: "Microsoft-Windows-Shell-Core"
 Maps:
   -
-    Property: PayloadData1
+    Property: ExecutableInfo
     PropertyValue: "Name: %Name%"
     Values:
       -
         Name: Name
         Value: "/Event/EventData/Data[@Name=\"Name\"]"
   -
-    Property: PayloadData2
+    Property: PayloadData1
     PropertyValue: "AppID: %AppID%"
     Values:
       -
