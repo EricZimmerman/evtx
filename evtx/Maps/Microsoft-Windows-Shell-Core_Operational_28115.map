@@ -6,7 +6,7 @@ Provider: "Microsoft-Windows-Shell-Core"
 Maps:
   -
     Property: ExecutableInfo
-    PropertyValue: "Name: %Name%"
+    PropertyValue: "%Name%"
     Values:
       -
         Name: Name
