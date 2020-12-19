@@ -2,6 +2,7 @@ Author: Mike Brewer
 Description: Cisco AnyConnect VPN reading host's IP 
 EventId: 2085
 Channel: "Cisco AnyConnect Secure Mobility Client"
+Provider: acvpnagent
 Maps: 
   - 
     Property: PayloadData1

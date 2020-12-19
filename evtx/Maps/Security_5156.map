@@ -2,6 +2,7 @@ Author: Eric Zimmerman saericzimmerman@gmail.com
 Description: The Windows Filtering Platform has allowed a connection
 EventId: 5156
 Channel: Security
+Provider: Microsoft-Windows-Security-Auditing
 Maps: 
   -
     Property: ExecutableInfo

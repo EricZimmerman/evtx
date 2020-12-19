@@ -2,6 +2,7 @@ Author: Troy Larson
 Description: A registry value was modified.
 EventId: 4657
 Channel: Security
+Provider: Microsoft-Windows-Security-Auditing
 Maps: 
   - 
     Property: UserName

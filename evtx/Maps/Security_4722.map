@@ -2,6 +2,7 @@ Author: Andrew Rathbun
 Description: A user account was enabled
 EventId: 4722
 Channel: Security
+Provider: Microsoft-Windows-Security-Auditing
 Maps: 
   - 
     Property: UserName

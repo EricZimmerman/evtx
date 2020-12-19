@@ -1,7 +1,8 @@
 Author: Troy Larson
 Description: A packaged app was allowed to run.
 EventId: 8020
-Channel: Microsoft-Windows-AppLocker/Packaged app-Execution
+Channel: "Microsoft-Windows-AppLocker/Packaged app-Execution"
+Provider: Microsoft-Windows-AppLocker
 Maps: 
   - 
     Property: ExecutableInfo

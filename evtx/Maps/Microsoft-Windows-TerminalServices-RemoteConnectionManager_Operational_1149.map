@@ -2,6 +2,7 @@ Author: Eric Zimmerman saericzimmerman@gmail.com
 Description: RDP network connection established
 EventId: 1149
 Channel: Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational
+Provider: Microsoft-Windows-TerminalServices-RemoteConnectionManager
 Maps: 
   - 
     Property: Username

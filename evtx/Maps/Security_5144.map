@@ -2,6 +2,7 @@ Author: Mike Pilkington
 Description: Local network share deleted
 EventId: 5144
 Channel: Security
+Provider: Microsoft-Windows-Security-Auditing
 Maps: 
   - 
     Property: Username

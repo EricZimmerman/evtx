@@ -2,6 +2,7 @@ Author: Eric Zimmerman saericzimmerman@gmail.com
 Description: RDP Client is trying to connect to the server
 EventId: 1024
 Channel: Microsoft-Windows-TerminalServices-RDPClient/Operational
+Provider: Microsoft-Windows-TerminalServices-ClientActiveXCore
 Maps: 
   - 
     Property: PayloadData1

@@ -2,6 +2,7 @@ Author: Mike Pilkington
 Description: Application Experience Program Telemetry
 EventId: 505
 Channel: "Microsoft-Windows-Application-Experience/Program-Telemetry"
+Provider: Microsoft-Windows-Application-Experience
 Maps:
   - 
     Property: ExecutableInfo
@@ -32,13 +33,31 @@ Maps:
 # PayloadData1 through PayloadData6
 
 # Example payload data
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Application-Experience" Guid="eef578991-0661-422d-9a98-82fd4940b820" />
+#    <EventID>505</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>0</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x800000000009000</Keywords>
+#    <TimeCreated SystemTime="2020-06-04 04:17:46.8612022" />
+#    <EventRecordID>1026</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="679" ThreadID="844" />
+#    <Channel>Microsoft-Windows-Application-Experience/Program-Telemetry</Channel>
+#    <Computer>HOSTNAME.domain.com</Computer>
+#    <Security UserID="S-1-5-18" />
+#  </System>
 #  <UserData>
 #    <CompatibilityFixEvent>
-#      <ProcessId>3724</ProcessId>
-#      <StartTime>2019-03-19 20:48:33.4095392</StartTime>
-#      <FixID>8a23a24a-9a8d-44b6-a6d4-556c53a289b5</FixID>
-#      <Flags>0x10205</Flags>
-#      <ExePath>C:\Windows\System32\osk.exe</ExePath>
-#      <FixName>CorrectFilePaths</FixName>
+#      <ProcessId>679</ProcessId>
+#      <StartTime>2020-06-04 04:17:46.6533916</StartTime>
+#      <FixID>f62f1235-e0e3-43b9-8e00-3e2fdff449ab</FixID>
+#      <Flags>0x80013101</Flags>
+#      <ExePath>C:\Program Files\Microsoft Security Client\MsMpEng.exe</ExePath>
+#      <FixName>Microsoft Forefront Endpoint Protection 2010</FixName>
 #    </CompatibilityFixEvent>
 #  </UserData>
+#</Event>

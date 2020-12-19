@@ -2,6 +2,7 @@ Author: Mike Pilkington
 Description: Scheduled task created
 EventId: 4698
 Channel: Security
+Provider: Microsoft-Windows-Security-Auditing
 Maps: 
   - 
     Property: Username

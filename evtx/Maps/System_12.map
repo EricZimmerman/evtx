@@ -1,8 +1,8 @@
 Author: Hyun Yi @hyuunnn
 Description: OS was started.
 EventId: 12
-Channel: "System"
-Provider: "Microsoft-Windows-Kernel-General"
+Channel: System
+Provider: Microsoft-Windows-Kernel-General
 Maps:
   -
     Property: PayloadData1

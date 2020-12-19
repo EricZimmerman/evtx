@@ -2,6 +2,7 @@ Author: Eric Zimmerman saericzimmerman@gmail.com
 Description: WMI wmiprvse execution
 EventId: 5857
 Channel: Microsoft-Windows-WMI-Activity/Operational
+Provider: Microsoft-Windows-WMI-Activity
 Maps: 
   - 
     Property: PayloadData1

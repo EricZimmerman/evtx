@@ -2,6 +2,7 @@ Author: Gabriele Zambelli @gazambelli
 Description: Security Risk Found
 EventId: 51
 Channel: "Symantec Endpoint Protection Client"
+Provider: "Symantec Endpoint Protection Client"
 Maps: 
   - 
     Property: ExecutableInfo

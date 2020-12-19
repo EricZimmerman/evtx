@@ -2,6 +2,7 @@ Author: Gabriele Zambelli @gazambelli
 Description: "RDP (outgoing connection)"
 EventId: 1029
 Channel: Microsoft-Windows-TerminalServices-RDPClient/Operational
+Provider: Microsoft-Windows-TerminalServices-ClientActiveXCore
 Maps: 
   - 
     Property: PayloadData1

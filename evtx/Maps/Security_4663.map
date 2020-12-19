@@ -2,6 +2,7 @@ Author: Mike Pilkington
 Description: Attempt was made to access an object 
 EventId: 4663
 Channel: Security
+Provider: Microsoft-Windows-Security-Auditing
 Maps: 
   - 
     Property: Username

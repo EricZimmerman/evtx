@@ -2,6 +2,7 @@ Author: Lennaert Oudshoorn @lennaert89
 Description: OAlerts 300 event
 EventId: 300
 Channel: OAlerts
+Provider: "Microsoft Office 16 Alerts"
 Maps: 
   - 
     Property: PayloadData1

@@ -2,6 +2,7 @@ Author: Troy Larson
 Description: Session (Payload 1) has been disconnected by session (Payload 2)
 EventId: 39
 Channel: Microsoft-Windows-TerminalServices-LocalSessionManager/Operational
+Provider: Microsoft-Windows-TerminalServices-LocalSessionManager
 Maps: 
   - 
     Property: PayloadData1

@@ -2,6 +2,7 @@ Author: Brian MacKenna
 Description: Engine state is changed from Available to Stopped.
 EventId: 403
 Channel: Windows PowerShell
+Provider: PowerShell
 Maps: 
   - 
     Property: PayloadData1

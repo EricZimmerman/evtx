@@ -2,6 +2,7 @@ Author: Troy Larson
 Description: Executing From RunKey As Job
 EventId: 9709
 Channel: Microsoft-Windows-Shell-Core/Operational
+Provider: Microsoft-Windows-Shell-Core
 Maps: 
   - 
     Property: ExecutableInfo

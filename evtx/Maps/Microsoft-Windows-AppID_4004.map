@@ -2,6 +2,7 @@ Author: Phill Moore
 Description: Code Signature Verification
 EventId: 4004
 Channel: "Microsoft-Windows-AppID/Operational"
+Provider: Microsoft-Windows-AppID
 Maps: 
   - 
     Property: ExecutableInfo

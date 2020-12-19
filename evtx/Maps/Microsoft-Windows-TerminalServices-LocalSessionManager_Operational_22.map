@@ -2,6 +2,7 @@ Author: Eric Zimmerman saericzimmerman@gmail.com
 Description: "Remote Desktop Services: Shell start notification received"
 EventId: 22
 Channel: Microsoft-Windows-TerminalServices-LocalSessionManager/Operational
+Provider: Microsoft-Windows-TerminalServices-LocalSessionManager
 Maps: 
   - 
     Property: UserName

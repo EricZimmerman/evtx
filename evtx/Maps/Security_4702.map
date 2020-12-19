@@ -2,6 +2,7 @@ Author: Mike Pilkington
 Description: A scheduled task was updated
 EventId: 4702
 Channel: Security
+Provider: Microsoft-Windows-Security-Auditing
 Maps: 
   - 
     Property: Username

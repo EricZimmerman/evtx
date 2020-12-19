@@ -2,6 +2,7 @@ Author: Mike Pilkington
 Description: System audit policy was changed
 EventId: 4719
 Channel: Security
+Provider: Microsoft-Windows-Security-Auditing
 Maps: 
   - 
     Property: Username

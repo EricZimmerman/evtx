@@ -2,6 +2,7 @@ Author: Gabriele Zambelli @gazambelli
 Description: The RDP client has established a multi-transport connection to the server
 EventId: 1103
 Channel: Microsoft-Windows-TerminalServices-RDPClient/Operational
+Provider: Microsoft-Windows-TerminalServices-ClientActiveXCore
 Maps: 
   - 
     Property: PayloadData6

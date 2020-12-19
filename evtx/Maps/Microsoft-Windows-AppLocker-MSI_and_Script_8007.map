@@ -2,6 +2,7 @@ Author: Troy Larson
 Description: A script or MSI was prevented from running.
 EventId: 8007
 Channel: Microsoft-Windows-AppLocker/MSI and Script
+Provider: Microsoft-Windows-AppLocker
 Maps: 
   - 
     Property: ExecutableInfo

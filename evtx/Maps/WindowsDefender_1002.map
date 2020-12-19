@@ -2,6 +2,7 @@ Author: Troy Larson
 Description: Warning - Scan stopped before completion.
 EventId: 1002
 Channel: Microsoft-Windows-Windows Defender/Operational
+Provider: Microsoft-Windows-Windows Defender
 Maps: 
   - 
     Property: UserName

@@ -2,6 +2,7 @@ Author: Eric Zimmerman saericzimmerman@gmail.com
 Description: Scheduled Task triggered on logon
 EventId: 119
 Channel: "Microsoft-Windows-TaskScheduler/Operational"
+Provider: Microsoft-Windows-TaskScheduler
 Maps: 
   - 
     Property: PayloadData1

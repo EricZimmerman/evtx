@@ -2,6 +2,7 @@ Author: Mike Pilkington
 Description: Local network share added
 EventId: 5142
 Channel: Security
+Provider: Microsoft-Windows-Security-Auditing
 Maps: 
   - 
     Property: Username

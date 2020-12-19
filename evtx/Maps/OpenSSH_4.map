@@ -2,6 +2,7 @@ Author: Troy Larson
 Description: SSH activity.
 EventId: 4
 Channel: "OpenSSH/Operational"
+Provider: OpenSSH
 Maps: 
   - 
     Property: PayloadData1

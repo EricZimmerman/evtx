@@ -2,6 +2,7 @@ Author: Mike Pilkington
 Description: A directory service object was modified 
 EventId: 5136
 Channel: Security
+Provider: Microsoft-Windows-Security-Auditing
 Maps: 
   - 
     Property: Username

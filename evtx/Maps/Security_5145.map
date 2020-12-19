@@ -2,6 +2,7 @@ Author: Mike Pilkington
 Description: Network share object access
 EventId: 5145
 Channel: Security
+Provider: Microsoft-Windows-Security-Auditing
 Maps: 
   - 
     Property: Username

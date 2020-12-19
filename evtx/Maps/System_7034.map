@@ -2,6 +2,7 @@ Author: Eric Zimmerman saericzimmerman@gmail.com
 Description: Service crashed unexpectedly
 EventId: 7034
 Channel: System
+Provider: Service Control Manager
 Maps: 
   - 
     Property: PayloadData1

@@ -2,6 +2,7 @@ Author: Troy Larson
 Description: RunOnce commands started
 EventId: 9703
 Channel: Microsoft-Windows-Shell-Core/Operational
+Provider: Microsoft-Windows-Shell-Core
 Maps: 
   - 
     Property: PayloadData1

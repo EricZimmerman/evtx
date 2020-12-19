@@ -2,6 +2,7 @@ Author: Barrie Hill barrie0482@gmail.com
 Description: Printing a document
 EventId: 307
 Channel: "Microsoft-Windows-PrintService/Operational"
+Provider: Microsoft-Windows-PrintService
 Maps: 
   - 
     Property: PayloadData1

@@ -2,6 +2,7 @@ Author: Eric Zimmerman saericzimmerman@gmail.com
 Description: RDP Listener received a connection
 EventId: 261
 Channel: Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational
+Provider: Microsoft-Windows-TerminalServices-RemoteConnectionManager
 Maps: 
   - 
     Property: PayloadData1
