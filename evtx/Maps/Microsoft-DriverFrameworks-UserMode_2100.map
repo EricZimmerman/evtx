@@ -20,7 +20,11 @@ Maps:
         Value: "/Event/UserData/UMDFHostDeviceRequest/LifetimeId"
         
 # Valid properties include:
-
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+#
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
 #     <Provider Name="Microsoft-Windows-DriverFrameworks-UserMode" Guid="{GUID}" /> 
