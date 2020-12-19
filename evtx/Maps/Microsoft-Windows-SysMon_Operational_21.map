@@ -2,6 +2,7 @@ Author: Andrew Rathbun
 Description: WmiEvent (WmiEventConsumerToFilter activity detected)
 EventId: 21
 Channel: Microsoft-Windows-Sysmon/Operational
+Provider: Microsoft-Windows-Sysmon
 Maps: 
 
   - 
@@ -53,38 +54,35 @@ Maps:
 # RemoteHost
 # ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
 # PayloadData1 through PayloadData6
-# Example XML for this event:
-#<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#
+# https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon#events for more documentation
+# See also https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=90021
+# Example of event, thanks to https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES
+#
+#<Event>
 #  <System>
-#    <Provider Name="PowerShell" /> 
-#    <EventID Qualifiers="0">400</EventID> 
-#    <Level>4</Level> 
-#    <Task>6</Task> 
-#    <Keywords>0x80000000000000</Keywords> 
-#    <TimeCreated SystemTime="2001-01-01T01:01:01.012345678Z" /> 
-#    <EventRecordID>18</EventRecordID> 
-#    <Channel>Windows PowerShell</Channel> 
-#    <Computer>name.domain.tld</Computer> 
-#    <Security /> 
+#    <Provider Name="Microsoft-Windows-Sysmon" Guid="5770385f-c22a-43e0-bf4c-06f5698ffbd9" />
+#    <EventID>21</EventID>
+#    <Version>3</Version>
+#    <Level>4</Level>
+#    <Task>21</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8000000000000000</Keywords>
+#    <TimeCreated SystemTime="2019-07-19 14:57:02.3784804" />
+#    <EventRecordID>4057</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="2796" ThreadID="4356" />
+#    <Channel>Microsoft-Windows-Sysmon/Operational</Channel>
+#    <Computer>MSEDGEWIN10</Computer>
+#    <Security UserID="S-1-5-18" />
 #  </System>
 #  <EventData>
-#    <Data>Available, None, 	NewEngineState=Available
-#	PreviousEngineState=None
-#
-#	SequenceNumber=13
-#
-#	HostName=ConsoleHost
-#	HostVersion=5.1.18362.145
-#	HostId=3820a72c-10dc-4989-9388-3d4b6523c35f
-#	HostApplication=powershell -nop -w hidden -encodedcommand JAB...(bad command stuff removed)...ADsA
-#	EngineVersion=5.1.18362.145
-#	RunspaceId=b21e91e8-9068-48ae-ac10-15430944932b
-#	PipelineId=
-#	CommandName=
-#	CommandType=
-#	ScriptName=
-#	CommandPath=
-#	CommandLine=</Data>
-#    <Binary></Binary>
+#    <Data Name="RuleName"></Data>
+#    <Data Name="EventType">WmiBindingEvent</Data>
+#    <Data Name="UtcTime">2019-07-19 14:57:02.369</Data>
+#    <Data Name="Operation">Created</Data>
+#    <Data Name="User">MSEDGEWIN10\IEUser</Data>
+#    <Data Name="Consumer"> "\\\\.\\ROOT\\subscription:CommandLineEventConsumer.Name=\"AtomicRedTeam-WMIPersistence-Example\""</Data>
+#    <Data Name="Filter"> "\\\\.\\ROOT\\subscription:__EventFilter.Name=\"AtomicRedTeam-WMIPersistence-Example\""</Data>
 #  </EventData>
 #</Event>

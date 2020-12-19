@@ -2,6 +2,7 @@ Author: Andrew Rathbun
 Description: Process terminated
 EventId: 5
 Channel: Microsoft-Windows-Sysmon/Operational
+Provider: Microsoft-Windows-Sysmon
 Maps: 
 
   - 
@@ -28,31 +29,34 @@ Maps:
 # ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
 # PayloadData1 through PayloadData6
 # Hashes --> SHA1 of the Process that was created. Useful for running through VirusTotal if suspicious. 
-
+#
+# https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon#events for more documentation
+# See also https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=90005
+# Example of event, thanks to https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES
+#
 #<Event>
 #  <System>
-#    <Provider Name="Service Control Manager" Guid="{555908d1-a6d7-4695-8e1e-26931d2012f4}" EventSourceName="Service Control Manager" />
-#    <EventID Qualifiers="16384">7045</EventID>
-#    <Version>0</Version>
+#    <Provider Name="Microsoft-Windows-Sysmon" Guid="5770385f-c22a-43e0-bf4c-06f5698ffbd9" />
+#    <EventID>5</EventID>
+#    <Version>3</Version>
 #    <Level>4</Level>
-#    <Task>0</Task>
+#    <Task>5</Task>
 #    <Opcode>0</Opcode>
-#    <Keywords>0x8080000000000000</Keywords>
-#    <TimeCreated SystemTime="2018-05-07 19:24:11.6922354" />
-#    <EventRecordID>382</EventRecordID>
+#    <Keywords>0x8000000000000000</Keywords>
+#    <TimeCreated SystemTime="2020-05-24 01:13:50.3307757" />
+#    <EventRecordID>196372</EventRecordID>
 #    <Correlation />
-#    <Execution ProcessID="620" ThreadID="1196" />
-#    <Channel>System</Channel>
-#    <Computer>win10-test</Computer>
+#    <Execution ProcessID="2812" ThreadID="3656" />
+#    <Channel>Microsoft-Windows-Sysmon/Operational</Channel>
+#    <Computer>MSEDGEWIN10</Computer>
 #    <Security UserID="S-1-5-18" />
 #  </System>
 #  <EventData>
-#    <Data Name="ServiceName">vmxnet3 NDIS 6 Ethernet Adapter Driver</Data>
-#    <Data Name="ImagePath">\SystemRoot\System32\drivers\vmxnet3.sys</Data>
-#    <Data Name="ServiceType">kernel mode driver</Data>
-#    <Data Name="StartType">demand start</Data>
-#    <Data Name="AccountName"></Data>
+#    <Data Name="RuleName"></Data>
+#    <Data Name="UtcTime">2020-05-24 01:13:50.315</Data>
+#    <Data Name="ProcessGuid">747f3d96-ca4b-5ec9-0000-0010b8cb3700</Data>
+#    <Data Name="ProcessId">3960</Data>
+#    <Data Name="Image">C:\Users\IEUser\Tools\PrivEsc\RogueWinRM.exe</Data>
 #  </EventData>
 #</Event>
-#
-# https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon for more information
+

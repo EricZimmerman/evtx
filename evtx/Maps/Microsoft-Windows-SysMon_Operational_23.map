@@ -2,6 +2,7 @@ Author: Andrew Rathbun
 Description: FileDelete (A file delete was detected)
 EventId: 23
 Channel: Microsoft-Windows-Sysmon/Operational
+Provider: Microsoft-Windows-Sysmon
 Maps: 
 
   - 
@@ -69,38 +70,37 @@ Maps:
 # RemoteHost
 # ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
 # PayloadData1 through PayloadData6
-# Example XML for this event:
-#<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#
+# https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon#events for more documentation
+# Example of event, thanks to https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES
+#
+#<Event>
 #  <System>
-#    <Provider Name="PowerShell" /> 
-#    <EventID Qualifiers="0">400</EventID> 
-#    <Level>4</Level> 
-#    <Task>6</Task> 
-#    <Keywords>0x80000000000000</Keywords> 
-#    <TimeCreated SystemTime="2001-01-01T01:01:01.012345678Z" /> 
-#    <EventRecordID>18</EventRecordID> 
-#    <Channel>Windows PowerShell</Channel> 
-#    <Computer>name.domain.tld</Computer> 
-#    <Security /> 
+#    <Provider Name="Microsoft-Windows-Sysmon" Guid="5770385f-c22a-43e0-bf4c-06f5698ffbd9" />
+#    <EventID>23</EventID>
+#    <Version>5</Version>
+#    <Level>4</Level>
+#    <Task>23</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8000000000000000</Keywords>
+#    <TimeCreated SystemTime="2020-10-20 11:50:56.9994587" />
+#    <EventRecordID>1081</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="7212" ThreadID="9748" />
+#    <Channel>Microsoft-Windows-Sysmon/Operational</Channel>
+#    <Computer>DESKTOP-NTSSLJD</Computer>
+#    <Security UserID="S-1-5-18" />
 #  </System>
 #  <EventData>
-#    <Data>Available, None, 	NewEngineState=Available
-#	PreviousEngineState=None
-#
-#	SequenceNumber=13
-#
-#	HostName=ConsoleHost
-#	HostVersion=5.1.18362.145
-#	HostId=3820a72c-10dc-4989-9388-3d4b6523c35f
-#	HostApplication=powershell -nop -w hidden -encodedcommand JAB...(bad command stuff removed)...ADsA
-#	EngineVersion=5.1.18362.145
-#	RunspaceId=b21e91e8-9068-48ae-ac10-15430944932b
-#	PipelineId=
-#	CommandName=
-#	CommandType=
-#	ScriptName=
-#	CommandPath=
-#	CommandLine=</Data>
-#    <Binary></Binary>
+#    <Data Name="RuleName">-</Data>
+#    <Data Name="UtcTime">2020-10-20 11:50:56.994</Data>
+#    <Data Name="ProcessGuid">23f38d93-cf1f-5f8e-cc08-000000000c00</Data>
+#    <Data Name="ProcessId">9444</Data>
+#    <Data Name="User">DESKTOP-NTSSLJD\den</Data>
+#    <Data Name="Image">C:\Windows\system32\DllHost.exe</Data>
+#    <Data Name="TargetFilename">C:\Users\den\AppData\Local\Temp\IDC1.tmp\[1]consent.exe</Data>
+#    <Data Name="Hashes">SHA1=6298449EB38C20ABFE79C32346258BF4951C1E53,MD5=98F48037163A97285E72A2107F0336CA,SHA256=B26D892448D336EBFAB26F033457D1A2A94E3CD8FBBDA5AE0DBB09E16BE4C84E,IMPHASH=DEA061EF56E13C6D0B065E71A879D9B6</Data>
+#    <Data Name="IsExecutable">True</Data>
+#    <Data Name="Archived">true</Data>
 #  </EventData>
 #</Event>

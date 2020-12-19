@@ -2,6 +2,7 @@ Author: Andrew Rathbun
 Description: DNSEvent (DNS query)
 EventId: 22
 Channel: Microsoft-Windows-Sysmon/Operational
+Provider: Microsoft-Windows-Sysmon
 Maps: 
   - 
     Property: PayloadData1
@@ -54,38 +55,35 @@ Maps:
 # RemoteHost
 # ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
 # PayloadData1 through PayloadData6
-# Example XML for this event:
-#<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#
+# https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon#events for more documentation
+# Example of event, thanks to https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES
+#
+#<Event>
 #  <System>
-#    <Provider Name="PowerShell" /> 
-#    <EventID Qualifiers="0">400</EventID> 
-#    <Level>4</Level> 
-#    <Task>6</Task> 
-#    <Keywords>0x80000000000000</Keywords> 
-#    <TimeCreated SystemTime="2001-01-01T01:01:01.012345678Z" /> 
-#    <EventRecordID>18</EventRecordID> 
-#    <Channel>Windows PowerShell</Channel> 
-#    <Computer>name.domain.tld</Computer> 
-#    <Security /> 
+#    <Provider Name="Microsoft-Windows-Sysmon" Guid="5770385f-c22a-43e0-bf4c-06f5698ffbd9" />
+#    <EventID>22</EventID>
+#    <Version>5</Version>
+#    <Level>4</Level>
+#    <Task>22</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8000000000000000</Keywords>
+#    <TimeCreated SystemTime="2020-10-20 11:51:01.4767229" />
+#    <EventRecordID>1084</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="7212" ThreadID="1320" />
+#    <Channel>Microsoft-Windows-Sysmon/Operational</Channel>
+#    <Computer>DESKTOP-NTSSLJD</Computer>
+#    <Security UserID="S-1-5-18" />
 #  </System>
 #  <EventData>
-#    <Data>Available, None, 	NewEngineState=Available
-#	PreviousEngineState=None
-#
-#	SequenceNumber=13
-#
-#	HostName=ConsoleHost
-#	HostVersion=5.1.18362.145
-#	HostId=3820a72c-10dc-4989-9388-3d4b6523c35f
-#	HostApplication=powershell -nop -w hidden -encodedcommand JAB...(bad command stuff removed)...ADsA
-#	EngineVersion=5.1.18362.145
-#	RunspaceId=b21e91e8-9068-48ae-ac10-15430944932b
-#	PipelineId=
-#	CommandName=
-#	CommandType=
-#	ScriptName=
-#	CommandPath=
-#	CommandLine=</Data>
-#    <Binary></Binary>
+#    <Data Name="RuleName">-</Data>
+#    <Data Name="UtcTime">2020-10-20 11:50:59.461</Data>
+#    <Data Name="ProcessGuid">23f38d93-abac-5f8e-3900-000000000c00</Data>
+#    <Data Name="ProcessId">2428</Data>
+#    <Data Name="QueryName">wpad</Data>
+#    <Data Name="QueryStatus">9003</Data>
+#    <Data Name="QueryResults">-</Data>
+#    <Data Name="Image">C:\Windows\System32\svchost.exe</Data>
 #  </EventData>
 #</Event>

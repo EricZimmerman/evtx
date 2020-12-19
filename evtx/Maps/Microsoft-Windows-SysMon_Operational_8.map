@@ -2,6 +2,7 @@ Author: Andrew Rathbun
 Description: CreateRemoteThread
 EventId: 8
 Channel: Microsoft-Windows-Sysmon/Operational
+Provider: Microsoft-Windows-Sysmon
 Maps: 
   - 
     Property: PayloadData1
@@ -58,31 +59,40 @@ Maps:
 # ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
 # PayloadData1 through PayloadData6
 # Hashes --> SHA1 of the Process that was created. Useful for running through VirusTotal if suspicious. 
-
+#
+# https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon#events for more documentation
+# See also https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=90008
+# Example of event, thanks to https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES
+#
 #<Event>
 #  <System>
-#    <Provider Name="Service Control Manager" Guid="{555908d1-a6d7-4695-8e1e-26931d2012f4}" EventSourceName="Service Control Manager" />
-#    <EventID Qualifiers="16384">7045</EventID>
-#    <Version>0</Version>
+#    <Provider Name="Microsoft-Windows-Sysmon" Guid="5770385f-c22a-43e0-bf4c-06f5698ffbd9" />
+#    <EventID>8</EventID>
+#    <Version>2</Version>
 #    <Level>4</Level>
-#    <Task>0</Task>
+#    <Task>8</Task>
 #    <Opcode>0</Opcode>
-#    <Keywords>0x8080000000000000</Keywords>
-#    <TimeCreated SystemTime="2018-05-07 19:24:11.6922354" />
-#    <EventRecordID>382</EventRecordID>
+#    <Keywords>0x8000000000000000</Keywords>
+#    <TimeCreated SystemTime="2019-04-27 18:47:00.0624748" />
+#    <EventRecordID>7023</EventRecordID>
 #    <Correlation />
-#    <Execution ProcessID="620" ThreadID="1196" />
-#    <Channel>System</Channel>
-#    <Computer>win10-test</Computer>
+#    <Execution ProcessID="1816" ThreadID="1228" />
+#    <Channel>Microsoft-Windows-Sysmon/Operational</Channel>
+#    <Computer>IEWIN7</Computer>
 #    <Security UserID="S-1-5-18" />
 #  </System>
 #  <EventData>
-#    <Data Name="ServiceName">vmxnet3 NDIS 6 Ethernet Adapter Driver</Data>
-#    <Data Name="ImagePath">\SystemRoot\System32\drivers\vmxnet3.sys</Data>
-#    <Data Name="ServiceType">kernel mode driver</Data>
-#    <Data Name="StartType">demand start</Data>
-#    <Data Name="AccountName"></Data>
+#    <Data Name="RuleName"></Data>
+#    <Data Name="UtcTime">2019-04-27 18:47:00.062</Data>
+#    <Data Name="SourceProcessGuid">365abb72-a3a4-5cc4-0000-001084960c00</Data>
+#    <Data Name="SourceProcessId">1288</Data>
+#    <Data Name="SourceImage">C:\Users\Public\KeeFarce.exe</Data>
+#    <Data Name="TargetProcessGuid">365abb72-a201-5cc4-0000-00104f500800</Data>
+#    <Data Name="TargetProcessId">2364</Data>
+#    <Data Name="TargetImage">C:\Program Files\KeePass Password Safe 2\KeePass.exe</Data>
+#    <Data Name="NewThreadId">1920</Data>
+#    <Data Name="StartAddress">0x5A801260</Data>
+#    <Data Name="StartModule">C:\Users\Public\BootstrapDLL.dll</Data>
+#    <Data Name="StartFunction">LoadManagedProject</Data>
 #  </EventData>
 #</Event>
-#
-# https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon for more information
