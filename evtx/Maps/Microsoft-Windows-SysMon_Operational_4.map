@@ -2,6 +2,7 @@ Author: Andrew Rathbun
 Description: Sysmon service state changed
 EventId: 4
 Channel: Microsoft-Windows-Sysmon/Operational
+Provider: Microsoft-Windows-Sysmon
 Maps: 
 
   - 
@@ -32,31 +33,33 @@ Maps:
 # ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
 # PayloadData1 through PayloadData6
 # Hashes --> SHA1 of the Process that was created. Useful for running through VirusTotal if suspicious. 
-
+#
+# https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon#events for more documentation
+# See also https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=90004
+# Example of event, thanks to https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES
+#                                                                                               
 #<Event>
 #  <System>
-#    <Provider Name="Service Control Manager" Guid="{555908d1-a6d7-4695-8e1e-26931d2012f4}" EventSourceName="Service Control Manager" />
-#    <EventID Qualifiers="16384">7045</EventID>
-#    <Version>0</Version>
+#    <Provider Name="Microsoft-Windows-Sysmon" Guid="5770385f-c22a-43e0-bf4c-06f5698ffbd9" />
+#    <EventID>4</EventID>
+#    <Version>3</Version>
 #    <Level>4</Level>
-#    <Task>0</Task>
+#    <Task>4</Task>
 #    <Opcode>0</Opcode>
-#    <Keywords>0x8080000000000000</Keywords>
-#    <TimeCreated SystemTime="2018-05-07 19:24:11.6922354" />
-#    <EventRecordID>382</EventRecordID>
+#    <Keywords>0x8000000000000000</Keywords>
+#    <TimeCreated SystemTime="2020-08-12 13:05:19.7196601" />
+#    <EventRecordID>342405</EventRecordID>
 #    <Correlation />
-#    <Execution ProcessID="620" ThreadID="1196" />
-#    <Channel>System</Channel>
-#    <Computer>win10-test</Computer>
+#    <Execution ProcessID="3344" ThreadID="4176" />
+#    <Channel>Microsoft-Windows-Sysmon/Operational</Channel>
+#    <Computer>MSEDGEWIN10</Computer>
 #    <Security UserID="S-1-5-18" />
 #  </System>
 #  <EventData>
-#    <Data Name="ServiceName">vmxnet3 NDIS 6 Ethernet Adapter Driver</Data>
-#    <Data Name="ImagePath">\SystemRoot\System32\drivers\vmxnet3.sys</Data>
-#    <Data Name="ServiceType">kernel mode driver</Data>
-#    <Data Name="StartType">demand start</Data>
-#    <Data Name="AccountName"></Data>
+#    <Data Name="UtcTime">2020-08-12 13:05:19.713</Data>
+#    <Data Name="State">Started</Data>
+#    <Data Name="Version">10.42</Data>
+#    <Data Name="SchemaVersion">4.23</Data>
 #  </EventData>
 #</Event>
-#
-# https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon for more information
+

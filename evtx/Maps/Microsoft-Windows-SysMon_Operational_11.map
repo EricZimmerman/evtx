@@ -2,6 +2,7 @@ Author: Andrew Rathbun
 Description: FileCreate
 EventId: 11
 Channel: Microsoft-Windows-Sysmon/Operational
+Provider: Microsoft-Windows-Sysmon
 Maps: 
 
   - 
@@ -42,31 +43,35 @@ Maps:
 # ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
 # PayloadData1 through PayloadData6
 # Hashes --> SHA1 of the Process that was created. Useful for running through VirusTotal if suspicious. 
-
+#
+# https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon#events for more documentation
+# See also https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=90011
+# Example of event, thanks to https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES
+#
 #<Event>
 #  <System>
-#    <Provider Name="Service Control Manager" Guid="{555908d1-a6d7-4695-8e1e-26931d2012f4}" EventSourceName="Service Control Manager" />
-#    <EventID Qualifiers="16384">7045</EventID>
-#    <Version>0</Version>
+#    <Provider Name="Microsoft-Windows-Sysmon" Guid="5770385f-c22a-43e0-bf4c-06f5698ffbd9" />
+#    <EventID>11</EventID>
+#    <Version>2</Version>
 #    <Level>4</Level>
-#    <Task>0</Task>
+#    <Task>11</Task>
 #    <Opcode>0</Opcode>
-#    <Keywords>0x8080000000000000</Keywords>
-#    <TimeCreated SystemTime="2018-05-07 19:24:11.6922354" />
-#    <EventRecordID>382</EventRecordID>
+#    <Keywords>0x8000000000000000</Keywords>
+#    <TimeCreated SystemTime="2020-10-27 10:17:18.3693428" />
+#    <EventRecordID>2246491</EventRecordID>
 #    <Correlation />
-#    <Execution ProcessID="620" ThreadID="1196" />
-#    <Channel>System</Channel>
-#    <Computer>win10-test</Computer>
+#    <Execution ProcessID="5400" ThreadID="6548" />
+#    <Channel>Microsoft-Windows-Sysmon/Operational</Channel>
+#    <Computer>LAPTOP-JU4M3I0E</Computer>
 #    <Security UserID="S-1-5-18" />
 #  </System>
 #  <EventData>
-#    <Data Name="ServiceName">vmxnet3 NDIS 6 Ethernet Adapter Driver</Data>
-#    <Data Name="ImagePath">\SystemRoot\System32\drivers\vmxnet3.sys</Data>
-#    <Data Name="ServiceType">kernel mode driver</Data>
-#    <Data Name="StartType">demand start</Data>
-#    <Data Name="AccountName"></Data>
+#    <Data Name="RuleName"></Data>
+#    <Data Name="UtcTime">2020-10-27 10:17:18.369</Data>
+#    <Data Name="ProcessGuid">00247c92-f3ae-5f97-0000-00106aba0418</Data>
+#    <Data Name="ProcessId">21756</Data>
+#    <Data Name="Image">c:\Users\bouss\Downloads\ProcessHerpaderping.exe</Data>
+#    <Data Name="TargetFilename">C:\Users\bouss\Downloads\samir.exe</Data>
+#    <Data Name="CreationUtcTime">2020-10-27 10:15:20.376</Data>
 #  </EventData>
 #</Event>
-#
-# https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon for more information

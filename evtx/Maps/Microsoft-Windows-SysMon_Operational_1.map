@@ -2,6 +2,7 @@ Author: Andrew Rathbun
 Description: Process creation
 EventId: 1
 Channel: Microsoft-Windows-Sysmon/Operational
+Provider: Microsoft-Windows-Sysmon
 Maps: 
 
   - 
@@ -73,31 +74,49 @@ Maps:
 # ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
 # PayloadData1 through PayloadData6
 # Hashes --> SHA1 of the Process that was created. Useful for running through VirusTotal if suspicious. 
-
-#<Event>
-#  <System>
-#    <Provider Name="Service Control Manager" Guid="{555908d1-a6d7-4695-8e1e-26931d2012f4}" EventSourceName="Service Control Manager" />
-#    <EventID Qualifiers="16384">7045</EventID>
-#    <Version>0</Version>
-#    <Level>4</Level>
-#    <Task>0</Task>
-#    <Opcode>0</Opcode>
-#    <Keywords>0x8080000000000000</Keywords>
-#    <TimeCreated SystemTime="2018-05-07 19:24:11.6922354" />
-#    <EventRecordID>382</EventRecordID>
-#    <Correlation />
-#    <Execution ProcessID="620" ThreadID="1196" />
-#    <Channel>System</Channel>
-#    <Computer>win10-test</Computer>
-#    <Security UserID="S-1-5-18" />
-#  </System>
-#  <EventData>
-#    <Data Name="ServiceName">vmxnet3 NDIS 6 Ethernet Adapter Driver</Data>
-#    <Data Name="ImagePath">\SystemRoot\System32\drivers\vmxnet3.sys</Data>
-#    <Data Name="ServiceType">kernel mode driver</Data>
-#    <Data Name="StartType">demand start</Data>
-#    <Data Name="AccountName"></Data>
-#  </EventData>
-#</Event>
 #
-# https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon for more information
+# https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon#events for more documentation
+# See also https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=90001
+# Example of event, thanks to https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES
+#
+#<Event>
+#<System>
+#  <Provider Name="Microsoft-Windows-Sysmon" Guid="5770385f-c22a-43e0-bf4c-06f5698ffbd9" />
+#  <EventID>1</EventID>
+#  <Version>5</Version>
+#  <Level>4</Level>
+#  <Task>1</Task>
+#  <Opcode>0</Opcode>
+#  <Keywords>0x8000000000000000</Keywords>
+#  <TimeCreated SystemTime="2019-05-26 04:01:42.3855056" />
+#  <EventRecordID>4857</EventRecordID>
+#  <Correlation />
+#  <Execution ProcessID="984" ThreadID="2352" />
+#  <Channel>Microsoft-Windows-Sysmon/Operational</Channel>
+#  <Computer>IEWIN7</Computer>
+#  <Security UserID="S-1-5-18" />
+#</System>
+#<EventData>
+#  <Data Name="RuleName"></Data>
+#  <Data Name="UtcTime">2019-05-26 04:01:42.375</Data>
+#  <Data Name="ProcessGuid">365abb72-0fa6-5cea-0000-001049b50a00</Data>
+#  <Data Name="ProcessId">3836</Data>
+#  <Data Name="Image">C:\Users\IEUser\Desktop\info.rar\jjs.exe</Data>
+#  <Data Name="FileVersion">8.0.1710.11</Data>
+#  <Data Name="Description">Java(TM) Platform SE binary</Data>
+#  <Data Name="Product">Java(TM) Platform SE 8</Data>
+#  <Data Name="Company">Oracle Corporation</Data>
+#  <Data Name="CommandLine">"C:\Users\IEUser\Desktop\info.rar\jjs.exe" </Data>
+#  <Data Name="CurrentDirectory">C:\Users\IEUser\Desktop\info.rar\</Data>
+#  <Data Name="User">IEWIN7\IEUser</Data>
+#  <Data Name="LogonGuid">365abb72-0f31-5cea-0000-002062290100</Data>
+#  <Data Name="LogonId">0x12962</Data>
+#  <Data Name="TerminalSessionId">1</Data>
+#  <Data Name="IntegrityLevel">High</Data>
+#  <Data Name="Hashes">SHA1=8CC66ED54FBEFF205151898D65F6415400124553,MD5=64FDBD98584331982A15B1F2DF7F08DA,SHA256=B5DE10A0091B7AAF491BDB810BCE6DAB3F6B4A1C7A917722B5DE014E4A08B6EB,IMPHASH=D3310CE6CBCACB3A9F0809BC33E38ABE</Data>
+#  <Data Name="ParentProcessGuid">365abb72-0f32-5cea-0000-0010b5460100</Data>
+#  <Data Name="ParentProcessId">1372</Data>
+#  <Data Name="ParentImage">C:\Windows\explorer.exe</Data>
+#  <Data Name="ParentCommandLine">C:\Windows\Explorer.EXE</Data>
+#</EventData>
+

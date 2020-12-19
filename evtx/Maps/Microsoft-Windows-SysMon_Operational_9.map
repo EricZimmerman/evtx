@@ -2,6 +2,7 @@ Author: Andrew Rathbun
 Description: RawAccessRead
 EventId: 9
 Channel: Microsoft-Windows-Sysmon/Operational
+Provider: Microsoft-Windows-Sysmon
 Maps: 
 
   - 
@@ -36,31 +37,32 @@ Maps:
 # ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
 # PayloadData1 through PayloadData6
 # Hashes --> SHA1 of the Process that was created. Useful for running through VirusTotal if suspicious. 
-
-#<Event>
-#  <System>
-#    <Provider Name="Service Control Manager" Guid="{555908d1-a6d7-4695-8e1e-26931d2012f4}" EventSourceName="Service Control Manager" />
-#    <EventID Qualifiers="16384">7045</EventID>
-#    <Version>0</Version>
-#    <Level>4</Level>
-#    <Task>0</Task>
-#    <Opcode>0</Opcode>
-#    <Keywords>0x8080000000000000</Keywords>
-#    <TimeCreated SystemTime="2018-05-07 19:24:11.6922354" />
-#    <EventRecordID>382</EventRecordID>
-#    <Correlation />
-#    <Execution ProcessID="620" ThreadID="1196" />
-#    <Channel>System</Channel>
-#    <Computer>win10-test</Computer>
-#    <Security UserID="S-1-5-18" />
-#  </System>
-#  <EventData>
-#    <Data Name="ServiceName">vmxnet3 NDIS 6 Ethernet Adapter Driver</Data>
-#    <Data Name="ImagePath">\SystemRoot\System32\drivers\vmxnet3.sys</Data>
-#    <Data Name="ServiceType">kernel mode driver</Data>
-#    <Data Name="StartType">demand start</Data>
-#    <Data Name="AccountName"></Data>
-#  </EventData>
-#</Event>
 #
-# https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon for more information
+# https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon#events for more documentation
+# Example of event, thanks to https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=90009
+#
+#<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <System>
+#   <Provider Name="Microsoft-Windows-Sysmon" Guid="{5770385F-C22A-43E0-BF4C-06F5698FFBD9}" />
+#   <EventID>9</EventID>
+#   <Version>2</Version>
+#   <Level>4</Level>
+#   <Task>9</Task>
+#   <Opcode>0</Opcode>
+#   <Keywords>0x8000000000000000</Keywords>
+#   <TimeCreated SystemTime="2018-03-22T20:32:22.333778700Z" />
+#   <EventRecordID>1944686</EventRecordID>
+#   <Correlation />
+#   <Execution ProcessID="19572" ThreadID="21888" />
+#   <Channel>Microsoft-Windows-Sysmon/Operational</Channel>
+#   <Computer>rfsH.lab.local</Computer>
+#   <Security UserID="S-1-5-18" />
+# </System>
+# <EventData>
+#   <Data Name="UtcTime">2018-03-22 20:32:22.332</Data>
+#   <Data Name="ProcessGuid">{A23EAE89-C65F-5AB2-0000-0010EB030000}</Data>
+#   <Data Name="ProcessId">4</Data>
+#   <Data Name="Image">System</Data>
+#   <Data Name="Device">\Device\HarddiskVolume2</Data>
+# </EventData>
+#</Event>
