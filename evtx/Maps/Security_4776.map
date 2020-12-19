@@ -2,6 +2,7 @@ Author: Eric Zimmerman saericzimmerman@gmail.com
 Description: NTLM authentication request
 EventId: 4776
 Channel: Security
+Provider: Microsoft-Windows-Security-Auditing
 Maps: 
   - 
     Property: PayloadData1

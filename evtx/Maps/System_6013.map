@@ -2,6 +2,7 @@ Author: Gabriele Zambelli @gazambelli
 Description: System uptime
 EventId: 6013
 Channel: System
+Provider: EventLog
 Maps: 
   - 
     Property: PayloadData1

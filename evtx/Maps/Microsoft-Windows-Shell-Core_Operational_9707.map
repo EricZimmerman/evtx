@@ -2,6 +2,7 @@ Author: Troy Larson
 Description: Started execution of command
 EventId: 9707
 Channel: Microsoft-Windows-Shell-Core/Operational
+Provider: Microsoft-Windows-Shell-Core
 Maps: 
   - 
     Property: ExecutableInfo

@@ -2,6 +2,7 @@ Author: Eric Zimmerman saericzimmerman@gmail.com
 Description: RDP connection from the client computer failed
 EventId: 140
 Channel: Microsoft-Windows-RemoteDesktopServices-RdpCoreTS/Operational
+Provider: Microsoft-Windows-RemoteDesktopServices-RdpCoreTS
 Maps: 
   - 
     Property: RemoteHost

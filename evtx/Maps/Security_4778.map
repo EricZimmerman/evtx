@@ -2,6 +2,7 @@ Author: Eric Zimmerman saericzimmerman@gmail.com
 Description: RDP reconnecting
 EventId: 4778
 Channel: Security
+Provider: Microsoft-Windows-Security-Auditing
 Maps: 
   - 
     Property: Username

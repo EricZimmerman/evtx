@@ -2,6 +2,7 @@ Author: Eric Zimmerman saericzimmerman@gmail.com
 Description: "Remote Desktop Services: Session logoff succeeded"
 EventId: 5860
 Channel: WMI Registration of Temporary Event Consumer
+Provider: Microsoft-Windows-WMI-Activity
 Maps: 
   - 
     Property: PayloadData1

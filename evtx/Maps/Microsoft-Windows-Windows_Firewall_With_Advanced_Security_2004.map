@@ -2,6 +2,7 @@ Author: peter.snyder@kroll.com
 Description: FW rule added to exception list
 EventId: 2004
 Channel: Microsoft-Windows-Windows Firewall With Advanced Security/Firewall
+Provider: Microsoft-Windows-Windows Firewall With Advanced Security
 Maps: 
   - 
     Property: PayloadData1

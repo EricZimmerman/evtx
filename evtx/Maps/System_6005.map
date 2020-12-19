@@ -2,6 +2,7 @@ Author: Barrie Hill barrie0482@gmail.com
 Description: The Event log service was started
 EventId: 6005
 Channel: System
+Provider: EventLog
 Maps: 
   - 
     Property: PayloadData1

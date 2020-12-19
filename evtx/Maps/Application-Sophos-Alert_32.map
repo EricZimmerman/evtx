@@ -2,6 +2,7 @@ Author: Mike Stewart mstew1968@gmail.com
 Description: Sophos Alert Identified
 EventId: 32
 Channel: Application
+Provider: "Sophos Anti-Virus"
 Maps: 
   - 
     Property: PayloadData1

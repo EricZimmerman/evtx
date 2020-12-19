@@ -2,6 +2,7 @@ Author: Mike Stewart mstew1968@gmail.com
 Description: HitmanPro ALERT Identified
 EventId: 911
 Channel: Application
+Provider: HitmanPro.Alert
 Maps: 
   - 
     Property: PayloadData1

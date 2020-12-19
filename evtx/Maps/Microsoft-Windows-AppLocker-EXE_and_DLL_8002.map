@@ -2,6 +2,7 @@ Author: Phill Moore
 Description: An executable was allowed to run
 EventId: 8002
 Channel: Microsoft-Windows-AppLocker/EXE and DLL
+Provider: Microsoft-Windows-AppLocker
 Maps: 
   - 
     Property: ExecutableInfo

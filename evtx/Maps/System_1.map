@@ -1,8 +1,8 @@
 Author: Eric Zimmerman
 Description: Sleep/wake events
 EventId: 1
-Channel: "System"
-Provider: "Microsoft-Windows-Power-Troubleshooter"
+Channel: System
+Provider: Microsoft-Windows-Power-Troubleshooter
 Maps: 
   - 
     Property: PayloadData1

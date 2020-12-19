@@ -2,6 +2,7 @@ Author: Brian MacKenna
 Description:  Found - Malware or Potentially unwanted software.
 EventId: 1006
 Channel: Microsoft-Windows-Windows Defender/Operational
+Provider: Microsoft-Windows-Windows Defender
 Maps: 
   - 
     Property: UserName

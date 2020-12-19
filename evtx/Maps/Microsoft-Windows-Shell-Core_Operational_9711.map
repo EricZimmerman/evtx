@@ -2,6 +2,7 @@ Author: Troy Larson
 Description: Executing from startup menu
 EventId: 9711
 Channel: Microsoft-Windows-Shell-Core/Operational
+Provider: Microsoft-Windows-Shell-Core
 Maps: 
   - 
     Property: ExecutableInfo

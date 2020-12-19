@@ -2,6 +2,7 @@ Author: Brian MacKenna
 Description: Engine state is changed from None to Available.
 EventId: 400
 Channel: Windows PowerShell
+Provider: PowerShell
 Maps: 
   - 
     Property: PayloadData1

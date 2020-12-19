@@ -2,6 +2,7 @@ Author: Barrie Hill barrie0482@gmail.com
 Description: User initiated logoff   
 EventId: 4647
 Channel: Security
+Provider: Microsoft-Windows-Security-Auditing
 Maps: 
   - 
     Property: UserName

@@ -2,6 +2,7 @@ Author: Eric Zimmerman saericzimmerman@gmail.com
 Description: WMI Registration of Permanent Event Consumer
 EventId: 5861
 Channel: Microsoft-Windows-WMI-Activity/Operational
+Provider: Microsoft-Windows-WMI-Activity
 Maps: 
   - 
     Property: PayloadData1

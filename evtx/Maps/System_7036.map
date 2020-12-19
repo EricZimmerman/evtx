@@ -2,6 +2,7 @@ Author: Eric Zimmerman saericzimmerman@gmail.com
 Description: Service started or stopped
 EventId: 7036
 Channel: System
+Provider: Service Control Manager
 Maps: 
   - 
     Property: PayloadData1

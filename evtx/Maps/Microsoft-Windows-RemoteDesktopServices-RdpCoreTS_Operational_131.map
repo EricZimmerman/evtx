@@ -2,6 +2,7 @@ Author: Eric Zimmerman saericzimmerman@gmail.com
 Description: RDP server accepted a new TCP connection
 EventId: 131
 Channel: Microsoft-Windows-RemoteDesktopServices-RdpCoreTS/Operational
+Provider: Microsoft-Windows-RemoteDesktopServices-RdpCoreTS
 Maps: 
   - 
     Property: RemoteHost

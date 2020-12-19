@@ -2,6 +2,7 @@ Author: Gabriele Zambelli @gazambelli
 Description: The system time was changed
 EventId: 4616
 Channel: "Security"
+Provider: Microsoft-Windows-Security-Auditing
 Maps: 
   - 
     Property: UserName

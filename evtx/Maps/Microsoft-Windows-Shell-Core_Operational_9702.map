@@ -2,6 +2,7 @@ Author: Troy Larson
 Description: RunOnceEx commands finished
 EventId: 9702
 Channel: Microsoft-Windows-Shell-Core/Operational
+Provider: Microsoft-Windows-Shell-Core
 Maps: 
   - 
     Property: PayloadData1

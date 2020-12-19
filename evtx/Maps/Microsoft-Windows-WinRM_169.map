@@ -2,6 +2,7 @@ Author: Mike Pilkington
 Description: WinRM Authentication
 EventId: 169
 Channel: "Microsoft-Windows-WinRM/Operational"
+Provider: Microsoft-Windows-WinRM
 Maps:
   - 
     Property: Username

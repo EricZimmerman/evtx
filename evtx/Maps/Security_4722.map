@@ -2,6 +2,7 @@ Author: Andrew Rathbun
 Description: A user account was enabled
 EventId: 4722
 Channel: Security
+Provider: Microsoft-Windows-Security-Auditing
 Maps: 
   - 
     Property: UserName
@@ -36,8 +37,7 @@ Maps:
       - 
         Name: SubjectLogonId
         Value: "/Event/EventData/Data[@Name=\"SubjectLogonId\"]"
-
-
+ 
 # Valid properties include:
 # UserName
 # RemoteHost

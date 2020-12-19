@@ -2,6 +2,7 @@ Author: Troy Larson
 Description: Detection - taken action to protect this machine from malware or other potentially unwanted software.
 EventId: 1117
 Channel: Microsoft-Windows-Windows Defender/Operational
+Provider: Microsoft-Windows-Windows Defender
 Maps: 
   - 
     Property: UserName

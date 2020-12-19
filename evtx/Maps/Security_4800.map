@@ -2,6 +2,7 @@ Author: Barrie Hill barrie0482@gmail.com
 Description: The workstation was locked
 EventId: 4800
 Channel: Security
+Provider: Microsoft-Windows-Security-Auditing
 Maps: 
   - 
     Property: PayloadData1

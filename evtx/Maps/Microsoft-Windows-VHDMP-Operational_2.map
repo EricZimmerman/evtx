@@ -2,6 +2,7 @@ Author: Phill Moore
 Description: A VHD has been removed
 EventId: 2
 Channel: "Microsoft-Windows-VHDMP/Operational"
+Provider: Microsoft-Windows-VHDMP
 Maps:
   - 
     Property: PayloadData1

@@ -2,6 +2,7 @@ Author: Mike Brewer michealb40@gmail.com
 Description: Disconnect from the Internet
 EventId: 10001
 Channel: "Microsoft-Windows-NetworkProfile/Operational"
+Provider: Microsoft-Windows-NetworkProfile
 Maps: 
   - 
     Property: PayloadData1

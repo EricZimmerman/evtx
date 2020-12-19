@@ -2,6 +2,7 @@ Author: Eric Zimmerman saericzimmerman@gmail.com
 Description: Event log cleared
 EventId: 1102
 Channel: Security
+Provider: Microsoft-Windows-Eventlog
 Maps: 
   - 
     Property: Username

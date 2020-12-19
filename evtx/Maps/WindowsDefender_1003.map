@@ -2,6 +2,7 @@ Author: Troy Larson
 Description: Warning - Scan has been paused.
 EventId: 1003
 Channel: Microsoft-Windows-Windows Defender/Operational
+Provider: Microsoft-Windows-Windows Defender
 Maps: 
   - 
     Property: UserName

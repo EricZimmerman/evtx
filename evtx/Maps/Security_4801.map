@@ -2,6 +2,7 @@ Author: Barrie Hill barrie0482@gmail.com
 Description: The workstation was unlocked
 EventId: 4801
 Channel: Security
+Provider: Microsoft-Windows-Security-Auditing
 Maps: 
   - 
     Property: PayloadData1
@@ -24,7 +25,7 @@ Maps:
 # <Event>
 #   <System>
 #       <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-a5ba-3e3b0328c30d}" /> 
-#       <EventID>4802</EventID> 
+#       <EventID>4801</EventID> 
 #       <Version>0</Version> 
 #       <Level>0</Level> 
 #       <Task>12551</Task> 

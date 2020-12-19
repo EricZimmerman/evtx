@@ -2,6 +2,7 @@ Author: Mark Hallman mark.hallman@gmail.com
 Description: A service was installed on the system
 EventId: 4697
 Channel: Security
+Provider: Microsoft-Windows-Security-Auditing
 Maps: 
   - 
     Property: Username

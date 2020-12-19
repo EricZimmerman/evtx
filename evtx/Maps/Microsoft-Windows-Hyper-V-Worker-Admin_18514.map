@@ -2,6 +2,7 @@ Author: Phill Moore
 Description: Hyper-V VM reset by guest OS
 EventId: 18514
 Channel: "Microsoft-Windows-Hyper-V-Worker-Admin"
+Provider: Microsoft-Windows-Hyper-V-Worker
 Maps:
   - 
     Property: PayloadData1
@@ -19,3 +20,28 @@ Maps:
 # RemoteHost
 # ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
 # PayloadData1 through PayloadData6
+#
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Hyper-V-Worker" Guid="51hhfa29-d5c8-4803-be4b-2ecb715570fe" />
+#    <EventID>18514</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>0</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8000009000000000</Keywords>
+#    <TimeCreated SystemTime="2017-06-29 16:11:21.4060164" />
+#    <EventRecordID>11</EventRecordID>
+#    <Correlation ActivityID="26u7845f-f0e5-0002-36d2-1426e5hu67201" />
+#    <Execution ProcessID="3679" ThreadID="4160" />
+#    <Channel>Microsoft-Windows-Hyper-V-Worker-Admin</Channel>
+#    <Computer>hostname.local</Computer>
+#    <Security UserID="S-1-5-83-1-13653876587404322-7657865864-353797533-86545485" />
+#  </System>
+#  <UserData>
+#    <VmlEventLog>
+#      <VmName>VMName</VmName>
+#      <VmId>5160E402-6A79-4E1B-9A91-16151255B886</VmId>
+#    </VmlEventLog>
+#  </UserData>
+#</Event>

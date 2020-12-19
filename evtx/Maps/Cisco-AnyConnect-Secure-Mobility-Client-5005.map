@@ -2,6 +2,7 @@ Author: Mike Brewer
 Description: Cisco AnyConnect VPN connecting to target gateway X
 EventId: 5005
 Channel: "Cisco AnyConnect Secure Mobility Client"
+Provider: acvpndownloader
 Maps: 
   - 
     Property: PayloadData1

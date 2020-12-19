@@ -1,7 +1,8 @@
 Author: Eric Zimmerman
 Description: Sleep/wake events
 EventId: 42
-Channel: "System"
+Channel: System
+Provider: Microsoft-Windows-Kernel-Power
 Maps: 
   - 
     Property: PayloadData1

@@ -2,6 +2,7 @@ Author: Eric Zimmerman saericzimmerman@gmail.com
 Description: A new service was installed in the system
 EventId: 7045
 Channel: System
+Provider: Service Control Manager
 Maps: 
   - 
     Property: PayloadData1

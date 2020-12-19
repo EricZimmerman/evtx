@@ -2,6 +2,7 @@ Author: Eric Zimmerman saericzimmerman@gmail.com
 Description: Service sent a Start/Stop control
 EventId: 7035
 Channel: System
+Provider: Service Control Manager
 Maps: 
   - 
     Property: PayloadData1

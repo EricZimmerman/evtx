@@ -2,6 +2,7 @@ Author: Phill Moore
 Description: Hyper-V VM shutdown
 EventId: 18502
 Channel: "Microsoft-Windows-Hyper-V-Worker-Admin"
+Provider: Microsoft-Windows-Hyper-V-Worker
 Maps:
   - 
     Property: PayloadData1

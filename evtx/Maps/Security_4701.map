@@ -2,6 +2,7 @@ Author: Mark Hallman mark.hallman@gmail.com
 Description: A scheduled task was disabled
 EventId: 4701
 Channel: Security
+Provider: Microsoft-Windows-Security-Auditing
 Maps: 
   - 
     Property: Username
@@ -20,3 +21,11 @@ Maps:
       - 
         Name: <name>
         Value: "/Event/EventData/Data[@Name=\"<name>\"]"
+
+# Valid properties include:
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+
+# Example payload data

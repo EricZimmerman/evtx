@@ -2,6 +2,7 @@ Author: Mike Pilkington
 Description: Operation performed on an object 
 EventId: 4662
 Channel: Security
+Provider: Microsoft-Windows-Security-Auditing
 Maps: 
   - 
     Property: Username

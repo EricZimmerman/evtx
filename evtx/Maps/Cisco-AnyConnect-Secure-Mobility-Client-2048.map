@@ -1,8 +1,8 @@
-
 Author: Mike Brewer 
 Description: Cisco AnyConnect VPN encrypted connection type
 EventId: 2048
 Channel: "Cisco AnyConnect Secure Mobility Client"
+Provider: acvpnagent
 Maps: 
   - 
     Property: PayloadData1

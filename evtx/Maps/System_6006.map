@@ -2,6 +2,7 @@ Author: Barrie Hill barrie0482@gmail.com
 Description: The Event log service was stopped
 EventId: 6006
 Channel: System
+Provider: EventLog
 Maps: 
   - 
     Property: PayloadData1

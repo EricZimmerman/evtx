@@ -2,6 +2,7 @@ Author: Eric Zimmerman saericzimmerman@gmail.com
 Description: Scheduled task created
 EventId: 106
 Channel: "Microsoft-Windows-TaskScheduler/Operational"
+Provider: Microsoft-Windows-TaskScheduler
 Maps: 
   - 
     Property: PayloadData1

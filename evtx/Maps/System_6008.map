@@ -1,7 +1,8 @@
 Author: Hyun Yi @hyuunnn
 Description: Unexpected system shutdown
 EventId: 6008
-Channel: "System"
+Channel: System
+Provider: EventLog
 Maps:
   -
     Property: PayloadData1
@@ -12,7 +13,11 @@ Maps:
         Value: "/Event/EventData/Data"
         
 # Valid properties include:
-
+# UserName
+# RemoteHost
+# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+# PayloadData1 through PayloadData6
+#
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
 #     <Provider Name="EventLog" /> 

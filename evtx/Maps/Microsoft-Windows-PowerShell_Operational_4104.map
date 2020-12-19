@@ -2,6 +2,7 @@ Author: Mark Hallman mark.hallman@gmail.com
 Description: Contains contents of scripts run
 EventId: 4104
 Channel: "Microsoft-Windows-PowerShell/Operational"
+Provider: Microsoft-Windows-PowerShell
 Maps: 
   - 
     Property: PayloadData1

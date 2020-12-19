@@ -2,6 +2,7 @@ Author: Troy Larson
 Description: An executable was prevented from running.
 EventId: 8004
 Channel: Microsoft-Windows-AppLocker/EXE and DLL
+Provider: Microsoft-Windows-AppLocker
 Maps: 
   - 
     Property: ExecutableInfo
