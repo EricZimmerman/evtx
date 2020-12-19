@@ -3,7 +3,6 @@ Description: Device driver was installed. (Device was connected.)
 EventId: 10000
 Channel: "System"
 Provider: "Microsoft-Windows-DriverFrameworks-UserMode"
-Provider: Microsoft-Windows-DriverFrameworks-UserMode
 Maps:
   -
     Property: PayloadData1

@@ -1,0 +1,66 @@
+Author: Hyun Yi @hyuunnn
+Description: Terminated due to non-response
+EventId: 10002
+Channel: "Application"
+Provider: "Microsoft-Windows-RestartManager"
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "FullPath: %FullPath%"
+    Values:
+      -
+        Name: FullPath
+        Value: "/Event/UserData/RmApplicationEvent/FullPath"
+  -
+    Property: PayloadData2
+    PropertyValue: "DisplayName: %DisplayName%"
+    Values:
+      -
+        Name: DisplayName
+        Value: "/Event/UserData/RmApplicationEvent/DisplayName"
+  -
+    Property: PayloadData3
+    PropertyValue: "Files: %Files%"
+    Values:
+      -
+        Name: Files
+        Value: "/Event/UserData/RmApplicationEvent/Files/File[text()]"
+        
+# Valid properties include:
+
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#   <System>
+#     <Provider Name="Microsoft-Windows-RestartManager" Guid="{GUID}" /> 
+#     <EventID>10002</EventID> 
+#     <Version>0</Version> 
+#     <Level>4</Level> 
+#     <Task>0</Task> 
+#     <Opcode>0</Opcode> 
+#     <Keywords>0x8000000000000000</Keywords> 
+#     <TimeCreated SystemTime="2020-12-06T08:21:49.5722615Z" /> 
+#     <EventRecordID>21064</EventRecordID> 
+#     <Correlation /> 
+#     <Execution ProcessID="8860" ThreadID="17736" /> 
+#     <Channel>Application</Channel> 
+#     <Computer>ComputerName</Computer> 
+#     <Security UserID="{UserID}" /> 
+#   </System>
+#   <UserData>
+#     <RmApplicationEvent xmlns="http://www.microsoft.com/2005/08/Windows/Reliability/RestartManager/">
+#         <RmSessionId>0</RmSessionId> 
+#         <FullPath>RealPlayerUpdateSvc.exe</FullPath> 
+#         <DisplayName>RealPlayer Update Service</DisplayName> 
+#         <AppVersion>0</AppVersion> 
+#         <AppType>3</AppType> 
+#         <TSSessionId>0</TSSessionId> 
+#         <Status>262146</Status> 
+#         <Pid>4220</Pid> 
+#         <nFiles>3</nFiles> 
+#         <Files>
+#             <File>C:\Program Files (x86)\Real\UpdateService\RealPlayerUpdateSvc.exe</File> 
+#             <File>C:\Program Files (x86)\Real\UpdateService\RealDownloaderUpdatePlugin.dll</File> 
+#             <File>C:\Program Files (x86)\Real\UpdateService\VideoDLUpdatePlugin.dll</File> 
+#         </Files>
+#     </RmApplicationEvent>
+#   </UserData>
+# </Event>
