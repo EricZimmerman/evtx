@@ -2,6 +2,7 @@ Author: Phill Moore
 Description: Hyper-V VM started successfully
 EventId: 18508
 Channel: "Microsoft-Windows-Hyper-V-Worker-Admin"
+Provider: Microsoft-Windows-Hyper-V-Worker
 Maps:
   - 
     Property: PayloadData1

@@ -2,6 +2,7 @@ Author: Mark Hallman mark.hallman@gmail.com
 Description: Successful RDP Connections
 EventId: 98
 Channel: "Microsoft-Windows-RemoteDesktopServices-RdpCoreTS/Operational"
+Provider: Microsoft-Windows-RemoteDesktopServices-RdpCoreTS
 Maps: 
   - 
     Property: PayloadData1

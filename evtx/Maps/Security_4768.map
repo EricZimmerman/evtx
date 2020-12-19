@@ -15,8 +15,6 @@ Maps:
         Name: user
         Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
 
-
-
 # Valid properties include:
 # UserName
 # RemoteHost

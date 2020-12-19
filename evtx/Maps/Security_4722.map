@@ -37,8 +37,7 @@ Maps:
       - 
         Name: SubjectLogonId
         Value: "/Event/EventData/Data[@Name=\"SubjectLogonId\"]"
-
-
+ 
 # Valid properties include:
 # UserName
 # RemoteHost
