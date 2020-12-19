@@ -1,5 +1,5 @@
 Author: Andrew Rathbun
-Description:  A security-enabled local group membership was enumerated 
+Description: A security-enabled local group membership was enumerated 
 EventId: 4799
 Channel: Security
 Provider: Microsoft-Windows-Security-Auditing
