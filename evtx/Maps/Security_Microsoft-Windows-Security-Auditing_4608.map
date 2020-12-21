@@ -16,7 +16,7 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
   - 
     Property: PayloadData1
-    PropertvenyValue: "Target: %TargetDomainName%\\%TargetUserName%"
+    PropertyValue: "Target: %TargetDomainName%\\%TargetUserName%"
     Values: 
       - 
         Name: TargetDomainName
@@ -30,22 +30,22 @@ Maps:
 # This event is logged when LSASS.EXE process starts and the auditing subsystem is initialized. It typically generates during operating system startup process.
 #
 # Example Et Data:
-<Event>
-  <System>
-    <Provider Name="Microsoft-Windows-Security-Auditing" Guid="54867925-5478-4994-a5ba-3e3b0328c30d" />
-    <EventID>4608</EventID>
-    <Version>0</Version>
-    <Level>0</Level>
-    <Task>12679</Task>
-    <Opcode>0</Opcode>
-    <Keywords>0x8020009000000000</Keywords>
-    <TimeCreated SystemTime="2020-10-09 18:09:40.2437686" />
-    <EventRecordID>266790034</EventRecordID>
-    <Correlation />
-    <Execution ProcessID="679" ThreadID="123" />
-    <Channel>Security</Channel>
-    <Computer>HOSTNAME.domain.com</Computer>
-    <Security />
-  </System>
-  <EventData></EventData>
-</Event>
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Security-Auditing" Guid="54867925-5478-4994-a5ba-3e3b0328c30d" />
+#    <EventID>4608</EventID>
+#    <Version>0</Version>
+#    <Level>0</Level>
+#    <Task>12679</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8020009000000000</Keywords>
+#    <TimeCreated SystemTime="2020-10-09 18:09:40.2437686" />
+#    <EventRecordID>266790034</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="679" ThreadID="123" />
+#    <Channel>Security</Channel>
+#    <Computer>HOSTNAME.domain.com</Computer>
+#    <Security />
+#  </System>
+#  <EventData></EventData>
+#</Event>
