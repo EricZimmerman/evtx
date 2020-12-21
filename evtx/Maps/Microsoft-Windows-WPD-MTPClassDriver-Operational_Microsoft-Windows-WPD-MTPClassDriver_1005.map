@@ -2,6 +2,7 @@ Author: Hyun Yi @hyuunnn
 Description: (Mobile) MTP Connection
 EventId: 1005
 Channel: "Microsoft-Windows-WPD-MTPClassDriver/Operational"
+Provider: Microsoft-Windows-WPD-MTPClassDriver
 Maps:
   -
     Property: PayloadData1
@@ -25,8 +26,10 @@ Maps:
         Name: Version
         Value: "/Event/EventData/Data[@Name=\"Version\"]"
         
-# Valid properties include:
-
+# Documentation:
+# N/A
+#
+# Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
 #     <Provider Name="Microsoft-Windows-WPD-MTPClassDriver" Guid="{GUID}" /> 
