@@ -241,10 +241,10 @@ namespace evtx
                             }
 
                         }
-                        catch (Exception e)
+                        catch (Exception )
                         {
                             //oh well, we tried
-                            //l.Warn($"Error when attemping to recover possible hidden record: {e.Message}");
+                            //l.Warn($"Error when attempting to recover possible hidden record: {e.Message}");
                         }
                         
                     }

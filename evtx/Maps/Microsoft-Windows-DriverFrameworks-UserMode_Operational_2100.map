@@ -2,6 +2,7 @@ Author: Hyun Yi @hyuunnn
 Description: USB Connection
 EventId: 2100
 Channel: "Microsoft-Windows-DriverFrameworks-UserMode/Operational"
+Provider: "Microsoft-Windows-DriverFrameworks-UserMode"
 Maps:
   -
     Property: PayloadData1

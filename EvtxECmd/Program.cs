@@ -741,7 +741,7 @@ namespace EvtxECmd
 
             var newMapPath = Path.Combine(BaseDirectory, "evtx-master","evtx", "Maps");
 
-            var orgMapMath = Path.Combine(BaseDirectory, "Maps");
+            var orgMapPath = Path.Combine(BaseDirectory, "Maps");
 
             var newMaps = Directory.GetFiles(newMapPath);
 
@@ -749,10 +749,27 @@ namespace EvtxECmd
 
             var updatedlocalMaps = new List<string>();
 
+            if (File.Exists(Path.Combine(orgMapPath, "Security_4624.map")))
+            {
+                _logger.Warn($"Old map format found. Zipping to '!!oldMaps.zip' and cleaning up old maps");
+                //old maps found, so zip em first
+                var oldZip = Path.Combine(orgMapPath, "!!oldMaps.zip");
+                fff.CreateZip(oldZip,orgMapPath,false,@"\.map$");
+                foreach (var m in Directory.GetFiles(orgMapPath,"*.map"))
+                {
+                    File.Delete(m);
+                }
+            }
+
+            if (File.Exists(Path.Combine(orgMapPath, "!!!!README.txt")))
+            {
+                File.Delete(Path.Combine(orgMapPath, "!!!!README.txt"));
+            }
+
             foreach (var newMap in newMaps)
             {
                 var mName = Path.GetFileName(newMap);
-                var dest = Path.Combine(orgMapMath, mName);
+                var dest = Path.Combine(orgMapPath, mName);
 
                 if (File.Exists(dest) == false)
                 {
@@ -769,7 +786,6 @@ namespace EvtxECmd
                     {
                         //updated file
                         updatedlocalMaps.Add(mName);
-
                       
                     }
                 }
@@ -841,7 +857,7 @@ namespace EvtxECmd
             {
                 fileS = new FileStream(file, FileMode.Open, FileAccess.Read);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //file is in use
                 
