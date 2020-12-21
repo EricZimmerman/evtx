@@ -213,4 +213,4 @@ This also allows you to update default maps without having your customizations b
 
 TIPS:
 
-If you are looking to make an Application.evtx map, please include a Provider as they are many instances where the same event ID number is used for multiple providers. I've personally observed 4 Providers use Event ID 1 which without a Provider being listed for that map it made all 4 events, regardless of Provider, be mapped incorrectly. When in doubt, add a Provider to your map. Follow a template from a previously created map to ensure it's made correctly.add
+If you are looking to make an Application.evtx map, please include a Provider as they are many instances where the same event ID number is used for multiple providers. I've personally observed 4 Providers use Event ID 1 which without a Provider being listed for that map it made all 4 events, regardless of Provider, be mapped incorrectly. When in doubt, add a Provider to your map. Follow a template from a previously created map to ensure it's made correctly.
