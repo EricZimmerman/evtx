@@ -12,8 +12,10 @@ Maps:
         Name: ExePath
         Value: "/Event/UserData/ResolverFiredEvent/ExePath"
         
-# Valid properties include:
-
+# Documentation:
+# N/A
+#
+# Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
 #     <Provider Name="Microsoft-Windows-Program-Compatibility-Assistant" Guid="{GUID}" /> 

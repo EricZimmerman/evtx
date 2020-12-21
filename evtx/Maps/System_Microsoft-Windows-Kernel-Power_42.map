@@ -24,8 +24,9 @@ Lookups:
 # Documentation:
 # https://www.eventid.net/display.asp?eventid=42&source=Microsoft-Windows-Kernel-Power
 # https://superuser.com/questions/1060259/system-went-to-sleep-last-night-for-no-good-reason
+# https://www.forensicfocus.com/forums/general/event-id-42-1/
 #
-# Example Event Data:sys
+# Example Event Data:
 #<Event>
   #<System>
     #<Provider Name="Microsoft-Windows-Kernel-Power" Guid="331c3b3a-2005-44c2-ac5e-77220c37d6b4" />
@@ -51,4 +52,4 @@ Lookups:
     #<Data Name="TransitionsToOn">1</Data>
   #</EventData>
 #</Event>
-#https://www.forensicfocus.com/forums/general/event-id-42-1/
+

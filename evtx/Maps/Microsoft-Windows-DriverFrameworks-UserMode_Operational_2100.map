@@ -18,10 +18,14 @@ Maps:
       -
         Name: LifetimeId
         Value: "/Event/UserData/UMDFHostDeviceRequest/LifetimeId"
-        
-# Valid properties include:
 
-# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# Documentation:
+# https://nxlog.co/documentation/nxlog-user-guide/windows-usb-auditing.html
+# https://www.reddit.com/r/sysadmin/comments/4dr2t2/security_guy_wants_to_log_usb_storage_devices_on/
+# Windows Vista, 7 : enable (default)
+# Windows 8~ : disable (default)
+#
+# Example Event Data:
 #   <System>
 #     <Provider Name="Microsoft-Windows-DriverFrameworks-UserMode" Guid="{GUID}" /> 
 #     <EventID>2100</EventID> 
@@ -52,8 +56,4 @@ Maps:
 #     </UMDFHostDeviceRequest>
 #   </UserData>
 # </Event>
-# 
-# Windows Vista, 7 : enable (default)
-# Windows 8~ : disable (default)
-# https://nxlog.co/documentation/nxlog-user-guide/windows-usb-auditing.html
-# https://www.reddit.com/r/sysadmin/comments/4dr2t2/security_guy_wants_to_log_usb_storage_devices_on/
+
