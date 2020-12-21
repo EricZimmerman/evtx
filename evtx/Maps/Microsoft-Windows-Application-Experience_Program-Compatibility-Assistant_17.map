@@ -2,6 +2,7 @@ Author: Hyun Yi @hyuunnn
 Description: Path of executed program
 EventId: 17
 Channel: "Microsoft-Windows-Application-Experience/Program-Compatibility-Assistant"
+Provider: "Microsoft-Windows-Program-Compatibility-Assistant"
 Maps:
   -
     Property: ExecutableInfo
