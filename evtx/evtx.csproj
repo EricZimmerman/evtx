@@ -80,7 +80,7 @@
       <Version>8.6.1</Version>
     </PackageReference>
     <PackageReference Include="NLog">
-      <Version>4.7.5</Version>
+      <Version>4.7.6</Version>
     </PackageReference>
     <PackageReference Include="ServiceStack.Text">
       <Version>5.10.2</Version>

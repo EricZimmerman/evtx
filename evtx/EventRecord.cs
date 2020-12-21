@@ -293,7 +293,7 @@ namespace evtx
                 return;
             }
 
-            if (!EventLog.EventLogMaps.ContainsKey($"{EventId}-{Channel.ToUpperInvariant()}"))
+            if (!EventLog.EventLogMaps.ContainsKey($"{EventId}-{Channel.ToUpperInvariant()}-{Provider.ToUpperInvariant()}"))
             {
                 return;
             }
@@ -301,20 +301,8 @@ namespace evtx
             var docNav = new XPathDocument(new StringReader(xml));
             var nav = docNav.CreateNavigator();
 
-            l.Trace($"Found map for Event ID {EventId} with Channel '{Channel}'!");
-            var map = EventLog.EventLogMaps[$"{EventId}-{Channel.ToUpperInvariant()}"];
-
-            if (map.Provider.IsNullOrEmpty() == false)
-            {
-                l.Trace($"Map specifies a provider. Checking...");
-
-                if (!string.Equals(map.Provider, Provider, StringComparison.InvariantCultureIgnoreCase))
-                {
-                        
-                    l.Debug($"The Provider in the event log does not match the provider in the map. Map not applicable.");
-                    return;
-                }
-            }
+            l.Trace($"Found map for Event ID {EventId} with Channel '{Channel}' and Provider '{Provider}'!");
+            var map = EventLog.EventLogMaps[$"{EventId}-{Channel.ToUpperInvariant()}-{Provider.ToUpperInvariant()}"];
 
             MapDescription = map.Description;
 

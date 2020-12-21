@@ -119,6 +119,8 @@ namespace evtx
         {
             RuleFor(target => target.EventId).NotNull();
             RuleFor(target => target.Channel).NotEmpty();
+            RuleFor(target => target.Provider).NotEmpty();
+            
             RuleFor(target => target.Author).NotEmpty();
             RuleFor(target => target.Description).NotEmpty();
 

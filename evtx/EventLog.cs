@@ -162,13 +162,13 @@ namespace evtx
                             // {
                             //     
                             // }
-                            EventLogMaps.Add($"{eventMapFile.EventId}-{eventMapFile.Channel.ToUpperInvariant()}", eventMapFile);    
+                            EventLogMaps.Add($"{eventMapFile.EventId}-{eventMapFile.Channel.ToUpperInvariant()}-{eventMapFile.Provider.ToUpperInvariant()}", eventMapFile);    
                             
                         }
                         else
                         {
                             l.Warn(
-                                $"A map for event id '{eventMapFile.EventId}' with Channel '{eventMapFile.Channel}' already exists. Map '{Path.GetFileName(mapFile)}' will be skipped");
+                                $"A map for event id '{eventMapFile.EventId}' with Channel '{eventMapFile.Channel}' and Provider '{eventMapFile.Provider}' already exists. Map '{Path.GetFileName(mapFile)}' will be skipped");
                         }
                     }
                     else
