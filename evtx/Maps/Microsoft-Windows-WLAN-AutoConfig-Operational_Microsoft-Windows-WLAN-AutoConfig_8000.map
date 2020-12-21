@@ -1,0 +1,67 @@
+Author: Hyun Yi @hyuunnn
+Description: WIFI connection was attempted.
+EventId: 8000
+Channel: "Microsoft-Windows-WLAN-AutoConfig/Operational"
+Provider: Microsoft-Windows-WLAN-AutoConfig
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "ConnectionMode: %ConnectionMode%"
+    Values:
+      -
+        Name: ConnectionMode
+        Value: "/Event/EventData/Data[@Name=\"ConnectionMode\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "ProfileName: %ProfileName%"
+    Values:
+      -
+        Name: ProfileName
+        Value: "/Event/EventData/Data[@Name=\"ProfileName\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "SSID: %SSID%"
+    Values:
+      -
+        Name: SSID
+        Value: "/Event/EventData/Data[@Name=\"SSID\"]"
+  -
+    Property: PayloadData4
+    PropertyValue: "BSSType: %BSSType%"
+    Values:
+      -
+        Name: BSSType
+        Value: "/Event/EventData/Data[@Name=\"BSSType\"]"
+
+# Documentation:
+# https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-r2-and-2008/cc727863(v=ws.10)
+# https://kb.eventtracker.com/evtpass/evtpages/EventId_8000_Microsoft-Windows-WLAN-AutoConfig_61765.asp
+#
+# Example Event Data:
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#   <System>
+#     <Provider Name="Microsoft-Windows-WLAN-AutoConfig" Guid="{GUID}" /> 
+#     <EventID>8000</EventID> 
+#     <Version>0</Version> 
+#     <Level>4</Level> 
+#     <Task>24010</Task> 
+#     <Opcode>189</Opcode> 
+#     <Keywords>0x8000000000000600</Keywords> 
+#     <TimeCreated SystemTime="2020-12-02T23:00:45.9188832Z" /> 
+#     <EventRecordID>1</EventRecordID> 
+#     <Correlation /> 
+#     <Execution ProcessID="3352" ThreadID="3516" /> 
+#     <Channel>Microsoft-Windows-WLAN-AutoConfig/Operational</Channel> 
+#     <Computer>ComputerName</Computer> 
+#     <Security UserID="S-1-5-18" /> 
+#   </System>
+#   <EventData>
+#     <Data Name="InterfaceGuid">{InterfaceGuid}</Data> 
+#     <Data Name="InterfaceDescription">Intel(R) Dual Band Wireless-AC 7265</Data> 
+#     <Data Name="ConnectionMode">{ConnectionMode}</Data> 
+#     <Data Name="ProfileName">asdf</Data> 
+#     <Data Name="SSID">asdf</Data> 
+#     <Data Name="BSSType">Infrastructure</Data> 
+#     <Data Name="ConnectionId">0x1</Data> 
+#   </EventData>
+# </Event>

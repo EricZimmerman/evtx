@@ -1,0 +1,61 @@
+Author: Eric Zimmerman saericzimmerman@gmail.com
+Description: "Remote Desktop Services: Session logon succeeded"
+EventId: 21
+Channel: Microsoft-Windows-TerminalServices-LocalSessionManager/Operational
+Provider: Microsoft-Windows-TerminalServices-LocalSessionManager
+Maps: 
+  - 
+    Property: UserName
+    PropertyValue: "%User%"
+    Values: 
+      - 
+        Name: User
+        Value: "/Event/UserData/EventXML/User"
+  - 
+    Property: RemoteHost
+    PropertyValue: "%Address%"
+    Values: 
+      - 
+        Name: Address
+        Value: "/Event/UserData/EventXML/Address"
+  - 
+    Property: PayloadData1
+    PropertyValue: "Session ID: %SessionID%"
+    Values: 
+      - 
+        Name: SessionID
+        Value: "/Event/UserData/EventXML/SessionID"
+ 
+# Documentation:
+# https://ponderthebits.com/2018/02/windows-rdp-related-event-logs-identification-tracking-and-investigation/
+# https://www.13cubed.com/downloads/rdp_flowchart.pdf
+# https://dfironthemountain.wordpress.com/2019/02/15/rdp-event-log-dfir/
+# http://woshub.com/rdp-connection-logs-forensics-windows/
+# https://countuponsecurity.com/2015/11/25/digital-forensics-supertimeline-event-logs-part-ii/
+#
+# Example Event Data:
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-TerminalServices-LocalSessionManager" Guid="5d896912-022d-40aa-a3a8-4fa5515c76d7" />
+#    <EventID>21</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>0</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x1000000000000000</Keywords>
+#    <TimeCreated SystemTime="2018-05-04 18:30:42.9212900" />
+#    <EventRecordID>42</EventRecordID>
+#    <Correlation ActivityID="61a55000-55e5-1017-0000-000000000000" />
+#    <Execution ProcessID="100" ThreadID="404" />
+#    <Channel>Microsoft-Windows-TerminalServices-LocalSessionManager/Operational</Channel>
+#    <Computer>win10-test</Computer>
+#    <Security UserID="S-1-5-18" />
+#  </System>
+#  <UserData>
+#    <EventXML>
+#      <User>WIN10-TEST\Administrator</User>
+#      <SessionID>1</SessionID>
+#      <Address>LOCAL</Address>
+#    </EventXML>
+#  </UserData>
+#</Event>

@@ -1,0 +1,56 @@
+Author: Eric Zimmerman saericzimmerman@gmail.com
+Description: Scheduled Task started
+EventId: 100
+Channel: "Microsoft-Windows-TaskScheduler/Operational"
+Provider: Microsoft-Windows-TaskScheduler
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "Task: %TaskName%"
+    Values: 
+      - 
+        Name: TaskName
+        Value: "/Event/EventData/Data[@Name=\"TaskName\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "Context: %UserContext%"
+    Values: 
+      - 
+        Name: UserContext
+        Value: "/Event/EventData/Data[@Name=\"UserContext\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "Instance Id: %InstanceId%"
+    Values: 
+      - 
+        Name: InstanceId
+        Value: "/Event/EventData/Data[@Name=\"InstanceId\"]"
+
+# Documentation:
+# https://kb.eventtracker.com/evtpass/evtpages/EventId_100_Microsoft-Windows-TaskScheduler_61758.asp
+# https://mnaoumov.wordpress.com/2014/05/15/task-scheduler-event-ids/
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-TaskScheduler" Guid="de7b24ea-73c8-4a09-985d-5bdadcfa9017" />
+#     <EventID>100</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>100</Task>
+#     <Opcode>1</Opcode>
+#     <Keywords>0x8000000000000001</Keywords>
+#     <TimeCreated SystemTime="2018-08-19 06:41:21.0584450" />
+#     <EventRecordID>181936</EventRecordID>
+#     <Correlation ActivityID="8e59add8-6b31-4dbc-a869-5b698117421c" />
+#     <Execution ProcessID="1484" ThreadID="1580" />
+#     <Channel>Microsoft-Windows-TaskScheduler/Operational</Channel>
+#     <Computer>base-rd-01.shieldbase.lan</Computer>
+#     <Security UserID="S-1-5-18" />
+#   </System>
+#   <EventData Name="TaskStartEvent">
+#     <Data Name="TaskName">\Microsoft\Windows\Windows Error Reporting\QueueReporting</Data>
+#     <Data Name="UserContext">NT AUTHORITY\SYSTEM</Data>
+#     <Data Name="InstanceId">8e59add8-6b31-4dbc-a869-5b698117421c</Data>
+#   </EventData>
+# </Event>

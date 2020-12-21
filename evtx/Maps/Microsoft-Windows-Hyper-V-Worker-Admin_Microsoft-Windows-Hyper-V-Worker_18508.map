@@ -1,0 +1,22 @@
+Author: Phill Moore
+Description: Hyper-V VM was shut down
+EventId: 18508
+Channel: "Microsoft-Windows-Hyper-V-Worker-Admin"
+Provider: Microsoft-Windows-Hyper-V-Worker
+Maps:
+  - 
+    Property: PayloadData1
+    PropertyValue: "%VmName% was shut down by the guest operating system. (Virtual machine ID %VmId%)"
+    Values: 
+      - 
+        Name: VmName
+        Value: "/Event/UserData/VmlEventLog/VmName"
+      - 
+        Name: VmId
+        Value: "/Event/UserData/VmlEventLog/VmId"
+
+# Documentation:
+# https://p0w3rsh3ll.wordpress.com/tag/hyper-v/
+#
+# Example Event Data:
+# N/A

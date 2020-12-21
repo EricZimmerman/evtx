@@ -1,0 +1,63 @@
+Author: Hyun Yi @hyuunnn
+Description: USB Connection
+EventId: 2100
+Channel: "Microsoft-Windows-DriverFrameworks-UserMode/Operational"
+Provider: Microsoft-Windows-DriverFrameworks-UserMode
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "InstanceId: %InstanceId%"
+    Values:
+      -
+        Name: InstanceId
+        Value: "/Event/UserData/UMDFHostDeviceRequest/InstanceId"
+  -
+    Property: PayloadData2
+    PropertyValue: "LifetimeId: %LifetimeId%"
+    Values:
+      -
+        Name: LifetimeId
+        Value: "/Event/UserData/UMDFHostDeviceRequest/LifetimeId"
+        
+# Documentation:
+# Windows Vista, 7 : enable (default)
+# Windows 8~ : disable (default)
+# https://nxlog.co/documentation/nxlog-user-guide/windows-usb-auditing.html
+# https://www.reddit.com/r/sysadmin/comments/4dr2t2/security_guy_wants_to_log_usb_storage_devices_on/
+# https://www.netscylla.com/blog/2020/02/03/Windows-Event-Logs-and-USB-Tracking.html
+# https://www.techrepublic.com/article/how-to-track-down-usb-flash-drive-usage-in-windows-10s-event-viewer/
+# https://social.technet.microsoft.com/Forums/windows/en-US/f478191c-edb3-4510-80cf-2c7de0696baa/retrieving-usb-devices-connection-from-event-log-evtx-file?forum=winserverpowershell
+# https://df-stream.com/2014/01/the-windows-7-event-log-and-usb-device/
+#
+# Example Event Data:
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#   <System>
+#     <Provider Name="Microsoft-Windows-DriverFrameworks-UserMode" Guid="{GUID}" /> 
+#     <EventID>2100</EventID> 
+#     <Version>1</Version> 
+#     <Level>4</Level> 
+#     <Task>37</Task> 
+#     <Opcode>1</Opcode> 
+#     <Keywords>0x8000000000000000</Keywords> 
+#     <TimeCreated SystemTime="2020-12-06T08:47:21.6579567Z" /> 
+#     <EventRecordID>27</EventRecordID> 
+#     <Correlation /> 
+#     <Execution ProcessID="2184" ThreadID="8936" /> 
+#     <Channel>Microsoft-Windows-DriverFrameworks-UserMode/Operational</Channel> 
+#     <Computer>ComputerName</Computer> 
+#     <Security UserID="S-1-5-19" /> 
+#   </System>
+#   <UserData>
+#     <UMDFHostDeviceRequest xmlns="http://www.microsoft.com/DriverFrameworks/UserMode/Event">
+#         <LifetimeId>{Value}</LifetimeId> 
+#         <InstanceId>SWD\WPDBUSENUM\_??_USBSTOR#DISK&VEN_SANDISK&PROD_CRUZER_BLADE&REV_1.27#{Value}&0#{Value}</InstanceId> 
+#         <RequestMajorCode>27</RequestMajorCode> 
+#         <RequestMinorCode>0</RequestMinorCode> 
+#         <Argument1>0x0</Argument1> 
+#         <Argument2>0x0</Argument2> 
+#         <Argument3>0x0</Argument3> 
+#         <Argument4>0x0</Argument4> 
+#         <Status>3221225659</Status> 
+#     </UMDFHostDeviceRequest>
+#   </UserData>
+# </Event>

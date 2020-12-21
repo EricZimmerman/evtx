@@ -1,0 +1,59 @@
+Author: Mark Hallman mark.hallman@gmail.com, Hyun Yi @hyuunnn, Andrew Rathbun
+Description: USB Insertion/Removal
+EventId: 1006
+Channel: "Microsoft-Windows-Partition/Diagnostic"
+Provider: Microsoft-Windows-Partition
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "Model: %Model%"
+    Values:
+      -
+        Name: Model
+        Value: "/Event/EventData/Data[@Name=\"Model\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "Capacity: %Capacity%"
+    Values:
+      -
+        Name: Capacity
+        Value: "/Event/EventData/Data[@Name=\"Capacity\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "Manufacturer: %Manufacturer%"
+    Values:
+      -
+        Name: Manufacturer
+        Value: "/Event/EventData/Data[@Name=\"Manufacturer\"]"
+  -
+    Property: PayloadData4
+    PropertyValue: "SerialNumber: %SerialNumber%"
+    Values:
+      -
+        Name: SerialNumber
+        Value: "/Event/EventData/Data[@Name=\"SerialNumber\"]"
+  -
+    Property: PayloadData5
+    PropertyValue: "DiskId: %DiskId%"
+    Values:
+      -
+        Name: DiskId
+        Value: "/Event/EventData/Data[@Name=\"DiskId\"]"
+  -
+    Property: PayloadData6
+    PropertyValue: "ParentId: %ParentId%"
+    Values:
+      -
+        Name: ParentId
+        Value: "/Event/EventData/Data[@Name=\"ParentId\"]"
+        
+# Frankly, there is too much data to fit within 6 PayloadData columns. As always, all data is in the Payload column but there isn't enough room to map out all the information cleanly.
+#
+# Documentation:
+# https://www.atropos4n6.com/windows/extract-vsns-that-reside-in-windows-partition4diagnostic-evtx/
+# https://df-stream.com/2018/05/partition-diagnostic-event-log-and-usb-device-tracking-p1/
+# https://df-stream.com/2018/07/partition-diagnostic-event-log-and-usb-device-tracking-p2/
+# https://forensixchange.com/posts/19_08_03_usb_storage_forensics_1/
+# 
+# Example Event Data:
+# See documentation above

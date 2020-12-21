@@ -1,0 +1,64 @@
+Author: Andrew Rathbun
+Description: PipeEvent (Pipe Created)
+EventId: 17
+Channel: Microsoft-Windows-Sysmon/Operational
+Provider: Microsoft-Windows-Sysmon
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "ProcessID: %ProcessID%, ProcessGUID: %ProcessGUID%"
+    Values: 
+      - 
+        Name: ProcessGUID
+        Value: "/Event/EventData/Data[@Name=\"ProcessGuid\"]"
+      - 
+        Name: ProcessID
+        Value: "/Event/EventData/Data[@Name=\"ProcessId\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "PipeName: %PipeName%"
+    Values: 
+      - 
+        Name: PipeName
+        Value: "/Event/EventData/Data[@Name=\"PipeName\"]" 
+  - 
+    Property: PayloadData5
+    PropertyValue: "Image: %Image%"
+    Values: 
+      - 
+        Name: Image
+        Value: "/Event/EventData/Data[@Name=\"Image\"]" 
+        
+# Documentation:
+# https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon#events
+# https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES
+# https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/default.aspx - filter on Sysmon
+#
+# Example Event Data:
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Sysmon" Guid="5770385f-c22a-43e0-bf4c-06f5698ffbd9" />
+#    <EventID>17</EventID>
+#    <Version>1</Version>
+#    <Level>4</Level>
+#    <Task>17</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8000000000000000</Keywords>
+#    <TimeCreated SystemTime="2020-09-27 13:42:01.0926648" />
+#    <EventRecordID>409647</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="3320" ThreadID="4584" />
+#    <Channel>Microsoft-Windows-Sysmon/Operational</Channel>
+#    <Computer>MSEDGEWIN10</Computer>
+#    <Security UserID="S-1-5-18" />
+#  </System>
+#  <EventData>
+#    <Data Name="RuleName"></Data>
+#    <Data Name="EventType">CreatePipe</Data>
+#    <Data Name="UtcTime">2020-09-27 13:42:01.089</Data>
+#    <Data Name="ProcessGuid">747f3d96-96a8-5f70-0000-0010c0f02d00</Data>
+#    <Data Name="ProcessId">1120</Data>
+#    <Data Name="PipeName">\svchost-MSEDGEWIN10-8116-stdin</Data>
+#    <Data Name="Image">C:\Windows\svchost.exe</Data>
+#  </EventData>
+#</Event>

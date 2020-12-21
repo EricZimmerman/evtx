@@ -1,0 +1,37 @@
+Author: Mike Stewart mstew1968@gmail.com
+Description: HitmanPro ALERT Identified
+EventId: 911
+Channel: Application
+Provider: HitmanPro.Alert
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "Event: %Data%"
+    Values: 
+      - 
+        Name: Data
+        Value: "/Event/EventData/Data"
+     
+# Documentation:
+# N/A
+#
+# Example Event Data:
+#<Event>
+#  <System>
+#    <Provider Name="HitmanPro.Alert" />
+#    <EventID Qualifiers="0">911</EventID>
+#    <Level>4</Level>
+#    <Task>9</Task>
+#    <Keywords>0x80000000000000</Keywords>
+#    <TimeCreated SystemTime="2020-05-01 11:08:00.9085069" />
+#    <EventRecordID>13298</EventRecordID>
+#    <Channel>Application</Channel>
+#    <Computer>HostName.Domain.local</Computer>
+#    <Security />
+#  </System>
+#  <EventData>
+#    <Data>111.111.111.111, CryptoGuard, Auto-unblock 111.111.111.111</Data>
+#    <Binary></Binary>
+#  </EventData>
+#</Event>
+ 

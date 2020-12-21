@@ -1,0 +1,48 @@
+Author: Eric Zimmerman saericzimmerman@gmail.com
+Description: Service sent a Start/Stop control
+EventId: 7035
+Channel: System
+Provider: Service Control Manager
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "Name: %ServiceName%" 
+    Values: 
+      - 
+        Name: ServiceName
+        Value: "/Event/EventData/Data[@Name=\"param1\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "Status: %Status%"
+    Values: 
+      - 
+        Name: Status
+        Value: "/Event/EventData/Data[@Name=\"param2\"]"
+
+# Documentation:
+# https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-r2-and-2008/cc756357(v=ws.10)
+#
+# Example Event Data:
+#<Event xmlns="removed link due to support site prompt">
+#  <System>
+#    <Provider Name="Service Control Manager" Guid="{555908d1-a6d7-4695-8e1e-26931d2012f4}" EventSourceName="Service Control Manager" />
+#    <EventID Qualifiers="16384">7036</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>0</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8080000000000000</Keywords>
+#    <TimeCreated SystemTime="2013-10-06T23:40:49.989719100Z" />
+#    <EventRecordID>236496</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="568" ThreadID="7484" />
+#    <Channel>System</Channel>
+#    <Computer>R8FM0YX.takecareasia.com</Computer>
+#    <Security />
+#  </System>
+#  <EventData>
+#    <Data Name="param1">Multimedia Class Scheduler</Data>
+#    <Data Name="param2">stopped</Data>
+#    <Binary>4D004D004300530053002F0031000000</Binary>
+#  </EventData>
+#</Event>

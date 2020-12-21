@@ -88,21 +88,23 @@ It is that simple! Be sure to surround things in double quotes and/or escape quo
 
 NOTE! The filenames for maps should be in the following format:
 
-Channel_EventID.map
+Channel-Name_Provider-Name_EventID.map
 
-Where Channel is EXACTLY what is in the XML <Channel> element with any '/' characters replaced with an underscore.
+Where Channel is EXACTLY what is in the XML <Channel> element with any '/' characters, hyphens, or spaces replaced with a hyphen. Hyphens are the catch all for each element of the map filename. 
+
+Only underscores should separate each element (Channel Name, Provider Name, EventID). Hyphens separates words. Underscores separate elements. 
 
 For example, for Event ID '201' and Channel 'Microsoft-Windows-TaskScheduler/Operational' the file should be named:
 
-`Microsoft-Windows-TaskScheduler_Operational_201.map`
+`Microsoft-Windows-TaskScheduler-Operational_Microsoft-Windows-TaskScheduler_201.map`
 
-As of v06 or so, you can also add optional properties `Provider` and `Lookups`
-
-Provider is used at the header level and looks like this:
+`Provider` is now mandatory. Provider is used at the header level and looks like this:
 
 `Provider: "Microsoft-Windows-Power-Troubleshooter"`
 
-This lets you further narrow down when a map will be used. See System_1.map for an example.
+This lets you further narrow down when a map will be used. Every map will have a working example of this now.
+
+As of v06 or so, you can also add optional properties such as `Lookups`.
 
 Lookups allow you to define lookup tables that match one value and replace them with another. Here is an example, also from System_1.map:
 
@@ -208,3 +210,7 @@ Edit 1_Security_4624.map and make your changes
 When the maps are loaded, since 1_Security_4624.map comes before 4624.map, only the one with your changes will be loaded.
 
 This also allows you to update default maps without having your customizations blown away every time there is an update.
+
+TIPS:
+
+If you are looking to make an Application.evtx map, please include a Provider as they are many instances where the same event ID number is used for multiple providers. I've personally observed 4 Providers use Event ID 1 which without a Provider being listed for that map it made all 4 events, regardless of Provider, be mapped incorrectly. When in doubt, add a Provider to your map. Follow a template from a previously created map to ensure it's made correctly.

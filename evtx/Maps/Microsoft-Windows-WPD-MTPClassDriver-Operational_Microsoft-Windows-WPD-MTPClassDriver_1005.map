@@ -1,0 +1,56 @@
+Author: Hyun Yi @hyuunnn
+Description: (Mobile) MTP Connection
+EventId: 1005
+Channel: "Microsoft-Windows-WPD-MTPClassDriver/Operational"
+Provider: Microsoft-Windows-WPD-MTPClassDriver
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "Manufacturer: %Manufacturer%"
+    Values:
+      -
+        Name: Manufacturer
+        Value: "/Event/EventData/Data[@Name=\"Manufacturer\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "Model: %Model%"
+    Values:
+      -
+        Name: Model
+        Value: "/Event/EventData/Data[@Name=\"Model\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "Version: %Version%"
+    Values:
+      -
+        Name: Version
+        Value: "/Event/EventData/Data[@Name=\"Version\"]"
+        
+# Documentation:
+# N/A
+#
+# Example Event Data:
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#   <System>
+#     <Provider Name="Microsoft-Windows-WPD-MTPClassDriver" Guid="{GUID}" /> 
+#     <EventID>1005</EventID> 
+#     <Version>0</Version> 
+#     <Level>4</Level> 
+#     <Task>16</Task> 
+#     <Opcode>0</Opcode> 
+#     <Keywords>0x8000000000000000</Keywords> 
+#     <TimeCreated SystemTime="2020-12-05T21:19:30.1410758Z" /> 
+#     <EventRecordID>2</EventRecordID> 
+#     <Correlation /> 
+#     <Execution ProcessID="8444" ThreadID="16952" /> 
+#     <Channel>Microsoft-Windows-WPD-MTPClassDriver/Operational</Channel> 
+#     <Computer>ComputerName</Computer> 
+#     <Security UserID="S-1-5-19" /> 
+#   </System>
+#   <EventData>
+#     <Data Name="Manufacturer">Apple Inc.</Data> 
+#     <Data Name="Model">Apple iPhone</Data> 
+#     <Data Name="Version">12.4.4</Data> 
+#     <Data Name="HackModel">40</Data> 
+#   </EventData>
+# </Event>

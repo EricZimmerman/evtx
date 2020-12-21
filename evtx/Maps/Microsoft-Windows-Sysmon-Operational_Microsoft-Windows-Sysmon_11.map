@@ -1,0 +1,71 @@
+Author: Andrew Rathbun
+Description: FileCreate
+EventId: 11
+Channel: Microsoft-Windows-Sysmon/Operational
+Provider: Microsoft-Windows-Sysmon
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "ProcessID: %ProcessID%, ProcessGUID: %ProcessGUID%"
+    Values: 
+      - 
+        Name: ProcessGUID
+        Value: "/Event/EventData/Data[@Name=\"ProcessGuid\"]"
+      - 
+        Name: ProcessID
+        Value: "/Event/EventData/Data[@Name=\"ProcessId\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "RuleName: %RuleName%"
+    Values: 
+      - 
+        Name: RuleName
+        Value: "/Event/EventData/Data[@Name=\"RuleName\"]"
+  - 
+    Property: PayloadData3
+    PropertyValue: "Image: %Image%"
+    Values: 
+      - 
+        Name: Image
+        Value: "/Event/EventData/Data[@Name=\"Image\"]"   
+  - 
+    Property: PayloadData4
+    PropertyValue: "TargetFilename: %TargetFilename%"
+    Values: 
+      - 
+        Name: TargetFilename
+        Value: "/Event/EventData/Data[@Name=\"TargetFilename\"]"
+        
+# Documentation:
+# https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon#events
+# https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES
+# https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/default.aspx - filter on Sysmon
+#
+# Example Event Data:
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Sysmon" Guid="5770385f-c22a-43e0-bf4c-06f5698ffbd9" />
+#    <EventID>11</EventID>
+#    <Version>2</Version>
+#    <Level>4</Level>
+#    <Task>11</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8000000000000000</Keywords>
+#    <TimeCreated SystemTime="2020-10-27 10:17:18.3693428" />
+#    <EventRecordID>2246491</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="5400" ThreadID="6548" />
+#    <Channel>Microsoft-Windows-Sysmon/Operational</Channel>
+#    <Computer>LAPTOP-JU4M3I0E</Computer>
+#    <Security UserID="S-1-5-18" />
+#  </System>
+#  <EventData>
+#    <Data Name="RuleName"></Data>
+#    <Data Name="UtcTime">2020-10-27 10:17:18.369</Data>
+#    <Data Name="ProcessGuid">00247c92-f3ae-5f97-0000-00106aba0418</Data>
+#    <Data Name="ProcessId">21756</Data>
+#    <Data Name="Image">c:\Users\bouss\Downloads\ProcessHerpaderping.exe</Data>
+#    <Data Name="TargetFilename">C:\Users\bouss\Downloads\samir.exe</Data>
+#    <Data Name="CreationUtcTime">2020-10-27 10:15:20.376</Data>
+#  </EventData>
+#</Event>

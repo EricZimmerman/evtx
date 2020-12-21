@@ -1,0 +1,56 @@
+Author: Andrew Rathbun
+Description: Process terminated
+EventId: 5
+Channel: Microsoft-Windows-Sysmon/Operational
+Provider: Microsoft-Windows-Sysmon
+Maps: 
+  - 
+    Property: ExecutableInfo
+    PropertyValue: "%FilePath%"
+    Values: 
+      - 
+        Name: FilePath
+        Value: "/Event/EventData/Data[@Name=\"Image\"]"
+  - 
+    Property: PayloadData1
+    PropertyValue: "ProcessID: %ProcessID%, ProcessGUID: %ProcessGUID%"
+    Values: 
+      - 
+        Name: ProcessGUID
+        Value: "/Event/EventData/Data[@Name=\"ProcessGuid\"]"
+      - 
+        Name: ProcessID
+        Value: "/Event/EventData/Data[@Name=\"ProcessId\"]"
+        
+# Documentation:
+# https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon#events
+# https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES
+# https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/default.aspx - filter on Sysmon
+#
+# Example Event Data:
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Sysmon" Guid="5770385f-c22a-43e0-bf4c-06f5698ffbd9" />
+#    <EventID>5</EventID>
+#    <Version>3</Version>
+#    <Level>4</Level>
+#    <Task>5</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8000000000000000</Keywords>
+#    <TimeCreated SystemTime="2020-05-24 01:13:50.3307757" />
+#    <EventRecordID>196372</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="2812" ThreadID="3656" />
+#    <Channel>Microsoft-Windows-Sysmon/Operational</Channel>
+#    <Computer>MSEDGEWIN10</Computer>
+#    <Security UserID="S-1-5-18" />
+#  </System>
+#  <EventData>
+#    <Data Name="RuleName"></Data>
+#    <Data Name="UtcTime">2020-05-24 01:13:50.315</Data>
+#    <Data Name="ProcessGuid">747f3d96-ca4b-5ec9-0000-0010b8cb3700</Data>
+#    <Data Name="ProcessId">3960</Data>
+#    <Data Name="Image">C:\Users\IEUser\Tools\PrivEsc\RogueWinRM.exe</Data>
+#  </EventData>
+#</Event>
+

@@ -1,0 +1,46 @@
+Author: Hyun Yi @hyuunnn
+Description: Removal completed successfully.
+EventId: 11724
+Channel: "Application"
+Provider: "MsiInstaller"
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "Data: %Data%"
+    Values:
+      -
+        Name: Data
+        Value: "/Event/EventData/Data[1]"
+
+# Documentation:
+# https://kb.eventtracker.com/evtpass/evtpages/EventId_11724_Msiinstaller_52366.asp
+#
+# Example Event Data:
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#   <System>
+#     <Provider Name="MsiInstaller" /> 
+#     <EventID Qualifiers="0">11724</EventID> 
+#     <Version>0</Version> 
+#     <Level>4</Level> 
+#     <Task>0</Task> 
+#     <Opcode>0</Opcode> 
+#     <Keywords>0x80000000000000</Keywords> 
+#     <TimeCreated SystemTime="2020-11-05T03:26:56.4058164Z" /> 
+#     <EventRecordID>10061</EventRecordID> 
+#     <Correlation /> 
+#     <Execution ProcessID="0" ThreadID="0" /> 
+#     <Channel>Application</Channel> 
+#     <Computer>ComputerName</Computer> 
+#     <Security UserID="{UserID}" /> 
+#   </System>
+#   <EventData>
+#     <Data>Product: AccessData FTK Imager -- Removal completed successfully.</Data> 
+#     <Data>(NULL)</Data> 
+#     <Data>(NULL)</Data> 
+#     <Data>(NULL)</Data> 
+#     <Data>(NULL)</Data> 
+#     <Data>(NULL)</Data> 
+#     <Data /> 
+#     <Binary>{Binary}</Binary> 
+#   </EventData>
+# </Event>

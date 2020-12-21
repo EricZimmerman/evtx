@@ -1,0 +1,82 @@
+Author: Eric Zimmerman saericzimmerman@gmail.com
+Description: Failed logon
+EventId: 4625
+Channel: Security
+Provider: Microsoft-Windows-Security-Auditing
+Maps: 
+  - 
+    Property: Username
+    PropertyValue: "%domain%\\%user%"
+    Values: 
+      - 
+        Name: domain
+        Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
+      - 
+        Name: user
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
+  - 
+    Property: RemoteHost
+    PropertyValue: "%workstation% (%ipAddress%)"
+    Values: 
+      - 
+        Name: ipAddress
+        Value: "/Event/EventData/Data[@Name=\"IpAddress\"]"
+      - 
+        Name: workstation
+        Value: "/Event/EventData/Data[@Name=\"WorkstationName\"]"
+  - 
+    Property: PayloadData1
+    PropertyValue: "Target: %TargetDomainName%\\%TargetUserName%"
+    Values: 
+      - 
+        Name: TargetDomainName
+        Value: "/Event/EventData/Data[@Name=\"TargetDomainName\"]"
+      - 
+        Name: TargetUserName
+        Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "LogonType %LogonType%"
+    Values: 
+      - 
+        Name: LogonType
+        Value: "/Event/EventData/Data[@Name=\"LogonType\"]"
+  - 
+    Property: ExecutableInfo
+    PropertyValue: "%ProcessName%"
+    Values: 
+      - 
+        Name: ProcessName
+        Value: "/Event/EventData/Data[@Name=\"ProcessName\"]"
+
+# Documentation:
+# https://ponderthebits.com/2018/02/windows-rdp-related-event-logs-identification-tracking-and-investigation/
+# https://www.13cubed.com/downloads/rdp_flowchart.pdf
+# https://dfironthemountain.wordpress.com/2019/02/15/rdp-event-log-dfir/
+# http://woshub.com/rdp-connection-logs-forensics-windows/
+# https://countuponsecurity.com/2015/11/25/digital-forensics-supertimeline-event-logs-part-ii/
+#
+# Example Event Data:
+#   <EventData>
+#     <Data Name="SubjectUserSid">S-1-5-18</Data>
+#     <Data Name="SubjectUserName">BASE-RD-01$</Data>
+#     <Data Name="SubjectDomainName">shieldbase</Data>
+#     <Data Name="SubjectLogonId">0x3E7</Data>
+#     <Data Name="TargetUserSid">S-1-0-0</Data>
+#     <Data Name="TargetUserName">-</Data>
+#     <Data Name="TargetDomainName">-</Data>
+#     <Data Name="Status">0xC0000073</Data>
+#     <Data Name="FailureReason">%%2304</Data>
+#     <Data Name="SubStatus">0xC0000073</Data>
+#     <Data Name="LogonType">5</Data>
+#     <Data Name="LogonProcessName">Advapi  </Data>
+#     <Data Name="AuthenticationPackageName">Negotiate</Data>
+#     <Data Name="WorkstationName">-</Data>
+#     <Data Name="TransmittedServices">-</Data>
+#     <Data Name="LmPackageName">-</Data>
+#     <Data Name="KeyLength">0</Data>
+#     <Data Name="ProcessId">0x3E8</Data>
+#     <Data Name="ProcessName">C:\Windows\System32\svchost.exe</Data>
+#     <Data Name="IpAddress">-</Data>
+#     <Data Name="IpPort">-</Data>
+#   </EventData>

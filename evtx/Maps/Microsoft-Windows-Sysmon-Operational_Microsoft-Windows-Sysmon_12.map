@@ -1,0 +1,79 @@
+Author: Andrew Rathbun
+Description: RegistryEvent (Object create and delete)
+EventId: 12
+Channel: Microsoft-Windows-Sysmon/Operational
+Provider: Microsoft-Windows-Sysmon
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "ProcessID: %ProcessID%, ProcessGUID: %ProcessGUID%"
+    Values: 
+      - 
+        Name: ProcessGUID
+        Value: "/Event/EventData/Data[@Name=\"ProcessGuid\"]"
+      - 
+        Name: ProcessID
+        Value: "/Event/EventData/Data[@Name=\"ProcessId\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "RuleName: %RuleName%"
+    Values: 
+      - 
+        Name: RuleName
+        Value: "/Event/EventData/Data[@Name=\"RuleName\"]"
+  - 
+    Property: PayloadData3
+    PropertyValue: "Image: %Image%"
+    Values: 
+      - 
+        Name: Image
+        Value: "/Event/EventData/Data[@Name=\"Image\"]"   
+  - 
+    Property: PayloadData4
+    PropertyValue: "EventType: %EventType%"
+    Values: 
+      - 
+        Name: EventType
+        Value: "/Event/EventData/Data[@Name=\"EventType\"]"   
+  - 
+    Property: PayloadData5
+    PropertyValue: "TargetObject: %TargetObject%"
+    Values: 
+      - 
+        Name: TargetObject
+        Value: "/Event/EventData/Data[@Name=\"TargetObject\"]"  
+        
+# Documentation:
+# https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon#events
+# https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES
+# https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/default.aspx - filter on Sysmon
+#
+# Example Event Data:
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Sysmon" Guid="5770385f-c22a-43e0-bf4c-06f5698ffbd9" />
+#    <EventID>12</EventID>
+#    <Version>2</Version>
+#    <Level>4</Level>
+#    <Task>12</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8000000000000000</Keywords>
+#    <TimeCreated SystemTime="2019-05-19 18:05:33.4542958" />
+#    <EventRecordID>18969</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="2004" ThreadID="1976" />
+#    <Channel>Microsoft-Windows-Sysmon/Operational</Channel>
+#    <Computer>IEWIN7</Computer>
+#    <Security UserID="S-1-5-18" />
+#  </System>
+#  <EventData>
+#    <Data Name="RuleName">Defense Evasion - PowerShell Audit Settings Changed</Data>
+#    <Data Name="EventType">DeleteValue</Data>
+#    <Data Name="UtcTime">2019-05-19 18:05:33.438</Data>
+#    <Data Name="ProcessGuid">365abb72-9aeb-5ce1-0000-0010f0b51800</Data>
+#    <Data Name="ProcessId">860</Data>
+#    <Data Name="Image">C:\Windows\system32\reg.exe</Data>
+#    <Data Name="TargetObject">HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging\EnableScriptBlockLogging</Data>
+#  </EventData>
+#</Event>
+#

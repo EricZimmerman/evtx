@@ -1,0 +1,31 @@
+Author: Mike Pilkington
+Description: WinRM Authentication
+EventId: 169
+Channel: "Microsoft-Windows-WinRM/Operational"
+Provider: Microsoft-Windows-WinRM
+Maps:
+  - 
+    Property: Username
+    PropertyValue: "%username%"
+    Values: 
+      - 
+        Name: username
+        Value: "/Event/EventData/Data[@Name=\"username\"]" 
+  - 
+    Property: PayloadData1
+    PropertyValue: "AuthenticationMechanism: %authenticationMechanism%"
+    Values: 
+      - 
+        Name: authenticationMechanism
+        Value: "/Event/EventData/Data[@Name=\"authenticationMechanism\"]"
+
+# Documentation:
+# https://resources.infosecinstitute.com/topic/powershell-remoting-artifacts-part-1/
+# https://nsfocusglobal.com/Attack-and-Defense-Around-PowerShell-Event-Logging
+# https://www.powershellmagazine.com/2014/07/16/investigating-powershell-attacks/
+#
+# Example Event Data:
+#  <EventData>
+#    <Data Name="username">iewin7\ieuser</Data>
+#    <Data Name="authenticationMechanism">NTLM</Data>
+#  </EventData>

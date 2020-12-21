@@ -1,0 +1,41 @@
+Author: Eric Zimmerman saericzimmerman@gmail.com
+Description: Service crashed unexpectedly
+EventId: 7034
+Channel: System
+Provider: Service Control Manager
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "Name: %ServiceName%"
+    Values: 
+      - 
+        Name: ServiceName
+        Value: "/Event/EventData/Data[@Name=\"param1\"]"
+
+# Documentation:
+# https://kb.eventtracker.com/evtpass/evtpages/EventId_7034_ServiceControlManager_45455.asp
+# https://social.technet.microsoft.com/wiki/contents/articles/1363.windows-server-2008-event-id-7034-service-stop-operations.aspx
+#
+# Example Event Data:
+#<Event>
+#  <System>
+#    <Provider Name="Service Control Manager" Guid="{555908d1-a6d7-4695-8e1e-26931d2012f4}" EventSourceName="Service Control Manager" />
+#    <EventID Qualifiers="49152">7034</EventID>
+#    <Version>0</Version>
+#    <Level>2</Level>
+#    <Task>0</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8080000000000000</Keywords>
+#    <TimeCreated SystemTime="2012-04-04 01:48:01.8866267" />
+#    <EventRecordID>15001</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="548" ThreadID="3352" />
+#    <Channel>System</Channel>
+#    <Computer>WKS-WIN732BITA.shieldbase.local</Computer>
+#    <Security />
+#  </System>
+#  <EventData>
+#    <Data Name="param1">PsExec</Data>
+#    <Data Name="param2">1</Data>
+#  </EventData>
+#</Event>

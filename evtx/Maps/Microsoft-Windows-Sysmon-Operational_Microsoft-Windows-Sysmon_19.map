@@ -1,0 +1,90 @@
+Author: Andrew Rathbun
+Description: WmiEvent (WmiEventFilter activity detected)
+EventId: 19
+Channel: Microsoft-Windows-Sysmon/Operational
+Provider: Microsoft-Windows-Sysmon
+Maps: 
+  - 
+    Property: ExecutableInfo
+    PropertyValue: "Query: %Query%"
+    Values: 
+      - 
+        Name: Query
+        Value: "/Event/EventData/Data[@Name=\"Query\"]"
+  - 
+    Property: PayloadData1
+    PropertyValue: "Operation: %Operation%"
+    Values: 
+      - 
+        Name: Operation
+        Value: "/Event/EventData/Data[@Name=\"Operation\"]"   
+  - 
+    Property: PayloadData2
+    PropertyValue: "RuleName: %RuleName%"
+    Values: 
+      - 
+        Name: RuleName
+        Value: "/Event/EventData/Data[@Name=\"RuleName\"]"
+  - 
+    Property: PayloadData3
+    PropertyValue: "EventType: %EventType%"
+    Values: 
+      - 
+        Name: EventType
+        Value: "/Event/EventData/Data[@Name=\"EventType\"]" 
+  - 
+    Property: PayloadData4
+    PropertyValue: "Name: %Name%"
+    Values: 
+      - 
+        Name: Name
+        Value: "/Event/EventData/Data[@Name=\"Name\"]"
+  - 
+    Property: PayloadData5
+    PropertyValue: "EventNamespace: %EventNamespace%"
+    Values: 
+      - 
+        Name: EventNamespace
+        Value: "/Event/EventData/Data[@Name=\"EventNamespace\"]"   
+  - 
+    Property: UserName
+    PropertyValue: "%User%"
+    Values: 
+      - 
+        Name: User
+        Value: "/Event/EventData/Data[@Name=\"User\"]"
+        
+# Documentation:
+# https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon#events
+# https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES
+# https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/default.aspx - filter on Sysmon
+#
+# Example Event Data:
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Sysmon" Guid="5770385f-c22a-43e0-bf4c-06f5698ffbd9" />
+#    <EventID>19</EventID>
+#    <Version>3</Version>
+#    <Level>4</Level>
+#    <Task>19</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8000000000000000</Keywords>
+#    <TimeCreated SystemTime="2019-07-19 14:54:57.0446236" />
+#    <EventRecordID>4055</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="2796" ThreadID="1776" />
+#    <Channel>Microsoft-Windows-Sysmon/Operational</Channel>
+#    <Computer>MSEDGEWIN10</Computer>
+#    <Security UserID="S-1-5-18" />
+#  </System>
+#  <EventData>
+#    <Data Name="RuleName"></Data>
+#    <Data Name="EventType">WmiFilterEvent</Data>
+#    <Data Name="UtcTime">2019-07-19 14:54:57.041</Data>
+#    <Data Name="Operation">Created</Data>
+#    <Data Name="User">MSEDGEWIN10\IEUser</Data>
+#    <Data Name="EventNamespace"> "root\\CimV2"</Data>
+#    <Data Name="Name"> "AtomicRedTeam-WMIPersistence-Example"</Data>
+#    <Data Name="Query"> "SELECT * FROM __InstanceModificationEvent WITHIN 60 WHERE TargetInstance ISA 'Win32_PerfFormattedData_PerfOS_System' AND TargetInstance.SystemUpTime &amp;gt;= 240 AND TargetInstance.SystemUpTime &amp;lt; 325"</Data>
+#  </EventData>
+#</Event>

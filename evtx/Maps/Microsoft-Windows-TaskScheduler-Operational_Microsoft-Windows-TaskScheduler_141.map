@@ -1,0 +1,49 @@
+Author: Eric Zimmerman saericzimmerman@gmail.com
+Description: Scheduled task deleted
+EventId: 141
+Channel: "Microsoft-Windows-TaskScheduler/Operational"
+Provider: Microsoft-Windows-TaskScheduler
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "Task: %TaskName%"
+    Values: 
+      - 
+        Name: TaskName
+        Value: "/Event/EventData/Data[@Name=\"TaskName\"]"
+  - 
+    Property: UserName
+    PropertyValue: "%UserName%"
+    Values: 
+      - 
+        Name: UserName
+        Value: "/Event/EventData/Data[@Name=\"UserName\"]"
+
+# Documentation:
+# https://kb.eventtracker.com/evtpass/evtpages/EventId_141_Microsoft-Windows-TaskScheduler_66040.asp
+# https://mnaoumov.wordpress.com/2014/05/15/task-scheduler-event-ids/
+# https://twitter.com/matthewdunwoody/status/1174430169811050499
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-TaskScheduler" Guid="de7b24ea-73c8-4a09-985d-5bdadcfa9017" />
+#     <EventID>141</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>141</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x8000000000000000</Keywords>
+#     <TimeCreated SystemTime="2018-08-28 21:43:58.3231922" />
+#     <EventRecordID>196638</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="1484" ThreadID="11844" />
+#     <Channel>Microsoft-Windows-TaskScheduler/Operational</Channel>
+#     <Computer>base-rd-01.shieldbase.lan</Computer>
+#     <Security UserID="S-1-5-18" />
+#   </System>
+#   <EventData Name="TaskDeleted">
+#     <Data Name="TaskName">\OneDrive Standalone Update Task v2</Data>
+#     <Data Name="UserName">shieldbase\spsql</Data>
+#   </EventData>
+# </Event>

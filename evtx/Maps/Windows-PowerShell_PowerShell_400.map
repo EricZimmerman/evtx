@@ -1,0 +1,72 @@
+Author: Brian MacKenna
+Description: Engine state is changed from None to Available.
+EventId: 400
+Channel: Windows PowerShell
+Provider: PowerShell
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "%HostApplication%"
+    Values: 
+      - 
+        Name: HostApplication
+        Value: "/Event/EventData/Data"
+        Refine: "HostApplication=(.+)"
+  - 
+    Property: PayloadData2
+    PropertyValue: "%HostName%"
+    Values: 
+      - 
+        Name: HostName
+        Value: "/Event/EventData/Data"
+        Refine: "HostName=(.+)"
+  - 
+    Property: PayloadData3
+    PropertyValue: "%HostVersion%"
+    Values: 
+      - 
+        Name: HostVersion
+        Value: "/Event/EventData/Data"
+        Refine: "HostVersion=(.+)"
+
+# Documentation:
+# https://static1.squarespace.com/static/552092d5e4b0661088167e5c/t/59c1814829f18782e24f1fe2/1505853768977/Windows+PowerShell+Logging+Cheat+Sheet+ver+Sept+2017+v2.1.pdf
+# https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=600
+# https://www.powershellmagazine.com/2014/07/16/investigating-powershell-attacks/
+# https://nsfocusglobal.com/Attack-and-Defense-Around-PowerShell-Event-Logging
+#
+# Example Event Data:
+#<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#  <System>
+#    <Provider Name="PowerShell" /> 
+#    <EventID Qualifiers="0">400</EventID> 
+#    <Level>4</Level> 
+#    <Task>6</Task> 
+#    <Keywords>0x80000000000000</Keywords> 
+#    <TimeCreated SystemTime="2001-01-01T01:01:01.012345678Z" /> 
+#    <EventRecordID>18</EventRecordID> 
+#    <Channel>Windows PowerShell</Channel> 
+#    <Computer>name.domain.tld</Computer> 
+#    <Security /> 
+#  </System>
+#  <EventData>
+#    <Data>Available, None, 	NewEngineState=Available
+#	PreviousEngineState=None
+#
+#	SequenceNumber=13
+#
+#	HostName=ConsoleHost
+#	HostVersion=5.1.18362.145
+#	HostId=3820a72c-10dc-4989-9388-3d4b6523c35f
+#	HostApplication=powershell -nop -w hidden -encodedcommand JAB...(bad command stuff removed)...ADsA
+#	EngineVersion=5.1.18362.145
+#	RunspaceId=b21e91e8-9068-48ae-ac10-15430944932b
+#	PipelineId=
+#	CommandName=
+#	CommandType=
+#	ScriptName=
+#	CommandPath=
+#	CommandLine=</Data>
+#    <Binary></Binary>
+#  </EventData>
+#</Event>

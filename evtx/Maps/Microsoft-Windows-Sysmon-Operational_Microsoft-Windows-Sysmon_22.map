@@ -1,0 +1,86 @@
+Author: Andrew Rathbun
+Description: DNSEvent (DNS query)
+EventId: 22
+Channel: Microsoft-Windows-Sysmon/Operational
+Provider: Microsoft-Windows-Sysmon
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "ProcessID: %ProcessID%, ProcessGUID: %ProcessGUID%"
+    Values: 
+      - 
+        Name: ProcessGUID
+        Value: "/Event/EventData/Data[@Name=\"ProcessGuid\"]"
+      - 
+        Name: ProcessID
+        Value: "/Event/EventData/Data[@Name=\"ProcessId\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "RuleName: %RuleName%"
+    Values: 
+      - 
+        Name: RuleName
+        Value: "/Event/EventData/Data[@Name=\"RuleName\"]"
+  - 
+    Property: PayloadData3
+    PropertyValue: "Image: %Image%"
+    Values: 
+      - 
+        Name: Image
+        Value: "/Event/EventData/Data[@Name=\"Image\"]"  
+  - 
+    Property: PayloadData4
+    PropertyValue: "QueryName: %QueryName%"
+    Values: 
+      - 
+        Name: QueryName
+        Value: "/Event/EventData/Data[@Name=\"QueryName\"]"  
+  - 
+    Property: PayloadData5
+    PropertyValue: "QueryStatus: %QueryStatus%"
+    Values: 
+      - 
+        Name: QueryStatus
+        Value: "/Event/EventData/Data[@Name=\"QueryStatus\"]"  
+  - 
+    Property: PayloadData6
+    PropertyValue: "QueryResults: %QueryResults%"
+    Values: 
+      - 
+        Name: QueryResults
+        Value: "/Event/EventData/Data[@Name=\"QueryResults\"]"  
+
+# Documentation:
+# https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon#events
+# https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES
+# https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/default.aspx - filter on Sysmon
+#
+# Example Event Data:
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Sysmon" Guid="5770385f-c22a-43e0-bf4c-06f5698ffbd9" />
+#    <EventID>22</EventID>
+#    <Version>5</Version>
+#    <Level>4</Level>
+#    <Task>22</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8000000000000000</Keywords>
+#    <TimeCreated SystemTime="2020-10-20 11:51:01.4767229" />
+#    <EventRecordID>1084</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="7212" ThreadID="1320" />
+#    <Channel>Microsoft-Windows-Sysmon/Operational</Channel>
+#    <Computer>DESKTOP-NTSSLJD</Computer>
+#    <Security UserID="S-1-5-18" />
+#  </System>
+#  <EventData>
+#    <Data Name="RuleName">-</Data>
+#    <Data Name="UtcTime">2020-10-20 11:50:59.461</Data>
+#    <Data Name="ProcessGuid">23f38d93-abac-5f8e-3900-000000000c00</Data>
+#    <Data Name="ProcessId">2428</Data>
+#    <Data Name="QueryName">wpad</Data>
+#    <Data Name="QueryStatus">9003</Data>
+#    <Data Name="QueryResults">-</Data>
+#    <Data Name="Image">C:\Windows\System32\svchost.exe</Data>
+#  </EventData>
+#</Event>

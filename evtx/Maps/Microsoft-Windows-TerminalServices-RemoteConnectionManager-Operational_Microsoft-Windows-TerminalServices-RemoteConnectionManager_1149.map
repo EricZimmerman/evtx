@@ -1,0 +1,57 @@
+Author: Eric Zimmerman saericzimmerman@gmail.com
+Description: RDP network connection established
+EventId: 1149
+Channel: Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational
+Provider: Microsoft-Windows-TerminalServices-RemoteConnectionManager
+Maps: 
+  - 
+    Property: Username
+    PropertyValue: "%domain%\\%user%"
+    Values: 
+      - 
+        Name: domain
+        Value: "/Event/UserData/EventXML/Param2"
+      - 
+        Name: user
+        Value: "/Event/UserData/EventXML/Param1"
+  - 
+    Property: RemoteHost
+    PropertyValue: "%Address%"
+    Values: 
+      - 
+        Name: Address
+        Value: "/Event/UserData/EventXML/Param3"
+ 
+# Documentation:
+# https://ponderthebits.com/2018/02/windows-rdp-related-event-logs-identification-tracking-and-investigation/
+# https://www.13cubed.com/downloads/rdp_flowchart.pdf
+# https://dfironthemountain.wordpress.com/2019/02/15/rdp-event-log-dfir/
+# http://woshub.com/rdp-connection-logs-forensics-windows/
+# https://countuponsecurity.com/2015/11/25/digital-forensics-supertimeline-event-logs-part-ii/
+#
+# Example Event Data:
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-TerminalServices-RemoteConnectionManager" Guid="c76baa63-ae81-421c-b425-340b4b24157f" />
+#    <EventID>1149</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>0</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x1000000000000000</Keywords>
+#    <TimeCreated SystemTime="2018-11-06 21:45:50.4112641" />
+#    <EventRecordID>6</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="812" ThreadID="1956" />
+#    <Channel>Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational</Channel>
+#    <Computer>IEWIN7</Computer>
+#    <Security UserID="S-1-5-20" />
+#  </System>
+#  <UserData>
+#    <EventXML>
+#      <Param1>administrator</Param1>
+#      <Param2>ie11win7</Param2>
+#      <Param3>10.0.2.16</Param3>
+#    </EventXML>
+#  </UserData>
+#</Event>

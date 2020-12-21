@@ -1,0 +1,71 @@
+Author: Andrew Rathbun
+Description: A user account was locked out
+EventId: 4740
+Channel: Security
+Provider: Microsoft-Windows-Security-Auditing
+Maps: 
+  - 
+    Property: UserName
+    PropertyValue: "%domain%\\%user% (%sid%)"
+    Values: 
+      - 
+        Name: domain
+        Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
+      - 
+        Name: user
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
+      - 
+        Name: sid
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserSid\"]"
+  - 
+    Property: PayloadData1
+    PropertyValue: "Target: %TargetDomainName%\\%TargetUserName% (%TargetSid%)"
+    Values: 
+      - 
+        Name: TargetUserName
+        Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
+      - 
+        Name: TargetDomainName
+        Value: "/Event/EventData/Data[@Name=\"TargetDomainName\"]"
+      - 
+        Name: TargetSid
+        Value: "/Event/EventData/Data[@Name=\"TargetSid\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "SubjectLogonId: %SubjectLogonId%"
+    Values: 
+      - 
+        Name: SubjectLogonId
+        Value: "/Event/EventData/Data[@Name=\"SubjectLogonId\"]"
+
+# Documentation:
+# https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4740
+#
+# Example Event Data:
+<Event>
+  <System>
+    <Provider Name="Microsoft-Windows-Security-Auditing" Guid="54842345-5478-4994-a5ba-3e3b0328c30d" />
+    <EventID>4740</EventID>
+    <Version>0</Version>
+    <Level>0</Level>
+    <Task>13845</Task>
+    <Opcode>0</Opcode>
+    <Keywords>0x8020000000090000</Keywords>
+    <TimeCreated SystemTime="2020-10-03 08:22:47.8750000" />
+    <EventRecordID>6375965559</EventRecordID>
+    <Correlation />
+    <Execution ProcessID="552" ThreadID="1236" />
+    <Channel>Security</Channel>
+    <Computer>HOSTNAME.domain.com</Computer>
+    <Security />
+  </System>
+  <EventData>
+    <Data Name="TargetUserName">username</Data>
+    <Data Name="TargetDomainName">DOMAIN</Data>
+    <Data Name="TargetSid">S-1-5-21-796856757-842925246-838762115-147259</Data>
+    <Data Name="SubjectUserSid">S-1-5-18</Data>
+    <Data Name="SubjectUserName">DOMAIN$</Data>
+    <Data Name="SubjectDomainName">DOMAIN</Data>
+    <Data Name="SubjectLogonId">0x3F7</Data>
+  </EventData>
+</Event>

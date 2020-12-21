@@ -1,0 +1,46 @@
+Author: Barrie Hill barrie0482@gmail.com
+Description: User initiated logoff   
+EventId: 4647
+Channel: Security
+Provider: Microsoft-Windows-Security-Auditing
+Maps: 
+  - 
+    Property: UserName
+    PropertyValue: "Target: %TargetDomainName%\\%TargetUserName%"
+    Values: 
+      - 
+        Name: TargetDomainName
+        Value: "/Event/EventData/Data[@Name=\"TargetDomainName\"]"
+      - 
+        Name: TargetUserName
+        Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
+ 
+# Documentation:
+# https://ponderthebits.com/2018/02/windows-rdp-related-event-logs-identification-tracking-and-investigation/
+# https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4647
+#
+# Example Event Data:
+#<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#  <System>
+#    <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-a5ba-3e3b0328c30d}" /> 
+#    <EventID>4647</EventID> 
+#    <Version>0</Version> 
+#    <Level>0</Level> 
+#    <Task>12545</Task> 
+#    <Opcode>0</Opcode> 
+#    <Keywords>0x8020000000000000</Keywords> 
+#    <TimeCreated SystemTime="2019-04-27T13:52:34.546260800Z" /> 
+#    <EventRecordID>90222</EventRecordID> 
+#    <Correlation ActivityID="{32dfcbe2-f43e-0002-74cc-df323ef4d401}" /> 
+#    <Execution ProcessID="940" ThreadID="11816" /> 
+#    <Channel>Security</Channel> 
+#    <Computer>pooh</Computer> 
+#    <Security /> 
+#  </System>
+#      <EventData>
+#      <Data Name="TargetUserSid">S-1-5-21-1987904521-730768085-2188298509-1001</Data> 
+#      <Data Name="TargetUserName">baz</Data> 
+#      <Data Name="TargetDomainName">POOH</Data> 
+#      <Data Name="TargetLogonId">0x12130a4a</Data> 
+#  </EventData>
+#</Event>

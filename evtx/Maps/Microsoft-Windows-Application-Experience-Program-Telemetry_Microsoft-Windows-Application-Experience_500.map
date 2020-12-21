@@ -1,0 +1,60 @@
+Author: Mike Pilkington
+Description: Application Experience Program Telemetry
+EventId: 500
+Channel: "Microsoft-Windows-Application-Experience/Program-Telemetry"
+Provider: Microsoft-Windows-Application-Experience
+Maps:
+  - 
+    Property: ExecutableInfo
+    PropertyValue: "%ExePath%"
+    Values: 
+      - 
+        Name: ExePath
+        Value: "/Event/UserData/CompatibilityFixEvent/ExePath" 
+  - 
+    Property: PayloadData1
+    PropertyValue: "ProcessId: %ProcessId%"
+    Values: 
+      - 
+        Name: ProcessId
+        Value: "/Event/UserData/CompatibilityFixEvent/ProcessId"
+  - 
+    Property: PayloadData2
+    PropertyValue: "StartTime: %StartTime%"
+    Values: 
+      - 
+        Name: StartTime
+        Value: "/Event/UserData/CompatibilityFixEvent/StartTime"
+
+# Documentation:
+# https://www.hecfblog.com/2018/09/daily-blog-474-application-experience.html
+#
+# Example Event Data:
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Application-Experience" Guid="eef99e71-0661-422d-9a98-82fd4940b820" />
+#    <EventID>500</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>0</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x1000000000090000</Keywords>
+#    <TimeCreated SystemTime="2018-06-25 01:16:27.4365335" />
+#    <EventRecordID>5108</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="13764" ThreadID="48912" />
+#    <Channel>Microsoft-Windows-Application-Experience/Program-Telemetry</Channel>
+#    <Computer>HOSTNAME.domain.com</Computer>
+#    <Security UserID="S-1-5-20" />
+#  </System>
+#  <UserData>
+#    <CompatibilityFixEvent>
+#      <ProcessId>13764</ProcessId>
+#      <StartTime>2018-06-25 01:16:27.4365335</StartTime>
+#      <FixID>1c2d23t3-dcd2-41e3-bd0b-25f05028c655</FixID>
+#      <Flags>0x40679</Flags>
+#      <ExePath>C:\Windows\SERVIC~2\NETWOR~1\AppData\Local\Temp\mpam-btba83b0.exe</ExePath>
+#      <FixName>RunAsInvoker</FixName>
+#    </CompatibilityFixEvent>
+#  </UserData>
+#</Event>

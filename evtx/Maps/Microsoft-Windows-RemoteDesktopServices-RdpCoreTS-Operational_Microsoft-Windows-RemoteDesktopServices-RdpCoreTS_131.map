@@ -1,0 +1,49 @@
+Author: Eric Zimmerman saericzimmerman@gmail.com
+Description: RDP server accepted a new TCP connection
+EventId: 131
+Channel: Microsoft-Windows-RemoteDesktopServices-RdpCoreTS/Operational
+Provider: Microsoft-Windows-RemoteDesktopServices-RdpCoreTS
+Maps: 
+  - 
+    Property: RemoteHost
+    PropertyValue: "%Address%"
+    Values: 
+      - 
+        Name: Address
+        Value: "/Event/EventData/Data[@Name=\"ClientIP\"]"
+  - 
+    Property: PayloadData1
+    PropertyValue: "Connection Type: %ConnType%"
+    Values: 
+      - 
+        Name: ConnType
+        Value: "/Event/EventData/Data[@Name=\"ConnType\"]"
+
+# Documentation:
+# The server accepted a new TCP connection from client 174.x.x.x:30022.
+# https://dfironthemountain.wordpress.com/2019/02/15/rdp-event-log-dfir/
+#
+# Example Event Data:
+#</Event>
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-RemoteDesktopServices-RdpCoreTS" Guid="1139c61b-b549-4251-8ed3-27250a1edec8" />
+#    <EventID>131</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>4</Task>
+#    <Opcode>15</Opcode>
+#    <Keywords>0x4000000000000000</Keywords>
+#    <TimeCreated SystemTime="2018-07-23 16:24:06.0572055" />
+#    <EventRecordID>1743</EventRecordID>
+#    <Correlation ActivityID="a3f1f58e-1434-4c4a-9018-54513ab80000" />
+#    <Execution ProcessID="464" ThreadID="1848" />
+#    <Channel>Microsoft-Windows-RemoteDesktopServices-RdpCoreTS/Operational</Channel>
+#    <Computer>base-rd-01.shieldbase.lan</Computer>
+#    <Security UserID="S-1-5-20" />
+#  </System>
+#  <EventData>
+#    <Data Name="ConnType">UDP</Data>
+#    <Data Name="ClientIP">[192.168.30.10]:65464</Data>
+#  </EventData>
+#</Event>
