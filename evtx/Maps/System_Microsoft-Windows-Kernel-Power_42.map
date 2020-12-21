@@ -21,13 +21,11 @@ Lookups:
         6: Hibernate from sleep - Fixed timeout
         7: System idle
 
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
-
-#Sample Event - derived from the event template.
+# Documentation:
+# https://www.eventid.net/display.asp?eventid=42&source=Microsoft-Windows-Kernel-Power
+# https://superuser.com/questions/1060259/system-went-to-sleep-last-night-for-no-good-reason
+#
+# Example Event Data:sys
 #<Event>
   #<System>
     #<Provider Name="Microsoft-Windows-Kernel-Power" Guid="331c3b3a-2005-44c2-ac5e-77220c37d6b4" />
@@ -53,3 +51,4 @@ Lookups:
     #<Data Name="TransitionsToOn">1</Data>
   #</EventData>
 #</Event>
+https://www.forensicfocus.com/forums/general/event-id-42-1/

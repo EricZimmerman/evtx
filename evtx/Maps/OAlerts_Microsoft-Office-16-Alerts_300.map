@@ -20,12 +20,12 @@ Maps:
         Name: PayloadData2
         Value: "/Event/EventData/Data"
         Refine: "(?<=, )[^,\\d]+(?=,)"       
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
-# Example XML, from Dutch office:
+
+# Documentation:
+# https://medium.com/@bromiley/oalerts-the-microsoft-office-event-log-ad164e1eec0f
+# https://social.technet.microsoft.com/Forums/ie/en-US/6f684761-12f1-453f-aa37-57ae50828ee7/microsoft-outlook-event-id-300-quotwe-need-to-know-who-to-send-this-to-make-sure-you-enter-at?forum=officeitpro
+#
+# Example Event Data:
 #<Event>
 #  <System>
 #    <Provider Name="Microsoft Office 16 Alerts" />

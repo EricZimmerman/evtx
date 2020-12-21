@@ -47,8 +47,10 @@ Maps:
         Name: CipherAlgorithm
         Value: "/Event/EventData/Data[@Name=\"CipherAlgorithm\"]"
 
-# Valid properties include:
-
+# Documentation:
+# https://www.sans.org/blog/making-the-most-out-of-wlan-event-log-artifacts/
+#
+# Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
 #     <Provider Name="Microsoft-Windows-WLAN-AutoConfig" Guid="{GUID}" /> 

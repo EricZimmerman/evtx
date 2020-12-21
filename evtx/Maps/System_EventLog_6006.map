@@ -12,14 +12,15 @@ Maps:
         Name: Computer
         Value: "/Event/System/Computer"
         
-# Event 6006 occurs at shutdown time showing that the Event Log service was stopped and indicating a clean shutdown. 
 # 
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
-
+# 
+# Documentation:
+# Event 6006 occurs at shutdown time showing that the Event Log service was stopped and indicating a clean shutdown. 
+# https://www.manageengine.com/products/active-directory-audit/kb/system-events/event-id-6006.html
+# https://www.howtogeek.com/277688/how-do-you-find-out-if-windows-was-running-at-a-given-time/
+# https://community.spiceworks.com/topic/237386-event-log-time-when-computer-start-up-boot-up
+#
+# Example Event Data:
 #<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
 #       <Provider Name="EventLog" /> 

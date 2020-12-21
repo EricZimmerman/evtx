@@ -15,13 +15,10 @@ Maps:
         Name: VhdNumber
         Value: "/Event/EventData/Data[@Name=\"VhdDiskNumber\"]"
 
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
-
-
+# Documentation:
+# N/A
+#
+# Example Event Data:
 #<Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-VHDMP" Guid="e2816346-87f4-4f85-95c3-0c79409aa89d" />

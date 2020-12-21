@@ -36,13 +36,11 @@ Lookups:
         5: Device (See WakeSourceText for details)
         6: Timer (See WakeSourceText for details)
 
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
-
-#Sample Event - derived from the event template.
+# Documentation:
+# https://www.forensicfocus.com/forums/general/event-id-42-1/
+# https://eventlogxp.com/blog/troubleshooting-unplanned-windows-automatic-wake-up/
+#
+# Example Event Data:
 #<Event>
   #<System>
     #<Provider Name="Microsoft-Windows-Power-Troubleshooter" Guid="cdc05e28-c449-49c6-b9d2-88cf761644df" />

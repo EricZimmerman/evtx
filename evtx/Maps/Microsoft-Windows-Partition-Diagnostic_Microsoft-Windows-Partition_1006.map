@@ -47,4 +47,13 @@ Maps:
         Name: ParentId
         Value: "/Event/EventData/Data[@Name=\"ParentId\"]"
         
-# Frankly, there is too much data to fit within 6 PayloadData columns. As always, all data is in the Payload column but there isn't enough room to map out all the information cleanly. There is a great blog post with more information here: https://www.atropos4n6.com/windows/extract-vsns-that-reside-in-windows-partition4diagnostic-evtx/. 
+# Frankly, there is too much data to fit within 6 PayloadData columns. As always, all data is in the Payload column but there isn't enough room to map out all the information cleanly.
+#
+# Documentation:
+# https://www.atropos4n6.com/windows/extract-vsns-that-reside-in-windows-partition4diagnostic-evtx/
+# https://df-stream.com/2018/05/partition-diagnostic-event-log-and-usb-device-tracking-p1/
+# https://df-stream.com/2018/07/partition-diagnostic-event-log-and-usb-device-tracking-p2/
+# https://forensixchange.com/posts/19_08_03_usb_storage_forensics_1/
+# 
+# Example Event Data:
+# See documentation above

@@ -163,13 +163,13 @@ Lookups:
         50331727: Your trial period for Azure RemoteApp has expired
         50331728: You no longer have access to Azure RemoteApp
  
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
-
-
+# Documentation:
+# https://social.technet.microsoft.com/wiki/contents/articles/37870.remote-desktop-client-troubleshooting-disconnect-codes-and-reasons.aspx
+# https://cyber-tls.blogspot.com/2019/08/rdp.html
+# https://social.technet.microsoft.com/wiki/contents/articles/37847.rdp-direct-connection-with-nla-remote-desktop-client-event-logs.aspx
+# https://nullsec.us/windows-rdp-related-event-logs-the-client-side-of-the-story/
+#
+# Example Event Data:
 # <Event>
   # <System>
     # <Provider Name="Microsoft-Windows-TerminalServices-ClientActiveXCore" Guid="28aa95bb-d444-4719-a36f-40462168127e" />
@@ -193,5 +193,3 @@ Lookups:
     # <Data Name="CustomLevel">Info</Data>
   # </EventData>
 # </Event>
-
-#Reference: https://social.technet.microsoft.com/wiki/contents/articles/37870.remote-desktop-client-troubleshooting-disconnect-codes-and-reasons.aspx

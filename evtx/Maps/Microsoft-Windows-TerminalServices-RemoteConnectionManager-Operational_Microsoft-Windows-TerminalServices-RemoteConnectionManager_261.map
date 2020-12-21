@@ -12,13 +12,10 @@ Maps:
         Name: listenerName
         Value: "/Event/UserData/EventXML/listenerName"
  
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
-
-#	RDP Listener received a connection
+# Documentation:
+# https://kb.eventtracker.com/evtpass/evtpages/EventId_261_Microsoft-Windows-TerminalServices-RemoteConnectio_63716.asp
+#
+# Example Event Data:
 #<Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-TerminalServices-RemoteConnectionManager" Guid="c76baa63-ae81-421c-b425-340b4b24157f" />

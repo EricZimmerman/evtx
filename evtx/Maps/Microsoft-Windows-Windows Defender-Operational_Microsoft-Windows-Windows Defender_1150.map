@@ -12,12 +12,10 @@ Maps:
         Name: Signature
         Value: "/Event/EventData/Data[@Name=\"Signature version\"]"
 
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
-# Example XML for this event:
+# Documentation:
+# https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-antivirus/troubleshoot-microsoft-defender-antivirus
+#
+# Example Event Data:
 #<Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Windows Defender" Guid="{11cd958a-c507-4ef3-b3f2-5fd9dfbd2c78}" /> 

@@ -12,12 +12,10 @@ Maps:
         Name: CommandLine
         Value: "/Event/EventData/Data[@Name=\"Command\"]"
    
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
-# XML for this event (based on event template):
+# Documentation:
+# https://www.geoffchappell.com/notes/windows/shell/events/core.htm
+#
+# Example Event Data:
 #<Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Shell-Core" Guid="30336ed4-e327-447c-9de0-51b652c86108" />

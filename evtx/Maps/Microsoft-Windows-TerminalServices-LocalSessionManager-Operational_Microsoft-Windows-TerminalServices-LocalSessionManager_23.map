@@ -19,13 +19,14 @@ Maps:
         Name: SessionID
         Value: "/Event/UserData/EventXML/SessionID"
         
- 
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
-
+# Documentation:
+# https://ponderthebits.com/2018/02/windows-rdp-related-event-logs-identification-tracking-and-investigation/
+# https://www.13cubed.com/downloads/rdp_flowchart.pdf
+# https://dfironthemountain.wordpress.com/2019/02/15/rdp-event-log-dfir/
+# http://woshub.com/rdp-connection-logs-forensics-windows/
+# https://countuponsecurity.com/2015/11/25/digital-forensics-supertimeline-event-logs-part-ii/
+#
+# Example Event Data:
 #<Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-TerminalServices-LocalSessionManager" Guid="5d896912-022d-40aa-a3a8-4fa5515c76d7" />

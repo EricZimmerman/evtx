@@ -2,7 +2,7 @@ Author: Troy Larson
 Description: Scan has finished.
 EventId: 1001
 Channel: Microsoft-Windows-Windows Defender/Operational
-Provider: Microsoft-Windows-Windows Defender
+Provider: "Microsoft-Windows-Windows Defender"
 Maps: 
   - 
     Property: UserName
@@ -55,12 +55,10 @@ Maps:
         Name: Seconds
         Value: "/Event/EventData/Data[@Name=\"Scan Time Seconds\"]"  
 
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
-# Example XML for this event:
+# Documentation:
+# https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-antivirus/troubleshoot-microsoft-defender-antivirus
+#
+# Example Event Data:
 #<Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Windows Defender" Guid="{11cd958a-c507-4ef3-b3f2-5fd9dfbd2c78}" /> 

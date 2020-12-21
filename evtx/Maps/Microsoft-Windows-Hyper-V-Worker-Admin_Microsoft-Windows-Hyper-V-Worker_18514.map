@@ -15,12 +15,10 @@ Maps:
         Name: VmId
         Value: "/Event/UserData/VmlEventLog/VmId"
 
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
+# Documentation:
+# https://p0w3rsh3ll.wordpress.com/tag/hyper-v/
 #
+# Example Event Data:
 #<Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Hyper-V-Worker" Guid="51hhfa29-d5c8-4803-be4b-2ecb715570fe" />

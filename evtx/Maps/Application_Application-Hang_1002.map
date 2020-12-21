@@ -12,8 +12,11 @@ Maps:
         Name: Data
         Value: "/Event/EventData/Data[text()]"
         
-# Valid properties include:
-
+# Documentation:
+# https://www.manageengine.com/products/eventlog/kb/event-1002-application-hang-error-help.html
+# https://kb.eventtracker.com/evtpass/evtpages/EventId_1002_ApplicationHang_61398.asp
+#
+# Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
 #     <Provider Name="Application Hang" /> 

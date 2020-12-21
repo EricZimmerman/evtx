@@ -1,5 +1,5 @@
 Author: Phill Moore
-Description: Hyper-V VM started successfully
+Description: Hyper-V VM was shut down
 EventId: 18508
 Channel: "Microsoft-Windows-Hyper-V-Worker-Admin"
 Provider: Microsoft-Windows-Hyper-V-Worker
@@ -15,8 +15,8 @@ Maps:
         Name: VmId
         Value: "/Event/UserData/VmlEventLog/VmId"
 
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
+# Documentation:
+# https://p0w3rsh3ll.wordpress.com/tag/hyper-v/
+#
+# Example Event Data:
+# N/A

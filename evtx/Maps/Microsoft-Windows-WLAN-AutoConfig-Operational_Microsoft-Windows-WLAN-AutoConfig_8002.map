@@ -40,8 +40,10 @@ Maps:
         Name: FailureReason
         Value: "/Event/EventData/Data[@Name=\"FailureReason\"]"
 
-# Valid properties include:
-
+# Documentation:
+# https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-r2-and-2008/cc735927(v=ws.10)
+#
+# Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
 #     <Provider Name="Microsoft-Windows-WLAN-AutoConfig" Guid="{GUID}" /> 

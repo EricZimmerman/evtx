@@ -18,15 +18,12 @@ Maps:
       - 
         Name: ConnType
         Value: "/Event/EventData/Data[@Name=\"ConnType\"]"
- 
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
 
-
-#The server accepted a new TCP connection from client 174.x.x.x:30022.
+# Documentation:
+# The server accepted a new TCP connection from client 174.x.x.x:30022.
+# https://dfironthemountain.wordpress.com/2019/02/15/rdp-event-log-dfir/
+#
+# Example Event Data:
 #</Event>
 #<Event>
 #  <System>

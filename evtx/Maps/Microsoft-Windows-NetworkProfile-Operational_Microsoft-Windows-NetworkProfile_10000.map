@@ -12,13 +12,10 @@ Maps:
         Name: PayloadData1
         Value: "/Event/EventData/Data[@Name=\"Description\"]"
 
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
-
-# Example payload data
+# Documentation:
+# https://www.winhelponline.com/blog/trigger-launch-program-script-connecting-to-specific-network/
+#
+# Example Event Data:
 #<Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-NetworkProfile" Guid="fbcfac3f-8459-419f-8e48-1f0b49cdb85e" />

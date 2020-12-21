@@ -19,8 +19,17 @@ Maps:
         Name: LifetimeId
         Value: "/Event/UserData/UMDFHostDeviceRequest/LifetimeId"
         
-# Valid properties include:
-
+# Documentation:
+# Windows Vista, 7 : enable (default)
+# Windows 8~ : disable (default)
+# https://nxlog.co/documentation/nxlog-user-guide/windows-usb-auditing.html
+# https://www.reddit.com/r/sysadmin/comments/4dr2t2/security_guy_wants_to_log_usb_storage_devices_on/
+# https://www.netscylla.com/blog/2020/02/03/Windows-Event-Logs-and-USB-Tracking.html
+# https://www.techrepublic.com/article/how-to-track-down-usb-flash-drive-usage-in-windows-10s-event-viewer/
+# https://social.technet.microsoft.com/Forums/windows/en-US/f478191c-edb3-4510-80cf-2c7de0696baa/retrieving-usb-devices-connection-from-event-log-evtx-file?forum=winserverpowershell
+# https://df-stream.com/2014/01/the-windows-7-event-log-and-usb-device/
+#
+# Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
 #     <Provider Name="Microsoft-Windows-DriverFrameworks-UserMode" Guid="{GUID}" /> 
@@ -52,8 +61,3 @@ Maps:
 #     </UMDFHostDeviceRequest>
 #   </UserData>
 # </Event>
-# 
-# Windows Vista, 7 : enable (default)
-# Windows 8~ : disable (default)
-# https://nxlog.co/documentation/nxlog-user-guide/windows-usb-auditing.html
-# https://www.reddit.com/r/sysadmin/comments/4dr2t2/security_guy_wants_to_log_usb_storage_devices_on/

@@ -11,14 +11,11 @@ Maps:
       - 
         Name: Data
         Value: "/Event/EventData/Data"
-
-        
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
-
+     
+# Documentation:
+# N/A
+#
+# Example Event Data:
 #<Event>
 #  <System>
 #    <Provider Name="HitmanPro.Alert" />
@@ -37,4 +34,4 @@ Maps:
 #    <Binary></Binary>
 #  </EventData>
 #</Event>
-#<Event>
+ 

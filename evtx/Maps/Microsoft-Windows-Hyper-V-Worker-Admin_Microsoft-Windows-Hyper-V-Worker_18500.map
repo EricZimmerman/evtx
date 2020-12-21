@@ -15,13 +15,10 @@ Maps:
         Name: VmName
         Value: "/Event/UserData/VmlEventLog/VmName"
 
-
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
-
+# Documentation:
+# https://p0w3rsh3ll.wordpress.com/tag/hyper-v/
+#
+# Example Event Data: (Needs full event)
 # <UserData>
 #    <VmlEventLog>
 #      <VmName>AIM_K1381101B.E01_391C73D9</VmName>

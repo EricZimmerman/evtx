@@ -26,12 +26,10 @@ Maps:
         Name: Status
         Value: "/Event/UserData/FilePathPublisherNameAndStatusData/Status"
         
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
-
+# Documentation:
+# N/A
+#
+# Example Event Data:
 # <Event>
   # <System>
     # <Provider Name="Microsoft-Windows-AppID" ="{3cb2a168-fe19-4a4e-bdad-dcf422f13473}"/>

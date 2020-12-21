@@ -19,13 +19,10 @@ Maps:
         Name: Payload
         Value: "/Event/EventData/Data[@Name=\"payload\"]"
         
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
-
-#Sample Event
+# Documentation:
+# N/A
+#
+# Example Event Data:
 #<System>
 # <Provider Name="OpenSSH" Guid="{c4b57d35-0636-4bc3-a262-370f249f9802}" /> 
 # <EventID>4</EventID> 

@@ -38,16 +38,10 @@ Maps:
         Name: SubjectLogonId
         Value: "/Event/EventData/Data[@Name=\"SubjectLogonId\"]"
 
-
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
+# Documentation:
+# https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4724
 #
-# https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4725
-#
-# Example payload data
+# Example Event Data:
 #- <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #- <System>
 # <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-A5BA-3E3B0328C30D}" /> 

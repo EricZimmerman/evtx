@@ -31,14 +31,10 @@ Maps:
         Name: TargetSid
         Value: "/Event/EventData/Data[@Name=\"TargetSid\"]"
 
-
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
-
-# Example payload data
+# Documentation:
+# https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4720
+#
+# Example Event Data:
 #   <EventData>
 #     <Data Name="TargetUserName">defaultuser1</Data>
 #     <Data Name="TargetDomainName">MICROSO-F9QCQ4I</Data>

@@ -46,13 +46,11 @@ Maps:
       - 
         Name: FullFilePath
         Value: "/Event/UserData/RuleAndFileData/FullFilePath"
-        
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
 
+# Documentation:
+# https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-application-control/applocker/using-event-viewer-with-applocker
+#
+# Example Event Data:
 # <Event>
   # <System>
     # <Provider Name="Microsoft-Windows-AppLocker" Guid="xxxxxxxxxxxxxxx" />

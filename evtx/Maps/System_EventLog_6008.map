@@ -12,12 +12,11 @@ Maps:
         Name: Data
         Value: "/Event/EventData/Data"
         
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
+# Documentation:
+# https://support.microsoft.com/en-us/help/326564/event-id-6008-is-unexpectedly-logged-to-the-system-event-log-after-you
+# https://www.manageengine.com/products/active-directory-audit/kb/system-events/event-id-6008.html
 #
+# Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
 #     <Provider Name="EventLog" /> 

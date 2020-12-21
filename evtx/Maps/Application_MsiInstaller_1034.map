@@ -12,8 +12,10 @@ Maps:
         Name: Data
         Value: "/Event/EventData/Data[text()]"
 
-# Valid properties include:
-
+# Documentation:
+# https://kb.eventtracker.com/evtpass/evtpages/EventId_1034_MsiInstaller_63315.asp
+#
+# Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
 #     <Provider Name="MsiInstaller" /> 

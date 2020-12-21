@@ -19,9 +19,10 @@ Maps:
         Name: ScriptBlockText
         Value: "/Event/EventData/Data[@Name=\"ScriptBlockText\"]"
         
- 
-# Valid properties include:
-
+# Documentation:
+# N/A
+#
+# Example Event Data:
 # <EventData>
 #     <Data Name="MessageNumber">2</Data>
 #     <Data Name="MessageTotal">8</Data>

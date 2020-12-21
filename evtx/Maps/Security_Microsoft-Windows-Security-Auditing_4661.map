@@ -42,14 +42,11 @@ Maps:
       - 
         Name: ProcessName
         Value: "/Event/EventData/Data[@Name=\"ProcessName\"]"
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
 
-# Example payload data
-#  <EventData>
+# Documentation:
+# https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4661
+#
+# Example Event Data:
 #    <Data Name="SubjectUserSid">S-1-5-21-1587066498-1489273250-1035260531-500</Data>
 #    <Data Name="SubjectUserName">administrator</Data>
 #    <Data Name="SubjectDomainName">EXAMPLE</Data>
