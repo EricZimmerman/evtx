@@ -857,7 +857,7 @@ namespace EvtxECmd
             {
                 fileS = new FileStream(file, FileMode.Open, FileAccess.Read);
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 //file is in use
                 
