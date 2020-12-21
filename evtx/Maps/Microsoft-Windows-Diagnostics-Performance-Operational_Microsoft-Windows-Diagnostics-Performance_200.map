@@ -26,8 +26,13 @@ Maps:
         Name: ShutdownTime
         Value: "/Event/EventData/Data[@Name=\"ShutdownTime\"]"
 
-# Valid properties include:
-
+# Documentation:
+# https://social.technet.microsoft.com/wiki/contents/articles/3186.event-id-200-windows-diagnostics-performance.aspx
+# https://social.technet.microsoft.com/Forums/en-US/51c55b96-09c3-40c7-92a3-814d09f0004c/diagnosticsperformance-source-event-id-200-100-is-not-logging-on-after-cold-bootshutdownrestart?forum=win10itprogeneral
+# https://kb.eventtracker.com/evtpass/evtPages/EventId_200_Microsoft-Windows-Diagnostics-Performance_61662.asp
+# https://eventlogxp.com/blog/windows-boot-performance-diagnostics-1/
+#
+# Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
 #     <Provider Name="Microsoft-Windows-Diagnostics-Performance" Guid="{GUID}" /> 

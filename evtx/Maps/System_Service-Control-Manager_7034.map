@@ -12,14 +12,11 @@ Maps:
         Name: ServiceName
         Value: "/Event/EventData/Data[@Name=\"param1\"]"
 
-
-        
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
-
+# Documentation:
+# https://kb.eventtracker.com/evtpass/evtpages/EventId_7034_ServiceControlManager_45455.asp
+# https://social.technet.microsoft.com/wiki/contents/articles/1363.windows-server-2008-event-id-7034-service-stop-operations.aspx
+#
+# Example Event Data:
 #<Event>
 #  <System>
 #    <Provider Name="Service Control Manager" Guid="{555908d1-a6d7-4695-8e1e-26931d2012f4}" EventSourceName="Service Control Manager" />

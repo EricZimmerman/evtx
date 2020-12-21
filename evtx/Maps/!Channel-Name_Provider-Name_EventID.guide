@@ -1,0 +1,161 @@
+Author: Your name/contact information (optional) goes here
+Description: Event description goes here
+EventId: EventID number goes here
+Channel: Channel goes here
+Provider: Provider goes here
+# Delete all of these commented lines before submitting your map, including those after the Property values below. Below is an example of Properties and how they can be used in your map.
+# Filename for the map should follow the title of this file. _ separates Channel from Provider from EventID. - replaces any spaces or special characters in either Channel Name or Provider Name. Your filename may be long and that is okay. 
+# The value for "Property: " must be one of the following: RemoteHost, Username, ExecutableInfo, PayloadData1, PayloadData2, PayloadData3, PayloadData4, PayloadData5, or PayloadData6. 
+# The value(s) for "PropertyValue: " must match whatever you list below under Values for the Name(s). PropertyValue will determine how the data pulled from Name and Value will look to the end user within the CSV output. 
+# When organizing your PayloadData columns, if your event is similar to preexisting maps, try to follow the same pattern others follow for consistency during analysis. A good example of this is the Sysmon logs. 
+# PayloadData5 below includes an example of using regex.
+# PayloadData6 below includes an example of a Lookup Table. 
+# No space between "Provider:"" and "Maps:", please.
+Maps: 
+  - 
+    Property: Username # Username --> if at all possible, try to include DOMAIN\username if that information is recorded in the event.
+    PropertyValue: "%domain%\\%user%"
+    Values: 
+      - 
+        Name: domain
+        Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
+      - 
+        Name: user
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
+  - 
+    Property: RemoteHost # RemoteHost --> used for IP addresses, hostname, or anything else that could identify a remote host within an event.
+    PropertyValue: "%Address%"
+    Values: 
+      - 
+        Name: Address
+        Value: "/Event/UserData/EventXML/Address"
+  - 
+    Property: ExecutableInfo # ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
+    PropertyValue: "%ProcessName%"
+    Values: 
+      - 
+        Name: ProcessName
+        Value: "/Event/EventData/Data[@Name=\"ProcessName\"]"
+  - 
+    Property: PayloadData1 # PayloadData1 through PayloadData6 --> use these to logically organize the data that normally resides within the Payload column into something more human readable and easily scannable when examining EVTXECmd CSV output. Delete whatever you don't need as not all events have enough data to populate all 6 PayloadData columns.
+    PropertyValue: "Target: %TargetDomainName%\\%TargetUserName%"
+    Values: 
+      - 
+        Name: TargetDomainName
+        Value: "/Event/EventData/Data[@Name=\"TargetDomainName\"]"
+      - 
+        Name: TargetUserName
+        Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
+  - 
+    Property: PayloadData2 
+    PropertyValue: "Target: %TargetDomainName%\\%TargetUserName%"
+    Values: 
+      - 
+        Name: TargetDomainName
+        Value: "/Event/EventData/Data[@Name=\"TargetDomainName\"]"
+      - 
+        Name: TargetUserName
+        Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
+  - 
+    Property: PayloadData3 
+    PropertyValue: "Target: %TargetDomainName%\\%TargetUserName%"
+    Values: 
+      - 
+        Name: TargetDomainName
+        Value: "/Event/EventData/Data[@Name=\"TargetDomainName\"]"
+      - 
+        Name: TargetUserName
+        Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
+  - 
+    Property: PayloadData4 
+    PropertyValue: "Target: %TargetDomainName%\\%TargetUserName%"
+    Values: 
+      - 
+        Name: TargetDomainName
+        Value: "/Event/EventData/Data[@Name=\"TargetDomainName\"]"
+      - 
+        Name: TargetUserName
+        Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
+  - 
+    Property: PayloadData5 # Here is an example of regex taken from Cisco-AnyConnect-Secure-Mobility-Client_acvpnagent_2127.map.
+    PropertyValue: "%PayloadData5% assigned"
+    Values: 
+      - 
+        Name: PayloadData5
+        Value: "/Event/EventData/Data"
+        Refine: "IPv4 address: [0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}"
+  - 
+    Property: PayloadData6
+    PropertyValue: "Wake source: %WakeSourceType%"
+    Values: 
+      - 
+        Name: WakeSourceType
+        Value: "/Event/EventData/Data[@Name=\"WakeSourceType\"]"
+Lookups: # Here is an example of a Lookup Table taken from System_Microsoft-Windows-Power-Troubleshooter_1.map. For more examples, check Microsoft-Windows-TerminalServices-RDPClient-Operational_Microsoft-Windows-TerminalServices-ClientActiveXCore_1026.map and System_Microsoft-Windows-Kernel-Power_42.map.
+  -
+    Name: WakeSourceType
+    Default: Unknown code
+    Values:
+        0: Unknown
+        1: Power button
+        3: Waking from sleep to hibernate
+        5: Device (See WakeSourceText for details)
+        6: Timer (See WakeSourceText for details)
+
+# Delete this line. Please follow the below format when submitting your map. Also, be sure to test your map out on your own data so you know it produces the desired result!
+#
+# Documentation:
+# insert relevant link(s) here, i.e. official Microsoft documentation, any relevant research, blogs, etc. One URL per line, please, and be sure to comment it out! If there is none, please write N/A.
+# 
+# Delete this line. Under Example Event Data, please "cite your source" and cleanse your data of any identifying information so the community can see how these events record the data in the XML format. To convert a .evtx file to XML format, check the README and search for XML. Microsoft often has example XML data that can be used. For other events, be sure sensitive data is removed before you make a commit to GitHub!
+#
+# Example Event Data:
+#- <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#- <System>
+# <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-A5BA-3E3B0328C30D}" /> 
+# <EventID>4742</EventID> 
+# <Version>0</Version> 
+# <Level>0</Level> 
+# <Task>13825</Task> 
+# <Opcode>0</Opcode> 
+# <Keywords>0x8020000000000000</Keywords> 
+# <TimeCreated SystemTime="2015-08-14T02:35:01.252397000Z" /> 
+# <EventRecordID>171754</EventRecordID> 
+# <Correlation /> 
+# <Execution ProcessID="520" ThreadID="1108" /> 
+# <Channel>Security</Channel> 
+# <Computer>DC01.contoso.local</Computer> 
+# <Security /> 
+# </System>
+#- <EventData>
+# <Data Name="ComputerAccountChange">-</Data> 
+# <Data Name="TargetUserName">WIN81$</Data> 
+# <Data Name="TargetDomainName">CONTOSO</Data> 
+# <Data Name="TargetSid">S-1-5-21-3457937927-2839227994-823803824-6116</Data> 
+# <Data Name="SubjectUserSid">S-1-5-21-3457937927-2839227994-823803824-1104</Data> 
+# <Data Name="SubjectUserName">dadmin</Data> 
+# <Data Name="SubjectDomainName">CONTOSO</Data> 
+# <Data Name="SubjectLogonId">0x2e80c</Data> 
+# <Data Name="PrivilegeList">-</Data> 
+# <Data Name="SamAccountName">-</Data> 
+# <Data Name="DisplayName">-</Data> 
+# <Data Name="UserPrincipalName">-</Data> 
+# <Data Name="HomeDirectory">-</Data> 
+# <Data Name="HomePath">-</Data> 
+# <Data Name="ScriptPath">-</Data> 
+# <Data Name="ProfilePath">-</Data> 
+# <Data Name="UserWorkstations">-</Data> 
+# <Data Name="PasswordLastSet">-</Data> 
+# <Data Name="AccountExpires">-</Data> 
+# <Data Name="PrimaryGroupId">-</Data> 
+# <Data Name="AllowedToDelegateTo">%%1793</Data> 
+# <Data Name="OldUacValue">0x80</Data> 
+# <Data Name="NewUacValue">0x2080</Data> 
+# <Data Name="UserAccountControl">%%2093</Data> 
+# <Data Name="UserParameters">-</Data> 
+# <Data Name="SidHistory">-</Data> 
+# <Data Name="LogonHours">-</Data> 
+# <Data Name="DnsHostName">-</Data> 
+# <Data Name="ServicePrincipalNames">-</Data> 
+# </EventData>
+# </Event>

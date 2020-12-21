@@ -1,5 +1,5 @@
 Author: Hyun Yi @hyuunnn
-Description: Windows System was started.
+Description: Windows System was started
 EventId: 100
 Channel: "Microsoft-Windows-Diagnostics-Performance/Operational"
 Provider: Microsoft-Windows-Diagnostics-Performance
@@ -26,8 +26,12 @@ Maps:
         Name: BootTime
         Value: "/Event/EventData/Data[@Name=\"BootTime\"]"
 
-# Valid properties include:
-
+# Documentation:
+# https://answers.microsoft.com/en-us/windows/forum/windows_7-performance/critical-error-100-in-event-viewer/f606bf89-3b71-4695-a26a-3eaffd31eade
+# https://social.technet.microsoft.com/wiki/contents/articles/11559.event-id-100-windows-diagnostics-performance.aspx
+# https://eventlogxp.com/blog/windows-boot-performance-diagnostics-1/
+#
+# Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
 #     <Provider Name="Microsoft-Windows-Diagnostics-Performance" Guid="{GUID}" /> 

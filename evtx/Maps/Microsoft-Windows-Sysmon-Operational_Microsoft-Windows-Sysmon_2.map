@@ -51,17 +51,12 @@ Maps:
         Name: PreviousCreationUTCTime
         Value: "/Event/EventData/Data[@Name=\"PreviousCreationUtcTime\"]"
         
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
-# Hashes --> SHA1 of the Process that was created. Useful for running through VirusTotal if suspicious. 
+# Documentation:
+# https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon#events
+# https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES
+# https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/default.aspx - filter on Sysmon
 #
-# https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon#events for more documentation
-# See also https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=90002
-# Example of event, thanks to https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES
-#
+# Example Event Data:
 #<Event>
 # <System>
 #   <Provider Name="Microsoft-Windows-Sysmon" Guid="5770385f-c22a-43e0-bf4c-06f5698ffbd9" />

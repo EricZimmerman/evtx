@@ -28,12 +28,14 @@ Maps:
         Name: HostVersion
         Value: "/Event/EventData/Data"
         Refine: "HostVersion=(.+)"
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
-# Example XML for this event:
+
+# Documentation:
+# https://static1.squarespace.com/static/552092d5e4b0661088167e5c/t/59c1814829f18782e24f1fe2/1505853768977/Windows+PowerShell+Logging+Cheat+Sheet+ver+Sept+2017+v2.1.pdf
+# https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=600
+# https://www.powershellmagazine.com/2014/07/16/investigating-powershell-attacks/
+# https://nsfocusglobal.com/Attack-and-Defense-Around-PowerShell-Event-Logging
+#
+# Example Event Data:
 #<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 # <System>
 #    <Provider Name="PowerShell" /> 

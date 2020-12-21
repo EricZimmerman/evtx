@@ -33,13 +33,11 @@ Maps:
         Name: User
         Value: "/Event/UserData/Operation_TemporaryEssStarted/User"    
  
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
-
-#WMI Registration of Temporary Event Consumer
+# Documentation:
+# https://www.darkoperator.com/blog/2017/10/14/basics-of-tracking-wmi-activity
+# WMI Registration of Temporary Event Consumer
+#
+# Example Event Data:
 #<Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-WMI-Activity" Guid="1418ef04-b0b4-4623-bf7e-d74ab47bbdaa" />

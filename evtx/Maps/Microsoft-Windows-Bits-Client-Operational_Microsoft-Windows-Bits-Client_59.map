@@ -26,13 +26,12 @@ Maps:
         Name: fileLength
         Value: "/Event/EventData/Data[@Name=\"fileLength\"]" 
 
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
-
-# Example payload data
+# Documentation:
+# https://kb.eventtracker.com/evtpass/evtPages/EventId_59_Microsoft-Windows-Bits-Client_64109.asp
+# https://jpcertcc.github.io/ToolAnalysisResultSheet/details/BITS.htm
+# https://www.sans.org/reading-room/whitepapers/forensics/bits-forensics-39195
+#
+# Example Event Data:
 #<Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Bits-Client" Guid="ef6y679b-46c1-414e-bb95-e76b077bd51e" />

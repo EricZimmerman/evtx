@@ -26,13 +26,10 @@ Maps:
         Name: StartTime
         Value: "/Event/UserData/CompatibilityFixEvent/StartTime"
 
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
-
-# Example payload data
+# Documentation:
+# N/A
+#
+# Example Event Data:
 #<Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Application-Experience" Guid="eef578991-0661-422d-9a98-82fd4940b820" />

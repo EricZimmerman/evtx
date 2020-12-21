@@ -37,13 +37,10 @@ Maps:
         Value: "/Event/EventData/Data"
         Refine: "Action Description:.*"
 
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
-
-# Example payload data
+# Documentation:
+# https://www.eventid.net/display-eventid-51-source-Symantec%20AntiVirus-eventno-9552-phase-1.htm
+#
+# Example Event Data:
 # <Event>
   # <System>
     # <Provider Name="Symantec Endpoint Protection Client" />

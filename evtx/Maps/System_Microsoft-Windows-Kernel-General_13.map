@@ -12,8 +12,11 @@ Maps:
         Name: StopTime
         Value: "/Event/EventData/Data[@Name=\"StopTime\"]"
 
-# Valid properties include:
-
+# Documentation:
+# https://www.eventid.net/display-eventid-13-source-Kernel-General-eventno-11373-phase-1.htm
+# https://social.technet.microsoft.com/Forums/azure/en-US/c4281d71-0152-473a-8abf-80ab1694f24d/event-id12?forum=win10itprogeneral
+#
+# Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
 #     <Provider Name="Microsoft-Windows-Kernel-General" Guid="{GUID}" /> 

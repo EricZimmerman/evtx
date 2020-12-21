@@ -22,14 +22,12 @@ Maps:
         Name: Status
         Value: "/Event/EventData/Data[@Name=\"param2\"]"
 
-
-        
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
-
+# Documentation:
+# https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc756308(v=ws.10)?redirectedfrom=MSDN
+# https://kb.eventtracker.com/evtpass/evtPages/EventId_7036_ServiceControlManager_46021.asp
+# https://morgantechspace.com/2013/10/event-id-7036-service-entered-stopped.html
+#
+# Example Event Data:
 #<Event>
 #  <System>
 #    <Provider Name="Service Control Manager" Guid="{555908d1-a6d7-4695-8e1e-26931d2012f4}" EventSourceName="Service Control Manager" />
@@ -53,8 +51,7 @@ Maps:
 #    <Binary>4D-00-4D-00-43-00-53-00-53-00-2F-00-34-00-00-00</Binary>
 #  </EventData>
 #</Event>
-
-
+#
 #<Event>
 #  <System>
 #    <Provider Name="Netwtw06" />

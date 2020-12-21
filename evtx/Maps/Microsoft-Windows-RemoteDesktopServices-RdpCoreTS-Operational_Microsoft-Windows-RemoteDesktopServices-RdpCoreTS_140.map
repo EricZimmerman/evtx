@@ -12,15 +12,11 @@ Maps:
         Name: Address
         Value: "/Event/EventData/Data[@Name=\"IPString\"]"
  
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
-
-
-#A connection from the client computer with an IP address of 172.x.x.x failed because the user name or password is not correct.
+# Documentation:
+# A connection from the client computer with an IP address of 172.x.x.x failed because the user name or password is not correct.
+# https://purerds.org/remote-desktop-security/auditing-remote-desktop-services-logon-failures-1/
 #
+# Example Event Data:
 #<Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-RemoteDesktopServices-RdpCoreTS" Guid="1139c61b-b549-4251-8ed3-27250a1edec8" />

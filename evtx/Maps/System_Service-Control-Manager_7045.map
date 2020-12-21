@@ -33,12 +33,13 @@ Maps:
         Name: ImagePath
         Value: "/Event/EventData/Data[@Name=\"ImagePath\"]"
         
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
-
+# Documentation:
+# https://isc.sans.edu/forums/diary/Windows+Events+log+for+IRForensics+Part+2/21501/
+# https://www.manageengine.com/products/active-directory-audit/kb/system-events/event-id-7045.html
+# https://blog.menasec.net/2019/03/threat-hunting-26-remote-windows.html
+# https://www.eventid.net/display.asp?eventid=7045&source=service+control+manager
+#
+# Example Event Data:
 #<Event>
 #  <System>
 #    <Provider Name="Service Control Manager" Guid="{555908d1-a6d7-4695-8e1e-26931d2012f4}" EventSourceName="Service Control Manager" />

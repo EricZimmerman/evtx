@@ -12,13 +12,12 @@ Maps:
         Name: DomainName
         Value: "/Event/EventData/Data[@Name=\"DomainName\"]"
  
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
-
-
+# Documentation:
+# https://cyber-tls.blogspot.com/2019/08/rdp.html
+# https://social.technet.microsoft.com/wiki/contents/articles/37847.rdp-direct-connection-with-nla-remote-desktop-client-event-logs.aspx
+# https://nullsec.us/windows-rdp-related-event-logs-the-client-side-of-the-story/
+#
+# Example Event Data:
 #Connected to domain (SERVER-01) with session 12.
 #
 #<Event>

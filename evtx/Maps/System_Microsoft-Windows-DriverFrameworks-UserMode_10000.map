@@ -12,8 +12,10 @@ Maps:
         Name: DeviceId
         Value: "/Event/UserData/UMDFDeviceInstallBegin/DeviceId"
 
-# Valid properties include:
-
+# Documentation:
+# N/A
+#
+# Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
 #     <Provider Name="Microsoft-Windows-DriverFrameworks-UserMode" Guid="{GUID}" /> 

@@ -13,10 +13,10 @@ Maps:
         Value: "/Event/EventData/Data"
         Refine: "(?<=, )[^,\\d]+(?=,)"
 
-# Valid properties include:
-# 
-# PayloadData1
-
+# Documentation:
+# N/A
+#
+# Example Event Data:
 # <Event>
   # <System>
     # <Provider Name="acvpnagent" />

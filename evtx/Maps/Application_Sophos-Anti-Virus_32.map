@@ -11,15 +11,12 @@ Maps:
       - 
         Name: Data
         Value: "/Event/EventData/Data"
-
         
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
-
-#<Event>
+# Documentation:
+# https://community.sophos.com/on-premise-endpoint/f/sophos-endpoint-software/8662/event-id-description
+# https://superuser.com/questions/1125970/sophos-endpoint-security-and-control-windows-event-viewer-logs-on-windows-20
+#
+# Example Event Data:#<Event>
 #  <System>
 #    <Provider Name="Sophos Anti-Virus" />
 #    <EventID Qualifiers="8229">32</EventID>

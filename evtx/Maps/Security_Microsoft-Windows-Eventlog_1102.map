@@ -22,14 +22,10 @@ Maps:
         Name: SubjectUserSid
         Value: "/Event/UserData/LogFileCleared/SubjectUserSid"
 
-
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
-
-# Example payload data
+# Documentation:
+# https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-1102
+#
+# Example Event Data:
 # <Event>
 #   <System>
 #     <Provider Name="Microsoft-Windows-Eventlog" Guid="{fc65ddd8-d6ef-4962-83d5-6e5cfe9ce148}" />

@@ -33,8 +33,11 @@ Maps:
         Name: BSSType
         Value: "/Event/EventData/Data[@Name=\"BSSType\"]"
 
-# Valid properties include:
-
+# Documentation:
+# https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-r2-and-2008/cc727863(v=ws.10)
+# https://kb.eventtracker.com/evtpass/evtpages/EventId_8000_Microsoft-Windows-WLAN-AutoConfig_61765.asp
+#
+# Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
 #     <Provider Name="Microsoft-Windows-WLAN-AutoConfig" Guid="{GUID}" /> 

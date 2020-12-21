@@ -19,13 +19,10 @@ Maps:
         Name: AdditionalDetails
         Value: "/Event/EventData/Data[@Name=\"AdditionalDetails\"]"
         
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
-
-#Sample Event - derived from the event template.
+# Documentation:
+# N/A
+#
+# Example Event Data:
 #<System>
 #  <Provider Name="Microsoft-Windows-Audit-CVE" Guid="{85a62a0d-7e17-485f-9d4f-749a287193a6}" /> 
 #  <EventID>2</EventID> 

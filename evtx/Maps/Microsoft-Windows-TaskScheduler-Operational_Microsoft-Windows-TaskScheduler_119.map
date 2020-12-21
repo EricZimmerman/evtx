@@ -26,13 +26,11 @@ Maps:
         Name: InstanceId
         Value: "/Event/EventData/Data[@Name=\"InstanceId\"]"
 
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
-
-# Example payload data
+# Documentation:
+# https://kb.eventtracker.com/evtpass/evtpages/EventId_119_Microsoft-Windows-TaskScheduler_61823.asp
+# https://mnaoumov.wordpress.com/2014/05/15/task-scheduler-event-ids/
+#
+# Example Event Data:
 # <Event>
 #   <System>
 #     <Provider Name="Microsoft-Windows-TaskScheduler" Guid="de7b24ea-73c8-4a09-985d-5bdadcfa9017" />

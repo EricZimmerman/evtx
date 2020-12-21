@@ -15,8 +15,8 @@ Maps:
         Name: VmId
         Value: "/Event/UserData/VmlEventLog/VmId"
 
-# Valid properties include:
-# UserName
-# RemoteHost
-# ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
-# PayloadData1 through PayloadData6
+# Documentation:
+# N/A
+#
+# Example Event Data:
+# N/A
