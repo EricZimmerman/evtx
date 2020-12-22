@@ -16,6 +16,8 @@ Maps:
 # https://cyber-tls.blogspot.com/2019/08/rdp.html
 # https://social.technet.microsoft.com/wiki/contents/articles/37847.rdp-direct-connection-with-nla-remote-desktop-client-event-logs.aspx
 # https://nullsec.us/windows-rdp-related-event-logs-the-client-side-of-the-story/
+# https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-rdsod/aa0449fc-9642-4206-90a8-aac72f1b72fd
+# https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-rdsod/aa0449fc-9642-4206-90a8-aac72f1b72fd
 #
 # Example Event Data:
 #The client has initiated a multi-transport connection to the server 192.168.1.179.
