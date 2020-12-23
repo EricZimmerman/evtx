@@ -1,0 +1,37 @@
+Author: Gabriele Zambelli @gazambelli
+Description: Citrix user session disconnected
+EventId: 1049
+Channel: Application
+Provider: "Citrix Desktop Service"
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "SessionID: %SessionID%"
+    Values: 
+      - 
+        Name: SessionID
+        Value: "/Event/EventData/Data"
+
+# Documentation:
+# https://computergarage.org/citrix-desktop-service-eventid-1049-the-session-was-disconnected.html
+#
+# Example Event Data:
+# <Event>
+  # <System>
+    # <Provider Name="Citrix Desktop Service" />
+    # <EventID Qualifiers="16384">1049</EventID>
+    # <Level>4</Level>
+    # <Task>0</Task>
+    # <Keywords>0x80000000000000</Keywords>
+    # <TimeCreated SystemTime="2020-10-26 17:22:45.0000000" />
+    # <EventRecordID>3590389</EventRecordID>
+    # <Channel>Application</Channel>
+    # <Computer>hostname</Computer>
+    # <Security />
+  # </System>
+  # <EventData>
+    # <Data>1234abcd-12ab-12ab-12ab-123456abcdef</Data>
+    # <Binary></Binary>
+  # </EventData>
+# </Event>
+
