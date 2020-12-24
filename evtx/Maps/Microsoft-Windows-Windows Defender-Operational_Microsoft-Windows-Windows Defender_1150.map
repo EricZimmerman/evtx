@@ -1,5 +1,5 @@
 Author: Troy Larson
-Description: Defender is up and running in a healthy state.
+Description: Defender is up and running in a healthy state
 EventId: 1150
 Channel: Microsoft-Windows-Windows Defender/Operational
 Provider: Microsoft-Windows-Windows Defender

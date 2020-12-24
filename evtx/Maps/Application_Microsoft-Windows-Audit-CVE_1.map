@@ -1,5 +1,5 @@
 Author: Troy Larson
-Description:  An attempt to exploit a known vulnerability detected.
+Description:  An attempt to exploit a known vulnerability detected
 EventId: 1
 Channel: "Application"
 Provider: "Microsoft-Windows-Audit-CVE"

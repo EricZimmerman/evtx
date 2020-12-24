@@ -1,5 +1,5 @@
 Author: Troy Larson
-Description: SSH activity.
+Description: SSH activity
 EventId: 4
 Channel: "OpenSSH/Operational"
 Provider: OpenSSH

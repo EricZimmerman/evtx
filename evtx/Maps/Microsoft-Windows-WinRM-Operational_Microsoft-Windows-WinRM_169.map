@@ -5,7 +5,7 @@ Channel: "Microsoft-Windows-WinRM/Operational"
 Provider: Microsoft-Windows-WinRM
 Maps:
   - 
-    Property: Username
+    Property: UserName
     PropertyValue: "%username%"
     Values: 
       - 

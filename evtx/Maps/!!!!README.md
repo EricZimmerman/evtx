@@ -76,9 +76,9 @@ The Channel is a useful identifier for a given log type. It can be seen in the `
 
 The Maps collection contains configurations for how to look for data in an events EventData and extract out particular properties into variables. These variables are then combined and mapped to the event record's first class properties.
 
-For example, consider the first map, for `Username`, below.
+For example, consider the first map, for `UserName`, below.
 
-The `PropertyValue` defines the pattern that will be used to build the final value that will be assigned to the Username field in the CSV. Variables in patterns are surrounded by % on both sides, so we see two variables defined: `%domain%` and `%user%`
+The `PropertyValue` defines the pattern that will be used to build the final value that will be assigned to the UserName field in the CSV. Variables in patterns are surrounded by % on both sides, so we see two variables defined: `%domain%` and `%user%`
 
 In the map entries `Values` collection, we actually populate these variables by giving the value a name (domain in the first case) and an xpath query that will be used to set the value for the variable (`"/Event/EventData/Data[@Name=\"SubjectDomainName\"]"` in the first case).
 
@@ -157,7 +157,7 @@ EventId: 4624
 Channel: Security
 Maps: 
   - 
-    Property: Username
+    Property: UserName
     PropertyValue: "%domain%\\%user%"
     Values: 
       - 
@@ -214,3 +214,10 @@ This also allows you to update default maps without having your customizations b
 TIPS:
 
 If you are looking to make an Application.evtx map, please include a Provider as they are many instances where the same event ID number is used for multiple providers. I've personally observed 4 Providers use Event ID 1 which without a Provider being listed for that map it made all 4 events, regardless of Provider, be mapped incorrectly. When in doubt, add a Provider to your map. Follow a template from a previously created map to ensure it's made correctly.
+
+UPDATE: As of December 2020, Provider is now mandatory to avoid the above issue!
+
+# Updating Documentation
+
+If you are looking for a way to contribute without making a map, search across the contents of all maps for "N/A" and try to find documentation for any of the maps in the repository. Ideally, each map will have as much documentation as possible that exists for that specific event. This can serve as a good reference for anyone using the tool as well as a learning tool for students and those new to the field. 
+

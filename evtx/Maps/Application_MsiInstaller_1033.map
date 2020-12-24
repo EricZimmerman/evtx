@@ -1,5 +1,5 @@
 Author: Hyun Yi @hyuunnn
-Description: A program was installed.
+Description: A program was installed
 EventId: 1033
 Channel: "Application"
 Provider: "MsiInstaller"

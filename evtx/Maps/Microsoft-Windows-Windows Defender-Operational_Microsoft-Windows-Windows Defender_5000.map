@@ -1,5 +1,5 @@
 Author: Troy Larson
-Description: Real-time Protection was enabled.
+Description: Real-time Protection was enabled
 EventId: 5000
 Channel: Microsoft-Windows-Windows Defender/Operational
 Provider: Microsoft-Windows-Windows Defender

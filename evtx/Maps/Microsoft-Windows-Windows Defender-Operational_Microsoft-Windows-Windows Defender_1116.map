@@ -1,5 +1,5 @@
 Author: Troy Larson
-Description: Detection - malware or other potentially unwanted software.
+Description: Detection - malware or other potentially unwanted software
 EventId: 1116
 Channel: Microsoft-Windows-Windows Defender/Operational
 Provider: Microsoft-Windows-Windows Defender
