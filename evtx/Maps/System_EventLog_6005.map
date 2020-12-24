@@ -17,6 +17,7 @@ Maps:
 # https://www.manageengine.com/products/active-directory-audit/kb/system-events/event-id-6005.html
 # https://www.howtogeek.com/277688/how-do-you-find-out-if-windows-was-running-at-a-given-time/
 # https://community.spiceworks.com/topic/237386-event-log-time-when-computer-start-up-boot-up
+# https://superuser.com/questions/767143/find-out-why-pc-just-restarted-for-no-reason
 #
 # Example Event Data:
 #<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
