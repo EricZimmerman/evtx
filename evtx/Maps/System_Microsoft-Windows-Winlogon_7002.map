@@ -1,0 +1,42 @@
+Author: Andrew Rathbun
+Description: User logoff
+EventId: 7002
+Channel: System
+Provider: Microsoft-Windows-Winlogon
+Maps: 
+  - 
+    Property: PayloadData1 
+    PropertyValue: "UserSID: %UserSid%"
+    Values: 
+      - 
+        Name: UserSid
+        Value: "/Event/EventData/Data[@Name=\"UserSid\"]"
+
+# Documentation:
+# https://superuser.com/questions/726967/how-can-i-know-if-someone-has-logged-into-my-account-in-windows-7
+# https://community.spiceworks.com/topic/2131335-ps-script-for-user-logon-activity-7001-7002-and-4800-4001-need-help
+# https://superuser.com/questions/767143/find-out-why-pc-just-restarted-for-no-reason?newreg=e76b115fee3b486fb76788c3b4906677
+#
+# Example Event Data:
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Winlogon" Guid="dbe9b456-7cf3-4331-91cc-a3cb1234b538" />
+#    <EventID>7002</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>1901</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x2000200000900000</Keywords>
+#    <TimeCreated SystemTime="2020-06-10 05:23:32.9946381" />
+#    <EventRecordID>62316</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="16788" ThreadID="1896" />
+#    <Channel>System</Channel>
+#    <Computer>HOSTNAME.domain.com</Computer>
+#    <Security UserID="S-1-5-18" />
+#  </System>
+#  <EventData>
+#    <Data Name="TSId">6</Data>
+#    <Data Name="UserSid">S-1-5-21-795675957-65754735-9675674874-7637643</Data>
+#  </EventData>
+#</Event>
