@@ -26,6 +26,13 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"ClientName\"]"
   - 
     Property: PayloadData1
+    PropertyValue: "%SessionName%"
+    Values: 
+      - 
+        Name: SessionName
+        Value: "/Event/EventData/Data[@Name=\"SessionName\"]"
+  - 
+    Property: PayloadData3
     PropertyValue: "LogonId: %LogonID%"
     Values: 
       - 

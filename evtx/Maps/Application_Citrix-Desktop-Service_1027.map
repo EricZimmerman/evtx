@@ -1,0 +1,45 @@
+Author: Gabriele Zambelli @gazambelli
+Description: Citrix user session started
+EventId: 1027
+Channel: Application
+Provider: "Citrix Desktop Service"
+Maps: 
+  - 
+    Property: Username
+    PropertyValue: "Target: %user%"
+    Values: 
+      - 
+        Name: user
+        Value: "/Event/EventData/Data"
+        Refine: "^.*(?=, )"
+  - 
+    Property: PayloadData1
+    PropertyValue: "SessionID: %SessionID%"
+    Values: 
+      - 
+        Name: SessionID
+        Value: "/Event/EventData/Data"
+        Refine: "[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}"
+
+# Documentation:
+# https://discussions.citrix.com/topic/342198-xendesktop-7-interactive-session-slows-logon/page/9/
+#
+# Example Event Data:
+# <Event>
+  # <System>
+    # <Provider Name="Citrix Desktop Service" />
+    # <EventID Qualifiers="16384">1027</EventID>
+    # <Level>4</Level>
+    # <Task>0</Task>
+    # <Keywords>0x80000000000000</Keywords>
+    # <TimeCreated SystemTime="2020-10-07 08:19:49.0000000" />
+    # <EventRecordID>359095</EventRecordID>
+    # <Channel>Application</Channel>
+    # <Computer>hostname</Computer>
+    # <Security />
+  # </System>
+  # <EventData>
+    # <Data>remoteuser, 1234abcd-12ab-12ab-12ab-123456abcdef</Data>
+    # <Binary></Binary>
+  # </EventData>
+# </Event>

@@ -14,12 +14,12 @@ Maps:
         Refine: "(?<=File: ).*(?= by: )"
   - 
     Property: PayloadData1
-    PropertyValue: "%PayloadData1%"
+    PropertyValue: "Risk: %PayloadData1%"
     Values: 
       - 
         Name: PayloadData1
         Value: "/Event/EventData/Data"
-        Refine: "^.*(?= in File:)"
+        Refine: "(?<=Security Risk Found! ).*(?= in File:)"
   - 
     Property: PayloadData2
     PropertyValue: "%PayloadData2%"
