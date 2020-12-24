@@ -25,6 +25,7 @@ Maps:
 # Documentation:
 # https://ponderthebits.com/2018/02/windows-rdp-related-event-logs-identification-tracking-and-investigation/
 # https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4647
+# https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4647
 #
 # Example Event Data:
 #<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">

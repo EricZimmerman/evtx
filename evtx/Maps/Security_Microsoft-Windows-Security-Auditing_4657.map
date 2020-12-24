@@ -75,6 +75,7 @@ Maps:
 
 # Documentation:
 # https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4657
+# https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4657
 #
 # Example Event Data:
 #<Event>

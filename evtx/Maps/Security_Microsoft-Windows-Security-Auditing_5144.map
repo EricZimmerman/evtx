@@ -38,6 +38,7 @@ Maps:
 
 # Documentation:
 # https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5144
+# https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-5144
 #
 # Example Event Data:
 #- <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
