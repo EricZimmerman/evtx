@@ -1,5 +1,5 @@
 Author: Troy Larson
-Description: Session (Payload 1) has been disconnected, reason code (Payload 2)
+Description: Session (PayloadData1) has been disconnected, reason code (PayloadData2)
 EventId: 40
 Channel: Microsoft-Windows-TerminalServices-LocalSessionManager/Operational
 Provider: Microsoft-Windows-TerminalServices-LocalSessionManager

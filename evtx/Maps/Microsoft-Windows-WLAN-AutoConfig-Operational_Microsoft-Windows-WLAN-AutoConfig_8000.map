@@ -1,5 +1,5 @@
 Author: Hyun Yi @hyuunnn
-Description: WIFI connection was attempted.
+Description: WIFI connection was attempted
 EventId: 8000
 Channel: "Microsoft-Windows-WLAN-AutoConfig/Operational"
 Provider: Microsoft-Windows-WLAN-AutoConfig

@@ -1,5 +1,5 @@
 Author: Troy Larson
-Description: Defender removed history of malware.
+Description: Defender removed history of malware
 EventId: 1013
 Channel: Microsoft-Windows-Windows Defender/Operational
 Provider: Microsoft-Windows-Windows Defender

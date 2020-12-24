@@ -5,7 +5,7 @@ Channel: Security
 Provider: Microsoft-Windows-Security-Auditing
 Maps: 
   - 
-    Property: Username
+    Property: UserName
     PropertyValue: "%domain%\\%user%"
     Values: 
       - 

@@ -6,10 +6,10 @@ Provider: Microsoft-Windows-TerminalServices-ClientActiveXCore
 Maps: 
   - 
     Property: PayloadData1
-    PropertyValue: "Target (encoded): %Base64RDPUsernameHash%"
+    PropertyValue: "Target (encoded): %Base64RDPUserNameHash%"
     Values: 
       - 
-        Name: Base64RDPUsernameHash
+        Name: Base64RDPUserNameHash
         Value: "/Event/EventData/Data[@Name=\"TraceMessage\"]"
         Refine: "^[A-Za-z0-9+/=]*"
   - 

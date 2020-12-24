@@ -1,5 +1,5 @@
 Author: Hyun Yi @hyuunnn
-Description: WIFI connection was successful.
+Description: WIFI connection was successful
 EventId: 8001
 Channel: "Microsoft-Windows-WLAN-AutoConfig/Operational"
 Provider: Microsoft-Windows-WLAN-AutoConfig

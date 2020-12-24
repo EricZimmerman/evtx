@@ -5,7 +5,7 @@ Channel: Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational
 Provider: Microsoft-Windows-TerminalServices-RemoteConnectionManager
 Maps: 
   - 
-    Property: Username
+    Property: UserName
     PropertyValue: "%domain%\\%user%"
     Values: 
       - 

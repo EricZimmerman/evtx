@@ -1,5 +1,5 @@
 Author: Brian MacKenna
-Description:  Error when taking action on malware or other potentially unwanted software.
+Description:  Error when taking action on malware or other potentially unwanted software
 EventId: 1008
 Channel: Microsoft-Windows-Windows Defender/Operational
 Provider: Microsoft-Windows-Windows Defender

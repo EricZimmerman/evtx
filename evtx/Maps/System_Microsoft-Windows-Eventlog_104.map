@@ -5,7 +5,7 @@ Channel: System
 Provider: Microsoft-Windows-Eventlog
 Maps: 
   - 
-    Property: Username
+    Property: UserName
     PropertyValue: "%domain%\\%user%" 
     Values: 
       - 

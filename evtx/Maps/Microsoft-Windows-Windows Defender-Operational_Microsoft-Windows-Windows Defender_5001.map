@@ -1,5 +1,5 @@
 Author: Troy Larson
-Description: Real-time Protection was disabled.
+Description: Real-time Protection was disabled
 EventId: 5001
 Channel: Microsoft-Windows-Windows Defender/Operational
 Provider: Microsoft-Windows-Windows Defender

@@ -1,5 +1,5 @@
 Author: Phill Moore\Troy Larson
-Description: A script or MSI was allowed to run.
+Description: A script or MSI was allowed to run
 EventId: 8005
 Channel: Microsoft-Windows-AppLocker/MSI and Script
 Provider: Microsoft-Windows-AppLocker

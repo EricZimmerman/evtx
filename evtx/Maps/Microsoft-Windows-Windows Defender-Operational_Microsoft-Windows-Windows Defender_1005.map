@@ -1,5 +1,5 @@
 Author: Troy Larson
-Description: Error - Scan has encountered an error and terminated.
+Description: Error - Scan has encountered an error and terminated
 EventId: 1005
 Channel: Microsoft-Windows-Windows Defender/Operational
 Provider: Microsoft-Windows-Windows Defender

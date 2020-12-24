@@ -5,7 +5,7 @@ Channel: Channel goes here
 Provider: Provider goes here
 Maps: 
   - 
-    Property: Username 
+    Property: UserName 
     PropertyValue: "%domain%\\%user%"
     Values: 
       - 
