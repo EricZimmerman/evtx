@@ -42,6 +42,13 @@ Maps:
         Name: LogonType
         Value: "/Event/EventData/Data[@Name=\"LogonType\"]"
   - 
+    Property: PayloadData3
+    PropertyValue: "LogonId: %TargetLogonId%"
+    Values: 
+      - 
+        Name: TargetLogonId
+        Value: "/Event/EventData/Data[@Name=\"TargetLogonId\"]"
+  - 
     Property: ExecutableInfo
     PropertyValue: "%ProcessName%"
     Values: 

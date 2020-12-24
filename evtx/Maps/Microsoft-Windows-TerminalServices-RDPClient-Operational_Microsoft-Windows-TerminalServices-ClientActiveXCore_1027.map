@@ -11,7 +11,14 @@ Maps:
       - 
         Name: DomainName
         Value: "/Event/EventData/Data[@Name=\"DomainName\"]"
- 
+  - 
+    Property: PayloadData6
+    PropertyValue: "ActivityID: %ActivityID%"
+    Values: 
+      - 
+        Name: ActivityID
+        Value: "/Event/System/Correlation/@ActivityID" 
+
 # Documentation:
 # https://cyber-tls.blogspot.com/2019/08/rdp.html
 # https://social.technet.microsoft.com/wiki/contents/articles/37847.rdp-direct-connection-with-nla-remote-desktop-client-event-logs.aspx
