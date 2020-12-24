@@ -11,7 +11,14 @@ Maps:
       - 
         Name: DestServer
         Value: "/Event/EventData/Data[@Name=\"Value\"]"
- 
+  - 
+    Property: PayloadData6
+    PropertyValue: "ActivityID: %ActivityID%"
+    Values: 
+      - 
+        Name: ActivityID
+        Value: "/Event/System/Correlation/@ActivityID" 
+
 # Documentation:
 # RDP ClientActiveX is trying to connect to the server ([Destination Host Name]).
 # https://cyber-tls.blogspot.com/2019/08/rdp.html

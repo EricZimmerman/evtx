@@ -14,6 +14,13 @@ Maps:
       - 
         Name: TargetUserName
         Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
+  - 
+    Property: PayloadData3
+    PropertyValue: "LogonId: %TargetLogonId%"
+    Values: 
+      - 
+        Name: TargetLogonId
+        Value: "/Event/EventData/Data[@Name=\"TargetLogonId\"]"
  
 # Documentation:
 # https://ponderthebits.com/2018/02/windows-rdp-related-event-logs-identification-tracking-and-investigation/
