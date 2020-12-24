@@ -17,20 +17,20 @@ Maps:
 #
 # Example Event Data:
 # <Event>
-  # <System>
-    # <Provider Name="WSH" />
-    # <EventID Qualifiers="0">0</EventID>
-    # <Level>0</Level>
-    # <Task>0</Task>
-    # <Keywords>0x80000000000000</Keywords>
-    # <TimeCreated SystemTime="2020-10-03 15:26:28.0000000" />
-    # <EventRecordID>359861</EventRecordID>
-    # <Channel>Application</Channel>
-    # <Computer>hostname</Computer>
-    # <Security />
-  # </System>
-  # <EventData>
-    # <Data></Data>
-    # <Binary></Binary>
-  # </EventData>
+#   <System>
+#     <Provider Name="WSH" />
+#     <EventID Qualifiers="0">0</EventID>
+#     <Level>0</Level>
+#     <Task>0</Task>
+#     <Keywords>0x80000000000000</Keywords>
+#     <TimeCreated SystemTime="2020-10-03 15:26:28.0000000" />
+#     <EventRecordID>359861</EventRecordID>
+#     <Channel>Application</Channel>
+#     <Computer>hostname</Computer>
+#     <Security />
+#   </System>
+#   <EventData>
+#     <Data></Data>
+#     <Binary></Binary>
+#   </EventData>
 # </Event>

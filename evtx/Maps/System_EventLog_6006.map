@@ -12,8 +12,6 @@ Maps:
         Name: Computer
         Value: "/Event/System/Computer"
         
-# 
-# 
 # Documentation:
 # Event 6006 occurs at shutdown time showing that the Event Log service was stopped and indicating a clean shutdown. 
 # https://www.manageengine.com/products/active-directory-audit/kb/system-events/event-id-6006.html

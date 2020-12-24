@@ -25,10 +25,28 @@ Maps:
 # https://www.myeventlog.com/search/show/980
 #
 # Example Event Data:
-# <EventData>
-#     <Data Name="MessageNumber">2</Data>
-#     <Data Name="MessageTotal">8</Data>
-#     <Data Name="ScriptBlockText">eviceInfoList(DevInfoSet);, return ERROR_CLASS_MISMATCH;, }, return 0;, }, public static void ReleaseDeviceInfoSet(IntPtr DevInfoSet), {, SetupDiDestroyDeviceInfoList(DevInfoSet);, }, public static UInt32 ReinstallDevice(string DeviceID), {, UInt32 ResultCode = 0;, IntPtr LocalMachineInstance = IntPtr.Zero;, UInt32 DeviceInstance = 0;, UInt32 PendingTime = INFINITE;, UInt32 PendingTimeDetecting = 100;, UInt32 MaxTimes = 100;, IntPtr DeviceInfoSet = IntPtr.Zero;, SP_DEVINFO_DATA DeviceInfoData = new SP_DEVINFO_DATA();, </Data>
-#     <Data Name="ScriptBlockId">6bd602a5-9efa-41cf-ab3c-f3e71250f735</Data>
-#     <Data Name="Path">C:\Windows\TEMP\SDIAG_3ba8d316-e8df-4d71-83c7-3da214bee387\CL_Utility.ps1  DATA TRUNCATED IN THIS EXAMPLE</Data>
-#   </EventData>
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-PowerShell" Guid="a0c1253b-5c40-4b15-8766-3cabc58f985a" />
+#    <EventID>4104</EventID>
+#    <Version>1</Version>
+#    <Level>3</Level>
+#    <Task>2</Task>
+#    <Opcode>15</Opcode>
+#    <Keywords>0x0</Keywords>
+#    <TimeCreated SystemTime="2020-12-04 13:28:14.0602171" />
+#    <EventRecordID>1100</EventRecordID>
+#    <Correlation ActivityID="d313a494-c742-0008-4d4d-7fd345c7d671" />
+#    <Execution ProcessID="46792" ThreadID="31324" />
+#    <Channel>Microsoft-Windows-PowerShell/Operational</Channel>
+#    <Computer>HOSTNAME</Computer>
+#    <Security UserID="S-1-5-21-2501265465-2372692616-1504998901-1001" />
+#  </System>
+#  <EventData>
+#    <Data Name="MessageNumber">3</Data>
+#    <Data Name="MessageTotal">3</Data>
+#    <Data Name="ScriptBlockText">'., ValidatingCatalogSignature=Validating the '{0}' module files for catalog signing using the catalog file '{1}'., AuthenticodeIssuerMatch=Authenticode issuer '{0}' of the new module '{1}' with version '{2}' matches with the authenticode issuer '{3}' of the previously-installed module '{4}' with version '{5}'., ValidCatalogSignature=The catalog signature in '{0}' of the module '{1}' is valid and matches with the hash generated from the module contents., SkippingPublisherCheck=Skipping the Publisher check for the version '{0}' of module '{1}'., SourceModuleDetailsForPublisherValidation=For publisher validation, using the previously-installed module '{0}' with version '{1}' under '{2}' with publisher name '{3}'. Is this module signed by Microsoft: '{4}'., NewModuleVersionDetailsForPublisherValidation=For publisher validation, current module '{0}' with version '{1}' with publisher name '{2}'. Is this module signed by Microsoft: '{3}'., PublishersMatch=Publisher '{0}' of the new module '{1}' with version '{2}' matches with the publisher '{3}' of the previously-installed module '{4}' with version '{5}'. Both versions are signed with a Microsoft root certificate., PublishersMismatch=A Microsoft-signed module named '{0}' with version '{1}' that was previously installed conflicts with the new module '{2}' from publisher '{3}' with version '{4}'. Installing the new module may result in system instability. If you still want to install or update, use -SkipPublisherCheck parameter., ModuleIsNotCatalogSigned=The version '{0}' of the module '{1}' being installed is not catalog signed. Ensure that the version '{0}' of the module '{1}' has the catalog file '{2}' and signed with the same publisher '{3}' as the previously-installed module '{0}' with version '{4}' under the directory '{5}'. If you still want to install or update, use -SkipPublisherCheck parameter., ###PSLOC, '@, </Data>
+#    <Data Name="ScriptBlockId">34d312d7-e012-40c3-b0e8-9d4e5e4123r</Data>
+#    <Data Name="Path"></Data>
+#  </EventData>
+#</Event>
