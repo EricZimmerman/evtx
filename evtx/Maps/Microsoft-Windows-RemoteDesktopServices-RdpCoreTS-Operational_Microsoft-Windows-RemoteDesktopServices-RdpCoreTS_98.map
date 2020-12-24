@@ -23,10 +23,22 @@ Maps:
 # N/A
 #
 # Example Event Data:
-# <EventData>
-#     <Data Name="MessageNumber">2</Data>
-#     <Data Name="MessageTotal">8</Data>
-#     <Data Name="ScriptBlockText">eviceInfoList(DevInfoSet);, return ERROR_CLASS_MISMATCH;, }, return 0;, }, public static void ReleaseDeviceInfoSet(IntPtr DevInfoSet), {, SetupDiDestroyDeviceInfoList(DevInfoSet);, }, public static UInt32 ReinstallDevice(string DeviceID), {, UInt32 ResultCode = 0;, IntPtr LocalMachineInstance = IntPtr.Zero;, UInt32 DeviceInstance = 0;, UInt32 PendingTime = INFINITE;, UInt32 PendingTimeDetecting = 100;, UInt32 MaxTimes = 100;, IntPtr DeviceInfoSet = IntPtr.Zero;, SP_DEVINFO_DATA DeviceInfoData = new SP_DEVINFO_DATA();, </Data>
-#     <Data Name="ScriptBlockId">6bd602a5-9efa-41cf-ab3c-f3e71250f735</Data>
-#     <Data Name="Path">C:\Windows\TEMP\SDIAG_3ba8d316-e8df-4d71-83c7-3da214bee387\CL_Utility.ps1  DATA TRUNCATED IN THIS EXAMPLE</Data>
-#   </EventData>
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-RemoteDesktopServices-RdpCoreTS" Guid="1139c100-b549-4251-8ed3-27245a1edec8" />
+#    <EventID>98</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>4</Task>
+#    <Opcode>15</Opcode>
+#    <Keywords>0x4000200000000000</Keywords>
+#    <TimeCreated SystemTime="2020-12-05 19:10:54.8614740" />
+#    <EventRecordID>5907</EventRecordID>
+#    <Correlation ActivityID="f4234505-ea71-4b80-98d9-e02753510679" />
+#    <Execution ProcessID="1667" ThreadID="2128" />
+#    <Channel>Microsoft-Windows-RemoteDesktopServices-RdpCoreTS/Operational</Channel>
+#    <Computer>HOSTNAME</Computer>
+#    <Security UserID="S-1-5-20" />
+#  </System>
+#  <EventData></EventData>
+#</Event>

@@ -47,13 +47,112 @@ Maps:
         Name: ParentId
         Value: "/Event/EventData/Data[@Name=\"ParentId\"]"
         
-# Frankly, there is too much data to fit within 6 PayloadData columns. As always, all data is in the Payload column but there isn't enough room to map out all the information cleanly.
-#
 # Documentation:
 # https://www.atropos4n6.com/windows/extract-vsns-that-reside-in-windows-partition4diagnostic-evtx/
 # https://df-stream.com/2018/05/partition-diagnostic-event-log-and-usb-device-tracking-p1/
 # https://df-stream.com/2018/07/partition-diagnostic-event-log-and-usb-device-tracking-p2/
 # https://forensixchange.com/posts/19_08_03_usb_storage_forensics_1/
+# Frankly, there is too much data to fit within 6 PayloadData columns. As always, all data is in the Payload column but there isn't enough room to map out all the information cleanly.
 # 
 # Example Event Data:
-# See documentation above
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Partition" Guid="412bdff2-a8c4-470d-8f33-63fabc8c20e2" />
+#    <EventID>1006</EventID>
+#    <Version>4</Version>
+#    <Level>4</Level>
+#    <Task>0</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8000002200000000</Keywords>
+#    <TimeCreated SystemTime="2020-10-24 15:19:22.3347967" />
+#    <EventRecordID>1</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="4" ThreadID="348" />
+#    <Channel>Microsoft-Windows-Partition/Diagnostic</Channel>
+#    <Computer>HOSTNAME</Computer>
+#    <Security UserID="S-1-5-18" />
+#  </System>
+#  <EventData>
+#    <Data Name="DiskNumber">0</Data>
+#    <Data Name="Flags">8208</Data>
+#    <Data Name="Characteristics">256</Data>
+#    <Data Name="IsSystemCritical">False</Data>
+#    <Data Name="PagingCount">0</Data>
+#    <Data Name="HibernationCount">0</Data>
+#    <Data Name="DumpCount">0</Data>
+#    <Data Name="BytesPerSector">512</Data>
+#    <Data Name="Capacity">6001175126016</Data>
+#    <Data Name="BusType">11</Data>
+#    <Data Name="Manufacturer">NULL</Data>
+#    <Data Name="Model">WDC WD6002FZWX-00GBGB0</Data>
+#    <Data Name="Revision">81.H0A81</Data>
+#    <Data Name="SerialNumber">ABC123</Data>
+#    <Data Name="Location">Integrated : Bus 0 : Device 23 : Function 0 : Adapter 0 : Port 0</Data>
+#    <Data Name="ParentId">PCI\VEN_8086&amp;amp;DEV_A282&amp;amp;SUBSYS_872F1043&amp;amp;REV_00\3&amp;amp;11583659&amp;amp;0&amp;amp;B8</Data>
+#    <Data Name="Socket">-1</Data>
+#    <Data Name="Slot">-1</Data>
+#    <Data Name="Bus">0</Data>
+#    <Data Name="Device">23</Data>
+#    <Data Name="Function">0</Data>
+#    <Data Name="Adapter">0</Data>
+#    <Data Name="Port">0</Data>
+#    <Data Name="Target">2</Data>
+#    <Data Name="Lun">0</Data>
+#    <Data Name="IoctlSupport">59903</Data>
+#    <Data Name="IdFlags">4</Data>
+#    <Data Name="DiskId">d123d2e-c7ae-ca57-9a75-e091cf1e55b6</Data>
+#    <Data Name="AdapterId">ec596b07-7ad4-1123-9a15-806e6f6e6963</Data>
+#    <Data Name="RegistryId">ec596b13-7ad4-11ea-9a15-8123f6e6963</Data>
+#    <Data Name="PoolId">00000000-0000-0000-0000-000000000000</Data>
+#    <Data Name="FirmwareSupportsUpgrade">True</Data>
+#    <Data Name="FirmwareSlotCount">1</Data>
+#    <Data Name="StorageIdCount">2</Data>
+#    <Data Name="StorageIdCodeSet">1</Data>
+#    <Data Name="StorageIdType">3</Data>
+#    <Data Name="StorageIdAssociation">0</Data>
+#    <Data Name="StorageIdBytes">8</Data>
+#    <Data Name="StorageId">50-00-CC-A2-71-C8-CF-D8</Data>
+#    <Data Name="WriteCacheType">2</Data>
+#    <Data Name="WriteCacheEnabled">2</Data>
+#    <Data Name="WriteCacheChangeable">2</Data>
+#    <Data Name="WriteThroughSupported">2</Data>
+#    <Data Name="FlushCacheSupported">True</Data>
+#    <Data Name="IsPowerProtected">False</Data>
+#    <Data Name="NVCacheEnabled">False</Data>
+#    <Data Name="BytesPerLogicalSector">512</Data>
+#    <Data Name="BytesPerPhysicalSector">4096</Data>
+#    <Data Name="BytesOffsetForSectorAlignment">0</Data>
+#    <Data Name="IncursSeekPenalty">True</Data>
+#    <Data Name="IsTrimSupported">False</Data>
+#    <Data Name="IsThinProvisioned">False</Data>
+#    <Data Name="OptimalUnmapGranularity">0</Data>
+#    <Data Name="UnmapAlignment">0</Data>
+#    <Data Name="NumberOfLogicalCopies">0</Data>
+#    <Data Name="NumberOfPhysicalCopies">0</Data>
+#    <Data Name="FaultTolerance">0</Data>
+#    <Data Name="NumberOfColumns">0</Data>
+#    <Data Name="InterleaveBytes">0</Data>
+#    <Data Name="HybridSupported">False</Data>
+#    <Data Name="HybridCacheBytes">0</Data>
+#    <Data Name="AdapterMaximumTransferBytes">131072</Data>
+#    <Data Name="AdapterMaximumTransferPages">33</Data>
+#    <Data Name="AdapterAlignmentMask">1</Data>
+#    <Data Name="AdapterSerialNumber">NULL</Data>
+#    <Data Name="PortDriver">1</Data>
+#    <Data Name="UserRemovalPolicy">False</Data>
+#    <Data Name="PartitionStyle">1</Data>
+#    <Data Name="PartitionCount">2</Data>
+#    <Data Name="PartitionTableBytes">336</Data>
+#    <Data Name="PartitionTable">01-00-00-00-02-00-00-00-E9-80-4A-20-98-AA-72-42-81-AC-7B-A5-C8-9C-70-E1-00-44-00-00-00-00-00-00-00-DA-E8-41-75-05-00-00-80-00-00-00-00-00-00-00-01-00-00-00-00-00-00-00-00-44-00-00-00-00-00-00-00-BC-FF-00-00-00-00-00-01-00-00-00-00-00-00-00-16-E3-C9-E3-5C-0B-B8-4D-81-7D-F9-2D-F0-02-15-AE-14-85-66-89-1C-74-4D-45-89-4F-F4-5A-FA-19-F2-57-00-00-00-00-00-00-00-00-4D-00-69-00-63-00-72-00-6F-00-73-00-6F-00-66-00-74-00-20-00-72-00-65-00-73-00-65-00-72-00-76-00-65-00-64-00-20-00-70-00-61-00-72-00-74-00-69-00-74-00-69-00-6F-00-6E-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-01-00-00-00-00-00-00-00-00-00-00-01-00-00-00-00-00-00-D0-40-75-05-00-00-02-00-00-00-00-00-00-00-A2-A0-D0-EB-E5-B9-33-44-87-C0-68-B6-B7-26-99-C7-FC-F9-C0-97-A8-DF-7A-4E-B0-A6-F3-A2-2C-3A-F8-89-00-00-00-00-00-00-00-00-42-00-61-00-73-00-69-00-63-00-20-00-64-00-61-00-74-00-61-00-20-00-70-00-61-00-72-00-74-00-69-00-74-00-69-00-6F-00-6E-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00</Data>
+#    <Data Name="MbrBytes">0</Data>
+#    <Data Name="Mbr"></Data>
+#    <Data Name="Vbr0Bytes">0</Data>
+#    <Data Name="Vbr0"></Data>
+#    <Data Name="Vbr1Bytes">0</Data>
+#    <Data Name="Vbr1"></Data>
+#    <Data Name="Vbr2Bytes">0</Data>
+#    <Data Name="Vbr2"></Data>
+#    <Data Name="Vbr3Size">0</Data>
+#    <Data Name="Vbr3"></Data>
+#  </EventData>
+#</Event>
