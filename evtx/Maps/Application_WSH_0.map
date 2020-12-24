@@ -1,0 +1,36 @@
+Author: Gabriele Zambelli @gazambelli
+Description: Windows Script Host (WSH)
+EventId: 0
+Channel: Application
+Provider: WSH
+Maps:
+  - 
+    Property: PayloadData1
+    PropertyValue: "%PayloadData1%"
+    Values: 
+      - 
+        Name: PayloadData1
+        Value: "/Event/EventData/Data"
+
+# Documentation:
+# http://www.eventid.net/display-eventid-0-source-WSH-eventno-3533-phase-1.htm
+#
+# Example Event Data:
+# <Event>
+  # <System>
+    # <Provider Name="WSH" />
+    # <EventID Qualifiers="0">0</EventID>
+    # <Level>0</Level>
+    # <Task>0</Task>
+    # <Keywords>0x80000000000000</Keywords>
+    # <TimeCreated SystemTime="2020-10-03 15:26:28.0000000" />
+    # <EventRecordID>359861</EventRecordID>
+    # <Channel>Application</Channel>
+    # <Computer>hostname</Computer>
+    # <Security />
+  # </System>
+  # <EventData>
+    # <Data></Data>
+    # <Binary></Binary>
+  # </EventData>
+# </Event>

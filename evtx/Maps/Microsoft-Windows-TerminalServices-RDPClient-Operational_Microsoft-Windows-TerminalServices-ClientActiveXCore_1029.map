@@ -23,10 +23,32 @@ Maps:
 # Documentation:
 # Windows Event ID 1029 Hashes: https://nullsec.us/windows-event-id-1029-hashes/
 # CyberChef recipes to calculate the same encoded value from a known username
-#   Windows 7 : Base64(SHA1(UserName))
-#    - https://gchq.github.io/CyberChef/#recipe=Decode_text('UTF-8%20(65001)')Encode_text('UTF-16LE%20(1200)')SHA1()From_Hex('Space')To_Base64('A-Za-z0-9%2B/%3D')
-#   Windows 10: Base64(SHA256(UserName))
-#    - https://gchq.github.io/CyberChef/#recipe=Decode_text('UTF-8%20(65001)')Encode_text('UTF-16LE%20(1200)')SHA2('256')From_Hex('Space')To_Base64('A-Za-z0-9%2B/%3D')
+#   OS     : Windows 7 / Windows Server 2008 R2
+#   Hash   : Base64(SHA1(UserName))
+#   Recipe : https://gchq.github.io/CyberChef/#recipe=Decode_text('UTF-8%20(65001)')Encode_text('UTF-16LE%20(1200)')SHA1()From_Hex('Space')To_Base64('A-Za-z0-9%2B/%3D')
+#            Example: 
+#              Input  = administrator
+#              Output = /6UN2Oco6V2sEKuooAIuzrrOUrk=
+#   
+#   OS    : Windows 10
+#   Hash  : Base64(SHA256(UserName))
+#   Recipe: https://gchq.github.io/CyberChef/#recipe=Decode_text('UTF-8%20(65001)')Encode_text('UTF-16LE%20(1200)')SHA2('256')From_Hex('Space')To_Base64('A-Za-z0-9%2B/%3D')
+#           Example:
+#              Input  = administrator
+#              Output = WAlZ81aqzLQmoWEfQivmPQwJxIm/XQcDjplQdjznr5E=
+#
+#  If you need to decode a large number of encoded values, try my recipe for CyberChef. These are the steps to follow:
+#  1) Copy and paste the following recipe into CyberChef:
+#  Compact JSON:
+#   [{"op":"Unique","args":["Line feed"]},{"op":"Fork","args":["\\n","\\n",false]},{"op":"Find / Replace","args":[{"option":"Regex","string":"-\\\\-"},"",true,false,true,false]},{"op":"Find / Replace","args":[{"option":"Regex","string":"(User Name|Payload Data.|Target: |Target \\(encoded\\).*| \\(S\\-.*\\)|NETWORK SERVICE)"},"",true,false,true,false]},{"op":"Find / Replace","args":[{"option":"Regex","string":"(^.*\\\\|S-[0-9\\-]*)"},"",true,false,true,false]},{"op":"Register","args":["([\\s\\S]*)",true,false,false]},{"op":"Decode text","args":["UTF-8 (65001)"]},{"op":"Encode text","args":["UTF-16LE (1200)"]},{"op":"SHA1","args":[],"disabled":true},{"op":"SHA2","args":["256"]},{"op":"From Hex","args":["Space"]},{"op":"To Base64","args":["A-Za-z0-9+/="]},{"op":"Register","args":["([\\s\\S]*)",true,false,false]},{"op":"Find / Replace","args":[{"option":"Simple string","string":"$R1"},"$R1,$R0",true,false,true,false]},{"op":"Merge","args":[]},{"op":"Unique","args":["Line feed"]},{"op":"Sort","args":["Line feed",false,"Alphabetical (case insensitive)"]},{"op":"To Table","args":[",","\\r\\n",false,"HTML"]}]
+#  2) From CyberChef, disable or remove the hash operation (SHA1 or SHA2) that you don't need
+#  3) From Timeline Explorer:
+#      - Column "User Name"    : copy all the non-blank values
+#      - Column "Payload Data1": copy all the values containing "Target:"
+#  4) Paste what you just copied into the input area of CyberChef (no need to clean or dedupe the input before pasting)
+#  5) Bake!
+#
+# Articles:
 # https://cyber-tls.blogspot.com/2019/08/rdp.html
 # https://social.technet.microsoft.com/wiki/contents/articles/37847.rdp-direct-connection-with-nla-remote-desktop-client-event-logs.aspx
 # https://nullsec.us/windows-rdp-related-event-logs-the-client-side-of-the-story/
