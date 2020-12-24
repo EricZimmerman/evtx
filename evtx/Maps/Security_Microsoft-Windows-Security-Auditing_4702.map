@@ -31,13 +31,32 @@ Maps:
 
 # Documentation:
 # https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4702
+# https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4702
 #
 # Example Event Data:
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Security-Auditing" Guid="54867925-5478-4994-a5ba-3e3679b8c30d" />
+#    <EventID>4702</EventID>
+#    <Version>0</Version>
+#    <Level>0</Level>
+#    <Task>12879</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8020000200000000</Keywords>
+#    <TimeCreated SystemTime="2020-09-26 03:31:39.8350993" />
+#    <EventRecordID>3156790666</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="679" ThreadID="1234" />
+#    <Channel>Security</Channel>
+#    <Computer>HOSTNAME.domain.com</Computer>
+#    <Security />
+#  </System>
 #  <EventData>
-#    <Data Name="SubjectUserSid">S-1-5-20</Data>
-#    <Data Name="SubjectUserName">DC1$</Data>
-#    <Data Name="SubjectDomainName">insecurebank</Data>
-#    <Data Name="SubjectLogonId">0x3E4</Data>
-#    <Data Name="TaskName">\Microsoft\Windows\SoftwareProtectionPlatform\SvcRestartTask</Data>
-#    <Data Name="TaskContentNew">&amp;lt;?xml version="1.0" encoding="UTF-16"?&amp;gt;, &amp;lt;Task version="1.4"&amp;gt;,     &amp;lt;ComHandler&amp;gt;,       &amp;lt;ClassId&amp;gt;{B1AEBB5D-EAD9-4476-B375-9C3ED9F32AFC}&amp;lt;/ClassId&amp;gt;,       &amp;lt;Data&amp;gt;&amp;lt;![CDATA[timer]]&amp;gt;&amp;lt;/Data&amp;gt;,     &amp;lt;/ComHandler&amp;gt;,   &amp;lt;/Actions&amp;gt;, &amp;lt;/Task&amp;gt;</Data>
+#    <Data Name="SubjectUserSid">S-1-5-18</Data>
+#    <Data Name="SubjectUserName">UserName</Data>
+#    <Data Name="SubjectDomainName">DOMAIN</Data>
+#    <Data Name="SubjectLogonId">0x3E5</Data>
+#    <Data Name="TaskName">\Microsoft\Windows\Customer Experience Improvement Program\Server\ServerabcpAssistant</Data>
+#    <Data Name="TaskContentNew">&amp;lt;?xml version="1.0" encoding="UTF-16"?&amp;gt;, &amp;lt;Task version="1.3"&amp;gt;,     &amp;lt;Exec&amp;gt;,       &amp;lt;Command&amp;gt;%windir%\system32\abcpdata.exe&amp;lt;/Command&amp;gt;,     &amp;lt;/Exec&amp;gt;,   &amp;lt;/Actions&amp;gt;, &amp;lt;/Task&amp;gt;</Data>
 #  </EventData>
+#</Event>

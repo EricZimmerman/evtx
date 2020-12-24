@@ -38,5 +38,32 @@ Maps:
 
 # Documentation:
 # https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4700
+# https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4700
 #
 # Example Event Data:
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Security-Auditing" Guid="54135825-5478-4994-a5ba-3e3a7928c30d" />
+#    <EventID>4700</EventID>
+#    <Version>0</Version>
+#    <Level>0</Level>
+#    <Task>12804</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8020000004200000</Keywords>
+#    <TimeCreated SystemTime="2020-10-15 01:05:12.9341798" />
+#    <EventRecordID>264667993</EventRecordID>
+#    <Correlation ActivityID="b805asd3f-a27d-0002-4045-05b87122d601" />
+#    <Execution ProcessID="679" ThreadID="1984" />
+#    <Channel>Security</Channel>
+#    <Computer>HOSTNAME.DOMAIN.net</Computer>
+#    <Security />
+#  </System>
+#  <EventData>
+#    <Data Name="SubjectUserSid">S-1-5-18</Data>
+#    <Data Name="SubjectUserName">USERNAME</Data>
+#    <Data Name="SubjectDomainName">DOMAIN</Data>
+#    <Data Name="SubjectLogonId">0x3E5</Data>
+#    <Data Name="TaskName">\Microsoft\Windows\UpdateOrchestrator\Resume On Boot</Data>
+#    <Data Name="TaskContent">&amp;lt;?xml version="1.0" encoding="UTF-16"?&amp;gt;, &amp;lt;Task version="1.2"&amp;gt;,     &amp;lt;Exec&amp;gt;,       &amp;lt;Command&amp;gt;%systemroot%\system32\123client.exe&amp;lt;/Command&amp;gt;,       &amp;lt;Arguments&amp;gt;ResumeUpdate&amp;lt;/Arguments&amp;gt;,     &amp;lt;/Exec&amp;gt;,   &amp;lt;/Actions&amp;gt;, &amp;lt;/Task&amp;gt;</Data>
+#  </EventData>
+#</Event>
