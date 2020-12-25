@@ -45,6 +45,7 @@ Maps:
       - 
         Name: PreAuthType
         Value: "/Event/EventData/Data[@Name=\"PreAuthType\"]"
+
 Lookups:
   -
     Name: Status
