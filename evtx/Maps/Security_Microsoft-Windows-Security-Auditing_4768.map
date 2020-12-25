@@ -5,6 +5,16 @@ Channel: Security
 Provider: Microsoft-Windows-Security-Auditing
 Maps: 
   - 
+    Property: RemoteHost
+    PropertyValue: "%ipAddress%:%port%"
+    Values: 
+      - 
+        Name: ipAddress
+        Value: "/Event/EventData/Data[@Name=\"IpAddress\"]"
+      - 
+        Name: port
+        Value: "/Event/EventData/Data[@Name=\"IpPort\"]"
+  - 
     Property: PayloadData1
     PropertyValue: "Target: %domain%\\%user%"
     Values: 
@@ -14,6 +24,41 @@ Maps:
       - 
         Name: user
         Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "ServiceName: %ServiceName%"
+    Values: 
+      - 
+        Name: ServiceName
+        Value: "/Event/EventData/Data[@Name=\"ServiceName\"]"
+  - 
+    Property: PayloadData3
+    PropertyValue: "ServiceSid: %ServiceSid%"
+    Values: 
+      - 
+        Name: ServiceSid
+        Value: "/Event/EventData/Data[@Name=\"ServiceSid\"]"
+  - 
+    Property: PayloadData4
+    PropertyValue: "TicketEncryptionType: %TicketEncryptionType%"
+    Values: 
+      - 
+        Name: TicketEncryptionType
+        Value: "/Event/EventData/Data[@Name=\"TicketEncryptionType\"]"
+
+Lookups:
+  -
+    Name: TicketEncryptionType
+    Default: Unknown code
+    Values:
+        0x1: DES-CBC-CRC
+        0x3: DES-CBC-MD5
+        0x11: AES128-CTS-HMAC-SHA1-96
+        0x12: AES256-CTS-HMAC-SHA1-96
+        0x17: RC4-HMAC
+        0x18: RC4-HMAC-EXP
+        0xFFFFFFFF: Audit Failure
+        0xffffffff: Audit Failure
 
 # Documentation:
 # https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4768
