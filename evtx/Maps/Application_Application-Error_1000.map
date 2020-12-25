@@ -1,0 +1,47 @@
+Author: Andrew Rathbun
+Description: Application Error
+EventId: 1000
+Channel: Application
+Provider: "Application Error"
+Maps:
+  - 
+    Property: ExecutableInfo
+    PropertyValue: "%ExecutableInfo%"
+    Values: 
+      - 
+        Name: ExecutableInfo
+        Value: "/Event/EventData/Data"
+        Refine: ([a-zA-Z0-9_\\.\-\(\):])+(.exe|.dll)
+
+# Documentation:
+# https://www.minitool.com/news/event-id-1000.html
+# https://answers.microsoft.com/en-us/windows/forum/windows_7-performance/how-do-i-fix-error-code-1000-application-crashes/19caa618-0ec8-43e5-9544-313f44b42c3a
+# https://windowsreport.com/event-1000-application-error-windows-10/
+# https://appuals.com/how-to-fix-event-1000-application-error-on-windows-10/
+# I've personally seen malicious executables being recorded in these events given that malware is inherently unstable and meant to cause destruction on the host system. 
+# Please add any other file extensions as you see fit.
+# As always, check the Payload column for all info recorded for this event.
+#
+# Example Event Data:
+#<Event>
+#  <System>
+#    <Provider Name="Application Error" />
+#    <EventID Qualifiers="0">1000</EventID>
+#    <Version>0</Version>
+#    <Level>2</Level>
+#    <Task>100</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x80000000000000</Keywords>
+#    <TimeCreated SystemTime="2020-11-26 18:15:52.2640182" />
+#    <EventRecordID>12237</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="0" ThreadID="0" />
+#    <Channel>Application</Channel>
+#    <Computer>HOSTNAME</Computer>
+#    <Security />
+#  </System>
+#  <EventData>
+#    <Data>Battle.net.exe, 1.29.0.12511, 5fb30cf2, battle.net.dll, 1.29.0.12511, 5fb30cd7, c0000006, 01034c81, 6c3c, 01d6c40460409565, E:\Battle.net\Battle.net.exe, E:\Battle.net\Battle.net.12511\battle.net.dll, f380f3b9-326d-4192-bd08-453b67cf1de0</Data>
+#    <Binary></Binary>
+#  </EventData>
+#</Event>
