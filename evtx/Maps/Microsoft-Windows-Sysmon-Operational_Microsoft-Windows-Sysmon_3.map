@@ -62,6 +62,7 @@ Maps:
 # https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon#events
 # https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES
 # https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/default.aspx - filter on Sysmon
+# https://jpcertcc.github.io/ToolAnalysisResultSheet
 #
 # Example Event Data:
 #<Event>
