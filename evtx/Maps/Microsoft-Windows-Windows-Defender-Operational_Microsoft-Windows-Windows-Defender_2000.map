@@ -1,0 +1,78 @@
+Author: Andrew Rathbun
+Description: Update - The antimalware definitions updated successfully
+EventId: 2000
+Channel: Microsoft-Windows-Windows Defender/Operational
+Provider: Microsoft-Windows-Windows Defender
+Maps: 
+  - 
+    Property: UserName
+    PropertyValue: "%Domain%\\%User%"
+    Values: 
+      - 
+        Name: Domain
+        Value: "/Event/EventData/Data[@Name=\"Domain\"]"
+      - 
+        Name: User
+        Value: "/Event/EventData/Data[@Name=\"User\"]"
+  - 
+    Property: PayloadData1
+    PropertyValue: "Current: %CurrentSignatureVersion%"
+    Values: 
+      - 
+        Name: CurrentSignatureVersion
+        Value: "/Event/EventData/Data[@Name=\"Current Signature Version\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "Current: %PreviousSignatureVersion%"
+    Values: 
+      - 
+        Name: PreviousSignatureVersion
+        Value: "/Event/EventData/Data[@Name=\"Previous Signature Version\"]"
+  - 
+    Property: PayloadData3
+    PropertyValue: "Product Version: %ProductVersion%"
+    Values: 
+      - 
+        Name: ProductVersion
+        Value: "/Event/EventData/Data[@Name=\"Product Version\"]"
+
+# Documentation:
+# https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-antivirus/troubleshoot-microsoft-defender-antivirus
+#
+# Example Event Data:
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Windows Defender" Guid="11cd958a-c507-4ef3-b3f2-5fd9dfbd2c78" />
+#    <EventID>2000</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>0</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8000000090000000</Keywords>
+#    <TimeCreated SystemTime="2020-10-06 20:00:13.3944629" />
+#    <EventRecordID>15594</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="9972" ThreadID="18716" />
+#    <Channel>Microsoft-Windows-Windows Defender/Operational</Channel>
+#    <Computer>HOSTNAME.domain.net</Computer>
+#    <Security UserID="S-1-5-18" />
+#  </System>
+#  <EventData>
+#    <Data Name="Product Name">%%827</Data>
+#    <Data Name="Product Version">4.18.2008.9</Data>
+#    <Data Name="Current Signature Version">1.325.277.0</Data>
+#    <Data Name="Previous Signature Version">1.325.225.0</Data>
+#    <Data Name="Unused"></Data>
+#    <Data Name="Unused2"></Data>
+#    <Data Name="Unused3"></Data>
+#    <Data Name="Domain">NT AUTHORITY</Data>
+#    <Data Name="User">SYSTEM</Data>
+#    <Data Name="SID">S-1-5-18</Data>
+#    <Data Name="Signature Type Index">2</Data>
+#    <Data Name="Signature Type">%%801</Data>
+#    <Data Name="Update Type Index">2</Data>
+#    <Data Name="Update Type">%%804</Data>
+#    <Data Name="Current Engine Version">1.1.17500.4</Data>
+#    <Data Name="Previous Engine Version">1.1.17500.4</Data>
+#  </EventData>
+#</Event>

@@ -1,5 +1,5 @@
 Author: Troy Larson
-Description: Defender configuration has changed
+Description: The antimalware platform configuration changed
 EventId: 5007
 Channel: Microsoft-Windows-Windows Defender/Operational
 Provider: Microsoft-Windows-Windows Defender
