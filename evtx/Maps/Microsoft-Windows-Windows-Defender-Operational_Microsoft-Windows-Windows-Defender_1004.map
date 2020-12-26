@@ -1,5 +1,5 @@
 Author: Troy Larson
-Description: Scan has resumed
+Description: An antimalware scan was resumed
 EventId: 1004
 Channel: Microsoft-Windows-Windows Defender/Operational
 Provider: Microsoft-Windows-Windows Defender
