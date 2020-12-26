@@ -1,6 +1,6 @@
-Author: Mark Hallman mark.hallman@gmail.com
-Description: BITS transfer has started
-EventId: 59
+Author: Andrew Rathbun
+Description: BITS transfer has stopped
+EventId: 60
 Channel: Microsoft-Windows-Bits-Client/Operational
 Provider: Microsoft-Windows-Bits-Client
 Maps:
@@ -39,42 +39,49 @@ Maps:
       - 
         Name: bytesTransferredFromPeer
         Value: "/Event/EventData/Data[@Name=\"bytesTransferredFromPeer\"]" 
-                                                                    
+
 # Documentation:
-# https://kb.eventtracker.com/evtpass/evtPages/EventId_59_Microsoft-Windows-Bits-Client_64109.asp
+# https://kb.eventtracker.com/evtpass/evtpages/EventId_60_Microsoft-Windows-Bits-Client_64110.asp
 # https://jpcertcc.github.io/ToolAnalysisResultSheet/details/BITS.htm
 # https://www.sans.org/reading-room/whitepapers/forensics/bits-forensics-39195
 # https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-r2-and-2008/cc734695(v=ws.10)
-# https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-r2-and-2008/cc734713(v=ws.10)
+# https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-r2-and-2008/cc734635(v=ws.10)
 #
 # Example Event Data:
 #<Event>
 #  <System>
-#    <Provider Name="Microsoft-Windows-Bits-Client" Guid="ef6y679b-46c1-414e-bb95-e76b077bd51e" />
-#    <EventID>59</EventID>
+#    <Provider Name="Microsoft-Windows-Bits-Client" Guid="ef1ab15b-46c1-414e-bb95-e76b077bd51e" />
+#    <EventID>60</EventID>
 #    <Version>1</Version>
 #    <Level>4</Level>
 #    <Task>0</Task>
-#    <Opcode>1</Opcode>
-#    <Keywords>0x4000900000000000</Keywords>
-#    <TimeCreated SystemTime="2019-02-17 11:23:12.2815793" />
-#    <EventRecordID>16907</EventRecordID>
-#    <Correlation ActivityID="f56796f9-02a6-4bdf-9967-f21c8f1d4b54" />
-#    <Execution ProcessID="679" ThreadID="2580" />
+#    <Opcode>2</Opcode>
+#    <Keywords>0x4000000800000000</Keywords>
+#    <TimeCreated SystemTime="2020-11-30 17:31:11.2022221" />
+#    <EventRecordID>1532</EventRecordID>
+#    <Correlation ActivityID="76099896-f8ef-40f3-853b-9d3725e4b2f7" />
+#    <Execution ProcessID="7788" ThreadID="16396" />
 #    <Channel>Microsoft-Windows-Bits-Client/Operational</Channel>
-#    <Computer>HOSTNAME.domain.com</Computer>
+#    <Computer>HOSTNAME</Computer>
 #    <Security UserID="S-1-5-18" />
 #  </System>
 #  <EventData>
-#    <Data Name="transferId">f5e116f9-02a6-4bdf-9967-f21c8f1d4b54</Data>
-#    <Data Name="name">name</Data>
-#    <Data Name="Id">c29ef679-6c03-4644-992d-b7fe884e117b</Data>
-#    <Data Name="url">URL</Data>
+#    <Data Name="transferId">76052606-f8ef-40f3-853b-9d3725e4b2f7</Data>
+#    <Data Name="name">UpdateXml</Data>
+#    <Data Name="Id">f4ecc13b-4421-48a3-8766-4b987a0e5995</Data>
+#    <Data Name="url">https://g.live.com/123rewlive5skydrive/OneDriveProduction?OneDriveUpdate=f37fd774d9b58ea48d76eacfee1e</Data>
 #    <Data Name="peer"></Data>
-#    <Data Name="fileTime">2001-01-01 00:00:00.0000000</Data>
-#    <Data Name="fileLength">679</Data>
-#    <Data Name="bytesTotal">679</Data>
-#    <Data Name="bytesTransferred">0</Data>
+#    <Data Name="hr">0</Data>
+#    <Data Name="fileTime">2020-11-23 20:04:21.0000000</Data>
+#    <Data Name="fileLength">993</Data>
+#    <Data Name="bytesTotal">993</Data>
+#    <Data Name="bytesTransferred">993</Data>
+#    <Data Name="proxy"></Data>
+#    <Data Name="peerProtocolFlags">0</Data>
 #    <Data Name="bytesTransferredFromPeer">0</Data>
+#    <Data Name="AdditionalInfoHr">0</Data>
+#    <Data Name="PeerContextInfo">0</Data>
+#    <Data Name="bandwidthLimit">18446749973709551615</Data>
+#    <Data Name="ignoreBandwidthLimitsOnLan">False</Data>
 #  </EventData>
 #</Event>

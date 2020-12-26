@@ -1,0 +1,22 @@
+Author: Andrew Rathbun
+Description: The domain controller failed to validate the credentials for an account
+EventId: 4777
+Channel: Security
+Provider: Microsoft-Windows-Security-Auditing
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "Target: %TargetUserName%"
+    Values: 
+      - 
+        Name: TargetUserName
+        Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
+
+# Documentation:
+# https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4777
+# https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4777
+# Per Microsoft, currently this event doesn’t generate. It is a defined event, but it is never invoked by the operating system. 4776 failure event is generated instead.
+# This map is in place in case this event does come across in logs so the Map Description field will be populated.
+#
+# Example Event Data:
+# N/A
