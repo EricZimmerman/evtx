@@ -27,7 +27,8 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"Version\"]"
         
 # Documentation:
-# N/A
+# http://blog.plainbit.co.kr/wp-content/uploads/2018/05/Windows-Device-Information-Artifacts-in-Registry-Event-Log_180601.pdf (Korean)
+# https://cyberforensicator.com/wp-content/uploads/2017/09/USB-Storage-Device-Forensics-for-Windows-10.pdf
 #
 # Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">

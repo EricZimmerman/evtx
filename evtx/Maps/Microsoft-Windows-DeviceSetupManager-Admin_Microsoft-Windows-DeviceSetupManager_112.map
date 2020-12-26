@@ -1,0 +1,83 @@
+Author: Hyun Yi @hyuunnn
+Description: USB Connection
+EventId: 112
+Channel: "Microsoft-Windows-DeviceSetupManager/Admin"
+Provider: "Microsoft-Windows-DeviceSetupManager"
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "Prop_DeviceName: %Prop_DeviceName%"
+    Values:
+      -
+        Name: Prop_DeviceName
+        Value: "/Event/EventData/Data[@Name=\"Prop_DeviceName\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "Prop_ContainerId: %Prop_ContainerId%"
+    Values:
+      -
+        Name: Prop_ContainerId
+        Value: "/Event/EventData/Data[@Name=\"Prop_ContainerId\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "Prop_WorkTime_MilliSeconds: %Prop_WorkTime_MilliSeconds%"
+    Values:
+      -
+        Name: Prop_WorkTime_MilliSeconds
+        Value: "/Event/EventData/Data[@Name=\"Prop_WorkTime_MilliSeconds\"]"
+
+# Documentation:
+# https://cyberforensicator.com/wp-content/uploads/2017/09/USB-Storage-Device-Forensics-for-Windows-10.pdf
+#
+# Example Event Data:
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#  <System>
+#  <Provider Name="Microsoft-Windows-DeviceSetupManager" Guid="{GUID}" /> 
+#  <EventID>112</EventID> 
+#  <Version>0</Version> 
+#  <Level>4</Level> 
+#  <Task>0</Task> 
+#  <Opcode>0</Opcode> 
+#  <Keywords>0x4000000000000000</Keywords> 
+#  <TimeCreated SystemTime="2020-12-21T03:31:10.0547318Z" /> 
+#  <EventRecordID>548</EventRecordID> 
+#  <Correlation /> 
+#  <Execution ProcessID="4804" ThreadID="14716" /> 
+#  <Channel>Microsoft-Windows-DeviceSetupManager/Admin</Channel> 
+#  <Computer>ComputerName</Computer> 
+#  <Security UserID="{UserID}" /> 
+#  </System>
+#  <EventData>
+#  <Data Name="Prop_DeviceName">Razer DeathAdder Elite</Data> 
+#  <Data Name="Prop_ContainerId">{ContainerId}</Data> 
+#  <Data Name="Prop_TaskCount">1</Data> 
+#  <Data Name="Prop_PropertyCount">92</Data> 
+#  <Data Name="Prop_WorkTime_MilliSeconds">578</Data> 
+#  </EventData>
+#  </Event>
+#
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#  <System>
+#   <Provider Name="Microsoft-Windows-DeviceSetupManager" Guid="{GUID}" /> 
+#   <EventID>112</EventID> 
+#   <Version>0</Version> 
+#   <Level>4</Level> 
+#   <Task>0</Task> 
+#   <Opcode>0</Opcode> 
+#   <Keywords>0x4000000000000000</Keywords> 
+#   <TimeCreated SystemTime="2020-12-21T03:31:10.0731149Z" /> 
+#   <EventRecordID>549</EventRecordID> 
+#   <Correlation /> 
+#   <Execution ProcessID="4804" ThreadID="14716" /> 
+#   <Channel>Microsoft-Windows-DeviceSetupManager/Admin</Channel> 
+#   <Computer>ComputerName</Computer> 
+#   <Security UserID="{UserID}" /> 
+#   </System>
+#  <EventData>
+#   <Data Name="Prop_DeviceName">Portable SSD T5</Data> 
+#   <Data Name="Prop_ContainerId">{ContainerId}</Data> 
+#   <Data Name="Prop_TaskCount">1</Data> 
+#   <Data Name="Prop_PropertyCount">34</Data> 
+#   <Data Name="Prop_WorkTime_MilliSeconds">15</Data> 
+#   </EventData>
+#   </Event>
