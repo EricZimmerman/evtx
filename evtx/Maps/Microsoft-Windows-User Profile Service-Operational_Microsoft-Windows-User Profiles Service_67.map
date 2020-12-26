@@ -1,0 +1,65 @@
+Author: Hyun Yi @hyuunnn
+Description: Account Information
+EventId: 67
+Channel: "Microsoft-Windows-User Profile Service/Operational"
+Provider: "Microsoft-Windows-User Profiles Service"
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "LocalPath: %LocalPath%"
+    Values:
+      -
+        Name: LocalPath
+        Value: "/Event/EventData/Data[@Name=\"LocalPath\"]"
+        
+# Documentation:
+# N/A
+#
+# Example Event Data:
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <System>
+#  <Provider Name="Microsoft-Windows-User Profiles Service" Guid="{GUID}" /> 
+#  <EventID>67</EventID> 
+#  <Version>0</Version> 
+#  <Level>4</Level> 
+#  <Task>0</Task> 
+#  <Opcode>0</Opcode> 
+#  <Keywords>0x4000000000000000</Keywords> 
+#  <TimeCreated SystemTime="2020-12-26T17:09:58.3168713Z" /> 
+#  <EventRecordID>735</EventRecordID> 
+#  <Correlation /> 
+#  <Execution ProcessID="1468" ThreadID="10080" /> 
+#  <Channel>Microsoft-Windows-User Profile Service/Operational</Channel> 
+#  <Computer>ComputerName</Computer> 
+#  <Security UserID="{UserID}" /> 
+#  </System>
+# <EventData>
+#  <Data Name="LogonType">Regular</Data> 
+#  <Data Name="LocalPath">C:\Users\hyuunnn</Data> 
+#  <Data Name="ProfileType">Regular</Data> 
+#  </EventData>
+#  </Event>
+#
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#  <System>
+#   <Provider Name="Microsoft-Windows-User Profiles Service" Guid="{GUID}" /> 
+#   <EventID>67</EventID> 
+#   <Version>0</Version> 
+#   <Level>4</Level> 
+#   <Task>0</Task> 
+#   <Opcode>0</Opcode> 
+#   <Keywords>0x4000000000000000</Keywords> 
+#   <TimeCreated SystemTime="2020-12-26T17:08:08.0571119Z" /> 
+#   <EventRecordID>728</EventRecordID> 
+#   <Correlation /> 
+#   <Execution ProcessID="1468" ThreadID="1748" /> 
+#   <Channel>Microsoft-Windows-User Profile Service/Operational</Channel> 
+#   <Computer>ComputerName</Computer> 
+#   <Security UserID="{UserID}" /> 
+#   </System>
+#  <EventData>
+#   <Data Name="LogonType">Regular</Data> 
+#   <Data Name="LocalPath">C:\Users\test123</Data> 
+#   <Data Name="ProfileType">Regular</Data> 
+#   </EventData>
+#   </Event>

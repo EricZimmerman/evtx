@@ -39,6 +39,7 @@ Maps:
         
 # Documentation:
 # https://maj3sty.tistory.com/1102 (Korean)
+# https://www.koreascience.or.kr/article/JAKO201820765436652.pdf (Table 13. Event IDs for System Time Manipulation)
 #
 # Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
