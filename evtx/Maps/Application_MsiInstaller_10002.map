@@ -24,7 +24,7 @@ Maps:
     Values:
       -
         Name: Files
-        Value: "/Event/UserData/RmApplicationEvent/Files/File[text()]"
+        Value: "/Event/UserData/RmApplicationEvent/Files/File"
         
 # Documentation:
 # https://kb.eventtracker.com/evtpass/evtpages/EventId_10002_Microsoft-Windows-RestartManager_62090.asp

@@ -10,7 +10,7 @@ Maps:
     Values:
       -
         Name: Data
-        Value: "/Event/EventData/Data[text()]"
+        Value: "/Event/EventData/Data"
         
 # Documentation:
 # https://www.manageengine.com/products/eventlog/kb/event-1002-application-hang-error-help.html
