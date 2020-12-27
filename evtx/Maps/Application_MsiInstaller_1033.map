@@ -10,7 +10,7 @@ Maps:
     Values:
       -
         Name: Data
-        Value: "/Event/EventData/Data[text()]"
+        Value: "/Event/EventData/Data"
 
 # Documentation:
 # https://kb.eventtracker.com/evtpass/evtpages/EventId_1033_MsiInstaller_63308.asp

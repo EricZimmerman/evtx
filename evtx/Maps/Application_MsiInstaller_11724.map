@@ -6,11 +6,11 @@ Provider: "MsiInstaller"
 Maps:
   -
     Property: PayloadData1
-    PropertyValue: "Data: %Data%"
+    PropertyValue: "%Data%"
     Values:
       -
         Name: Data
-        Value: "/Event/EventData/Data[1]"
+        Value: "/Event/EventData/Data"
 
 # Documentation:
 # https://kb.eventtracker.com/evtpass/evtpages/EventId_11724_Msiinstaller_52366.asp

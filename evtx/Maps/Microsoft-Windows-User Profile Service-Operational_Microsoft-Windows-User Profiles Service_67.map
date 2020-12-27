@@ -5,12 +5,13 @@ Channel: "Microsoft-Windows-User Profile Service/Operational"
 Provider: "Microsoft-Windows-User Profiles Service"
 Maps:
   -
-    Property: PayloadData1
-    PropertyValue: "LocalPath: %LocalPath%"
+    Property: UserName
+    PropertyValue: "%LocalPath%"
     Values:
       -
         Name: LocalPath
         Value: "/Event/EventData/Data[@Name=\"LocalPath\"]"
+        Refine: "(?<=Users\\\\).*"
         
 # Documentation:
 # N/A
