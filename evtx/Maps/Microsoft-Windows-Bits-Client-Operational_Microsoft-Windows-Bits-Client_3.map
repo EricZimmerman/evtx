@@ -1,0 +1,95 @@
+Author: Gabriele Zambelli @gazambelli
+Description: BITS service created a new job
+EventId: 3
+Channel: Microsoft-Windows-Bits-Client/Operational
+Provider: Microsoft-Windows-Bits-Client
+Maps:
+   -
+    Property: UserName
+    PropertyValue: "jobOwner: %jobOwner%%string2%"
+    Values: 
+      - 
+        Name: jobOwner
+        Value: "/Event/EventData/Data[@Name=\"jobOwner\"]"
+      - 
+        Name: string2
+        Value: "/Event/EventData/Data[@Name=\"string2\"]"
+   -
+    Property: ExecutableInfo
+    PropertyValue: "%processPath%"
+    Values: 
+      - 
+        Name: processPath
+        Value: "/Event/EventData/Data[@Name=\"processPath\"]"
+   -
+    Property: PayloadData1
+    PropertyValue: "jobTitle: %jobTitle%%string%"
+    Values: 
+      - 
+        Name: jobTitle
+        Value: "/Event/EventData/Data[@Name=\"jobTitle\"]"
+      - 
+        Name: string
+        Value: "/Event/EventData/Data[@Name=\"string\"]"
+   -
+    Property: PayloadData2
+    PropertyValue: "jobId: %jobId%"
+    Values: 
+      - 
+        Name: jobId
+        Value: "/Event/EventData/Data[@Name=\"jobId\"]"
+        
+# Documentation:
+# https://www.cecyf.fr/wp-content/uploads/2018/01/2018-CELTON-DELAHAYE-Analyse-des-jobs-BITS.pdf
+# https://jpcertcc.github.io/ToolAnalysisResultSheet/details/BITS.htm#SuccessCondition
+#
+# Example Event Data:
+# <Event>
+  # <System>
+    # <Provider Name="Microsoft-Windows-Bits-Client" Guid="ef1cc15b-46c1-414e-bb95-e76b077bd51e" />
+    # <EventID>3</EventID>
+    # <Version>2</Version>
+    # <Level>4</Level>
+    # <Task>0</Task>
+    # <Opcode>0</Opcode>
+    # <Keywords>0x4000000000000000</Keywords>
+    # <TimeCreated SystemTime="2020-07-03 08:55:46.3523393" />
+    # <EventRecordID>2774</EventRecordID>
+    # <Correlation />
+    # <Execution ProcessID="1556" ThreadID="8344" />
+    # <Channel>Microsoft-Windows-Bits-Client/Operational</Channel>
+    # <Computer>MSEDGEWIN10</Computer>
+    # <Security UserID="S-1-5-18" />
+  # </System>
+  # <EventData>
+    # <Data Name="jobTitle">Download LockScreen Image</Data>
+    # <Data Name="jobId">ff819706-9ff9-490b-ade5-b069232c5d23</Data>
+    # <Data Name="jobOwner">MSEDGEWIN10\IEUser</Data>
+    # <Data Name="processPath">C:\Windows\System32\desktopimgdownldr.exe</Data>
+    # <Data Name="processId">1996</Data>
+  # </EventData>
+# </Event>
+
+# <Event>
+  # <System>
+    # <Provider Name="Microsoft-Windows-Bits-Client" Guid="ef1cc15b-46c1-414e-bb95-e76b077bd51e" />
+    # <EventID>3</EventID>
+    # <Version>0</Version>
+    # <Level>4</Level>
+    # <Task>0</Task>
+    # <Opcode>0</Opcode>
+    # <Keywords>0x4000000000000000</Keywords>
+    # <TimeCreated SystemTime="2019-05-12 18:02:05.2151977" />
+    # <EventRecordID>3815</EventRecordID>
+    # <Correlation />
+    # <Execution ProcessID="964" ThreadID="984" />
+    # <Channel>Microsoft-Windows-Bits-Client/Operational</Channel>
+    # <Computer>IEWIN7</Computer>
+    # <Security UserID="S-1-5-18" />
+  # </System>
+  # <EventData>
+    # <Data Name="string">backdoor</Data>
+    # <Data Name="string2">IEWIN7\IEUser</Data>
+    # <Data Name="string3"></Data>
+  # </EventData>
+# </Event>
