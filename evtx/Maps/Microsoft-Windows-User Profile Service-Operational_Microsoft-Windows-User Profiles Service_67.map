@@ -11,7 +11,7 @@ Maps:
       -
         Name: LocalPath
         Value: "/Event/EventData/Data[@Name=\"LocalPath\"]"
-        Refine: "(?<=Users).*"
+        Refine: "(?<=Users\\\\).*"
         
 # Documentation:
 # N/A
