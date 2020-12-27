@@ -1,0 +1,81 @@
+Author: Gabriele Zambelli @gazambelli
+Description: BITS job completion
+EventId: 4
+Channel: Microsoft-Windows-Bits-Client/Operational
+Provider: Microsoft-Windows-Bits-Client
+Maps:
+   -
+    Property: UserName
+    PropertyValue: "jobOwner: %jobOwner%%string2%"
+    Values: 
+      - 
+        Name: jobOwner
+        Value: "/Event/EventData/Data[@Name=\"User\"]"
+   -
+    Property: PayloadData1
+    PropertyValue: "jobTitle: %jobTitle%"
+    Values: 
+      - 
+        Name: jobTitle
+        Value: "/Event/EventData/Data[@Name=\"jobTitle\"]"
+   -
+    Property: PayloadData2
+    PropertyValue: "jobId: %jobId%"
+    Values: 
+      - 
+        Name: jobId
+        Value: "/Event/EventData/Data[@Name=\"jobId\"]"
+   -
+    Property: PayloadData3
+    PropertyValue: "fileCount: %fileCount%"
+    Values: 
+      - 
+        Name: fileCount
+        Value: "/Event/EventData/Data[@Name=\"fileCount\"]" 
+   -
+    Property: PayloadData5
+    PropertyValue: "Bytes Transferred: %bytesTransferred%"
+    Values: 
+      - 
+        Name: bytesTransferred
+        Value: "/Event/EventData/Data[@Name=\"bytesTransferred\"]" 
+   -
+    Property: PayloadData6
+    PropertyValue: "Bytes Transferred from Peer: %bytesTransferredFromPeer%"
+    Values: 
+      - 
+        Name: bytesTransferredFromPeer
+        Value: "/Event/EventData/Data[@Name=\"bytesTransferredFromPeer\"]" 
+        
+# Documentation:
+# https://kb.eventtracker.com/evtpass/evtpages/EventId_4_Microsoft-Windows-Bits-Client_64107.asp
+#
+# Example Event Data:
+# <Event>
+  # <System>
+    # <Provider Name="Microsoft-Windows-Bits-Client" Guid="ef1cc15b-46c1-414e-bb95-e76b077bd51e" />
+    # <EventID>4</EventID>
+    # <Version>1</Version>
+    # <Level>4</Level>
+    # <Task>0</Task>
+    # <Opcode>0</Opcode>
+    # <Keywords>0x4000000000000000</Keywords>
+    # <TimeCreated SystemTime="2020-07-03 08:55:51.3562594" />
+    # <EventRecordID>2778</EventRecordID>
+    # <Correlation />
+    # <Execution ProcessID="1556" ThreadID="4812" />
+    # <Channel>Microsoft-Windows-Bits-Client/Operational</Channel>
+    # <Computer>MSEDGEWIN10</Computer>
+    # <Security UserID="S-1-5-18" />
+  # </System>
+  # <EventData>
+    # <Data Name="User">MSEDGEWIN10\IEUser</Data>
+    # <Data Name="jobTitle">Download LockScreen Image</Data>
+    # <Data Name="jobId">ff819706-9ff9-490b-ade5-b069232c5d23</Data>
+    # <Data Name="jobOwner">MSEDGEWIN10\IEUser</Data>
+    # <Data Name="fileCount">1</Data>
+    # <Data Name="bytesTransferred">162791</Data>
+    # <Data Name="bytesTransferredFromPeer">0</Data>
+  # </EventData>
+# </Event>
+
