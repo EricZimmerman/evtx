@@ -29,7 +29,7 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"ProcessId\"]"      
   - 
     Property: PayloadData1
-    PropertyValue: "%PrivilegeList%"
+    PropertyValue: "PrivilegeList: %PrivilegeList%"
     Values: 
       - 
         Name: PrivilegeList
