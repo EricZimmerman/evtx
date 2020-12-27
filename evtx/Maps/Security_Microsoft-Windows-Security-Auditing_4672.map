@@ -19,7 +19,7 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"SubjectUserSid\"]"
   - 
     Property: PayloadData1
-    PropertyValue: "%PrivilegeList%"
+    PropertyValue: "PrivilegeList: %PrivilegeList%"
     Values: 
       - 
         Name: PrivilegeList
