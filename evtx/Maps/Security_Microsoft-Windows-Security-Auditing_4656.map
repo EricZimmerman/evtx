@@ -33,7 +33,7 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"ObjectType\"]"
   - 
     Property: PayloadData2
-    PropertyValue: "Registry Key: %ObjectName%"
+    PropertyValue: "ObjectName: %ObjectName%"
     Values: 
       - 
         Name: ObjectName
