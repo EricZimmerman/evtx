@@ -3,14 +3,17 @@ Description: Event description goes here without a period
 EventId: EventID number goes here
 Channel: Channel goes here
 Provider: Provider goes here
-# Delete all of these commented lines before submitting your map, including those after the Property values below. Below is an example of Properties and how they can be used in your map.
+# Delete all of these commented lines before submitting your map, including those after the Property values below. Alternatively, use the .template file located within this repo to get a running start on your map. 
+# Below is an example of Properties and how they can be used in your map. 
 # Filename for the map should follow the title of this file. _ separates Channel from Provider from EventID. - replaces any spaces or special characters in either Channel Name or Provider Name. Your filename may be long and that is okay. 
 # The value for "Property: " must be one of the following: RemoteHost, UserName, ExecutableInfo, PayloadData1, PayloadData2, PayloadData3, PayloadData4, PayloadData5, or PayloadData6. Please stick to this same casing scheme for uniformity (i.e. UserName vs Username). 
 # The value(s) for "PropertyValue: " must match whatever you list below under Values for the Name(s). PropertyValue will determine how the data pulled from Name and Value will look to the end user within the CSV output. 
 # When organizing your PayloadData columns, if your event is similar to preexisting maps, try to follow the same pattern others follow for consistency during analysis. A good example of this is the Sysmon logs. 
 # PayloadData5 below includes an example of using regex.
 # PayloadData6 below includes an example of a Lookup Table. 
-# No space between "Provider:"" and "Maps:", please.
+# If your map calls for multiple lookup tables, please nest all lookups underneath a single "Lookups: " instance. For good examples of this, check out Security 4769 and 4771. 
+# No empty space between "Provider:" and "Maps:", please.
+# After your last # line at the bottom of the map, hit Enter so there's a blank line underneath your last line of map content. 
 Maps: 
   - 
     Property: UserName # UserName --> if at all possible, try to include DOMAIN\username if that information is recorded in the event.

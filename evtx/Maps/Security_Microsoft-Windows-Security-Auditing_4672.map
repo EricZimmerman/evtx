@@ -25,7 +25,7 @@ Maps:
         Name: PrivilegeList
         Value: "/Event/EventData/Data[@Name=\"PrivilegeList\"]"
   - 
-    Property: PayloadData3
+    Property: PayloadData2
     PropertyValue: "LogonId: %SubjectLogonId%"
     Values: 
       - 
