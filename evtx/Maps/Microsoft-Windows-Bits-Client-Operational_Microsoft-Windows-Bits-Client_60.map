@@ -6,34 +6,44 @@ Provider: Microsoft-Windows-Bits-Client
 Maps:
    -
     Property: PayloadData1
+    PropertyValue: "jobTitle: %jobTitle%"
+    Values: 
+      - 
+        Name: jobTitle
+        Value: "/Event/EventData/Data[@Name=\"name\"]"
+   -
+    Property: PayloadData2
+    PropertyValue: "jobId: %jobId%"
+    Values: 
+      - 
+        Name: jobId
+        Value: "/Event/EventData/Data[@Name=\"Id\"]"
+   -
+    Property: PayloadData3
     PropertyValue: "URL: %url%"
     Values: 
       - 
         Name: url
         Value: "/Event/EventData/Data[@Name=\"url\"]"
    -
-    Property: PayloadData2
+    Property: PayloadData4
     PropertyValue: "Peer: %peer%"
     Values: 
       - 
         Name: peer
         Value: "/Event/EventData/Data[@Name=\"peer\"]"     
    -
-    Property: PayloadData3
-    PropertyValue: "Total Bytes: %bytesTotal%"
+    Property: PayloadData5
+    PropertyValue: "Total Bytes: %bytesTotal% (Transferred: %bytesTransferred%)"
     Values: 
       - 
         Name: bytesTotal
         Value: "/Event/EventData/Data[@Name=\"bytesTotal\"]" 
-   -
-    Property: PayloadData4
-    PropertyValue: "Bytes Transferred: %bytesTransferred%"
-    Values: 
       - 
         Name: bytesTransferred
         Value: "/Event/EventData/Data[@Name=\"bytesTransferred\"]" 
    -
-    Property: PayloadData5
+    Property: PayloadData6
     PropertyValue: "Bytes Transferred from Peer: %bytesTransferredFromPeer%"
     Values: 
       - 
