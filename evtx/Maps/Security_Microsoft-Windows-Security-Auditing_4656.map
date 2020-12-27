@@ -16,10 +16,10 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
   - 
     Property: ExecutableInfo
-    PropertyValue: "%Process% (PID: %ProcessId%)"
+    PropertyValue: "%ProcessName% (PID: %ProcessId%)"
     Values: 
       - 
-        Name: Process
+        Name: ProcessName
         Value: "/Event/EventData/Data[@Name=\"ProcessName\"]"
       - 
         Name: ProcessId
