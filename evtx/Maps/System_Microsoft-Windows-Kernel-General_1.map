@@ -1,0 +1,65 @@
+Author: Hyun Yi @hyuunnn
+Description: The system time was changed
+EventId: 1
+Channel: "System"
+Provider: "Microsoft-Windows-Kernel-General"
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "OldTime: %OldTime%"
+    Values:
+      -
+        Name: OldTime
+        Value: "/Event/EventData/Data[@Name=\"OldTime\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "NewTime: %NewTime%"
+    Values:
+      -
+        Name: NewTime
+        Value: "/Event/EventData/Data[@Name=\"NewTime\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "Reason: %Reason%"
+    Values:
+      -
+        Name: Reason
+        Value: "/Event/EventData/Data[@Name=\"Reason\"]"
+Lookups: 
+  -
+    Name: Reason
+    Default: Unknown code
+    Values:
+        1: An application or system component changed the time.
+        2: System time synchronized with the hardware clock.
+        3: System time adjusted to the new time zone.
+
+# Documentation:
+# http://deusexmachina.uk/evdoco/event.php?event=809
+#
+# Example Event Data:
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#   <System>
+#     <Provider Name="Microsoft-Windows-Kernel-General" Guid="{GUID}" /> 
+#     <EventID>1</EventID> 
+#     <Version>2</Version> 
+#     <Level>4</Level> 
+#     <Task>5</Task> 
+#     <Opcode>0</Opcode> 
+#     <Keywords>0x8000000000000010</Keywords> 
+#     <TimeCreated SystemTime="2020-11-08T17:55:55.8080736Z" /> 
+#     <EventRecordID>5855</EventRecordID> 
+#     <Correlation /> 
+#     <Execution ProcessID="12840" ThreadID="13020" /> 
+#     <Channel>System</Channel> 
+#     <Computer>ComputerName</Computer> 
+#     <Security UserID="{UserID}" /> 
+#   </System>
+#   <EventData>
+#     <Data Name="NewTime">2020-11-08T17:55:55.8076950Z</Data> 
+#     <Data Name="OldTime">2020-11-08T17:55:53.0958112Z</Data> 
+#     <Data Name="Reason">1</Data> 
+#     <Data Name="ProcessName">\Device\HarddiskVolume3\Windows\System32\svchost.exe</Data> 
+#     <Data Name="ProcessID">12840</Data> 
+#   </EventData>
+# </Event>
