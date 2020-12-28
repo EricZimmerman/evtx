@@ -65,7 +65,7 @@ Lookups:
         18: This value is reserved for system use.
 
 # Documentation:
-# N/A
+# https://docs.microsoft.com/en-us/previous-versions/windows/desktop/stormgmt/msft-physicaldisk (BusType)
 #
 # Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
