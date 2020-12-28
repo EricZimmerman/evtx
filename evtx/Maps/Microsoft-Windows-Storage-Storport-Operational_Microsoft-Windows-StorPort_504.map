@@ -27,6 +27,13 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"SerialNumber\"]"
   -
     Property: PayloadData4
+    PropertyValue: "BootDevice: %BootDevice%"
+    Values:
+      -
+        Name: BootDevice
+        Value: "/Event/EventData/Data[@Name=\"BootDevice\"]"
+  -
+    Property: PayloadData5
     PropertyValue: "BusType: %BusType%"
     Values:
       -
