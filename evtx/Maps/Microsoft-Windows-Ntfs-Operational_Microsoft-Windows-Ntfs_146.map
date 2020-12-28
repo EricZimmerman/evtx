@@ -1,0 +1,216 @@
+Author: Hyun Yi @hyuunnn
+Description: IO Connection
+EventId: 146
+Channel: "Microsoft-Windows-Ntfs/Operational"
+Provider: "Microsoft-Windows-Ntfs"
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "VolumeName: %VolumeName%"
+    Values:
+      -
+        Name: VolumeName
+        Value: "/Event/EventData/Data[@Name=\"VolumeName\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "IsBootVolume: %IsBootVolume%"
+    Values:
+      -
+        Name: IsBootVolume
+        Value: "/Event/EventData/Data[@Name=\"IsBootVolume\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "VendorId: %VendorId%"
+    Values:
+      -
+        Name: VendorId
+        Value: "/Event/EventData/Data[@Name=\"VendorId\"]"
+  -
+    Property: PayloadData4
+    PropertyValue: "ProductId: %ProductId%"
+    Values:
+      -
+        Name: ProductId
+        Value: "/Event/EventData/Data[@Name=\"ProductId\"]"
+  -
+    Property: PayloadData5
+    PropertyValue: "DeviceSerialNumber: %DeviceSerialNumber%"
+    Values:
+      -
+        Name: DeviceSerialNumber
+        Value: "/Event/EventData/Data[@Name=\"DeviceSerialNumber\"]"
+  -
+    Property: PayloadData6
+    PropertyValue: "BusType: %BusType%"
+    Values:
+      -
+        Name: BusType
+        Value: "/Event/EventData/Data[@Name=\"BusType\"]"
+Lookups: 
+  -
+    Name: BusType
+    Default: Unknown code
+    Values:
+        0: The bus type is unknown.
+        1: SCSI
+        2: ATAPI
+        3: ATA
+        4: IEEE 1394
+        5: SSA
+        6: Fibre Channel
+        7: USB
+        8: RAID
+        9: iSCSI
+        10: Serial Attached SCSI (SAS)
+        11: Serial ATA (SATA)
+        12: Secure Digital (SD)
+        13: Multimedia Card (MMC)
+        14: This value is reserved for system use.
+        15: File-Backed Virtual
+        16: Storage Spaces
+        17: NVMe
+        18: This value is reserved for system use.
+
+# Documentation:
+# https://docs.microsoft.com/en-us/previous-versions/windows/desktop/stormgmt/msft-physicaldisk (BusType)
+#
+# Example Event Data:
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#   <System>
+#     <Provider Name="Microsoft-Windows-Ntfs" Guid="{GUID}" /> 
+#     <EventID>146</EventID> 
+#     <Version>3</Version> 
+#     <Level>4</Level> 
+#     <Task>0</Task> 
+#     <Opcode>0</Opcode> 
+#     <Keywords>0x4000000000200000</Keywords> 
+#     <TimeCreated SystemTime="2020-10-06T17:55:25.6477423Z" /> 
+#     <EventRecordID>67</EventRecordID> 
+#     <Correlation /> 
+#     <Execution ProcessID="4" ThreadID="8024" /> 
+#     <Channel>Microsoft-Windows-Ntfs/Operational</Channel> 
+#     <Computer>ComputerName</Computer> 
+#     <Security UserID="{UserID}" /> 
+#   </System>
+#   <EventData>
+#     <Data Name="Version">3</Data> 
+#     <Data Name="VolumeCorrelationId">{e822ca39-b41d-44b1-8d17-0a30286c9e59}</Data> 
+#     <Data Name="VolumeNameLength">2</Data> 
+#     <Data Name="VolumeName">D:</Data> 
+#     <Data Name="IsBootVolume">false</Data> 
+#     <Data Name="TierIndex">0</Data> 
+#     <Data Name="DeviceGuid">{a0d9d718-f9a2-319a-d91a-87f51e15fb49}</Data> 
+#     <Data Name="VendorIdLength">8</Data> 
+#     <Data Name="VendorId">WD</Data> 
+#     <Data Name="ProductIdLength">16</Data> 
+#     <Data Name="ProductId">My Passport 25E2</Data> 
+#     <Data Name="ProductRevisionLength">4</Data> 
+#     <Data Name="ProductRevision">4005</Data> 
+#     <Data Name="DeviceSerialNumberLength">16</Data> 
+#     <Data Name="DeviceSerialNumber">WX41D69CD7D1</Data> 
+#     <Data Name="BusType">7</Data> 
+#     <Data Name="AdapterSerialNumberLength">0</Data> 
+#     <Data Name="AdapterSerialNumber" /> 
+#     <Data Name="MaxLatencyMs">30000</Data> 
+#     <Data Name="ReadWriteLatencyBucket1">5000000</Data> 
+#     <Data Name="ReadWriteLatencyBucket2">30000000</Data> 
+#     <Data Name="ReadWriteLatencyBucket3">100000000</Data> 
+#     <Data Name="ReadWriteLatencyBucket4">0</Data> 
+#     <Data Name="ReadWriteLatencyBucket5">0</Data> 
+#     <Data Name="ReadWriteLatencyBucket6">0</Data> 
+#     <Data Name="ReadWriteLatencyBucket7">0</Data> 
+#     <Data Name="TrimLatencyBucket1">10000000</Data> 
+#     <Data Name="TrimLatencyBucket2">50000000</Data> 
+#     <Data Name="TrimLatencyBucket3">100000000</Data> 
+#     <Data Name="TrimLatencyBucket4">0</Data> 
+#     <Data Name="TrimLatencyBucket5">0</Data> 
+#     <Data Name="TrimLatencyBucket6">0</Data> 
+#     <Data Name="TrimLatencyBucket7">0</Data> 
+#     <Data Name="FlushLatencyBucket1">10000000</Data> 
+#     <Data Name="FlushLatencyBucket2">50000000</Data> 
+#     <Data Name="FlushLatencyBucket3">100000000</Data> 
+#     <Data Name="FlushLatencyBucket4">0</Data> 
+#     <Data Name="FlushLatencyBucket5">0</Data> 
+#     <Data Name="FlushLatencyBucket6">0</Data> 
+#     <Data Name="FlushLatencyBucket7">0</Data> 
+#     <Data Name="HighIoLatencyCount">0</Data> 
+#     <Data Name="IntervalDurationUs">3610859627</Data> 
+#     <Data Name="NCReadIOCount">183</Data> 
+#     <Data Name="NCReadTotalBytes">123015336</Data> 
+#     <Data Name="NCReadAvgLatencyNs">36036275</Data> 
+#     <Data Name="NCWriteIOCount">17</Data> 
+#     <Data Name="NCWriteTotalBytes">69632</Data> 
+#     <Data Name="NCWriteAvgLatencyNs">185182</Data> 
+#     <Data Name="FileFlushCount">2</Data> 
+#     <Data Name="FileFlushAvgLatencyNs">11450</Data> 
+#     <Data Name="DirectoryFlushCount">0</Data> 
+#     <Data Name="DirectoryFlushAvgLatencyNs">0</Data> 
+#     <Data Name="VolumeFlushCount">61</Data> 
+#     <Data Name="VolumeFlushAvgLatencyNs">13952</Data> 
+#     <Data Name="FileLevelTrimCount">0</Data> 
+#     <Data Name="FileLevelTrimTotalBytes">0</Data> 
+#     <Data Name="FileLevelTrimExtentsCount">0</Data> 
+#     <Data Name="FileLevelTrimAvgLatencyNs">0</Data> 
+#     <Data Name="VolumeTrimCount">0</Data> 
+#     <Data Name="VolumeTrimTotalBytes">0</Data> 
+#     <Data Name="VolumeTrimExtentsCount">0</Data> 
+#     <Data Name="VolumeTrimAvgLatencyNs">0</Data> 
+#     <Data Name="IoBucketsCount">12</Data> 
+#     <Data Name="TotalBytesBucketsCount">10</Data> 
+#     <Data Name="ExtentsBucketsCount">0</Data> 
+#     <Data Name="IoCount">17</Data> 
+#     <Data Name="IoCount">7</Data> 
+#     <Data Name="IoCount">9</Data> 
+#     <Data Name="IoCount">1</Data> 
+#     <Data Name="IoCount">3</Data> 
+#     <Data Name="IoCount">1</Data> 
+#     <Data Name="IoCount">94</Data> 
+#     <Data Name="IoCount">16</Data> 
+#     <Data Name="IoCount">36</Data> 
+#     <Data Name="IoCount">20</Data> 
+#     <Data Name="IoCount">61</Data> 
+#     <Data Name="IoCount">2</Data> 
+#     <Data Name="TotalLatencyUs">3148100</Data> 
+#     <Data Name="TotalLatencyUs">1838900</Data> 
+#     <Data Name="TotalLatencyUs">4620000</Data> 
+#     <Data Name="TotalLatencyUs">263400</Data> 
+#     <Data Name="TotalLatencyUs">191300</Data> 
+#     <Data Name="TotalLatencyUs">180800</Data> 
+#     <Data Name="TotalLatencyUs">133638000</Data> 
+#     <Data Name="TotalLatencyUs">204587900</Data> 
+#     <Data Name="TotalLatencyUs">2378867500</Data> 
+#     <Data Name="TotalLatencyUs">3870905400</Data> 
+#     <Data Name="TotalLatencyUs">851100</Data> 
+#     <Data Name="TotalLatencyUs">22900</Data> 
+#     <Data Name="TotalBytes">69632</Data> 
+#     <Data Name="TotalBytes">339968</Data> 
+#     <Data Name="TotalBytes">71680</Data> 
+#     <Data Name="TotalBytes">512</Data> 
+#     <Data Name="TotalBytes">217</Data> 
+#     <Data Name="TotalBytes">4096</Data> 
+#     <Data Name="TotalBytes">47102120</Data> 
+#     <Data Name="TotalBytes">16777216</Data> 
+#     <Data Name="TotalBytes">37748736</Data> 
+#     <Data Name="TotalBytes">20971520</Data> 
+#     <Data Name="TrimExtentsCount" /> 
+#     <Data Name="IoTypeIndex">36</Data> 
+#     <Data Name="IoTypeIndex">48</Data> 
+#     <Data Name="IoTypeIndex">52</Data> 
+#     <Data Name="IoTypeIndex">56</Data> 
+#     <Data Name="IoTypeIndex">60</Data> 
+#     <Data Name="IoTypeIndex">64</Data> 
+#     <Data Name="IoTypeIndex">68</Data> 
+#     <Data Name="IoTypeIndex">69</Data> 
+#     <Data Name="IoTypeIndex">70</Data> 
+#     <Data Name="IoTypeIndex">71</Data> 
+#     <Data Name="IoTypeIndex">0</Data> 
+#     <Data Name="IoTypeIndex">4</Data> 
+#     <Data Name="VcbExAcquireCount">6</Data> 
+#     <Data Name="VcbExMaxWaitDurationMs">0</Data> 
+#     <Data Name="VcbExAvgWaitDurationMs">0</Data> 
+#     <Data Name="VcbExMaxHoldDurationMs">7355</Data> 
+#     <Data Name="VcbExAvgHoldDurationMs">1225</Data> 
+#     <Data Name="VcbExMaxCombinedDurationMs">7355</Data> 
+#     <Data Name="VcbExAvgCombinedDurationMs">1225</Data> 
+#   </EventData>
+# </Event>
