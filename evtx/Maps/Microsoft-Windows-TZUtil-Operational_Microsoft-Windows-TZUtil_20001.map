@@ -1,5 +1,5 @@
 Author: Hyun Yi @hyuunnn
-Description: TZUtil (changed timestamp)
+Description: TZUtil (changed timezone)
 EventId: 20001
 Channel: "Microsoft-Windows-TZUtil/Operational"
 Provider: "Microsoft-Windows-TZUtil"
