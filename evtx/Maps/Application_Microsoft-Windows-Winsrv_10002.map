@@ -10,7 +10,7 @@ Maps:
     Values:
       -
         Name: AppName
-        Value: "/Event/UserData/HungAppEvent/AppName
+        Value: "/Event/UserData/HungAppEvent/AppName"
         
 # Documentation:
 # N/A
