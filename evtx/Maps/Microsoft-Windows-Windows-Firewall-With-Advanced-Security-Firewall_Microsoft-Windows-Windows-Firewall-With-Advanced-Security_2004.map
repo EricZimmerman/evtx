@@ -1,4 +1,4 @@
-Author: peter.snyder@kroll.com
+Author: peter.snyder@kroll.com, Hyun Yi @hyuunnn
 Description: FW rule added to exception list
 EventId: 2004
 Channel: Microsoft-Windows-Windows Firewall With Advanced Security/Firewall
@@ -38,6 +38,34 @@ Maps:
       - 
         Name: Direction
         Value: "/Event/EventData/Data[@Name=\"Direction\"]"
+  -
+    Property: PayloadData4
+    PropertyValue: "Action: %Action%"
+    Values: 
+      - 
+        Name: Action
+        Value: "/Event/EventData/Data[@Name=\"Action\"]"
+  -
+    Property: PayloadData5
+    PropertyValue: "Protocol: %Protocol%"
+    Values: 
+      - 
+        Name: Protocol
+        Value: "/Event/EventData/Data[@Name=\"Protocol\"]"
+Lookups: 
+  -
+    Name: Action
+    Default: Unknown code
+    Values:
+        2: Block
+        3: Allow
+  -
+    Name: Protocol
+    Default: Unknown code
+    Values:
+        6: TCP
+        17: UDP
+        256: All
 
 # Documentation:
 # https://kb.eventtracker.com/evtpass/evtPages/EventId_2004_Microsoft-Windows-WindowsFirewallwithAdvancedS_65673.asp
