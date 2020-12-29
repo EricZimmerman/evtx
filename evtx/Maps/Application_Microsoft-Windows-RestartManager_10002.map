@@ -1,25 +1,25 @@
 Author: Hyun Yi @hyuunnn
-Description: Terminated due to non-response
+Description: Shutting down application or service
 EventId: 10002
 Channel: "Application"
 Provider: "Microsoft-Windows-RestartManager"
 Maps:
   -
-    Property: PayloadData1
-    PropertyValue: "FullPath: %FullPath%"
+    Property: ExecutableInfo
+    PropertyValue: "%FullPath%"
     Values:
       -
         Name: FullPath
         Value: "/Event/UserData/RmApplicationEvent/FullPath"
   -
-    Property: PayloadData2
+    Property: PayloadData1
     PropertyValue: "DisplayName: %DisplayName%"
     Values:
       -
         Name: DisplayName
         Value: "/Event/UserData/RmApplicationEvent/DisplayName"
   -
-    Property: PayloadData3
+    Property: PayloadData2
     PropertyValue: "Files: %Files%"
     Values:
       -
