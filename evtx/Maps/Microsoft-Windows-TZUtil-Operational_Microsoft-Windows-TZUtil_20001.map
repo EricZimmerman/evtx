@@ -1,0 +1,39 @@
+Author: Hyun Yi @hyuunnn
+Description: TZUtil (changed timestamp)
+EventId: 20001
+Channel: "Microsoft-Windows-TZUtil/Operational"
+Provider: "Microsoft-Windows-TZUtil"
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "Time Zone: %Time Zone%"
+    Values:
+      -
+        Name: Time Zone
+        Value: "/Event/EventData/Data[@Name=\"Time Zone\"]"
+        
+# Documentation:
+# https://www.action1.com/kb/changing-the-time-zone-in-CMD-Windows-10.html
+#
+# Example Event Data:
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#   <System>
+#     <Provider Name="Microsoft-Windows-TZUtil" Guid="{GUID}" /> 
+#     <EventID>20001</EventID> 
+#     <Version>0</Version> 
+#     <Level>4</Level> 
+#     <Task>31</Task> 
+#     <Opcode>33</Opcode> 
+#     <Keywords>0x8000000000000000</Keywords> 
+#     <TimeCreated SystemTime="2020-12-29T10:21:46.0662054Z" /> 
+#     <EventRecordID>2</EventRecordID> 
+#     <Correlation /> 
+#     <Execution ProcessID="25988" ThreadID="9512" /> 
+#     <Channel>Microsoft-Windows-TZUtil/Operational</Channel> 
+#     <Computer>ComputerName</Computer> 
+#     <Security UserID="{UserID}" /> 
+#   </System>
+#   <EventData>
+#     <Data Name="Time Zone">Korea Standard Time</Data> 
+#   </EventData>
+# </Event>
