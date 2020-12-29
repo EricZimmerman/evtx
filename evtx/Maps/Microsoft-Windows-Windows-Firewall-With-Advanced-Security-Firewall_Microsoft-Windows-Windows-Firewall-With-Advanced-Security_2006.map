@@ -1,5 +1,5 @@
 Author: Hyun Yi @hyuunnn
-Description: FW rule deleted to exception list
+Description: FW rule removed to exception list
 EventId: 2006
 Channel: Microsoft-Windows-Windows Firewall With Advanced Security/Firewall
 Provider: Microsoft-Windows-Windows Firewall With Advanced Security
