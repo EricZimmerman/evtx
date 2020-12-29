@@ -1,0 +1,50 @@
+Author: Hyun Yi @hyuunnn
+Description: FW rule removed to exception list
+EventId: 2006
+Channel: Microsoft-Windows-Windows Firewall With Advanced Security/Firewall
+Provider: Microsoft-Windows-Windows Firewall With Advanced Security
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "%RuleName%: %RuleName%"
+    Values:
+      - 
+        Name: RuleName
+        Value: "/Event/EventData/Data[@Name=\"RuleName\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "%ModifyingApplication%: %ModifyingApplication%"
+    Values: 
+      - 
+        Name: ModifyingApplication
+        Value: "/Event/EventData/Data[@Name=\"ModifyingApplication\"]"
+
+# Documentation:
+# https://kb.eventtracker.com/evtpass/evtPages/EventId_2004_Microsoft-Windows-WindowsFirewallwithAdvancedS_65673.asp
+# https://social.technet.microsoft.com/Forums/security/en-US/b1f62441-2c15-4706-b5f6-bb274bfed020/event-id-2004-and-2006-rules-created-automatically-on-windows-firewall?forum=winserversecurity
+#
+# Example Event Data:
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#   <System>
+#     <Provider Name="Microsoft-Windows-Windows Firewall With Advanced Security" Guid="{GUID}" /> 
+#     <EventID>2006</EventID> 
+#     <Version>0</Version> 
+#     <Level>4</Level> 
+#     <Task>0</Task> 
+#     <Opcode>0</Opcode> 
+#     <Keywords>0x8000020000000000</Keywords> 
+#     <TimeCreated SystemTime="2020-12-22T16:13:25.1271174Z" /> 
+#     <EventRecordID>4015</EventRecordID> 
+#     <Correlation /> 
+#     <Execution ProcessID="3028" ThreadID="5732" /> 
+#     <Channel>Microsoft-Windows-Windows Firewall With Advanced Security/Firewall</Channel> 
+#     <Computer>ComputerName</Computer> 
+#     <Security UserID="{UserID}" /> 
+#   </System>
+#   <EventData>
+#     <Data Name="RuleId">{3EBDF2BA-35BB-436E-A51B-F97D09E58C37}</Data> 
+#     <Data Name="RuleName">WinDefend Outbound for TCP</Data> 
+#     <Data Name="ModifyingUser">S-1-5-18</Data> 
+#     <Data Name="ModifyingApplication">C:\ProgramData\Microsoft\Windows Defender\Platform\4.18.2011.6-0\MsMpEng.exe</Data> 
+#   </EventData>
+# </Event>

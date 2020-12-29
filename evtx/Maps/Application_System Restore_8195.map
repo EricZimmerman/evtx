@@ -1,0 +1,41 @@
+Author: Hyun Yi @hyuunnn
+Description: System Restore has been disabled
+EventId: 8195
+Channel: "Application"
+Provider: "System Restore"
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "Data: %Data%"
+    Values:
+      -
+        Name: Data
+        Value: "/Event/EventData/Data"
+        
+# Documentation:
+# N/A
+#
+# Example Event Data:
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#   <System>
+#     <Provider Name="System Restore" /> 
+#     <EventID Qualifiers="0">8195</EventID> 
+#     <Version>0</Version> 
+#     <Level>4</Level> 
+#     <Task>0</Task> 
+#     <Opcode>0</Opcode> 
+#     <Keywords>0x80000000000000</Keywords> 
+#     <TimeCreated SystemTime="2020-10-06T16:54:14.3633432Z" /> 
+#     <EventRecordID>390</EventRecordID> 
+#     <Correlation /> 
+#     <Execution ProcessID="0" ThreadID="0" /> 
+#     <Channel>Application</Channel> 
+#     <Computer>ComputerName</Computer> 
+#     <Security /> 
+#   </System>
+#   <EventData>
+#     <Data>C:\WINDOWS\winsxs\amd64_microsoft-windows-servicingstack_31bf3856ad364e35_10.0.19041.504_none_e781e76525fb2269\TiWorker.exe -Embedding</Data> 
+#     <Data /> 
+#     <Binary>{Binary}</Binary> 
+#   </EventData>
+# </Event>
