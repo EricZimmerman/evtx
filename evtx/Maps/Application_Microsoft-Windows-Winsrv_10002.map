@@ -1,0 +1,41 @@
+Author: Hyun Yi @hyuunnn
+Description: Terminated due to non-response
+EventId: 10002
+Channel: "Application"
+Provider: "Microsoft-Windows-Winsrv"
+Maps:
+  -
+    Property: ExecutableInfo
+    PropertyValue: "%AppName%"
+    Values:
+      -
+        Name: AppName
+        Value: "/Event/UserData/HungAppEvent/AppName
+        
+# Documentation:
+# N/A
+#
+# Example Event Data:
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#   <System>
+#     <Provider Name="Microsoft-Windows-Winsrv" Guid="{GUID}" /> 
+#     <EventID>10002</EventID> 
+#     <Version>0</Version> 
+#     <Level>4</Level> 
+#     <Task>0</Task> 
+#     <Opcode>0</Opcode> 
+#     <Keywords>0x8000000000000000</Keywords> 
+#     <TimeCreated SystemTime="2020-12-28T16:45:14.6424242Z" /> 
+#     <EventRecordID>31565</EventRecordID> 
+#     <Correlation /> 
+#     <Execution ProcessID="11364" ThreadID="23376" /> 
+#     <Channel>Application</Channel> 
+#     <Computer>ComputerName</Computer> 
+#     <Security UserID="{UserID}" /> 
+#   </System>
+#   <UserData>
+#     <HungAppEvent xmlns="http://manifests.microsoft.com/win/2004/08/windows/winsrv">
+#       <AppName>PotPlayer.exe</AppName> 
+#     </HungAppEvent>
+#   </UserData>
+# </Event>
