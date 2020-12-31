@@ -28,6 +28,7 @@ Maps:
 
 # Documentation:
 # https://cyberforensicator.com/wp-content/uploads/2017/09/USB-Storage-Device-Forensics-for-Windows-10.pdf
+# https://forensixchange.com/posts/19_08_03_usb_storage_forensics_1/
 #
 # Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">

@@ -72,7 +72,7 @@ Lookups:
         18: This value is reserved for system use.
 
 # Documentation:
-# N/A
+# https://forensixchange.com/posts/19_08_03_usb_storage_forensics_1/
 #
 # Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
