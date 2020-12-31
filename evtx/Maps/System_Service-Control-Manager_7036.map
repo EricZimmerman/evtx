@@ -6,7 +6,7 @@ Provider: Service Control Manager
 Maps: 
   - 
     Property: PayloadData1
-    PropertyValue: "Name: %ServiceName%%ServiceName2%" #This is a special case in that data may exist in several forms. Here we look for both and use the one we find. =)
+    PropertyValue: "Name: %ServiceName% | %ServiceName2%" #This is a special case in that data may exist in several forms. Here we look for both and use the one we find. =)
     Values: 
       - 
         Name: ServiceName
