@@ -1,0 +1,58 @@
+Author: Hyun Yi @hyuunnn
+Description: USB Connection
+EventId: 207
+Channel: "Microsoft-Windows-StorageSpaces-Driver/Operational"
+Provider: "Microsoft-Windows-StorageSpaces-Driver"
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "DriveManufacturer: %DriveManufacturer%"
+    Values:
+      -
+        Name: DriveManufacturer
+        Value: "/Event/EventData/Data[@Name=\"DriveManufacturer\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "DriveModel: %DriveModel%"
+    Values:
+      -
+        Name: DriveModel
+        Value: "/Event/EventData/Data[@Name=\"DriveModel\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "DriveSerial: %DriveSerial%"
+    Values:
+      -
+        Name: DriveSerial
+        Value: "/Event/EventData/Data[@Name=\"DriveSerial\"]"
+
+# Documentation:
+# N/A
+#
+# Example Event Data:
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#   <System>
+#     <Provider Name="Microsoft-Windows-StorageSpaces-Driver" Guid="{GUID}" /> 
+#     <EventID>207</EventID> 
+#     <Version>0</Version> 
+#     <Level>4</Level> 
+#     <Task>0</Task> 
+#     <Opcode>0</Opcode> 
+#     <Keywords>0x8000000000000000</Keywords> 
+#     <TimeCreated SystemTime="2020-12-30T03:22:01.1630740Z" /> 
+#     <EventRecordID>21036</EventRecordID> 
+#     <Correlation /> 
+#     <Execution ProcessID="4" ThreadID="232" /> 
+#     <Channel>Microsoft-Windows-StorageSpaces-Driver/Operational</Channel> 
+#     <Computer>ComputerName</Computer> 
+#     <Security UserID="{UserID}" /> 
+#   </System>
+#   <EventData>
+#     <Data Name="DriveId">{a0d9d718-f9a2-319a-d91a-87f51e15fb49}</Data> 
+#     <Data Name="PoolId">{00000000-0000-0000-0000-000000000000}</Data> 
+#     <Data Name="DeviceNumber">1</Data> 
+#     <Data Name="DriveManufacturer">WD</Data> 
+#     <Data Name="DriveModel">My Passport 25E2</Data> 
+#     <Data Name="DriveSerial">WX41D69CD7D1</Data> 
+#   </EventData>
+# </Event>
