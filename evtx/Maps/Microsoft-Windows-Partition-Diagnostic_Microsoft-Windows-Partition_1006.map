@@ -52,6 +52,7 @@ Maps:
 # https://df-stream.com/2018/05/partition-diagnostic-event-log-and-usb-device-tracking-p1/
 # https://df-stream.com/2018/07/partition-diagnostic-event-log-and-usb-device-tracking-p2/
 # https://forensixchange.com/posts/19_08_03_usb_storage_forensics_1/
+# https://docs.microsoft.com/en-us/previous-versions/windows/desktop/stormgmt/msft-physicaldisk (BusType)
 # Frankly, there is too much data to fit within 6 PayloadData columns. As always, all data is in the Payload column but there isn't enough room to map out all the information cleanly.
 # 
 # Example Event Data:
