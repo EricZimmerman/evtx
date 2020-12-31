@@ -48,11 +48,11 @@ Maps:
 #     <Security UserID="{UserID}" /> 
 #   </System>
 #   <EventData>
-#     <Data Name="DriveId">{DriveId}</Data> 
-#     <Data Name="PoolId">{PoolId}</Data> 
+#     <Data Name="DriveId">{a0d9d718-f9a2-319a-d91a-87f51e15fb49}</Data> 
+#     <Data Name="PoolId">{00000000-0000-0000-0000-000000000000}</Data> 
 #     <Data Name="DeviceNumber">1</Data> 
 #     <Data Name="DriveManufacturer">WD</Data> 
 #     <Data Name="DriveModel">My Passport 25E2</Data> 
-#     <Data Name="DriveSerial">{DriveSerial}</Data> 
+#     <Data Name="DriveSerial">WX41D69CD7D1</Data> 
 #   </EventData>
 # </Event>
