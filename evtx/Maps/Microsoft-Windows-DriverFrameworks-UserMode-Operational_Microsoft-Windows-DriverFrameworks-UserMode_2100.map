@@ -22,6 +22,7 @@ Maps:
 # Documentation:
 # https://nxlog.co/documentation/nxlog-user-guide/windows-usb-auditing.html
 # https://www.reddit.com/r/sysadmin/comments/4dr2t2/security_guy_wants_to_log_usb_storage_devices_on/
+# https://forensixchange.com/posts/19_08_03_usb_storage_forensics_1/
 # Windows Vista, 7 : enable (default)
 # Windows 8~ : disable (default)
 #
