@@ -4,6 +4,7 @@ EventId: 4781
 Channel: Security
 Provider: Microsoft-Windows-Security-Auditing
 Maps: 
+  - 
     Property: UserName
     PropertyValue: "%domain%\\%user% (%sid%)"
     Values: 
