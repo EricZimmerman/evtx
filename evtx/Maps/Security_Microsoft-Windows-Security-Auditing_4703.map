@@ -60,8 +60,8 @@ Maps:
 # https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4703
 #
 # Example Event Data:
-#- <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
-#- <System>
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <System>
 # <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-A5BA-3E3B0328C30D}" /> 
 # <EventID>4703</EventID> 
 # <Version>0</Version> 
@@ -77,7 +77,7 @@ Maps:
 # <Computer>WIN-GG82ULGC9GO.contoso.local</Computer> 
 # <Security /> 
 # </System>
-#- <EventData>
+# <EventData>
 # <Data Name="SubjectUserSid">S-1-5-18</Data> 
 # <Data Name="SubjectUserName">WIN-GG82ULGC9GO$</Data> 
 # <Data Name="SubjectDomainName">CONTOSO</Data> 
