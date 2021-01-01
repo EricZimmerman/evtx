@@ -1,5 +1,5 @@
 Author: Mike Pilkington
-Description: Local network share deleted
+Description: A network share object was deleted
 EventId: 5144
 Channel: Security
 Provider: Microsoft-Windows-Security-Auditing

@@ -1,5 +1,5 @@
 Author: Eric Zimmerman saericzimmerman@gmail.com
-Description: Share access
+Description: A network share object was accessed
 EventId: 5140
 Channel: Security
 Provider: Microsoft-Windows-Security-Auditing
