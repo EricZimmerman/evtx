@@ -1,5 +1,5 @@
 Author: Mike Pilkington
-Description: Local network share added
+Description: A network share object was added
 EventId: 5142
 Channel: Security
 Provider: Microsoft-Windows-Security-Auditing
