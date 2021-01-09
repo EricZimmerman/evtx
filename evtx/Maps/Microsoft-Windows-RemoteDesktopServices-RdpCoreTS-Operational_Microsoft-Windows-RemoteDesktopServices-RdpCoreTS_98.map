@@ -20,7 +20,7 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"ScriptBlockText\"]"
         
 # Documentation:
-# N/A
+# https://frsecure.com/blog/rdp-connection-event-logs/
 #
 # Example Event Data:
 #<Event>

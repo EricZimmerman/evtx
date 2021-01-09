@@ -32,6 +32,7 @@ Maps:
 # https://dfironthemountain.wordpress.com/2019/02/15/rdp-event-log-dfir/
 # http://woshub.com/rdp-connection-logs-forensics-windows/
 # https://countuponsecurity.com/2015/11/25/digital-forensics-supertimeline-event-logs-part-ii/
+# https://frsecure.com/blog/rdp-connection-event-logs/
 #
 # Example Event Data:
 #<Event>
