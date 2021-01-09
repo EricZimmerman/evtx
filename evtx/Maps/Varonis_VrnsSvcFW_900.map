@@ -1,7 +1,7 @@
 Author: Andrew Rathbun
 Description: Volume information
 EventId: 900
-14Channel: Varonis
+Channel: Varonis
 Provider: "VrnsSvcFW"
 Maps:
   - 
