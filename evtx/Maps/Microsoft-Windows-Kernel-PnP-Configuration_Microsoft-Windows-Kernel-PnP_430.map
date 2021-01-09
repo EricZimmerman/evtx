@@ -1,0 +1,39 @@
+Author: Andrew Rathbun
+Description: Device requires further installation
+EventId: 430
+Channel: "Microsoft-Windows-Kernel-PnP/Configuration"
+Provider: "Microsoft-Windows-Kernel-PnP"
+Maps: 
+- 
+    Property: PayloadData6
+    PropertyValue: "DeviceInstanceId: %DeviceInstanceId%"
+    Values: 
+      - 
+        Name: DeviceInstanceId
+        Value: "/Event/EventData/Data[@Name=\"DeviceInstanceId\"]"
+
+# Documentation:
+# https://forensixchange.com/posts/19_08_03_usb_storage_forensics_1/
+#
+# Example Event Data:
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Kernel-PnP" Guid="9c455a39-1250-487d-abd7-e831c6290539" />
+#    <EventID>430</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>0</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x4000000090000000</Keywords>
+#    <TimeCreated SystemTime="2019-10-17 03:18:15.2790188" />
+#    <EventRecordID>3314</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="4" ThreadID="660" />
+#    <Channel>Microsoft-Windows-Kernel-PnP/Configuration</Channel>
+#    <Computer>HOSTNAME.domain.com</Computer>
+#    <Security UserID="S-1-5-18" />
+#  </System>
+#  <EventData>
+#    <Data Name="DeviceInstanceId">SWD\WPDBUSENUM\_??_USBSTOR#Disk&amp;amp;Ven_iDRAC&amp;amp;Prod_MAS001&amp;amp;Rev_0329#20120731&amp;amp;0#{53g76307-b6bf-11d0-94f2-00a0c13dfb8b}</Data>
+#  </EventData>
+#</Event>
