@@ -1,7 +1,7 @@
 Author: Andrew Rathbun
 Description: Proxy connection
 EventId: 5176
-14Channel: Varonis
+Channel: Varonis
 Provider: "VrnsCifsQueue"
 Maps:
   - 
