@@ -1,0 +1,37 @@
+Author: Andrew Rathbun
+Description: Mount point validation
+EventId: 5138
+14Channel: Varonis
+Provider: "VrnsCifsQueue"
+Maps:
+  - 
+    Property: PayloadData1
+    PropertyValue: "%Data%"
+    Values: 
+      - 
+        Name: Data
+        Value: "/Event/EventData/Data"
+
+# Documentation:
+# There is no public documentation on these events. Varonis is a data security platform so some file system activity appears to be tracked by it.
+#
+# Example Event Data:
+#<Event>
+#  <System>
+#    <Provider Name="VrnsCifsQueue" />
+#    <EventID Qualifiers="0">5138</EventID>
+#    <Level>4</Level>
+#    <Task>0</Task>
+#    <Keywords>0x80000000400000</Keywords>
+#    <TimeCreated SystemTime="2020-08-13 12:00:39.0000000" />
+#    <EventRecordID>308679</EventRecordID>
+#    <Channel>Varonis</Channel>
+#    <Computer>HOSTNAME.domain.com</Computer>
+#    <Security />
+#  </System>
+#  <EventData>
+#    <Data>VrnsCifsQueue, 1234, 6578, [HOSTNAME:27]: Validating mount points for filer HOSTNAME:27</Data>
+#    <Binary></Binary>
+#  </EventData>
+#</Event>
+#<Event>
