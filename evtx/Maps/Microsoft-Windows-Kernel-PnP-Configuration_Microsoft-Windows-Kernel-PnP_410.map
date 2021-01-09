@@ -1,0 +1,75 @@
+Author: Andrew Rathbun
+Description: Device driver error
+EventId: 410
+Channel: "Microsoft-Windows-Kernel-PnP/Configuration"
+Provider: "Microsoft-Windows-Kernel-PnP"
+Maps: 
+- 
+    Property: PayloadData1
+    PropertyValue: "ServiceName: %ServiceName%"
+    Values: 
+      - 
+        Name: ServiceName
+        Value: "/Event/EventData/Data[@Name=\"ServiceName\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "Problem: %Problem%"
+    Values: 
+      - 
+        Name: Problem
+        Value: "/Event/EventData/Data[@Name=\"Problem\"]"
+  - 
+    Property: PayloadData3
+    PropertyValue: "Status: %Status%"
+    Values: 
+      - 
+        Name: Status
+        Value: "/Event/EventData/Data[@Name=\"Status\"]"
+  -
+    Property: PayloadData6
+    PropertyValue: "DeviceInstanceID: %DeviceInstanceID%"
+    Values: 
+      - 
+        Name: DeviceInstanceID
+        Value: "/Event/EventData/Data[@Name=\"DeviceInstanceID\"]"
+  - 
+    Property: ExecutableInfo
+    PropertyValue: "%DriverName%"
+    Values: 
+      - 
+        Name: DriverName
+        Value: "/Event/EventData/Data[@Name=\"DriverName\"]"
+
+# Documentation:
+# https://answers.microsoft.com/en-us/windows/forum/windows_8-hardware/event-410-kernel-pnp-logged-for-my-keyboard-the/36772d4b-8217-473e-8ffe-9e0b6b7f4cfa
+# https://forensixchange.com/posts/19_08_03_usb_storage_forensics_1/
+#
+# Example Event Data:
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Kernel-PnP" Guid="9c205a39-1250-487d-abd7-e831c6290539" />
+#    <EventID>410</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>0</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x4000000090000000</Keywords>
+#    <TimeCreated SystemTime="2019-08-30 17:58:17.3774575" />
+#    <EventRecordID>3067</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="4" ThreadID="9600" />
+#    <Channel>Microsoft-Windows-Kernel-PnP/Configuration</Channel>
+#    <Computer>HOSTNAME.domain.com</Computer>
+#    <Security UserID="S-1-5-18" />
+#  </System>
+#  <EventData>
+#    <Data Name="DeviceInstanceId">SWD\ScDeviceEnum\6_Windows_Hello_for_Business_1</Data>
+#    <Data Name="DriverName">c_swdevice.inf</Data>
+#    <Data Name="ClassGuid">62f9c741-b25a-46ce-b54c-9bccce08b6f2</Data>
+#    <Data Name="ServiceName"></Data>
+#    <Data Name="LowerFilters"></Data>
+#    <Data Name="UpperFilters"></Data>
+#    <Data Name="Problem">0x0</Data>
+#    <Data Name="Status">0x0</Data>
+#  </EventData>
+#</Event>

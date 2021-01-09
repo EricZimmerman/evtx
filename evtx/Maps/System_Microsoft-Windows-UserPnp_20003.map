@@ -1,0 +1,100 @@
+Author: Andrew Rathbun
+Description: Service installation
+EventId: 20003
+Channel: System
+Provider: "Microsoft-Windows-UserPnp"
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "ServiceName: %ServiceName%"
+    Values: 
+      - 
+        Name: ServiceName
+        Value: "/Event/UserData/AddServiceID/ServiceName"
+  - 
+    Property: PayloadData2
+    PropertyValue: "AddServiceStatus: %AddServiceStatus%"
+    Values: 
+      - 
+        Name: AddServiceStatus
+        Value: "/Event/UserData/AddServiceID/AddServiceStatus"
+  - 
+    Property: PayloadData4                                                  	
+    PropertyValue: "UpdateService: %UpdateService%"
+    Values: 
+      - 
+        Name: UpdateService
+        Value: "/Event/UserData/AddServiceID/UpdateService"
+  - 
+    Property: PayloadData5
+    PropertyValue: "PrimaryService: %PrimaryService%"
+    Values: 
+      - 
+        Name: PrimaryService
+        Value: "/Event/UserData/AddServiceID/PrimaryService"
+  -
+    Property: PayloadData6
+    PropertyValue: "DeviceInstanceID: %DeviceInstanceID%"
+    Values: 
+      - 
+        Name: DeviceInstanceID
+        Value: "/Event/UserData/AddServiceID/DeviceInstanceID"
+  - 
+    Property: ExecutableInfo
+    PropertyValue: "%DriverFileName%"
+    Values: 
+      - 
+        Name: DriverFileName
+        Value: "/Event/UserData/AddServiceID/DriverFileName"
+
+Lookups: 
+  -
+    Name: AddServiceStatus
+    Default: Unknown code
+    Values:
+        0x0: Installation Successful
+        0x00000002: File Not Found
+        0x80070002: File Not Found
+        0x80070003: Path Not Found
+        0x80070005: Access Denied
+        0x800F0233: Invalid Target
+        0x8028006E: Invalid Source Path
+        0x000005B3: Requires Interactive Workstation
+        0x000005B4: Timeout
+        0xE0000234: Driver Non-native
+        0xE0000246: Device Installer Not Ready
+        0xE0000217: Driver Non-native
+        0xE0000219: Device Installer Not Ready
+
+# Documentation:
+# https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-r2-and-2008/dd349407(v=ws.10)
+#
+# Example Event Data:
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-UserPnp" Guid="96f4a050-7e31-453c-88be-9634f4e02139" />
+#    <EventID>20003</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>7005</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8000000500000000</Keywords>
+#    <TimeCreated SystemTime="2020-10-19 18:15:14.4350230" />
+#    <EventRecordID>80566</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="3528" ThreadID="1020" />
+#    <Channel>System</Channel>
+#    <Computer>HOSTNAME.domain.com</Computer>
+#    <Security UserID="S-1-5-18" />
+#  </System>
+#  <UserData>
+#    <AddServiceID>
+#      <ServiceName>usbaudio</ServiceName>
+#      <DriverFileName>\SystemRoot\system32\drivers\usbaudio.sys</DriverFileName>
+#      <DeviceInstanceID>USB\VID_0B0E&amp;amp;PID_245E&amp;amp;MI_00\6&amp;amp;549A665&amp;amp;0&amp;amp;0000</DeviceInstanceID>
+#      <PrimaryService>True</PrimaryService>
+#      <UpdateService>True</UpdateService>
+#      <AddServiceStatus>0</AddServiceStatus>
+#    </AddServiceID>
+#  </UserData>
+#</Event>

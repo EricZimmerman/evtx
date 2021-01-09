@@ -1,0 +1,80 @@
+Author: Andrew Rathbun
+Description: NTFS-formatted drive attached
+EventId: 145
+Channel: "Microsoft-Windows-Ntfs/Operational"
+Provider: "Microsoft-Windows-Ntfs"
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "VolumeName: %VolumeName%"
+    Values:
+      -
+        Name: VolumeName
+        Value: "/Event/EventData/Data[@Name=\"VolumeName\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "IsBootVolume: %IsBootVolume%"
+    Values:
+      -
+        Name: IsBootVolume
+        Value: "/Event/EventData/Data[@Name=\"IsBootVolume\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "VolumeCorrelationId: %VolumeCorrelationId%"
+    Values:
+      -
+        Name: VolumeCorrelationId
+        Value: "/Event/EventData/Data[@Name=\"VolumeCorrelationId\"]"
+
+# Documentation:
+# https://forensixchange.com/posts/19_08_03_usb_storage_forensics_1/
+# Events are created during the first connection since the startup. 
+# So if the user removes the drive and attaches it again no new logs are going to be made according to my investigation.
+#
+# Example Event Data:
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Ntfs" Guid="3dd37a1c-a68d-4d6e-8c9b-f79e8b16c482" />
+#    <EventID>145</EventID>
+#    <Version>2</Version>
+#    <Level>4</Level>
+#    <Task>0</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x4000000000204000</Keywords>
+#    <TimeCreated SystemTime="2020-10-22 15:18:02.3775706" />
+#    <EventRecordID>4419</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="4" ThreadID="16500" />
+#    <Channel>Microsoft-Windows-Ntfs/Operational</Channel>
+#    <Computer>HOSTNAME.domain.com</Computer>
+#    <Security UserID="S-1-5-18" />
+#  </System>
+#  <EventData>
+#    <Data Name="VolumeCorrelationId">c679d0d4-1476-11eb-bad3-34f39ae13aac</Data>
+#    <Data Name="VolumeNameLength">0</Data>
+#    <Data Name="VolumeName"></Data>
+#    <Data Name="IsBootVolume">False</Data>
+#    <Data Name="MaxLatencyMs">30000</Data>
+#    <Data Name="ReadWriteLatencyBucket1">5000000</Data>
+#    <Data Name="ReadWriteLatencyBucket2">30000000</Data>
+#    <Data Name="ReadWriteLatencyBucket3">100000000</Data>
+#    <Data Name="ReadWriteLatencyBucket4">0</Data>
+#    <Data Name="ReadWriteLatencyBucket5">0</Data>
+#    <Data Name="ReadWriteLatencyBucket6">0</Data>
+#    <Data Name="ReadWriteLatencyBucket7">0</Data>
+#    <Data Name="TrimLatencyBucket1">10000000</Data>
+#    <Data Name="TrimLatencyBucket2">50000000</Data>
+#    <Data Name="TrimLatencyBucket3">100000000</Data>
+#    <Data Name="TrimLatencyBucket4">0</Data>
+#    <Data Name="TrimLatencyBucket5">0</Data>
+#    <Data Name="TrimLatencyBucket6">0</Data>
+#    <Data Name="TrimLatencyBucket7">0</Data>
+#    <Data Name="FlushLatencyBucket1">10000000</Data>
+#    <Data Name="FlushLatencyBucket2">50000000</Data>
+#    <Data Name="FlushLatencyBucket3">100000000</Data>
+#    <Data Name="FlushLatencyBucket4">0</Data>
+#    <Data Name="FlushLatencyBucket5">0</Data>
+#    <Data Name="FlushLatencyBucket6">0</Data>
+#    <Data Name="FlushLatencyBucket7">0</Data>
+#  </EventData>
+#</Event>

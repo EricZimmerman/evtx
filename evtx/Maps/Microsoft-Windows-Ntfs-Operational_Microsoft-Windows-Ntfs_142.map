@@ -1,0 +1,68 @@
+Author: Andrew Rathbun
+Description: NTFS-formatted drive attached
+EventId: 142
+Channel: "Microsoft-Windows-Ntfs/Operational"
+Provider: "Microsoft-Windows-Ntfs"
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "VolumeName: %VolumeName%"
+    Values:
+      -
+        Name: VolumeName
+        Value: "/Event/EventData/Data[@Name=\"VolumeName\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "IsBootVolume: %IsBootVolume%"
+    Values:
+      -
+        Name: IsBootVolume
+        Value: "/Event/EventData/Data[@Name=\"IsBootVolume\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "LowestFreeSpaceInBytes: %LowestFreeSpaceInBytes%"
+    Values:
+      -
+        Name: LowestFreeSpaceInBytes
+        Value: "/Event/EventData/Data[@Name=\"LowestFreeSpaceInBytes\"]"
+  -
+    Property: PayloadData4
+    PropertyValue: "HighestFreeSpaceInBytes: %HighestFreeSpaceInBytes%"
+    Values:
+      -
+        Name: HighestFreeSpaceInBytes
+        Value: "/Event/EventData/Data[@Name=\"HighestFreeSpaceInBytes\"]"
+
+# Documentation:
+# https://forensixchange.com/posts/19_08_03_usb_storage_forensics_1/
+# Free space and volume name of the attached drive can be derived from this event.
+# Events are created during the first connection since the startup. 
+# So if the user removes the drive and attaches it again no new logs are going to be made according to my investigation.
+#
+# Example Event Data:
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Ntfs" Guid="3ff37a1c-a68d-43de-8c9b-f79e8b16c482" />
+#    <EventID>142</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>0</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x4000000000200900</Keywords>
+#    <TimeCreated SystemTime="2020-10-13 06:11:22.2517941" />
+#    <EventRecordID>385</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="4" ThreadID="27824" />
+#    <Channel>Microsoft-Windows-Ntfs/Operational</Channel>
+#    <Computer>HOSTNAME.domain.com</Computer>
+#    <Security />
+#  </System>
+#  <EventData>
+#    <Data Name="VolumeGuid">6f349c04-b41a-4cb0-91bb-8c7742123937</Data>
+#    <Data Name="VolumeNameLength">48</Data>
+#    <Data Name="VolumeName">\\?\Volume{6f349c04-b41a-4cb0-91bb-8c7742123937}</Data>
+#    <Data Name="LowestFreeSpaceInBytes">132669440</Data>
+#    <Data Name="HighestFreeSpaceInBytes">132669440</Data>
+#    <Data Name="IsBootVolume">False</Data>
+#  </EventData>
+#</Event>

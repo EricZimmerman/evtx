@@ -24,7 +24,7 @@ Lookups:
     Default: Unknown code
     Values:
         0: No additional information is available (i.e. the user has closed RDP window)
-        5: The client’s connection was replaced by another connection (i.e. a user reconected to a previous RDP session)
+        5: The client’s connection was replaced by another connection (i.e. a user reconnected to a previous RDP session)
         11: User activity has initiated the disconnect
  
 # Documentation:
