@@ -1,5 +1,5 @@
 Author: Andrew Rathbun
-Description: Volume Shadow Copy successfully mounted
+Description: Volume information
 EventId: 5214
 14Channel: Varonis
 Provider: "VrnsSvcFW"
@@ -22,7 +22,7 @@ Maps:
 #    <EventID Qualifiers="0">900</EventID>
 #    <Level>4</Level>
 #    <Task>0</Task>
-#    <Keywords>0x80000000000000</Keywords>
+#    <Keywords>0x80000070000000</Keywords>
 #    <TimeCreated SystemTime="2020-09-15 21:45:52.0000000" />
 #    <EventRecordID>679</EventRecordID>
 #    <Channel>Varonis</Channel>
