@@ -1,0 +1,50 @@
+Author: Andrew Rathbun
+Description: New mount point detected
+EventId: 5140
+14Channel: Varonis
+Provider: "VrnsCifsQueue"
+Maps:
+  - 
+    Property: PayloadData1
+    PropertyValue: "%Data%"
+    Values: 
+      - 
+        Name: Data
+        Value: "/Event/EventData/Data"
+
+# Documentation:
+# There is no public documentation on these events. Varonis is a data security platform so some file system activity appears to be tracked by it.
+#
+# Example Event Data:
+#<Event>
+#  <System>
+#    <Provider Name="VrnsCifsQueue" />
+#    <EventID Qualifiers="0">5140</EventID>
+#    <Level>3</Level>
+#    <Task>0</Task>
+#    <Keywords>0x80000003300000</Keywords>
+#    <TimeCreated SystemTime="2020-09-16 02:31:55.0000000" />
+#    <EventRecordID>679</EventRecordID>
+#    <Channel>Varonis</Channel>
+#    <Computer>HOSTNAME.domain.com</Computer>
+#    <Security />
+#  </System>
+#  <EventData>
+#    <Data>VrnsCifsQueue, 1234, 5678, [---   NEW MOUNT POINT DETECTED   ---]
+#E:
+#[Original]
+#                                        D:, \Device\Ide\IdeDeviceP4T4L0-4
+#      [Logging]  [Monitored]  E:, \device\harddiskvolume5
+#      [Logging]  [Monitored]  E:, \device\harddiskvolumeshadowcopy123
+#      [Logging]  [Monitored]  E:, \device\harddiskvolumeshadowcopy124
+#      [Logging]  [Monitored]  E:, \device\harddiskvolumeshadowcopy125
+#      [Logging]  [Monitored]  E:, \device\harddiskvolumeshadowcopy126
+#      [Logging]  [Monitored]  E:, \device\harddiskvolumeshadowcopy127
+#      [Logging]  [Monitored]  E:, \device\harddiskvolumeshadowcopy128
+#      [Logging]  [Monitored]  E:, \device\harddiskvolumeshadowcopy129
+#      [Logging]  [Monitored]  E:, \device\harddiskvolumeshadowcopy120
+#      [Logging]  [Monitored]  E:, \device\harddiskvolumeshadowcopy122
+# &amp;lt;cont. next event...&amp;gt;</Data>
+#    <Binary></Binary>
+#  </EventData>
+#</Event>
