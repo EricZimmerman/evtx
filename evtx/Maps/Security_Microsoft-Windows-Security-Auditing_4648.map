@@ -59,6 +59,7 @@ Maps:
 # Documentation:
 # https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4648
 # https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4648
+# https://frsecure.com/blog/rdp-connection-event-logs/
 #
 # Example Event Data:
 #<Event>

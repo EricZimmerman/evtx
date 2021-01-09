@@ -18,9 +18,10 @@ Maps:
 # https://nullsec.us/windows-rdp-related-event-logs-the-client-side-of-the-story/
 # https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-rdsod/aa0449fc-9642-4206-90a8-aac72f1b72fd
 # https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-rdsod/aa0449fc-9642-4206-90a8-aac72f1b72fd
+# https://frsecure.com/blog/rdp-connection-event-logs/
 #
 # Example Event Data:
-#The client has initiated a multi-transport connection to the server 192.168.1.179.
+# The client has initiated a multi-transport connection to the server 192.168.1.179.
 #<Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-TerminalServices-ClientActiveXCore" Guid="28aa95bb-d444-4719-a36f-40462168127e" />

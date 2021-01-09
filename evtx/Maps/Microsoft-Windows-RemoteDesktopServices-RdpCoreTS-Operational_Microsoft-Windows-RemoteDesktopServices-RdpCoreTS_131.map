@@ -20,10 +20,11 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"ConnType\"]"
 
 # Documentation:
-# The server accepted a new TCP connection from client 174.x.x.x:30022.
 # https://dfironthemountain.wordpress.com/2019/02/15/rdp-event-log-dfir/
+# https://frsecure.com/blog/rdp-connection-event-logs/
 #
 # Example Event Data:
+# The server accepted a new TCP connection from client 174.x.x.x:30022.
 #</Event>
 #<Event>
 #  <System>

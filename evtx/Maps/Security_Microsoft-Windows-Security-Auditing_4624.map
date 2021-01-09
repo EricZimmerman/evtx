@@ -63,6 +63,7 @@ Maps:
 # http://woshub.com/rdp-connection-logs-forensics-windows/
 # https://countuponsecurity.com/2015/11/25/digital-forensics-supertimeline-event-logs-part-ii/
 # https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4624
+# https://frsecure.com/blog/rdp-connection-event-logs/
 #
 # Example Event Data:
 # <Event>
