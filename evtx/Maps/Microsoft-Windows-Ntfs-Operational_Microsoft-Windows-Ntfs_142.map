@@ -38,7 +38,6 @@ Maps:
 # Free space and volume name of the attached drive can be derived from this event.
 # Events are created during the first connection since the startup. 
 # So if the user removes the drive and attaches it again no new logs are going to be made according to my investigation.
-
 #
 # Example Event Data:
 #<Event>
