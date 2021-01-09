@@ -4,7 +4,7 @@ EventId: 410
 Channel: "Microsoft-Windows-Kernel-PnP/Configuration"
 Provider: "Microsoft-Windows-Kernel-PnP"
 Maps: 
-- 
+  - 
     Property: PayloadData1
     PropertyValue: "ServiceName: %ServiceName%"
     Values: 
