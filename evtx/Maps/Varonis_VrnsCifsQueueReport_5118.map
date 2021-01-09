@@ -1,0 +1,53 @@
+Author: Andrew Rathbun
+Description: Various statistics
+EventId: 5118
+14Channel: Varonis
+Provider: "VrnsCifsQueueReport"
+Maps:
+  - 
+    Property: PayloadData1
+    PropertyValue: "%Data%"
+    Values: 
+      - 
+        Name: Data
+        Value: "/Event/EventData/Data"
+
+# Documentation:
+# There is no public documentation on these events. Varonis is a data security platform so some file system activity appears to be tracked by it. 
+#
+# Example Event Data:
+#<Event>
+#  <System>
+#    <Provider Name="VrnsCifsQueueReport" />
+#    <EventID Qualifiers="0">5118</EventID>
+#    <Level>4</Level>
+#    <Task>0</Task>
+#    <Keywords>0x80000000000000</Keywords>
+#    <TimeCreated SysteTime="2020-08-13 08:11:14.0000000" />
+#    <EventRecordID>308679</EventRecordID>
+#    <Channel>Varonis</Channel>
+#    <Computer>HOSTNAME.domain.com</Computer>
+#    <Security />
+#  </System>
+#  <EventData>
+#    <Data>VrnsCifsQueue, 4343, 4545, CifsQueue:
+#    Logons:
+#        #After First Day Missing Logons:  	0         	of total:	0         
+#        #Events IP resolution called:     	12345     
+#        #First Day Missing Logons:        	0         	of total:	0         
+#        #Log extractions called:          	123       
+#        #Logon events parsed:             	679       
+#        #Logons driver retrieval failures:	0         	of total:	0         
+#        #Security events extracted:       	12345     
+#    Logons Data:
+#        Events Lost (queue): 	0         	of total:	0         
+#        Events Sent To Probe:	0         	of total:	0         
+#    ProxyLocal:
+#        Global:
+#            Events Lost (queue): 	0         	of total:	0         
+#            Events Sent To Probe:	0         	of total:	0         
+#        Access Path Resolving Statistics:
+# &amp;lt;cont. next event...&amp;gt;</Data>
+#    <Binary></Binary>
+#  </EventData>
+#</Event>
