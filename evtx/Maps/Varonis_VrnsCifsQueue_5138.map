@@ -1,7 +1,7 @@
 Author: Andrew Rathbun
 Description: Mount point validation
 EventId: 5138
-14Channel: Varonis
+Channel: Varonis
 Provider: "VrnsCifsQueue"
 Maps:
   - 
