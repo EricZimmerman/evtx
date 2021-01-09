@@ -1,6 +1,6 @@
 Author: Andrew Rathbun
 Description: Volume information
-EventId: 5214
+EventId: 900
 14Channel: Varonis
 Provider: "VrnsSvcFW"
 Maps:
@@ -35,3 +35,9 @@ Maps:
 #    <Binary></Binary>
 #  </EventData>
 #</Event>
+#
+# I've also seen the following logged here:
+#<EventData>
+#    <Data>VrnsSvcFW, 1234, 5678, 3, CDirFileWalk::QueryEntryInfo() Failed FindFirstFile() [path: \\?\C:\Windows\System32\config\systemprofile\AppData\Local\Microsoft\Windows\INetCache\Content.IE5]
+#
+# Error message description: The system cannot find the path specified.</Data>
