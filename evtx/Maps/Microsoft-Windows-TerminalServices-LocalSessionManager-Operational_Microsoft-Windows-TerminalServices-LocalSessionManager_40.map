@@ -18,6 +18,14 @@ Maps:
       - 
         Name: Reason
         Value: "/Event/UserData/EventXML/Reason"
+Lookups: 
+  -
+    Name: Reason
+    Default: Unknown code
+    Values:
+        0: No additional information is available (i.e. user has closed RDP window)
+        5: The client’s connection was replaced by another connection (a user reconected to a previous RDP session)
+        11: User activity has initiated the disconnect
  
 # Documentation:
 # https://ponderthebits.com/2018/02/windows-rdp-related-event-logs-identification-tracking-and-investigation/
