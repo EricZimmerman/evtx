@@ -1,7 +1,7 @@
 Author: Andrew Rathbun
 Description: Volume Shadow Copy successfully mounted
 EventId: 5214
-14Channel: Varonis
+Channel: Varonis
 Provider: "VrnsCifsQueue"
 Maps:
   - 
