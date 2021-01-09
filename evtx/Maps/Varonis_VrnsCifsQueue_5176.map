@@ -1,0 +1,36 @@
+Author: Andrew Rathbun
+Description: Proxy connection
+EventId: 5176
+14Channel: Varonis
+Provider: "VrnsCifsQueue"
+Maps:
+  - 
+    Property: PayloadData1
+    PropertyValue: "%Data%"
+    Values: 
+      - 
+        Name: Data
+        Value: "/Event/EventData/Data"
+
+# Documentation:
+# There is no public documentation on these events. Varonis is a data security platform so some file system activity appears to be tracked by it.
+#
+# Example Event Data:
+#<Event>
+#  <System>
+#    <Provider Name="VrnsCifsQueue" />
+#    <EventID Qualifiers="0">5176</EventID>
+#    <Level>4</Level>
+#    <Task>0</Task>
+#    <Keywords>0x80000330000000</Keywords>
+#    <TimeCreated SystemTime="2020-09-15 18:32:21.0000000" />
+#    <EventRecordID>195</EventRecordID>
+#    <Channel>Varonis</Channel>
+#    <Computer>HOSTNAME1.domain.com</Computer>
+#    <Security />
+#  </System>
+#  <EventData>
+#    <Data>VrnsCifsQueue, 1234, 5678, [HOSTNAME1.domain.com]: ConnectFiler(filerID[57] filerType[ProxyLocal]) request from Probe[HOSTNAME2-02:1234] IP[10.49.1.26] is received</Data>
+#    <Binary></Binary>
+#  </EventData>
+#</Event>
