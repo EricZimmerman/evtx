@@ -1,7 +1,7 @@
 Author: Andrew Rathbun
 Description: Volumne statistics
 EventId: 5120
-14Channel: Varonis
+Channel: Varonis
 Provider: "VrnsCifsQueueReport"
 Maps:
   - 
