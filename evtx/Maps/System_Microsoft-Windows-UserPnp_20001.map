@@ -1,0 +1,109 @@
+Author: Andrew Rathbun
+Description: Device installation
+EventId: 20001
+Channel: System
+Provider: "Microsoft-Windows-UserPnp"
+Maps: 
+  - 
+    Property: PayloadData1
+    PropertyValue: "DriverDescription: %DriverDescription%"
+    Values: 
+      - 
+        Name: DriverDescription
+        Value: "/Event/UserData/InstallDeviceID/DriverDescription"
+  - 
+    Property: PayloadData2
+    PropertyValue: "InstallStatus: %InstallStatus%"
+    Values: 
+      - 
+        Name: InstallStatus
+        Value: "/Event/UserData/InstallDeviceID/InstallStatus"
+  - 
+    Property: PayloadData3
+    PropertyValue: "IsDriverOEM: %IsDriverOEM%"
+    Values: 
+      - 
+        Name: IsDriverOEM
+        Value: "/Event/UserData/InstallDeviceID/IsDriverOEM"
+  - 
+    Property: PayloadData4
+    PropertyValue: "UpgradeDevice: %UpgradeDevice%"
+    Values: 
+      - 
+        Name: UpgradeDevice
+        Value: "/Event/UserData/InstallDeviceID/UpgradeDevice"
+  - 
+    Property: PayloadData5
+    PropertyValue: "RebootOption: %RebootOption%"
+    Values: 
+      - 
+        Name: RebootOption
+        Value: "/Event/UserData/InstallDeviceID/RebootOption"
+  -
+    Property: PayloadData6
+    PropertyValue: "DeviceInstanceID: %DeviceInstanceID%"
+    Values: 
+      - 
+        Name: DeviceInstanceID
+        Value: "/Event/UserData/InstallDeviceID/DeviceInstanceID"
+  - 
+    Property: ExecutableInfo
+    PropertyValue: "%DriverName%"
+    Values: 
+      - 
+        Name: DriverName
+        Value: "/Event/UserData/InstallDeviceID/DriverName"
+
+Lookups: 
+  -
+    Name: InstallStatus
+    Default: Unknown code
+    Values:
+        0x0: Installation Successful
+        0x00000002: File Not Found
+        0x80070002: File Not Found
+        0x80070003: Path Not Found
+        0x80070005: Access Denied
+        0x800F0233: Invalid Target
+        0x8028006E: Invalid Source Path
+        0x000005B3: Requires Interactive Workstation
+        0x000005B4: Timeout
+        0xE0000234: Driver Non-native
+        0xE0000246: Device Installer Not Ready
+
+# Documentation:
+# https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc756336(v=ws.10)?redirectedfrom=MSDN
+#
+# Example Event Data:
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-UserPnp" Guid="96f4a050-7e31-453c-88be-9634f4e02139" />
+#    <EventID>20001</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>7005</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8000000500000000</Keywords>
+#    <TimeCreated SystemTime="2020-10-19 18:15:14.4350230" />
+#    <EventRecordID>80566</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="3528" ThreadID="1020" />
+#    <Channel>System</Channel>
+#    <Computer>HOSTNAME.domain.com</Computer>
+#    <Security UserID="S-1-5-18" />
+#  </System>
+#  <UserData>
+#    <InstallDeviceID>
+#      <DriverName>intcdaud.inf_amd64_46799624fe0dfa08\intcdaud.inf</DriverName>
+#      <DriverVersion>6.16.0.3208</DriverVersion>
+#      <DriverProvider>Intel(R) Corporation</DriverProvider>
+#      <DeviceInstanceID>HDAUDIO\FUNC_01&amp;amp;VEN_8086&amp;amp;DEV_2807&amp;amp;SUBSYS_80860101&amp;amp;REV_1000\4&amp;amp;2BFF37FD&amp;amp;1&amp;amp;0001</DeviceInstanceID>
+#      <SetupClass>4d13e96c-e325-11ce-bfc1-08002be10318</SetupClass>
+#      <RebootOption>False</RebootOption>
+#      <UpgradeDevice>True</UpgradeDevice>
+#      <IsDriverOEM>True</IsDriverOEM>
+#      <InstallStatus>0x0</InstallStatus>
+#      <DriverDescription>Intel(R) Display Audio</DriverDescription>
+#    </InstallDeviceID>
+#  </UserData>
+#</Event>
