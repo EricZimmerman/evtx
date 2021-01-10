@@ -59,40 +59,40 @@ Maps:
 # https://docs.microsoft.com/de-de/security-updates/windowsupdateservices/18127392
 #
 # Example Event Data:
-#<Event>
-#  <System>
-#    <Provider Name="Microsoft-Windows-Bits-Client" Guid="ef1dd15b-46c1-414e-bb95-e76b077bd51e" />
-#    <EventID>61</EventID>
-#    <Version>1</Version>
-#    <Level>3</Level>
-#    <Task>0</Task>
-#    <Opcode>2</Opcode>
-#    <Keywords>0x4000030000000000</Keywords>
-#    <TimeCreated SystemTime="2020-10-03 11:01:54.6903229" />
-#    <EventRecordID>667991</EventRecordID>
-#    <Correlation ActivityID="2577e913-0e06-4ef0-944f-2c9ec57ec669" />
-#    <Execution ProcessID="679" ThreadID="2648" />
-#    <Channel>Microsoft-Windows-Bits-Client/Operational</Channel>
-#    <Computer>HOSTNAME.domain.com</Computer>
-#    <Security UserID="S-1-5-18" />
-#  </System>
-#  <EventData>
-#    <Data Name="transferId">2567a913-0e06-4ef0-944f-2c9ec57ec669</Data>
-#    <Data Name="name">CCM Message Upload {0D7FE3C1-810E-43BF-98F3-6BFED5837B6C}</Data>
-#    <Data Name="Id">f3642209-4ea2-4ea9-b502-8320d93f45f0</Data>
-#    <Data Name="url">http://HOSTNAME.comain.com:80/CCM_Incoming/{0D7FE3C1-810E-43BF-98F3-6BFABCDEFB6C}</Data>
-#    <Data Name="peer"></Data>
-#    <Data Name="hr">246579813</Data>
-#    <Data Name="fileTime">2020-08-07 01:03:05.5210175</Data>
-#    <Data Name="fileLength">18440244073709551615</Data>
-#    <Data Name="bytesTotal">189658</Data>
-#    <Data Name="bytesTransferred">0</Data>
-#    <Data Name="proxy"></Data>
-#    <Data Name="peerProtocolFlags">0</Data>
-#    <Data Name="bytesTransferredFromPeer">0</Data>
-#    <Data Name="AdditionalInfoHr">0</Data>
-#    <Data Name="PeerContextInfo">0</Data>
-#    <Data Name="bandwidthLimit">18446744073709551615</Data>
-#    <Data Name="ignoreBandwidthLimitsOnLan">False</Data>
-#  </EventData>
-#</Event>
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-Bits-Client" Guid="ef1dd15b-46c1-414e-bb95-e76b077bd51e" />
+#     <EventID>61</EventID>
+#     <Version>1</Version>
+#     <Level>3</Level>
+#     <Task>0</Task>
+#     <Opcode>2</Opcode>
+#     <Keywords>0x4000030000000000</Keywords>
+#     <TimeCreated SystemTime="2020-10-03 11:01:54.6903229" />
+#     <EventRecordID>667991</EventRecordID>
+#     <Correlation ActivityID="2577e913-0e06-4ef0-944f-2c9ec57ec669" />
+#     <Execution ProcessID="679" ThreadID="2648" />
+#     <Channel>Microsoft-Windows-Bits-Client/Operational</Channel>
+#     <Computer>HOSTNAME.domain.com</Computer>
+#     <Security UserID="S-1-5-18" />
+#   </System>
+#   <EventData>
+#     <Data Name="transferId">2567a913-0e06-4ef0-944f-2c9ec57ec669</Data>
+#     <Data Name="name">CCM Message Upload {0D7FE3C1-810E-43BF-98F3-6BFED5837B6C}</Data>
+#     <Data Name="Id">f3642209-4ea2-4ea9-b502-8320d93f45f0</Data>
+#     <Data Name="url">http://HOSTNAME.comain.com:80/CCM_Incoming/{0D7FE3C1-810E-43BF-98F3-6BFABCDEFB6C}</Data>
+#     <Data Name="peer"></Data>
+#     <Data Name="hr">246579813</Data>
+#     <Data Name="fileTime">2020-08-07 01:03:05.5210175</Data>
+#     <Data Name="fileLength">18440244073709551615</Data>
+#     <Data Name="bytesTotal">189658</Data>
+#     <Data Name="bytesTransferred">0</Data>
+#     <Data Name="proxy"></Data>
+#     <Data Name="peerProtocolFlags">0</Data>
+#     <Data Name="bytesTransferredFromPeer">0</Data>
+#     <Data Name="AdditionalInfoHr">0</Data>
+#     <Data Name="PeerContextInfo">0</Data>
+#     <Data Name="bandwidthLimit">18446744073709551615</Data>
+#     <Data Name="ignoreBandwidthLimitsOnLan">False</Data>
+#   </EventData>
+# </Event>
