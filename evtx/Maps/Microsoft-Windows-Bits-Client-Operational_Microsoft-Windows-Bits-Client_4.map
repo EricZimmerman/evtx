@@ -4,49 +4,49 @@ EventId: 4
 Channel: Microsoft-Windows-Bits-Client/Operational
 Provider: Microsoft-Windows-Bits-Client
 Maps:
-   -
+  -
     Property: UserName
     PropertyValue: "%User%"
     Values: 
       - 
         Name: User
         Value: "/Event/EventData/Data[@Name=\"User\"]"
-   -
+  -
     Property: PayloadData1
     PropertyValue: "jobTitle: %jobTitle%"
     Values: 
       - 
         Name: jobTitle
         Value: "/Event/EventData/Data[@Name=\"jobTitle\"]"
-   -
+  -
     Property: PayloadData2
     PropertyValue: "jobId: %jobId%"
     Values: 
       - 
         Name: jobId
         Value: "/Event/EventData/Data[@Name=\"jobId\"]"
-   -
+  -
     Property: PayloadData3
     PropertyValue: "fileCount: %fileCount%"
     Values: 
       - 
         Name: fileCount
         Value: "/Event/EventData/Data[@Name=\"fileCount\"]" 
--
+  -
     Property: PayloadData4
     PropertyValue: "Bytes jobOwner: %jobOwner%"
     Values: 
       - 
         Name: jobOwner
         Value: "/Event/EventData/Data[@Name=\"jobOwner\"]"
-   -
+  -
     Property: PayloadData5
     PropertyValue: "Bytes Transferred: %bytesTransferred%"
     Values: 
       - 
         Name: bytesTransferred
         Value: "/Event/EventData/Data[@Name=\"bytesTransferred\"]" 
-   -
+  -
     Property: PayloadData6
     PropertyValue: "Bytes Transferred from Peer: %bytesTransferredFromPeer%"
     Values: 

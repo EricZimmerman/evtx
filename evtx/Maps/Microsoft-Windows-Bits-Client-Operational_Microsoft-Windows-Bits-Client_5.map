@@ -4,28 +4,28 @@ EventId: 5
 Channel: Microsoft-Windows-Bits-Client/Operational
 Provider: Microsoft-Windows-Bits-Client
 Maps:
--
+  -
     Property: UserName
     PropertyValue: "%User%"
     Values: 
       - 
         Name: User
         Value: "/Event/EventData/Data[@Name=\"User\"]"
-   -
+  -
     Property: PayloadData1
     PropertyValue: "jobTitle: %jobTitle%"
     Values: 
       - 
         Name: jobTitle
         Value: "/Event/EventData/Data[@Name=\"jobTitle\"]"
-   -
+  -
     Property: PayloadData2
     PropertyValue: "jobId: %jobId%"
     Values: 
       - 
         Name: jobId
         Value: "/Event/EventData/Data[@Name=\"jobId\"]"
-   -
+  -
     Property: PayloadData3
     PropertyValue: "fileCount: %fileCount%"
     Values: 
