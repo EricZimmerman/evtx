@@ -1,0 +1,50 @@
+Author: Andrew Rathbun
+Description: Microsoft-Windows-DeviceSetupManager service starting
+EventId: 100
+Channel: "Microsoft-Windows-DeviceSetupManager/Admin"
+Provider: "Microsoft-Windows-DeviceSetupManager"
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "Prop_UpTime_Seconds: %Prop_UpTime_Seconds%"
+    Values:
+      -
+        Name: Prop_UpTime_Seconds
+        Value: "/Event/EventData/Data[@Name=\"Prop_UpTime_Seconds\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "Prop_WorkTime_MilliSeconds: %Prop_WorkTime_MilliSeconds%"
+    Values:
+      -
+        Name: Prop_WorkTime_MilliSeconds
+        Value: "/Event/EventData/Data[@Name=\"Prop_WorkTime_MilliSeconds\"]"   
+
+# Documentation:
+# https://cyberforensicator.com/wp-content/uploads/2017/09/USB-Storage-Device-Forensics-for-Windows-10.pdf
+# https://forensixchange.com/posts/19_08_03_usb_storage_forensics_1/
+# https://www.swiftforensics.com/2013/11/event-log-entries-for-devices-in.html
+# This event directly precedes a 112 event.
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-DeviceSetupManager" Guid="fcfb06bb-6a2a-46e3-abaa-246cb4e508b2" />
+#     <EventID>100</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x4000000040000000</Keywords>
+#     <TimeCreated SystemTime="2019-12-04 09:51:10.8548641" />
+#     <EventRecordID>2098</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="679" ThreadID="17840" />
+#     <Channel>Microsoft-Windows-DeviceSetupManager/Admin</Channel>
+#     <Computer>HOSTNAME.domain.com</Computer>
+#     <Security UserID="S-1-5-18" />
+#   </System>
+#   <EventData>
+#     <Data Name="Prop_CoreServiceMode">0</Data>
+#     <Data Name="Prop_Event_Window_Seconds">71534</Data>
+#   </EventData>
+# </Event>
