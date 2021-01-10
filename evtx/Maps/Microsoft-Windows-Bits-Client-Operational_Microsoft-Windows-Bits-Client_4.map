@@ -6,11 +6,11 @@ Provider: Microsoft-Windows-Bits-Client
 Maps:
    -
     Property: UserName
-    PropertyValue: "jobOwner: %jobOwner%"
+    PropertyValue: "%User%"
     Values: 
       - 
-        Name: jobOwner
-        Value: "/Event/EventData/Data[@Name=\"jobOwner\"]"
+        Name: User
+        Value: "/Event/EventData/Data[@Name=\"User\"]"
    -
     Property: PayloadData1
     PropertyValue: "jobTitle: %jobTitle%"
@@ -32,6 +32,13 @@ Maps:
       - 
         Name: fileCount
         Value: "/Event/EventData/Data[@Name=\"fileCount\"]" 
+-
+    Property: PayloadData4
+    PropertyValue: "Bytes jobOwner: %jobOwner%"
+    Values: 
+      - 
+        Name: jobOwner
+        Value: "/Event/EventData/Data[@Name=\"jobOwner\"]"
    -
     Property: PayloadData5
     PropertyValue: "Bytes Transferred: %bytesTransferred%"
