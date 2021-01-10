@@ -1,0 +1,83 @@
+Author: Andrew Rathbun
+Description: Completing a failed non-ReadWrite SCSI SRB request
+EventId: 507
+Channel: "Microsoft-Windows-Storage-ClassPnP/Operational"
+Provider: "Microsoft-Windows-StorDiag"
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "DeviceGUID: %DeviceGUID%"
+    Values:
+      -
+        Name: DeviceGUID
+        Value: "/Event/EventData/Data[@Name=\"DeviceGUID\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "Vendor: %Vendor%"
+    Values:
+      -
+        Name: Vendor
+        Value: "/Event/EventData/Data[@Name=\"Vendor\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "Model: %Model%"
+    Values:
+      -
+        Name: Model
+        Value: "/Event/EventData/Data[@Name=\"Model\"]"
+  -
+    Property: PayloadData4
+    PropertyValue: "SerialNumber: %SerialNumber%"
+    Values:
+      -
+        Name: SerialNumber
+        Value: "/Event/EventData/Data[@Name=\"SerialNumber\"]"
+  -
+    Property: PayloadData5
+    PropertyValue: "FirmwareVersion: %FirmwareVersion%"
+    Values:
+      -
+        Name: FirmwareVersion
+        Value: "/Event/EventData/Data[@Name=\"FirmwareVersion\"]"
+
+# Documentation:
+# https://forensixchange.com/posts/19_08_03_usb_storage_forensics_1/
+# https://www.mcbsys.com/blog/2016/08/stordiag-errors-after-windows-10-upgrade/
+# https://www.windowsphoneinfo.com/threads/event-507-completing-a-failed-non-readwrite-scsi-srb-request.275718/
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-StorDiag" Guid="f5d67938-80a6-4653-825d-c414e4ab3c68" />
+#     <EventID>507</EventID>
+#     <Version>1</Version>
+#     <Level>2</Level>
+#     <Task>200</Task>
+#     <Opcode>101</Opcode>
+#     <Keywords>0x800000038000000</Keywords>
+#     <TimeCreated SystemTime="2020-10-24 15:28:17.5664229" />
+#     <EventRecordID>2</EventRecordID>
+#     <Correlation ActivityID="00000000-0000-0000-0000-000000000001" />
+#     <Execution ProcessID="4" ThreadID="520" />
+#     <Channel>Microsoft-Windows-Storage-ClassPnP/Operational</Channel>
+#     <Computer>HOSTNAME</Computer>
+#     <Security UserID="S-1-5-18" />
+#   </System>
+#   <EventData>
+#     <Data Name="DeviceGUID">3c1723fd-1386-004c-ea45-358679129f24</Data>
+#     <Data Name="DeviceNumber">3</Data>
+#     <Data Name="Vendor">Msft    </Data>
+#     <Data Name="Model">Virtual Disk    </Data>
+#     <Data Name="FirmwareVersion">1.0 </Data>
+#     <Data Name="SerialNumber">NULL</Data>
+#     <Data Name="DownLevelIrpStatus">0xC0000185</Data>
+#     <Data Name="SrbStatus">4</Data>
+#     <Data Name="ScsiStatus">2</Data>
+#     <Data Name="SenseKey">0</Data>
+#     <Data Name="AdditionalSenseCode">0</Data>
+#     <Data Name="AdditionalSenseCodeQualifier">0</Data>
+#     <Data Name="CdbByteCount">10</Data>
+#     <Data Name="CdbBytes">35-00-00-00-00-00-00-00-00-00</Data>
+#     <Data Name="NumberOfRetriesDone">5</Data>
+#   </EventData>
+# </Event>
