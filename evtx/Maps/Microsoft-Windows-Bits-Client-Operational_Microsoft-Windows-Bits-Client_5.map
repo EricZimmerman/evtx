@@ -1,0 +1,75 @@
+Author: Andrew Rathbun
+Description: BITS job cancellation
+EventId: 5
+Channel: Microsoft-Windows-Bits-Client/Operational
+Provider: Microsoft-Windows-Bits-Client
+Maps:
+  -
+    Property: UserName
+    PropertyValue: "%User%"
+    Values: 
+      - 
+        Name: User
+        Value: "/Event/EventData/Data[@Name=\"User\"]"
+  -
+    Property: PayloadData1
+    PropertyValue: "jobTitle: %jobTitle%"
+    Values: 
+      - 
+        Name: jobTitle
+        Value: "/Event/EventData/Data[@Name=\"jobTitle\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "jobId: %jobId%"
+    Values: 
+      - 
+        Name: jobId
+        Value: "/Event/EventData/Data[@Name=\"jobId\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "fileCount: %fileCount%"
+    Values: 
+      - 
+        Name: fileCount
+        Value: "/Event/EventData/Data[@Name=\"fileCount\"]" 
+  -
+    Property: PayloadData4
+    PropertyValue: "Bytes jobOwner: %jobOwner%"
+    Values: 
+      - 
+        Name: jobOwner
+        Value: "/Event/EventData/Data[@Name=\"jobOwner\"]"
+        
+# Documentation:
+# https://kb.eventtracker.com/evtpass/evtpages/EventId_4_Microsoft-Windows-Bits-Client_64107.asp
+# https://www.adash.org/jfb/Training247/Bit_Deep_Dive_Tshoot.htm
+# https://docs.microsoft.com/de-de/security-updates/windowsupdateservices/18127392
+# https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-r2-and-2008/cc734695(v=ws.10)
+# https://www.sans.org/reading-room/whitepapers/forensics/bits-forensics-39195
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-Bits-Client" Guid="ef1aa15b-46c1-414e-bb95-e76b077bd51e" />
+#     <EventID>5</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x4000060000000000</Keywords>
+#     <TimeCreated SystemTime="2020-09-27 13:50:51.9617212" />
+#     <EventRecordID>651942</EventRecordID>
+#     <Correlation ActivityID="41f524a4-9411-0001-322a-f5411194d601" />
+#     <Execution ProcessID="916" ThreadID="680" />
+#     <Channel>Microsoft-Windows-Bits-Client/Operational</Channel>
+#     <Computer>HOSTNAME.domain.com</Computer>
+#     <Security UserID="S-1-5-18" />
+#   </System>
+#   <EventData>
+#     <Data Name="User">NT AUTHORITY\SYSTEM</Data>
+#     <Data Name="jobTitle">CCM Message Upload {5F4D139A-8476-4FFB-BDCC-0A61ARDE528F}</Data>
+#     <Data Name="jobId">2679aae7-d9d0-4a03-b110-87eb72619f87</Data>
+#     <Data Name="jobOwner">NT AUTHORITY\SYSTEM</Data>
+#     <Data Name="fileCount">1</Data>
+#   </EventData>
+# </Event>
