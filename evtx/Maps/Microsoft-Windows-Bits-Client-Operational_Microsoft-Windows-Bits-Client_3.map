@@ -42,6 +42,9 @@ Maps:
 # Documentation:
 # https://www.cecyf.fr/wp-content/uploads/2018/01/2018-CELTON-DELAHAYE-Analyse-des-jobs-BITS.pdf
 # https://jpcertcc.github.io/ToolAnalysisResultSheet/details/BITS.htm#SuccessCondition
+# https://www.adash.org/jfb/Training247/Bit_Deep_Dive_Tshoot.htm
+# https://docs.microsoft.com/de-de/security-updates/windowsupdateservices/18127392
+# https://www.sans.org/reading-room/whitepapers/forensics/bits-forensics-39195
 #
 # Example Event Data:
 # <Event>
