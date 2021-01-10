@@ -44,6 +44,7 @@ Maps:
 # https://kb.eventtracker.com/evtpass/evtpages/EventId_4_Microsoft-Windows-Bits-Client_64107.asp
 # https://www.adash.org/jfb/Training247/Bit_Deep_Dive_Tshoot.htm
 # https://docs.microsoft.com/de-de/security-updates/windowsupdateservices/18127392
+# https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-r2-and-2008/cc734695(v=ws.10)
 # https://www.sans.org/reading-room/whitepapers/forensics/bits-forensics-39195
 #
 # Example Event Data:
