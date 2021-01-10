@@ -6,11 +6,11 @@ Provider: Microsoft-Windows-Bits-Client
 Maps:
    -
     Property: UserName
-    PropertyValue: "jobOwner: %jobOwner%%string2%"
+    PropertyValue: "jobOwner: %jobOwner%"
     Values: 
       - 
         Name: jobOwner
-        Value: "/Event/EventData/Data[@Name=\"User\"]"
+        Value: "/Event/EventData/Data[@Name=\"jobOwner\"]"
    -
     Property: PayloadData1
     PropertyValue: "jobTitle: %jobTitle%"
