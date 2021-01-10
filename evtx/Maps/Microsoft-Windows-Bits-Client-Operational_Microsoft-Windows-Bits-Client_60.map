@@ -59,40 +59,40 @@ Maps:
 # https://docs.microsoft.com/de-de/security-updates/windowsupdateservices/18127392
 #
 # Example Event Data:
-#<Event>
-#  <System>
-#    <Provider Name="Microsoft-Windows-Bits-Client" Guid="ef1ab15b-46c1-414e-bb95-e76b077bd51e" />
-#    <EventID>60</EventID>
-#    <Version>1</Version>
-#    <Level>4</Level>
-#    <Task>0</Task>
-#    <Opcode>2</Opcode>
-#    <Keywords>0x4000000800000000</Keywords>
-#    <TimeCreated SystemTime="2020-11-30 17:31:11.2022221" />
-#    <EventRecordID>1532</EventRecordID>
-#    <Correlation ActivityID="76099896-f8ef-40f3-853b-9d3725e4b2f7" />
-#    <Execution ProcessID="7788" ThreadID="16396" />
-#    <Channel>Microsoft-Windows-Bits-Client/Operational</Channel>
-#    <Computer>HOSTNAME</Computer>
-#    <Security UserID="S-1-5-18" />
-#  </System>
-#  <EventData>
-#    <Data Name="transferId">76052606-f8ef-40f3-853b-9d3725e4b2f7</Data>
-#    <Data Name="name">UpdateXml</Data>
-#    <Data Name="Id">f4ecc13b-4421-48a3-8766-4b987a0e5995</Data>
-#    <Data Name="url">https://g.live.com/123rewlive5skydrive/OneDriveProduction?OneDriveUpdate=f37fd774d9b58ea48d76eacfee1e</Data>
-#    <Data Name="peer"></Data>
-#    <Data Name="hr">0</Data>
-#    <Data Name="fileTime">2020-11-23 20:04:21.0000000</Data>
-#    <Data Name="fileLength">993</Data>
-#    <Data Name="bytesTotal">993</Data>
-#    <Data Name="bytesTransferred">993</Data>
-#    <Data Name="proxy"></Data>
-#    <Data Name="peerProtocolFlags">0</Data>
-#    <Data Name="bytesTransferredFromPeer">0</Data>
-#    <Data Name="AdditionalInfoHr">0</Data>
-#    <Data Name="PeerContextInfo">0</Data>
-#    <Data Name="bandwidthLimit">18446749973709551615</Data>
-#    <Data Name="ignoreBandwidthLimitsOnLan">False</Data>
-#  </EventData>
-#</Event>
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-Bits-Client" Guid="ef1ab15b-46c1-414e-bb95-e76b077bd51e" />
+#     <EventID>60</EventID>
+#     <Version>1</Version>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Opcode>2</Opcode>
+#     <Keywords>0x4000000800000000</Keywords>
+#     <TimeCreated SystemTime="2020-11-30 17:31:11.2022221" />
+#     <EventRecordID>1532</EventRecordID>
+#     <Correlation ActivityID="76099896-f8ef-40f3-853b-9d3725e4b2f7" />
+#     <Execution ProcessID="7788" ThreadID="16396" />
+#     <Channel>Microsoft-Windows-Bits-Client/Operational</Channel>
+#     <Computer>HOSTNAME</Computer>
+#     <Security UserID="S-1-5-18" />
+#   </System>
+#   <EventData>
+#     <Data Name="transferId">76052606-f8ef-40f3-853b-9d3725e4b2f7</Data>
+#     <Data Name="name">UpdateXml</Data>
+#     <Data Name="Id">f4ecc13b-4421-48a3-8766-4b987a0e5995</Data>
+#     <Data Name="url">https://g.live.com/123rewlive5skydrive/OneDriveProduction?OneDriveUpdate=f37fd774d9b58ea48d76eacfee1e</Data>
+#     <Data Name="peer"></Data>
+#     <Data Name="hr">0</Data>
+#     <Data Name="fileTime">2020-11-23 20:04:21.0000000</Data>
+#     <Data Name="fileLength">993</Data>
+#     <Data Name="bytesTotal">993</Data>
+#     <Data Name="bytesTransferred">993</Data>
+#     <Data Name="proxy"></Data>
+#     <Data Name="peerProtocolFlags">0</Data>
+#     <Data Name="bytesTransferredFromPeer">0</Data>
+#     <Data Name="AdditionalInfoHr">0</Data>
+#     <Data Name="PeerContextInfo">0</Data>
+#     <Data Name="bandwidthLimit">18446749973709551615</Data>
+#     <Data Name="ignoreBandwidthLimitsOnLan">False</Data>
+#   </EventData>
+# </Event>
