@@ -5,25 +5,12 @@ Channel: Security
 Provider: "Microsoft-Windows-Security-Auditing"
 Maps: 
   - 
-    Property: UserName
-    PropertyValue: "%domain%\\%user%"
-    Values: 
-      - 
-        Name: domain
-        Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
-      - 
-        Name: user
-        Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
-  - 
     Property: PayloadData1
-    PropertyValue: "Target: %TargetDomainName%\\%TargetUserName%"
+    PropertyValue: "%EventData%"
     Values: 
       - 
-        Name: TargetDomainName
-        Value: "/Event/EventData/Data[@Name=\"TargetDomainName\"]"
-      - 
-        Name: TargetUserName
-        Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
+        Name: EventData
+        Value: "/Event/EventData"
 
 # Documentation:
 # https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4608
