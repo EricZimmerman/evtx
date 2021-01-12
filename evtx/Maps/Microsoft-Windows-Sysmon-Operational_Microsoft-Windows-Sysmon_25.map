@@ -40,6 +40,8 @@ Maps:
 # https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon#events
 # https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES
 # https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/default.aspx - filter on Sysmon
+# https://medium.com/falconforce/sysmon-13-process-tampering-detection-820366138a6c
+# https://www.blackhillsinfosec.com/a-sysmon-event-id-breakdown/
 # sysmon64.exe -s will list examples of data stored for each Sysmon event. This was done for this particular event.
 #
 # Example Event Data:
