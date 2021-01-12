@@ -1,0 +1,71 @@
+Author: Andrew Rathbun
+Description: ProcessTampering (Process image change)
+EventId: 25
+Channel: Microsoft-Windows-Sysmon/Operational
+Provider: Microsoft-Windows-Sysmon
+Maps: 
+  - 
+    Property: ExecutableInfo
+    PropertyValue: "%Image%"
+    Values: 
+      - 
+        Name: Image
+        Value: "/Event/EventData/Data[@Name=\"Image\"]"  
+  - 
+    Property: PayloadData1
+    PropertyValue: "ProcessID: %ProcessID%, ProcessGUID: %ProcessGUID%"
+    Values: 
+      - 
+        Name: ProcessGUID
+        Value: "/Event/EventData/Data[@Name=\"ProcessGuid\"]"
+      - 
+        Name: ProcessID
+        Value: "/Event/EventData/Data[@Name=\"ProcessId\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "RuleName: %RuleName%"
+    Values: 
+      - 
+        Name: RuleName
+        Value: "/Event/EventData/Data[@Name=\"RuleName\"]"
+  -
+    Property: PayloadData6
+    PropertyValue: "Type: %Type%"
+    Values: 
+      - 
+        Name: Type
+        Value: "/Event/EventData/Data[@Name=\"Type\"]"
+
+# Documentation:
+# https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon#events
+# https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES
+# https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/default.aspx - filter on Sysmon
+# sysmon64.exe -s will list examples of data stored for each Sysmon event. This was done for this particular event.
+#
+# Example Event Data:
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Sysmon" Guid="5770385f-c22a-43e0-bf4c-06f5698ffbd9" />
+#    <EventID>25</EventID>
+#    <Version>5</Version>
+#    <Level>4</Level>
+#    <Task>23</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8000000000000000</Keywords>
+#    <TimeCreated SystemTime="2020-10-20 11:50:56.9994587" />
+#    <EventRecordID>1081</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="7212" ThreadID="9748" />
+#    <Channel>Microsoft-Windows-Sysmon/Operational</Channel>
+#    <Computer>DESKTOP-NTSSLJD</Computer>
+#    <Security UserID="S-1-5-18" />
+#  </System>
+#  <EventData>
+#    <data name="RuleName" inType="win:UnicodeString" outType="xs:string" />
+#    <data name="UtcTime" inType="win:UnicodeString" outType="xs:string" />
+#    <data name="ProcessGuid" inType="win:GUID" />
+#    <data name="ProcessId" inType="win:UInt32" outType="win:PID" />
+#    <data name="Image" inType="win:UnicodeString" outType="xs:string" />
+#    <data name="Type" inType="win:UnicodeString" outType="xs:string" />
+#   </EventData>
+#</Event>
