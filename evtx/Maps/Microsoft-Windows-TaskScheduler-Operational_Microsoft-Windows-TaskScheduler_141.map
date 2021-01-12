@@ -1,5 +1,5 @@
 Author: Eric Zimmerman saericzimmerman@gmail.com
-Description: Scheduled task deleted
+Description: Scheduled Task deleted
 EventId: 141
 Channel: "Microsoft-Windows-TaskScheduler/Operational"
 Provider: Microsoft-Windows-TaskScheduler
