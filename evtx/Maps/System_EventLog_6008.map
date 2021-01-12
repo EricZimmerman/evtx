@@ -6,7 +6,7 @@ Provider: EventLog
 Maps:
   -
     Property: PayloadData1
-    PropertyValue: "Time, Date : %Data%"
+    PropertyValue: "Timestamp: %Data%"
     Values:
       -
         Name: Data

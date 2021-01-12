@@ -1,5 +1,5 @@
 Author: Hyun Yi @hyuunnn
-Description: Device driver was installed (Device was connected)
+Description: Device driver installations begins (Device connection)
 EventId: 10000
 Channel: "System"
 Provider: "Microsoft-Windows-DriverFrameworks-UserMode"
