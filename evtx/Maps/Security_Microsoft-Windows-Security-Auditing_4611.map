@@ -10,24 +10,24 @@ Maps:
     Values: 
       - 
         Name: domain
-        Value: "/Event/EventData/Data[@Name=SubjectDomainName\"]"
+        Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
       - 
         Name: user
-        Value: "/Event/EventData/Data[@Name=SubjectUserName\"]"
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
   - 
     Property: ExecutableInfo
     PropertyValue: "%LogonProcessName%"
     Values: 
       - 
         Name: LogonProcessName
-        Value: "/Event/EventData/Data[@Name=LogonProcessName\"]"
+        Value: "/Event/EventData/Data[@Name=\"LogonProcessName\"]"
   - 
     Property: PayloadData1
     PropertyValue: "SID: %SubjectUserSid%"
     Values: 
       - 
         Name: SubjectUserSid
-        Value: "/Event/EventData/Data[@Name=SubjectUserSid\"]"
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserSid\"]"
 
 # Documentation:
 # https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4611
