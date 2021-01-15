@@ -1,0 +1,95 @@
+Author: Gabriele Zambelli @gazambelli
+Description: A new external device was recognized by the system
+EventId: 6416
+Channel: Security
+Provider: Microsoft-Windows-Security-Auditing
+Maps: 
+  - 
+    Property: UserName
+    PropertyValue: "%domain%\\%user% (%sid%)"
+    Values: 
+      - 
+        Name: domain
+        Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
+      - 
+        Name: user
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
+      - 
+        Name: sid
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserSid\"]"
+  - 
+    Property: PayloadData1
+    PropertyValue: "DeviceId: %DeviceId%"
+    Values: 
+      - 
+        Name: DeviceId
+        Value: "/Event/EventData/Data[@Name=\"DeviceId\"]"
+  - 
+    Property: PayloadData2
+    PropertyValue: "DeviceName: %DeviceDescription%"
+    Values: 
+      - 
+        Name: DeviceDescription
+        Value: "/Event/EventData/Data[@Name=\"DeviceDescription\"]"
+  - 
+    Property: PayloadData3
+    PropertyValue: "Class: %ClassName% (%ClassId%)"
+    Values: 
+      - 
+        Name: ClassName
+        Value: "/Event/EventData/Data[@Name=\"ClassName\"]"
+      - 
+        Name: ClassId
+        Value: "/Event/EventData/Data[@Name=\"ClassId\"]"
+  - 
+    Property: PayloadData4
+    PropertyValue: "VendorIds: %VendorIds%"
+    Values: 
+      - 
+        Name: VendorIds
+        Value: "/Event/EventData/Data[@Name=\"VendorIds\"]"
+  - 
+    Property: PayloadData5
+    PropertyValue: "LocationInformation: %LocationInformation%"
+    Values: 
+      - 
+        Name: LocationInformation
+        Value: "/Event/EventData/Data[@Name=\"LocationInformation\"]"
+
+# Documentation:
+# https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-6416
+# https://docs.microsoft.com/en-us/windows-hardware/drivers/install/system-defined-device-setup-classes-available-to-vendors
+# http://port139.hatenablog.com/entry/2018/10/28/174310
+#
+# Example Event Data:
+# <Event>
+  # <System>
+    # <Provider Name="Microsoft-Windows-Security-Auditing" Guid="54849625-5478-4994-a5ba-3e3b0328c30d" />
+    # <EventID>6416</EventID>
+    # <Version>1</Version>
+    # <Level>0</Level>
+    # <Task>13316</Task>
+    # <Opcode>0</Opcode>
+    # <Keywords>0x8020000000000000</Keywords>
+    # <TimeCreated SystemTime="2021-01-14 13:41:45.4788422" />
+    # <EventRecordID>201476</EventRecordID>
+    # <Correlation />
+    # <Execution ProcessID="4" ThreadID="23336" />
+    # <Channel>Security</Channel>
+    # <Computer>PC</Computer>
+    # <Security />
+  # </System>
+  # <EventData>
+    # <Data Name="SubjectUserSid">S-1-5-18</Data>
+    # <Data Name="SubjectUserName">PC$</Data>
+    # <Data Name="SubjectDomainName">WORKGROUP</Data>
+    # <Data Name="SubjectLogonId">0x3E7</Data>
+    # <Data Name="DeviceId">USBSTOR\Disk&amp;amp;Ven_JetFlash&amp;amp;Prod_Transcend_64GB&amp;amp;Rev_1100\1234567890ABCDEF&amp;amp;0</Data>
+    # <Data Name="DeviceDescription">JetFlash Transcend 64GB USB Device</Data>
+    # <Data Name="ClassId">4d36e967-e325-11ce-bfc1-08002be10318</Data>
+    # <Data Name="ClassName">DiskDrive</Data>
+    # <Data Name="VendorIds">, USBSTOR\DiskJetFlashTranscend_64GB__1100, USBSTOR\DiskJetFlashTranscend_64GB__, USBSTOR\DiskJetFlash, USBSTOR\JetFlashTranscend_64GB__1, JetFlashTranscend_64GB__1, USBSTOR\GenDisk, GenDisk, </Data>
+    # <Data Name="CompatibleIds">, USBSTOR\Disk, USBSTOR\RAW, GenDisk, </Data>
+    # <Data Name="LocationInformation">-</Data>
+  # </EventData>
+# </Event>

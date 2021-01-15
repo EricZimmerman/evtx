@@ -1178,7 +1178,8 @@ namespace evtx.Test
             LogManager.Configuration = config;
             var l = LogManager.GetLogger("foo");
 
-            var sysLog = @"C:\temp\Archive-ForwardedEvents-test.evtx";
+       //     var sysLog = @"C:\temp\Archive-ForwardedEvents-test.evtx";
+            var sysLog = @"D:\OneDrive\Desktop\Security.evtx";
 
             // var total = 0;
 

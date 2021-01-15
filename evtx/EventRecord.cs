@@ -306,6 +306,8 @@ namespace evtx
 
             MapDescription = map.Description;
 
+            l.Debug($"Processing map with description '{map.Description}', event id: {map.EventId}");
+
             foreach (var mapEntry in map.Maps)
             {
                 var valProps = new Dictionary<string, string>();
