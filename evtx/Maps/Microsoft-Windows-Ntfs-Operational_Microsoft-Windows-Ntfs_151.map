@@ -1,0 +1,97 @@
+Author: Andrew Rathbun
+Description: File deletion on an NTFS-formatted volume
+EventId: 151
+Channel: "Microsoft-Windows-Ntfs/Operational"
+Provider: "Microsoft-Windows-Ntfs"
+Maps:
+  -
+    Property: ExecutableInfo
+    PropertyValue: "%ProcessName%"
+    Values:
+      -
+        Name: ProcessName
+        Value: "/Event/EventData/Data[@Name=\"ProcessName\"]"
+  -
+    Property: PayloadData1
+    PropertyValue: "In the past %SecondsElapsed% seconds %TotalCountDeleteFile% files were deleted"
+    Values:
+      -
+        Name: SecondsElapsed
+        Value: "/Event/EventData/Data[@Name=\"SecondsElapsed\"]"
+      -
+        Name: TotalCountDeleteFile
+        Value: "/Event/EventData/Data[@Name=\"TotalCountDeleteFile\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "%TotalCountDeleteFileLogged% of the deletions record their process name"
+    Values:
+      -
+        Name: TotalCountDeleteFileLogged
+        Value: "/Event/EventData/Data[@Name=\"TotalCountDeleteFileLogged\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "%CountDeleteFile% files were deleted by %ProcessName%"
+    Values:
+      -
+        Name: CountDeleteFile
+        Value: "/Event/EventData/Data[@Name=\"CountDeleteFile\"]"
+      -
+        Name: ProcessName
+        Value: "/Event/EventData/Data[@Name=\"ProcessName\"]"                      
+  -
+    Property: PayloadData4
+    PropertyValue: "VolumeName: %VolumeName%"
+    Values:
+      -
+        Name: VolumeName
+        Value: "/Event/EventData/Data[@Name=\"VolumeName\"]"
+  -
+    Property: PayloadData5
+    PropertyValue: "IsBootVolume: %IsBootVolume%"
+    Values:
+      -
+        Name: IsBootVolume
+        Value: "/Event/EventData/Data[@Name=\"IsBootVolume\"]"
+  -
+    Property: PayloadData6
+    PropertyValue: "VolumeCorrelationId: %VolumeCorrelationId%"
+    Values:
+      -
+        Name: VolumeCorrelationId
+        Value: "/Event/EventData/Data[@Name=\"VolumeCorrelationId\"]"
+
+# Documentation:
+# https://github.com/Silv3rHorn/evtx2json/blob/master/resources/events.py#L1613
+# Appears to be only present in W10 2004+
+#
+# Example Event Data:
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-Ntfs" Guid="3ff37a1c-a68d-4d6e-8c9b-f79e8b16c482" />
+#     <EventID>151</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x4000000000200000</Keywords>
+#     <TimeCreated SystemTime="2020-10-24 16:23:29.5220559" />
+#     <EventRecordID>38</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="4" ThreadID="8464" />
+#     <Channel>Microsoft-Windows-Ntfs/Operational</Channel>
+#     <Computer>HOSTNAME</Computer>
+#     <Security UserID="S-1-5-18" />
+#   </System>
+#   <EventData>
+#     <Data Name="VolumeCorrelationId">5285666e-f228-11ea-9a5f-9c5c8ebbb369</Data>
+#     <Data Name="VolumeNameLength">2</Data>
+#     <Data Name="VolumeName">C:</Data>
+#     <Data Name="IsBootVolume">True</Data>
+#     <Data Name="SecondsElapsed">3601</Data>
+#     <Data Name="TotalCountDeleteFile">1963</Data>
+#     <Data Name="TotalCountDeleteFileLogged">1963</Data>
+#     <Data Name="ProcessName">MoUsoCoreWorke</Data>
+#     <Data Name="CountDeleteFile">2</Data>
+#   </EventData>
+# </Event>
