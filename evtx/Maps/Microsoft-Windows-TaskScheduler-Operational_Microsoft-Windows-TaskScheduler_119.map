@@ -19,7 +19,7 @@ Maps:
         Name: UserName
         Value: "/Event/EventData/Data[@Name=\"UserName\"]"
   -
-    Property: PayloadData3
+    Property: PayloadData2
     PropertyValue: "Instance Id: %InstanceId%"
     Values: 
       - 
