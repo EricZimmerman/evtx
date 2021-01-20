@@ -19,7 +19,7 @@ Maps:
         Name: Path
         Value: "/Event/EventData/Data[@Name=\"Path\"]"
   -
-    Property: PayloadData3
+    Property: PayloadData2
     PropertyValue: "ProcessID: %ProcessID%"
     Values: 
       - 
