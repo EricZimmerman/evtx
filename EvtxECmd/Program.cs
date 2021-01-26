@@ -439,7 +439,7 @@ namespace EvtxECmd
                     Environment.Exit(0);
                 }
 
-                var foo = _csvWriter.Configuration.AutoMap<EventRecord>();
+                var foo = _csvWriter.Context.AutoMap<EventRecord>();
 
                 if (_fluentCommandLineParser.Object.PayloadAsJson == false)
                 {
@@ -457,7 +457,7 @@ namespace EvtxECmd
                 foo.Map(t => t.RecordNumber).Index(0);
                 foo.Map(t => t.EventRecordId).Index(1);
                 foo.Map(t => t.TimeCreated).Index(2);
-                foo.Map(t => t.TimeCreated).ConvertUsing(t =>
+                foo.Map(t => t.TimeCreated).Convert(t =>
                     $"{t.TimeCreated.ToString(_fluentCommandLineParser.Object.DateTimeFormat)}");
                 foo.Map(t => t.EventId).Index(3);
                 foo.Map(t => t.Level).Index(4);
@@ -481,7 +481,7 @@ namespace EvtxECmd
                 foo.Map(t => t.SourceFile).Index(22);
                 foo.Map(t => t.Keywords).Index(23);
 
-                _csvWriter.Configuration.RegisterClassMap(foo);
+                _csvWriter.Context.RegisterClassMap(foo);
                 _csvWriter.WriteHeader<EventRecord>();
                 _csvWriter.NextRecord();
             }
@@ -727,6 +727,11 @@ namespace EvtxECmd
             }
 
             var fff = new FastZip();
+
+            if (Directory.Exists(Path.Combine(BaseDirectory, "Maps")) == false)
+            {
+                Directory.CreateDirectory(Path.Combine(BaseDirectory, "Maps"));
+            }
 
             var directoryFilter = "Maps";
 
