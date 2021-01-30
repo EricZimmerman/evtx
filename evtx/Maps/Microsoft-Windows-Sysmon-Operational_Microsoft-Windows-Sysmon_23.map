@@ -3,64 +3,64 @@ Description: FileDelete (A file delete was detected)
 EventId: 23
 Channel: Microsoft-Windows-Sysmon/Operational
 Provider: Microsoft-Windows-Sysmon
-Maps: 
-  - 
+Maps:
+  -
     Property: ExecutableInfo
     PropertyValue: "%Image%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Image
-        Value: "/Event/EventData/Data[@Name=\"Image\"]"  
-  - 
+        Value: "/Event/EventData/Data[@Name=\"Image\"]"
+  -
     Property: PayloadData1
     PropertyValue: "ProcessID: %ProcessID%, ProcessGUID: %ProcessGUID%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ProcessGUID
         Value: "/Event/EventData/Data[@Name=\"ProcessGuid\"]"
-      - 
+      -
         Name: ProcessID
         Value: "/Event/EventData/Data[@Name=\"ProcessId\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "RuleName: %RuleName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: RuleName
         Value: "/Event/EventData/Data[@Name=\"RuleName\"]"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "%Hashes%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Hashes
         Value: "/Event/EventData/Data[@Name=\"Hashes\"]"
-  - 
+  -
     Property: PayloadData4
     PropertyValue: "TargetFilename: %TargetFilename%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TargetFilename
         Value: "/Event/EventData/Data[@Name=\"TargetFilename\"]"
-  - 
+  -
     Property: PayloadData5
     PropertyValue: "IsExecutable: %IsExecutable%"
-    Values: 
-      - 
+    Values:
+      -
         Name: IsExecutable
         Value: "/Event/EventData/Data[@Name=\"IsExecutable\"]"
-  - 
+  -
     Property: PayloadData6
     PropertyValue: "Archived: %Archived%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Archived
         Value: "/Event/EventData/Data[@Name=\"Archived\"]"
-  - 
+  -
     Property: UserName
     PropertyValue: "%User%"
-    Values: 
-      - 
+    Values:
+      -
         Name: User
         Value: "/Event/EventData/Data[@Name=\"User\"]"
 

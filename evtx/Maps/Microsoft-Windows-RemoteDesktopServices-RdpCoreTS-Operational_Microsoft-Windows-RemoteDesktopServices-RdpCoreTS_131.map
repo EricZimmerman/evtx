@@ -3,19 +3,19 @@ Description: RDP server accepted a new TCP connection
 EventId: 131
 Channel: Microsoft-Windows-RemoteDesktopServices-RdpCoreTS/Operational
 Provider: Microsoft-Windows-RemoteDesktopServices-RdpCoreTS
-Maps: 
-  - 
+Maps:
+  -
     Property: RemoteHost
     PropertyValue: "%Address%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Address
         Value: "/Event/EventData/Data[@Name=\"ClientIP\"]"
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "Connection Type: %ConnType%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ConnType
         Value: "/Event/EventData/Data[@Name=\"ConnType\"]"
 

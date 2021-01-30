@@ -3,35 +3,35 @@ Description: The password hash of an account was accessed
 EventId: 4782
 Channel: Security
 Provider: Microsoft-Windows-Security-Auditing
-Maps: 
-  - 
+Maps:
+  -
     Property: UserName
     PropertyValue: "%domain%\\%user% (%sid%)"
-    Values: 
-      - 
+    Values:
+      -
         Name: domain
         Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
-      - 
+      -
         Name: user
         Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
-      - 
+      -
         Name: sid
         Value: "/Event/EventData/Data[@Name=\"SubjectUserSid\"]"
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "Target: %TargetDomainName%\\%TargetUserName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TargetUserName
         Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
-      - 
+      -
         Name: TargetDomainName
         Value: "/Event/EventData/Data[@Name=\"TargetDomainName\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "SubjectLogonId: %SubjectLogonId%"
-    Values: 
-      - 
+    Values:
+      -
         Name: SubjectLogonId
         Value: "/Event/EventData/Data[@Name=\"SubjectLogonId\"]"
 
@@ -43,27 +43,27 @@ Maps:
 #<Event>
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 # <System>
-# <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-A5BA-3E3B0328C30D}" /> 
-# <EventID>4782</EventID> 
-# <Version>0</Version> 
-# <Level>0</Level> 
-# <Task>13829</Task> 
-# <Opcode>0</Opcode> 
-# <Keywords>0x8020000000000000</Keywords> 
-# <TimeCreated SystemTime="2015-08-18T21:23:46.435367800Z" /> 
-# <EventRecordID>174829</EventRecordID> 
-# <Correlation /> 
-# <Execution ProcessID="512" ThreadID="1232" /> 
-# <Channel>Security</Channel> 
-# <Computer>DC01.contoso.local</Computer> 
-# <Security /> 
+# <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-A5BA-3E3B0328C30D}" />
+# <EventID>4782</EventID>
+# <Version>0</Version>
+# <Level>0</Level>
+# <Task>13829</Task>
+# <Opcode>0</Opcode>
+# <Keywords>0x8020000000000000</Keywords>
+# <TimeCreated SystemTime="2015-08-18T21:23:46.435367800Z" />
+# <EventRecordID>174829</EventRecordID>
+# <Correlation />
+# <Execution ProcessID="512" ThreadID="1232" />
+# <Channel>Security</Channel>
+# <Computer>DC01.contoso.local</Computer>
+# <Security />
 # </System>
 # <EventData>
-# <Data Name="TargetUserName">Andrei</Data> 
-# <Data Name="TargetDomainName">CONTOSO</Data> 
-# <Data Name="SubjectUserSid">S-1-5-18</Data> 
-# <Data Name="SubjectUserName">DC01$</Data> 
-# <Data Name="SubjectDomainName">CONTOSO</Data> 
-# <Data Name="SubjectLogonId">0x3e7</Data> 
+# <Data Name="TargetUserName">Andrei</Data>
+# <Data Name="TargetDomainName">CONTOSO</Data>
+# <Data Name="SubjectUserSid">S-1-5-18</Data>
+# <Data Name="SubjectUserName">DC01$</Data>
+# <Data Name="SubjectDomainName">CONTOSO</Data>
+# <Data Name="SubjectLogonId">0x3e7</Data>
 # </EventData>
 # </Event>

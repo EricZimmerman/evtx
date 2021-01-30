@@ -11,31 +11,31 @@ Maps:
       -
         Name: Data
         Value: "/Event/EventData/Data"
-        
+
 # Documentation:
 # N/A
 #
 # Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
-#     <Provider Name="System Restore" /> 
-#     <EventID Qualifiers="0">8194</EventID> 
-#     <Version>0</Version> 
-#     <Level>4</Level> 
-#     <Task>0</Task> 
-#     <Opcode>0</Opcode> 
-#     <Keywords>0x80000000000000</Keywords> 
-#     <TimeCreated SystemTime="2020-10-12T07:13:41.6976173Z" /> 
-#     <EventRecordID>2347</EventRecordID> 
-#     <Correlation /> 
-#     <Execution ProcessID="0" ThreadID="0" /> 
-#     <Channel>Application</Channel> 
-#     <Computer>ComputerName</Computer> 
-#     <Security /> 
+#     <Provider Name="System Restore" />
+#     <EventID Qualifiers="0">8194</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x80000000000000</Keywords>
+#     <TimeCreated SystemTime="2020-10-12T07:13:41.6976173Z" />
+#     <EventRecordID>2347</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="0" ThreadID="0" />
+#     <Channel>Application</Channel>
+#     <Computer>ComputerName</Computer>
+#     <Security />
 #   </System>
 #   <EventData>
-#     <Data>C:\WINDOWS\system32\msiexec.exe /V</Data> 
-#     <Data>Installed AccessData FTK Imager.</Data> 
-#     <Binary>{Binary}</Binary> 
+#     <Data>C:\WINDOWS\system32\msiexec.exe /V</Data>
+#     <Data>Installed AccessData FTK Imager.</Data>
+#     <Binary>{Binary}</Binary>
 #   </EventData>
 # </Event>

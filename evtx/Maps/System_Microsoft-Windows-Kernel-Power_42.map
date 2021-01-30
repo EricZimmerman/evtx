@@ -3,12 +3,12 @@ Description: Sleep/wake events
 EventId: 42
 Channel: System
 Provider: Microsoft-Windows-Kernel-Power
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: Reason "%Reason%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Reason
         Value: "/Event/EventData/Data[@Name=\"Reason\"]"
 Lookups:

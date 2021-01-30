@@ -4,18 +4,18 @@ EventId: 169
 Channel: "Microsoft-Windows-WinRM/Operational"
 Provider: Microsoft-Windows-WinRM
 Maps:
-  - 
+  -
     Property: UserName
     PropertyValue: "%username%"
-    Values: 
-      - 
+    Values:
+      -
         Name: username
-        Value: "/Event/EventData/Data[@Name=\"username\"]" 
-  - 
+        Value: "/Event/EventData/Data[@Name=\"username\"]"
+  -
     Property: PayloadData1
     PropertyValue: "AuthenticationMechanism: %authenticationMechanism%"
-    Values: 
-      - 
+    Values:
+      -
         Name: authenticationMechanism
         Value: "/Event/EventData/Data[@Name=\"authenticationMechanism\"]"
 

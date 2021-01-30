@@ -4,11 +4,11 @@ EventId: 1000
 Channel: Application
 Provider: "Application Error"
 Maps:
-  - 
+  -
     Property: ExecutableInfo
     PropertyValue: "%ExecutableInfo%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ExecutableInfo
         Value: "/Event/EventData/Data"
         Refine: ([a-zA-Z0-9_\\.\-\(\):])+(.exe|.dll)
@@ -18,7 +18,7 @@ Maps:
 # https://answers.microsoft.com/en-us/windows/forum/windows_7-performance/how-do-i-fix-error-code-1000-application-crashes/19caa618-0ec8-43e5-9544-313f44b42c3a
 # https://windowsreport.com/event-1000-application-error-windows-10/
 # https://appuals.com/how-to-fix-event-1000-application-error-on-windows-10/
-# I've personally seen malicious executables being recorded in these events given that malware is inherently unstable and meant to cause destruction on the host system. 
+# I've personally seen malicious executables being recorded in these events given that malware is inherently unstable and meant to cause destruction on the host system.
 # Please add any other file extensions as you see fit.
 # As always, check the Payload column for all info recorded for this event.
 #

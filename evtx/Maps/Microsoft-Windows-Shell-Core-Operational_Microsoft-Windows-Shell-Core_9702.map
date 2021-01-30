@@ -3,15 +3,15 @@ Description: RunOnceEx commands finished
 EventId: 9702
 Channel: Microsoft-Windows-Shell-Core/Operational
 Provider: Microsoft-Windows-Shell-Core
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "%PayloadData1%"
-    Values: 
-      - 
+    Values:
+      -
         Name: PayloadData1
         Value: "/Event/EventData/Data"
-   
+
 # Documentation:
 # https://www.geoffchappell.com/notes/windows/shell/events/core.htm
 #

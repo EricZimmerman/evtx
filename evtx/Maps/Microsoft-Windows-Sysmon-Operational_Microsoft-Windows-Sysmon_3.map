@@ -3,61 +3,61 @@ Description: Network connection
 EventId: 3
 Channel: Microsoft-Windows-Sysmon/Operational
 Provider: Microsoft-Windows-Sysmon
-Maps: 
+Maps:
 
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "ProcessID: %ProcessID%, ProcessGUID: %ProcessGUID%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ProcessGUID
         Value: "/Event/EventData/Data[@Name=\"ProcessGuid\"]"
-      - 
+      -
         Name: ProcessID
         Value: "/Event/EventData/Data[@Name=\"ProcessId\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "RuleName: %RuleName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: RuleName
         Value: "/Event/EventData/Data[@Name=\"RuleName\"]"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "SourceHostname: %SourceHostname%"
-    Values: 
-      - 
+    Values:
+      -
         Name: SourceHostname
-        Value: "/Event/EventData/Data[@Name=\"SourceHostname\"]"   
-  - 
+        Value: "/Event/EventData/Data[@Name=\"SourceHostname\"]"
+  -
     Property: PayloadData4
     PropertyValue: "SourceIp: %SourceIp%"
-    Values: 
-      - 
+    Values:
+      -
         Name: SourceIp
-        Value: "/Event/EventData/Data[@Name=\"SourceIp\"]"  
-  - 
+        Value: "/Event/EventData/Data[@Name=\"SourceIp\"]"
+  -
     Property: PayloadData5
     PropertyValue: "DestinationHostname: %DestinationHostname%"
-    Values: 
-      - 
+    Values:
+      -
         Name: DestinationHostname
-        Value: "/Event/EventData/Data[@Name=\"DestinationHostname\"]"  
-  - 
+        Value: "/Event/EventData/Data[@Name=\"DestinationHostname\"]"
+  -
     Property: PayloadData6
     PropertyValue: "DestinationIp: %DestinationIp%"
-    Values: 
-      - 
+    Values:
+      -
         Name: DestinationIp
-        Value: "/Event/EventData/Data[@Name=\"DestinationIp\"]"  
-  - 
+        Value: "/Event/EventData/Data[@Name=\"DestinationIp\"]"
+  -
     Property: UserName
     PropertyValue: "%User%"
-    Values: 
-      - 
+    Values:
+      -
         Name: User
         Value: "/Event/EventData/Data[@Name=\"User\"]"
-        
+
 # Documentation:
 # https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon#events
 # https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES

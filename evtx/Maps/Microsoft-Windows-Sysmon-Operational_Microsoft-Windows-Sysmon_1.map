@@ -3,71 +3,71 @@ Description: Process creation
 EventId: 1
 Channel: Microsoft-Windows-Sysmon/Operational
 Provider: Microsoft-Windows-Sysmon
-Maps: 
+Maps:
 
-  - 
+  -
     Property: ExecutableInfo
     PropertyValue: "%CommandLine%"
-    Values: 
-      - 
+    Values:
+      -
         Name: CommandLine
         Value: "/Event/EventData/Data[@Name=\"CommandLine\"]"
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "ProcessID: %ProcessID%, ProcessGUID: %ProcessGUID%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ProcessGUID
         Value: "/Event/EventData/Data[@Name=\"ProcessGuid\"]"
-      - 
+      -
         Name: ProcessID
         Value: "/Event/EventData/Data[@Name=\"ProcessId\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "RuleName: %RuleName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: RuleName
         Value: "/Event/EventData/Data[@Name=\"RuleName\"]"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "%Hashes%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Hashes
         Value: "/Event/EventData/Data[@Name=\"Hashes\"]"
-  - 
+  -
     Property: PayloadData4
     PropertyValue: "ParentProcess: %ParentProcess%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ParentProcess
-        Value: "/Event/EventData/Data[@Name=\"ParentImage\"]"  
-  - 
+        Value: "/Event/EventData/Data[@Name=\"ParentImage\"]"
+  -
     Property: PayloadData5
     PropertyValue: "ParentProcessID: %ParentProcessID%, ParentProcessGUID: %ParentProcessGUID%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ParentProcessGUID
         Value: "/Event/EventData/Data[@Name=\"ParentProcessGuid\"]"
-      - 
+      -
         Name: ParentProcessID
         Value: "/Event/EventData/Data[@Name=\"ParentProcessId\"]"
-  - 
+  -
     Property: PayloadData6
     PropertyValue: "ParentCommandLine: %ParentCommandLine%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ParentCommandLine
         Value: "/Event/EventData/Data[@Name=\"ParentCommandLine\"]"
-  - 
+  -
     Property: UserName
     PropertyValue: "%User%"
-    Values: 
-      - 
+    Values:
+      -
         Name: User
-        Value: "/Event/EventData/Data[@Name=\"User\"]" 
-                            
+        Value: "/Event/EventData/Data[@Name=\"User\"]"
+
 # Documentation:
 # https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon#events
 # https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES

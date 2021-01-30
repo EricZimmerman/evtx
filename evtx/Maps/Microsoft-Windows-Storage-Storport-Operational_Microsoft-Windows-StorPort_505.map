@@ -39,7 +39,7 @@ Maps:
       -
         Name: BusType
         Value: "/Event/EventData/Data[@Name=\"BusType\"]"
-Lookups: 
+Lookups:
   -
     Name: BusType
     Default: Unknown code
@@ -70,92 +70,92 @@ Lookups:
 # Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
-#     <Provider Name="Microsoft-Windows-StorPort" Guid="{GUID}" /> 
-#     <EventID>505</EventID> 
-#     <Version>5</Version> 
-#     <Level>4</Level> 
-#     <Task>201</Task> 
-#     <Opcode>0</Opcode> 
-#     <Keywords>0x800000000600000</Keywords> 
-#     <TimeCreated SystemTime="2020-11-12T17:40:00.1347984Z" /> 
-#     <EventRecordID>1081</EventRecordID> 
-#     <Correlation /> 
-#     <Execution ProcessID="4" ThreadID="13520" /> 
-#     <Channel>Microsoft-Windows-Storage-Storport/Operational</Channel> 
-#     <Computer>ComputerName</Computer> 
-#     <Security UserID="{UserID}" /> 
+#     <Provider Name="Microsoft-Windows-StorPort" Guid="{GUID}" />
+#     <EventID>505</EventID>
+#     <Version>5</Version>
+#     <Level>4</Level>
+#     <Task>201</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x800000000600000</Keywords>
+#     <TimeCreated SystemTime="2020-11-12T17:40:00.1347984Z" />
+#     <EventRecordID>1081</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="4" ThreadID="13520" />
+#     <Channel>Microsoft-Windows-Storage-Storport/Operational</Channel>
+#     <Computer>ComputerName</Computer>
+#     <Security UserID="{UserID}" />
 #   </System>
 #   <EventData>
-#     <Data Name="PortNumber">1</Data> 
-#     <Data Name="PathID">0</Data> 
-#     <Data Name="TargetID">1</Data> 
-#     <Data Name="LUN">0</Data> 
-#     <Data Name="ClassDeviceGuid">{6c17de46-9d8e-601b-0a21-e654bde154c5}</Data> 
-#     <Data Name="AdapterGuid">{18ba8abc-24f3-11eb-b736-e442a6a1abde}</Data> 
-#     <Data Name="BusType">6</Data> 
-#     <Data Name="MiniportName">phdskmnt</Data> 
-#     <Data Name="IoTimeout_s">0</Data> 
-#     <Data Name="VendorId">Arsenal</Data> 
-#     <Data Name="ProductId">Virtual</Data> 
-#     <Data Name="SerialNumber">{18ba8b71-24f3-11eb-b736-e442a6a1abde}</Data> 
-#     <Data Name="AdapterSerialNumber" /> 
-#     <Data Name="FirmwareRevision" /> 
-#     <Data Name="BootDevice">false</Data> 
-#     <Data Name="SystemUptime_s">473231</Data> 
-#     <Data Name="Version">11</Data> 
-#     <Data Name="TotalIoCount">63</Data> 
-#     <Data Name="TotalDeviceQueueIoCount">0</Data> 
-#     <Data Name="MaxDeviceQueueCount">0</Data> 
-#     <Data Name="MaxOutstandingCount">0</Data> 
-#     <Data Name="TotalDeviceQueueIoWaitDuration_100ns">0</Data> 
-#     <Data Name="MaxDeviceQueueIoWaitDuration_100ns">0</Data> 
-#     <Data Name="DeviceQueueIoWaitExceededTimeoutCount">0</Data> 
-#     <Data Name="DeviceQueueIoBusyCount">0</Data> 
-#     <Data Name="DeviceQueueIoPausedCount">0</Data> 
-#     <Data Name="DeviceQueueIoUntaggedCommandOutstandingCount">0</Data> 
-#     <Data Name="DeviceQueueIoPausedForUntaggedCount">0</Data> 
-#     <Data Name="MaxReadWriteLatency_100ns">21117</Data> 
-#     <Data Name="MaxFlushLatency_100ns">0</Data> 
-#     <Data Name="MaxUnmapLatency_100ns">0</Data> 
-#     <Data Name="IoLatencyBuckets">256us, 1ms, 4ms, 16ms, 64ms, 128ms, 256ms, 2000ms, 6000ms, 10000ms, 20000ms, 20000+ms</Data> 
-#     <Data Name="BucketIoSuccess1">19</Data> 
-#     <Data Name="BucketIoSuccess2">38</Data> 
-#     <Data Name="BucketIoSuccess3">6</Data> 
-#     <Data Name="BucketIoSuccess4">0</Data> 
-#     <Data Name="BucketIoSuccess5">0</Data> 
-#     <Data Name="BucketIoSuccess6">0</Data> 
-#     <Data Name="BucketIoSuccess7">0</Data> 
-#     <Data Name="BucketIoSuccess8">0</Data> 
-#     <Data Name="BucketIoSuccess9">0</Data> 
-#     <Data Name="BucketIoSuccess10">0</Data> 
-#     <Data Name="BucketIoSuccess11">0</Data> 
-#     <Data Name="BucketIoSuccess12">0</Data> 
-#     <Data Name="BucketIoFailed1">0</Data> 
-#     <Data Name="BucketIoFailed2">0</Data> 
-#     <Data Name="BucketIoFailed3">0</Data> 
-#     <Data Name="BucketIoFailed4">0</Data> 
-#     <Data Name="BucketIoFailed5">0</Data> 
-#     <Data Name="BucketIoFailed6">0</Data> 
-#     <Data Name="BucketIoFailed7">0</Data> 
-#     <Data Name="BucketIoFailed8">0</Data> 
-#     <Data Name="BucketIoFailed9">0</Data> 
-#     <Data Name="BucketIoFailed10">0</Data> 
-#     <Data Name="BucketIoFailed11">0</Data> 
-#     <Data Name="BucketIoFailed12">0</Data> 
-#     <Data Name="BucketIoLatency1_100ns">26594</Data> 
-#     <Data Name="BucketIoLatency2_100ns">168189</Data> 
-#     <Data Name="BucketIoLatency3_100ns">96892</Data> 
-#     <Data Name="BucketIoLatency4_100ns">0</Data> 
-#     <Data Name="BucketIoLatency5_100ns">0</Data> 
-#     <Data Name="BucketIoLatency6_100ns">0</Data> 
-#     <Data Name="BucketIoLatency7_100ns">0</Data> 
-#     <Data Name="BucketIoLatency8_100ns">0</Data> 
-#     <Data Name="BucketIoLatency9_100ns">0</Data> 
-#     <Data Name="BucketIoLatency10_100ns">0</Data> 
-#     <Data Name="BucketIoLatency11_100ns">0</Data> 
-#     <Data Name="BucketIoLatency12_100ns">0</Data> 
-#     <Data Name="TotalReadBytes">3637248</Data> 
-#     <Data Name="TotalWriteBytes">0</Data> 
-#     <Data Name="HighLatencyIoCount">0</Data> 
+#     <Data Name="PortNumber">1</Data>
+#     <Data Name="PathID">0</Data>
+#     <Data Name="TargetID">1</Data>
+#     <Data Name="LUN">0</Data>
+#     <Data Name="ClassDeviceGuid">{6c17de46-9d8e-601b-0a21-e654bde154c5}</Data>
+#     <Data Name="AdapterGuid">{18ba8abc-24f3-11eb-b736-e442a6a1abde}</Data>
+#     <Data Name="BusType">6</Data>
+#     <Data Name="MiniportName">phdskmnt</Data>
+#     <Data Name="IoTimeout_s">0</Data>
+#     <Data Name="VendorId">Arsenal</Data>
+#     <Data Name="ProductId">Virtual</Data>
+#     <Data Name="SerialNumber">{18ba8b71-24f3-11eb-b736-e442a6a1abde}</Data>
+#     <Data Name="AdapterSerialNumber" />
+#     <Data Name="FirmwareRevision" />
+#     <Data Name="BootDevice">false</Data>
+#     <Data Name="SystemUptime_s">473231</Data>
+#     <Data Name="Version">11</Data>
+#     <Data Name="TotalIoCount">63</Data>
+#     <Data Name="TotalDeviceQueueIoCount">0</Data>
+#     <Data Name="MaxDeviceQueueCount">0</Data>
+#     <Data Name="MaxOutstandingCount">0</Data>
+#     <Data Name="TotalDeviceQueueIoWaitDuration_100ns">0</Data>
+#     <Data Name="MaxDeviceQueueIoWaitDuration_100ns">0</Data>
+#     <Data Name="DeviceQueueIoWaitExceededTimeoutCount">0</Data>
+#     <Data Name="DeviceQueueIoBusyCount">0</Data>
+#     <Data Name="DeviceQueueIoPausedCount">0</Data>
+#     <Data Name="DeviceQueueIoUntaggedCommandOutstandingCount">0</Data>
+#     <Data Name="DeviceQueueIoPausedForUntaggedCount">0</Data>
+#     <Data Name="MaxReadWriteLatency_100ns">21117</Data>
+#     <Data Name="MaxFlushLatency_100ns">0</Data>
+#     <Data Name="MaxUnmapLatency_100ns">0</Data>
+#     <Data Name="IoLatencyBuckets">256us, 1ms, 4ms, 16ms, 64ms, 128ms, 256ms, 2000ms, 6000ms, 10000ms, 20000ms, 20000+ms</Data>
+#     <Data Name="BucketIoSuccess1">19</Data>
+#     <Data Name="BucketIoSuccess2">38</Data>
+#     <Data Name="BucketIoSuccess3">6</Data>
+#     <Data Name="BucketIoSuccess4">0</Data>
+#     <Data Name="BucketIoSuccess5">0</Data>
+#     <Data Name="BucketIoSuccess6">0</Data>
+#     <Data Name="BucketIoSuccess7">0</Data>
+#     <Data Name="BucketIoSuccess8">0</Data>
+#     <Data Name="BucketIoSuccess9">0</Data>
+#     <Data Name="BucketIoSuccess10">0</Data>
+#     <Data Name="BucketIoSuccess11">0</Data>
+#     <Data Name="BucketIoSuccess12">0</Data>
+#     <Data Name="BucketIoFailed1">0</Data>
+#     <Data Name="BucketIoFailed2">0</Data>
+#     <Data Name="BucketIoFailed3">0</Data>
+#     <Data Name="BucketIoFailed4">0</Data>
+#     <Data Name="BucketIoFailed5">0</Data>
+#     <Data Name="BucketIoFailed6">0</Data>
+#     <Data Name="BucketIoFailed7">0</Data>
+#     <Data Name="BucketIoFailed8">0</Data>
+#     <Data Name="BucketIoFailed9">0</Data>
+#     <Data Name="BucketIoFailed10">0</Data>
+#     <Data Name="BucketIoFailed11">0</Data>
+#     <Data Name="BucketIoFailed12">0</Data>
+#     <Data Name="BucketIoLatency1_100ns">26594</Data>
+#     <Data Name="BucketIoLatency2_100ns">168189</Data>
+#     <Data Name="BucketIoLatency3_100ns">96892</Data>
+#     <Data Name="BucketIoLatency4_100ns">0</Data>
+#     <Data Name="BucketIoLatency5_100ns">0</Data>
+#     <Data Name="BucketIoLatency6_100ns">0</Data>
+#     <Data Name="BucketIoLatency7_100ns">0</Data>
+#     <Data Name="BucketIoLatency8_100ns">0</Data>
+#     <Data Name="BucketIoLatency9_100ns">0</Data>
+#     <Data Name="BucketIoLatency10_100ns">0</Data>
+#     <Data Name="BucketIoLatency11_100ns">0</Data>
+#     <Data Name="BucketIoLatency12_100ns">0</Data>
+#     <Data Name="TotalReadBytes">3637248</Data>
+#     <Data Name="TotalWriteBytes">0</Data>
+#     <Data Name="HighLatencyIoCount">0</Data>
 #   </EventData>
 # </Event>

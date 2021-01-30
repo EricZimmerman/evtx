@@ -3,22 +3,22 @@ Description: Successful RDP Connections
 EventId: 98
 Channel: "Microsoft-Windows-RemoteDesktopServices-RdpCoreTS/Operational"
 Provider: Microsoft-Windows-RemoteDesktopServices-RdpCoreTS
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "Path: %Path%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Path
         Value: "/Event/EventData/Data[@Name=\"Path\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "ScriptBlockText: %ScriptBlockText%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ScriptBlockText
         Value: "/Event/EventData/Data[@Name=\"ScriptBlockText\"]"
-        
+
 # Documentation:
 # https://frsecure.com/blog/rdp-connection-event-logs/
 #

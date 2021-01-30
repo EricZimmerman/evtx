@@ -3,43 +3,43 @@ Description:  An attempt to exploit a known vulnerability detected
 EventId: 2
 Channel: System
 Provider: Microsoft-Windows-Audit-CVE
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "%CVEID%"
-    Values: 
-      - 
+    Values:
+      -
         Name: CVEID
         Value: "/Event/EventData/Data[@Name=\"CVEID\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "%AdditionalDetails%"
-    Values: 
-      - 
+    Values:
+      -
         Name: AdditionalDetails
         Value: "/Event/EventData/Data[@Name=\"AdditionalDetails\"]"
-        
+
 # Documentation:
 # N/A
 #
 # Example Event Data:
 #<System>
-#  <Provider Name="Microsoft-Windows-Audit-CVE" Guid="{85a62a0d-7e17-485f-9d4f-749a287193a6}" /> 
-#  <EventID>2</EventID> 
-#  <Version>0</Version> 
-#  <Level>3</Level> 
-#  <Task>0</Task> 
-#  <Opcode>0</Opcode> 
-#  <Keywords>0x8000000000000000</Keywords> 
-#  <TimeCreated SystemTime="2020-01-15T23:53:36.821170000Z" /> 
-#  <EventRecordID>32459</EventRecordID> 
-#  <Correlation /> 
-#  <Execution ProcessID="19928" ThreadID="15488" /> 
-#  <Channel>System</Channel> 
-#  <Computer>xxxxxxxxxxxxxxxxxx</Computer> 
-#  <Security UserID="xxxxxxxxxxxxxxxxxxxxxxxxx" /> 
+#  <Provider Name="Microsoft-Windows-Audit-CVE" Guid="{85a62a0d-7e17-485f-9d4f-749a287193a6}" />
+#  <EventID>2</EventID>
+#  <Version>0</Version>
+#  <Level>3</Level>
+#  <Task>0</Task>
+#  <Opcode>0</Opcode>
+#  <Keywords>0x8000000000000000</Keywords>
+#  <TimeCreated SystemTime="2020-01-15T23:53:36.821170000Z" />
+#  <EventRecordID>32459</EventRecordID>
+#  <Correlation />
+#  <Execution ProcessID="19928" ThreadID="15488" />
+#  <Channel>System</Channel>
+#  <Computer>xxxxxxxxxxxxxxxxxx</Computer>
+#  <Security UserID="xxxxxxxxxxxxxxxxxxxxxxxxx" />
 #</System>
 #<EventData>
-#  <Data Name="CVEID">xxxxxxxxxxxxxxxxx</Data> 
-#  <Data Name="AdditionalDetails">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</Data> 
+#  <Data Name="CVEID">xxxxxxxxxxxxxxxxx</Data>
+#  <Data Name="AdditionalDetails">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</Data>
 #</EventData>

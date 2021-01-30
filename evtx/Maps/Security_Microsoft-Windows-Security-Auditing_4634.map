@@ -3,29 +3,29 @@ Description: An account was logged off
 EventId: 4634
 Channel: Security
 Provider: Microsoft-Windows-Security-Auditing
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "Target: %TargetDomainName%\\%TargetUserName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TargetDomainName
         Value: "/Event/EventData/Data[@Name=\"TargetDomainName\"]"
-      - 
+      -
         Name: TargetUserName
         Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
-  -  
+  -
     Property: PayloadData2
     PropertyValue: "LogonType %LogonType%"
-    Values: 
-      - 
+    Values:
+      -
         Name: LogonType
         Value: "/Event/EventData/Data[@Name=\"LogonType\"]"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "LogonId: %TargetLogonId%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TargetLogonId
         Value: "/Event/EventData/Data[@Name=\"TargetLogonId\"]"
 
@@ -38,26 +38,26 @@ Maps:
 # Example Event Data:
 #<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
-#       <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-a5ba-3e3b0328c30d}" /> 
-#       <EventID>4634</EventID> 
-#       <Version>0</Version> 
-#       <Level>0</Level> 
-#       <Task>12545</Task> 
-#       <Opcode>0</Opcode> 
-#       <Keywords>0x8020000000000000</Keywords> 
-#       <TimeCreated SystemTime="2019-04-28T02:36:24.487352400Z" /> 
-#       <EventRecordID>90550</EventRecordID> 
-#       <Correlation /> 
-#       <Execution ProcessID="940" ThreadID="17172" /> 
-#       <Channel>Security</Channel> 
-#       <Computer>pooh</Computer> 
-#       <Security /> 
+#       <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-a5ba-3e3b0328c30d}" />
+#       <EventID>4634</EventID>
+#       <Version>0</Version>
+#       <Level>0</Level>
+#       <Task>12545</Task>
+#       <Opcode>0</Opcode>
+#       <Keywords>0x8020000000000000</Keywords>
+#       <TimeCreated SystemTime="2019-04-28T02:36:24.487352400Z" />
+#       <EventRecordID>90550</EventRecordID>
+#       <Correlation />
+#       <Execution ProcessID="940" ThreadID="17172" />
+#       <Channel>Security</Channel>
+#       <Computer>pooh</Computer>
+#       <Security />
 #   </System>
 #   <EventData>
-#       <Data Name="TargetUserSid">S-1-5-21-1987904521-730768085-2188298509-1001</Data> 
-#       <Data Name="TargetUserName">baz</Data> 
-#       <Data Name="TargetDomainName">POOH</Data> 
-#       <Data Name="TargetLogonId">0x19bf00c7</Data> 
-#       <Data Name="LogonType">2</Data> 
+#       <Data Name="TargetUserSid">S-1-5-21-1987904521-730768085-2188298509-1001</Data>
+#       <Data Name="TargetUserName">baz</Data>
+#       <Data Name="TargetDomainName">POOH</Data>
+#       <Data Name="TargetLogonId">0x19bf00c7</Data>
+#       <Data Name="LogonType">2</Data>
 #   </EventData>
 #</Event>

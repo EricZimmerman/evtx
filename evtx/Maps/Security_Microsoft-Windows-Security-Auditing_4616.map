@@ -3,46 +3,46 @@ Description: The system time was changed
 EventId: 4616
 Channel: "Security"
 Provider: Microsoft-Windows-Security-Auditing
-Maps: 
-  - 
+Maps:
+  -
     Property: UserName
     PropertyValue: "%domain%\\%user% (%sid%)"
-    Values: 
-      - 
+    Values:
+      -
         Name: domain
         Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
-      - 
+      -
         Name: user
         Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
-      - 
+      -
         Name: sid
         Value: "/Event/EventData/Data[@Name=\"SubjectUserSid\"]"
-  - 
+  -
     Property: ExecutableInfo
     PropertyValue: "%ProcessName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ProcessName
         Value: "/Event/EventData/Data[@Name=\"ProcessName\"]"
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "Previous Time: %PreviousTime%"
-    Values: 
-      - 
+    Values:
+      -
         Name: PreviousTime
         Value: "/Event/EventData/Data[@Name=\"PreviousTime\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "New Time: %NewTime%"
-    Values: 
-      - 
+    Values:
+      -
         Name: NewTime
         Value: "/Event/EventData/Data[@Name=\"NewTime\"]"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "LogonId: %SubjectLogonId%"
-    Values: 
-      - 
+    Values:
+      -
         Name: SubjectLogonId
         Value: "/Event/EventData/Data[@Name=\"SubjectLogonId\"]"
 

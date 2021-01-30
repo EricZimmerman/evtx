@@ -3,53 +3,53 @@ Description: RegistryEvent (Value Set)
 EventId: 13
 Channel: Microsoft-Windows-Sysmon/Operational
 Provider: Microsoft-Windows-Sysmon
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "ProcessID: %ProcessID%, ProcessGUID: %ProcessGUID%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ProcessGUID
         Value: "/Event/EventData/Data[@Name=\"ProcessGuid\"]"
-      - 
+      -
         Name: ProcessID
         Value: "/Event/EventData/Data[@Name=\"ProcessId\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "RuleName: %RuleName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: RuleName
         Value: "/Event/EventData/Data[@Name=\"RuleName\"]"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "Image: %Image%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Image
-        Value: "/Event/EventData/Data[@Name=\"Image\"]"   
-  - 
+        Value: "/Event/EventData/Data[@Name=\"Image\"]"
+  -
     Property: PayloadData4
     PropertyValue: "EventType: %EventType%"
-    Values: 
-      - 
+    Values:
+      -
         Name: EventType
-        Value: "/Event/EventData/Data[@Name=\"EventType\"]"   
-  - 
+        Value: "/Event/EventData/Data[@Name=\"EventType\"]"
+  -
     Property: PayloadData5
     PropertyValue: "TargetObject: %TargetObject%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TargetObject
-        Value: "/Event/EventData/Data[@Name=\"TargetObject\"]"  
-  - 
+        Value: "/Event/EventData/Data[@Name=\"TargetObject\"]"
+  -
     Property: PayloadData6
     PropertyValue: "Details: %Details%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Details
-        Value: "/Event/EventData/Data[@Name=\"Details\"]"  
-        
+        Value: "/Event/EventData/Data[@Name=\"Details\"]"
+
 # Documentation:
 # https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon#events
 # https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES

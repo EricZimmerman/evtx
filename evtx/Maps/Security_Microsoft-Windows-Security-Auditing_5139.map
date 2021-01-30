@@ -1,38 +1,38 @@
 Author: Andrew Rathbun
-Description: A directory service object was moved 
+Description: A directory service object was moved
 EventId: 5139
 Channel: Security
 Provider: Microsoft-Windows-Security-Auditing
-Maps: 
-  - 
+Maps:
+  -
     Property: UserName
     PropertyValue: "%domain%\\%user%"
-    Values: 
-      - 
+    Values:
+      -
         Name: domain
         Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
-      - 
+      -
         Name: user
         Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "DSName: %DSName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: DSName
         Value: "/Event/EventData/Data[@Name=\"DSName\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "OldObjectDN: %OldObjectDN%"
-    Values: 
-      - 
+    Values:
+      -
         Name: OldObjectDN
         Value: "/Event/EventData/Data[@Name=\"OldObjectDN\"]"
   -
     Property: PayloadData3
     PropertyValue: "NewObjectDN: %NewObjectDN%"
-    Values: 
-      - 
+    Values:
+      -
         Name: NewObjectDN
         Value: "/Event/EventData/Data[@Name=\"NewObjectDN\"]"
 
@@ -43,33 +43,33 @@ Maps:
 # Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 # <System>
-# <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-A5BA-3E3B0328C30D}" /> 
-# <EventID>5139</EventID> 
-# <Version>0</Version> 
-# <Level>0</Level> 
-# <Task>14081</Task> 
-# <Opcode>0</Opcode> 
-# <Keywords>0x8020000000000000</Keywords> 
-# <TimeCreated SystemTime="2015-08-28T06:26:07.019116600Z" /> 
-# <EventRecordID>409532</EventRecordID> 
-# <Correlation /> 
-# <Execution ProcessID="520" ThreadID="600" /> 
-# <Channel>Security</Channel> 
-# <Computer>DC01.contoso.local</Computer> 
-# <Security /> 
+# <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-A5BA-3E3B0328C30D}" />
+# <EventID>5139</EventID>
+# <Version>0</Version>
+# <Level>0</Level>
+# <Task>14081</Task>
+# <Opcode>0</Opcode>
+# <Keywords>0x8020000000000000</Keywords>
+# <TimeCreated SystemTime="2015-08-28T06:26:07.019116600Z" />
+# <EventRecordID>409532</EventRecordID>
+# <Correlation />
+# <Execution ProcessID="520" ThreadID="600" />
+# <Channel>Security</Channel>
+# <Computer>DC01.contoso.local</Computer>
+# <Security />
 # </System>
 # <EventData>
-# <Data Name="OpCorrelationID">{67A42C05-A70D-4348-AF19-E883CB1FCA9C}</Data> 
-# <Data Name="AppCorrelationID">-</Data> 
-# <Data Name="SubjectUserSid">S-1-5-21-3457937927-2839227994-823803824-1104</Data> 
-# <Data Name="SubjectUserName">dadmin</Data> 
-# <Data Name="SubjectDomainName">CONTOSO</Data> 
-# <Data Name="SubjectLogonId">0x35867</Data> 
-# <Data Name="DSName">contoso.local</Data> 
-# <Data Name="DSType">%%14676</Data> 
-# <Data Name="OldObjectDN">CN=NewUser,CN=Builtin,DC=contoso,DC=local</Data> 
-# <Data Name="NewObjectDN">CN=NewUser,CN=Users,DC=contoso,DC=local</Data> 
-# <Data Name="ObjectGUID">{06713960-9CC3-4B5D-A594-35883A04F934}</Data> 
-# <Data Name="ObjectClass">user</Data> 
+# <Data Name="OpCorrelationID">{67A42C05-A70D-4348-AF19-E883CB1FCA9C}</Data>
+# <Data Name="AppCorrelationID">-</Data>
+# <Data Name="SubjectUserSid">S-1-5-21-3457937927-2839227994-823803824-1104</Data>
+# <Data Name="SubjectUserName">dadmin</Data>
+# <Data Name="SubjectDomainName">CONTOSO</Data>
+# <Data Name="SubjectLogonId">0x35867</Data>
+# <Data Name="DSName">contoso.local</Data>
+# <Data Name="DSType">%%14676</Data>
+# <Data Name="OldObjectDN">CN=NewUser,CN=Builtin,DC=contoso,DC=local</Data>
+# <Data Name="NewObjectDN">CN=NewUser,CN=Users,DC=contoso,DC=local</Data>
+# <Data Name="ObjectGUID">{06713960-9CC3-4B5D-A594-35883A04F934}</Data>
+# <Data Name="ObjectClass">user</Data>
 # </EventData>
 # </Event>

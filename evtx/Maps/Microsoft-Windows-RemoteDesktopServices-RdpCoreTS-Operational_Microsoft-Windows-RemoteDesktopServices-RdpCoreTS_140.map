@@ -3,15 +3,15 @@ Description: RDP connection from the client computer failed
 EventId: 140
 Channel: Microsoft-Windows-RemoteDesktopServices-RdpCoreTS/Operational
 Provider: Microsoft-Windows-RemoteDesktopServices-RdpCoreTS
-Maps: 
-  - 
+Maps:
+  -
     Property: RemoteHost
     PropertyValue: "%Address%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Address
         Value: "/Event/EventData/Data[@Name=\"IPString\"]"
- 
+
 # Documentation:
 # A connection from the client computer with an IP address of 172.x.x.x failed because the user name or password is not correct.
 # https://purerds.org/remote-desktop-security/auditing-remote-desktop-services-logon-failures-1/

@@ -4,39 +4,39 @@ EventId: 55
 Channel: "Microsoft-Windows-Ntfs/Operational"
 Provider: "Ntfs"
 Maps:
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "DriveName: %DriveName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: DriveName
         Value: "/Event/EventData/Data[@Name=\"DriveName\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "DeviceName: %DeviceName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: DeviceName
         Value: "/Event/EventData/Data[@Name=\"DeviceName\"]"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "Origin: %Origin%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Origin
         Value: "/Event/EventData/Data[@Name=\"Origin\"]"
-  - 
+  -
     Property: PayloadData4
     PropertyValue: "Outcome: %Outcome%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Outcome
         Value: "/Event/EventData/Data[@Name=\"Outcome\"]"
-  - 
+  -
     Property: PayloadData5
     PropertyValue: "Description: %Description%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Description
         Value: "/Event/EventData/Data[@Name=\"Description\"]"
 

@@ -3,26 +3,26 @@ Description: NTLM authentication request
 EventId: 4776
 Channel: Security
 Provider: Microsoft-Windows-Security-Auditing
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "Target: %TargetUserName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TargetUserName
         Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "Workstation: %Workstation%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Workstation
         Value: "/Event/EventData/Data[@Name=\"Workstation\"]"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "Status: %Status%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Status
         Value: "/Event/EventData/Data[@Name=\"Status\"]"
 

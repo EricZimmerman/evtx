@@ -3,47 +3,47 @@ Description: WmiEvent (WmiEventConsumerToFilter activity detected)
 EventId: 21
 Channel: Microsoft-Windows-Sysmon/Operational
 Provider: Microsoft-Windows-Sysmon
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "Operation: %Operation%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Operation
-        Value: "/Event/EventData/Data[@Name=\"Operation\"]"   
-  - 
+        Value: "/Event/EventData/Data[@Name=\"Operation\"]"
+  -
     Property: PayloadData2
     PropertyValue: "RuleName: %RuleName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: RuleName
         Value: "/Event/EventData/Data[@Name=\"RuleName\"]"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "EventType: %EventType%"
-    Values: 
-      - 
+    Values:
+      -
         Name: EventType
-        Value: "/Event/EventData/Data[@Name=\"EventType\"]" 
-  - 
+        Value: "/Event/EventData/Data[@Name=\"EventType\"]"
+  -
     Property: PayloadData4
     PropertyValue: "Consumer: %Consumer%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Consumer
         Value: "/Event/EventData/Data[@Name=\"Consumer\"]"
-  - 
+  -
     Property: PayloadData5
     PropertyValue: "Filter: %Filter%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Filter
-        Value: "/Event/EventData/Data[@Name=\"Filter\"]"   
-  - 
+        Value: "/Event/EventData/Data[@Name=\"Filter\"]"
+  -
     Property: UserName
     PropertyValue: "%User%"
-    Values: 
-      - 
+    Values:
+      -
         Name: User
         Value: "/Event/EventData/Data[@Name=\"User\"]"
 

@@ -4,11 +4,11 @@ EventId: 5129
 Channel: Varonis
 Provider: "VrnsCifsQueue"
 Maps:
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "%Data%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Data
         Value: "/Event/EventData/Data"
 

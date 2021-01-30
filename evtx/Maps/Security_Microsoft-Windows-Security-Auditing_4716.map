@@ -3,63 +3,63 @@ Description: Trusted domain information was modified0
 EventId: 4716
 Channel: Security
 Provider: Microsoft-Windows-Security-Auditing
-Maps: 
-  - 
+Maps:
+  -
     Property: UserName
     PropertyValue: "%domain%\\%user% (%sid%)"
-    Values: 
-      - 
+    Values:
+      -
         Name: domain
         Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
-      - 
+      -
         Name: user
         Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
-      - 
+      -
         Name: sid
         Value: "/Event/EventData/Data[@Name=\"SubjectUserSid\"]"
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "DomainName: %DomainName% (%DomainSid%)"
-    Values: 
-      - 
+    Values:
+      -
         Name: DomainSid
         Value: "/Event/EventData/Data[@Name=\"DomainSid\"]"
-      - 
+      -
         Name: DomainName
-        Value: "/Event/EventData/Data[@Name=\"DomainName\"]"      
-  - 
+        Value: "/Event/EventData/Data[@Name=\"DomainName\"]"
+  -
     Property: PayloadData2
     PropertyValue: "SidFilteringEnabled: %SidFilteringEnabled%"
-    Values: 
-      - 
+    Values:
+      -
         Name: SidFilteringEnabled
         Value: "/Event/EventData/Data[@Name=\"SidFilteringEnabled\"]"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "LogonId: %SubjectLogonId%"
-    Values: 
-      - 
+    Values:
+      -
         Name: SubjectLogonId
         Value: "/Event/EventData/Data[@Name=\"SubjectLogonId\"]"
-  - 
+  -
     Property: PayloadData4
     PropertyValue: "TdoType: %TdoType%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TdoType
         Value: "/Event/EventData/Data[@Name=\"TdoType\"]"
-  - 
+  -
     Property: PayloadData5
     PropertyValue: "TdoDirection: %TdoDirection%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TdoDirection
         Value: "/Event/EventData/Data[@Name=\"TdoDirection\"]"
-  - 
+  -
     Property: PayloadData6
     PropertyValue: "TdoAttributes: %TdoAttributes%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TdoAttributes
         Value: "/Event/EventData/Data[@Name=\"TdoAttributes\"]"
 
@@ -70,31 +70,31 @@ Maps:
 # Example Event Data:
 #  <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #  <System>
-# <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-A5BA-3E3B0328C30D}" /> 
-# <EventID>4716</EventID> 
-# <Version>0</Version> 
-# <Level>0</Level> 
-# <Task>13569</Task> 
-# <Opcode>0</Opcode> 
-# <Keywords>0x8020000000000000</Keywords> 
-# <TimeCreated SystemTime="2015-10-01T22:55:54.560735500Z" /> 
-# <EventRecordID>1049763</EventRecordID> 
-# <Correlation /> 
-# <Execution ProcessID="500" ThreadID="4920" /> 
-# <Channel>Security</Channel> 
-# <Computer>DC01.contoso.local</Computer> 
-# <Security /> 
+# <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-A5BA-3E3B0328C30D}" />
+# <EventID>4716</EventID>
+# <Version>0</Version>
+# <Level>0</Level>
+# <Task>13569</Task>
+# <Opcode>0</Opcode>
+# <Keywords>0x8020000000000000</Keywords>
+# <TimeCreated SystemTime="2015-10-01T22:55:54.560735500Z" />
+# <EventRecordID>1049763</EventRecordID>
+# <Correlation />
+# <Execution ProcessID="500" ThreadID="4920" />
+# <Channel>Security</Channel>
+# <Computer>DC01.contoso.local</Computer>
+# <Security />
 # </System>
 #  <EventData>
-# <Data Name="SubjectUserSid">S-1-5-21-3457937927-2839227994-823803824-1104</Data> 
-# <Data Name="SubjectUserName">dadmin</Data> 
-# <Data Name="SubjectDomainName">CONTOSO</Data> 
-# <Data Name="SubjectLogonId">0x138eb0</Data> 
-# <Data Name="DomainName">-</Data> 
-# <Data Name="DomainSid">S-1-5-21-2226861337-2836268956-2433141405</Data> 
-# <Data Name="TdoType">2</Data> 
-# <Data Name="TdoDirection">3</Data> 
-# <Data Name="TdoAttributes">32</Data> 
-# <Data Name="SidFilteringEnabled">-</Data> 
+# <Data Name="SubjectUserSid">S-1-5-21-3457937927-2839227994-823803824-1104</Data>
+# <Data Name="SubjectUserName">dadmin</Data>
+# <Data Name="SubjectDomainName">CONTOSO</Data>
+# <Data Name="SubjectLogonId">0x138eb0</Data>
+# <Data Name="DomainName">-</Data>
+# <Data Name="DomainSid">S-1-5-21-2226861337-2836268956-2433141405</Data>
+# <Data Name="TdoType">2</Data>
+# <Data Name="TdoDirection">3</Data>
+# <Data Name="TdoAttributes">32</Data>
+# <Data Name="SidFilteringEnabled">-</Data>
 # </EventData>
 # </Event>

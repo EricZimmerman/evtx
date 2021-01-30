@@ -4,25 +4,25 @@ EventId: 505
 Channel: "Microsoft-Windows-Application-Experience/Program-Telemetry"
 Provider: Microsoft-Windows-Application-Experience
 Maps:
-  - 
+  -
     Property: ExecutableInfo
     PropertyValue: "%ExePath%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ExePath
-        Value: "/Event/UserData/CompatibilityFixEvent/ExePath" 
-  - 
+        Value: "/Event/UserData/CompatibilityFixEvent/ExePath"
+  -
     Property: PayloadData1
     PropertyValue: "ProcessId: %ProcessId%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ProcessId
         Value: "/Event/UserData/CompatibilityFixEvent/ProcessId"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "StartTime: %StartTime%"
-    Values: 
-      - 
+    Values:
+      -
         Name: StartTime
         Value: "/Event/UserData/CompatibilityFixEvent/StartTime"
 

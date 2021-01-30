@@ -3,12 +3,12 @@ Description: Device requires further installation
 EventId: 430
 Channel: "Microsoft-Windows-Kernel-PnP/Configuration"
 Provider: "Microsoft-Windows-Kernel-PnP"
-Maps: 
-- 
+Maps:
+-
     Property: PayloadData6
     PropertyValue: "DeviceInstanceId: %DeviceInstanceId%"
-    Values: 
-      - 
+    Values:
+      -
         Name: DeviceInstanceId
         Value: "/Event/EventData/Data[@Name=\"DeviceInstanceId\"]"
 

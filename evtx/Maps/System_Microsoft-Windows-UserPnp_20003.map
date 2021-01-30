@@ -3,51 +3,51 @@ Description: Service installation
 EventId: 20003
 Channel: System
 Provider: "Microsoft-Windows-UserPnp"
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "ServiceName: %ServiceName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ServiceName
         Value: "/Event/UserData/AddServiceID/ServiceName"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "AddServiceStatus: %AddServiceStatus%"
-    Values: 
-      - 
+    Values:
+      -
         Name: AddServiceStatus
         Value: "/Event/UserData/AddServiceID/AddServiceStatus"
-  - 
-    Property: PayloadData4                                                  	
+  -
+    Property: PayloadData4
     PropertyValue: "UpdateService: %UpdateService%"
-    Values: 
-      - 
+    Values:
+      -
         Name: UpdateService
         Value: "/Event/UserData/AddServiceID/UpdateService"
-  - 
+  -
     Property: PayloadData5
     PropertyValue: "PrimaryService: %PrimaryService%"
-    Values: 
-      - 
+    Values:
+      -
         Name: PrimaryService
         Value: "/Event/UserData/AddServiceID/PrimaryService"
   -
     Property: PayloadData6
     PropertyValue: "DeviceInstanceID: %DeviceInstanceID%"
-    Values: 
-      - 
+    Values:
+      -
         Name: DeviceInstanceID
         Value: "/Event/UserData/AddServiceID/DeviceInstanceID"
-  - 
+  -
     Property: ExecutableInfo
     PropertyValue: "%DriverFileName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: DriverFileName
         Value: "/Event/UserData/AddServiceID/DriverFileName"
 
-Lookups: 
+Lookups:
   -
     Name: AddServiceStatus
     Default: Unknown code

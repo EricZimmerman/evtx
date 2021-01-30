@@ -3,37 +3,37 @@ Description: Sysmon service state changed
 EventId: 4
 Channel: Microsoft-Windows-Sysmon/Operational
 Provider: Microsoft-Windows-Sysmon
-Maps: 
+Maps:
 
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "Sysmon Version %Version%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Version
         Value: "/Event/EventData/Data[@Name=\"Version\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "Status: %State%"
-    Values: 
-      - 
+    Values:
+      -
         Name: State
         Value: "/Event/EventData/Data[@Name=\"State\"]"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "Timestamp: %Timestamp%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Timestamp
-        Value: "/Event/EventData/Data[@Name=\"UtcTime\"]"   
-        
+        Value: "/Event/EventData/Data[@Name=\"UtcTime\"]"
+
 # Documentation:
 # https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon#events
 # https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES
 # https://www.blackhillsinfosec.com/a-sysmon-event-id-breakdown/
 # https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/default.aspx - filter on Sysmon
 #
-# Example Event Data:                                                                                            
+# Example Event Data:
 #<Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Sysmon" Guid="5770385f-c22a-43e0-bf4c-06f5698ffbd9" />

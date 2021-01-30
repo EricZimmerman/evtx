@@ -3,12 +3,12 @@ Description: Service crashed unexpectedly
 EventId: 7034
 Channel: System
 Provider: Service Control Manager
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "Name: %ServiceName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ServiceName
         Value: "/Event/EventData/Data[@Name=\"param1\"]"
 

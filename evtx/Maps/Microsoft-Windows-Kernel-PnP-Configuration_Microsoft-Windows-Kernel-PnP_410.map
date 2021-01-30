@@ -3,40 +3,40 @@ Description: Device driver error
 EventId: 410
 Channel: "Microsoft-Windows-Kernel-PnP/Configuration"
 Provider: "Microsoft-Windows-Kernel-PnP"
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "ServiceName: %ServiceName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ServiceName
         Value: "/Event/EventData/Data[@Name=\"ServiceName\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "Problem: %Problem%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Problem
         Value: "/Event/EventData/Data[@Name=\"Problem\"]"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "Status: %Status%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Status
         Value: "/Event/EventData/Data[@Name=\"Status\"]"
   -
     Property: PayloadData6
     PropertyValue: "DeviceInstanceID: %DeviceInstanceID%"
-    Values: 
-      - 
+    Values:
+      -
         Name: DeviceInstanceID
         Value: "/Event/EventData/Data[@Name=\"DeviceInstanceID\"]"
-  - 
+  -
     Property: ExecutableInfo
     PropertyValue: "%DriverName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: DriverName
         Value: "/Event/EventData/Data[@Name=\"DriverName\"]"
 

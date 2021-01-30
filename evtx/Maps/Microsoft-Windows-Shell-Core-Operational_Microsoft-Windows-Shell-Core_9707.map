@@ -3,15 +3,15 @@ Description: Started execution of command
 EventId: 9707
 Channel: Microsoft-Windows-Shell-Core/Operational
 Provider: Microsoft-Windows-Shell-Core
-Maps: 
-  - 
+Maps:
+  -
     Property: ExecutableInfo
     PropertyValue: "%CommandLine%"
-    Values: 
-      - 
+    Values:
+      -
         Name: CommandLine
         Value: "/Event/EventData/Data[@Name=\"Command\"]"
-   
+
 # Documentation:
 # https://www.geoffchappell.com/notes/windows/shell/events/core.htm
 #
@@ -34,6 +34,6 @@ Maps:
 #    <Security UserID="" />
 #  </System>
 #  <EventData>
-#    <Data Name="Command">SoftwareUpdateNotificationService.exe /Autorun</Data> 
+#    <Data Name="Command">SoftwareUpdateNotificationService.exe /Autorun</Data>
 #  </EventData>
 #</Event>

@@ -3,26 +3,26 @@ Description: Sleep/wake events
 EventId: 1
 Channel: System
 Provider: Microsoft-Windows-Power-Troubleshooter
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "Sleep duration: %SleepDuration%"
-    Values: 
-      - 
+    Values:
+      -
         Name: SleepDuration
         Value: "/Event/EventData/Data[@Name=\"SleepDuration\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "Wake source: %WakeSourceType%"
-    Values: 
-      - 
+    Values:
+      -
         Name: WakeSourceType
         Value: "/Event/EventData/Data[@Name=\"WakeSourceType\"]"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "Wake source text %WakeSourceText%"
-    Values: 
-      - 
+    Values:
+      -
         Name: WakeSourceText
         Value: "/Event/EventData/Data[@Name=\"WakeSourceText\"]"
 Lookups:

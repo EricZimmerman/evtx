@@ -3,12 +3,12 @@ Description: Windows is starting up
 EventId: 4608
 Channel: Security
 Provider: "Microsoft-Windows-Security-Auditing"
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "%EventData%"
-    Values: 
-      - 
+    Values:
+      -
         Name: EventData
         Value: "/Event/EventData"
 

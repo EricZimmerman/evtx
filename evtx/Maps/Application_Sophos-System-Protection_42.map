@@ -3,28 +3,28 @@ Description: Sophos System Protection
 EventId: 42
 Channel: Application
 Provider: "Sophos System Protection"
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "%File%"
-    Values: 
-      - 
+    Values:
+      -
         Name: File
         Value: "/Event/EventData/Data"
         Refine: "FilePath\":\"(.+)\",\"R"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "%Hash%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Hash
         Value: "/Event/EventData/Data"
         Refine: "SHA1FileHash\":\"(.{40})"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "%Size%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Size
         Value: "/Event/EventData/Data"
         Refine: "FileSize\":\"(.+)\",\"F"

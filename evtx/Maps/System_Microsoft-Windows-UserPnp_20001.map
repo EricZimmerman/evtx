@@ -3,58 +3,58 @@ Description: Device installation
 EventId: 20001
 Channel: System
 Provider: "Microsoft-Windows-UserPnp"
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "DriverDescription: %DriverDescription%"
-    Values: 
-      - 
+    Values:
+      -
         Name: DriverDescription
         Value: "/Event/UserData/InstallDeviceID/DriverDescription"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "InstallStatus: %InstallStatus%"
-    Values: 
-      - 
+    Values:
+      -
         Name: InstallStatus
         Value: "/Event/UserData/InstallDeviceID/InstallStatus"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "IsDriverOEM: %IsDriverOEM%"
-    Values: 
-      - 
+    Values:
+      -
         Name: IsDriverOEM
         Value: "/Event/UserData/InstallDeviceID/IsDriverOEM"
-  - 
+  -
     Property: PayloadData4
     PropertyValue: "UpgradeDevice: %UpgradeDevice%"
-    Values: 
-      - 
+    Values:
+      -
         Name: UpgradeDevice
         Value: "/Event/UserData/InstallDeviceID/UpgradeDevice"
-  - 
+  -
     Property: PayloadData5
     PropertyValue: "RebootOption: %RebootOption%"
-    Values: 
-      - 
+    Values:
+      -
         Name: RebootOption
         Value: "/Event/UserData/InstallDeviceID/RebootOption"
   -
     Property: PayloadData6
     PropertyValue: "DeviceInstanceID: %DeviceInstanceID%"
-    Values: 
-      - 
+    Values:
+      -
         Name: DeviceInstanceID
         Value: "/Event/UserData/InstallDeviceID/DeviceInstanceID"
-  - 
+  -
     Property: ExecutableInfo
     PropertyValue: "%DriverName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: DriverName
         Value: "/Event/UserData/InstallDeviceID/DriverName"
 
-Lookups: 
+Lookups:
   -
     Name: InstallStatus
     Default: Unknown code

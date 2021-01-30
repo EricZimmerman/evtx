@@ -3,21 +3,21 @@ Description: RDP Connected to domain
 EventId: 1027
 Channel: Microsoft-Windows-TerminalServices-RDPClient/Operational
 Provider: Microsoft-Windows-TerminalServices-ClientActiveXCore
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "Domain: %DomainName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: DomainName
         Value: "/Event/EventData/Data[@Name=\"DomainName\"]"
-  - 
+  -
     Property: PayloadData6
     PropertyValue: "ActivityID: %ActivityID%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ActivityID
-        Value: "/Event/System/Correlation/@ActivityID" 
+        Value: "/Event/System/Correlation/@ActivityID"
 
 # Documentation:
 # https://cyber-tls.blogspot.com/2019/08/rdp.html

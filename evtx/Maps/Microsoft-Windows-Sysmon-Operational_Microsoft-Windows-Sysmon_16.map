@@ -3,22 +3,22 @@ Description: ServiceConfigurationChange
 EventId: 16
 Channel: Microsoft-Windows-Sysmon/Operational
 Provider: Microsoft-Windows-Sysmon
-Maps: 
-  - 
+Maps:
+  -
     Property: ExecutableInfo
     PropertyValue: "%Configuration%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Configuration
         Value: "/Event/EventData/Data[@Name=\"Configuration\"]"
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "ConfigurationFileHash: %ConfigurationFileHash%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ConfigurationFileHash
         Value: "/Event/EventData/Data[@Name=\"ConfigurationFileHash\"]"
-        
+
 # Documentation:
 # https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon#events
 # https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES

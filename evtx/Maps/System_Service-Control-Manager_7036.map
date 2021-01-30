@@ -3,22 +3,22 @@ Description: Service started or stopped
 EventId: 7036
 Channel: System
 Provider: Service Control Manager
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "Name: %ServiceName% | %ServiceName2%" #This is a special case in that data may exist in several forms. Here we look for both and use the one we find. =)
-    Values: 
-      - 
+    Values:
+      -
         Name: ServiceName
         Value: "/Event/EventData/Data[@Name=\"param1\"]"
-      - 
+      -
         Name: ServiceName2
         Value: "/Event/EventData/Data"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "Status: %Status%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Status
         Value: "/Event/EventData/Data[@Name=\"param2\"]"
 

@@ -3,46 +3,46 @@ Description: The Windows Filtering Platform has allowed a connection
 EventId: 5156
 Channel: Security
 Provider: Microsoft-Windows-Security-Auditing
-Maps: 
+Maps:
   -
     Property: ExecutableInfo
     PropertyValue: "%Application%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Application
         Value: "/Event/EventData/Data[@Name=\"Application\"]"
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "Source: %SourceAddress%:%SourcePort%"
-    Values: 
-      - 
+    Values:
+      -
         Name: SourceAddress
         Value: "/Event/EventData/Data[@Name=\"SourceAddress\"]"
-      - 
+      -
         Name: SourcePort
         Value: "/Event/EventData/Data[@Name=\"SourcePort\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "Dest: %DestAddress%:%DestPort%"
-    Values: 
-      - 
+    Values:
+      -
         Name: DestAddress
         Value: "/Event/EventData/Data[@Name=\"DestAddress\"]"
-      - 
+      -
         Name: DestPort
         Value: "/Event/EventData/Data[@Name=\"DestPort\"]"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "Protocol: %Protocol%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Protocol
         Value: "/Event/EventData/Data[@Name=\"Protocol\"]"
-  - 
+  -
     Property: PayloadData4
     PropertyValue: "PID: %ProcessID%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ProcessID
         Value: "/Event/EventData/Data[@Name=\"ProcessID\"]"
 
@@ -51,21 +51,21 @@ Lookups:
     Name: Protocol
     Default: Unknown code
     Values:
-        1: Internet Control Message Protocol (ICMP) 	
-        6: Transmission Control Protocol (TCP) 	
-        17: User Datagram Protocol (UDP) 	                                 
-        47: General Routing Encapsulation (PPTP data over GRE) 	                 
-        51: Authentication Header (AH) IPSec 	
-        50: Encapsulation Security Payload (ESP) IPSec 	
-        8: Exterior Gateway Protocol (EGP) 	                                 
-        3: Gateway-Gateway Protocol (GGP) 	                                 
-        20: Host Monitoring Protocol (HMP) 	
-        88: Internet Group Management Protocol (IGMP) 	
-        66: MIT Remote Virtual Disk (RVD) 	
-        89: OSPF Open Shortest Path First 	
+        1: Internet Control Message Protocol (ICMP)
+        6: Transmission Control Protocol (TCP)
+        17: User Datagram Protocol (UDP)
+        47: General Routing Encapsulation (PPTP data over GRE)
+        51: Authentication Header (AH) IPSec
+        50: Encapsulation Security Payload (ESP) IPSec
+        8: Exterior Gateway Protocol (EGP)
+        3: Gateway-Gateway Protocol (GGP)
+        20: Host Monitoring Protocol (HMP)
+        88: Internet Group Management Protocol (IGMP)
+        66: MIT Remote Virtual Disk (RVD)
+        89: OSPF Open Shortest Path First
         12: PARC Universal Packet Protocol (PUP)
-        27: Reliable Datagram Protocol (RDP) 	
-        46:: Reservation Protocol (RSVP) QoS 	
+        27: Reliable Datagram Protocol (RDP)
+        46:: Reservation Protocol (RSVP) QoS
 
 # Documentation:
 # https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5156

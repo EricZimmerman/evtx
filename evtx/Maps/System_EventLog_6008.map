@@ -11,7 +11,7 @@ Maps:
       -
         Name: Data
         Value: "/Event/EventData/Data"
-        
+
 # Documentation:
 # https://support.microsoft.com/en-us/help/326564/event-id-6008-is-unexpectedly-logged-to-the-system-event-log-after-you
 # https://www.manageengine.com/products/active-directory-audit/kb/system-events/event-id-6008.html
@@ -19,29 +19,29 @@ Maps:
 # Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
-#     <Provider Name="EventLog" /> 
-#     <EventID Qualifiers="32768">6008</EventID> 
-#     <Version>0</Version> 
-#     <Level>2</Level> 
-#     <Task>0</Task> 
-#     <Opcode>0</Opcode> 
-#     <Keywords>0x80000000000000</Keywords> 
-#     <TimeCreated SystemTime="2020-11-14T00:54:37.9394794Z" /> 
-#     <EventRecordID>6329</EventRecordID> 
-#     <Correlation /> 
-#     <Execution ProcessID="0" ThreadID="0" /> 
-#     <Channel>System</Channel> 
-#     <Computer>Computer</Computer> 
-#     <Security /> 
+#     <Provider Name="EventLog" />
+#     <EventID Qualifiers="32768">6008</EventID>
+#     <Version>0</Version>
+#     <Level>2</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x80000000000000</Keywords>
+#     <TimeCreated SystemTime="2020-11-14T00:54:37.9394794Z" />
+#     <EventRecordID>6329</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="0" ThreadID="0" />
+#     <Channel>System</Channel>
+#     <Computer>Computer</Computer>
+#     <Security />
 #   </System>
 #   <EventData>
-#     <Data>PM 3:32:54</Data> 
-#     <Data>‎2020-‎11-‎13</Data> 
-#     <Data /> 
-#     <Data /> 
-#     <Data>520643</Data> 
-#     <Data /> 
-#     <Data /> 
-#     <Binary>{Binary}</Binary> 
+#     <Data>PM 3:32:54</Data>
+#     <Data>‎2020-‎11-‎13</Data>
+#     <Data />
+#     <Data />
+#     <Data>520643</Data>
+#     <Data />
+#     <Data />
+#     <Binary>{Binary}</Binary>
 #   </EventData>
 # </Event>

@@ -3,15 +3,15 @@ Description: RDP client has initiated a multi-transport connection to the server
 EventId: 1102
 Channel: Microsoft-Windows-TerminalServices-RDPClient/Operational
 Provider: Microsoft-Windows-TerminalServices-ClientActiveXCore
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "Address: %Address%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Address
         Value: "/Event/EventData/Data[@Name=\"Value\"]"
- 
+
 # Documentation:
 # https://cyber-tls.blogspot.com/2019/08/rdp.html
 # https://social.technet.microsoft.com/wiki/contents/articles/37847.rdp-direct-connection-with-nla-remote-desktop-client-event-logs.aspx

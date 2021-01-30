@@ -3,25 +3,25 @@ Description: RDP network connection established
 EventId: 1149
 Channel: Microsoft-Windows-TerminalServices-RemoteConnectionManager/Operational
 Provider: Microsoft-Windows-TerminalServices-RemoteConnectionManager
-Maps: 
-  - 
+Maps:
+  -
     Property: UserName
     PropertyValue: "%domain%\\%user%"
-    Values: 
-      - 
+    Values:
+      -
         Name: domain
         Value: "/Event/UserData/EventXML/Param2"
-      - 
+      -
         Name: user
         Value: "/Event/UserData/EventXML/Param1"
-  - 
+  -
     Property: RemoteHost
     PropertyValue: "%Address%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Address
         Value: "/Event/UserData/EventXML/Param3"
- 
+
 # Documentation:
 # https://ponderthebits.com/2018/02/windows-rdp-related-event-logs-identification-tracking-and-investigation/
 # https://www.13cubed.com/downloads/rdp_flowchart.pdf

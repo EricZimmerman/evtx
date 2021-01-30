@@ -3,28 +3,28 @@ Description: Engine state is changed from None to Available
 EventId: 400
 Channel: Windows PowerShell
 Provider: PowerShell
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "%HostApplication%"
-    Values: 
-      - 
+    Values:
+      -
         Name: HostApplication
         Value: "/Event/EventData/Data"
         Refine: "HostApplication=(.+)"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "%HostName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: HostName
         Value: "/Event/EventData/Data"
         Refine: "HostName=(.+)"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "%HostVersion%"
-    Values: 
-      - 
+    Values:
+      -
         Name: HostVersion
         Value: "/Event/EventData/Data"
         Refine: "HostVersion=(.+)"
@@ -38,16 +38,16 @@ Maps:
 # Example Event Data:
 #<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #  <System>
-#    <Provider Name="PowerShell" /> 
-#    <EventID Qualifiers="0">400</EventID> 
-#    <Level>4</Level> 
-#    <Task>6</Task> 
-#    <Keywords>0x80000000000000</Keywords> 
-#    <TimeCreated SystemTime="2001-01-01T01:01:01.012345678Z" /> 
-#    <EventRecordID>18</EventRecordID> 
-#    <Channel>Windows PowerShell</Channel> 
-#    <Computer>name.domain.tld</Computer> 
-#    <Security /> 
+#    <Provider Name="PowerShell" />
+#    <EventID Qualifiers="0">400</EventID>
+#    <Level>4</Level>
+#    <Task>6</Task>
+#    <Keywords>0x80000000000000</Keywords>
+#    <TimeCreated SystemTime="2001-01-01T01:01:01.012345678Z" />
+#    <EventRecordID>18</EventRecordID>
+#    <Channel>Windows PowerShell</Channel>
+#    <Computer>name.domain.tld</Computer>
+#    <Security />
 #  </System>
 #  <EventData>
 #    <Data>Available, None, 	NewEngineState=Available

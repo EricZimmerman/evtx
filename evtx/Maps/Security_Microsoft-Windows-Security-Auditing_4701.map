@@ -3,22 +3,22 @@ Description: A scheduled task was disabled
 EventId: 4701
 Channel: Security
 Provider: Microsoft-Windows-Security-Auditing
-Maps: 
-  - 
+Maps:
+  -
     Property: UserName
     PropertyValue: "%domain%\\%user%"
-    Values: 
-      - 
+    Values:
+      -
         Name: domain
         Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
-      - 
+      -
         Name: user
         Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "<name>: %<name>%"
-    Values: 
-      - 
+    Values:
+      -
         Name: <name>
         Value: "/Event/EventData/Data[@Name=\"<name>\"]"
 

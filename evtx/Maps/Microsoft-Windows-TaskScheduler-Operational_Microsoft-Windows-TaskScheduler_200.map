@@ -3,26 +3,26 @@ Description: Scheduled Task executed
 EventId: 200
 Channel: "Microsoft-Windows-TaskScheduler/Operational"
 Provider: Microsoft-Windows-TaskScheduler
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "Task: %TaskName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TaskName
         Value: "/Event/EventData/Data[@Name=\"TaskName\"]"
-  - 
+  -
     Property: ExecutableInfo
     PropertyValue: "%ActionName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ActionName
         Value: "/Event/EventData/Data[@Name=\"ActionName\"]"
   -
     Property: PayloadData2
     PropertyValue: "Instance Id: %TaskInstanceId%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TaskInstanceId
         Value: "/Event/EventData/Data[@Name=\"TaskInstanceId\"]"
 

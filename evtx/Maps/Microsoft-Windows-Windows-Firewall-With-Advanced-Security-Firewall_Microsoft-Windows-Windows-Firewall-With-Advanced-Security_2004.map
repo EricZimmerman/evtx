@@ -3,56 +3,56 @@ Description: FW rule added to exception list
 EventId: 2004
 Channel: Microsoft-Windows-Windows Firewall With Advanced Security/Firewall
 Provider: Microsoft-Windows-Windows Firewall With Advanced Security
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "%ServiceName%: %RuleName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ServiceName
         Value: "/Event/EventData/Data[@Name=\"ServiceName\"]"
-      - 
+      -
         Name: RuleName
         Value: "/Event/EventData/Data[@Name=\"RuleName\"]"
-  - 
+  -
     Property: RemoteHost
     PropertyValue: "%RemoteAddresses%: %RemotePorts%"
-    Values: 
-      - 
+    Values:
+      -
         Name: RemoteAddresses
         Value: "/Event/EventData/Data[@Name=\"RemoteAddresses\"]"
-      - 
+      -
         Name: RemotePorts
         Value: "/Event/EventData/Data[@Name=\"RemotePorts\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "%ApplicationPath%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ApplicationPath
         Value: "/Event/EventData/Data[@Name=\"ApplicationPath\"]"
   -
     Property: PayloadData3
     PropertyValue: "Direction: %Direction%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Direction
         Value: "/Event/EventData/Data[@Name=\"Direction\"]"
   -
     Property: PayloadData4
     PropertyValue: "Action: %Action%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Action
         Value: "/Event/EventData/Data[@Name=\"Action\"]"
   -
     Property: PayloadData5
     PropertyValue: "Protocol: %Protocol%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Protocol
         Value: "/Event/EventData/Data[@Name=\"Protocol\"]"
-Lookups: 
+Lookups:
   -
     Name: Action
     Default: Unknown code

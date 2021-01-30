@@ -4,14 +4,14 @@ EventId: 2
 Channel: "Microsoft-Windows-VHDMP/Operational"
 Provider: Microsoft-Windows-VHDMP
 Maps:
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "The VHD %VhdName% has been removed (unsurfaced) as disk number %VhdNumber%"
-    Values: 
-      - 
+    Values:
+      -
         Name: VhdName
         Value: "/Event/EventData/Data[@Name=\"VhdFileName\"]"
-      - 
+      -
         Name: VhdNumber
         Value: "/Event/EventData/Data[@Name=\"VhdDiskNumber\"]"
 

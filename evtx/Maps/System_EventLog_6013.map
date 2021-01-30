@@ -3,20 +3,20 @@ Description: System uptime
 EventId: 6013
 Channel: System
 Provider: EventLog
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "The system uptime is %Seconds% seconds"
-    Values: 
-      - 
+    Values:
+      -
         Name: Seconds
         Value: "/Event/EventData/Data"
         Refine: "^[0-9]*"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "TimeZone: %TZ%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TZ
         Value: "/Event/EventData/Data"
         Refine: "(?<=, ).*"

@@ -28,7 +28,7 @@ Maps:
 
 # Documentation:
 # https://forensixchange.com/posts/19_08_03_usb_storage_forensics_1/
-# Events are created during the first connection since the startup. 
+# Events are created during the first connection since the startup.
 # So if the user removes the drive and attaches it again no new logs are going to be made according to my investigation.
 #
 # Example Event Data:

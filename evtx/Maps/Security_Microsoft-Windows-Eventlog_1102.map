@@ -3,22 +3,22 @@ Description: Event log cleared
 EventId: 1102
 Channel: Security
 Provider: Microsoft-Windows-Eventlog
-Maps: 
-  - 
+Maps:
+  -
     Property: UserName
     PropertyValue: "%domain%\\%user%"
-    Values: 
-      - 
+    Values:
+      -
         Name: domain
         Value: "/Event/UserData/LogFileCleared/SubjectDomainName"
-      - 
+      -
         Name: user
         Value: "/Event/UserData/LogFileCleared/SubjectUserName"
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "SID: (%SubjectUserSid%)"
-    Values: 
-      - 
+    Values:
+      -
         Name: SubjectUserSid
         Value: "/Event/UserData/LogFileCleared/SubjectUserSid"
 

@@ -3,29 +3,29 @@ Description: Code Signature Verification
 EventId: 4004
 Channel: "Microsoft-Windows-AppID/Operational"
 Provider: Microsoft-Windows-AppID
-Maps: 
-  - 
+Maps:
+  -
     Property: ExecutableInfo
     PropertyValue: "%FilePath%"
-    Values: 
-      - 
+    Values:
+      -
         Name: FilePath
         Value: "/Event/UserData/FilePathPublisherNameAndStatusData/FilePath"
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "%PublisherName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: PublisherName
         Value: "/Event/UserData/FilePathPublisherNameAndStatusData/PublisherName"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "%Status%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Status
         Value: "/Event/UserData/FilePathPublisherNameAndStatusData/Status"
-        
+
 # Documentation:
 # N/A
 #

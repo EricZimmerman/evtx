@@ -4,14 +4,14 @@ EventId: 18508
 Channel: "Microsoft-Windows-Hyper-V-Worker-Admin"
 Provider: Microsoft-Windows-Hyper-V-Worker
 Maps:
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "%VmName% was shut down by the guest operating system. (Virtual machine ID %VmId%)"
-    Values: 
-      - 
+    Values:
+      -
         Name: VmName
         Value: "/Event/UserData/VmlEventLog/VmName"
-      - 
+      -
         Name: VmId
         Value: "/Event/UserData/VmlEventLog/VmId"
 

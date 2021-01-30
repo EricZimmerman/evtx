@@ -3,29 +3,29 @@ Description: Scheduled Task created
 EventId: 4698
 Channel: Security
 Provider: Microsoft-Windows-Security-Auditing
-Maps: 
-  - 
+Maps:
+  -
     Property: UserName
     PropertyValue: "%domain%\\%user%"
-    Values: 
-      - 
+    Values:
+      -
         Name: domain
         Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
-      - 
+      -
         Name: user
         Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "TaskName: %TaskName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TaskName
         Value: "/Event/EventData/Data[@Name=\"TaskName\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "TaskContent: %TaskContent%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TaskContent
         Value: "/Event/EventData/Data[@Name=\"TaskContent\"]"
 

@@ -1,49 +1,49 @@
 Author: Andrew Rathbun
-Description: A user initiated a system restart 
+Description: A user initiated a system restart
 EventId: 1074
 Channel: System
 Provider: User32
-Maps: 
-  - 
-    Property: UserName 
+Maps:
+  -
+    Property: UserName
     PropertyValue: "%user%"
-    Values: 
-      - 
+    Values:
+      -
         Name: user
         Value: "/Event/EventData/Data[@Name=\"param7\"]"
-  - 
-    Property: ExecutableInfo 
+  -
+    Property: ExecutableInfo
     PropertyValue: "%ProcessName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ProcessName
         Value: "/Event/EventData/Data[@Name=\"param1\"]"
-  - 
-    Property: PayloadData1 
+  -
+    Property: PayloadData1
     PropertyValue: "Hostname: %Hostname%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Hostname
         Value: "/Event/EventData/Data[@Name=\"param2\"]"
-  - 
-    Property: PayloadData2 
+  -
+    Property: PayloadData2
     PropertyValue: "Reason: %Reason%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Reason
         Value: "/Event/EventData/Data[@Name=\"param3\"]"
-  - 
-    Property: PayloadData3 
+  -
+    Property: PayloadData3
     PropertyValue: "Type: %Type%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Type
         Value: "/Event/EventData/Data[@Name=\"param5\"]"
-  - 
-    Property: PayloadData4 
+  -
+    Property: PayloadData4
     PropertyValue: "Code: %Code%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Code
         Value: "/Event/EventData/Data[@Name=\"param4\"]"
 

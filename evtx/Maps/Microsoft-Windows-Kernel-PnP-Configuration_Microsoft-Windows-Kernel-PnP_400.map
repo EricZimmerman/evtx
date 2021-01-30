@@ -3,57 +3,57 @@ Description: Device driver error
 EventId: 400
 Channel: "Microsoft-Windows-Kernel-PnP/Configuration"
 Provider: "Microsoft-Windows-Kernel-PnP"
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "MatchingDeviceId: %MatchingDeviceId%"
-    Values: 
-      - 
+    Values:
+      -
         Name: MatchingDeviceId
         Value: "/Event/EventData/Data[@Name=\"MatchingDeviceId\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "DriverSection: %DriverSection%"
-    Values: 
-      - 
+    Values:
+      -
         Name: DriverSection
         Value: "/Event/EventData/Data[@Name=\"DriverSection\"]"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "DriverProvider: %DriverProvider%"
-    Values: 
-      - 
+    Values:
+      -
         Name: DriverProvider
         Value: "/Event/EventData/Data[@Name=\"DriverProvider\"]"
-  - 
-    Property: PayloadData4                                                  	
+  -
+    Property: PayloadData4
     PropertyValue: "DeviceUpdated: %DeviceUpdated%"
-    Values: 
-      - 
+    Values:
+      -
         Name: DeviceUpdated
         Value: "/Event/EventData/Data[@Name=\"DeviceUpdated\"]"
-  - 
-    Property: PayloadData5                                                  	
+  -
+    Property: PayloadData5
     PropertyValue: "ParentDeviceInstanceId: %ParentDeviceInstanceId%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ParentDeviceInstanceId
         Value: "/Event/EventData/Data[@Name=\"ParentDeviceInstanceId\"]"
   -
     Property: PayloadData6
     PropertyValue: "DeviceInstanceID: %DeviceInstanceID%"
-    Values: 
-      - 
+    Values:
+      -
         Name: DeviceInstanceID
         Value: "/Event/EventData/Data[@Name=\"DeviceInstanceID\"]"
-  - 
+  -
     Property: ExecutableInfo
     PropertyValue: "%DriverName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: DriverName
         Value: "/Event/EventData/Data[@Name=\"DriverName\"]"
-        
+
 # Documentation:
 # https://docs.microsoft.com/en-us/windows-hardware/drivers/install/driver-rank-ranges--windows-vista-and-later-
 # https://www.eventid.net/displayqueue.asp?eventid=400

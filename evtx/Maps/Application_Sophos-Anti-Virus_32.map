@@ -3,15 +3,15 @@ Description: Sophos Alert Identified
 EventId: 32
 Channel: Application
 Provider: "Sophos Anti-Virus"
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "Name: %Data%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Data
         Value: "/Event/EventData/Data"
-        
+
 # Documentation:
 # https://community.sophos.com/on-premise-endpoint/f/sophos-endpoint-software/8662/event-id-description
 # https://superuser.com/questions/1125970/sophos-endpoint-security-and-control-windows-event-viewer-logs-on-windows-20

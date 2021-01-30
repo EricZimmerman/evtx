@@ -3,12 +3,12 @@ Description: User logon
 EventId: 7001
 Channel: System
 Provider: Microsoft-Windows-Winlogon
-Maps: 
-  - 
-    Property: PayloadData1 
+Maps:
+  -
+    Property: PayloadData1
     PropertyValue: "UserSID: %UserSid%"
-    Values: 
-      - 
+    Values:
+      -
         Name: UserSid
         Value: "/Event/EventData/Data[@Name=\"UserSid\"]"
 

@@ -3,54 +3,54 @@ Description: ProcessAccess
 EventId: 10
 Channel: Microsoft-Windows-Sysmon/Operational
 Provider: Microsoft-Windows-Sysmon
-Maps: 
-  - 
+Maps:
+  -
     Property: ExecutableInfo
     PropertyValue: "CallTrace: %CallTrace%"
-    Values: 
-      - 
+    Values:
+      -
         Name: CallTrace
         Value: "/Event/EventData/Data[@Name=\"CallTrace\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "GrantedAccess: %GrantedAccess%"
-    Values: 
-      - 
+    Values:
+      -
         Name: GrantedAccess
-        Value: "/Event/EventData/Data[@Name=\"GrantedAccess\"]" 
-  - 
+        Value: "/Event/EventData/Data[@Name=\"GrantedAccess\"]"
+  -
     Property: PayloadData3
     PropertyValue: "SourceProcessID: %SourceProcessID%, SourceProcessGUID: %SourceProcessGUID%"
-    Values: 
-      - 
+    Values:
+      -
         Name: SourceProcessGUID
         Value: "/Event/EventData/Data[@Name=\"SourceProcessGuid\"]"
-      - 
+      -
         Name: SourceProcessID
         Value: "/Event/EventData/Data[@Name=\"SourceProcessId\"]"
-  - 
+  -
     Property: PayloadData4
     PropertyValue: "SourceImage: %SourceImage%"
-    Values: 
-      - 
+    Values:
+      -
         Name: SourceImage
         Value: "/Event/EventData/Data[@Name=\"SourceImage\"]"
 
-  - 
+  -
     Property: PayloadData5
     PropertyValue: "TargetProcessID: %TargetProcessID%, TargetProcessGUID: %TargetProcessGUID%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TargetProcessGUID
         Value: "/Event/EventData/Data[@Name=\"TargetProcessGuid\"]"
-      - 
+      -
         Name: TargetProcessID
         Value: "/Event/EventData/Data[@Name=\"TargetProcessId\"]"
-  - 
+  -
     Property: PayloadData6
     PropertyValue: "TargetImage: %TargetImage%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TargetImage
         Value: "/Event/EventData/Data[@Name=\"TargetImage\"]"
 

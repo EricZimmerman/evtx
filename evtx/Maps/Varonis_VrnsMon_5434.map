@@ -4,11 +4,11 @@ EventId: 5434
 Channel: Varonis
 Provider: "VrnsMon"
 Maps:
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "%Data%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Data
         Value: "/Event/EventData/Data"
 

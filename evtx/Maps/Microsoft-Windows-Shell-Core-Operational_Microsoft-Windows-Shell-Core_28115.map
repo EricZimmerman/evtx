@@ -25,24 +25,24 @@ Maps:
 # Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
-#     <Provider Name="Microsoft-Windows-Shell-Core" Guid="{GUID}" /> 
-#     <EventID>28115</EventID> 
-#     <Version>0</Version> 
-#     <Level>4</Level> 
-#     <Task>28141</Task> 
-#     <Opcode>0</Opcode> 
-#     <Keywords>0x2000000000010000</Keywords> 
-#     <TimeCreated SystemTime="2020-11-29T17:03:44.1365879Z" /> 
-#     <EventRecordID>10313</EventRecordID> 
-#     <Correlation /> 
-#     <Execution ProcessID="8472" ThreadID="7628" /> 
-#     <Channel>Microsoft-Windows-Shell-Core/Operational</Channel> 
-#     <Computer>ComputerName</Computer> 
-#     <Security UserID="{UserID}" /> 
+#     <Provider Name="Microsoft-Windows-Shell-Core" Guid="{GUID}" />
+#     <EventID>28115</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>28141</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x2000000000010000</Keywords>
+#     <TimeCreated SystemTime="2020-11-29T17:03:44.1365879Z" />
+#     <EventRecordID>10313</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="8472" ThreadID="7628" />
+#     <Channel>Microsoft-Windows-Shell-Core/Operational</Channel>
+#     <Computer>ComputerName</Computer>
+#     <Security UserID="{UserID}" />
 #   </System>
 #   <EventData>
-#     <Data Name="Name">Neo4j Desktop</Data> 
-#     <Data Name="AppID">com.neo4j.neo4j-desktop</Data> 
-#     <Data Name="Flags">17</Data> 
+#     <Data Name="Name">Neo4j Desktop</Data>
+#     <Data Name="AppID">com.neo4j.neo4j-desktop</Data>
+#     <Data Name="Flags">17</Data>
 #   </EventData>
 # </Event>

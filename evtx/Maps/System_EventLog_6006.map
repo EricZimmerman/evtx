@@ -3,17 +3,17 @@ Description: The Event log service was stopped
 EventId: 6006
 Channel: System
 Provider: EventLog
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "Computer: %Computer%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Computer
         Value: "/Event/System/Computer"
-        
+
 # Documentation:
-# Event 6006 occurs at shutdown time showing that the Event Log service was stopped and indicating a clean shutdown. 
+# Event 6006 occurs at shutdown time showing that the Event Log service was stopped and indicating a clean shutdown.
 # https://www.manageengine.com/products/active-directory-audit/kb/system-events/event-id-6006.html
 # https://www.howtogeek.com/277688/how-do-you-find-out-if-windows-was-running-at-a-given-time/
 # https://community.spiceworks.com/topic/237386-event-log-time-when-computer-start-up-boot-up
@@ -22,18 +22,18 @@ Maps:
 # Example Event Data:
 #<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
-#       <Provider Name="EventLog" /> 
-#       <EventID Qualifiers="32768">6006</EventID> 
-#       <Level>4</Level> 
-#       <Task>0</Task> 
-#       <Keywords>0x80000000000000</Keywords> 
-#       <TimeCreated SystemTime="2018-11-14T10:46:32.933810300Z" /> 
-#       <EventRecordID>67004</EventRecordID> 
-#       <Channel>System</Channel> 
-#       <Computer>pooh</Computer> 
-#       <Security /> 
+#       <Provider Name="EventLog" />
+#       <EventID Qualifiers="32768">6006</EventID>
+#       <Level>4</Level>
+#       <Task>0</Task>
+#       <Keywords>0x80000000000000</Keywords>
+#       <TimeCreated SystemTime="2018-11-14T10:46:32.933810300Z" />
+#       <EventRecordID>67004</EventRecordID>
+#       <Channel>System</Channel>
+#       <Computer>pooh</Computer>
+#       <Security />
 #   </System>
 #   <EventData>
-#       <Binary>010000000D000000</Binary> 
+#       <Binary>010000000D000000</Binary>
 #   </EventData>
 #</Event>

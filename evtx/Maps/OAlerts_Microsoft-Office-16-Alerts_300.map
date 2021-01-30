@@ -3,23 +3,23 @@ Description: OAlerts 300 event
 EventId: 300
 Channel: OAlerts
 Provider: "Microsoft Office 16 Alerts"
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "Program: %PayloadData1%"
-    Values: 
-      - 
+    Values:
+      -
         Name: PayloadData1
         Value: "/Event/EventData/Data"
         Refine: "^(.*)"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "Alert: %PayloadData2%"
-    Values: 
-      - 
+    Values:
+      -
         Name: PayloadData2
         Value: "/Event/EventData/Data"
-        Refine: "(?<=, )[^,\\d]+(?=,)"       
+        Refine: "(?<=, )[^,\\d]+(?=,)"
 
 # Documentation:
 # https://medium.com/@bromiley/oalerts-the-microsoft-office-event-log-ad164e1eec0f
@@ -44,8 +44,8 @@ Maps:
 #, Wilt u de wijzigingen in full_application_event_log.csv opslaan?
 #, 100216
 #, 16.0.4822.1000
-#, 
-#, 
+#,
+#,
 #</Data>
 #    <Binary></Binary>
 #  </EventData>

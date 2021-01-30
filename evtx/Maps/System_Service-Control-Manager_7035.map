@@ -3,19 +3,19 @@ Description: Service sent a Start/Stop control
 EventId: 7035
 Channel: System
 Provider: Service Control Manager
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
-    PropertyValue: "Name: %ServiceName%" 
-    Values: 
-      - 
+    PropertyValue: "Name: %ServiceName%"
+    Values:
+      -
         Name: ServiceName
         Value: "/Event/EventData/Data[@Name=\"param1\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "Status: %Status%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Status
         Value: "/Event/EventData/Data[@Name=\"param2\"]"
 

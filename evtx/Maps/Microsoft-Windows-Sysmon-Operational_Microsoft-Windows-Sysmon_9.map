@@ -3,29 +3,29 @@ Description: RawAccessRead
 EventId: 9
 Channel: Microsoft-Windows-Sysmon/Operational
 Provider: Microsoft-Windows-Sysmon
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "ProcessID: %ProcessID%, ProcessGUID: %ProcessGUID%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ProcessGUID
         Value: "/Event/EventData/Data[@Name=\"ProcessGuid\"]"
-      - 
+      -
         Name: ProcessID
         Value: "/Event/EventData/Data[@Name=\"ProcessId\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "Device: %Device%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Device
         Value: "/Event/EventData/Data[@Name=\"Device\"]"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "Image: %Image%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Image
         Value: "/Event/EventData/Data[@Name=\"Image\"]"
 

@@ -3,12 +3,12 @@ Description: Citrix user session disconnected
 EventId: 1049
 Channel: Application
 Provider: "Citrix Desktop Service"
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "SessionID: %SessionID%"
-    Values: 
-      - 
+    Values:
+      -
         Name: SessionID
         Value: "/Event/EventData/Data"
 

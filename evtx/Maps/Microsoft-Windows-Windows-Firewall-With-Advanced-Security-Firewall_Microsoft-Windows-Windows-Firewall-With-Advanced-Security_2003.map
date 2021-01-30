@@ -3,15 +3,15 @@ Description: The firewall has enabled/disabled.
 EventId: 2003
 Channel: Microsoft-Windows-Windows Firewall With Advanced Security/Firewall
 Provider: Microsoft-Windows-Windows Firewall With Advanced Security
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "SettingValue: %SettingValue%"
-    Values: 
-      - 
+    Values:
+      -
         Name: SettingValue
         Value: "/Event/EventData/Data[@Name=\"SettingValue\"]"
-Lookups: 
+Lookups:
   -
     Name: SettingValue
     Default: Unknown code
@@ -25,29 +25,29 @@ Lookups:
 # Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
-#     <Provider Name="Microsoft-Windows-Windows Firewall With Advanced Security" Guid="{GUID}" /> 
-#     <EventID>2003</EventID> 
-#     <Version>0</Version> 
-#     <Level>4</Level> 
-#     <Task>0</Task> 
-#     <Opcode>0</Opcode> 
-#     <Keywords>0x8000000000000000</Keywords> 
-#     <TimeCreated SystemTime="2020-12-29T08:02:40.1537755Z" /> 
-#     <EventRecordID>3921</EventRecordID> 
-#     <Correlation /> 
-#     <Execution ProcessID="2952" ThreadID="5308" /> 
-#     <Channel>Microsoft-Windows-Windows Firewall With Advanced Security/Firewall</Channel> 
-#     <Computer>ComputerName</Computer> 
-#     <Security UserID="{UserID}" /> 
+#     <Provider Name="Microsoft-Windows-Windows Firewall With Advanced Security" Guid="{GUID}" />
+#     <EventID>2003</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x8000000000000000</Keywords>
+#     <TimeCreated SystemTime="2020-12-29T08:02:40.1537755Z" />
+#     <EventRecordID>3921</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="2952" ThreadID="5308" />
+#     <Channel>Microsoft-Windows-Windows Firewall With Advanced Security/Firewall</Channel>
+#     <Computer>ComputerName</Computer>
+#     <Security UserID="{UserID}" />
 #   </System>
 #   <EventData>
-#     <Data Name="Profiles">2</Data> 
-#     <Data Name="SettingType">1</Data> 
-#     <Data Name="SettingValueSize">4</Data> 
-#     <Data Name="SettingValue">01000000</Data> 
-#     <Data Name="SettingValueString">Yes</Data> 
-#     <Data Name="Origin">1</Data> 
-#     <Data Name="ModifyingUser">S-1-5-21-513373498-3903154681-3342767705-1001</Data> 
-#     <Data Name="ModifyingApplication">C:\Windows\explorer.exe</Data> 
+#     <Data Name="Profiles">2</Data>
+#     <Data Name="SettingType">1</Data>
+#     <Data Name="SettingValueSize">4</Data>
+#     <Data Name="SettingValue">01000000</Data>
+#     <Data Name="SettingValueString">Yes</Data>
+#     <Data Name="Origin">1</Data>
+#     <Data Name="ModifyingUser">S-1-5-21-513373498-3903154681-3342767705-1001</Data>
+#     <Data Name="ModifyingApplication">C:\Windows\explorer.exe</Data>
 #   </EventData>
 # </Event>

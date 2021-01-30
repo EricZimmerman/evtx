@@ -3,53 +3,53 @@ Description: A Kerberos service ticket was requested
 EventId: 4769
 Channel: Security
 Provider: Microsoft-Windows-Security-Auditing
-Maps: 
-  - 
+Maps:
+  -
     Property: RemoteHost
     PropertyValue: "%ipAddress%:%port%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ipAddress
         Value: "/Event/EventData/Data[@Name=\"IpAddress\"]"
-      - 
+      -
         Name: port
-        Value: "/Event/EventData/Data[@Name=\"IpPort\"]"         
-  - 
+        Value: "/Event/EventData/Data[@Name=\"IpPort\"]"
+  -
     Property: PayloadData1
     PropertyValue: "Target: %domain%\\%user%"
-    Values: 
-      - 
+    Values:
+      -
         Name: domain
         Value: "/Event/EventData/Data[@Name=\"TargetDomainName\"]"
-      - 
+      -
         Name: user
         Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "ServiceName: %ServiceName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ServiceName
         Value: "/Event/EventData/Data[@Name=\"ServiceName\"]"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "ServiceSid: %ServiceSid%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ServiceSid
         Value: "/Event/EventData/Data[@Name=\"ServiceSid\"]"
-  - 
+  -
     Property: PayloadData4
     PropertyValue: "TicketEncryptionType: %TicketEncryptionType%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TicketEncryptionType
         Value: "/Event/EventData/Data[@Name=\"TicketEncryptionType\"]"
-  - 
+  -
     Property: PayloadData5
     PropertyValue: "Status: %Status%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Status
         Value: "/Event/EventData/Data[@Name=\"Status\"]"
 
