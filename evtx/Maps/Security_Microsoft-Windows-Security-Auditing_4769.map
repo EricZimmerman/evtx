@@ -70,7 +70,6 @@ Lookups:
     Name: Status
     Default: Unknown code
     Values:
-
         0x0: KDC_ERR_NONE - No error - No errors were found.
         0x1: KDC_ERR_NAME_EXP - Client's entry in KDC database has expired - No information.
         0x2: KDC_ERR_SERVICE_EXP - Server's entry in KDC database has expired - No information.
@@ -92,9 +91,9 @@ Lookups:
         0x12: KDC_ERR_CLIENT_REVOKED - Client's credentials have been revoked - This might be because of an explicit disabling or because of other restrictions in place on the account. For example, account disabled, expired, or locked out.
         0x13: KDC_ERR_SERVICE_REVOKED - Credentials for server have been revoked - No information.
         0x14: KDC_ERR_TGT_REVOKED - TGT has been revoked - Since the remote KDC may change its PKCROSS key while there are PKCROSS tickets still active, it SHOULD cache the old PKCROSS keys until the last issued PKCROSS ticket expires. Otherwise, the remote KDC will respond to a client with a KRB-ERROR message of type KDC_ERR_TGT_REVOKED. See RFC1510 for more details.
-        0x15: KDC_ERR_CLIENT_NOTYET - Client not yet valid—try again later - No information.
-        0x16: KDC_ERR_SERVICE_NOTYET - Server not yet valid—try again later - No information.
-        0x17: KDC_ERR_KEY_EXPIRED - Password has expired—change password to reset - The user's password has expired. This error code cannot occur in event “4768. A Kerberos authentication ticket (TGT) was requested”. It occurs in “4771. Kerberos pre-authentication failed” event.
+        0x15: KDC_ERR_CLIENT_NOTYET - Client not yet valid-try again later - No information.
+        0x16: KDC_ERR_SERVICE_NOTYET - Server not yet valid-try again later - No information.
+        0x17: KDC_ERR_KEY_EXPIRED - Password has expired-change password to reset - The user's password has expired. This error code cannot occur in event “4768. A Kerberos authentication ticket (TGT) was requested”. It occurs in “4771. Kerberos pre-authentication failed” event.
         0x18: KDC_ERR_PREAUTH_FAILED - Pre-authentication information was invalid - The wrong password was provided. This error code cannot occur in event “4768. A Kerberos authentication ticket (TGT) was requested”. It occurs in “4771. Kerberos pre-authentication failed” event.
         0x19: KDC_ERR_PREAUTH_REQUIRED - Additional pre-authentication required - This error often occurs in UNIX interoperability scenarios. MIT-Kerberos clients do not request pre-authentication when they send a KRB_AS_REQ message. If pre-authentication is required (the default), Windows systems will send this error. Most MIT-Kerberos clients will respond to this error by giving the pre-authentication, in which case the error can be ignored, but some clients might not respond in this way.
         0x1A: KDC_ERR_SERVER_NOMATCH - KDC does not know about the requested server - No information.
@@ -102,7 +101,7 @@ Lookups:
         0x1F: KRB_AP_ERR_BAD_INTEGRITY - Integrity check on decrypted field failed - The authenticator was encrypted with something other than the session key. The result is that the client cannot decrypt the resulting message. The modification of the message could be the result of an attack or it could be because of network noise.
         0x20: KRB_AP_ERR_TKT_EXPIRED - The ticket has expired - The smaller the value for the “Maximum lifetime for user ticket” Kerberos policy setting, the more likely it is that this error will occur. Because ticket renewal is automatic, you should not have to do anything if you get this message.
         0x21: KRB_AP_ERR_TKT_NYV - The ticket is not yet valid - The ticket presented to the server is not yet valid (in relationship to the server time). The most probable cause is that the clocks on the KDC and the client are not synchronized. If cross-realm Kerberos authentication is being attempted, then you should verify time synchronization between the KDC in the target realm and the KDC in the client realm, as well.
-        0x22: KRB_AP_ERR_REPEAT - The request is a replay - This error indicates that a specific authenticator showed up twice — the KDC has detected that this session ticket duplicates one that it has already received.
+        0x22: KRB_AP_ERR_REPEAT - The request is a replay - This error indicates that a specific authenticator showed up twice - the KDC has detected that this session ticket duplicates one that it has already received.
         0x23: KRB_AP_ERR_NOT_US - The ticket is not for us - The server has received a ticket that was meant for a different realm.
         0x24: KRB_AP_ERR_BADMATCH - The ticket and authenticator do not match - The KRB_TGS_REQ is being sent to the wrong KDC. There is an account mismatch during protocol transition.
         0x25: KRB_AP_ERR_SKEW - The clock skew is too great - This error is logged if a client computer sends a timestamp whose value differs from that of the server's timestamp by more than the number of minutes found in the “Maximum tolerance for computer clock synchronization” setting in Kerberos policy.
