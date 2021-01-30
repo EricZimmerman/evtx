@@ -5,55 +5,55 @@ Channel: Security
 Provider: Microsoft-Windows-Security-Auditing
 Maps:
   -
-    Property: RemoteHost
-    PropertyValue: "%ipAddress%:%port%"
-    Values:
-      -
-        Name: ipAddress
-        Value: "/Event/EventData/Data[@Name=\"IpAddress\"]"
-      -
-        Name: port
-        Value: "/Event/EventData/Data[@Name=\"IpPort\"]"
+   Property: RemoteHost
+   PropertyValue: "%ipAddress%:%port%"
+   Values:
+    -
+      Name: ipAddress
+      Value: "/Event/EventData/Data[@Name=\"IpAddress\"]"
+    -
+      Name: port
+      Value: "/Event/EventData/Data[@Name=\"IpPort\"]"
   -
-    Property: PayloadData1
-    PropertyValue: "Target: %TargetUserName% (%TargetSid%)"
-    Values:
-      -
-        Name: TargetUserName
-        Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
-      -
-        Name: TargetSid
-        Value: "/Event/EventData/Data[@Name=\"TargetSid\"]"
+   Property: PayloadData1
+   PropertyValue: "Target: %TargetUserName% (%TargetSid%)"
+   Values:
+    -
+      Name: TargetUserName
+      Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
+    -
+      Name: TargetSid
+      Value: "/Event/EventData/Data[@Name=\"TargetSid\"]"
   -
-    Property: PayloadData2
-    PropertyValue: "ServiceName: %ServiceName%"
-    Values:
-      -
-        Name: ServiceName
-        Value: "/Event/EventData/Data[@Name=\"ServiceName\"]"
+   Property: PayloadData2
+   PropertyValue: "ServiceName: %ServiceName%"
+   Values:
+    -
+      Name: ServiceName
+      Value: "/Event/EventData/Data[@Name=\"ServiceName\"]"
   -
-    Property: PayloadData3
-    PropertyValue: "Status: %Status%"
-    Values:
-      -
-        Name: Status
-        Value: "/Event/EventData/Data[@Name=\"Status\"]"
+   Property: PayloadData3
+   PropertyValue: "Status: %Status%"
+   Values:
+    -
+      Name: Status
+      Value: "/Event/EventData/Data[@Name=\"Status\"]"
   -
-    Property: PayloadData4
-    PropertyValue: "PreAuthType: %PreAuthType%"
-    Values:
-      -
-        Name: PreAuthType
-        Value: "/Event/EventData/Data[@Name=\"PreAuthType\"]"
+   Property: PayloadData4
+   PropertyValue: "PreAuthType: %PreAuthType%"
+   Values:
+    -
+      Name: PreAuthType
+      Value: "/Event/EventData/Data[@Name=\"PreAuthType\"]"
 
 Lookups:
   -
     Name: Status
     Default: Unknown code
     Values:
-        0x10: KDC_ERR_PADATA_TYPE_NOSUPP - KDC has no support for PADATA type (pre-authentication data) - Smart card logon is being attempted and the proper certificate cannot be located. This problem can happen because the wrong certification authority (CA) is being queried or the proper CA cannot be contacted in order to get Domain Controller or Domain Controller Authentication certificates for the domain controller. It can also happen when a domain controller doesn't have a certificate installed for smart cards (Domain Controller or Domain Controller Authentication templates).
-        0x17: KDC_ERR_KEY_EXPIRED - Password has expired-change password to reset - The user's password has expired.
-        0x18: KDC_ERR_PREAUTH_FAILED - Pre-authentication information was invalid - The wrong password was provided.
+          0x10: KDC_ERR_PADATA_TYPE_NOSUPP - KDC has no support for PADATA type (pre-authentication data) - Smart card logon is being attempted and the proper certificate cannot be located. This problem can happen because the wrong certification authority (CA) is being queried or the proper CA cannot be contacted in order to get Domain Controller or Domain Controller Authentication certificates for the domain controller. It can also happen when a domain controller doesn't have a certificate installed for smart cards (Domain Controller or Domain Controller Authentication templates).
+          0x17: KDC_ERR_KEY_EXPIRED - Password has expired-change password to reset - The user's password has expired.
+          0x18: KDC_ERR_PREAUTH_FAILED - Pre-authentication information was invalid - The wrong password was provided.
   -
     Name: PreAuthType
     Default: Unknown code
