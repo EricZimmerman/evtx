@@ -1,8 +1,7 @@
 yaml-files:
   - '*.yaml'
   - '*.yml'
-  - '*.tkape'
-  - '*.mkape'
+  - '*.map'
 
 rules:
   braces: enable
