@@ -25,7 +25,7 @@ Maps:
 # https://www.myeventlog.com/search/show/980
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-PowerShell" Guid="a0c1253b-5c40-4b15-8766-3cabc58f985a" />
 #    <EventID>4104</EventID>
@@ -49,4 +49,4 @@ Maps:
 #    <Data Name="ScriptBlockId">34d312d7-e012-40c3-b0e8-9d4e5e4123r</Data>
 #    <Data Name="Path"></Data>
 #  </EventData>
-#</Event>
+# </Event>

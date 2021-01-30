@@ -61,7 +61,7 @@ Maps:
 # https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/default.aspx - filter on Sysmon
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Sysmon" Guid="5770385f-c22a-43e0-bf4c-06f5698ffbd9" />
 #    <EventID>19</EventID>
@@ -88,4 +88,4 @@ Maps:
 #    <Data Name="Name"> "AtomicRedTeam-WMIPersistence-Example"</Data>
 #    <Data Name="Query"> "SELECT * FROM __InstanceModificationEvent WITHIN 60 WHERE TargetInstance ISA 'Win32_PerfFormattedData_PerfOS_System' AND TargetInstance.SystemUpTime &amp;gt;= 240 AND TargetInstance.SystemUpTime &amp;lt; 325"</Data>
 #  </EventData>
-#</Event>
+# </Event>

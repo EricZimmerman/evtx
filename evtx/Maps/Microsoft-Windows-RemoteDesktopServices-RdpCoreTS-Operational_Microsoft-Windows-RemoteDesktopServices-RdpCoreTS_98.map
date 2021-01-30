@@ -23,7 +23,7 @@ Maps:
 # https://frsecure.com/blog/rdp-connection-event-logs/
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-RemoteDesktopServices-RdpCoreTS" Guid="1139c100-b549-4251-8ed3-27245a1edec8" />
 #    <EventID>98</EventID>
@@ -41,4 +41,4 @@ Maps:
 #    <Security UserID="S-1-5-20" />
 #  </System>
 #  <EventData></EventData>
-#</Event>
+# </Event>

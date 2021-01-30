@@ -28,7 +28,7 @@ Maps:
 # https://frsecure.com/blog/rdp-connection-event-logs/
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-TerminalServices-LocalSessionManager" Guid="5d896912-022d-40aa-a3a8-4fa5515c76d7" />
 #    <EventID>23</EventID>
@@ -51,4 +51,4 @@ Maps:
 #      <SessionID>1</SessionID>
 #    </EventXML>
 #  </UserData>
-#</Event>
+# </Event>

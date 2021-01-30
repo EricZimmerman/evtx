@@ -36,7 +36,7 @@ Maps:
 # https://nsfocusglobal.com/Attack-and-Defense-Around-PowerShell-Event-Logging
 #
 # Example Event Data:
-#<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #  <System>
 #    <Provider Name="PowerShell" />
 #    <EventID Qualifiers="0">600</EventID>
@@ -51,21 +51,21 @@ Maps:
 #  </System>
 #  <EventData>
 #    <Data>Registry, Started, 	ProviderName=Registry
-#	NewProviderState=Started
+# NewProviderState=Started
 #
-#	SequenceNumber=1
+# SequenceNumber=1
 #
-#	HostName=ConsoleHost
-#	HostVersion=5.1.18362.145
-#	HostId=b3dfcb89-d2f8-4b8b-a784-a6a9bcf61bd8
-#	HostApplication=powershell  -command Set-ItemProperty -Path HKCU:\Software\Microsoft\Office\16.0\Outlook\AutoDiscover -Name 'ExcludeExplicitO365Endpoint' -Value 1 -Type DWORD -Force
-#	EngineVersion=
-#	RunspaceId=
-#	PipelineId=
-#	CommandName=
-#	CommandType=
-#	ScriptName=
-#	CommandPath=
-#	CommandLine=</Data>
-#	</EventData>
-#</Event>
+# HostName=ConsoleHost
+# HostVersion=5.1.18362.145
+# HostId=b3dfcb89-d2f8-4b8b-a784-a6a9bcf61bd8
+# HostApplication=powershell  -command Set-ItemProperty -Path HKCU:\Software\Microsoft\Office\16.0\Outlook\AutoDiscover -Name 'ExcludeExplicitO365Endpoint' -Value 1 -Type DWORD -Force
+# EngineVersion=
+# RunspaceId=
+# PipelineId=
+# CommandName=
+# CommandType=
+# ScriptName=
+# CommandPath=
+# CommandLine=</Data>
+# </EventData>
+# </Event>

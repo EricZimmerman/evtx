@@ -18,7 +18,7 @@ Maps:
 # https://superuser.com/questions/767143/find-out-why-pc-just-restarted-for-no-reason?newreg=e76b115fee3b486fb76788c3b4906677
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Winlogon" Guid="dbe9b456-7cf3-4331-91cc-a3cb1234b538" />
 #    <EventID>7002</EventID>
@@ -39,4 +39,4 @@ Maps:
 #    <Data Name="TSId">6</Data>
 #    <Data Name="UserSid">S-1-5-21-795675957-65754735-9675674874-7637643</Data>
 #  </EventData>
-#</Event>
+# </Event>

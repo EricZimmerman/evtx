@@ -65,7 +65,7 @@ Lookups:
 # https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4768
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Security-Auditing" Guid="54849625-5478-4994-a5ba-3e3b0328c30d" />
 #    <EventID>4768</EventID>
@@ -98,4 +98,4 @@ Lookups:
 #    <Data Name="CertSerialNumber"></Data>
 #    <Data Name="CertThumbprint"></Data>
 #  </EventData>
-#</Event>
+# </Event>

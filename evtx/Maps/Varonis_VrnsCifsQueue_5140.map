@@ -16,7 +16,7 @@ Maps:
 # There is no public documentation on these events. Varonis is a data security platform so some file system activity appears to be tracked by it.
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="VrnsCifsQueue" />
 #    <EventID Qualifiers="0">5140</EventID>
@@ -31,8 +31,8 @@ Maps:
 #  </System>
 #  <EventData>
 #    <Data>VrnsCifsQueue, 1234, 5678, [---   NEW MOUNT POINT DETECTED   ---]
-#E:
-#[Original]
+# E:
+# [Original]
 #                                        D:, \Device\Ide\IdeDeviceP4T4L0-4
 #      [Logging]  [Monitored]  E:, \device\harddiskvolume5
 #      [Logging]  [Monitored]  E:, \device\harddiskvolumeshadowcopy123
@@ -47,4 +47,4 @@ Maps:
 # &amp;lt;cont. next event...&amp;gt;</Data>
 #    <Binary></Binary>
 #  </EventData>
-#</Event>
+# </Event>

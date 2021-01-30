@@ -23,7 +23,7 @@ Maps:
 # N/A
 #
 # Example Event Data:
-#<System>
+# <System>
 #  <Provider Name="Microsoft-Windows-Audit-CVE" Guid="{85a62a0d-7e17-485f-9d4f-749a287193a6}" />
 #  <EventID>2</EventID>
 #  <Version>0</Version>
@@ -38,8 +38,8 @@ Maps:
 #  <Channel>System</Channel>
 #  <Computer>xxxxxxxxxxxxxxxxxx</Computer>
 #  <Security UserID="xxxxxxxxxxxxxxxxxxxxxxxxx" />
-#</System>
-#<EventData>
+# </System>
+# <EventData>
 #  <Data Name="CVEID">xxxxxxxxxxxxxxxxx</Data>
 #  <Data Name="AdditionalDetails">xxxxxxxxxxxxxxxxxxxxxxxxxxxxxx</Data>
-#</EventData>
+# </EventData>

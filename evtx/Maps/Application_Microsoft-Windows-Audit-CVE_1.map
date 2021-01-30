@@ -24,7 +24,7 @@ Maps:
 # https://youtu.be/ebmW42YYveI
 #
 # Example Event Data:
-#<System>
+# <System>
 #  <Provider Name="Microsoft-Windows-Audit-CVE" Guid="{85a62a0d-7e17-485f-9d4f-749a287193a6}" />
 #  <EventID>1</EventID>
 #  <Version>0</Version>
@@ -39,8 +39,8 @@ Maps:
 #  <Channel>Application</Channel>
 #  <Computer>xxxxxxxxxxxxxxxxxx</Computer>
 #  <Security UserID="xxxxxxxxxxxxxxxxxxxxxxxxx" />
-#</System>
-#<EventData>
+# </System>
+# <EventData>
 #  <Data Name="CVEID">[CVE-2020-0601] cert validation</Data>
 #  <Data Name="AdditionalDetails">CA: <@DidierStevens> sha1: 7A036FBBDBF7F29A3821A8087CE177E60927A6F3 para: something otherPara: something</Data>
-#</EventData>
+# </EventData>

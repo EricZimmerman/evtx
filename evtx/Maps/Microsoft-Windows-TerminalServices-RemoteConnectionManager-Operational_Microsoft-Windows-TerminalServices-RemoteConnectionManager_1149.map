@@ -31,7 +31,7 @@ Maps:
 # https://frsecure.com/blog/rdp-connection-event-logs/
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-TerminalServices-RemoteConnectionManager" Guid="c76baa63-ae81-421c-b425-340b4b24157f" />
 #    <EventID>1149</EventID>
@@ -55,4 +55,4 @@ Maps:
 #      <Param3>10.0.2.16</Param3>
 #    </EventXML>
 #  </UserData>
-#</Event>
+# </Event>

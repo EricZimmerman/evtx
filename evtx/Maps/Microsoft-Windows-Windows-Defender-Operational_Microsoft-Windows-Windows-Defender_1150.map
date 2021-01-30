@@ -16,7 +16,7 @@ Maps:
 # https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-antivirus/troubleshoot-microsoft-defender-antivirus
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Windows Defender" Guid="{11cd958a-c507-4ef3-b3f2-5fd9dfbd2c78}" />
 #    <EventID>1150</EventID>
@@ -40,4 +40,4 @@ Maps:
 #    <Data Name="Engine version">1.1.16500.1</Data>
 #    <Data Name="Signature version">1.305.903.0</Data>
 #  </EventData>
-#</Event>
+# </Event>

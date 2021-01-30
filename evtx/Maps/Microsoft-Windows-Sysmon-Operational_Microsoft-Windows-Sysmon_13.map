@@ -58,7 +58,7 @@ Maps:
 # https://jpcertcc.github.io/ToolAnalysisResultSheet
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Sysmon" Guid="5770385f-c22a-43e0-bf4c-06f5698ffbd9" />
 #    <EventID>13</EventID>
@@ -85,4 +85,4 @@ Maps:
 #    <Data Name="TargetObject">HKU\S-1-5-21-3583694148-1414552638-2922671848-1000\Software\Microsoft\Office\16.0\Excel\Security\AccessVBOM</Data>
 #    <Data Name="Details">DWORD (0x00000001)</Data>
 #  </EventData>
-#</Event>
+# </Event>

@@ -51,7 +51,7 @@ Maps:
 # https://superuser.com/questions/767143/find-out-why-pc-just-restarted-for-no-reason
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="User32" Guid="{b0aa8734-56f7-41cc-b2f4-de628e98b946}" EventSourceName="User32" />
 #    <EventID Qualifiers="32768">1074</EventID>
@@ -77,4 +77,4 @@ Maps:
 #    <Data Name="param6"></Data>
 #    <Data Name="param7">NT AUTHORITY\SYSTEM</Data>
 #  </EventData>
-#</Event>
+# </Event>

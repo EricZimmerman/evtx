@@ -19,7 +19,7 @@ Maps:
 # https://p0w3rsh3ll.wordpress.com/tag/hyper-v/
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Hyper-V-Worker" Guid="51hhfa29-d5c8-4803-be4b-2ecb715570fe" />
 #    <EventID>18514</EventID>
@@ -42,4 +42,4 @@ Maps:
 #      <VmId>5160E402-6A79-4E1B-9A91-16151255B886</VmId>
 #    </VmlEventLog>
 #  </UserData>
-#</Event>
+# </Event>

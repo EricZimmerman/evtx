@@ -56,7 +56,7 @@ Maps:
 # https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-antivirus/troubleshoot-microsoft-defender-antivirus
 #
 # Example Event Data:
-#<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #  <System>
 #    <Provider Name="Microsoft-Windows-Windows Defender" Guid="{11cd958a-c507-4ef3-b3f2-5fd9dfbd2c78}" />
 #    <EventID>1008</EventID>
@@ -112,4 +112,4 @@ Maps:
 #    <Data Name="Severity Name">Severe</Data>
 #    <Data Name="Category Name">Password Stealer</Data>
 #  </EventData>
-#</Event>
+# </Event>

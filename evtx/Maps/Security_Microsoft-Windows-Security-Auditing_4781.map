@@ -51,7 +51,7 @@ Maps:
 # https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4781
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Security-Auditing" Guid="54856625-5478-7794-a5ba-3e3b0328c30d" />
 #    <EventID>4781</EventID>
@@ -79,4 +79,4 @@ Maps:
 #    <Data Name="SubjectLogonId">0x3E7</Data>
 #    <Data Name="PrivilegeList">-</Data>
 #  </EventData>
-#</Event>
+# </Event>

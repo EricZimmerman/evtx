@@ -17,7 +17,7 @@ Maps:
 # This event is logged when LSASS.EXE process starts and the auditing subsystem is initialized. It typically generates during operating system startup process.
 #
 # Example Et Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Security-Auditing" Guid="54867925-5478-4994-a5ba-3e3b0328c30d" />
 #    <EventID>4608</EventID>
@@ -35,4 +35,4 @@ Maps:
 #    <Security />
 #  </System>
 #  <EventData></EventData>
-#</Event>
+# </Event>

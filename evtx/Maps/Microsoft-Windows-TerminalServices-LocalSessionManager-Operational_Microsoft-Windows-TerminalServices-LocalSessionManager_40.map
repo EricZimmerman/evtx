@@ -33,27 +33,27 @@ Lookups:
 # https://community.spiceworks.com/topic/550908-terminal-services-disconnections-reason-codes
 #
 # Example Event Data:
-#<Event
-#	<System>
-#		<Provider Name="Microsoft-Windows-TerminalServices-LocalSessionManager" Guid="{5d896912-022d-40aa-a3a8-4fa5515c76d7}" />
-#		<EventID>40</EventID>
-#		<Version>0</Version>
-#		<Level>4</Level>
-#		<Task>0</Task>
-#		<Opcode>0</Opcode>
-#		<Keywords>0x1000000000000000</Keywords>
-#		<TimeCreated SystemTime="2019-08-05T18:29:24.930754500Z" />
-#		<EventRecordID>732</EventRecordID>
-#		<Correlation ActivityID="{[GUID]}" />
-#		<Execution ProcessID="1200" ThreadID="1056" />
-#		<Channel>Microsoft-Windows-TerminalServices-LocalSessionManager/Operational</Channel>
-#		<Computer>ComputerName</Computer>
-#		<Security UserID="S-1-5-18" />
-#	</System>
-#	<UserData>
-#		<EventXML xmlns="Event_NS">
-#			<Session>2</Session>
-#			<Reason>5</Reason>
-#		</EventXML>
-#	</UserData>
-#</Event
+# <Event
+# <System>
+# 	<Provider Name="Microsoft-Windows-TerminalServices-LocalSessionManager" Guid="{5d896912-022d-40aa-a3a8-4fa5515c76d7}" />
+# 	<EventID>40</EventID>
+# 	<Version>0</Version>
+# 	<Level>4</Level>
+# 	<Task>0</Task>
+# 	<Opcode>0</Opcode>
+# 	<Keywords>0x1000000000000000</Keywords>
+# 	<TimeCreated SystemTime="2019-08-05T18:29:24.930754500Z" />
+# 	<EventRecordID>732</EventRecordID>
+# 	<Correlation ActivityID="{[GUID]}" />
+# 	<Execution ProcessID="1200" ThreadID="1056" />
+# 	<Channel>Microsoft-Windows-TerminalServices-LocalSessionManager/Operational</Channel>
+# 	<Computer>ComputerName</Computer>
+# 	<Security UserID="S-1-5-18" />
+# </System>
+# <UserData>
+# 	<EventXML xmlns="Event_NS">
+# 		<Session>2</Session>
+# 		<Reason>5</Reason>
+# 	</EventXML>
+# </UserData>
+# </Event

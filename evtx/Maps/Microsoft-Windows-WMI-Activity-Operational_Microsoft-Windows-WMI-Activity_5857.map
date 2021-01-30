@@ -24,7 +24,7 @@ Maps:
 # Indicates time of wmiprvse execution and path to provider DLL – attackers sometimes install malicious WMI provider DLLs
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-WMI-Activity" Guid="1418ef04-b0b4-4623-bf7e-d74ab47bbdaa" />
 #    <EventID>5857</EventID>
@@ -50,4 +50,4 @@ Maps:
 #      <ProviderPath>%systemroot%\system32\wbem\wmipcima.dll</ProviderPath>
 #    </Operation_StartedOperational>
 #  </UserData>
-#</Event>
+# </Event>

@@ -40,7 +40,7 @@ Maps:
 # https://www.eventid.net/display.asp?eventid=7045&source=service+control+manager
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Service Control Manager" Guid="{555908d1-a6d7-4695-8e1e-26931d2012f4}" EventSourceName="Service Control Manager" />
 #    <EventID Qualifiers="16384">7045</EventID>
@@ -64,4 +64,4 @@ Maps:
 #    <Data Name="StartType">demand start</Data>
 #    <Data Name="AccountName"></Data>
 #  </EventData>
-#</Event>
+# </Event>

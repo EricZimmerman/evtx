@@ -32,7 +32,7 @@ Maps:
 # https://mnaoumov.wordpress.com/2014/05/15/task-scheduler-event-ids/
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-TaskScheduler" Guid="de7b24ea-73c8-4a09-985d-5bdhwcfa9017" />
 #    <EventID>129</EventID>
@@ -55,4 +55,4 @@ Maps:
 #    <Data Name="ProcessID">1234</Data>
 #    <Data Name="Priority">7</Data>
 #  </EventData>
-#</Event>
+# </Event>

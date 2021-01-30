@@ -70,7 +70,7 @@ Lookups:
 # https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-r2-and-2008/dd349407(v=ws.10)
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-UserPnp" Guid="96f4a050-7e31-453c-88be-9634f4e02139" />
 #    <EventID>20003</EventID>
@@ -97,4 +97,4 @@ Lookups:
 #      <AddServiceStatus>0</AddServiceStatus>
 #    </AddServiceID>
 #  </UserData>
-#</Event>
+# </Event>

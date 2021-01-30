@@ -30,7 +30,7 @@ Maps:
 # https://www.hecfblog.com/2018/09/daily-blog-474-application-experience.html
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Application-Experience" Guid="eef99e71-0661-422d-9a98-82fd4940b820" />
 #    <EventID>500</EventID>
@@ -57,4 +57,4 @@ Maps:
 #      <FixName>RunAsInvoker</FixName>
 #    </CompatibilityFixEvent>
 #  </UserData>
-#</Event>
+# </Event>

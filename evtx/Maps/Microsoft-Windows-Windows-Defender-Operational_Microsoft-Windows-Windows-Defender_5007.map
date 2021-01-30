@@ -23,7 +23,7 @@ Maps:
 # https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-antivirus/troubleshoot-microsoft-defender-antivirus
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Windows Defender" Guid="{11cd958a-c507-4ef3-b3f2-5fd9dfbd2c78}" />
 #    <EventID>5007</EventID>
@@ -46,4 +46,4 @@ Maps:
 #    <Data Name="Old Value">HKLM\SOFTWARE\Microsoft\Windows Defender\Exclusions\Paths\F:\Samples = 0x0</Data>
 #    <Data Name="New Value" />
 #  </EventData>
-#</Event>
+# </Event>

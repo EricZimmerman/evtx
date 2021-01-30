@@ -45,7 +45,7 @@ Maps:
 # https://forensixchange.com/posts/19_08_03_usb_storage_forensics_1/
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Kernel-PnP" Guid="9c205a39-1250-487d-abd7-e831c6290539" />
 #    <EventID>410</EventID>
@@ -72,4 +72,4 @@ Maps:
 #    <Data Name="Problem">0x0</Data>
 #    <Data Name="Status">0x0</Data>
 #  </EventData>
-#</Event>
+# </Event>

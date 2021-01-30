@@ -59,7 +59,7 @@ Maps:
 # https://docs.microsoft.com/de-de/security-updates/windowsupdateservices/18127392
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Bits-Client" Guid="ef6y679b-46c1-414e-bb95-e76b077bd51e" />
 #    <EventID>59</EventID>
@@ -88,4 +88,4 @@ Maps:
 #    <Data Name="bytesTransferred">0</Data>
 #    <Data Name="bytesTransferredFromPeer">0</Data>
 #  </EventData>
-#</Event>
+# </Event>

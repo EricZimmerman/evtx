@@ -34,7 +34,7 @@ Maps:
 # https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4702
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Security-Auditing" Guid="54867925-5478-4994-a5ba-3e3679b8c30d" />
 #    <EventID>4702</EventID>
@@ -59,4 +59,4 @@ Maps:
 #    <Data Name="TaskName">\Microsoft\Windows\Customer Experience Improvement Program\Server\ServerabcpAssistant</Data>
 #    <Data Name="TaskContentNew">&amp;lt;?xml version="1.0" encoding="UTF-16"?&amp;gt;, &amp;lt;Task version="1.3"&amp;gt;,     &amp;lt;Exec&amp;gt;,       &amp;lt;Command&amp;gt;%windir%\system32\abcpdata.exe&amp;lt;/Command&amp;gt;,     &amp;lt;/Exec&amp;gt;,   &amp;lt;/Actions&amp;gt;, &amp;lt;/Task&amp;gt;</Data>
 #  </EventData>
-#</Event>
+# </Event>

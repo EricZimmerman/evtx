@@ -50,7 +50,7 @@ Maps:
 # https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/default.aspx - filter on Sysmon
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Sysmon" Guid="5770385f-c22a-43e0-bf4c-06f5698ffbd9" />
 #    <EventID>15</EventID>
@@ -77,4 +77,4 @@ Maps:
 #    <Data Name="CreationUtcTime">2018-01-03 01:21:25.726</Data>
 #    <Data Name="Hash">Unknown</Data>
 #  </EventData>
-#</Event>
+# </Event>

@@ -38,7 +38,7 @@ Maps:
 # WMI Registration of Temporary Event Consumer
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-WMI-Activity" Guid="1418ef04-b0b4-4623-bf7e-d74ab47bbdaa" />
 #    <EventID>5860</EventID>
@@ -65,4 +65,4 @@ Maps:
 #      <PossibleCause>Temporary</PossibleCause>
 #    </Operation_TemporaryEssStarted>
 #  </UserData>
-#</Event>
+# </Event>

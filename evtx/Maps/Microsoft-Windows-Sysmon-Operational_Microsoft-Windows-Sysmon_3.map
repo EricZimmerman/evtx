@@ -66,7 +66,7 @@ Maps:
 # https://jpcertcc.github.io/ToolAnalysisResultSheet
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Sysmon" Guid="5770385f-c22a-43e0-bf4c-06f5698ffbd9" />
 #    <EventID>3</EventID>
@@ -103,4 +103,4 @@ Maps:
 #    <Data Name="DestinationPort">49304</Data>
 #    <Data Name="DestinationPortName"></Data>
 #  </EventData>
-#</Event>
+# </Event>

@@ -17,7 +17,7 @@ Maps:
 # https://purerds.org/remote-desktop-security/auditing-remote-desktop-services-logon-failures-1/
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-RemoteDesktopServices-RdpCoreTS" Guid="1139c61b-b549-4251-8ed3-27250a1edec8" />
 #    <EventID>140</EventID>
@@ -37,4 +37,4 @@ Maps:
 #  <EventData>
 #    <Data Name="IPString">212.92.124.161</Data>
 #  </EventData>
-#</Event>
+# </Event>

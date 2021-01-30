@@ -34,7 +34,7 @@ Maps:
 # https://countuponsecurity.com/2015/11/25/digital-forensics-supertimeline-event-logs-part-ii/
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-TerminalServices-LocalSessionManager" Guid="5d896912-022d-40aa-a3a8-4fa5515c76d7" />
 #    <EventID>24</EventID>

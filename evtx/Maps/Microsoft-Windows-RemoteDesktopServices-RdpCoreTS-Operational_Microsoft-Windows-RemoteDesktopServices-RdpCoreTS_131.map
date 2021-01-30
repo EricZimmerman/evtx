@@ -25,8 +25,8 @@ Maps:
 #
 # Example Event Data:
 # The server accepted a new TCP connection from client 174.x.x.x:30022.
-#</Event>
-#<Event>
+# </Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-RemoteDesktopServices-RdpCoreTS" Guid="1139c61b-b549-4251-8ed3-27250a1edec8" />
 #    <EventID>131</EventID>
@@ -47,4 +47,4 @@ Maps:
 #    <Data Name="ConnType">UDP</Data>
 #    <Data Name="ClientIP">[192.168.30.10]:65464</Data>
 #  </EventData>
-#</Event>
+# </Event>

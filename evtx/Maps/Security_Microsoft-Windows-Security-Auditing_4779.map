@@ -45,7 +45,7 @@ Maps:
 # https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4779
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Security-Auditing" Guid="54849625-5478-4994-a5ba-3e3b0328c30d" />
 #    <EventID>4779</EventID>
@@ -70,4 +70,4 @@ Maps:
 #    <Data Name="ClientName">DUNGANATOR</Data>
 #    <Data Name="ClientAddress">192.168.30.10</Data>
 #  </EventData>
-#</Event>
+# </Event>

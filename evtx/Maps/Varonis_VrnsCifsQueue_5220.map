@@ -17,7 +17,7 @@ Maps:
 # In this case, there were multiple events in a row that continued this list of devices monitored.
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="VrnsCifsQueue" />
 #    <EventID Qualifiers="0">5220</EventID>
@@ -47,4 +47,4 @@ Maps:
 # &amp;lt;cont. next event...&amp;gt;</Data>
 #    <Binary></Binary>
 #  </EventData>
-#</Event>
+# </Event>

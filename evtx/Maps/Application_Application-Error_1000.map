@@ -23,7 +23,7 @@ Maps:
 # As always, check the Payload column for all info recorded for this event.
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Application Error" />
 #    <EventID Qualifiers="0">1000</EventID>
@@ -44,4 +44,4 @@ Maps:
 #    <Data>Battle.net.exe, 1.29.0.12511, 5fb30cf2, battle.net.dll, 1.29.0.12511, 5fb30cd7, c0000006, 01034c81, 6c3c, 01d6c40460409565, E:\Battle.net\Battle.net.exe, E:\Battle.net\Battle.net.12511\battle.net.dll, f380f3b9-326d-4192-bd08-453b67cf1de0</Data>
 #    <Binary></Binary>
 #  </EventData>
-#</Event>
+# </Event>

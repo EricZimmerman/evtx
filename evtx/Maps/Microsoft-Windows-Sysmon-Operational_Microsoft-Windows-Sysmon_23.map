@@ -71,7 +71,7 @@ Maps:
 # https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/default.aspx - filter on Sysmon
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Sysmon" Guid="5770385f-c22a-43e0-bf4c-06f5698ffbd9" />
 #    <EventID>23</EventID>
@@ -100,4 +100,4 @@ Maps:
 #    <Data Name="IsExecutable">True</Data>
 #    <Data Name="Archived">true</Data>
 #  </EventData>
-#</Event>
+# </Event>

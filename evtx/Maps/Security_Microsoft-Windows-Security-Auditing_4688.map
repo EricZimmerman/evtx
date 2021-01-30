@@ -86,4 +86,4 @@ Maps:
 # <Data Name="ParentProcessName">C:\\Windows\\explorer.exe</Data>
 # <Data Name="MandatoryLabel">S-1-16-8192</Data>
 # </EventData>
-#</Event>
+# </Event>

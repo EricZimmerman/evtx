@@ -21,7 +21,7 @@ Maps:
 # This map likely won't log any data in PayloadData1, but at least this map will provide the Map Description column with something.
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Eventlog" Guid="{fc64rgd8-d6ef-4962-83d5-6e5wergce148}" />
 #    <EventID>1100</EventID>
@@ -41,4 +41,4 @@ Maps:
 #  <UserData>
 #    <ServiceShutdown></ServiceShutdown>
 #  </UserData>
-#</Event>
+# </Event>

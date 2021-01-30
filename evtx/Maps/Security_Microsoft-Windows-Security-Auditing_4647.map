@@ -29,7 +29,7 @@ Maps:
 # https://frsecure.com/blog/rdp-connection-event-logs/
 #
 # Example Event Data:
-#<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #  <System>
 #    <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-a5ba-3e3b0328c30d}" />
 #    <EventID>4647</EventID>
@@ -52,4 +52,4 @@ Maps:
 #      <Data Name="TargetDomainName">POOH</Data>
 #      <Data Name="TargetLogonId">0x12130a4a</Data>
 #  </EventData>
-#</Event>
+# </Event>

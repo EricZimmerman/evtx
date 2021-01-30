@@ -31,7 +31,7 @@ Maps:
     # <Security />
   # </System>
     # <EventData>
-      #<Data>Connecting to mdgegtwy1.acme.com.</Data>
+      # <Data>Connecting to mdgegtwy1.acme.com.</Data>
         # <Binary></Binary>
         # </EventData>
     # </Event>

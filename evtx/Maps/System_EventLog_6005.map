@@ -20,7 +20,7 @@ Maps:
 # https://superuser.com/questions/767143/find-out-why-pc-just-restarted-for-no-reason
 #
 # Example Event Data:
-#<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
 #       <Provider Name="EventLog" />
 #       <EventID Qualifiers="32768">6005</EventID>
@@ -36,4 +36,4 @@ Maps:
 #   <EventData>
 #       <Binary>E30703000600100007002300000080000000000000000000</Binary>
 #   </EventData>
-#</Event>
+# </Event>

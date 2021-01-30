@@ -26,7 +26,7 @@ Maps:
 # https://social.technet.microsoft.com/Forums/ie/en-US/6f684761-12f1-453f-aa37-57ae50828ee7/microsoft-outlook-event-id-300-quotwe-need-to-know-who-to-send-this-to-make-sure-you-enter-at?forum=officeitpro
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft Office 16 Alerts" />
 #    <EventID Qualifiers="0">300</EventID>
@@ -41,12 +41,12 @@ Maps:
 #  </System>
 #  <EventData>
 #    <Data>Microsoft Excel
-#, Wilt u de wijzigingen in full_application_event_log.csv opslaan?
-#, 100216
-#, 16.0.4822.1000
-#,
-#,
-#</Data>
+# , Wilt u de wijzigingen in full_application_event_log.csv opslaan?
+# , 100216
+# , 16.0.4822.1000
+# ,
+# ,
+# </Data>
 #    <Binary></Binary>
 #  </EventData>
-#</Event>
+# </Event>

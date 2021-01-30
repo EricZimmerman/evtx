@@ -16,7 +16,7 @@ Maps:
 # https://kb.eventtracker.com/evtpass/evtpages/EventId_261_Microsoft-Windows-TerminalServices-RemoteConnectio_63716.asp
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-TerminalServices-RemoteConnectionManager" Guid="c76baa63-ae81-421c-b425-340b4b24157f" />
 #    <EventID>261</EventID>
@@ -38,4 +38,4 @@ Maps:
 #      <listenerName>RDP-Tcp</listenerName>
 #    </EventXML>
 #  </UserData>
-#</Event>
+# </Event>

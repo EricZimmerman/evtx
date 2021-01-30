@@ -56,7 +56,7 @@ Maps:
 # Frankly, there is too much data to fit within 6 PayloadData columns. As always, all data is in the Payload column but there isn't enough room to map out all the information cleanly.
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Partition" Guid="412bdff2-a8c4-470d-8f33-63fabc8c20e2" />
 #    <EventID>1006</EventID>
@@ -156,4 +156,4 @@ Maps:
 #    <Data Name="Vbr3Size">0</Data>
 #    <Data Name="Vbr3"></Data>
 #  </EventData>
-#</Event>
+# </Event>

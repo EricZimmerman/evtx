@@ -16,7 +16,7 @@ Maps:
 # There is no public documentation on these events. Varonis is a data security platform so some file system activity appears to be tracked by it.
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="VrnsCifsQueue" />
 #    <EventID Qualifiers="0">5172</EventID>
@@ -33,4 +33,4 @@ Maps:
 #    <Data>VrnsCifsQueue, 1234, 5678, [HOSTNAME1.domain.com]: DisconnectFiler(filerID[57] filerType[ProxyLocal]) request from Probe[HOSTNAME2-02:1234] IP[10.49.1.26] is successfully performed</Data>
 #    <Binary></Binary>
 #  </EventData>
-#</Event>
+# </Event>

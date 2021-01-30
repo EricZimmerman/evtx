@@ -59,7 +59,7 @@ Maps:
 # https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-antivirus/troubleshoot-microsoft-defender-antivirus
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Windows Defender" Guid="{11cd958a-c507-4ef3-b3f2-5fd9dfbd2c78}" />
 #    <EventID>1001</EventID>
@@ -91,4 +91,4 @@ Maps:
 #    <Data Name="Scan Time Minutes">10</Data>
 #    <Data Name="Scan Time Seconds">38</Data>
 #  </EventData>
-#</Event>
+# </Event>

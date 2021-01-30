@@ -54,7 +54,7 @@ Maps:
 # https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/default.aspx - filter on Sysmon
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Sysmon" Guid="5770385f-c22a-43e0-bf4c-06f5698ffbd9" />
 #    <EventID>21</EventID>
@@ -80,4 +80,4 @@ Maps:
 #    <Data Name="Consumer"> "\\\\.\\ROOT\\subscription:CommandLineEventConsumer.Name=\"AtomicRedTeam-WMIPersistence-Example\""</Data>
 #    <Data Name="Filter"> "\\\\.\\ROOT\\subscription:__EventFilter.Name=\"AtomicRedTeam-WMIPersistence-Example\""</Data>
 #  </EventData>
-#</Event>
+# </Event>

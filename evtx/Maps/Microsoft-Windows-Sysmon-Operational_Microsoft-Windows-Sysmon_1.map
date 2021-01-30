@@ -76,8 +76,8 @@ Maps:
 # https://jpcertcc.github.io/ToolAnalysisResultSheet
 #
 # Example Event Data:
-#<Event>
-#<System>
+# <Event>
+# <System>
 #  <Provider Name="Microsoft-Windows-Sysmon" Guid="5770385f-c22a-43e0-bf4c-06f5698ffbd9" />
 #  <EventID>1</EventID>
 #  <Version>5</Version>
@@ -92,8 +92,8 @@ Maps:
 #  <Channel>Microsoft-Windows-Sysmon/Operational</Channel>
 #  <Computer>IEWIN7</Computer>
 #  <Security UserID="S-1-5-18" />
-#</System>
-#<EventData>
+# </System>
+# <EventData>
 #  <Data Name="RuleName"></Data>
 #  <Data Name="UtcTime">2019-05-26 04:01:42.375</Data>
 #  <Data Name="ProcessGuid">365abb72-0fa6-5cea-0000-001049b50a00</Data>
@@ -115,5 +115,5 @@ Maps:
 #  <Data Name="ParentProcessId">1372</Data>
 #  <Data Name="ParentImage">C:\Windows\explorer.exe</Data>
 #  <Data Name="ParentCommandLine">C:\Windows\Explorer.EXE</Data>
-#</EventData>
+# </EventData>
 

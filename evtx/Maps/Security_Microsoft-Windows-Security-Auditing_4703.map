@@ -91,4 +91,4 @@ Maps:
 # <Data Name="EnabledPrivilegeList">SeAssignPrimaryTokenPrivilege SeIncreaseQuotaPrivilege SeSecurityPrivilege SeTakeOwnershipPrivilege SeLoadDriverPrivilege SeSystemtimePrivilege SeBackupPrivilege SeRestorePrivilege SeShutdownPrivilege SeSystemEnvironmentPrivilege SeUndockPrivilege SeManageVolumePrivilege</Data>
 # <Data Name="DisabledPrivilegeList">-</Data>
 # </EventData>
-#</Event>
+# </Event>

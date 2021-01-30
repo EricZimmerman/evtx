@@ -62,7 +62,7 @@ Maps:
 # https://frsecure.com/blog/rdp-connection-event-logs/
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Security-Auditing" Guid="54849625-5478-4994-a5ba-3e3b0328c30d" />
 #    <EventID>4648</EventID>
@@ -95,4 +95,4 @@ Maps:
 #    <Data Name="IpAddress">-</Data>
 #    <Data Name="IpPort">-</Data>
 #  </EventData>
-#</Event>
+# </Event>
