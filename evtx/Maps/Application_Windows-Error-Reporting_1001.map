@@ -4,11 +4,11 @@ EventId: 1001
 Channel: Application
 Provider: "Windows Error Reporting"
 Maps:
-  - 
+  -
     Property: ExecutableInfo
     PropertyValue: "%ExecutableInfo%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ExecutableInfo
         Value: "/Event/EventData/Data"
         Refine: ([a-zA-Z0-9_\\.\-\(\):])+(.exe|.dll)
@@ -16,12 +16,12 @@ Maps:
 # Documentation:
 # https://social.technet.microsoft.com/wiki/contents/articles/3116.event-id-1001-windows-error-reporting.aspx
 # https://www.manageengine.com/products/eventlog/kb/event-1001-windows-error-help.html
-# I've personally seen malicious executables being recorded in these events given that malware is inherently unstable and meant to cause destruction on the host system. 
+# I've personally seen malicious executables being recorded in these events given that malware is inherently unstable and meant to cause destruction on the host system.
 # Please add any other file extensions as you see fit.
 # As always, check the Payload column for all info recorded for this event.
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Windows Error Reporting" />
 #    <EventID Qualifiers="0">1001</EventID>
@@ -39,8 +39,8 @@ Maps:
 #    <Security />
 #  </System>
 #  <EventData>
-#    <Data>2197605730095248713, 1, APPCRASH, Not available, 0, Battle.net.exe, 1.29.0.12511, 5fb30cf2, battle.net.dll, 1.29.0.12511, 5fb30cd7, c0000006, 01034c81, 
-#\\?\C:\ProgramData\Microsoft\Windows\WER\Temp\WERB6AD.tmp.WERInternalMetadata.xml, \\?\C:\ProgramData\Microsoft\Windows\WER\ReportArchive\AppCrash_Battle.net.exe_07df855d37a14863a6117edd6f7142347b0a57d_11b545ed_04b66fa9-9d42-4380-a370-51bdd98f4e80, 0, f380f3b9-326d-4192-bd08-453b67cf1de0, 268435456, a5a0ff54bdfc3e434e7f76c4a2b0b549, 0</Data>
+#    <Data>2197605730095248713, 1, APPCRASH, Not available, 0, Battle.net.exe, 1.29.0.12511, 5fb30cf2, battle.net.dll, 1.29.0.12511, 5fb30cd7, c0000006, 01034c81,
+# \\?\C:\ProgramData\Microsoft\Windows\WER\Temp\WERB6AD.tmp.WERInternalMetadata.xml, \\?\C:\ProgramData\Microsoft\Windows\WER\ReportArchive\AppCrash_Battle.net.exe_07df855d37a14863a6117edd6f7142347b0a57d_11b545ed_04b66fa9-9d42-4380-a370-51bdd98f4e80, 0, f380f3b9-326d-4192-bd08-453b67cf1de0, 268435456, a5a0ff54bdfc3e434e7f76c4a2b0b549, 0</Data>
 #    <Binary></Binary>
 #  </EventData>
-#</Event>
+# </Event>

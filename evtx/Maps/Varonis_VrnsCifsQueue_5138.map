@@ -4,11 +4,11 @@ EventId: 5138
 Channel: Varonis
 Provider: "VrnsCifsQueue"
 Maps:
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "%Data%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Data
         Value: "/Event/EventData/Data"
 
@@ -16,7 +16,7 @@ Maps:
 # There is no public documentation on these events. Varonis is a data security platform so some file system activity appears to be tracked by it.
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="VrnsCifsQueue" />
 #    <EventID Qualifiers="0">5138</EventID>
@@ -33,5 +33,5 @@ Maps:
 #    <Data>VrnsCifsQueue, 1234, 6578, [HOSTNAME:27]: Validating mount points for filer HOSTNAME:27</Data>
 #    <Binary></Binary>
 #  </EventData>
-#</Event>
-#<Event>
+# </Event>
+# <Event>

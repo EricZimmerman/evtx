@@ -3,22 +3,22 @@ Description: Service started or stopped
 EventId: 7036
 Channel: System
 Provider: Service Control Manager
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
-    PropertyValue: "Name: %ServiceName% | %ServiceName2%" #This is a special case in that data may exist in several forms. Here we look for both and use the one we find. =)
-    Values: 
-      - 
+    PropertyValue: "Name: %ServiceName% | %ServiceName2%" # This is a special case in that data may exist in several forms. Here we look for both and use the one we find. =)
+    Values:
+      -
         Name: ServiceName
         Value: "/Event/EventData/Data[@Name=\"param1\"]"
-      - 
+      -
         Name: ServiceName2
         Value: "/Event/EventData/Data"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "Status: %Status%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Status
         Value: "/Event/EventData/Data[@Name=\"param2\"]"
 
@@ -28,7 +28,7 @@ Maps:
 # https://morgantechspace.com/2013/10/event-id-7036-service-entered-stopped.html
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Service Control Manager" Guid="{555908d1-a6d7-4695-8e1e-26931d2012f4}" EventSourceName="Service Control Manager" />
 #    <EventID Qualifiers="16384">7036</EventID>
@@ -50,9 +50,9 @@ Maps:
 #    <Data Name="param2">running</Data>
 #    <Binary>4D-00-4D-00-43-00-53-00-53-00-2F-00-34-00-00-00</Binary>
 #  </EventData>
-#</Event>
+# </Event>
 #
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Netwtw06" />
 #    <EventID Qualifiers="16384">7036</EventID>
@@ -69,4 +69,4 @@ Maps:
 #    <Data>\Device\NDMP1, Intel(R) Dual Band Wireless-AC 8265</Data>
 #    <Binary>00-00-08-00-02-00-38-00-00-00-00-00-7C-1B-00-40-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-57-44-52-56-AB-00-00-00</Binary>
 #  </EventData>
-#</Event>
+# </Event>

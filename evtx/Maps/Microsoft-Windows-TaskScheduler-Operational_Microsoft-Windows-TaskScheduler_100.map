@@ -3,26 +3,26 @@ Description: Scheduled Task started
 EventId: 100
 Channel: "Microsoft-Windows-TaskScheduler/Operational"
 Provider: Microsoft-Windows-TaskScheduler
-Maps: 
-  - 
+Maps:
+  -
     Property: UserName
     PropertyValue: "Context: %UserContext%"
-    Values: 
-      - 
+    Values:
+      -
         Name: UserContext
         Value: "/Event/EventData/Data[@Name=\"UserContext\"]"
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "Task: %TaskName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TaskName
         Value: "/Event/EventData/Data[@Name=\"TaskName\"]"
   -
     Property: PayloadData2
     PropertyValue: "Instance Id: %InstanceId%"
-    Values: 
-      - 
+    Values:
+      -
         Name: InstanceId
         Value: "/Event/EventData/Data[@Name=\"InstanceId\"]"
 

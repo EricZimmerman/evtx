@@ -25,43 +25,43 @@ Maps:
       -
         Name: Files
         Value: "/Event/UserData/RmApplicationEvent/Files/File"
-        
+
 # Documentation:
 # https://kb.eventtracker.com/evtpass/evtpages/EventId_10002_Microsoft-Windows-RestartManager_62090.asp
 #
 # Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
-#     <Provider Name="Microsoft-Windows-RestartManager" Guid="{GUID}" /> 
-#     <EventID>10002</EventID> 
-#     <Version>0</Version> 
-#     <Level>4</Level> 
-#     <Task>0</Task> 
-#     <Opcode>0</Opcode> 
-#     <Keywords>0x8000000000000000</Keywords> 
-#     <TimeCreated SystemTime="2020-12-06T08:21:49.5722615Z" /> 
-#     <EventRecordID>21064</EventRecordID> 
-#     <Correlation /> 
-#     <Execution ProcessID="8860" ThreadID="17736" /> 
-#     <Channel>Application</Channel> 
-#     <Computer>ComputerName</Computer> 
-#     <Security UserID="{UserID}" /> 
+#     <Provider Name="Microsoft-Windows-RestartManager" Guid="{GUID}" />
+#     <EventID>10002</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x8000000000000000</Keywords>
+#     <TimeCreated SystemTime="2020-12-06T08:21:49.5722615Z" />
+#     <EventRecordID>21064</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="8860" ThreadID="17736" />
+#     <Channel>Application</Channel>
+#     <Computer>ComputerName</Computer>
+#     <Security UserID="{UserID}" />
 #   </System>
 #   <UserData>
 #     <RmApplicationEvent xmlns="http://www.microsoft.com/2005/08/Windows/Reliability/RestartManager/">
-#         <RmSessionId>0</RmSessionId> 
-#         <FullPath>RealPlayerUpdateSvc.exe</FullPath> 
-#         <DisplayName>RealPlayer Update Service</DisplayName> 
-#         <AppVersion>0</AppVersion> 
-#         <AppType>3</AppType> 
-#         <TSSessionId>0</TSSessionId> 
-#         <Status>262146</Status> 
-#         <Pid>4220</Pid> 
-#         <nFiles>3</nFiles> 
+#         <RmSessionId>0</RmSessionId>
+#         <FullPath>RealPlayerUpdateSvc.exe</FullPath>
+#         <DisplayName>RealPlayer Update Service</DisplayName>
+#         <AppVersion>0</AppVersion>
+#         <AppType>3</AppType>
+#         <TSSessionId>0</TSSessionId>
+#         <Status>262146</Status>
+#         <Pid>4220</Pid>
+#         <nFiles>3</nFiles>
 #         <Files>
-#             <File>C:\Program Files (x86)\Real\UpdateService\RealPlayerUpdateSvc.exe</File> 
-#             <File>C:\Program Files (x86)\Real\UpdateService\RealDownloaderUpdatePlugin.dll</File> 
-#             <File>C:\Program Files (x86)\Real\UpdateService\VideoDLUpdatePlugin.dll</File> 
+#             <File>C:\Program Files (x86)\Real\UpdateService\RealPlayerUpdateSvc.exe</File>
+#             <File>C:\Program Files (x86)\Real\UpdateService\RealDownloaderUpdatePlugin.dll</File>
+#             <File>C:\Program Files (x86)\Real\UpdateService\VideoDLUpdatePlugin.dll</File>
 #         </Files>
 #     </RmApplicationEvent>
 #   </UserData>

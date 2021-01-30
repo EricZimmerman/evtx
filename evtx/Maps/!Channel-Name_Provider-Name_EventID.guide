@@ -113,8 +113,8 @@ Lookups: # Here is an example of a Lookup Table taken from System_Microsoft-Wind
 # Delete this line. Under Example Event Data, please "cite your source" and cleanse your data of any identifying information so the community can see how these events record the data in the XML format. To convert a .evtx file to XML format, check the README and search for XML. Microsoft often has example XML data that can be used. For other events, be sure sensitive data is removed before you make a commit to GitHub!
 #
 # Example Event Data:
-#- <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
-#- <System>
+#  <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#  <System>
 # <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-A5BA-3E3B0328C30D}" /> 
 # <EventID>4742</EventID> 
 # <Version>0</Version> 
@@ -130,7 +130,7 @@ Lookups: # Here is an example of a Lookup Table taken from System_Microsoft-Wind
 # <Computer>DC01.contoso.local</Computer> 
 # <Security /> 
 # </System>
-#- <EventData>
+#  <EventData>
 # <Data Name="ComputerAccountChange">-</Data> 
 # <Data Name="TargetUserName">WIN81$</Data> 
 # <Data Name="TargetDomainName">CONTOSO</Data> 

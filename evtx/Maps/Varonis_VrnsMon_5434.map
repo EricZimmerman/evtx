@@ -4,11 +4,11 @@ EventId: 5434
 Channel: Varonis
 Provider: "VrnsMon"
 Maps:
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "%Data%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Data
         Value: "/Event/EventData/Data"
 
@@ -16,7 +16,7 @@ Maps:
 # There is no public documentation on these events. Varonis is a data security platform so some file system activity appears to be tracked by it.
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="VrnsMon" />
 #    <EventID Qualifiers="0">5434</EventID>
@@ -31,7 +31,7 @@ Maps:
 #  </System>
 #  <EventData>
 #    <Data>VrnsMon, 1234, 5678, The system is shutting down.
-#No emails or event viewer notifications will be sent.</Data>
+# No emails or event viewer notifications will be sent.</Data>
 #    <Binary></Binary>
 #  </EventData>
-#</Event>
+# </Event>

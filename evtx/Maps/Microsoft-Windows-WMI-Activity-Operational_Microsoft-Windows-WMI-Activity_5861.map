@@ -3,28 +3,28 @@ Description: WMI Registration of Permanent Event Consumer
 EventId: 5861
 Channel: Microsoft-Windows-WMI-Activity/Operational
 Provider: Microsoft-Windows-WMI-Activity
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "Ess: %ESS%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ESS
         Value: "/Event/UserData/Operation_ESStoConsumerBinding/ESS"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "%PossibleCause%"
-    Values: 
-      - 
+    Values:
+      -
         Name: PossibleCause
         Value: "/Event/UserData/Operation_ESStoConsumerBinding/PossibleCause"
- 
+
 # Documentation:
 # https://www.darkoperator.com/blog/2017/10/14/basics-of-tracking-wmi-activity
 # WMI Registration of Permanent Event Consumer
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-WMI-Activity" Guid="1418ef04-b0b4-4623-bf7e-d74ab47bbdaa" />
 #    <EventID>5861</EventID>
@@ -49,4 +49,4 @@ Maps:
 #      <PossibleCause>Binding EventFilter: , instance of __EventFilter, {, CreatorSID = {1, 2, 0, 0, 0, 0, 0, 5, 32, 0, 0, 0, 32, 2, 0, 0};, EventNamespace = "root\\cimv2";, Name = "SCM Event Log Filter";, Query = "select * from MSFT_SCMEventLogEvent";, QueryLanguage = "WQL";, };, Perm. Consumer: , instance of NTEventLogEventConsumer, {, Category = 0;, CreatorSID = {1, 2, 0, 0, 0, 0, 0, 5, 32, 0, 0, 0, 32, 2, 0, 0};, EventType = 1;, Name = "SCM Event Log Consumer";, NameOfUserSIDProperty = "sid";, SourceName = "Service Control Manager";, };, </PossibleCause>
 #    </Operation_ESStoConsumerBinding>
 #  </UserData>
-#</Event>
+# </Event>

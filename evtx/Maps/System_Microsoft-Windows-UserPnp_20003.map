@@ -3,51 +3,51 @@ Description: Service installation
 EventId: 20003
 Channel: System
 Provider: "Microsoft-Windows-UserPnp"
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "ServiceName: %ServiceName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ServiceName
         Value: "/Event/UserData/AddServiceID/ServiceName"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "AddServiceStatus: %AddServiceStatus%"
-    Values: 
-      - 
+    Values:
+      -
         Name: AddServiceStatus
         Value: "/Event/UserData/AddServiceID/AddServiceStatus"
-  - 
-    Property: PayloadData4                                                  	
+  -
+    Property: PayloadData4
     PropertyValue: "UpdateService: %UpdateService%"
-    Values: 
-      - 
+    Values:
+      -
         Name: UpdateService
         Value: "/Event/UserData/AddServiceID/UpdateService"
-  - 
+  -
     Property: PayloadData5
     PropertyValue: "PrimaryService: %PrimaryService%"
-    Values: 
-      - 
+    Values:
+      -
         Name: PrimaryService
         Value: "/Event/UserData/AddServiceID/PrimaryService"
   -
     Property: PayloadData6
     PropertyValue: "DeviceInstanceID: %DeviceInstanceID%"
-    Values: 
-      - 
+    Values:
+      -
         Name: DeviceInstanceID
         Value: "/Event/UserData/AddServiceID/DeviceInstanceID"
-  - 
+  -
     Property: ExecutableInfo
     PropertyValue: "%DriverFileName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: DriverFileName
         Value: "/Event/UserData/AddServiceID/DriverFileName"
 
-Lookups: 
+Lookups:
   -
     Name: AddServiceStatus
     Default: Unknown code
@@ -70,7 +70,7 @@ Lookups:
 # https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-r2-and-2008/dd349407(v=ws.10)
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-UserPnp" Guid="96f4a050-7e31-453c-88be-9634f4e02139" />
 #    <EventID>20003</EventID>
@@ -97,4 +97,4 @@ Lookups:
 #      <AddServiceStatus>0</AddServiceStatus>
 #    </AddServiceID>
 #  </UserData>
-#</Event>
+# </Event>

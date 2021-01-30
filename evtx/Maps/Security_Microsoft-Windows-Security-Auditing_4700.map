@@ -3,36 +3,36 @@ Description: A scheduled task was enabled
 EventId: 4700
 Channel: Security
 Provider: Microsoft-Windows-Security-Auditing
-Maps: 
-  - 
+Maps:
+  -
     Property: UserName
     PropertyValue: "%domain%\\%user%"
-    Values: 
-      - 
+    Values:
+      -
         Name: domain
         Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
-      - 
+      -
         Name: user
         Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "TaskName: %TaskName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TaskName
         Value: "/Event/EventData/Data[@Name=\"TaskName\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "TaskContent: %TaskContent%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TaskContent
         Value: "/Event/EventData/Data[@Name=\"TaskContent\"]"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "SubjectUserSid: %SubjectUserSid%"
-    Values: 
-      - 
+    Values:
+      -
         Name: SubjectUserSid
         Value: "/Event/EventData/Data[@Name=\"SubjectUserSid\"]"
 
@@ -41,7 +41,7 @@ Maps:
 # https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4700
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Security-Auditing" Guid="54135825-5478-4994-a5ba-3e3a7928c30d" />
 #    <EventID>4700</EventID>
@@ -66,4 +66,4 @@ Maps:
 #    <Data Name="TaskName">\Microsoft\Windows\UpdateOrchestrator\Resume On Boot</Data>
 #    <Data Name="TaskContent">&amp;lt;?xml version="1.0" encoding="UTF-16"?&amp;gt;, &amp;lt;Task version="1.2"&amp;gt;,     &amp;lt;Exec&amp;gt;,       &amp;lt;Command&amp;gt;%systemroot%\system32\123client.exe&amp;lt;/Command&amp;gt;,       &amp;lt;Arguments&amp;gt;ResumeUpdate&amp;lt;/Arguments&amp;gt;,     &amp;lt;/Exec&amp;gt;,   &amp;lt;/Actions&amp;gt;, &amp;lt;/Task&amp;gt;</Data>
 #  </EventData>
-#</Event>
+# </Event>

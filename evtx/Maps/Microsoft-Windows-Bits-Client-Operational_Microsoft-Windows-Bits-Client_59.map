@@ -7,49 +7,49 @@ Maps:
    -
     Property: PayloadData1
     PropertyValue: "jobTitle: %jobTitle%"
-    Values: 
-      - 
+    Values:
+      -
         Name: jobTitle
         Value: "/Event/EventData/Data[@Name=\"name\"]"
    -
     Property: PayloadData2
     PropertyValue: "jobId: %jobId%"
-    Values: 
-      - 
+    Values:
+      -
         Name: jobId
         Value: "/Event/EventData/Data[@Name=\"Id\"]"
    -
     Property: PayloadData3
     PropertyValue: "URL: %url%"
-    Values: 
-      - 
+    Values:
+      -
         Name: url
         Value: "/Event/EventData/Data[@Name=\"url\"]"
    -
     Property: PayloadData4
     PropertyValue: "Peer: %peer%"
-    Values: 
-      - 
+    Values:
+      -
         Name: peer
-        Value: "/Event/EventData/Data[@Name=\"peer\"]"     
+        Value: "/Event/EventData/Data[@Name=\"peer\"]"
    -
     Property: PayloadData5
     PropertyValue: "Total Bytes: %bytesTotal% (Transferred: %bytesTransferred%)"
-    Values: 
-      - 
+    Values:
+      -
         Name: bytesTotal
-        Value: "/Event/EventData/Data[@Name=\"bytesTotal\"]" 
-      - 
+        Value: "/Event/EventData/Data[@Name=\"bytesTotal\"]"
+      -
         Name: bytesTransferred
-        Value: "/Event/EventData/Data[@Name=\"bytesTransferred\"]" 
+        Value: "/Event/EventData/Data[@Name=\"bytesTransferred\"]"
    -
     Property: PayloadData6
     PropertyValue: "Bytes Transferred from Peer: %bytesTransferredFromPeer%"
-    Values: 
-      - 
+    Values:
+      -
         Name: bytesTransferredFromPeer
-        Value: "/Event/EventData/Data[@Name=\"bytesTransferredFromPeer\"]" 
-                                                                    
+        Value: "/Event/EventData/Data[@Name=\"bytesTransferredFromPeer\"]"
+
 # Documentation:
 # https://kb.eventtracker.com/evtpass/evtPages/EventId_59_Microsoft-Windows-Bits-Client_64109.asp
 # https://jpcertcc.github.io/ToolAnalysisResultSheet/details/BITS.htm
@@ -59,7 +59,7 @@ Maps:
 # https://docs.microsoft.com/de-de/security-updates/windowsupdateservices/18127392
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Bits-Client" Guid="ef6y679b-46c1-414e-bb95-e76b077bd51e" />
 #    <EventID>59</EventID>
@@ -88,4 +88,4 @@ Maps:
 #    <Data Name="bytesTransferred">0</Data>
 #    <Data Name="bytesTransferredFromPeer">0</Data>
 #  </EventData>
-#</Event>
+# </Event>

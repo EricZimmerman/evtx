@@ -3,26 +3,26 @@ Description: NTLM authentication request
 EventId: 4776
 Channel: Security
 Provider: Microsoft-Windows-Security-Auditing
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "Target: %TargetUserName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TargetUserName
         Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "Workstation: %Workstation%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Workstation
         Value: "/Event/EventData/Data[@Name=\"Workstation\"]"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "Status: %Status%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Status
         Value: "/Event/EventData/Data[@Name=\"Status\"]"
 
@@ -31,7 +31,7 @@ Maps:
 # https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4776
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Security-Auditing" Guid="54849625-5478-4994-a5ba-3e3b0328c30d" />
 #    <EventID>4776</EventID>
@@ -54,4 +54,4 @@ Maps:
 #    <Data Name="Workstation">BASE-RD-01</Data>
 #    <Data Name="Status">0xC0000064</Data>
 #  </EventData>
-#</Event>
+# </Event>

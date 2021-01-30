@@ -3,22 +3,22 @@ Description: Event log cleared
 EventId: 104
 Channel: System
 Provider: Microsoft-Windows-Eventlog
-Maps: 
-  - 
+Maps:
+  -
     Property: UserName
-    PropertyValue: "%domain%\\%user%" 
-    Values: 
-      - 
+    PropertyValue: "%domain%\\%user%"
+    Values:
+      -
         Name: domain
         Value: "/Event/UserData/LogFileCleared/SubjectDomainName"
-      - 
+      -
         Name: user
         Value: "/Event/UserData/LogFileCleared/SubjectUserName"
-  - 
+  -
     Property: PayloadData1
-    PropertyValue: The %Channel% log file was cleared 
-    Values: 
-      - 
+    PropertyValue: The %Channel% log file was cleared
+    Values:
+      -
         Name: Channel
         Value: "/Event/UserData/LogFileCleared/Channel"
 

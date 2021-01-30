@@ -1,49 +1,49 @@
 Author: Andrew Rathbun
-Description: A user initiated a system restart 
+Description: A user initiated a system restart
 EventId: 1074
 Channel: System
 Provider: User32
-Maps: 
-  - 
-    Property: UserName 
+Maps:
+  -
+    Property: UserName
     PropertyValue: "%user%"
-    Values: 
-      - 
+    Values:
+      -
         Name: user
         Value: "/Event/EventData/Data[@Name=\"param7\"]"
-  - 
-    Property: ExecutableInfo 
+  -
+    Property: ExecutableInfo
     PropertyValue: "%ProcessName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ProcessName
         Value: "/Event/EventData/Data[@Name=\"param1\"]"
-  - 
-    Property: PayloadData1 
+  -
+    Property: PayloadData1
     PropertyValue: "Hostname: %Hostname%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Hostname
         Value: "/Event/EventData/Data[@Name=\"param2\"]"
-  - 
-    Property: PayloadData2 
+  -
+    Property: PayloadData2
     PropertyValue: "Reason: %Reason%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Reason
         Value: "/Event/EventData/Data[@Name=\"param3\"]"
-  - 
-    Property: PayloadData3 
+  -
+    Property: PayloadData3
     PropertyValue: "Type: %Type%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Type
         Value: "/Event/EventData/Data[@Name=\"param5\"]"
-  - 
-    Property: PayloadData4 
+  -
+    Property: PayloadData4
     PropertyValue: "Code: %Code%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Code
         Value: "/Event/EventData/Data[@Name=\"param4\"]"
 
@@ -51,7 +51,7 @@ Maps:
 # https://superuser.com/questions/767143/find-out-why-pc-just-restarted-for-no-reason
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="User32" Guid="{b0aa8734-56f7-41cc-b2f4-de628e98b946}" EventSourceName="User32" />
 #    <EventID Qualifiers="32768">1074</EventID>
@@ -77,4 +77,4 @@ Maps:
 #    <Data Name="param6"></Data>
 #    <Data Name="param7">NT AUTHORITY\SYSTEM</Data>
 #  </EventData>
-#</Event>
+# </Event>

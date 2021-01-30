@@ -46,30 +46,30 @@ Maps:
 # Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #    <System>
-#        <Provider Name="Microsoft-Windows-WLAN-AutoConfig" Guid="{GUID}" /> 
-#        <EventID>8003</EventID> 
-#        <Version>0</Version> 
-#        <Level>4</Level> 
-#        <Task>24010</Task> 
-#        <Opcode>192</Opcode> 
-#        <Keywords>0x8000000040000600</Keywords> 
-#        <TimeCreated SystemTime="2020-12-02T23:01:09.8177071Z" /> 
-#        <EventRecordID>16</EventRecordID> 
-#        <Correlation /> 
-#        <Execution ProcessID="3352" ThreadID="3520" /> 
-#        <Channel>Microsoft-Windows-WLAN-AutoConfig/Operational</Channel> 
-#        <Computer>ComputerName</Computer> 
-#        <Security UserID="S-1-5-18" /> 
+#        <Provider Name="Microsoft-Windows-WLAN-AutoConfig" Guid="{GUID}" />
+#        <EventID>8003</EventID>
+#        <Version>0</Version>
+#        <Level>4</Level>
+#        <Task>24010</Task>
+#        <Opcode>192</Opcode>
+#        <Keywords>0x8000000040000600</Keywords>
+#        <TimeCreated SystemTime="2020-12-02T23:01:09.8177071Z" />
+#        <EventRecordID>16</EventRecordID>
+#        <Correlation />
+#        <Execution ProcessID="3352" ThreadID="3520" />
+#        <Channel>Microsoft-Windows-WLAN-AutoConfig/Operational</Channel>
+#        <Computer>ComputerName</Computer>
+#        <Security UserID="S-1-5-18" />
 #    </System>
 #    <EventData>
-#        <Data Name="InterfaceGuid">{InterfaceGuid}</Data> 
-#        <Data Name="InterfaceDescription">Intel(R) Dual Band Wireless-AC 7265</Data> 
-#        <Data Name="ConnectionMode">{ConnectionMode}</Data> 
-#        <Data Name="ProfileName">asdf</Data> 
-#        <Data Name="SSID">asdf</Data> 
-#        <Data Name="BSSType">Infrastructure</Data> 
-#        <Data Name="Reason">{Reason}</Data> 
-#        <Data Name="ConnectionId">0x3</Data> 
-#        <Data Name="ReasonCode">2</Data> 
+#        <Data Name="InterfaceGuid">{InterfaceGuid}</Data>
+#        <Data Name="InterfaceDescription">Intel(R) Dual Band Wireless-AC 7265</Data>
+#        <Data Name="ConnectionMode">{ConnectionMode}</Data>
+#        <Data Name="ProfileName">asdf</Data>
+#        <Data Name="SSID">asdf</Data>
+#        <Data Name="BSSType">Infrastructure</Data>
+#        <Data Name="Reason">{Reason}</Data>
+#        <Data Name="ConnectionId">0x3</Data>
+#        <Data Name="ReasonCode">2</Data>
 #    </EventData>
 # </Event>

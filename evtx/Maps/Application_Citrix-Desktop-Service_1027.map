@@ -3,20 +3,20 @@ Description: Citrix user session started
 EventId: 1027
 Channel: Application
 Provider: "Citrix Desktop Service"
-Maps: 
-  - 
+Maps:
+  -
     Property: Username
     PropertyValue: "Target: %user%"
-    Values: 
-      - 
+    Values:
+      -
         Name: user
         Value: "/Event/EventData/Data"
         Refine: "^.*(?=, )"
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "SessionID: %SessionID%"
-    Values: 
-      - 
+    Values:
+      -
         Name: SessionID
         Value: "/Event/EventData/Data"
         Refine: "[0-9a-z]{8}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{4}-[0-9a-z]{12}"

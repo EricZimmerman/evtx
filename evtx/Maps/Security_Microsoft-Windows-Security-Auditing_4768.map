@@ -3,46 +3,46 @@ Description: A Kerberos authentication ticket (TGT) was requested
 EventId: 4768
 Channel: Security
 Provider: Microsoft-Windows-Security-Auditing
-Maps: 
-  - 
+Maps:
+  -
     Property: RemoteHost
     PropertyValue: "%ipAddress%:%port%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ipAddress
         Value: "/Event/EventData/Data[@Name=\"IpAddress\"]"
-      - 
+      -
         Name: port
         Value: "/Event/EventData/Data[@Name=\"IpPort\"]"
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "Target: %domain%\\%user%"
-    Values: 
-      - 
+    Values:
+      -
         Name: domain
         Value: "/Event/EventData/Data[@Name=\"TargetDomainName\"]"
-      - 
+      -
         Name: user
         Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "ServiceName: %ServiceName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ServiceName
         Value: "/Event/EventData/Data[@Name=\"ServiceName\"]"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "ServiceSid: %ServiceSid%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ServiceSid
         Value: "/Event/EventData/Data[@Name=\"ServiceSid\"]"
-  - 
+  -
     Property: PayloadData4
     PropertyValue: "TicketEncryptionType: %TicketEncryptionType%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TicketEncryptionType
         Value: "/Event/EventData/Data[@Name=\"TicketEncryptionType\"]"
 
@@ -65,7 +65,7 @@ Lookups:
 # https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4768
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Security-Auditing" Guid="54849625-5478-4994-a5ba-3e3b0328c30d" />
 #    <EventID>4768</EventID>
@@ -98,4 +98,4 @@ Lookups:
 #    <Data Name="CertSerialNumber"></Data>
 #    <Data Name="CertThumbprint"></Data>
 #  </EventData>
-#</Event>
+# </Event>

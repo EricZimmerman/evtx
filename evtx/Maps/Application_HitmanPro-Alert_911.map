@@ -3,20 +3,20 @@ Description: HitmanPro ALERT Identified
 EventId: 911
 Channel: Application
 Provider: HitmanPro.Alert
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "Event: %Data%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Data
         Value: "/Event/EventData/Data"
-     
+
 # Documentation:
 # N/A
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="HitmanPro.Alert" />
 #    <EventID Qualifiers="0">911</EventID>
@@ -33,5 +33,4 @@ Maps:
 #    <Data>111.111.111.111, CryptoGuard, Auto-unblock 111.111.111.111</Data>
 #    <Binary></Binary>
 #  </EventData>
-#</Event>
- 
+# </Event>

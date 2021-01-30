@@ -4,25 +4,25 @@ EventId: 500
 Channel: "Microsoft-Windows-Application-Experience/Program-Telemetry"
 Provider: Microsoft-Windows-Application-Experience
 Maps:
-  - 
+  -
     Property: ExecutableInfo
     PropertyValue: "%ExePath%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ExePath
-        Value: "/Event/UserData/CompatibilityFixEvent/ExePath" 
-  - 
+        Value: "/Event/UserData/CompatibilityFixEvent/ExePath"
+  -
     Property: PayloadData1
     PropertyValue: "ProcessId: %ProcessId%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ProcessId
         Value: "/Event/UserData/CompatibilityFixEvent/ProcessId"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "StartTime: %StartTime%"
-    Values: 
-      - 
+    Values:
+      -
         Name: StartTime
         Value: "/Event/UserData/CompatibilityFixEvent/StartTime"
 
@@ -30,7 +30,7 @@ Maps:
 # https://www.hecfblog.com/2018/09/daily-blog-474-application-experience.html
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Application-Experience" Guid="eef99e71-0661-422d-9a98-82fd4940b820" />
 #    <EventID>500</EventID>
@@ -57,4 +57,4 @@ Maps:
 #      <FixName>RunAsInvoker</FixName>
 #    </CompatibilityFixEvent>
 #  </UserData>
-#</Event>
+# </Event>

@@ -3,12 +3,12 @@ Description: Disconnect from the Internet
 EventId: 10001
 Channel: "Microsoft-Windows-NetworkProfile/Operational"
 Provider: Microsoft-Windows-NetworkProfile
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "%PayloadData1%"
-    Values: 
-      - 
+    Values:
+      -
         Name: PayloadData1
         Value: "/Event/EventData/Data[@Name=\"Description\"]"
 

@@ -3,12 +3,12 @@ Description: An account was mapped for logon
 EventId: 4774
 Channel: Security
 Provider: Microsoft-Windows-Security-Auditing
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "Target: %TargetUserName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TargetUserName
         Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
 
@@ -16,7 +16,7 @@ Maps:
 # https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4774
 # https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4774
 # Per Microsoft, success events do not generate.
-# This map is in place in case this event does come across in logs so the Map Description field will be populated. 
+# This map is in place in case this event does come across in logs so the Map Description field will be populated.
 #
 # Example Event Data:
 # N/A

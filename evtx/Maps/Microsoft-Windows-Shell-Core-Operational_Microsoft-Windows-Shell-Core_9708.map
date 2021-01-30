@@ -3,27 +3,27 @@ Description: Finished execution of command
 EventId: 9708
 Channel: Microsoft-Windows-Shell-Core/Operational
 Provider: Microsoft-Windows-Shell-Core
-Maps: 
-  - 
+Maps:
+  -
     Property: ExecutableInfo
     PropertyValue: "%CommandLine%"
-    Values: 
-      - 
+    Values:
+      -
         Name: CommandLine
         Value: "/Event/EventData/Data[@Name=\"Command\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "PID: %ProcessId%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ProcessId
         Value: "/Event/EventData/Data[@Name=\"PID\"]"
-   
+
 # Documentation:
 # https://www.geoffchappell.com/notes/windows/shell/events/core.htm
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Shell-Core" Guid="30336ed4-e327-447c-9de0-51b652c86108" />
 #    <EventID>9708</EventID>
@@ -41,7 +41,7 @@ Maps:
 #    <Security UserID="" />
 #  </System>
 #  <EventData>
-#    <Data Name="PID">2052</Data> 
-#    <Data Name="Command">BrCcBoot.exe /autorun</Data> 
+#    <Data Name="PID">2052</Data>
+#    <Data Name="Command">BrCcBoot.exe /autorun</Data>
 #  </EventData>
-#</Event>
+# </Event>

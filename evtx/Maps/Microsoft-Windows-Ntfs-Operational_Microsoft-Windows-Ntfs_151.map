@@ -37,7 +37,7 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"CountDeleteFile\"]"
       -
         Name: ProcessName
-        Value: "/Event/EventData/Data[@Name=\"ProcessName\"]"                      
+        Value: "/Event/EventData/Data[@Name=\"ProcessName\"]"
   -
     Property: PayloadData4
     PropertyValue: "VolumeName: %VolumeName%"

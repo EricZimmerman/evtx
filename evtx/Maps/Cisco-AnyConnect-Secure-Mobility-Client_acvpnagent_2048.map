@@ -1,14 +1,14 @@
-Author: Mike Brewer 
+Author: Mike Brewer
 Description: Cisco AnyConnect VPN encrypted connection type
 EventId: 2048
 Channel: "Cisco AnyConnect Secure Mobility Client"
 Provider: acvpnagent
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "%PayloadData1%"
-    Values: 
-      - 
+    Values:
+      -
         Name: PayloadData1
         Value: "/Event/EventData/Data"
         Refine: "(?<=, )[^,\\d]+(?=,)"

@@ -4,19 +4,19 @@ EventId: 1106
 Channel: Application
 Provider: MetaFrameEvents
 Maps:
-  - 
+  -
     Property: RemoteHost
     PropertyValue: "%ClientName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ClientName
         Value: "/Event/EventData/Data"
-        Refine: "^[a-z0-9-]*"        
-  - 
+        Refine: "^[a-z0-9-]*"
+  -
     Property: PayloadData1
     PropertyValue: "Printer: %Printer%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Printer
         Value: "/Event/EventData/Data"
         Refine: "(?<=, ).*"

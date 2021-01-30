@@ -3,42 +3,42 @@ Description: Detection - The antimalware engine found malware or other potential
 EventId: 1006
 Channel: Microsoft-Windows-Windows Defender/Operational
 Provider: Microsoft-Windows-Windows Defender
-Maps: 
-  - 
+Maps:
+  -
     Property: UserName
     PropertyValue: "%Domain%\\%User%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Domain
         Value: "/Event/EventData/Data[@Name=\"Domain\"]"
-      - 
+      -
         Name: User
         Value: "/Event/EventData/Data[@Name=\"User\"]"
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "Threat Name: %ThreatName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ThreatName
         Value: "/Event/EventData/Data[@Name=\"Threat Name\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "Severity: %SeverityID%:%SeverityName% -- Category: %CategoryName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: SeverityID
         Value: "/Event/EventData/Data[@Name=\"Severity ID\"]"
-      - 
+      -
         Name: SeverityName
         Value: "/Event/EventData/Data[@Name=\"Severity Name\"]"
-      - 
+      -
         Name: CategoryName
         Value: "/Event/EventData/Data[@Name=\"Category Name\"]"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "Link: %FWLink%"
-    Values: 
-      - 
+    Values:
+      -
         Name: FWLink
         Value: "/Event/EventData/Data[@Name=\"FWLink\"]"
 
@@ -46,7 +46,7 @@ Maps:
 # https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-antivirus/troubleshoot-microsoft-defender-antivirus
 #
 # Example Event Data:
-#<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #  <System>
 #    <Provider Name="Microsoft-Windows-Windows Defender" Guid="{11cd958a-c507-4ef3-b3f2-5fd9dfbd2c78}" />
 #    <EventID>1006</EventID>
@@ -100,4 +100,4 @@ Maps:
 #    <Data Name="Severity Name">Severe</Data>
 #    <Data Name="Category Name">Password Stealer</Data>
 #  </EventData>
-#</Event>
+# </Event>

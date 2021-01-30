@@ -18,22 +18,22 @@ Maps:
 # Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 # <System>
-#   <Provider Name="Microsoft-Windows-User Profiles Service" Guid="{GUID}" /> 
-#   <EventID>4</EventID> 
-#   <Version>0</Version> 
-#   <Level>4</Level> 
-#   <Task>0</Task> 
-#   <Opcode>0</Opcode> 
-#   <Keywords>0x4000000000000000</Keywords> 
-#   <TimeCreated SystemTime="2020-12-26T17:07:51.4488322Z" /> 
-#   <EventRecordID>724</EventRecordID> 
-#   <Correlation /> 
-#   <Execution ProcessID="1468" ThreadID="10196" /> 
-#   <Channel>Microsoft-Windows-User Profile Service/Operational</Channel> 
-#   <Computer>ComputerName</Computer> 
-#   <Security UserID="{UserID}" /> 
+#   <Provider Name="Microsoft-Windows-User Profiles Service" Guid="{GUID}" />
+#   <EventID>4</EventID>
+#   <Version>0</Version>
+#   <Level>4</Level>
+#   <Task>0</Task>
+#   <Opcode>0</Opcode>
+#   <Keywords>0x4000000000000000</Keywords>
+#   <TimeCreated SystemTime="2020-12-26T17:07:51.4488322Z" />
+#   <EventRecordID>724</EventRecordID>
+#   <Correlation />
+#   <Execution ProcessID="1468" ThreadID="10196" />
+#   <Channel>Microsoft-Windows-User Profile Service/Operational</Channel>
+#   <Computer>ComputerName</Computer>
+#   <Security UserID="{UserID}" />
 #  </System>
 #  <EventData>
-#   <Data Name="Session">2</Data> 
+#   <Data Name="Session">2</Data>
 #  </EventData>
 #  </Event>

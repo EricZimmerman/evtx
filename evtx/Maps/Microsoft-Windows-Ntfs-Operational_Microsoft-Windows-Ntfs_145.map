@@ -28,11 +28,11 @@ Maps:
 
 # Documentation:
 # https://forensixchange.com/posts/19_08_03_usb_storage_forensics_1/
-# Events are created during the first connection since the startup. 
+# Events are created during the first connection since the startup.
 # So if the user removes the drive and attaches it again no new logs are going to be made according to my investigation.
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Ntfs" Guid="3dd37a1c-a68d-4d6e-8c9b-f79e8b16c482" />
 #    <EventID>145</EventID>
@@ -77,4 +77,4 @@ Maps:
 #    <Data Name="FlushLatencyBucket6">0</Data>
 #    <Data Name="FlushLatencyBucket7">0</Data>
 #  </EventData>
-#</Event>
+# </Event>

@@ -3,28 +3,28 @@ Description: Sophos System Protection
 EventId: 42
 Channel: Application
 Provider: "Sophos System Protection"
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "%File%"
-    Values: 
-      - 
+    Values:
+      -
         Name: File
         Value: "/Event/EventData/Data"
         Refine: "FilePath\":\"(.+)\",\"R"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "%Hash%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Hash
         Value: "/Event/EventData/Data"
         Refine: "SHA1FileHash\":\"(.{40})"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "%Size%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Size
         Value: "/Event/EventData/Data"
         Refine: "FileSize\":\"(.+)\",\"F"
@@ -33,7 +33,7 @@ Maps:
 # N/A
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Sophos System Protection" />
 #    <EventID Qualifiers="37">42</EventID>
@@ -48,7 +48,7 @@ Maps:
 #  </System>
 #  <EventData>
 #    <Data>File, C:\Windows\CSC\v2.0.6\namespace\REDACTED\RedirectedFolders\REDACTED\Downloads\CouponPrinter.exe, Generic PUA CN, SAV, {"ConfigVersion":"3fb696c2c927db995030414188d357143027cdb5164dd3e84a8999906a723c2d","ReputationSource":"unavailable","LocalReputation":"-1","LocalReputationSampleRate":"0","MLScoreMain":"37","MLScorePua":"8","MLSuppressed":"0","GlobalReputation":"28","SHA256FileHash":"6cdffa41e63906094a3d7c15f9cdecbc15ac97edd200f9db015a8162980fe4fd","SHA1FileHash":"2d37f1e76d78dce49cc0ed49d4db0e8dcb931d47","FileSize":" 2810448","FilePath":"C:\\Windows\\CSC\\v2.0.6\\namespace\\REDACTED\\RedirectedFolders\\REDACTED\\Downloads\\CouponPrinter.exe","Remote":"No","ScanEvalReason":"JIT (On-write)","Certificates":[{"CertificateSigner":"Coupons, Inc.","CertificateThumbprint":"f5585d9c39812e3b61ee0b9465a54a828e2238cab49c6ac7b5e9afbe3c14c180","CertificateAlgorithm":"SHA1","CertificateSignatureLocation":"Embedded"}]}
-#</Data>
+# </Data>
 #    <Binary></Binary>
 #  </EventData>
-#</Event>
+# </Event>

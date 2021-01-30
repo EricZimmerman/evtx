@@ -3,29 +3,29 @@ Description: Scheduled Task created
 EventId: 4698
 Channel: Security
 Provider: Microsoft-Windows-Security-Auditing
-Maps: 
-  - 
+Maps:
+  -
     Property: UserName
     PropertyValue: "%domain%\\%user%"
-    Values: 
-      - 
+    Values:
+      -
         Name: domain
         Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
-      - 
+      -
         Name: user
         Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "TaskName: %TaskName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TaskName
         Value: "/Event/EventData/Data[@Name=\"TaskName\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "TaskContent: %TaskContent%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TaskContent
         Value: "/Event/EventData/Data[@Name=\"TaskContent\"]"
 
@@ -34,7 +34,7 @@ Maps:
 # https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4698
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Security-Auditing" Guid="54849625-5478-4123-a5ba-3e3z45698c30d" />
 #    <EventID>4698</EventID>
@@ -59,4 +59,4 @@ Maps:
 #    <Data Name="TaskName">\Microsoft\Windows\UpdateOrchestrator\AC Power Download</Data>
 #    <Data Name="TaskContent">&amp;lt;?xml version="1.0" encoding="UTF-16"?&amp;gt;, &amp;lt;Task version="1.4"&amp;gt;,       &amp;lt;UserId&amp;gt;S-1-5-18&amp;lt;/UserId&amp;gt;,       &amp;lt;RunLevel&amp;gt;LeastPrivilege&amp;lt;/RunLevel&amp;gt;,     &amp;lt;/Principal&amp;gt;,   &amp;lt;/Principals&amp;gt;, &amp;lt;/Task&amp;gt;</Data>
 #  </EventData>
-#</Event>
+# </Event>

@@ -3,36 +3,36 @@ Description: Update - The antimalware definitions updated successfully
 EventId: 2000
 Channel: Microsoft-Windows-Windows Defender/Operational
 Provider: Microsoft-Windows-Windows Defender
-Maps: 
-  - 
+Maps:
+  -
     Property: UserName
     PropertyValue: "%Domain%\\%User%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Domain
         Value: "/Event/EventData/Data[@Name=\"Domain\"]"
-      - 
+      -
         Name: User
         Value: "/Event/EventData/Data[@Name=\"User\"]"
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "Current: %CurrentSignatureVersion%"
-    Values: 
-      - 
+    Values:
+      -
         Name: CurrentSignatureVersion
         Value: "/Event/EventData/Data[@Name=\"Current Signature Version\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "Current: %PreviousSignatureVersion%"
-    Values: 
-      - 
+    Values:
+      -
         Name: PreviousSignatureVersion
         Value: "/Event/EventData/Data[@Name=\"Previous Signature Version\"]"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "Product Version: %ProductVersion%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ProductVersion
         Value: "/Event/EventData/Data[@Name=\"Product Version\"]"
 
@@ -40,7 +40,7 @@ Maps:
 # https://docs.microsoft.com/en-us/windows/security/threat-protection/microsoft-defender-antivirus/troubleshoot-microsoft-defender-antivirus
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Windows Defender" Guid="11cd958a-c507-4ef3-b3f2-5fd9dfbd2c78" />
 #    <EventID>2000</EventID>
@@ -75,4 +75,4 @@ Maps:
 #    <Data Name="Current Engine Version">1.1.17500.4</Data>
 #    <Data Name="Previous Engine Version">1.1.17500.4</Data>
 #  </EventData>
-#</Event>
+# </Event>

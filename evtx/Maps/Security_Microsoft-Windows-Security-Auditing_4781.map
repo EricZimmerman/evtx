@@ -3,46 +3,46 @@ Description: The name of an account was changed
 EventId: 4781
 Channel: Security
 Provider: Microsoft-Windows-Security-Auditing
-Maps: 
-  - 
+Maps:
+  -
     Property: UserName
     PropertyValue: "%domain%\\%user% (%sid%)"
-    Values: 
-      - 
+    Values:
+      -
         Name: domain
         Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
-      - 
+      -
         Name: user
         Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
-      - 
+      -
         Name: sid
         Value: "/Event/EventData/Data[@Name=\"SubjectUserSid\"]"
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "OldTargetUserName: %OldTargetUserName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: OldTargetUserName
         Value: "/Event/EventData/Data[@Name=\"OldTargetUserName\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "NewTargetUserName: %NewTargetUserName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: NewTargetUserName
         Value: "/Event/EventData/Data[@Name=\"NewTargetUserName\"]"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "TargetDomainName: %TargetDomainName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TargetDomainName
         Value: "/Event/EventData/Data[@Name=\"TargetDomainName\"]"
-  - 
+  -
     Property: PayloadData4
     PropertyValue: "TargetSid: %TargetSid%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TargetSid
         Value: "/Event/EventData/Data[@Name=\"TargetSid\"]"
 
@@ -51,7 +51,7 @@ Maps:
 # https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4781
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Security-Auditing" Guid="54856625-5478-7794-a5ba-3e3b0328c30d" />
 #    <EventID>4781</EventID>
@@ -79,4 +79,4 @@ Maps:
 #    <Data Name="SubjectLogonId">0x3E7</Data>
 #    <Data Name="PrivilegeList">-</Data>
 #  </EventData>
-#</Event>
+# </Event>

@@ -4,11 +4,11 @@ EventId: 0
 Channel: Application
 Provider: WSH
 Maps:
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "%PayloadData1%"
-    Values: 
-      - 
+    Values:
+      -
         Name: PayloadData1
         Value: "/Event/EventData/Data"
 

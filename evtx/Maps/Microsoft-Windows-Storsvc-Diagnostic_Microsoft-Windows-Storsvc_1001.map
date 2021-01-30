@@ -46,7 +46,7 @@ Maps:
       -
         Name: BusType
         Value: "/Event/EventData/Data[@Name=\"BusType\"]"
-Lookups: 
+Lookups:
   -
     Name: BusType
     Default: Unknown code
@@ -77,34 +77,34 @@ Lookups:
 # Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
-#     <Provider Name="Microsoft-Windows-Storsvc" Guid="{GUID}" /> 
-#     <EventID>1001</EventID> 
-#     <Version>0</Version> 
-#     <Level>4</Level> 
-#     <Task>0</Task> 
-#     <Opcode>0</Opcode> 
-#     <Keywords>0x8000000000000000</Keywords> 
-#     <TimeCreated SystemTime="2020-12-08T01:03:35.5243959Z" /> 
-#     <EventRecordID>220</EventRecordID> 
-#     <Correlation ActivityID="{ActivityID}" /> 
-#     <Execution ProcessID="7796" ThreadID="12988" /> 
-#     <Channel>Microsoft-Windows-Storsvc/Diagnostic</Channel> 
-#     <Computer>ComputerName</Computer> 
-#     <Security UserID="{UserID}" /> 
+#     <Provider Name="Microsoft-Windows-Storsvc" Guid="{GUID}" />
+#     <EventID>1001</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x8000000000000000</Keywords>
+#     <TimeCreated SystemTime="2020-12-08T01:03:35.5243959Z" />
+#     <EventRecordID>220</EventRecordID>
+#     <Correlation ActivityID="{ActivityID}" />
+#     <Execution ProcessID="7796" ThreadID="12988" />
+#     <Channel>Microsoft-Windows-Storsvc/Diagnostic</Channel>
+#     <Computer>ComputerName</Computer>
+#     <Security UserID="{UserID}" />
 #   </System>
 #   <EventData>
-#     <Data Name="Version">2</Data> 
-#     <Data Name="DiskNumber">1</Data> 
-#     <Data Name="VendorId">WD</Data> 
-#     <Data Name="ProductId">My Passport 25E2</Data> 
-#     <Data Name="ProductRevision">4005</Data> 
-#     <Data Name="SerialNumber">WX41D69CD7D1</Data> 
-#     <Data Name="ParentId">USB\VID_1058&PID_25E2\575834314436394344374431</Data> 
-#     <Data Name="FileSystem">NTFS</Data> 
-#     <Data Name="BusType">7</Data> 
-#     <Data Name="PartitionStyle">1</Data> 
-#     <Data Name="VolumeCount">1</Data> 
-#     <Data Name="ContainsRawVolumes">false</Data> 
-#     <Data Name="Size">4000752599040</Data> 
+#     <Data Name="Version">2</Data>
+#     <Data Name="DiskNumber">1</Data>
+#     <Data Name="VendorId">WD</Data>
+#     <Data Name="ProductId">My Passport 25E2</Data>
+#     <Data Name="ProductRevision">4005</Data>
+#     <Data Name="SerialNumber">WX41D69CD7D1</Data>
+#     <Data Name="ParentId">USB\VID_1058&PID_25E2\575834314436394344374431</Data>
+#     <Data Name="FileSystem">NTFS</Data>
+#     <Data Name="BusType">7</Data>
+#     <Data Name="PartitionStyle">1</Data>
+#     <Data Name="VolumeCount">1</Data>
+#     <Data Name="ContainsRawVolumes">false</Data>
+#     <Data Name="Size">4000752599040</Data>
 #   </EventData>
 # </Event>

@@ -3,20 +3,20 @@ Description: Sophos Alert Identified
 EventId: 32
 Channel: Application
 Provider: "Sophos Anti-Virus"
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "Name: %Data%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Data
         Value: "/Event/EventData/Data"
-        
+
 # Documentation:
 # https://community.sophos.com/on-premise-endpoint/f/sophos-endpoint-software/8662/event-id-description
 # https://superuser.com/questions/1125970/sophos-endpoint-security-and-control-windows-event-viewer-logs-on-windows-20
 #
-# Example Event Data:#<Event>
+# Example Event Data:# <Event>
 #  <System>
 #    <Provider Name="Sophos Anti-Virus" />
 #    <EventID Qualifiers="8229">32</EventID>
@@ -33,4 +33,4 @@ Maps:
 #    <Data>File, C:\Users\REDACTED\AppData\Local\Microsoft\Windows\INetCache\Content.Outlook\VUDOXZG2\97381594644272367.doc, Troj/DocDl-VWM, -1, VEA, A threat has been blocked and quarantined., 539295806</Data>
 #    <Binary></Binary>
 #  </EventData>
-#</Event>
+# </Event>
