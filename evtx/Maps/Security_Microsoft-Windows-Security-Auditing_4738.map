@@ -3,83 +3,83 @@ Description: A user account was changed
 EventId: 4738
 Channel: Security
 Provider: Microsoft-Windows-Security-Auditing
-Maps: 
-  - 
+Maps:
+  -
     Property: UserName
     PropertyValue: "%domain%\\%user%"
-    Values: 
-      - 
+    Values:
+      -
         Name: domain
         Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
-      - 
+      -
         Name: user
         Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "Target: %TargetDomainName%\\%TargetUserName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TargetDomainName
         Value: "/Event/EventData/Data[@Name=\"TargetDomainName\"]"
-      - 
+      -
         Name: TargetUserName
         Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "Changed Attribute SamAccountName: %SamAccountName% DisplayName: %DisplayName% UserPrincipalName: %UserPrincipalName% HomeDirectory: %HomeDirectory% HomePath: %HomePath% ScriptPath: %ScriptPath% ProfilePath: %ProfilePath% UserWorkstations: %UserWorkstations% PasswordLastSet: %PasswordLastSet% AccountExpires: %AccountExpires% PrimaryGroupId: %PrimaryGroupId% AllowedToDelegateTo: %AllowedToDelegateTo% OldUacValue: %OldUacValue% NewUacValue: %NewUacValue% UserAccountControl: %UserAccountControl% UserParameters: %UserParameters% SidHistory: %SidHistory% LogonHours: %LogonHours%"
-    Values: 
-      - 
+    Values:
+      -
         Name: SamAccountName
         Value: "/Event/EventData/Data[@Name=\"SamAccountName\"]"
-      - 
+      -
         Name: DisplayName
         Value: "/Event/EventData/Data[@Name=\"DisplayName\"]"
-      - 
+      -
         Name: UserPrincipalName
         Value: "/Event/EventData/Data[@Name=\"UserPrincipalName\"]"
-      - 
+      -
         Name: HomeDirectory
         Value: "/Event/EventData/Data[@Name=\"HomeDirectory\"]"
-      - 
+      -
         Name: HomePath
         Value: "/Event/EventData/Data[@Name=\"HomePath\"]"
-      - 
+      -
         Name: ScriptPath
         Value: "/Event/EventData/Data[@Name=\"ScriptPath\"]"
-      - 
+      -
         Name: ProfilePath
         Value: "/Event/EventData/Data[@Name=\"ProfilePath\"]"
-      - 
+      -
         Name: UserWorkstations
         Value: "/Event/EventData/Data[@Name=\"UserWorkstations\"]"
-      - 
+      -
         Name: PasswordLastSet
         Value: "/Event/EventData/Data[@Name=\"PasswordLastSet\"]"
-      - 
+      -
         Name: AccountExpires
         Value: "/Event/EventData/Data[@Name=\"AccountExpires\"]"
-      - 
+      -
         Name: PrimaryGroupId
         Value: "/Event/EventData/Data[@Name=\"PrimaryGroupId\"]"
-      - 
+      -
         Name: AllowedToDelegateTo
         Value: "/Event/EventData/Data[@Name=\"AllowedToDelegateTo\"]"
-      - 
+      -
         Name: OldUacValue
         Value: "/Event/EventData/Data[@Name=\"OldUacValue\"]"
-      - 
+      -
         Name: NewUacValue
         Value: "/Event/EventData/Data[@Name=\"NewUacValue\"]"
-      - 
+      -
         Name: UserAccountControl
         Value: "/Event/EventData/Data[@Name=\"UserAccountControl\"]"
-      - 
+      -
         Name: UserParameters
         Value: "/Event/EventData/Data[@Name=\"UserParameters\"]"
-      - 
+      -
         Name: SidHistory
         Value: "/Event/EventData/Data[@Name=\"SidHistory\"]"
-      - 
+      -
         Name: LogonHours
         Value: "/Event/EventData/Data[@Name=\"LogonHours\"]"
 
@@ -88,7 +88,7 @@ Maps:
 # https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4738
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Security-Auditing" Guid="54124625-5478-4994-a5ba-3e3b0328c30d" />
 #    <EventID>4738</EventID>
@@ -134,4 +134,4 @@ Maps:
 #    <Data Name="SidHistory">-</Data>
 #    <Data Name="LogonHours">-</Data>
 #  </EventData>
-#</Event>
+# </Event>

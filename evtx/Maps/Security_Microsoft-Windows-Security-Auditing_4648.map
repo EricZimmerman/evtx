@@ -3,56 +3,56 @@ Description: A logon was attempted using explicit credentials
 EventId: 4648
 Channel: Security
 Provider: Microsoft-Windows-Security-Auditing
-Maps: 
-  - 
+Maps:
+  -
     Property: UserName
     PropertyValue: "%domain%\\%user%"
-    Values: 
-      - 
+    Values:
+      -
         Name: domain
         Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
-      - 
+      -
         Name: user
         Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "Target: %TargetDomainName%\\%TargetUserName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TargetDomainName
         Value: "/Event/EventData/Data[@Name=\"TargetDomainName\"]"
-      - 
+      -
         Name: TargetUserName
         Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "TargetServerName: %TargetServerName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TargetServerName
         Value: "/Event/EventData/Data[@Name=\"TargetServerName\"]"
-  - 
+  -
     Property: RemoteHost
     PropertyValue: "%ipAddress%:%port%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ipAddress
         Value: "/Event/EventData/Data[@Name=\"IpAddress\"]"
-      - 
+      -
         Name: port
         Value: "/Event/EventData/Data[@Name=\"IpPort\"]"
-  - 
+  -
     Property: ExecutableInfo
     PropertyValue: "%ProcessName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ProcessName
         Value: "/Event/EventData/Data[@Name=\"ProcessName\"]"
   -
     Property: PayloadData3
     PropertyValue: "PID: %ProcessId%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ProcessId
         Value: "/Event/EventData/Data[@Name=\"ProcessId\"]"
 
@@ -62,7 +62,7 @@ Maps:
 # https://frsecure.com/blog/rdp-connection-event-logs/
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Security-Auditing" Guid="54849625-5478-4994-a5ba-3e3b0328c30d" />
 #    <EventID>4648</EventID>
@@ -95,4 +95,4 @@ Maps:
 #    <Data Name="IpAddress">-</Data>
 #    <Data Name="IpPort">-</Data>
 #  </EventData>
-#</Event>
+# </Event>

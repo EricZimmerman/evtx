@@ -3,32 +3,32 @@ Description: PipeEvent (Pipe Created)
 EventId: 17
 Channel: Microsoft-Windows-Sysmon/Operational
 Provider: Microsoft-Windows-Sysmon
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "ProcessID: %ProcessID%, ProcessGUID: %ProcessGUID%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ProcessGUID
         Value: "/Event/EventData/Data[@Name=\"ProcessGuid\"]"
-      - 
+      -
         Name: ProcessID
         Value: "/Event/EventData/Data[@Name=\"ProcessId\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "PipeName: %PipeName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: PipeName
-        Value: "/Event/EventData/Data[@Name=\"PipeName\"]" 
-  - 
+        Value: "/Event/EventData/Data[@Name=\"PipeName\"]"
+  -
     Property: PayloadData5
     PropertyValue: "Image: %Image%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Image
-        Value: "/Event/EventData/Data[@Name=\"Image\"]" 
-        
+        Value: "/Event/EventData/Data[@Name=\"Image\"]"
+
 # Documentation:
 # https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon#events
 # https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES
@@ -37,7 +37,7 @@ Maps:
 # https://labs.f-secure.com/blog/detecting-cobalt-strike-default-modules-via-named-pipe-analysis/
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Sysmon" Guid="5770385f-c22a-43e0-bf4c-06f5698ffbd9" />
 #    <EventID>17</EventID>
@@ -63,4 +63,4 @@ Maps:
 #    <Data Name="PipeName">\svchost-MSEDGEWIN10-8116-stdin</Data>
 #    <Data Name="Image">C:\Windows\svchost.exe</Data>
 #  </EventData>
-#</Event>
+# </Event>

@@ -1,14 +1,14 @@
-Author: Mike Brewer 
+Author: Mike Brewer
 Description: Cisco AnyConnect VPN connecting to target gateway X
 EventId: 5005
 Channel: "Cisco AnyConnect Secure Mobility Client"
 Provider: acvpndownloader
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "%PayloadData1%"
-    Values: 
-      - 
+    Values:
+      -
         Name: PayloadData1
         Value: "/Event/EventData/Data"
         Refine: "(?<=, )[^,\\d]+(?=,)"
@@ -31,8 +31,7 @@ Maps:
     # <Security />
   # </System>
     # <EventData>
-      #<Data>Connecting to mdgegtwy1.acme.com.</Data>
+      # <Data>Connecting to mdgegtwy1.acme.com.</Data>
         # <Binary></Binary>
         # </EventData>
     # </Event>
-    

@@ -3,12 +3,12 @@ Description: Sleep/wake events
 EventId: 42
 Channel: System
 Provider: Microsoft-Windows-Kernel-Power
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: Reason "%Reason%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Reason
         Value: "/Event/EventData/Data[@Name=\"Reason\"]"
 Lookups:
@@ -27,29 +27,29 @@ Lookups:
 # https://www.forensicfocus.com/forums/general/event-id-42-1/
 #
 # Example Event Data:
-#<Event>
-  #<System>
-    #<Provider Name="Microsoft-Windows-Kernel-Power" Guid="331c3b3a-2005-44c2-ac5e-77220c37d6b4" />
-    #<EventID>42</EventID>
-    #<Version>3</Version>
-    #<Level>4</Level>
-    #<Task>64</Task>
-    #<Opcode>0</Opcode>
-    #<Keywords>0x8000000000000404</Keywords>
-    #<TimeCreated SystemTime="2019-07-23 16:07:17.6831355" />
-    #<EventRecordID>1189</EventRecordID>
-    #<Correlation />
-    #<Execution ProcessID="4" ThreadID="8112" />
-    #<Channel>System</Channel>
-    #<Computer>DESKTOP-LOJVG3N</Computer>
-    #<Security />
-  #</System>
-  #<EventData>
-    #<Data Name="TargetState">4</Data>
-    #<Data Name="EffectiveState">4</Data>
-    #<Data Name="Reason">0</Data>
-    #<Data Name="Flags">4</Data>
-    #<Data Name="TransitionsToOn">1</Data>
-  #</EventData>
-#</Event>
+# <Event>
+  # <System>
+    # <Provider Name="Microsoft-Windows-Kernel-Power" Guid="331c3b3a-2005-44c2-ac5e-77220c37d6b4" />
+    # <EventID>42</EventID>
+    # <Version>3</Version>
+    # <Level>4</Level>
+    # <Task>64</Task>
+    # <Opcode>0</Opcode>
+    # <Keywords>0x8000000000000404</Keywords>
+    # <TimeCreated SystemTime="2019-07-23 16:07:17.6831355" />
+    # <EventRecordID>1189</EventRecordID>
+    # <Correlation />
+    # <Execution ProcessID="4" ThreadID="8112" />
+    # <Channel>System</Channel>
+    # <Computer>DESKTOP-LOJVG3N</Computer>
+    # <Security />
+  # </System>
+  # <EventData>
+    # <Data Name="TargetState">4</Data>
+    # <Data Name="EffectiveState">4</Data>
+    # <Data Name="Reason">0</Data>
+    # <Data Name="Flags">4</Data>
+    # <Data Name="TransitionsToOn">1</Data>
+  # </EventData>
+# </Event>
 

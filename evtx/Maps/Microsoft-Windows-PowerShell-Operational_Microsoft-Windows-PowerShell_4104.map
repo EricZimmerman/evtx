@@ -3,29 +3,29 @@ Description: Contains contents of scripts run
 EventId: 4104
 Channel: "Microsoft-Windows-PowerShell/Operational"
 Provider: Microsoft-Windows-PowerShell
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "Path: %Path%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Path
         Value: "/Event/EventData/Data[@Name=\"Path\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "ScriptBlockText: %ScriptBlockText%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ScriptBlockText
         Value: "/Event/EventData/Data[@Name=\"ScriptBlockText\"]"
-        
+
 # Documentation:
 # https://static1.squarespace.com/static/552092d5e4b0661088167e5c/t/59c1814829f18782e24f1fe2/1505853768977/Windows+PowerShell+Logging+Cheat+Sheet+ver+Sept+2017+v2.1.pdf
 # https://www.crowdstrike.com/blog/investigating-powershell-command-and-script-logging/
 # https://www.myeventlog.com/search/show/980
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-PowerShell" Guid="a0c1253b-5c40-4b15-8766-3cabc58f985a" />
 #    <EventID>4104</EventID>
@@ -49,4 +49,4 @@ Maps:
 #    <Data Name="ScriptBlockId">34d312d7-e012-40c3-b0e8-9d4e5e4123r</Data>
 #    <Data Name="Path"></Data>
 #  </EventData>
-#</Event>
+# </Event>

@@ -3,21 +3,21 @@ Description: RDP Client is trying to connect to the server
 EventId: 1024
 Channel: Microsoft-Windows-TerminalServices-RDPClient/Operational
 Provider: Microsoft-Windows-TerminalServices-ClientActiveXCore
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "Dest: %DestServer%"
-    Values: 
-      - 
+    Values:
+      -
         Name: DestServer
         Value: "/Event/EventData/Data[@Name=\"Value\"]"
-  - 
+  -
     Property: PayloadData6
     PropertyValue: "ActivityID: %ActivityID%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ActivityID
-        Value: "/Event/System/Correlation/@ActivityID" 
+        Value: "/Event/System/Correlation/@ActivityID"
 
 # Documentation:
 # RDP ClientActiveX is trying to connect to the server ([Destination Host Name]).
@@ -27,7 +27,7 @@ Maps:
 # https://frsecure.com/blog/rdp-connection-event-logs/
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-TerminalServices-ClientActiveXCore" Guid="28aa95bb-d444-4719-a36f-40462168127e" />
 #    <EventID>1024</EventID>
@@ -49,4 +49,4 @@ Maps:
 #    <Data Name="Value">172.16.6.14</Data>
 #    <Data Name="CustomLevel">Info</Data>
 #  </EventData>
-#</Event>
+# </Event>

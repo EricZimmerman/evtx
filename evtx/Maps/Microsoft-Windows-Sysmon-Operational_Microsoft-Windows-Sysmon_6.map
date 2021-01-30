@@ -3,47 +3,47 @@ Description: Driver loaded
 EventId: 6
 Channel: Microsoft-Windows-Sysmon/Operational
 Provider: Microsoft-Windows-Sysmon
-Maps: 
-  - 
+Maps:
+  -
     Property: ExecutableInfo
     PropertyValue: "%ImageLoaded%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ImageLoaded
         Value: "/Event/EventData/Data[@Name=\"ImageLoaded\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "RuleName: %RuleName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: RuleName
         Value: "/Event/EventData/Data[@Name=\"RuleName\"]"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "%Hashes%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Hashes
         Value: "/Event/EventData/Data[@Name=\"Hashes\"]"
-  - 
+  -
     Property: PayloadData4
     PropertyValue: "Signed: %Signed%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Signed
         Value: "/Event/EventData/Data[@Name=\"Signed\"]"
-  - 
+  -
     Property: PayloadData5
     PropertyValue: "Signature: %Signature%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Signature
         Value: "/Event/EventData/Data[@Name=\"Signature\"]"
-  - 
+  -
     Property: PayloadData6
     PropertyValue: "SignatureStatus: %SignatureStatus%"
-    Values: 
-      - 
+    Values:
+      -
         Name: SignatureStatus
         Value: "/Event/EventData/Data[@Name=\"SignatureStatus\"]"
 
@@ -54,7 +54,7 @@ Maps:
 # https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/default.aspx - filter on Sysmon
 #
 # Example Event Data:
-#<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
 #       <Provider Name="Microsoft-Windows-Sysmon" Guid="{5770385F-C22A-43E0-BF4C-06F5698FFBD9}" />
 #       <EventID>6</EventID>
@@ -79,4 +79,4 @@ Maps:
 #       <Data Name="Signature">Microsoft Windows</Data>
 #       <Data Name="SignatureStatus">Valid</Data>
 #   </EventData>
-#</Event>
+# </Event>

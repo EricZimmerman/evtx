@@ -25,7 +25,7 @@ Maps:
       -
         Name: Version
         Value: "/Event/EventData/Data[@Name=\"Version\"]"
-        
+
 # Documentation:
 # http://blog.plainbit.co.kr/wp-content/uploads/2018/05/Windows-Device-Information-Artifacts-in-Registry-Event-Log_180601.pdf (Korean)
 # https://cyberforensicator.com/wp-content/uploads/2017/09/USB-Storage-Device-Forensics-for-Windows-10.pdf
@@ -33,25 +33,25 @@ Maps:
 # Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
-#     <Provider Name="Microsoft-Windows-WPD-MTPClassDriver" Guid="{GUID}" /> 
-#     <EventID>1005</EventID> 
-#     <Version>0</Version> 
-#     <Level>4</Level> 
-#     <Task>16</Task> 
-#     <Opcode>0</Opcode> 
-#     <Keywords>0x8000000000000000</Keywords> 
-#     <TimeCreated SystemTime="2020-12-05T21:19:30.1410758Z" /> 
-#     <EventRecordID>2</EventRecordID> 
-#     <Correlation /> 
-#     <Execution ProcessID="8444" ThreadID="16952" /> 
-#     <Channel>Microsoft-Windows-WPD-MTPClassDriver/Operational</Channel> 
-#     <Computer>ComputerName</Computer> 
-#     <Security UserID="S-1-5-19" /> 
+#     <Provider Name="Microsoft-Windows-WPD-MTPClassDriver" Guid="{GUID}" />
+#     <EventID>1005</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>16</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x8000000000000000</Keywords>
+#     <TimeCreated SystemTime="2020-12-05T21:19:30.1410758Z" />
+#     <EventRecordID>2</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="8444" ThreadID="16952" />
+#     <Channel>Microsoft-Windows-WPD-MTPClassDriver/Operational</Channel>
+#     <Computer>ComputerName</Computer>
+#     <Security UserID="S-1-5-19" />
 #   </System>
 #   <EventData>
-#     <Data Name="Manufacturer">Apple Inc.</Data> 
-#     <Data Name="Model">Apple iPhone</Data> 
-#     <Data Name="Version">12.4.4</Data> 
-#     <Data Name="HackModel">40</Data> 
+#     <Data Name="Manufacturer">Apple Inc.</Data>
+#     <Data Name="Model">Apple iPhone</Data>
+#     <Data Name="Version">12.4.4</Data>
+#     <Data Name="HackModel">40</Data>
 #   </EventData>
 # </Event>

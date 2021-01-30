@@ -11,29 +11,29 @@ Maps:
       -
         Name: Session
         Value: "/Event/EventData/Data[@Name=\"Session\"]"
-        
+
 # Documentation:
 # https://www.koreascience.or.kr/article/JAKO201820765436652.pdf (Table 9. Event IDs for Log On/Off)
 #
 # Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 # <System>
-#  <Provider Name="Microsoft-Windows-User Profiles Service" Guid="{GUID}" /> 
-#  <EventID>2</EventID> 
-#  <Version>0</Version> 
-#  <Level>4</Level> 
-#  <Task>0</Task> 
-#  <Opcode>0</Opcode> 
-#  <Keywords>0x4000000000000000</Keywords> 
-#  <TimeCreated SystemTime="2020-12-26T17:10:08.5201005Z" /> 
-#  <EventRecordID>736</EventRecordID> 
-#  <Correlation /> 
-#  <Execution ProcessID="1468" ThreadID="1748" /> 
-#  <Channel>Microsoft-Windows-User Profile Service/Operational</Channel> 
-#  <Computer>ComputerName</Computer> 
-#  <Security UserID="{UserID}" /> 
+#  <Provider Name="Microsoft-Windows-User Profiles Service" Guid="{GUID}" />
+#  <EventID>2</EventID>
+#  <Version>0</Version>
+#  <Level>4</Level>
+#  <Task>0</Task>
+#  <Opcode>0</Opcode>
+#  <Keywords>0x4000000000000000</Keywords>
+#  <TimeCreated SystemTime="2020-12-26T17:10:08.5201005Z" />
+#  <EventRecordID>736</EventRecordID>
+#  <Correlation />
+#  <Execution ProcessID="1468" ThreadID="1748" />
+#  <Channel>Microsoft-Windows-User Profile Service/Operational</Channel>
+#  <Computer>ComputerName</Computer>
+#  <Security UserID="{UserID}" />
 #  </System>
 # <EventData>
-#  <Data Name="Session">4</Data> 
+#  <Data Name="Session">4</Data>
 #  </EventData>
 #  </Event>

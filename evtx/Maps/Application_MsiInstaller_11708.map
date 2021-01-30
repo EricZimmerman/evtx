@@ -18,29 +18,29 @@ Maps:
 # Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
-#     <Provider Name="MsiInstaller" /> 
-#     <EventID Qualifiers="0">11708</EventID> 
-#     <Version>0</Version> 
-#     <Level>4</Level> 
-#     <Task>0</Task> 
-#     <Opcode>0</Opcode> 
-#     <Keywords>0x80000000000000</Keywords> 
-#     <TimeCreated SystemTime="2020-10-12T07:12:27.8940802Z" /> 
-#     <EventRecordID>2345</EventRecordID> 
-#     <Correlation /> 
-#     <Execution ProcessID="0" ThreadID="0" /> 
-#     <Channel>Application</Channel> 
-#     <Computer>ComputerName</Computer> 
-#     <Security UserID="{UserID}" /> 
+#     <Provider Name="MsiInstaller" />
+#     <EventID Qualifiers="0">11708</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x80000000000000</Keywords>
+#     <TimeCreated SystemTime="2020-10-12T07:12:27.8940802Z" />
+#     <EventRecordID>2345</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="0" ThreadID="0" />
+#     <Channel>Application</Channel>
+#     <Computer>ComputerName</Computer>
+#     <Security UserID="{UserID}" />
 #   </System>
 #   <EventData>
-#     <Data>Product: AccessData FTK Imager -- Installation operation failed.</Data> 
-#     <Data>(NULL)</Data> 
-#     <Data>(NULL)</Data> 
-#     <Data>(NULL)</Data> 
-#     <Data>(NULL)</Data> 
-#     <Data>(NULL)</Data> 
-#     <Data /> 
-#     <Binary>{Binary}</Binary> 
+#     <Data>Product: AccessData FTK Imager -- Installation operation failed.</Data>
+#     <Data>(NULL)</Data>
+#     <Data>(NULL)</Data>
+#     <Data>(NULL)</Data>
+#     <Data>(NULL)</Data>
+#     <Data>(NULL)</Data>
+#     <Data />
+#     <Binary>{Binary}</Binary>
 #   </EventData>
 # </Event>

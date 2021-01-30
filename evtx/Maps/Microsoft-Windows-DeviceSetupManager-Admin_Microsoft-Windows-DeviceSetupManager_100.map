@@ -17,7 +17,7 @@ Maps:
     Values:
       -
         Name: Prop_WorkTime_MilliSeconds
-        Value: "/Event/EventData/Data[@Name=\"Prop_WorkTime_MilliSeconds\"]"   
+        Value: "/Event/EventData/Data[@Name=\"Prop_WorkTime_MilliSeconds\"]"
 
 # Documentation:
 # https://cyberforensicator.com/wp-content/uploads/2017/09/USB-Storage-Device-Forensics-for-Windows-10.pdf

@@ -3,29 +3,29 @@ Description: "Remote Desktop Services: Session logon succeeded"
 EventId: 21
 Channel: Microsoft-Windows-TerminalServices-LocalSessionManager/Operational
 Provider: Microsoft-Windows-TerminalServices-LocalSessionManager
-Maps: 
-  - 
+Maps:
+  -
     Property: UserName
     PropertyValue: "%User%"
-    Values: 
-      - 
+    Values:
+      -
         Name: User
         Value: "/Event/UserData/EventXML/User"
-  - 
+  -
     Property: RemoteHost
     PropertyValue: "%Address%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Address
         Value: "/Event/UserData/EventXML/Address"
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "Session ID: %SessionID%"
-    Values: 
-      - 
+    Values:
+      -
         Name: SessionID
         Value: "/Event/UserData/EventXML/SessionID"
- 
+
 # Documentation:
 # https://ponderthebits.com/2018/02/windows-rdp-related-event-logs-identification-tracking-and-investigation/
 # https://www.13cubed.com/downloads/rdp_flowchart.pdf
@@ -35,7 +35,7 @@ Maps:
 # https://frsecure.com/blog/rdp-connection-event-logs/
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-TerminalServices-LocalSessionManager" Guid="5d896912-022d-40aa-a3a8-4fa5515c76d7" />
 #    <EventID>21</EventID>
@@ -59,4 +59,4 @@ Maps:
 #      <Address>LOCAL</Address>
 #    </EventXML>
 #  </UserData>
-#</Event>
+# </Event>

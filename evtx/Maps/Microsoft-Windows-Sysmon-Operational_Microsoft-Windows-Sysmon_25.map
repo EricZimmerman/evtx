@@ -3,36 +3,36 @@ Description: ProcessTampering (Process image change)
 EventId: 25
 Channel: Microsoft-Windows-Sysmon/Operational
 Provider: Microsoft-Windows-Sysmon
-Maps: 
-  - 
+Maps:
+  -
     Property: ExecutableInfo
     PropertyValue: "%Image%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Image
-        Value: "/Event/EventData/Data[@Name=\"Image\"]"  
-  - 
+        Value: "/Event/EventData/Data[@Name=\"Image\"]"
+  -
     Property: PayloadData1
     PropertyValue: "ProcessID: %ProcessID%, ProcessGUID: %ProcessGUID%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ProcessGUID
         Value: "/Event/EventData/Data[@Name=\"ProcessGuid\"]"
-      - 
+      -
         Name: ProcessID
         Value: "/Event/EventData/Data[@Name=\"ProcessId\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "RuleName: %RuleName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: RuleName
         Value: "/Event/EventData/Data[@Name=\"RuleName\"]"
   -
     Property: PayloadData6
     PropertyValue: "Type: %Type%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Type
         Value: "/Event/EventData/Data[@Name=\"Type\"]"
 
@@ -45,7 +45,7 @@ Maps:
 # sysmon64.exe -s will list examples of data stored for each Sysmon event. This was done for this particular event.
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Sysmon" Guid="5770385f-c22a-43e0-bf4c-06f5698ffbd9" />
 #    <EventID>25</EventID>
@@ -70,4 +70,4 @@ Maps:
 #    <data name="Image" inType="win:UnicodeString" outType="xs:string" />
 #    <data name="Type" inType="win:UnicodeString" outType="xs:string" />
 #   </EventData>
-#</Event>
+# </Event>

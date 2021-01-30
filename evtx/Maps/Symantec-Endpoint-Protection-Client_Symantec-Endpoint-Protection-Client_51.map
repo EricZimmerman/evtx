@@ -3,36 +3,36 @@ Description: Security Risk Found
 EventId: 51
 Channel: "Symantec Endpoint Protection Client"
 Provider: "Symantec Endpoint Protection Client"
-Maps: 
-  - 
+Maps:
+  -
     Property: ExecutableInfo
     PropertyValue: "%ExecutableInfo%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ExecutableInfo
         Value: "/Event/EventData/Data"
         Refine: "(?<=File: ).*(?= by: )"
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "Risk: %PayloadData1%"
-    Values: 
-      - 
+    Values:
+      -
         Name: PayloadData1
         Value: "/Event/EventData/Data"
         Refine: "(?<=Security Risk Found! ).*(?= in File:)"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "%PayloadData2%"
-    Values: 
-      - 
+    Values:
+      -
         Name: PayloadData2
         Value: "/Event/EventData/Data"
         Refine: "Action:.*(?= Action Description: )"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "%PayloadData3%"
-    Values: 
-      - 
+    Values:
+      -
         Name: PayloadData3
         Value: "/Event/EventData/Data"
         Refine: "Action Description:.*"

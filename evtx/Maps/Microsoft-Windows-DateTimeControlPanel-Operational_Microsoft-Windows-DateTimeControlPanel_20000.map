@@ -11,32 +11,32 @@ Maps:
       -
         Name: wYear
         Value: "/Event/EventData/Data[@Name=\"wYear\"]"
-      - 
+      -
         Name: wMonth
         Value: "/Event/EventData/Data[@Name=\"wMonth\"]"
-      - 
+      -
         Name: wDay
         Value: "/Event/EventData/Data[@Name=\"wDay\"]"
-      - 
+      -
         Name: wHour
         Value: "/Event/EventData/Data[@Name=\"wHour\"]"
-      - 
+      -
         Name: wMinute
         Value: "/Event/EventData/Data[@Name=\"wMinute\"]"
-      - 
+      -
         Name: wSecond
         Value: "/Event/EventData/Data[@Name=\"wSecond\"]"
-      - 
+      -
         Name: wMilliseconds
         Value: "/Event/EventData/Data[@Name=\"wMilliseconds\"]"
   -
     Property: PayloadData2
     PropertyValue: "wDayOfWeek: %wDayOfWeek%"
     Values:
-      - 
+      -
         Name: wDayOfWeek
         Value: "/Event/EventData/Data[@Name=\"wDayOfWeek\"]"
-        
+
 # Documentation:
 # https://maj3sty.tistory.com/1102 (Korean)
 # https://www.koreascience.or.kr/article/JAKO201820765436652.pdf (Table 13. Event IDs for System Time Manipulation)
@@ -44,29 +44,29 @@ Maps:
 # Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
-#     <Provider Name="Microsoft-Windows-DateTimeControlPanel" Guid="{GUID}" /> 
-#     <EventID>20000</EventID> 
-#     <Version>0</Version> 
-#     <Level>4</Level> 
-#     <Task>31</Task> 
-#     <Opcode>33</Opcode> 
-#     <Keywords>0x8000000000000000</Keywords> 
-#     <TimeCreated SystemTime="2020-12-14T15:40:53.0003708Z" /> 
-#     <EventRecordID>1</EventRecordID> 
-#     <Correlation /> 
-#     <Execution ProcessID="16772" ThreadID="8004" /> 
-#     <Channel>Microsoft-Windows-DateTimeControlPanel/Operational</Channel> 
-#     <Computer>ComputerName</Computer> 
-#     <Security UserID="{UserID}" /> 
+#     <Provider Name="Microsoft-Windows-DateTimeControlPanel" Guid="{GUID}" />
+#     <EventID>20000</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>31</Task>
+#     <Opcode>33</Opcode>
+#     <Keywords>0x8000000000000000</Keywords>
+#     <TimeCreated SystemTime="2020-12-14T15:40:53.0003708Z" />
+#     <EventRecordID>1</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="16772" ThreadID="8004" />
+#     <Channel>Microsoft-Windows-DateTimeControlPanel/Operational</Channel>
+#     <Computer>ComputerName</Computer>
+#     <Security UserID="{UserID}" />
 #   </System>
 #   <EventData>
-#     <Data Name="wYear">2020</Data> 
-#     <Data Name="wMonth">12</Data> 
-#     <Data Name="wDayOfWeek">2</Data> 
-#     <Data Name="wDay">15</Data> 
-#     <Data Name="wHour">0</Data> 
-#     <Data Name="wMinute">40</Data> 
-#     <Data Name="wSecond">53</Data> 
-#     <Data Name="wMilliseconds">0</Data> 
+#     <Data Name="wYear">2020</Data>
+#     <Data Name="wMonth">12</Data>
+#     <Data Name="wDayOfWeek">2</Data>
+#     <Data Name="wDay">15</Data>
+#     <Data Name="wHour">0</Data>
+#     <Data Name="wMinute">40</Data>
+#     <Data Name="wSecond">53</Data>
+#     <Data Name="wMilliseconds">0</Data>
 #   </EventData>
 # </Event>

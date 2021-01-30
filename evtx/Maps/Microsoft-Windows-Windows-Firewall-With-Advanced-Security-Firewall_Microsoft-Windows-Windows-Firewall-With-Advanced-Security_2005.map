@@ -3,56 +3,56 @@ Description: FW rule modified to exception list
 EventId: 2005
 Channel: Microsoft-Windows-Windows Firewall With Advanced Security/Firewall
 Provider: Microsoft-Windows-Windows Firewall With Advanced Security
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "%ServiceName%: %RuleName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ServiceName
         Value: "/Event/EventData/Data[@Name=\"ServiceName\"]"
-      - 
+      -
         Name: RuleName
         Value: "/Event/EventData/Data[@Name=\"RuleName\"]"
-  - 
+  -
     Property: RemoteHost
     PropertyValue: "%RemoteAddresses%: %RemotePorts%"
-    Values: 
-      - 
+    Values:
+      -
         Name: RemoteAddresses
         Value: "/Event/EventData/Data[@Name=\"RemoteAddresses\"]"
-      - 
+      -
         Name: RemotePorts
         Value: "/Event/EventData/Data[@Name=\"RemotePorts\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "%ApplicationPath%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ApplicationPath
         Value: "/Event/EventData/Data[@Name=\"ApplicationPath\"]"
   -
     Property: PayloadData3
     PropertyValue: "Direction: %Direction%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Direction
         Value: "/Event/EventData/Data[@Name=\"Direction\"]"
   -
     Property: PayloadData4
     PropertyValue: "Action: %Action%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Action
         Value: "/Event/EventData/Data[@Name=\"Action\"]"
   -
     Property: PayloadData5
     PropertyValue: "Protocol: %Protocol%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Protocol
         Value: "/Event/EventData/Data[@Name=\"Protocol\"]"
-Lookups: 
+Lookups:
   -
     Name: Action
     Default: Unknown code
@@ -74,47 +74,47 @@ Lookups:
 # Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
-#     <Provider Name="Microsoft-Windows-Windows Firewall With Advanced Security" Guid="{GUID}" /> 
-#     <EventID>2005</EventID> 
-#     <Version>0</Version> 
-#     <Level>4</Level> 
-#     <Task>0</Task> 
-#     <Opcode>0</Opcode> 
-#     <Keywords>0x8000020000000000</Keywords> 
-#     <TimeCreated SystemTime="2020-12-12T07:32:38.9121196Z" /> 
-#     <EventRecordID>3509</EventRecordID> 
-#     <Correlation /> 
-#     <Execution ProcessID="2964" ThreadID="22020" /> 
-#     <Channel>Microsoft-Windows-Windows Firewall With Advanced Security/Firewall</Channel> 
-#     <Computer>ComputerName</Computer> 
-#     <Security UserID="{UserID}" /> 
+#     <Provider Name="Microsoft-Windows-Windows Firewall With Advanced Security" Guid="{GUID}" />
+#     <EventID>2005</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x8000020000000000</Keywords>
+#     <TimeCreated SystemTime="2020-12-12T07:32:38.9121196Z" />
+#     <EventRecordID>3509</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="2964" ThreadID="22020" />
+#     <Channel>Microsoft-Windows-Windows Firewall With Advanced Security/Firewall</Channel>
+#     <Computer>ComputerName</Computer>
+#     <Security UserID="{UserID}" />
 #   </System>
 #   <EventData>
-#     <Data Name="RuleId">UDP Query User{~~~~}C:\users\hyuunnn\downloads\anydesk.exe</Data> 
-#     <Data Name="RuleName">anydesk.exe</Data> 
-#     <Data Name="Origin">1</Data> 
-#     <Data Name="ApplicationPath">C:\users\hyuunnn\downloads\anydesk.exe</Data> 
-#     <Data Name="ServiceName" /> 
-#     <Data Name="Direction">1</Data> 
-#     <Data Name="Protocol">17</Data> 
-#     <Data Name="LocalPorts">*</Data> 
-#     <Data Name="RemotePorts">*</Data> 
-#     <Data Name="Action">3</Data> 
-#     <Data Name="Profiles">2</Data> 
-#     <Data Name="LocalAddresses">*</Data> 
-#     <Data Name="RemoteAddresses">*</Data> 
-#     <Data Name="RemoteMachineAuthorizationList" /> 
-#     <Data Name="RemoteUserAuthorizationList" /> 
-#     <Data Name="EmbeddedContext" /> 
-#     <Data Name="Flags">257</Data> 
-#     <Data Name="Active">1</Data> 
-#     <Data Name="EdgeTraversal">3</Data> 
-#     <Data Name="LooseSourceMapped">0</Data> 
-#     <Data Name="SecurityOptions">0</Data> 
-#     <Data Name="ModifyingUser">S-1-5-21-2856883770-2223847312-2813546713-1001</Data> 
-#     <Data Name="ModifyingApplication">C:\Windows\System32\dllhost.exe</Data> 
-#     <Data Name="SchemaVersion">522</Data> 
-#     <Data Name="RuleStatus">65536</Data> 
-#     <Data Name="LocalOnlyMapped">0</Data> 
+#     <Data Name="RuleId">UDP Query User{~~~~}C:\users\hyuunnn\downloads\anydesk.exe</Data>
+#     <Data Name="RuleName">anydesk.exe</Data>
+#     <Data Name="Origin">1</Data>
+#     <Data Name="ApplicationPath">C:\users\hyuunnn\downloads\anydesk.exe</Data>
+#     <Data Name="ServiceName" />
+#     <Data Name="Direction">1</Data>
+#     <Data Name="Protocol">17</Data>
+#     <Data Name="LocalPorts">*</Data>
+#     <Data Name="RemotePorts">*</Data>
+#     <Data Name="Action">3</Data>
+#     <Data Name="Profiles">2</Data>
+#     <Data Name="LocalAddresses">*</Data>
+#     <Data Name="RemoteAddresses">*</Data>
+#     <Data Name="RemoteMachineAuthorizationList" />
+#     <Data Name="RemoteUserAuthorizationList" />
+#     <Data Name="EmbeddedContext" />
+#     <Data Name="Flags">257</Data>
+#     <Data Name="Active">1</Data>
+#     <Data Name="EdgeTraversal">3</Data>
+#     <Data Name="LooseSourceMapped">0</Data>
+#     <Data Name="SecurityOptions">0</Data>
+#     <Data Name="ModifyingUser">S-1-5-21-2856883770-2223847312-2813546713-1001</Data>
+#     <Data Name="ModifyingApplication">C:\Windows\System32\dllhost.exe</Data>
+#     <Data Name="SchemaVersion">522</Data>
+#     <Data Name="RuleStatus">65536</Data>
+#     <Data Name="LocalOnlyMapped">0</Data>
 #   </EventData>
 # </Event>

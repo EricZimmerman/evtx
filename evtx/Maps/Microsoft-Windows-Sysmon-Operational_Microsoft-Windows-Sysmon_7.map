@@ -3,53 +3,53 @@ Description: Image loaded
 EventId: 7
 Channel: Microsoft-Windows-Sysmon/Operational
 Provider: Microsoft-Windows-Sysmon
-Maps: 
-  - 
+Maps:
+  -
     Property: ExecutableInfo
     PropertyValue: "%ImageLoaded%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ImageLoaded
         Value: "/Event/EventData/Data[@Name=\"ImageLoaded\"]"
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "ProcessID: %ProcessID%, ProcessGUID: %ProcessGUID%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ProcessGUID
         Value: "/Event/EventData/Data[@Name=\"ProcessGuid\"]"
-      - 
+      -
         Name: ProcessID
         Value: "/Event/EventData/Data[@Name=\"ProcessId\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "RuleName: %RuleName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: RuleName
         Value: "/Event/EventData/Data[@Name=\"RuleName\"]"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "%Hashes%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Hashes
         Value: "/Event/EventData/Data[@Name=\"Hashes\"]"
-  - 
+  -
     Property: PayloadData4
     PropertyValue: "Signed: %Signed%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Signed
-        Value: "/Event/EventData/Data[@Name=\"Signed\"]"  
-  - 
+        Value: "/Event/EventData/Data[@Name=\"Signed\"]"
+  -
     Property: PayloadData5
     PropertyValue: "Image: %Image%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Image
-        Value: "/Event/EventData/Data[@Name=\"Image\"]" 
-        
+        Value: "/Event/EventData/Data[@Name=\"Image\"]"
+
 # Documentation:
 # https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon#events
 # https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES
@@ -57,7 +57,7 @@ Maps:
 # https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/default.aspx - filter on Sysmon
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Sysmon" Guid="5770385f-c22a-43e0-bf4c-06f5698ffbd9" />
 #    <EventID>7</EventID>
@@ -90,4 +90,4 @@ Maps:
 #    <Data Name="Signature">Microsoft Windows</Data>
 #    <Data Name="SignatureStatus">Valid</Data>
 #  </EventData>
-#</Event>
+# </Event>

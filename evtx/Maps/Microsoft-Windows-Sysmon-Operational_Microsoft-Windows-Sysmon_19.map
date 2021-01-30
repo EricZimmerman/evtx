@@ -3,57 +3,57 @@ Description: WmiEvent (WmiEventFilter activity detected)
 EventId: 19
 Channel: Microsoft-Windows-Sysmon/Operational
 Provider: Microsoft-Windows-Sysmon
-Maps: 
-  - 
+Maps:
+  -
     Property: ExecutableInfo
     PropertyValue: "Query: %Query%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Query
         Value: "/Event/EventData/Data[@Name=\"Query\"]"
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "Operation: %Operation%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Operation
-        Value: "/Event/EventData/Data[@Name=\"Operation\"]"   
-  - 
+        Value: "/Event/EventData/Data[@Name=\"Operation\"]"
+  -
     Property: PayloadData2
     PropertyValue: "RuleName: %RuleName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: RuleName
         Value: "/Event/EventData/Data[@Name=\"RuleName\"]"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "EventType: %EventType%"
-    Values: 
-      - 
+    Values:
+      -
         Name: EventType
-        Value: "/Event/EventData/Data[@Name=\"EventType\"]" 
-  - 
+        Value: "/Event/EventData/Data[@Name=\"EventType\"]"
+  -
     Property: PayloadData4
     PropertyValue: "Name: %Name%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Name
         Value: "/Event/EventData/Data[@Name=\"Name\"]"
-  - 
+  -
     Property: PayloadData5
     PropertyValue: "EventNamespace: %EventNamespace%"
-    Values: 
-      - 
+    Values:
+      -
         Name: EventNamespace
-        Value: "/Event/EventData/Data[@Name=\"EventNamespace\"]"   
-  - 
+        Value: "/Event/EventData/Data[@Name=\"EventNamespace\"]"
+  -
     Property: UserName
     PropertyValue: "%User%"
-    Values: 
-      - 
+    Values:
+      -
         Name: User
         Value: "/Event/EventData/Data[@Name=\"User\"]"
-        
+
 # Documentation:
 # https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon#events
 # https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES
@@ -61,7 +61,7 @@ Maps:
 # https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/default.aspx - filter on Sysmon
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Sysmon" Guid="5770385f-c22a-43e0-bf4c-06f5698ffbd9" />
 #    <EventID>19</EventID>
@@ -88,4 +88,4 @@ Maps:
 #    <Data Name="Name"> "AtomicRedTeam-WMIPersistence-Example"</Data>
 #    <Data Name="Query"> "SELECT * FROM __InstanceModificationEvent WITHIN 60 WHERE TargetInstance ISA 'Win32_PerfFormattedData_PerfOS_System' AND TargetInstance.SystemUpTime &amp;gt;= 240 AND TargetInstance.SystemUpTime &amp;lt; 325"</Data>
 #  </EventData>
-#</Event>
+# </Event>

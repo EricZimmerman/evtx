@@ -3,19 +3,19 @@ Description: Scheduled Task updated
 EventId: 140
 Channel: "Microsoft-Windows-TaskScheduler/Operational"
 Provider: Microsoft-Windows-TaskScheduler
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "Task: %TaskName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TaskName
         Value: "/Event/EventData/Data[@Name=\"TaskName\"]"
-  - 
+  -
     Property: UserName
     PropertyValue: "%UserName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: UserName
         Value: "/Event/EventData/Data[@Name=\"UserName\"]"
 

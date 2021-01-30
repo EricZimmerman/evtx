@@ -3,20 +3,20 @@ Description: Finished executing from startup menu
 EventId: 9712
 Channel: Microsoft-Windows-Shell-Core/Operational
 Provider: Microsoft-Windows-Shell-Core
-Maps: 
-  - 
+Maps:
+  -
     Property: ExecutableInfo
     PropertyValue: "%CommandLine%"
-    Values: 
-      - 
+    Values:
+      -
         Name: CommandLine
         Value: "/Event/EventData/Data[@Name=\"Command\"]"
-   
+
 # Documentation:
 # https://www.geoffchappell.com/notes/windows/shell/events/core.htm
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Shell-Core" Guid="30336ed4-e327-447c-9de0-51b652c86108" />
 #    <EventID>9712</EventID>
@@ -34,6 +34,6 @@ Maps:
 #    <Security UserID="" />
 #  </System>
 #  <EventData>
-#    <Data Name="Command"></Data> 
+#    <Data Name="Command"></Data>
 #  </EventData>
-#</Event>
+# </Event>

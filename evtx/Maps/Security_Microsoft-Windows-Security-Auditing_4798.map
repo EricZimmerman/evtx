@@ -3,52 +3,52 @@ Description: A user's local group membership was enumerated
 EventId: 4798
 Channel: Security
 Provider: Microsoft-Windows-Security-Auditing
-Maps: 
-  - 
+Maps:
+  -
     Property: UserName
     PropertyValue: "%domain%\\%user% (%sid%)"
-    Values: 
-      - 
+    Values:
+      -
         Name: domain
         Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
-      - 
+      -
         Name: user
         Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
-      - 
+      -
         Name: sid
         Value: "/Event/EventData/Data[@Name=\"SubjectUserSid\"]"
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "Target: %TargetDomainName%\\%TargetUserName% (%TargetSid%)"
-    Values: 
-      - 
+    Values:
+      -
         Name: TargetUserName
         Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
-      - 
+      -
         Name: TargetDomainName
         Value: "/Event/EventData/Data[@Name=\"TargetDomainName\"]"
-      - 
+      -
         Name: TargetSid
         Value: "/Event/EventData/Data[@Name=\"TargetSid\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "SubjectLogonId: %SubjectLogonId%"
-    Values: 
-      - 
+    Values:
+      -
         Name: SubjectLogonId
         Value: "/Event/EventData/Data[@Name=\"SubjectLogonId\"]"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "CallerProcessName: %CallerProcessName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: CallerProcessName
         Value: "/Event/EventData/Data[@Name=\"CallerProcessName\"]"
-  - 
+  -
     Property: PayloadData4
     PropertyValue: "CallerProcessId: %CallerProcessId%"
-    Values: 
-      - 
+    Values:
+      -
         Name: CallerProcessId
         Value: "/Event/EventData/Data[@Name=\"CallerProcessId\"]"
 
@@ -85,4 +85,4 @@ Maps:
 #    <Data Name="CallerProcessId">0x58F4</Data>
 #    <Data Name="CallerProcessName">C:\Windows\System32\Sysprep\sysprep.exe</Data>
 #  </EventData>
-#</Event>
+# </Event>

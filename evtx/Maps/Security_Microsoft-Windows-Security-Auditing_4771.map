@@ -3,46 +3,46 @@ Description: Kerberos pre-authentication failed
 EventId: 4771
 Channel: Security
 Provider: Microsoft-Windows-Security-Auditing
-Maps: 
-  - 
+Maps:
+  -
     Property: RemoteHost
     PropertyValue: "%ipAddress%:%port%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ipAddress
         Value: "/Event/EventData/Data[@Name=\"IpAddress\"]"
-      - 
+      -
         Name: port
         Value: "/Event/EventData/Data[@Name=\"IpPort\"]"
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "Target: %TargetUserName% (%TargetSid%)"
-    Values: 
-      - 
+    Values:
+      -
         Name: TargetUserName
         Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
-      - 
+      -
         Name: TargetSid
         Value: "/Event/EventData/Data[@Name=\"TargetSid\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "ServiceName: %ServiceName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ServiceName
         Value: "/Event/EventData/Data[@Name=\"ServiceName\"]"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "Status: %Status%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Status
         Value: "/Event/EventData/Data[@Name=\"Status\"]"
-  - 
+  -
     Property: PayloadData4
     PropertyValue: "PreAuthType: %PreAuthType%"
-    Values: 
-      - 
+    Values:
+      -
         Name: PreAuthType
         Value: "/Event/EventData/Data[@Name=\"PreAuthType\"]"
 
@@ -51,7 +51,6 @@ Lookups:
     Name: Status
     Default: Unknown code
     Values:
-           
         0x10: KDC_ERR_PADATA_TYPE_NOSUPP - KDC has no support for PADATA type (pre-authentication data) - Smart card logon is being attempted and the proper certificate cannot be located. This problem can happen because the wrong certification authority (CA) is being queried or the proper CA cannot be contacted in order to get Domain Controller or Domain Controller Authentication certificates for the domain controller. It can also happen when a domain controller doesn't have a certificate installed for smart cards (Domain Controller or Domain Controller Authentication templates).
         0x17: KDC_ERR_KEY_EXPIRED - Password has expired—change password to reset - The user's password has expired.
         0x18: KDC_ERR_PREAUTH_FAILED - Pre-authentication information was invalid - The wrong password was provided.
@@ -59,7 +58,6 @@ Lookups:
     Name: PreAuthType
     Default: Unknown code
     Values:
-
         0: Logon without Pre-Authentication.
         2: PA-ENC-TIMESTAMP - This type is normal for standard password authentication.
         11: PA-ETYPE-INFO - The ETYPE-INFO pre-authentication type is sent by the KDC in a KRB-ERROR indicating a requirement for additional pre-authentication. It is usually used to notify a client of which key to use for the encryption of an encrypted timestamp for the purposes of sending a PA-ENC-TIMESTAMP pre-authentication value. Never saw this Pre-Authentication Type in Microsoft Active Directory environment.
@@ -78,32 +76,32 @@ Lookups:
 # Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 # <System>
-# <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-A5BA-3E3B0328C30D}" /> 
-# <EventID>4771</EventID> 
-# <Version>0</Version> 
-# <Level>0</Level> 
-# <Task>14339</Task> 
-# <Opcode>0</Opcode> 
-# <Keywords>0x8010000000000000</Keywords> 
-# <TimeCreated SystemTime="2015-08-07T18:10:21.495462300Z" /> 
-# <EventRecordID>166708</EventRecordID> 
-# <Correlation /> 
-# <Execution ProcessID="520" ThreadID="1084" /> 
-# <Channel>Security</Channel> 
-# <Computer>DC01.contoso.local</Computer> 
-# <Security /> 
+# <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-A5BA-3E3B0328C30D}" />
+# <EventID>4771</EventID>
+# <Version>0</Version>
+# <Level>0</Level>
+# <Task>14339</Task>
+# <Opcode>0</Opcode>
+# <Keywords>0x8010000000000000</Keywords>
+# <TimeCreated SystemTime="2015-08-07T18:10:21.495462300Z" />
+# <EventRecordID>166708</EventRecordID>
+# <Correlation />
+# <Execution ProcessID="520" ThreadID="1084" />
+# <Channel>Security</Channel>
+# <Computer>DC01.contoso.local</Computer>
+# <Security />
 # </System>
 # <EventData>
-# <Data Name="TargetUserName">dadmin</Data> 
-# <Data Name="TargetSid">S-1-5-21-3457937927-2839227994-823803824-1104</Data> 
-# <Data Name="ServiceName">krbtgt/CONTOSO.LOCAL</Data> 
-# <Data Name="TicketOptions">0x40810010</Data> 
-# <Data Name="Status">0x10</Data> 
-# <Data Name="PreAuthType">15</Data> 
-# <Data Name="IpAddress">::ffff:10.0.0.12</Data> 
-# <Data Name="IpPort">49254</Data> 
-# <Data Name="CertIssuerName" /> 
-# <Data Name="CertSerialNumber" /> 
-# <Data Name="CertThumbprint" /> 
+# <Data Name="TargetUserName">dadmin</Data>
+# <Data Name="TargetSid">S-1-5-21-3457937927-2839227994-823803824-1104</Data>
+# <Data Name="ServiceName">krbtgt/CONTOSO.LOCAL</Data>
+# <Data Name="TicketOptions">0x40810010</Data>
+# <Data Name="Status">0x10</Data>
+# <Data Name="PreAuthType">15</Data>
+# <Data Name="IpAddress">::ffff:10.0.0.12</Data>
+# <Data Name="IpPort">49254</Data>
+# <Data Name="CertIssuerName" />
+# <Data Name="CertSerialNumber" />
+# <Data Name="CertThumbprint" />
 # </EventData>
 # </Event>

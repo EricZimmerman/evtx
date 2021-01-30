@@ -3,12 +3,12 @@ Description: Connect to the Internet
 EventId: 10000
 Channel: "Microsoft-Windows-NetworkProfile/Operational"
 Provider: Microsoft-Windows-NetworkProfile
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "%PayloadData1%"
-    Values: 
-      - 
+    Values:
+      -
         Name: PayloadData1
         Value: "/Event/EventData/Data[@Name=\"Description\"]"
 
@@ -16,7 +16,7 @@ Maps:
 # https://www.winhelponline.com/blog/trigger-launch-program-script-connecting-to-specific-network/
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-NetworkProfile" Guid="fbcfac3f-8459-419f-8e48-1f0b49cdb85e" />
 #    <EventID>10000</EventID>
@@ -41,4 +41,4 @@ Maps:
 #    <Data Name="State">9</Data>
 #    <Data Name="Category">2</Data>
 #  </EventData>
-#</Event>
+# </Event>

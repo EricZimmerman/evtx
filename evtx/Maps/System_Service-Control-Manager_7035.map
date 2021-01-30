@@ -3,19 +3,19 @@ Description: Service sent a Start/Stop control
 EventId: 7035
 Channel: System
 Provider: Service Control Manager
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
-    PropertyValue: "Name: %ServiceName%" 
-    Values: 
-      - 
+    PropertyValue: "Name: %ServiceName%"
+    Values:
+      -
         Name: ServiceName
         Value: "/Event/EventData/Data[@Name=\"param1\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "Status: %Status%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Status
         Value: "/Event/EventData/Data[@Name=\"param2\"]"
 
@@ -23,7 +23,7 @@ Maps:
 # https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-r2-and-2008/cc756357(v=ws.10)
 #
 # Example Event Data:
-#<Event xmlns="removed link due to support site prompt">
+# <Event xmlns="removed link due to support site prompt">
 #  <System>
 #    <Provider Name="Service Control Manager" Guid="{555908d1-a6d7-4695-8e1e-26931d2012f4}" EventSourceName="Service Control Manager" />
 #    <EventID Qualifiers="16384">7036</EventID>
@@ -45,4 +45,4 @@ Maps:
 #    <Data Name="param2">stopped</Data>
 #    <Binary>4D004D004300530053002F0031000000</Binary>
 #  </EventData>
-#</Event>
+# </Event>

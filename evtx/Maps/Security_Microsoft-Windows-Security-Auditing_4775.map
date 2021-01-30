@@ -3,12 +3,12 @@ Description: An account could not be mapped for logon
 EventId: 4775
 Channel: Security
 Provider: Microsoft-Windows-Security-Auditing
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "Target: %TargetUserName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TargetUserName
         Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
 

@@ -3,56 +3,56 @@ Description: Successful logon
 EventId: 4624
 Channel: Security
 Provider: Microsoft-Windows-Security-Auditing
-Maps: 
-  - 
+Maps:
+  -
     Property: UserName
     PropertyValue: "%domain%\\%user%"
-    Values: 
-      - 
+    Values:
+      -
         Name: domain
         Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
-      - 
+      -
         Name: user
         Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
-  - 
+  -
     Property: RemoteHost
     PropertyValue: "%workstation% (%ipAddress%)"
-    Values: 
-      - 
+    Values:
+      -
         Name: ipAddress
         Value: "/Event/EventData/Data[@Name=\"IpAddress\"]"
-      - 
+      -
         Name: workstation
         Value: "/Event/EventData/Data[@Name=\"WorkstationName\"]"
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "Target: %TargetDomainName%\\%TargetUserName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TargetDomainName
         Value: "/Event/EventData/Data[@Name=\"TargetDomainName\"]"
-      - 
+      -
         Name: TargetUserName
         Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "LogonType %LogonType%"
-    Values: 
-      - 
+    Values:
+      -
         Name: LogonType
         Value: "/Event/EventData/Data[@Name=\"LogonType\"]"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "LogonId: %TargetLogonId%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TargetLogonId
         Value: "/Event/EventData/Data[@Name=\"TargetLogonId\"]"
-  - 
+  -
     Property: ExecutableInfo
     PropertyValue: "%ProcessName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ProcessName
         Value: "/Event/EventData/Data[@Name=\"ProcessName\"]"
 

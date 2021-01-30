@@ -3,15 +3,15 @@ Description: The RDP client has established a multi-transport connection to the 
 EventId: 1103
 Channel: Microsoft-Windows-TerminalServices-RDPClient/Operational
 Provider: Microsoft-Windows-TerminalServices-ClientActiveXCore
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData6
     PropertyValue: "ActivityID: %ActivityID%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ActivityID
         Value: "/Event/System/Correlation/@ActivityID"
- 
+
 # Documentation:
 # https://cyber-tls.blogspot.com/2019/08/rdp.html
 # https://social.technet.microsoft.com/wiki/contents/articles/37847.rdp-direct-connection-with-nla-remote-desktop-client-event-logs.aspx

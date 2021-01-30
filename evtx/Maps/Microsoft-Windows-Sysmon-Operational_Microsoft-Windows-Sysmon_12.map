@@ -3,46 +3,46 @@ Description: RegistryEvent (Object create and delete)
 EventId: 12
 Channel: Microsoft-Windows-Sysmon/Operational
 Provider: Microsoft-Windows-Sysmon
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "ProcessID: %ProcessID%, ProcessGUID: %ProcessGUID%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ProcessGUID
         Value: "/Event/EventData/Data[@Name=\"ProcessGuid\"]"
-      - 
+      -
         Name: ProcessID
         Value: "/Event/EventData/Data[@Name=\"ProcessId\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "RuleName: %RuleName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: RuleName
         Value: "/Event/EventData/Data[@Name=\"RuleName\"]"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "Image: %Image%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Image
-        Value: "/Event/EventData/Data[@Name=\"Image\"]"   
-  - 
+        Value: "/Event/EventData/Data[@Name=\"Image\"]"
+  -
     Property: PayloadData4
     PropertyValue: "EventType: %EventType%"
-    Values: 
-      - 
+    Values:
+      -
         Name: EventType
-        Value: "/Event/EventData/Data[@Name=\"EventType\"]"   
-  - 
+        Value: "/Event/EventData/Data[@Name=\"EventType\"]"
+  -
     Property: PayloadData5
     PropertyValue: "TargetObject: %TargetObject%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TargetObject
-        Value: "/Event/EventData/Data[@Name=\"TargetObject\"]"  
-        
+        Value: "/Event/EventData/Data[@Name=\"TargetObject\"]"
+
 # Documentation:
 # https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon#events
 # https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES
@@ -50,7 +50,7 @@ Maps:
 # https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/default.aspx - filter on Sysmon
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Sysmon" Guid="5770385f-c22a-43e0-bf4c-06f5698ffbd9" />
 #    <EventID>12</EventID>
@@ -76,5 +76,5 @@ Maps:
 #    <Data Name="Image">C:\Windows\system32\reg.exe</Data>
 #    <Data Name="TargetObject">HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging\EnableScriptBlockLogging</Data>
 #  </EventData>
-#</Event>
+# </Event>
 #

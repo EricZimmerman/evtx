@@ -3,21 +3,21 @@ Description: RDP Connected to domain
 EventId: 1027
 Channel: Microsoft-Windows-TerminalServices-RDPClient/Operational
 Provider: Microsoft-Windows-TerminalServices-ClientActiveXCore
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "Domain: %DomainName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: DomainName
         Value: "/Event/EventData/Data[@Name=\"DomainName\"]"
-  - 
+  -
     Property: PayloadData6
     PropertyValue: "ActivityID: %ActivityID%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ActivityID
-        Value: "/Event/System/Correlation/@ActivityID" 
+        Value: "/Event/System/Correlation/@ActivityID"
 
 # Documentation:
 # https://cyber-tls.blogspot.com/2019/08/rdp.html
@@ -25,9 +25,9 @@ Maps:
 # https://nullsec.us/windows-rdp-related-event-logs-the-client-side-of-the-story/
 #
 # Example Event Data:
-#Connected to domain (SERVER-01) with session 12.
+# Connected to domain (SERVER-01) with session 12.
 #
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-TerminalServices-ClientActiveXCore" Guid="28aa95bb-d444-4719-a36f-40462168127e" />
 #    <EventID>1027</EventID>
@@ -48,4 +48,4 @@ Maps:
 #    <Data Name="DomainName">ZIM</Data>
 #    <Data Name="SessionId">1</Data>
 #  </EventData>
-#</Event>
+# </Event>

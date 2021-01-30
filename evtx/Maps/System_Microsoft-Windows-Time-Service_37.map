@@ -27,22 +27,22 @@ Maps:
 # Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
-#     <Provider Name="Microsoft-Windows-Time-Service" Guid="{GUID}" /> 
-#     <EventID>37</EventID> 
-#     <Version>0</Version> 
-#     <Level>4</Level> 
-#     <Task>0</Task> 
-#     <Opcode>0</Opcode> 
-#     <Keywords>0x8000000000000000</Keywords> 
-#     <TimeCreated SystemTime="2020-11-07T00:15:17.5759748Z" /> 
-#     <EventRecordID>5549</EventRecordID> 
-#     <Correlation /> 
-#     <Execution ProcessID="16004" ThreadID="2292" /> 
-#     <Channel>System</Channel> 
-#     <Computer>ComputerName</Computer> 
-#     <Security UserID="{UserID}" /> 
+#     <Provider Name="Microsoft-Windows-Time-Service" Guid="{GUID}" />
+#     <EventID>37</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x8000000000000000</Keywords>
+#     <TimeCreated SystemTime="2020-11-07T00:15:17.5759748Z" />
+#     <EventRecordID>5549</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="16004" ThreadID="2292" />
+#     <Channel>System</Channel>
+#     <Computer>ComputerName</Computer>
+#     <Security UserID="{UserID}" />
 #   </System>
 #   <EventData Name="TMP_EVENT_TIME_SOURCE_REACHABLE">
-#     <Data Name="TimeSource">time.windows.com,0x9 (ntp.m|0x9|0.0.0.0:123->52.231.114.183:123)</Data> 
+#     <Data Name="TimeSource">time.windows.com,0x9 (ntp.m|0x9|0.0.0.0:123->52.231.114.183:123)</Data>
 #   </EventData>
 # </Event>

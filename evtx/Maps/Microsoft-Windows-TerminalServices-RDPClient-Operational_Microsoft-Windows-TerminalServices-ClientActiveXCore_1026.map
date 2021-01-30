@@ -3,22 +3,22 @@ Description: RDP ClientActiveX has been disconnected
 EventId: 1026
 Channel: Microsoft-Windows-TerminalServices-RDPClient/Operational
 Provider: Microsoft-Windows-TerminalServices-ClientActiveXCore
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "%DisconnectReason%: %DisconnectCode%"
-    Values: 
-      - 
+    Values:
+      -
         Name: DisconnectReason
         Value: "/Event/EventData/Data[@Name=\"Name\"]"
-      - 
+      -
         Name: DisconnectCode
         Value: "/Event/EventData/Data[@Name=\"Value\"]"
-  - 
+  -
     Property: PayloadData6
     PropertyValue: "ActivityID: %ActivityID%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ActivityID
         Value: "/Event/System/Correlation/@ActivityID"
 
@@ -65,10 +65,10 @@ Lookups:
         2820: An error occurred that prevented the connection
         2822: Because of an error in data encryption, this session will end
         2823: The user account is currently disabled and cannot be used
-        2825: The remote computer requires Network Level Authentication, which your computer does not support 
+        2825: The remote computer requires Network Level Authentication, which your computer does not support
         3079: A user account restriction (for example, a time-of-day restriction) is preventing you from logging on
         3080: The remote session was disconnected because of a decompression failure at the client side
-        3335: The user account has been locked because there were too many logon attempts or password change attempts 
+        3335: The user account has been locked because there were too many logon attempts or password change attempts
         3337: The security policy of your computer requires you to type a password on the Windows Security dialog box
         3590: The client can't connect because it doesn't support FIPS encryption level
         3591: This user account has expired
@@ -82,11 +82,11 @@ Lookups:
         4359: The system administrator has limited the computers you can log on with
         4498: The remote session was disconnected because of a decryption error at the server
         4615: You must change your password before logging on the first time
-        4871: The system administrator has restricted the types of logon (network or interactive) that you may use 
+        4871: The system administrator has restricted the types of logon (network or interactive) that you may use
         5127: The Kerberos sub-protocol User2User is required
         6919: The authentication certificate received from the remote computer is expired or invalid
         7431: There is a time or date difference between your computer and the remote computer
-        8711: Your computer can't connect to the remote computer because your smart card is locked out 
+        8711: Your computer can't connect to the remote computer because your smart card is locked out
         9479: Could not auto-reconnect to your applications,please re-launch your applications
         9732: Client and server versions do not match
         33554433: Failed to reconnect to the remote program
@@ -96,7 +96,7 @@ Lookups:
         50331651: The requested Remote Desktop Gateway server address and the server SSL certificate subject name do not match/The certificate is expired or revoked
         50331652: The SSL certificate was revoked by the certification authority
         50331653: This computer can't verify the identity of the RD Gateway
-        50331654: The Remote Desktop Gateway server address requested and the certificate subject name do not match 
+        50331654: The Remote Desktop Gateway server address requested and the certificate subject name do not match
         50331655: The Remote Desktop Gateway server's certificate has expired or has been revoked
         50331656: An error occurred on the remote computer that you want to connect to
         50331657: An error occurred while sending data to the Remote Desktop Gateway server/The server is temporarily unavailable or a network connection is down
@@ -113,18 +113,18 @@ Lookups:
         50331668: The smart card has been removed
         50331669: The user name or password is not valid
         50331671: A security package error occurred in the transport layer
-        50331672: The Remote Desktop Gateway server has ended the connection 
+        50331672: The Remote Desktop Gateway server has ended the connection
         50331673: The Remote Desktop Gateway server administrator has ended the connection
         50331674: Your credentials were incorrect or your smart card was not recognized
         50331675: Your user account is not listed in the RD Gateway's permission list
         50331676: Your user account is not authorized to access the RD Gateway/You are using an incompatible authentication method
-        50331679: Your network administrator has restricted access to this RD Gateway server. 
+        50331679: Your network administrator has restricted access to this RD Gateway server.
         50331680: Your computer can't connect to the remote computer because the web proxy server requires authentication.
         50331681: Your password has expired or you must change the password
-        50331682: The Remote Desktop Gateway server reached its maximum allowed connections 
-        50331683: The Remote Desktop Gateway server does not support the request 
+        50331682: The Remote Desktop Gateway server reached its maximum allowed connections
+        50331683: The Remote Desktop Gateway server does not support the request
         50331684: The client does not support one of the Remote Desktop Gateway's capabilities
-        50331685: The Remote Desktop Gateway server and this computer are incompatible 
+        50331685: The Remote Desktop Gateway server and this computer are incompatible
         50331686: The credentials used are not valid
         50331687: Your computer or device did not pass the Network Access Protection requirements set by your network administrator
         50331688: No certificate was configured to use at the Remote Desktop Gateway server
@@ -141,16 +141,16 @@ Lookups:
         50331701: The cookie was rejected by the Remote Desktop Gateway server
         50331703: The Remote Desktop Gateway server is expecting an authentication method different from the one attempted
         50331704: The RD Gateway connection ended because periodic user authentication failed
-        50331705: The RD Gateway connection ended because periodic user authorization failed 
+        50331705: The RD Gateway connection ended because periodic user authorization failed
         50331707: The Remote Desktop Gateway and the remote computer are unable to exchange policies
-        50331708: The smart card is not valid, the smart card certificate was not found in the certificate store, or the Certificate Propagation service is not running 
+        50331708: The smart card is not valid, the smart card certificate was not found in the certificate store, or the Certificate Propagation service is not running
         50331709: First log on to the following website= <a href=""></a>
         50331710: You must first log on to an authentication website
         50331711: Your session has ended. To continue using the program or computer, first log on to the following website= <a href=""></a>
         50331712: Your session has ended. To continue using the program or computer, you must first log on to an authentication website
         50331713: Periodic user authorization failed
         50331714: The size of the cookie exceeded the supported size
-        50331716: Your computer can't connect to the remote computer using the specified forward proxy configuration. 
+        50331716: Your computer can't connect to the remote computer using the specified forward proxy configuration.
         50331717: You do not have permission to this resource
         50331718: There are currently no resources available to connect to
         50331719: An error occurred while Remote Desktop Connection was accessing this resource
@@ -162,7 +162,7 @@ Lookups:
         50331726: Maximum user limit has been reached
         50331727: Your trial period for Azure RemoteApp has expired
         50331728: You no longer have access to Azure RemoteApp
- 
+
 # Documentation:
 # https://social.technet.microsoft.com/wiki/contents/articles/37870.remote-desktop-client-troubleshooting-disconnect-codes-and-reasons.aspx
 # https://cyber-tls.blogspot.com/2019/08/rdp.html

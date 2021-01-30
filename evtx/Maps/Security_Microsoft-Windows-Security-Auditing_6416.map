@@ -3,56 +3,56 @@ Description: A new external device was recognized by the system
 EventId: 6416
 Channel: Security
 Provider: Microsoft-Windows-Security-Auditing
-Maps: 
-  - 
+Maps:
+  -
     Property: UserName
     PropertyValue: "%domain%\\%user% (%sid%)"
-    Values: 
-      - 
+    Values:
+      -
         Name: domain
         Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
-      - 
+      -
         Name: user
         Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
-      - 
+      -
         Name: sid
         Value: "/Event/EventData/Data[@Name=\"SubjectUserSid\"]"
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "DeviceId: %DeviceId%"
-    Values: 
-      - 
+    Values:
+      -
         Name: DeviceId
         Value: "/Event/EventData/Data[@Name=\"DeviceId\"]"
-  - 
+  -
     Property: PayloadData2
     PropertyValue: "DeviceName: %DeviceDescription%"
-    Values: 
-      - 
+    Values:
+      -
         Name: DeviceDescription
         Value: "/Event/EventData/Data[@Name=\"DeviceDescription\"]"
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "Class: %ClassName% (%ClassId%)"
-    Values: 
-      - 
+    Values:
+      -
         Name: ClassName
         Value: "/Event/EventData/Data[@Name=\"ClassName\"]"
-      - 
+      -
         Name: ClassId
         Value: "/Event/EventData/Data[@Name=\"ClassId\"]"
-  - 
+  -
     Property: PayloadData4
     PropertyValue: "VendorIds: %VendorIds%"
-    Values: 
-      - 
+    Values:
+      -
         Name: VendorIds
         Value: "/Event/EventData/Data[@Name=\"VendorIds\"]"
-  - 
+  -
     Property: PayloadData5
     PropertyValue: "LocationInformation: %LocationInformation%"
-    Values: 
-      - 
+    Values:
+      -
         Name: LocationInformation
         Value: "/Event/EventData/Data[@Name=\"LocationInformation\"]"
 

@@ -32,7 +32,7 @@ Maps:
       -
         Name: BusType
         Value: "/Event/EventData/Data[@Name=\"BusType\"]"
-Lookups: 
+Lookups:
   -
     Name: BusType
     Default: Unknown code
@@ -63,56 +63,56 @@ Lookups:
 # Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
-#     <Provider Name="Microsoft-Windows-StorPort" Guid="{GUID}" /> 
-#     <EventID>504</EventID> 
-#     <Version>4</Version> 
-#     <Level>4</Level> 
-#     <Task>201</Task> 
-#     <Opcode>0</Opcode> 
-#     <Keywords>0x800000000600000</Keywords> 
-#     <TimeCreated SystemTime="2020-11-27T22:47:06.3728007Z" /> 
-#     <EventRecordID>1473</EventRecordID> 
-#     <Correlation /> 
-#     <Execution ProcessID="0" ThreadID="0" /> 
-#     <Channel>Microsoft-Windows-Storage-Storport/Operational</Channel> 
-#     <Computer>ComputerName</Computer> 
-#     <Security /> 
+#     <Provider Name="Microsoft-Windows-StorPort" Guid="{GUID}" />
+#     <EventID>504</EventID>
+#     <Version>4</Version>
+#     <Level>4</Level>
+#     <Task>201</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x800000000600000</Keywords>
+#     <TimeCreated SystemTime="2020-11-27T22:47:06.3728007Z" />
+#     <EventRecordID>1473</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="0" ThreadID="0" />
+#     <Channel>Microsoft-Windows-Storage-Storport/Operational</Channel>
+#     <Computer>ComputerName</Computer>
+#     <Security />
 #   </System>
 #   <EventData>
-#     <Data Name="PortNumber">0</Data> 
-#     <Data Name="PathID">0</Data> 
-#     <Data Name="TargetID">1</Data> 
-#     <Data Name="LUN">0</Data> 
-#     <Data Name="ClassDeviceGuid">{7c522c43-1fce-04f3-f54a-a63477373fa4}</Data> 
-#     <Data Name="AdapterGuid">{8fd8a5f2-aac2-11e6-b71a-806e6f6e6963}</Data> 
-#     <Data Name="BusType">11</Data> 
-#     <Data Name="MiniportName">iaStorA</Data> 
-#     <Data Name="VendorId">HFS256G3</Data> 
-#     <Data Name="ProductId">9MND-3510A</Data> 
-#     <Data Name="SerialNumber">EJ73N592410403P5K</Data> 
-#     <Data Name="AdapterSerialNumber" /> 
-#     <Data Name="SystemUptime_s">1108365</Data> 
-#     <Data Name="Version">5</Data> 
-#     <Data Name="TotalErrors">1</Data> 
-#     <Data Name="TotalReadWriteErrors">0</Data> 
-#     <Data Name="TotalImpendingDeviceFailureErrors">0</Data> 
-#     <Data Name="TotalDeviceFailureErrors">0</Data> 
-#     <Data Name="TimeoutsInMiniport">0</Data> 
-#     <Data Name="HierarchicalResetSuccessCount">0</Data> 
-#     <Data Name="LastError_RequestDuration_ms">1</Data> 
-#     <Data Name="LastError_WaitDuration_ms">0</Data> 
-#     <Data Name="LastError_Command">27</Data> 
-#     <Data Name="LastError_SrbStatus">5</Data> 
-#     <Data Name="LastError_ScsiStatus">0</Data> 
-#     <Data Name="LastError_SenseKey">0</Data> 
-#     <Data Name="LastError_AddSense">0</Data> 
-#     <Data Name="LastError_AddSenseQ">0</Data> 
-#     <Data Name="LastError_IoSize">0</Data> 
-#     <Data Name="LastError_QueueDepth">46</Data> 
-#     <Data Name="LastError_LBA">0x0</Data> 
-#     <Data Name="SampledErrorLogArrayLength">0</Data> 
-#     <Data Name="SampledErrorLogArray" /> 
-#     <Data Name="UniqueErrorLogArrayLength">40</Data> 
-#     <Data Name="UniqueErrorLogArray"></Data> 
+#     <Data Name="PortNumber">0</Data>
+#     <Data Name="PathID">0</Data>
+#     <Data Name="TargetID">1</Data>
+#     <Data Name="LUN">0</Data>
+#     <Data Name="ClassDeviceGuid">{7c522c43-1fce-04f3-f54a-a63477373fa4}</Data>
+#     <Data Name="AdapterGuid">{8fd8a5f2-aac2-11e6-b71a-806e6f6e6963}</Data>
+#     <Data Name="BusType">11</Data>
+#     <Data Name="MiniportName">iaStorA</Data>
+#     <Data Name="VendorId">HFS256G3</Data>
+#     <Data Name="ProductId">9MND-3510A</Data>
+#     <Data Name="SerialNumber">EJ73N592410403P5K</Data>
+#     <Data Name="AdapterSerialNumber" />
+#     <Data Name="SystemUptime_s">1108365</Data>
+#     <Data Name="Version">5</Data>
+#     <Data Name="TotalErrors">1</Data>
+#     <Data Name="TotalReadWriteErrors">0</Data>
+#     <Data Name="TotalImpendingDeviceFailureErrors">0</Data>
+#     <Data Name="TotalDeviceFailureErrors">0</Data>
+#     <Data Name="TimeoutsInMiniport">0</Data>
+#     <Data Name="HierarchicalResetSuccessCount">0</Data>
+#     <Data Name="LastError_RequestDuration_ms">1</Data>
+#     <Data Name="LastError_WaitDuration_ms">0</Data>
+#     <Data Name="LastError_Command">27</Data>
+#     <Data Name="LastError_SrbStatus">5</Data>
+#     <Data Name="LastError_ScsiStatus">0</Data>
+#     <Data Name="LastError_SenseKey">0</Data>
+#     <Data Name="LastError_AddSense">0</Data>
+#     <Data Name="LastError_AddSenseQ">0</Data>
+#     <Data Name="LastError_IoSize">0</Data>
+#     <Data Name="LastError_QueueDepth">46</Data>
+#     <Data Name="LastError_LBA">0x0</Data>
+#     <Data Name="SampledErrorLogArrayLength">0</Data>
+#     <Data Name="SampledErrorLogArray" />
+#     <Data Name="UniqueErrorLogArrayLength">40</Data>
+#     <Data Name="UniqueErrorLogArray"></Data>
 #   </EventData>
 # </Event>

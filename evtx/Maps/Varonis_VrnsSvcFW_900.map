@@ -4,19 +4,19 @@ EventId: 900
 Channel: Varonis
 Provider: "VrnsSvcFW"
 Maps:
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "%Data%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Data
         Value: "/Event/EventData/Data"
 
 # Documentation:
-# There is no public documentation on these events. Varonis is a data security platform so some file system activity appears to be tracked by it. 
+# There is no public documentation on these events. Varonis is a data security platform so some file system activity appears to be tracked by it.
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="VrnsSvcFW" />
 #    <EventID Qualifiers="0">900</EventID>
@@ -31,13 +31,13 @@ Maps:
 #  </System>
 #  <EventData>
 #    <Data>VrnsSvcFW, 1234, 5678, Volume info saved. Path: \\?\C:\ Type: 467913 Serial: 0xae70mom570maa42f
-#</Data>
+# </Data>
 #    <Binary></Binary>
 #  </EventData>
-#</Event>
+# </Event>
 #
 # I've also seen the following logged here:
-#<EventData>
+# <EventData>
 #    <Data>VrnsSvcFW, 1234, 5678, 3, CDirFileWalk::QueryEntryInfo() Failed FindFirstFile() [path: \\?\C:\Windows\System32\config\systemprofile\AppData\Local\Microsoft\Windows\INetCache\Content.IE5]
 #
 # Error message description: The system cannot find the path specified.</Data>

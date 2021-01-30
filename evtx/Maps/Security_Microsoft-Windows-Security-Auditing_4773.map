@@ -3,12 +3,12 @@ Description: A Kerberos service ticket request failed
 EventId: 4773
 Channel: Security
 Provider: Microsoft-Windows-Security-Auditing
-Maps: 
-  - 
+Maps:
+  -
     Property: PayloadData1
     PropertyValue: "Target: %TargetUserName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: TargetUserName
         Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
 

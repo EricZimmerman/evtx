@@ -46,7 +46,7 @@ Maps:
       -
         Name: ParentId
         Value: "/Event/EventData/Data[@Name=\"ParentId\"]"
-        
+
 # Documentation:
 # https://www.atropos4n6.com/windows/extract-vsns-that-reside-in-windows-partition4diagnostic-evtx/
 # https://df-stream.com/2018/05/partition-diagnostic-event-log-and-usb-device-tracking-p1/
@@ -54,9 +54,9 @@ Maps:
 # https://forensixchange.com/posts/19_08_03_usb_storage_forensics_1/
 # https://docs.microsoft.com/en-us/previous-versions/windows/desktop/stormgmt/msft-physicaldisk (BusType)
 # Frankly, there is too much data to fit within 6 PayloadData columns. As always, all data is in the Payload column but there isn't enough room to map out all the information cleanly.
-# 
+#
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Partition" Guid="412bdff2-a8c4-470d-8f33-63fabc8c20e2" />
 #    <EventID>1006</EventID>
@@ -156,4 +156,4 @@ Maps:
 #    <Data Name="Vbr3Size">0</Data>
 #    <Data Name="Vbr3"></Data>
 #  </EventData>
-#</Event>
+# </Event>

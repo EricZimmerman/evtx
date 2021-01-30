@@ -4,19 +4,19 @@ EventId: 5120
 Channel: Varonis
 Provider: "VrnsCifsQueueReport"
 Maps:
-  - 
+  -
     Property: PayloadData1
     PropertyValue: "%Data%"
-    Values: 
-      - 
+    Values:
+      -
         Name: Data
         Value: "/Event/EventData/Data"
 
 # Documentation:
-# There is no public documentation on these events. Varonis is a data security platform so some file system activity appears to be tracked by it. 
+# There is no public documentation on these events. Varonis is a data security platform so some file system activity appears to be tracked by it.
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="VrnsCifsQueueReport" />
 #    <EventID Qualifiers="0">5120</EventID>
@@ -34,24 +34,24 @@ Maps:
 #    [First connection]:	8/22/2020 3:17:54 AM;  0d 00:53:20 ago
 #    [Last connection]:	8/22/2020 4:11:09 AM;  0d 00:00:05 ago
 #    [Statistics]:
-#        [Events Lost (queue)]: 	0         	of total:	0         
-#        [Events Sent To Probe]:	0         	of total:	0         
+#        [Events Lost (queue)]: 	0         	of total:	0
+#        [Events Sent To Probe]:	0         	of total:	0
 #    [Volumes]:
-#	E:	==&amp;gt;
-#		E:, \device\harddiskvolumeshadowcopy31
-#		E:, \device\harddiskvolumeshadowcopy32
-#		E:, \device\harddiskvolumeshadowcopy33
-#		E:, \device\harddiskvolumeshadowcopy65
-#		E:, \device\harddiskvolumeshadowcopy66
-#		E:, \device\harddiskvolumeshadowcopy67
-#		E:, \device\harddiskvolumeshadowcopy60
-#		E:, \device\harddiskvolumeshadowcopy6
-#		E:, \device\harddiskvolumeshadowcopy58
-#		E:, \device\harddiskvolumeshadowcopy58
-#		E:, \device\harddiskvolumeshadowcopy53
-#		E:, \device\harddiskvolumeshadowcopy56
+# E:	==&amp;gt;
+# 	E:, \device\harddiskvolumeshadowcopy31
+# 	E:, \device\harddiskvolumeshadowcopy32
+# 	E:, \device\harddiskvolumeshadowcopy33
+# 	E:, \device\harddiskvolumeshadowcopy65
+# 	E:, \device\harddiskvolumeshadowcopy66
+# 	E:, \device\harddiskvolumeshadowcopy67
+# 	E:, \device\harddiskvolumeshadowcopy60
+# 	E:, \device\harddiskvolumeshadowcopy6
+# 	E:, \device\harddiskvolumeshadowcopy58
+# 	E:, \device\harddiskvolumeshadowcopy58
+# 	E:, \device\harddiskvolumeshadowcopy53
+# 	E:, \device\harddiskvolumeshadowcopy56
 # &amp;lt;cont. next event...&amp;gt;</Data>
 #    <Binary></Binary>
 #  </EventData>
-#</Event>
-#<Event>
+# </Event>
+# <Event>
