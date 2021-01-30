@@ -8,7 +8,7 @@ Maps:
     Property: RemoteHost
     PropertyValue: "%ipAddress%:%port%"
     Values:
-    -
+       -
       Name: ipAddress
       Value: "/Event/EventData/Data[@Name=\"IpAddress\"]"
     -
@@ -18,7 +18,7 @@ Maps:
     Property: PayloadData1
     PropertyValue: "Target: %TargetUserName% (%TargetSid%)"
     Values:
-    -
+      -
       Name: TargetUserName
       Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
     -
@@ -28,7 +28,7 @@ Maps:
     Property: PayloadData2
     PropertyValue: "ServiceName: %ServiceName%"
     Values:
-    -
+      -
       Name: ServiceName
       Value: "/Event/EventData/Data[@Name=\"ServiceName\"]"
   -
@@ -42,7 +42,7 @@ Maps:
     Property: PayloadData4
     PropertyValue: "PreAuthType: %PreAuthType%"
     Values:
-    -
+      -
       Name: PreAuthType
       Value: "/Event/EventData/Data[@Name=\"PreAuthType\"]"
 
