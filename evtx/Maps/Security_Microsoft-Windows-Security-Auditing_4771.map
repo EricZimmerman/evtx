@@ -51,15 +51,13 @@ Lookups:
     Name: Status
     Default: Unknown code
     Values:
-
-        0x10: KDC_ERR_PADATA_TYPE_NOSUPP - KDC has no support for PADATA type (pre-authentication data) - Smart card logon is being attempted and the proper certificate cannot be located. This problem can happen because the wrong certification authority (CA) is being queried or the proper CA cannot be contacted in order to get Domain Controller or Domain Controller Authentication certificates for the domain controller. It can also happen when a domain controller doesn’t have a certificate installed for smart cards (Domain Controller or Domain Controller Authentication templates).
-        0x17: KDC_ERR_KEY_EXPIRED - Password has expired—change password to reset - The user's password has expired.
+        0x10: KDC_ERR_PADATA_TYPE_NOSUPP - KDC has no support for PADATA type (pre-authentication data) - Smart card logon is being attempted and the proper certificate cannot be located. This problem can happen because the wrong certification authority (CA) is being queried or the proper CA cannot be contacted in order to get Domain Controller or Domain Controller Authentication certificates for the domain controller. It can also happen when a domain controller doesn't have a certificate installed for smart cards (Domain Controller or Domain Controller Authentication templates).
+        0x17: KDC_ERR_KEY_EXPIRED - Password has expired-change password to reset - The user's password has expired.
         0x18: KDC_ERR_PREAUTH_FAILED - Pre-authentication information was invalid - The wrong password was provided.
   -
     Name: PreAuthType
     Default: Unknown code
     Values:
-
         0: Logon without Pre-Authentication.
         2: PA-ENC-TIMESTAMP - This type is normal for standard password authentication.
         11: PA-ETYPE-INFO - The ETYPE-INFO pre-authentication type is sent by the KDC in a KRB-ERROR indicating a requirement for additional pre-authentication. It is usually used to notify a client of which key to use for the encryption of an encrypted timestamp for the purposes of sending a PA-ENC-TIMESTAMP pre-authentication value. Never saw this Pre-Authentication Type in Microsoft Active Directory environment.

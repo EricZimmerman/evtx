@@ -83,7 +83,7 @@ Maps:
 #    <Data Name="ImageLoaded">C:\Windows\System32\vaultcli.dll</Data>
 #    <Data Name="FileVersion">6.1.7600.16385 (win7_rtm.090713-1255)</Data>
 #    <Data Name="Description">Credential Vault Client Library</Data>
-#    <Data Name="Product">Microsoft® Windows® Operating System</Data>
+#    <Data Name="Product">Microsoft Windows Operating System</Data>
 #    <Data Name="Company">Microsoft Corporation</Data>
 #    <Data Name="Hashes">SHA1=9A398500E906FA979C21CD9F19C929FE798AF9EF,MD5=36B8D5903CEEF0AA42A1EE002BD27FF1,SHA256=CBD5C4D0E05B9A2657D816B655FFFC386807061594DEAABA754658D3152F7403,IMPHASH=55954B415EBB6BF5B592831A5E07DC56</Data>
 #    <Data Name="Signed">true</Data>
