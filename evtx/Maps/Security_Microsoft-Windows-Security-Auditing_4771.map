@@ -8,43 +8,43 @@ Maps:
       Property: RemoteHost
       PropertyValue: "%ipAddress%:%port%"
       Values:
-       -
+         -
       Name: ipAddress
       Value: "/Event/EventData/Data[@Name=\"IpAddress\"]"
-    -
-      Name: port
-      Value: "/Event/EventData/Data[@Name=\"IpPort\"]"
+      -
+       Name: port
+       Value: "/Event/EventData/Data[@Name=\"IpPort\"]"
    -
       Property: PayloadData1
       PropertyValue: "Target: %TargetUserName% (%TargetSid%)"
       Values:
-       -
-      Name: TargetUserName
-      Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
-    -
-      Name: TargetSid
-      Value: "/Event/EventData/Data[@Name=\"TargetSid\"]"
-   -
+         -
+       Name: TargetUserName
+       Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
+      -
+       Name: TargetSid
+       Value: "/Event/EventData/Data[@Name=\"TargetSid\"]"
+     -
       Property: PayloadData2
       PropertyValue: "ServiceName: %ServiceName%"
       Values:
-       -
-      Name: ServiceName
-      Value: "/Event/EventData/Data[@Name=\"ServiceName\"]"
-   -
+         -
+       Name: ServiceName
+       Value: "/Event/EventData/Data[@Name=\"ServiceName\"]"
+     -
       Property: PayloadData3
       PropertyValue: "Status: %Status%"
       Values:
-       -
-      Name: Status
-      Value: "/Event/EventData/Data[@Name=\"Status\"]"
-   -
+         -
+       Name: Status
+       Value: "/Event/EventData/Data[@Name=\"Status\"]"
+     -
       Property: PayloadData4
       PropertyValue: "PreAuthType: %PreAuthType%"
       Values:
-       -
-      Name: PreAuthType
-      Value: "/Event/EventData/Data[@Name=\"PreAuthType\"]"
+         -
+       Name: PreAuthType
+       Value: "/Event/EventData/Data[@Name=\"PreAuthType\"]"
 
 Lookups:
   -
