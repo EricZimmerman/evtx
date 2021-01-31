@@ -9,29 +9,29 @@ Maps:
       PropertyValue: "%jobOwner%"
       Values:
          -
-          Name: jobOwner
-          Value: "/Event/EventData/Data[@Name=\"jobOwner\"]"
+            Name: jobOwner
+            Value: "/Event/EventData/Data[@Name=\"jobOwner\"]"
    -
       Property: ExecutableInfo
       PropertyValue: "%processPath%"
       Values:
          -
-          Name: processPath
-          Value: "/Event/EventData/Data[@Name=\"processPath\"]"
+            Name: processPath
+            Value: "/Event/EventData/Data[@Name=\"processPath\"]"
    -
       Property: PayloadData1
       PropertyValue: "jobTitle: %jobTitle%"
       Values:
          -
-          Name: jobTitle
-          Value: "/Event/EventData/Data[@Name=\"jobTitle\"]"
+            Name: jobTitle
+            Value: "/Event/EventData/Data[@Name=\"jobTitle\"]"
    -
       Property: PayloadData2
       PropertyValue: "jobId: %jobId%"
       Values:
          -
-          Name: jobId
-          Value: "/Event/EventData/Data[@Name=\"jobId\"]"
+            Name: jobId
+            Value: "/Event/EventData/Data[@Name=\"jobId\"]"
 
 # Documentation:
 # https://www.cecyf.fr/wp-content/uploads/2018/01/2018-CELTON-DELAHAYE-Analyse-des-jobs-BITS.pdf

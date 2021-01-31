@@ -92,4 +92,3 @@ Maps:
 #    <Data Name="CallTrace">C:\Windows\SYSTEM32\ntdll.dll+4595c|C:\Windows\system32\KERNELBASE.dll+8185|UNKNOWN(01B51606)|UNKNOWN(01B51F41)|UNKNOWN(01B51515)|UNKNOWN(014A7486)|UNKNOWN(014A73A0)|UNKNOWN(014A78A3)|C:\Windows\system32\kernel32.dll+4ef8c|C:\Windows\SYSTEM32\ntdll.dll+6367a|C:\Windows\SYSTEM32\ntdll.dll+6364d</Data>
 #  </EventData>
 # </Event>
-
