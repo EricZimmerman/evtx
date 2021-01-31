@@ -9,46 +9,46 @@ Maps:
       PropertyValue: "jobTitle: %jobTitle%"
       Values:
          -
-          Name: jobTitle
-          Value: "/Event/EventData/Data[@Name=\"name\"]"
+            Name: jobTitle
+            Value: "/Event/EventData/Data[@Name=\"name\"]"
    -
       Property: PayloadData2
       PropertyValue: "jobId: %jobId%"
       Values:
          -
-          Name: jobId
-          Value: "/Event/EventData/Data[@Name=\"Id\"]"
+            Name: jobId
+            Value: "/Event/EventData/Data[@Name=\"Id\"]"
    -
       Property: PayloadData3
       PropertyValue: "URL: %url%"
       Values:
          -
-          Name: url
-          Value: "/Event/EventData/Data[@Name=\"url\"]"
+            Name: url
+            Value: "/Event/EventData/Data[@Name=\"url\"]"
    -
       Property: PayloadData4
       PropertyValue: "Peer: %peer%"
       Values:
          -
-          Name: peer
-          Value: "/Event/EventData/Data[@Name=\"peer\"]"
+            Name: peer
+            Value: "/Event/EventData/Data[@Name=\"peer\"]"
    -
       Property: PayloadData5
       PropertyValue: "Total Bytes: %bytesTotal% (Transferred: %bytesTransferred%)"
       Values:
          -
-          Name: bytesTotal
-          Value: "/Event/EventData/Data[@Name=\"bytesTotal\"]"
+            Name: bytesTotal
+            Value: "/Event/EventData/Data[@Name=\"bytesTotal\"]"
          -
-          Name: bytesTransferred
-          Value: "/Event/EventData/Data[@Name=\"bytesTransferred\"]"
+            Name: bytesTransferred
+            Value: "/Event/EventData/Data[@Name=\"bytesTransferred\"]"
    -
       Property: PayloadData6
       PropertyValue: "Bytes Transferred from Peer: %bytesTransferredFromPeer%"
       Values:
          -
-          Name: bytesTransferredFromPeer
-          Value: "/Event/EventData/Data[@Name=\"bytesTransferredFromPeer\"]"
+            Name: bytesTransferredFromPeer
+            Value: "/Event/EventData/Data[@Name=\"bytesTransferredFromPeer\"]"
 
 # Documentation:
 # https://kb.eventtracker.com/evtpass/evtpages/EventId_60_Microsoft-Windows-Bits-Client_64110.asp

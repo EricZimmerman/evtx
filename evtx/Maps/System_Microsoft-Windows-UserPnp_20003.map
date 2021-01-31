@@ -52,19 +52,19 @@ Lookups:
     Name: AddServiceStatus
     Default: Unknown code
     Values:
-        0x0: Installation Successful
-        0x00000002: File Not Found
-        0x80070002: File Not Found
-        0x80070003: Path Not Found
-        0x80070005: Access Denied
-        0x800F0233: Invalid Target
-        0x8028006E: Invalid Source Path
-        0x000005B3: Requires Interactive Workstation
-        0x000005B4: Timeout
-        0xE0000234: Driver Non-native
-        0xE0000246: Device Installer Not Ready
-        0xE0000217: Driver Non-native
-        0xE0000219: Device Installer Not Ready
+      0x0: Installation Successful
+      0x00000002: File Not Found
+      0x80070002: File Not Found
+      0x80070003: Path Not Found
+      0x80070005: Access Denied
+      0x800F0233: Invalid Target
+      0x8028006E: Invalid Source Path
+      0x000005B3: Requires Interactive Workstation
+      0x000005B4: Timeout
+      0xE0000234: Driver Non-native
+      0xE0000246: Device Installer Not Ready
+      0xE0000217: Driver Non-native
+      0xE0000219: Device Installer Not Ready
 
 # Documentation:
 # https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-r2-and-2008/dd349407(v=ws.10)
