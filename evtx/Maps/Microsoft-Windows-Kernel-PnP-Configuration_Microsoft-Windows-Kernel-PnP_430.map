@@ -8,9 +8,9 @@ Maps:
     Property: PayloadData6
     PropertyValue: "DeviceInstanceId: %DeviceInstanceId%"
     Values:
-        -
-          Name: DeviceInstanceId
-          Value: "/Event/EventData/Data[@Name=\"DeviceInstanceId\"]"
+      -
+        Name: DeviceInstanceId
+        Value: "/Event/EventData/Data[@Name=\"DeviceInstanceId\"]"
 
 # Documentation:
 # https://forensixchange.com/posts/19_08_03_usb_storage_forensics_1/

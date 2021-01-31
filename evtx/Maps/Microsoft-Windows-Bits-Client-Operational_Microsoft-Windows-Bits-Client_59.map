@@ -5,37 +5,37 @@ Channel: Microsoft-Windows-Bits-Client/Operational
 Provider: Microsoft-Windows-Bits-Client
 Maps:
    -
-    Property: PayloadData1
-    PropertyValue: "jobTitle: %jobTitle%"
-    Values:
+      Property: PayloadData1
+      PropertyValue: "jobTitle: %jobTitle%"
+      Values:
       -
         Name: jobTitle
         Value: "/Event/EventData/Data[@Name=\"name\"]"
    -
-    Property: PayloadData2
-    PropertyValue: "jobId: %jobId%"
-    Values:
+      Property: PayloadData2
+      PropertyValue: "jobId: %jobId%"
+      Values:
       -
         Name: jobId
         Value: "/Event/EventData/Data[@Name=\"Id\"]"
    -
-    Property: PayloadData3
-    PropertyValue: "URL: %url%"
-    Values:
+      Property: PayloadData3
+      PropertyValue: "URL: %url%"
+      Values:
       -
         Name: url
         Value: "/Event/EventData/Data[@Name=\"url\"]"
    -
-    Property: PayloadData4
-    PropertyValue: "Peer: %peer%"
-    Values:
+      Property: PayloadData4
+      PropertyValue: "Peer: %peer%"
+      Values:
       -
         Name: peer
         Value: "/Event/EventData/Data[@Name=\"peer\"]"
    -
-    Property: PayloadData5
-    PropertyValue: "Total Bytes: %bytesTotal% (Transferred: %bytesTransferred%)"
-    Values:
+      Property: PayloadData5
+      PropertyValue: "Total Bytes: %bytesTotal% (Transferred: %bytesTransferred%)"
+      Values:
       -
         Name: bytesTotal
         Value: "/Event/EventData/Data[@Name=\"bytesTotal\"]"
@@ -43,9 +43,9 @@ Maps:
         Name: bytesTransferred
         Value: "/Event/EventData/Data[@Name=\"bytesTransferred\"]"
    -
-    Property: PayloadData6
-    PropertyValue: "Bytes Transferred from Peer: %bytesTransferredFromPeer%"
-    Values:
+      Property: PayloadData6
+      PropertyValue: "Bytes Transferred from Peer: %bytesTransferredFromPeer%"
+      Values:
       -
         Name: bytesTransferredFromPeer
         Value: "/Event/EventData/Data[@Name=\"bytesTransferredFromPeer\"]"

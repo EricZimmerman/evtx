@@ -57,15 +57,15 @@ Lookups:
     Name: Action
     Default: Unknown code
     Values:
-        2: Block
-        3: Allow
+      2: Block
+      3: Allow
   -
     Name: Protocol
     Default: Unknown code
     Values:
-        6: TCP
-        17: UDP
-        256: All
+      6: TCP
+      17: UDP
+      256: All
 
 # Documentation:
 # https://kb.eventtracker.com/evtpass/evtPages/EventId_2004_Microsoft-Windows-WindowsFirewallwithAdvancedS_65673.asp
