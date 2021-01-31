@@ -16,8 +16,8 @@ Lookups:
     Name: SettingValue
     Default: Unknown code
     Values:
-        01-00-00-00: Enable
-        00-00-00-00: Disable
+      01-00-00-00: Enable
+      00-00-00-00: Disable
 
 # Documentation:
 # https://kb.eventtracker.com/evtpass/evtPages/EventId_2003_Microsoft-Windows-WindowsFirewallwithAdvancedS_65672.asp
