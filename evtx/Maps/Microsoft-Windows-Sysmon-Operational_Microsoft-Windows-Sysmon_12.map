@@ -77,4 +77,3 @@ Maps:
 #    <Data Name="TargetObject">HKLM\SOFTWARE\Wow6432Node\Policies\Microsoft\Windows\PowerShell\ScriptBlockLogging\EnableScriptBlockLogging</Data>
 #  </EventData>
 # </Event>
-#

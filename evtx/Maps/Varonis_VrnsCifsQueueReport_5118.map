@@ -32,13 +32,13 @@ Maps:
 #  <EventData>
 #    <Data>VrnsCifsQueue, 4343, 4545, CifsQueue:
 #    Logons:
-#         After First Day Missing Logons:  	0         	of total:	0
-#         Events IP resolution called:     	12345
-#         First Day Missing Logons:        	0         	of total:	0
-#         Log extractions called:          	123
-#         Logon events parsed:             	679
-#         Logons driver retrieval failures:	0         	of total:	0
-#         Security events extracted:       	12345
+#         After First Day Missing Logons: 0 of total: 0
+#         Events IP resolution called:	12345
+#         First Day Missing Logons: 0  of total: 0
+#         Log extractions called: 123
+#         Logon events parsed: 679
+#         Logons driver retrieval failures: 0 of total: 0
+#         Security events extracted: 12345
 #    Logons Data:
 #        Events Lost (queue): 	0         	of total:	0
 #        Events Sent To Probe:	0         	of total:	0

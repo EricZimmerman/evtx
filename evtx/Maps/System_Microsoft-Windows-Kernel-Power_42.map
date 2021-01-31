@@ -16,10 +16,10 @@ Lookups:
     Name: Reason
     Default: Unknown code
     Values:
-        0: Button or lid
-        2: Battery
-        6: Hibernate from sleep - Fixed timeout
-        7: System idle
+      0: Button or lid
+      2: Battery
+      6: Hibernate from sleep - Fixed timeout
+      7: System idle
 
 # Documentation:
 # https://www.eventid.net/display.asp?eventid=42&source=Microsoft-Windows-Kernel-Power
@@ -52,4 +52,3 @@ Lookups:
 # <Data Name="TransitionsToOn">1</Data>
 # </EventData>
 # </Event>
-
