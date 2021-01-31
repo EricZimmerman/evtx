@@ -4,7 +4,7 @@ EventId: 4771
 Channel: Security
 Provider: Microsoft-Windows-Security-Auditing
 Maps:
-  -
+   -
     Property: RemoteHost
     PropertyValue: "%ipAddress%:%port%"
     Values:
@@ -14,7 +14,7 @@ Maps:
     -
       Name: port
       Value: "/Event/EventData/Data[@Name=\"IpPort\"]"
-  -
+   -
     Property: PayloadData1
     PropertyValue: "Target: %TargetUserName% (%TargetSid%)"
     Values:
@@ -24,21 +24,21 @@ Maps:
     -
       Name: TargetSid
       Value: "/Event/EventData/Data[@Name=\"TargetSid\"]"
-  -
+   -
     Property: PayloadData2
     PropertyValue: "ServiceName: %ServiceName%"
     Values:
       -
       Name: ServiceName
       Value: "/Event/EventData/Data[@Name=\"ServiceName\"]"
-  -
+   -
     Property: PayloadData3
     PropertyValue: "Status: %Status%"
     Values:
       -
       Name: Status
       Value: "/Event/EventData/Data[@Name=\"Status\"]"
-  -
+   -
     Property: PayloadData4
     PropertyValue: "PreAuthType: %PreAuthType%"
     Values:
