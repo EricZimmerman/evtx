@@ -12,8 +12,8 @@ Maps:
         Name: ipAddress
         Value: "/Event/EventData/Data[@Name=\"IpAddress\"]"
       -
-      Name: port
-      Value: "/Event/EventData/Data[@Name=\"IpPort\"]"
+        Name: port
+        Value: "/Event/EventData/Data[@Name=\"IpPort\"]"
   -
     Property: PayloadData1
     PropertyValue: "Target: %TargetUserName% (%TargetSid%)"
