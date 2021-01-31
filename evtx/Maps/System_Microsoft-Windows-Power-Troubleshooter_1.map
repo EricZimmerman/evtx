@@ -30,11 +30,11 @@ Lookups:
     Name: WakeSourceType
     Default: Unknown code
     Values:
-        0: Unknown
-        1: Power button
-        3: Waking from sleep to hibernate
-        5: Device (See WakeSourceText for details)
-        6: Timer (See WakeSourceText for details)
+      0: Unknown
+      1: Power button
+      3: Waking from sleep to hibernate
+      5: Device (See WakeSourceText for details)
+      6: Timer (See WakeSourceText for details)
 
 # Documentation:
 # https://www.forensicfocus.com/forums/general/event-id-42-1/

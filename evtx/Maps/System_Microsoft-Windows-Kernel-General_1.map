@@ -30,9 +30,9 @@ Lookups:
     Name: Reason
     Default: Unknown code
     Values:
-        1: An application or system component changed the time.
-        2: System time synchronized with the hardware clock.
-        3: System time adjusted to the new time zone.
+      1: An application or system component changed the time.
+      2: System time synchronized with the hardware clock.
+      3: System time adjusted to the new time zone.
 
 # Documentation:
 # http://deusexmachina.uk/evdoco/event.php?event=809
