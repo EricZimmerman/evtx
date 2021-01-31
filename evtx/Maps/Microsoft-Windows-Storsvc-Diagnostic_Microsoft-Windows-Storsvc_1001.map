@@ -51,25 +51,25 @@ Lookups:
     Name: BusType
     Default: Unknown code
     Values:
-        0: The bus type is unknown.
-        1: SCSI
-        2: ATAPI
-        3: ATA
-        4: IEEE 1394
-        5: SSA
-        6: Fibre Channel
-        7: USB
-        8: RAID
-        9: iSCSI
-        10: Serial Attached SCSI (SAS)
-        11: Serial ATA (SATA)
-        12: Secure Digital (SD)
-        13: Multimedia Card (MMC)
-        14: This value is reserved for system use.
-        15: File-Backed Virtual
-        16: Storage Spaces
-        17: NVMe
-        18: This value is reserved for system use.
+      0: The bus type is unknown.
+      1: SCSI
+      2: ATAPI
+      3: ATA
+      4: IEEE 1394
+      5: SSA
+      6: Fibre Channel
+      7: USB
+      8: RAID
+      9: iSCSI
+      10: Serial Attached SCSI (SAS)
+      11: Serial ATA (SATA)
+      12: Secure Digital (SD)
+      13: Multimedia Card (MMC)
+      14: This value is reserved for system use.
+      15: File-Backed Virtual
+      16: Storage Spaces
+      17: NVMe
+      18: This value is reserved for system use.
 
 # Documentation:
 # https://forensixchange.com/posts/19_08_03_usb_storage_forensics_1/

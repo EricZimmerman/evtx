@@ -4,7 +4,7 @@ EventId: 430
 Channel: "Microsoft-Windows-Kernel-PnP/Configuration"
 Provider: "Microsoft-Windows-Kernel-PnP"
 Maps:
--
+  -
     Property: PayloadData6
     PropertyValue: "DeviceInstanceId: %DeviceInstanceId%"
     Values:

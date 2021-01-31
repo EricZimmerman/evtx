@@ -25,7 +25,7 @@ Maps:
       -
         Name: ClientMachine
         Value: "/Event/UserData/Operation_TemporaryEssStarted/ClientMachine"
-      -
+  -
     Property: PayloadData4
     PropertyValue: "User: %User%"
     Values:

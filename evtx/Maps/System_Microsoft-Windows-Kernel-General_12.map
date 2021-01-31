@@ -23,8 +23,8 @@ Lookups:
     Name: BootMode
     Default: Unknown code
     Values:
-        0: Normal boot
-        1: Safe Mode boot
+      0: Normal boot
+      1: Safe Mode boot
 
 # Documentation:
 # https://www.eventid.net/display-eventid-12-source-Microsoft-Windows-Kernel-General-eventno-11542-phase-1.htm

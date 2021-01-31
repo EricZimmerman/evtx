@@ -19,21 +19,21 @@ Maps:
 #
 # Example Event Data:
 # <Event>
-  # <System>
-    # <Provider Name="Microsoft-Windows-TerminalServices-ClientActiveXCore" Guid="28aa95bb-d444-4719-a36f-40462168127e" />
-    # <EventID>1025</EventID>
-    # <Version>0</Version>
-    # <Level>4</Level>
-    # <Task>101</Task>
-    # <Opcode>10</Opcode>
-    # <Keywords>0x4000000000000000</Keywords>
-    # <TimeCreated SystemTime="2020-11-28 10:17:22.6684714" />
-    # <EventRecordID>13</EventRecordID>
-    # <Correlation ActivityID="cd839c41-3564-4fb9-afdd-e4b3abba0000" />
-    # <Execution ProcessID="2988" ThreadID="1672" />
-    # <Channel>Microsoft-Windows-TerminalServices-RDPClient/Operational</Channel>
-    # <Computer>IEWIN7</Computer>
-    # <Security UserID="S-1-5-21-3583694148-1414552638-2922671848-1000" />
-  # </System>
-  # <EventData></EventData>
+# <System>
+# <Provider Name="Microsoft-Windows-TerminalServices-ClientActiveXCore" Guid="28aa95bb-d444-4719-a36f-40462168127e" />
+# <EventID>1025</EventID>
+# <Version>0</Version>
+# <Level>4</Level>
+# <Task>101</Task>
+# <Opcode>10</Opcode>
+# <Keywords>0x4000000000000000</Keywords>
+# <TimeCreated SystemTime="2020-11-28 10:17:22.6684714" />
+# <EventRecordID>13</EventRecordID>
+# <Correlation ActivityID="cd839c41-3564-4fb9-afdd-e4b3abba0000" />
+# <Execution ProcessID="2988" ThreadID="1672" />
+# <Channel>Microsoft-Windows-TerminalServices-RDPClient/Operational</Channel>
+# <Computer>IEWIN7</Computer>
+# <Security UserID="S-1-5-21-3583694148-1414552638-2922671848-1000" />
+# </System>
+# <EventData></EventData>
 # </Event>

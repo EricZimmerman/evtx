@@ -26,20 +26,20 @@ Maps:
 #
 # Example Event Data:
 # <Event>
-  # <System>
-    # <Provider Name="Citrix Desktop Service" />
-    # <EventID Qualifiers="16384">1027</EventID>
-    # <Level>4</Level>
-    # <Task>0</Task>
-    # <Keywords>0x80000000000000</Keywords>
-    # <TimeCreated SystemTime="2020-10-07 08:19:49.0000000" />
-    # <EventRecordID>359095</EventRecordID>
-    # <Channel>Application</Channel>
-    # <Computer>hostname</Computer>
-    # <Security />
-  # </System>
-  # <EventData>
-    # <Data>remoteuser, 1234abcd-12ab-12ab-12ab-123456abcdef</Data>
-    # <Binary></Binary>
-  # </EventData>
+# <System>
+# <Provider Name="Citrix Desktop Service" />
+# <EventID Qualifiers="16384">1027</EventID>
+# <Level>4</Level>
+# <Task>0</Task>
+# <Keywords>0x80000000000000</Keywords>
+# <TimeCreated SystemTime="2020-10-07 08:19:49.0000000" />
+# <EventRecordID>359095</EventRecordID>
+# <Channel>Application</Channel>
+# <Computer>hostname</Computer>
+# <Security />
+# </System>
+# <EventData>
+# <Data>remoteuser, 1234abcd-12ab-12ab-12ab-123456abcdef</Data>
+# <Binary></Binary>
+# </EventData>
 # </Event>

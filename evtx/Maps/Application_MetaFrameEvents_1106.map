@@ -26,21 +26,20 @@ Maps:
 #
 # Example Event Data:
 # <Event>
-  # <System>
-    # <Provider Name="MetaFrameEvents" />
-    # <EventID Qualifiers="49152">1106</EventID>
-    # <Level>3</Level>
-    # <Task>2</Task>
-    # <Keywords>0x80000000000000</Keywords>
-    # <TimeCreated SystemTime="2020-10-24 14:50:50.0000000" />
-    # <EventRecordID>3587921</EventRecordID>
-    # <Channel>Application</Channel>
-    # <Computer>hostname</Computer>
-    # <Security />
-  # </System>
-  # <EventData>
-    # <Data>NOTEBOOK, Brother PC-FAX v.3.2 #2 (from NOTEBOOK) in session 2, Brother PC-FAX v.3.2</Data>
-    # <Binary></Binary>
-  # </EventData>
+# <System>
+# <Provider Name="MetaFrameEvents" />
+# <EventID Qualifiers="49152">1106</EventID>
+# <Level>3</Level>
+# <Task>2</Task>
+# <Keywords>0x80000000000000</Keywords>
+# <TimeCreated SystemTime="2020-10-24 14:50:50.0000000" />
+# <EventRecordID>3587921</EventRecordID>
+# <Channel>Application</Channel>
+# <Computer>hostname</Computer>
+# <Security />
+# </System>
+# <EventData>
+# <Data>NOTEBOOK, Brother PC-FAX v.3.2 #2 (from NOTEBOOK) in session 2, Brother PC-FAX v.3.2</Data>
+# <Binary></Binary>
+# </EventData>
 # </Event>
-

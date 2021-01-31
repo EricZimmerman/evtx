@@ -68,7 +68,7 @@ In most cases, the data in the <EventData> block is what you want to process. Th
 
 So let's take a look at a map to make things a bit more clear.
 
-In the example below, there are four header properties that describe the map: who wrote it, what its for, the Channel, and the Event ID the map corresponds to. 
+In the example below, there are four header properties that describe the map: who wrote it, what its for, the Channel, and the Event ID the map corresponds to.
 
 The Channel and Event ID property are what make a map unique, not the name of the file. As long as the map ends with '.map' it will be processed.
 
@@ -90,9 +90,9 @@ NOTE! The filenames for maps should be in the following format:
 
 Channel-Name_Provider-Name_EventID.map
 
-Where Channel is EXACTLY what is in the XML <Channel> element with any '/' characters, hyphens, or spaces replaced with a hyphen. Hyphens are the catch all for each element of the map filename. 
+Where Channel is EXACTLY what is in the XML <Channel> element with any '/' characters, hyphens, or spaces replaced with a hyphen. Hyphens are the catch all for each element of the map filename.
 
-Only underscores should separate each element (Channel Name, Provider Name, EventID). Hyphens separates words. Underscores separate elements. 
+Only underscores should separate each element (Channel Name, Provider Name, EventID). Hyphens separates words. Underscores separate elements.
 
 For example, for Event ID '201' and Channel 'Microsoft-Windows-TaskScheduler/Operational' the file should be named:
 
@@ -120,29 +120,29 @@ Lookups:
         5: Device (See WakeSourceText for details)
         6: Timer (See WakeSourceText for details)
 ```
-       
+
 The name of the lookup table determines when it will be used and should match the name of the property you want to apply the lookup to. Example:
 
 ```
-  - 
+  -
     Property: PayloadData2
     PropertyValue: Wake source "%WakeSourceType%"
-    Values: 
-      - 
+    Values:
+      -
         Name: WakeSourceType
         Value: "/Event/EventData/Data[@Name=\"WakeSourceType\"]"
 ```
 
 Here, when the map is applied, the numerical value for WakeSourceType is filtered through the Lookup with the same name, and the value is updated to reflect the more human readable version. If you want BOTH the original value and  the lookup value, simply reference the original using a different Name under Values, then reference that adjusted name as a variable, like this:
 ```
-  - 
+  -
     Property: PayloadData2
     PropertyValue: Wake source "%WakeSourceType%" (%WakeSourceTypeOrg%)
-    Values: 
-      - 
+    Values:
+      -
         Name: WakeSourceType
         Value: "/Event/EventData/Data[@Name=\"WakeSourceType\"]"
-      - 
+      -
         Name: WakeSourceTypeOrg
         Value: "/Event/EventData/Data[@Name=\"WakeSourceType\"]"
 ```
@@ -155,32 +155,32 @@ Author: Eric Zimmerman saericzimmerman@gmail.com
 Description: Security 4624 event
 EventId: 4624
 Channel: Security
-Maps: 
-  - 
+Maps:
+  -
     Property: UserName
     PropertyValue: "%domain%\\%user%"
-    Values: 
-      - 
+    Values:
+      -
         Name: domain
         Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
-      - 
+      -
         Name: user
         Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
-  - 
+  -
     Property: RemoteHost
     PropertyValue: "%workstation% (%ipAddress%)"
-    Values: 
-      - 
+    Values:
+      -
         Name: ipAddress
         Value: "/Event/EventData/Data[@Name=\"IpAddress\"]"
-      - 
+      -
         Name: workstation
         Value: "/Event/EventData/Data[@Name=\"WorkstationName\"]"
-  - 
+  -
     Property: PayloadData1
     PropertyValue: LogonType %LogonType%
-    Values: 
-      - 
+    Values:
+      -
         Name: LogonType
         Value: "/Event/EventData/Data[@Name=\"LogonType\"]"
 
@@ -219,5 +219,5 @@ UPDATE: As of December 2020, Provider is now mandatory to avoid the above issue!
 
 # Updating Documentation
 
-If you are looking for a way to contribute without making a map, search across the contents of all maps for "N/A" and try to find documentation for any of the maps in the repository. Ideally, each map will have as much documentation as possible that exists for that specific event. This can serve as a good reference for anyone using the tool as well as a learning tool for students and those new to the field. 
+If you are looking for a way to contribute without making a map, search across the contents of all maps for "N/A" and try to find documentation for any of the maps in the repository. Ideally, each map will have as much documentation as possible that exists for that specific event. This can serve as a good reference for anyone using the tool as well as a learning tool for students and those new to the field.
 

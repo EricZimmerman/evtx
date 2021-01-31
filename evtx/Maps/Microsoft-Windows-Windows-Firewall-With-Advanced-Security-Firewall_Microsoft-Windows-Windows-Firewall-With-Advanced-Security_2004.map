@@ -57,21 +57,21 @@ Lookups:
     Name: Action
     Default: Unknown code
     Values:
-        2: Block
-        3: Allow
+      2: Block
+      3: Allow
   -
     Name: Protocol
     Default: Unknown code
     Values:
-        6: TCP
-        17: UDP
-        256: All
+      6: TCP
+      17: UDP
+      256: All
 
 # Documentation:
 # https://kb.eventtracker.com/evtpass/evtPages/EventId_2004_Microsoft-Windows-WindowsFirewallwithAdvancedS_65673.asp
 # https://social.technet.microsoft.com/Forums/security/en-US/b1f62441-2c15-4706-b5f6-bb274bfed020/event-id-2004-and-2006-rules-created-automatically-on-windows-firewall?forum=winserversecurity
 #
-#Example Event Data:
+# Example Event Data:
 # <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Windows Firewall With Advanced Security" Guid="d1bc9aff-2abf-4d71-9146-ecb2a986eb85" />

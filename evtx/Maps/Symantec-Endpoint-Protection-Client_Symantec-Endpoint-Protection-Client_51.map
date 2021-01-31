@@ -42,22 +42,22 @@ Maps:
 #
 # Example Event Data:
 # <Event>
-  # <System>
-    # <Provider Name="Symantec Endpoint Protection Client" />
-    # <EventID Qualifiers="16639">51</EventID>
-    # <Level>2</Level>
-    # <Task>0</Task>
-    # <Keywords>0x80000000000000</Keywords>
-    # <TimeCreated SystemTime="2020-08-20 10:09:01.0000000" />
-    # <EventRecordID>57000</EventRecordID>
-    # <Channel>Symantec Endpoint Protection Client</Channel>
-    # <Computer>hostname.domain.local</Computer>
-    # <Security />
-  # </System>
-  # <EventData>
-    # <Data>
+# <System>
+# <Provider Name="Symantec Endpoint Protection Client" />
+# <EventID Qualifiers="16639">51</EventID>
+# <Level>2</Level>
+# <Task>0</Task>
+# <Keywords>0x80000000000000</Keywords>
+# <TimeCreated SystemTime="2020-08-20 10:09:01.0000000" />
+# <EventRecordID>57000</EventRecordID>
+# <Channel>Symantec Endpoint Protection Client</Channel>
+# <Computer>hostname.domain.local</Computer>
+# <Security />
+# </System>
+# <EventData>
+# <Data>
 
 # Security Risk Found! Hacktool.XYZ in File: C:\Users\username\Downloads\file.exe by: Auto-Protect scan.  Action: Delete failed : Quarantine failed : Access denied.  Action Description: The process was terminated successfully.</Data>
-    # <Binary></Binary>
-  # </EventData>
+# <Binary></Binary>
+# </EventData>
 # </Event>
