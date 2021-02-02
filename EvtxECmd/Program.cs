@@ -140,11 +140,11 @@ namespace EvtxECmd
                 .WithDescription(
                     "When true, export all available data when using --json. Default is FALSE.")
                 .SetDefault(false);
-            _fluentCommandLineParser.Setup(arg => arg.PayloadAsJson)
-                .As("pj")
-                .WithDescription(
-                    "When true, include event *payload* as json. Default is TRUE.")
-                .SetDefault(true);
+            // _fluentCommandLineParser.Setup(arg => arg.PayloadAsJson)
+            //     .As("pj")
+            //     .WithDescription(
+            //         "When true, include event *payload* as json. Default is TRUE.")
+            //     .SetDefault(true);
 
             _fluentCommandLineParser.Setup(arg => arg.TimeDiscrepancyThreshold)
                 .As("tdt")
@@ -449,14 +449,14 @@ namespace EvtxECmd
 
                 var foo = _csvWriter.Context.AutoMap<EventRecord>();
 
-                if (_fluentCommandLineParser.Object.PayloadAsJson == false)
-                {
-                    foo.Map(t => t.Payload).Ignore();
-                }
-                else
-                {
-                    foo.Map(t => t.Payload).Index(22);
-                }
+                // if (_fluentCommandLineParser.Object.PayloadAsJson == false)
+                // {
+                //     foo.Map(t => t.Payload).Ignore();
+                // }
+                // else
+                // {
+                //   
+                // }
                 
                 foo.Map(t => t.RecordPosition).Ignore();
                 foo.Map(t => t.Size).Ignore();
@@ -488,6 +488,7 @@ namespace EvtxECmd
                 foo.Map(t => t.HiddenRecord).Index(21);
                 foo.Map(t => t.SourceFile).Index(22);
                 foo.Map(t => t.Keywords).Index(23);
+                foo.Map(t => t.Payload).Index(24);
 
                 _csvWriter.Context.RegisterClassMap(foo);
                 _csvWriter.WriteHeader<EventRecord>();
@@ -981,14 +982,10 @@ namespace EvtxECmd
                     
                     try
                     {
-                        if (_fluentCommandLineParser.Object.PayloadAsJson)
-                        {
-                            var xdo = new XmlDocument();
-                            xdo.LoadXml(eventRecord.Payload);
-
-                           var payOut = JsonConvert.SerializeXmlNode(xdo);
-                           eventRecord.Payload = payOut;
-                        }
+                       
+                        var xdo = new XmlDocument();
+                        xdo.LoadXml(eventRecord.Payload);
+                        eventRecord.Payload = xdo.InnerText;
 
                         _csvWriter?.WriteRecord(eventRecord);
                         _csvWriter?.NextRecord();
@@ -1165,7 +1162,7 @@ namespace EvtxECmd
         public string ExcludeIds { get; set; }
 
         public bool FullJson { get; set; }
-        public bool PayloadAsJson { get; set; }
+     //   public bool PayloadAsJson { get; set; }
         public bool Metrics { get; set; }
 
         public int TimeDiscrepancyThreshold { get; set; }
