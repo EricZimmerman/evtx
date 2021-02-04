@@ -985,7 +985,10 @@ namespace EvtxECmd
                        
                         var xdo = new XmlDocument();
                         xdo.LoadXml(eventRecord.Payload);
-                        eventRecord.Payload = xdo.InnerText;
+
+                        var payOut = JsonConvert.SerializeXmlNode(xdo);
+                        eventRecord.Payload = payOut;
+                        
 
                         _csvWriter?.WriteRecord(eventRecord);
                         _csvWriter?.NextRecord();
