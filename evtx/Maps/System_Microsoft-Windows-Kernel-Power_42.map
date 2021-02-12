@@ -18,6 +18,7 @@ Lookups:
     Values:
       0: Button or lid
       2: Battery
+      4: Sleep initiated by user from Start Menu
       6: Hibernate from sleep - Fixed timeout
       7: System idle
 
