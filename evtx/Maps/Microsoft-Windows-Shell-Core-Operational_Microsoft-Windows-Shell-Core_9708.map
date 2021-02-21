@@ -21,6 +21,7 @@ Maps:
 
 # Documentation:
 # https://www.geoffchappell.com/notes/windows/shell/events/core.htm
+# https://nasbench.medium.com/finding-forensic-goodness-in-obscure-windows-event-logs-60e978ea45a3
 #
 # Example Event Data:
 # <Event>

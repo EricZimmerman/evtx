@@ -24,6 +24,7 @@ Maps:
 # Documentation:
 # https://medium.com/@bromiley/oalerts-the-microsoft-office-event-log-ad164e1eec0f
 # https://social.technet.microsoft.com/Forums/ie/en-US/6f684761-12f1-453f-aa37-57ae50828ee7/microsoft-outlook-event-id-300-quotwe-need-to-know-who-to-send-this-to-make-sure-you-enter-at?forum=officeitpro
+# https://nasbench.medium.com/finding-forensic-goodness-in-obscure-windows-event-logs-60e978ea45a3
 #
 # Example Event Data:
 # <Event>

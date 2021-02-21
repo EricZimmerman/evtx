@@ -42,6 +42,7 @@ Maps:
 
 # Documentation:
 # https://www.sans.org/blog/making-the-most-out-of-wlan-event-log-artifacts/
+# https://nasbench.medium.com/finding-forensic-goodness-in-obscure-windows-event-logs-60e978ea45a3
 #
 # Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">

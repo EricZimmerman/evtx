@@ -22,6 +22,7 @@ Maps:
 # Documentation:
 # https://kb.eventtracker.com/evtpass/evtPages/EventId_2004_Microsoft-Windows-WindowsFirewallwithAdvancedS_65673.asp
 # https://social.technet.microsoft.com/Forums/security/en-US/b1f62441-2c15-4706-b5f6-bb274bfed020/event-id-2004-and-2006-rules-created-automatically-on-windows-firewall?forum=winserversecurity
+# https://nasbench.medium.com/finding-forensic-goodness-in-obscure-windows-event-logs-60e978ea45a3
 #
 # Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
