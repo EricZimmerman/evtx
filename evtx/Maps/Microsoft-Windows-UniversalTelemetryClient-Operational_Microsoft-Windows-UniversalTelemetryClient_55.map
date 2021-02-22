@@ -1,0 +1,41 @@
+Author: Andrew Rathbun
+Description: Internet connectivity status
+EventId: 55
+Channel: "Microsoft-Windows-UniversalTelemetryClient/Operational"
+Provider: Microsoft-Windows-UniversalTelemetryClient
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "Is the internet available: %State%"
+    Values:
+      -
+        Name: State
+        Value: "/Event/EventData/Data[@Name=\"State\"]"
+
+# Documentation:
+# https://www.mrhobbits.com/2019/09/28/determining-when-windows10-detected-internet-was-available/
+# https://superuser.com/questions/1415160/sudden-loss-of-internet-access-windows-10
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-UniversalTelemetryClient" Guid="6489b27f-7c43-5679-1d00-0a61bb2a375b" />
+#     <EventID>55</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>55</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x8000000000040000</Keywords>
+#     <TimeCreated SystemTime="2021-02-03 20:45:52.2019482" />
+#     <EventRecordID>9060</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="5188" ThreadID="8772" />
+#     <Channel>Microsoft-Windows-UniversalTelemetryClient/Operational</Channel>
+#     <Computer>HOSTNAME</Computer>
+#     <Security UserID="S-1-5-18" />
+#   </System>
+#   <EventData>
+#     <Data Name="Environment">ServiceHost</Data>
+#     <Data Name="State">True</Data>
+#   </EventData>
+# </Event>
