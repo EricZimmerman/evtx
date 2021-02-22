@@ -1,0 +1,64 @@
+Author: Andrew Rathbun
+Description: User activity
+EventId: 811
+Channel: Microsoft-Windows-Winlogon/Operational
+Provider: Microsoft-Windows-Winlogon
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "The winlogon notification subscriber <%SubscriberName%> began handling the notification event (%Event%)"
+    Values:
+      -
+        Name: Event
+        Value: "/Event/EventData/Data[@Name=\"Event\"]"
+      -
+        Name: SubscriberName
+        Value: "/Event/EventData/Data[@Name=\"SubscriberName\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "Event: %Reason%"
+    Values:
+      -
+        Name: Reason
+        Value: "/Event/EventData/Data[@Name=\"Event\"]"
+
+Lookups:
+  -
+    Name: Reason
+    Default: Unknown code
+    Values:
+      2: User logon
+      3: User logoff
+      4: System lock
+      5: System unlock
+      6: Screensaver start
+      7: Screensaver stop
+
+# Documentation:
+# https://nasbench.medium.com/finding-forensic-goodness-in-obscure-windows-event-logs-60e978ea45a3
+# https://superuser.com/questions/1614690/how-to-find-when-a-user-is-started-and-ended-a-session-on-computer-based-on-wind
+# https://github.com/repnz/etw-providers-docs/blob/master/Manifests-Win7-7600/Microsoft-Windows-Winlogon.xml
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-Winlogon" Guid="db679383-7cf3-4331-91cc-a3cb16a3b538" />b538" />
+#     <EventID>811</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>811</Task>
+#     <Opcode>1</Opcode>
+#     <Keywords>0x4000000000010000</Keywords>
+#     <TimeCreated SystemTime="2021-02-15 12:20:44.2547237" />
+#     <EventRecordID>5176</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="1496" ThreadID="1596" />
+#     <Channel>Microsoft-Windows-Winlogon/Operational</Channel>
+#     <Computer>HOSTNAME</Computer>
+#     <Security UserID="S-1-5-21-250123456-2372827616-1567908901-1001" />
+#   </System>
+#   <EventData>
+#     <Data Name="Event">5</Data>
+#     <Data Name="SubscriberName">Sens</Data>
+#   </EventData>
+# </Event>
