@@ -39,6 +39,7 @@ Maps:
 
 # Documentation:
 # https://www.eventid.net/display-eventid-51-source-Symantec%20AntiVirus-eventno-9552-phase-1.htm
+# https://knowledge.broadcom.com/external/article/156288/symantec-endpoint-protection-121x-event.html
 #
 # Example Event Data:
 # <Event>
@@ -51,12 +52,11 @@ Maps:
 # <TimeCreated SystemTime="2020-08-20 10:09:01.0000000" />
 # <EventRecordID>57000</EventRecordID>
 # <Channel>Symantec Endpoint Protection Client</Channel>
-# <Computer>hostname.domain.local</Computer>
+# <Computer>hostname.domain</Computer>
 # <Security />
 # </System>
 # <EventData>
 # <Data>
-
 # Security Risk Found! Hacktool.XYZ in File: C:\Users\username\Downloads\file.exe by: Auto-Protect scan.  Action: Delete failed : Quarantine failed : Access denied.  Action Description: The process was terminated successfully.</Data>
 # <Binary></Binary>
 # </EventData>
