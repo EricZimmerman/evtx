@@ -1,0 +1,37 @@
+Author: Andrew Rathbun
+Description: Symantec Endpoint Protection has failed to load the latest virus definitions
+EventId: 80
+Channel: "Symantec Endpoint Protection Client"
+Provider: "Symantec Endpoint Protection Client"
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "%PayloadData1%"
+    Values:
+      -
+        Name: PayloadData1
+        Value: "/Event/EventData/Data"
+
+# Documentation:
+# https://knowledge.broadcom.com/external/article/156288/symantec-endpoint-protection-121x-event.html
+#
+# <Event>
+#   <System>
+#     <Provider Name="Symantec Endpoint Protection Client" />
+#     <EventID Qualifiers="33023">80</EventID>
+#     <Level>2</Level>
+#     <Task>0</Task>
+#     <Keywords>0x80000000000000</Keywords>
+#     <TimeCreated SystemTime="2020-06-26 01:42:45.0000000" />
+#     <EventRecordID>44024</EventRecordID>
+#     <Channel>Symantec Endpoint Protection Client</Channel>
+#     <Computer>HOSTNAME.domain</Computer>
+#     <Security />
+#   </System>
+#   <EventData>
+#     <Data>
+#
+# Symantec Endpoint Protection has failed to load the latest virus definitions.</Data>
+#     <Binary></Binary>
+#   </EventData>
+# </Event>

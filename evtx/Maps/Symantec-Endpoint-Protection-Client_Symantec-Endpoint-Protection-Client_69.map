@@ -1,0 +1,37 @@
+Author: Andrew Rathbun
+Description: Enhanced scan failed
+EventId: 69
+Channel: "Symantec Endpoint Protection Client"
+Provider: "Symantec Endpoint Protection Client"
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "%PayloadData1%"
+    Values:
+      -
+        Name: PayloadData1
+        Value: "/Event/EventData/Data"
+
+# Documentation:
+# N/A
+#
+# <Event>
+#   <System>
+#     <Provider Name="Symantec Endpoint Protection Client" />
+#     <EventID Qualifiers="49807">69</EventID>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Keywords>0x80000000000000</Keywords>
+#     <TimeCreated SystemTime="2021-02-03 09:23:40.0000000" />
+#     <EventRecordID>49777</EventRecordID>
+#     <Channel>Symantec Endpoint Protection Client</Channel>
+#     <Computer>HOSTNAME.domain</Computer>
+#     <Security />
+#   </System>
+#   <EventData>
+#     <Data>
+#
+# Scan Failure: Enhanced scan failed.</Data>
+#     <Binary></Binary>
+#   </EventData>
+# </Event>
