@@ -14,7 +14,7 @@ Maps:
 
 # Documentation:
 # https://knowledge.broadcom.com/external/article/156288/symantec-endpoint-protection-121x-event.html
-# 
+#
 # <Event>
 #   <System>
 #     <Provider Name="Symantec Endpoint Protection Client" />
@@ -30,7 +30,7 @@ Maps:
 #   </System>
 #   <EventData>
 #     <Data>
-# 
+#
 # Changed value 'HKLM\Software\Wow6432Node\Symantec\Symantec Endpoint Protection\AV\AdministratorOnly\Security\UseScanNetDrivePassword' from '0' to '1'</Data>
 #     <Binary></Binary>
 #   </EventData>
