@@ -6,14 +6,14 @@ Provider: Microsoft-Windows-Windows Firewall With Advanced Security
 Maps:
   -
     Property: PayloadData1
-    PropertyValue: "%RuleName%: %RuleName%"
+    PropertyValue: "RuleName: %RuleName%"
     Values:
       -
         Name: RuleName
         Value: "/Event/EventData/Data[@Name=\"RuleName\"]"
   -
     Property: PayloadData2
-    PropertyValue: "%ModifyingApplication%: %ModifyingApplication%"
+    PropertyValue: "ModifyingApplication: %ModifyingApplication%"
     Values:
       -
         Name: ModifyingApplication
