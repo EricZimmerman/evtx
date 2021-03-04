@@ -1,0 +1,36 @@
+Author: Andrew Rathbun
+Description: User account password change
+EventId: 110
+Channel: adPWDManager
+Provider: adPWDManager
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "%Data%"
+    Values:
+      -
+        Name: Data
+        Value: "/Event/EventData/Data"
+
+# Documentation:
+# N/A
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="adPWDManager" />
+#     <EventID Qualifiers="0">110</EventID>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Keywords>0x80000000000000</Keywords>
+#     <TimeCreated SystemTime="2021-01-13 13:22:30.0000000" />
+#     <EventRecordID>123456</EventRecordID>
+#     <Channel>adPWDManager</Channel>
+#     <Computer>HOSTNAME.domain</Computer>
+#     <Security />
+#   </System>
+#   <EventData>
+#     <Data>At source domain, user[USERNAME] password was changed.</Data>
+#     <Binary></Binary>
+#   </EventData>
+# </Event>
