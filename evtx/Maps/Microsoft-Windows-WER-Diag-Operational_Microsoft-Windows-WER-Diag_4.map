@@ -1,0 +1,65 @@
+Author: Andrew Rathbun
+Description: Application crash on launch
+EventId: 4
+Channel: Microsoft-Windows-WER-Diag/Operational
+Provider: "Microsoft-Windows-WER-Diag"
+Maps:
+  -
+    Property: ExecutableInfo
+    PropertyValue: "%ModuleName%"
+    Values:
+      -
+        Name: ModuleName
+        Value: "/Event/EventData/Data[2]"
+  -
+    Property: PayloadData1
+    PropertyValue: "ProcessId: %ProcessId%"
+    Values:
+      -
+        Name: ProcessId
+        Value: "/Event/EventData/Data[@Name=\"ProcessId\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "StartTime: %StartTime%"
+    Values:
+      -
+        Name: StartTime
+        Value: "/Event/EventData/Data[@Name=\"StartTime\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "CrashTimeFromStart: %CrashTimeFromStart%"
+    Values:
+      -
+        Name: CrashTimeFromStart
+        Value: "/Event/EventData/Data[@Name=\"CrashTimeFromStart\"]"
+
+# Documentation:
+# https://docs.microsoft.com/en-us/windows/win32/wer/about-wer
+#
+# I've personally seen malicious executables being recorded in these events given that malware is inherently unstable and meant to cause destruction on the host system.
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-WER-Diag" Guid="aabc069-a01b-40a0-ba40-9484258dedc5" />
+#     <EventID>4</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x8004000000000000</Keywords>
+#     <TimeCreated SystemTime="2021-02-13 13:23:54.41235647" />
+#     <EventRecordID>341</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="9160" ThreadID="9140" />
+#     <Channel>Microsoft-Windows-WER-Diag/Operational</Channel>
+#     <Computer>HOSTNAME.domain</Computer>
+#     <Security UserID="S-1-5-21-3700416482-41278834-2147634035-1001" />
+#   </System>
+#   <EventData Name="CRASH_ON_LAUNCH">
+#     <Data Name="ProcessId">12345</Data>
+#     <Data Name="ModuleName">C:\Users\user\AppData\Roaming\abcd\evil.dll</Data>
+#     <Data Name="StartTime">1325767912328572620</Data>
+#     <Data Name="CrashTimeFromStart">154679327</Data>
+#   </EventData>
+# </Event>
