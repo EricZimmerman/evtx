@@ -14,6 +14,7 @@ Provider: Provider goes here
 # If your map calls for multiple lookup tables, please nest all lookups underneath a single "Lookups: " instance. For good examples of this, check out Security 4769 and 4771.
 # No empty space between "Provider:" and "Maps:", please.
 # After your last # line at the bottom of the map, hit Enter so there's a blank line underneath your last line of map content.
+# If you're struggling with getting hits when you're making maps, read this awesome guide on XPATH: https://www.altova.com/training/xpath3
 Maps:
   -
     Property: UserName # UserName --> if at all possible, try to include DOMAIN\username if that information is recorded in the event.
@@ -27,11 +28,14 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
   -
     Property: RemoteHost # RemoteHost --> used for IP addresses, hostname, or anything else that could identify a remote host within an event.
-    PropertyValue: "%Address%"
+    PropertyValue: "Target: %TargetDomainName%\\%TargetUserName%"
     Values:
       -
-        Name: Address
-        Value: "/Event/UserData/EventXML/Address"
+        Name: TargetUserName
+        Value: "/Event/EventData/Data[2]" # this is another way you can hit a certain node within the XML below. TargetUserName is the second node, hence the [2]
+      -
+        Name: TargetDomainName
+        Value: "/Event/EventData/Data[3]" @ same as above, but it's the 3rd node, hence the [3]
   -
     Property: ExecutableInfo # ExecutableInfo --> used for things like process command line, scheduled task, info from service install, etc.
     PropertyValue: "%ProcessName%"
