@@ -1,0 +1,39 @@
+Author: Andrew Rathbun
+Description: CrowdStrike Alert
+EventId: 3
+Channel: CrowdStrike-Falcon Sensor-CSFalconService/Operational
+Provider: CrowdStrike-Falcon Sensor-CSFalconService
+Maps:
+  -
+    Property: ExecutableInfo
+    PropertyValue: "%ObjectName%"
+    Values:
+      -
+        Name: ObjectName
+        Value: "/Event/EventData/Data[@Name=\"ObjectName\"]"
+
+# Documentation:
+# N/A
+#
+# Example Event Data:
+#   <Event>
+#   <System>
+#     <Provider Name="CrowdStrike-Falcon Sensor-CSFalconService" Guid="07a88c90-4158-4f36-0a2f-70d706795482" />
+#     <EventID>3</EventID>
+#     <Version>0</Version>
+#     <Level>3</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x8000000000000000</Keywords>
+#     <TimeCreated SystemTime="2021-02-13 14:19:14.123456" />
+#     <EventRecordID>79</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="1234" ThreadID="13168" />
+#     <Channel>CrowdStrike-Falcon Sensor-CSFalconService/Operational</Channel>
+#     <Computer>HOSTNAME.domain</Computer>
+#     <Security UserID="S-1-5-18" />
+#   </System>
+#   <EventData>
+#     <Data Name="ObjectName">\Device\HarddiskVolume1\Windows\evil.exe</Data>
+#   </EventData>
+# </Event>

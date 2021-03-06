@@ -1,0 +1,39 @@
+Author: Andrew Rathbun
+Description: A client attempted to access the server using SMB1
+EventId: 3000
+Channel: Microsoft-Windows-SMBServer/Audit
+Provider: Microsoft-Windows-SMBServer
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "ClientName: %ClientName%"
+    Values:
+      -
+        Name: ClientName
+        Value: "/Event/EventData/Data[@Name=\"ClientName\"]"
+
+# Documentation:
+# http://woshub.com/how-to-disable-smb-1-0-in-windows-10-server-2016/
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-SMBServer" Guid="d4867917-33a2-4bc3-a5c7-11aa4f67919e" />
+#     <EventID>3000</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x200000000000000</Keywords>
+#     <TimeCreated SystemTime="2020-01-20 07:45:27.2812378" />
+#     <EventRecordID>6</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="4" ThreadID="12345" />
+#     <Channel>Microsoft-Windows-SMBServer/Audit</Channel>
+#     <Computer>HOSTNAME.domain</Computer>
+#     <Security />
+#   </System>
+#   <EventData>
+#     <Data Name="ClientName">10.11.12.13</Data>
+#   </EventData>
+# </Event>
