@@ -16,11 +16,14 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
   -
     Property: RemoteHost
-    PropertyValue: "%Address%"
+    PropertyValue: "Target: %TargetDomainName%\\%TargetUserName%"
     Values:
       -
-        Name: Address
-        Value: "/Event/UserData/EventXML/Address"
+        Name: TargetUserName
+        Value: "/Event/EventData/Data[2]"
+      -
+        Name: TargetDomainName
+        Value: "/Event/EventData/Data[3]"
   -
     Property: ExecutableInfo
     PropertyValue: "%ProcessName%"
@@ -95,7 +98,7 @@ Lookups:
         6: Timer (See WakeSourceText for details)
 
 # Documentation:
-#
+# N/A if no link(s) can be found. One link per line, please.
 #
 # Example Event Data:
 #  <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
