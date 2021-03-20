@@ -466,7 +466,7 @@ namespace EvtxECmd
                 foo.Map(t => t.EventRecordId).Index(1);
                 foo.Map(t => t.TimeCreated).Index(2);
                 foo.Map(t => t.TimeCreated).Convert(t =>
-                    $"{t.TimeCreated.ToString(_fluentCommandLineParser.Object.DateTimeFormat)}");
+                    $"{t.Value.TimeCreated.ToString(_fluentCommandLineParser.Object.DateTimeFormat)}");
                 foo.Map(t => t.EventId).Index(3);
                 foo.Map(t => t.Level).Index(4);
                 foo.Map(t => t.Provider).Index(5);
