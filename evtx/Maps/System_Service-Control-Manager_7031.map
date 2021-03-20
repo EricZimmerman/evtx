@@ -1,0 +1,68 @@
+Author: Andrew Rathbun
+Description: Service crashed unexpectedly
+EventId: 7031
+Channel: System
+Provider: Service Control Manager
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "Name: %ServiceName%"
+    Values:
+      -
+        Name: ServiceName
+        Value: "/Event/EventData/Data[@Name=\"param1\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "It has done this %Count% time(s)"
+    Values:
+      -
+        Name: Count
+        Value: "/Event/EventData/Data[@Name=\"param2\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "The following corrective action will be taken in %Milliseconds% millisecond(s)"
+    Values:
+      -
+        Name: Milliseconds
+        Value: "/Event/EventData/Data[@Name=\"param3\"]"
+  -
+    Property: PayloadData4
+    PropertyValue: "CorrectiveAction: %CorrectiveAction%"
+    Values:
+      -
+        Name: CorrectiveAction
+        Value: "/Event/EventData/Data[@Name=\"param5\"]"
+
+# Documentation:
+# https://kb.eventtracker.com/evtpass/evtpages/EventId_7031_ServiceControlManager_54825.asp
+# https://social.technet.microsoft.com/wiki/contents/articles/13540.event-id-7031-service-crash.aspx
+# https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc756337(v=ws.10)?redirectedfrom=MSDN
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="Service Control Manager" Guid="{555908d1-a6d7-4695-8e1e-2664d2012f4}" EventSourceName="Service Control Manager" />
+#     <EventID Qualifiers="49152">7031</EventID>
+#     <Version>0</Version>
+#     <Level>2</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x8080000000000000</Keywords>
+#     <TimeCreated SystemTime="2021-02-13 16:46:06.8123462" />
+#     <EventRecordID>567985</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="224" ThreadID="8252" />
+#     <Channel>System</Channel>
+#     <Computer>HOSTNAME.domain.com</Computer>
+#     <Security />
+#   </System>
+#   <EventData>
+#     <Data Name="param1">State Repository Service</Data>
+#     <Data Name="param2">1</Data>
+#     <Data Name="param3">120000</Data>
+#     <Data Name="param4">1</Data>
+#     <Data Name="param5">Restart the service</Data>
+#     <Binary>53-00-74-00-61-00-74-00-65-00-52-00-65-00-70-00-6F-00-73-00-69-00-74-00-6F-00-72-00-79-00-00-00</Binary>
+#   </EventData>
+# </Event>
+# <Event>
