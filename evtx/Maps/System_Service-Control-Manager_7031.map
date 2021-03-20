@@ -13,7 +13,7 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"param1\"]"
   -
     Property: PayloadData2
-    PropertyValue: "It has done this %Count% time(s)%"
+    PropertyValue: "It has done this %Count% time(s)"
     Values:
       -
         Name: Count
