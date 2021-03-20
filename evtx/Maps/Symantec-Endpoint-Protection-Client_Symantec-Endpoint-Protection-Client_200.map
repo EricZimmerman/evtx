@@ -1,0 +1,46 @@
+Author: Andrew Rathbun
+Description: Content downloaded successfully to the client
+EventId: 200
+Channel: "Symantec Endpoint Protection Client"
+Provider: "Symantec Endpoint Protection Client"
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "%PayloadData1%"
+    Values:
+      -
+        Name: PayloadData1
+        Value: "/Event/EventData/Data"
+
+# Documentation:
+# https://knowledge.broadcom.com/external/article/156288/symantec-endpoint-protection-121x-event.html
+#
+# <Event>
+#  <System>
+#    <Provider Name="Symantec Endpoint Protection Client" />
+#    <EventID Qualifiers="0">200</EventID>
+#    <Level>4</Level>
+#    <Task>1</Task>
+#    <Keywords>0x80000000000000</Keywords>
+#    <TimeCreated SystemTime="2020-06-20 02:08:50.0000000" />
+#    <EventRecordID>43376</EventRecordID>
+#    <Channel>Symantec Endpoint Protection Client</Channel>
+#    <Computer>HOSTNAME.domain</Computer>
+#    <Security />
+#  </System>
+#  <EventData>
+#     <Data>Content downloaded successfully to the client
+#
+# Product: SEPC Iron Revocation List 14.0
+# Version: MicroDefsB.CurDefs
+# Language: SymAllLanguages
+# Moniker: {810D5A61-809F-49c2-BD75-177F066792BA}
+# Sequence: 200615040
+# Publish Date: Monday, June 15, 2020
+# Revision: 040
+# Source: Symantec Endpoint Protection Manager
+# Remote File Path: FILEPATHHERE
+# Size: 91892 bytes</Data>
+#    <Binary></Binary>
+#  </EventData>
+# </Event>

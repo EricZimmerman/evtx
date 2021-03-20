@@ -1,0 +1,63 @@
+Author: Andrew Rathbun
+Description: Proxy configuration changed
+EventId: 5600
+Channel: Microsoft-Windows-WinINet-Config/ProxyConfigChanged
+Provider: Microsoft-Windows-WinINet-Config
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "fAutoDetect: %fAutoDetect%"
+    Values:
+      -
+        Name: fAutoDetect
+        Value: "/Event/EventData/Data[@Name=\"fAutoDetect\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "pwszAutoConfigUrl: %pwszAutoConfigUrl%"
+    Values:
+      -
+        Name: pwszAutoConfigUrl
+        Value: "/Event/EventData/Data[@Name=\"pwszAutoConfigUrl\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "pwszProxy: %pwszProxy%"
+    Values:
+      -
+        Name: pwszProxy
+        Value: "/Event/EventData/Data[@Name=\"pwszProxy\"]"
+  -
+    Property: PayloadData4
+    PropertyValue: "pwszProxyBypass: %pwszProxyBypass%"
+    Values:
+      -
+        Name: pwszProxyBypass
+        Value: "/Event/EventData/Data[@Name=\"pwszProxyBypass\"]"
+
+# Documentation:
+# https://nasbench.medium.com/finding-forensic-goodness-in-obscure-windows-event-logs-60e978ea45a3
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-WinINet-Config" Guid="5402a5ea-1bdd-4390-82be-e108f1e684f5" />
+#     <EventID>5600</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x8000000000000000</Keywords>
+#     <TimeCreated SystemTime="2020-10-24 15:23:52.4692693" />
+#     <EventRecordID>1</EventRecordID>
+#     <Correlation ActivityID="61fe151a-00f4-0000-e569-000080090000" />
+#     <Execution ProcessID="2432" ThreadID="2464" />
+#     <Channel>Microsoft-Windows-WinINet-Config/ProxyConfigChanged</Channel>
+#     <Computer>HOSTNAME</Computer>
+#     <Security UserID="S-1-5-18" />
+#   </System>
+#   <EventData>
+#     <Data Name="fAutoDetect">True</Data>
+#     <Data Name="pwszAutoConfigUrl"></Data>
+#     <Data Name="pwszProxy"></Data>
+#     <Data Name="pwszProxyBypass"></Data>
+#   </EventData>
+# </Event>

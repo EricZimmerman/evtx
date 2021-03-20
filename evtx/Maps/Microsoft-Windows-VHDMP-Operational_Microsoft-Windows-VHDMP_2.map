@@ -16,7 +16,7 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"VhdDiskNumber\"]"
 
 # Documentation:
-# N/A
+# https://nasbench.medium.com/finding-forensic-goodness-in-obscure-windows-event-logs-60e978ea45a3
 #
 # Example Event Data:
 # <Event>
