@@ -1,4 +1,4 @@
-Author: Eric Zimmerman saericzimmerman@gmail.com
+Author: Eric Zimmerman saericzimmerman@gmail.com and Andrew Rathbun
 Description: Service crashed unexpectedly
 EventId: 7034
 Channel: System
@@ -11,10 +11,19 @@ Maps:
       -
         Name: ServiceName
         Value: "/Event/EventData/Data[@Name=\"param1\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "It has done this %param2% time(s)%"
+    Values:
+      -
+        Name: Count
+        Value: "/Event/EventData/Data[@Name=\"param2\"]"
 
 # Documentation:
 # https://kb.eventtracker.com/evtpass/evtpages/EventId_7034_ServiceControlManager_45455.asp
 # https://social.technet.microsoft.com/wiki/contents/articles/1363.windows-server-2008-event-id-7034-service-stop-operations.aspx
+# https://social.technet.microsoft.com/wiki/contents/articles/13764.event-id-7034-service-terminated.aspx
+# https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc756320(v=ws.10)?redirectedfrom=MSDN
 #
 # Example Event Data:
 # <Event>
