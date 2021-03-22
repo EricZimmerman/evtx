@@ -903,6 +903,7 @@ namespace EvtxECmd
                 if (_fluentCommandLineParser.Object.Dedupe)
                 {
                     var sha = Helper.GetSha1FromStream(fileS,0);
+                    fileS.Seek(0, SeekOrigin.Begin);
                     if (_seenHashes.Contains(sha))
                     {
                         _logger.Debug($"Skipping '{file}' as a file with SHA-1 '{sha}' has already been processed");
