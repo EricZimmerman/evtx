@@ -1,0 +1,57 @@
+Author: Andrew Rathbun
+Description: Start type of a service has changed
+EventId: 7040
+Channel: System
+Provider: Service Control Manager
+Maps:
+  -
+    Property: ExecutableInfo
+    PropertyValue: "%param4%"
+    Values:
+      -
+        Name: param4
+        Value: "/Event/EventData/Data[@Name=\"param4\"]"
+  -
+    Property: PayloadData1
+    PropertyValue: "The start type of the %param1% was changed from %param2% to %param3%"
+    Values:
+      -
+        Name: param1
+        Value: "/Event/EventData/Data[@Name=\"param1\"]"
+      -
+        Name: param2
+        Value: "/Event/EventData/Data[@Name=\"param2\"]"
+      -
+        Name: param3
+        Value: "/Event/EventData/Data[@Name=\"param3\"]"
+
+# Documentation:
+# https://kb.eventtracker.com/evtpass/evtpages/EventId_7040_ServiceControlManager_50628.asp
+# http://eventopedia.cloudapp.net/EventDetails.aspx?id=cfca765f-b30a-4846-b442-721ad24c2f65
+# https://serverfault.com/questions/855238/find-out-who-disabled-a-windows-service
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="Service Control Manager" Guid="{555908d1-a6d7-4695-8e1e-2693123412f4}" EventSourceName="Service Control Manager" />
+#     <EventID Qualifiers="12345">7040</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x8080000000000000</Keywords>
+#     <TimeCreated SystemTime="2020-07-19 17:18:05.679123" />
+#     <EventRecordID>744679</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="679" ThreadID="8972" />
+#     <Channel>System</Channel>
+#     <Computer>HOSTNAME.domain.com</Computer>
+#     <Security UserID="S-1-5-18" />
+#   </System>
+#   <EventData>
+#     <Data Name="param1">Windows Modules Installer</Data>
+#     <Data Name="param2">auto start</Data>
+#     <Data Name="param3">demand start</Data>
+#     <Data Name="param4">TrustedInstaller</Data>
+#   </EventData>
+# </Event>
