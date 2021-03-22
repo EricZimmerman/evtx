@@ -466,7 +466,7 @@ namespace EvtxECmd
                 foo.Map(t => t.EventRecordId).Index(1);
                 foo.Map(t => t.TimeCreated).Index(2);
                 foo.Map(t => t.TimeCreated).Convert(t =>
-                    $"{t.TimeCreated.ToString(_fluentCommandLineParser.Object.DateTimeFormat)}");
+                    $"{t.Value.TimeCreated.ToString(_fluentCommandLineParser.Object.DateTimeFormat)}");
                 foo.Map(t => t.EventId).Index(3);
                 foo.Map(t => t.Level).Index(4);
                 foo.Map(t => t.Provider).Index(5);
@@ -903,6 +903,7 @@ namespace EvtxECmd
                 if (_fluentCommandLineParser.Object.Dedupe)
                 {
                     var sha = Helper.GetSha1FromStream(fileS,0);
+                    fileS.Seek(0, SeekOrigin.Begin);
                     if (_seenHashes.Contains(sha))
                     {
                         _logger.Debug($"Skipping '{file}' as a file with SHA-1 '{sha}' has already been processed");
