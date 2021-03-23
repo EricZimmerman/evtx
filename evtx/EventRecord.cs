@@ -443,7 +443,7 @@ namespace evtx
 
             xmld.LoadXml(rawXml);
 
-            return Regex.Replace(xmld.Beautify(), " xmlns.+\"", "",
+            return Regex.Replace(xmld.Beautify(), " xmlns[^>]+", "",
                 RegexOptions.IgnoreCase | RegexOptions.Multiline);
         }
 
