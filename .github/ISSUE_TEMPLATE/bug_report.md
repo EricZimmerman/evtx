@@ -7,8 +7,8 @@ assignees: ''
 
 ---
 
-** KAPE version # **
-The version of KAPE you are running
+** evtx version # **
+The version of evtx you are running
 
 **Describe the bug**
 A clear and concise description of what the bug is, including the full command line you are using.
