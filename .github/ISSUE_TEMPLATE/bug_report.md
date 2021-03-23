@@ -7,8 +7,8 @@ assignees: ''
 
 ---
 
-** evtx version # **
-The version of evtx you are running
+** EvtxECmd version # **
+The version of EvtxECmd you are running
 
 **Describe the bug**
 A clear and concise description of what the bug is, including the full command line you are using.
