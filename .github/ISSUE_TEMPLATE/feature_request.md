@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-** EvtxECmd version **
+**EvtxECmd version**
 The version of EvtxECmd you are currently using
 
 **Is your feature request related to a problem? Please describe.**
