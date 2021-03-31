@@ -1,0 +1,53 @@
+Author: Andrew Rathbun
+Description: Security authentication error
+EventId: 40960
+Channel: System
+Provider: LsaSrv
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "The Security System detected an authentication error for the server: %Target%"
+    Values:
+      -
+        Name: Target
+        Value: "/Event/EventData/Data[@Name=\"Target\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "The failure code from authentication protocol %Protocol% was '%Error%''"
+    Values:
+      -
+        Name: Protocol
+        Value: "/Event/EventData/Data[@Name=\"Protocol\"]"
+      -
+        Name: Error
+        Value: "/Event/EventData/Data[@Name=\"Error\"]"
+
+# Documentation:
+# http://www.eventid.net/display-eventid-40960-source-LSASRV-eventno-8508-phase-1.htm
+# https://docs.microsoft.com/en-us/answers/questions/61349/lsa-lsasrv-40960.html
+#
+# Example Event Data:
+# <Event>
+# <System>
+#   <Provider Name="LsaSrv" Guid="199fe037-2b82-40a9-82ac-e1d461232b99" />
+#   <EventID>40960</EventID>
+#   <Version>0</Version>
+#   <Level>3</Level>
+#   <Task>0</Task>
+#   <Opcode>0</Opcode>
+#   <Keywords>0x8000000000000000</Keywords>
+#   <TimeCreated SystemTime="2021-02-15 17:45:53.2679125" />
+#   <EventRecordID>946130</EventRecordID>
+#   <Correlation ActivityID="695f3786-5471-001a-8737-5f6679123601" />
+#   <Execution ProcessID="192" ThreadID="515572" />
+#   <Channel>System</Channel>
+#   <Computer>hostname.domain.com</Computer>
+#   <Security UserID="S-1-5-18" />
+# </System>
+# <EventData>
+#   <Data Name="Target">LDAP/hostname.domain.com/domain.com@DOMAIN.COM</Data>
+#   <Data Name="Protocol">Kerberos</Data>
+#   <Data Name="Error">"The user account has been automatically locked because too many invalid logon attempts or password change attempts have been requested.,  (0xc0000234)"</Data>
+# </EventData>
+#  </EventData>
+# </Event>
