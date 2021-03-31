@@ -18,10 +18,10 @@ Maps:
       -
         Name: Protocol
         Value: "/Event/EventData/Data[@Name=\"Protocol\"]"
-      -                                                    
-        Name: Error                                            
+      -
+        Name: Error
         Value: "/Event/EventData/Data[@Name=\"Error\"]"
-        
+
 # Documentation:
 # http://www.eventid.net/display-eventid-40960-source-LSASRV-eventno-8508-phase-1.htm
 # https://docs.microsoft.com/en-us/answers/questions/61349/lsa-lsasrv-40960.html
