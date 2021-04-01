@@ -1,0 +1,41 @@
+Author: Andrew Rathbun
+Description: Account disabled
+EventId: 45057
+Channel: System
+Provider: LsaSrv
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "The Security System detected an authentication error for the server: %Target%"
+    Values:
+      -
+        Name: Target
+        Value: "/Event/EventData/Data"
+
+# Documentation:
+# N/A
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="LsaSrv" Guid="{199fe037-2b82-40a9-82ac-e1d46791b99}" EventSourceName="LsaSrv" />
+#     <EventID Qualifiers="0">45057</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>4</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x80000000000000</Keywords>
+#     <TimeCreated SystemTime="2021-02-13 18:50:59.1234567" />
+#     <EventRecordID>123456</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="0" ThreadID="0" />
+#     <Channel>System</Channel>
+#     <Computer>HOSTNAME.domain.com</Computer>
+#     <Security />
+#   </System>
+#   <EventData>
+#     <Data>Administrator@DOMAIN.COM, Kerberos, "The referenced account is currently disabled and may not be logged on to.
+#  (0xc0000072)"</Data>
+#     <Binary></Binary>
+#   </EventData>
+# </Event>
