@@ -36,12 +36,40 @@ Maps:
         Name: ObjectName
         Value: "/Event/EventData/Data[@Name=\"ObjectName\"]"
   -
+    Property: PayloadData4
+    PropertyValue: "AccessList: %AccessList%"
+    Values:
+      -
+        Name: AccessList
+        Value: "/Event/EventData/Data[@Name=\"AccessList\"]"
+  -
     Property: ExecutableInfo
     PropertyValue: "%ProcessName%"
     Values:
       -
         Name: ProcessName
         Value: "/Event/EventData/Data[@Name=\"ProcessName\"]"
+
+Lookups:
+  -
+    Name: AccessList
+    Default: Unknown code
+    Values:
+      %%4416: ReadData (or ListDirectory)
+      %%4417: WriteData (or AddFile)
+      %%4418: AppendData (or AddSubdirectory or CreatePipeInstance)
+      %%4419: ReadEA (or Enumerate SubKeys)
+      %%4420: WriteEA
+      %%4421: Execute/Traverse
+      %%4422: DeleteChild
+      %%4423: ReadAttributes
+      %%4424: WriteAttributes
+      %%1537: DELETE
+      %%1538: READ_CONTROL
+      %%1539: WRITE_DAC
+      %%1540: WRITE_OWNER
+      %%1541: SYNCHRONIZE
+      %%1542: ACCESS_SYS_SEC
 
 # Documentation:
 # https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4663
