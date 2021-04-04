@@ -61,18 +61,24 @@ Lookups:
     Name: SubStatus
     Default: Unknown code
     Values:
+      0XC000005E: there are currently no logon servers available to service the logon request
       0xC0000064: user name does not exist
       0xC000006A: user name is correct but the password is wrong
+      0XC000006D: the cause is either a bad username or authentication information
+      0XC000006E: referenced user name and authentication information are valid, but some user account restriction has prevented successful authentication (such as time-of-day restrictions)
+      0xC000006F: user logon outside authorized hours
+      0xC0000070: user logon from unauthorized workstation
+      0xC0000071: user logon with expired password
+      0xC0000072: user logon to account disabled by administrator
+      0XC00000DC: indicates the Sam Server was in the wrong state to perform the desired operation.
+      0XC0000133: clocks between DC and other computer too far out of sync
+      0XC000015B: the user has not been granted the requested logon type (also called the logon right) at this machine
+      0XC000018C: the logon request failed because the trust relationship between the primary domain and the trusted domain failed.
+      0XC0000192: an attempt was made to logon, but the Netlogon service was not started.
+      0xC0000193: user logon with expired account
+      0XC0000224: user is required to change password at next logon
+      0XC0000225: evidently a bug in Windows and not a risk
       0xC0000234: user is currently locked out
-      0xC0000072: account is currently disabled
-      0xC000006F: user tried to logon outside his day of week or time of day restrictions
-      0xC0000070: workstation restriction
-      0xC0000193: account expiration
-      0xC0000071: expired password
-      0xC0000133: clocks between DC and other computer too far out of sync
-      0xC0000224: user is required to change password at next logon
-      0xC0000225: evidently a bug in Windows and not a risk
-      0xc000015b: The user has not been granted the requested logon type at this machine
 
 # Documentation:
 # https://ponderthebits.com/2018/02/windows-rdp-related-event-logs-identification-tracking-and-investigation/
