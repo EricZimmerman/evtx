@@ -69,7 +69,6 @@ Lookups:
       0: Boot
       1: System
       2: Automatic
-      2: Automatic (Delayed)
       3: Manual
       4: Disabled
 
