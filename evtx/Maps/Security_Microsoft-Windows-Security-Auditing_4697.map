@@ -50,6 +50,28 @@ Maps:
         Name: ServiceAccount
         Value: "/Event/EventData/Data[@Name=\"ServiceAccount\"]"
 
+Lookups:
+  -
+    Name: ServiceType
+    Default: Unknown code
+    Values:
+      0x1: Kernel Driver
+      0x2: File System Driver
+      0x8: Recognizer Driver
+      0x10: Win32 Own Process
+      0x20: Win32 Share Process
+      0x110: Interactive Own Process
+      0x120: Interactive Share Process
+  -
+    Name: ServiceStartType
+    Default: Unknown code
+    Values:
+      0: Boot
+      1: System
+      2: Automatic
+      3: Manual
+      4: Disabled
+
 # Documentation:
 # https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4697
 # https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4697
