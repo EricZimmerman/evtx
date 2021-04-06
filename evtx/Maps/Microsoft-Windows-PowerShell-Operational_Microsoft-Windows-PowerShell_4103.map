@@ -1,0 +1,89 @@
+Author: Andrew Rathbun and Chad Tilbury
+Description: Pipeline executed
+EventId: 4103
+Channel: "Microsoft-Windows-PowerShell/Operational"
+Provider: Microsoft-Windows-PowerShell
+Maps:
+  -
+    Property: UserName
+    PropertyValue: "%User%"
+    Values:
+      -
+        Name: User
+        Value: "/Event/EventData/Data[@Name=\"ContextInfo\"]"
+        Refine: "(?<=User = ).*(?=,         Connected User)"
+  -
+    Property: PayloadData1
+    PropertyValue: "Command Name: %CommandName%"
+    Values:
+      -
+        Name: CommandName
+        Value: "/Event/EventData/Data[@Name=\"ContextInfo\"]"
+        Refine: "(?<=Command Name = ).*?(?=,)"
+  -
+    Property: PayloadData2
+    PropertyValue: "Host Application = %HostApplication%"
+    Values:
+      -
+        Name: HostApplication
+        Value: "/Event/EventData/Data[@Name=\"ContextInfo\"]"
+        Refine: "(?<=Host Application = ).*(?=,         Engine Version)"
+  -
+    Property: PayloadData3
+    PropertyValue: "Script Name: %ScriptName%"
+    Values:
+      -
+        Name: ScriptName
+        Value: "/Event/EventData/Data[@Name=\"ContextInfo\"]"
+        Refine: "(?<=Script Name = ).*?(?=,)"
+  -
+    Property: PayloadData4
+    PropertyValue: "ConnectedUser: %ConnectedUser%"
+    Values:
+      -
+        Name: ConnectedUser
+        Value: "/Event/EventData/Data[@Name=\"ContextInfo\"]"
+        Refine: "(?<=Connected User = ).*?(?=,)"
+  -
+    Property: PayloadData5
+    PropertyValue: "Host Name: %HostName%"
+    Values:
+      -
+        Name: HostName
+        Value: "/Event/EventData/Data[@Name=\"ContextInfo\"]"
+        Refine: "(?<=Host Name = ).*?(?=,)"
+  -
+    Property: PayloadData6
+    PropertyValue: "Payload: %Payload%"
+    Values:
+      -
+        Name: Payload
+        Value: "/Event/EventData/Data[@Name=\"Payload\"]"
+
+# Documentation:
+# https://github.com/OTRF/OSSEM/blob/master/data_dictionaries/windows/powershell/events/event-4103.md
+#
+# Example Event Data:
+# <Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-PowerShell" Guid="a0c1853b-5c40-4b15-8766-3cf1c58f985a" />
+#    <EventID>4103</EventID>
+#    <Version>1</Version>
+#    <Level>4</Level>
+#    <Task>106</Task>
+#    <Opcode>20</Opcode>
+#    <Keywords>0x0</Keywords>
+#    <TimeCreated SystemTime="2016-08-04 14:47:03.9253975" />
+#    <EventRecordID>26</EventRecordID>
+#    <Correlation ActivityID="02cfac40-f800-0000-177d-6cd85eeed101" />
+#    <Execution ProcessID="3584" ThreadID="3004" />
+#    <Channel>Microsoft-Windows-PowerShell/Operational</Channel>
+#    <Computer>HOSTNAME</Computer>
+#    <Security UserID="S-1-5-21-114269873-3523254850-2066368152-500" />
+#  </System>
+#  <EventData>
+#    <Data Name="ContextInfo">        Severity = Informational,         Host Name = ConsoleHost,         Host Version = 5.0.10586.117,         Host ID = 0e322acd-01e5-4a77-ba16-e8eaccbd78bd,         Host Application = powershell -NoProfile -ExecutionPolicy unrestricted -Command (iex ((new-object net.webclient).DownloadString('https://chocolatey.org/install.ps1'))) &amp;gt;$null 2&amp;gt;&amp;amp;1,         Engine Version = 5.0.10586.117,         Runspace ID = a0eb7cf1-27b5-42f3-b4ef-f965ff804788,         Pipeline ID = 1,         Command Name = Add-Type,         Command Type = Cmdlet,         Script Name = C:\Users\Administrator\AppData\Local\Temp\chocolatey\chocInstall\tools\chocolateyInstall\helpers\functions\Set-EnvironmentVariable.ps1,         Command Path = ,         Sequence Number = 16,         User = HOSTNAME\Administrator,         Connected User = ,         Shell ID = Microsoft.PowerShell, </Data>
+#    <Data Name="UserData"></Data>
+#    <Data Name="Payload">CommandInvocation(Add-Type): "Add-Type", ParameterBinding(Add-Type): name="Namespace"; value="Win32", ParameterBinding(Add-Type): name="Name"; value="NativeMethods", ParameterBinding(Add-Type): name="MemberDefinition"; value="[DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)], public static extern IntPtr SendMessageTimeout(,     IntPtr hWnd, uint Msg, UIntPtr wParam, string lParam,,     uint fuFlags, uint uTimeout, out UIntPtr lpdwResult);", </Data>
+#</Event>
+#  </EventData>
