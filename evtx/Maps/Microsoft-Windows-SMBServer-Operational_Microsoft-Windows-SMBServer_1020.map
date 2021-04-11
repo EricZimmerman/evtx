@@ -1,0 +1,94 @@
+Author: Andrew Rathbun
+Description: File system operation has taken longer than expected
+EventId: 1020
+Channel: Microsoft-Windows-SMBServer/Operational
+Provider: Microsoft-Windows-SMBServer
+Maps:
+  -
+    Property: Username
+    PropertyValue: "%Username%"
+    Values:
+      -
+        Name: Username
+        Value: "/Event/UserData/EventData/Username"
+  -
+    Property: ExecutableInfo
+    PropertyValue: "FileName: %FileName%"
+    Values:
+      -
+        Name: FileName
+        Value: "/Event/UserData/EventData/FileName"
+  -
+    Property: PayloadData1
+    PropertyValue: "The threshold is %Threshold% milliseconds (15 seconds)"
+    Values:
+      -
+        Name: Threshold
+        Value: "/Event/UserData/EventData/Threshold"
+  -
+    Property: PayloadData2
+    PropertyValue: "The I/O operation took %Duration% milliseconds"
+    Values:
+      -
+        Name: Duration
+        Value: "/Event/UserData/EventData/Duration"
+  -
+    Property: PayloadData3
+    PropertyValue: "ClientName: %ClientName%"
+    Values:
+      -
+        Name: ClientName
+        Value: "/Event/UserData/EventData/ClientName"
+  -
+    Property: PayloadData4
+    PropertyValue: "ShareName: %ShareName%"
+    Values:
+      -
+        Name: ShareName
+        Value: "/Event/UserData/EventData/ShareName"
+
+# Documentation:
+# https://docs.microsoft.com/en-us/troubleshoot/windows-server/networking/troubleshoot-event-id-1020-warnings-file-server
+#
+# Example Event Data:
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-SMBServer" Guid="d48ce617-33a2-4bc3-a5c7-11aa4f29619e" />
+#    <EventID>1020</EventID>
+#    <Version>1</Version>
+#    <Level>3</Level>
+#    <Task>1020</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x2000000000000008</Keywords>
+#    <TimeCreated SystemTime="2021-01-15 21:48:56.679123" />
+#    <EventRecordID>72</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="4" ThreadID="1234" />
+#    <Channel>Microsoft-Windows-SMBServer/Operational</Channel>
+#    <Computer>HOSTNAME.domain</Computer>
+#    <Security UserID="S-1-5-18" />
+#  </System>
+#  <UserData>
+#    <EventData>
+#      <Command>5</Command>
+#      <SessionGuid>4d0b74f0-14cc-0001-4f6e-114dcc14d701</SessionGuid>
+#      <SessionId>0x4C04C0200015</SessionId>
+#      <ConnectionGuid>4d0b74f0-14cc-0001-395e-679dcc14d701</ConnectionGuid>
+#      <UserNameLength>25</UserNameLength>
+#      <UserName>HOSTNAME\username</UserName>
+#      <ClientNameLength>12</ClientNameLength>
+#      <ClientName>\\10.1.10.20</ClientName>
+#      <ClientAddressLength>16</ClientAddressLength>
+#      <ClientAddress>02-00-C5-EC-0A-01-0A-1E-00-00-00-00-00-00-00-00</ClientAddress>
+#      <ShareNameLength>10</ShareNameLength>
+#      <ShareName>\\*\SYSVOL</ShareName>
+#      <FileNameLength>73</FileNameLength>
+#      <FileName>HOSTNAME.DOMAIN\POLICIES\{82B745A2-GG6D-4571-B214-0D8FCB672A5E}\GPT.INI</FileName>
+#      <Duration>46852</Duration>
+#      <Threshold>15000</Threshold>
+#      <CtlCode>9568402</CtlCode>
+#      <SubCode>0</SubCode>
+#      <TunneledControl>0</TunneledControl>
+#    </EventData>
+#  </UserData>
+#</Event>
