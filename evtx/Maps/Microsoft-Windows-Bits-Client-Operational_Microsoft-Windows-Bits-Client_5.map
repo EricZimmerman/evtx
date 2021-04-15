@@ -34,7 +34,7 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"fileCount\"]"
   -
     Property: PayloadData4
-    PropertyValue: "Bytes jobOwner: %jobOwner%"
+    PropertyValue: "jobOwner: %jobOwner%"
     Values:
       -
         Name: jobOwner

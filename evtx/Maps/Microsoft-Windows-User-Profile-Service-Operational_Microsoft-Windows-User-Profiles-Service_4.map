@@ -1,5 +1,5 @@
 Author: Hyun Yi @hyuunnn
-Description: An account was logged off (User Profiles Service)
+Description: An account was logged off
 EventId: 4
 Channel: "Microsoft-Windows-User Profile Service/Operational"
 Provider: "Microsoft-Windows-User Profiles Service"

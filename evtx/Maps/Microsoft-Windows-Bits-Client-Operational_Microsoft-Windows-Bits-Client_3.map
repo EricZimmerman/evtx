@@ -10,7 +10,7 @@ Maps:
       Values:
          -
             Name: jobOwner
-            Value: "/Event/EventData/Data[@Name=\"jobOwner\"]"
+            Value: "/Event/EventData/Data[@Name=\"string2\"]"
    -
       Property: ExecutableInfo
       PropertyValue: "%processPath%"
@@ -24,7 +24,7 @@ Maps:
       Values:
          -
             Name: jobTitle
-            Value: "/Event/EventData/Data[@Name=\"jobTitle\"]"
+            Value: "/Event/EventData/Data[@Name=\"string\"]"
    -
       Property: PayloadData2
       PropertyValue: "jobId: %jobId%"
