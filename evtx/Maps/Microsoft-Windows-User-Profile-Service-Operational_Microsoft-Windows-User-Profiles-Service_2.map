@@ -1,5 +1,5 @@
 Author: Hyun Yi @hyuunnn
-Description: An account was logged on.
+Description: An account was logged on
 EventId: 2
 Channel: "Microsoft-Windows-User Profile Service/Operational"
 Provider: "Microsoft-Windows-User Profiles Service"

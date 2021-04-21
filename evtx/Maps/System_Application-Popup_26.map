@@ -1,0 +1,49 @@
+Author: Andrew Rathbun
+Description: Application error
+EventId: 26
+Channel: System
+Provider: Application Popup
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "Caption: %Caption%"
+    Values:
+      -
+        Name: Caption
+        Value: "/Event/EventData/Data[@Name=\"Caption\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "Message: %Message%"
+    Values:
+      -
+        Name: Message
+        Value: "/Event/EventData/Data[@Name=\"Message\"]"
+
+# Documentation:
+# https://social.technet.microsoft.com/Forums/Azure/en-US/793156d6-4dbd-430d-af37-fb0a503264f4/event-id-26-application-pop-up?forum=winservergen
+# https://social.technet.microsoft.com/Forums/en-US/6bccbb97-07a1-435e-9e0e-93291b2e1b03/server-2003-r2-showing-regular-event-id-26-application-popup-errors?forum=winservergen
+# https://social.technet.microsoft.com/Forums/en-US/c56e3a4e-7687-4348-8c7b-bae3b56c642b/event-id-26-source-application-popup?forum=winservergen
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="Application Popup" Guid="47bfa2b7-bd54-4fac-b70b-29021079ca8f" />
+#     <EventID>26</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x8000000000000000</Keywords>
+#     <TimeCreated SystemTime="2021-02-08 13:18:41.6679518" />
+#     <EventRecordID>1616679</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="608" ThreadID="656" />
+#     <Channel>System</Channel>
+#     <Computer>HOSTNAME.domain</Computer>
+#     <Security UserID="S-1-5-18" />
+#   </System>
+#   <EventData>
+#     <Data Name="Caption">evil:ADS - Application Error</Data>
+#     <Data Name="Message">The instruction at 0x679c1ff2 referenced memory at 0x0000003c. The memory could not be read., Click on OK to terminate the program</Data>
+#   </EventData>#
+# </Event>
