@@ -1,13 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net46</TargetFramework>
+    <TargetFrameworks>net46;net5.0</TargetFrameworks>
     <AssemblyTitle>evtx parser</AssemblyTitle>
     <Company>Eric R. Zimmerman</Company>
     <Product>evtx parser</Product>
     <Description>Parses Windows event logs (evtx format)</Description>
-    <Copyright>Copyright ©  2019</Copyright>
+    <Copyright>Copyright ©  2021</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <AssemblyVersion>1.0.0.1</AssemblyVersion>
+    <FileVersion>1.0.0.1</FileVersion>
+    <Version>1.0.0.1</Version>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
