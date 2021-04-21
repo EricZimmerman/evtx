@@ -1,103 +1,36 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{052671C4-45C2-4340-A2F6-52DD2DFEEC6C}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>evtx</RootNamespace>
-    <AssemblyName>evtx</AssemblyName>
-    <TargetFrameworkVersion>v4.6</TargetFrameworkVersion>
-    <FileAlignment>512</FileAlignment>
-    <Deterministic>true</Deterministic>
-    <TargetFrameworkProfile />
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug\</OutputPath>
-    <DefineConstants>DEBUG;TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
+    <TargetFramework>net46</TargetFramework>
+    <AssemblyTitle>evtx parser</AssemblyTitle>
+    <Company>Eric R. Zimmerman</Company>
+    <Product>evtx parser</Product>
+    <Description>Parses Windows event logs (evtx format)</Description>
+    <Copyright>Copyright ©  2019</Copyright>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>embedded</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release\</OutputPath>
-    <DefineConstants>TRACE</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="System" />
+    <PackageReference Include="System.IO.Compression" Version="4.*" />
+    <PackageReference Include="System.Data.DataSetExtensions" Version="4.*" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.*" />
+    <PackageReference Include="System.Net.Http" Version="4.*" />
+  </ItemGroup>
+  <ItemGroup>
     <Reference Include="System.Configuration" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.IO.Compression" />
-    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Transactions" />
-    <Reference Include="System.Xml.Linq" />
-    <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
-    <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
-    <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ChunkInfo.cs" />
-    <Compile Include="EventLog.cs" />
-    <Compile Include="EventLogMap.cs" />
-    <Compile Include="EventRecord.cs" />
-    <Compile Include="Tags\IBinXml.cs" />
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="StringTableEntry.cs" />
-    <Compile Include="SubstitutionArrayEntry.cs" />
-    <Compile Include="Tags\Attribute.cs" />
-    <Compile Include="Tags\CloseEmptyElementTag.cs" />
-    <Compile Include="Tags\CloseStartElementTag.cs" />
-    <Compile Include="Tags\EndElementTag.cs" />
-    <Compile Include="Tags\EndOfBXmlStream.cs" />
-    <Compile Include="Tags\NormalSubstitution.cs" />
-    <Compile Include="Tags\OpenStartElementTag.cs" />
-    <Compile Include="Tags\OptionalSubstitution.cs" />
-    <Compile Include="Tags\StartOfBXmlStream.cs" />
-    <Compile Include="Tags\TagBuilder.cs" />
-    <Compile Include="Tags\Template.cs" />
-    <Compile Include="Tags\TemplateInstance.cs" />
-    <Compile Include="Tags\Value.cs" />
+    <PackageReference Include="AlphaFS" Version="2.2.6" />
+    <PackageReference Include="Crc32.NET" Version="1.2.0" />
+    <PackageReference Include="FluentValidation" Version="8.6.1" />
+    <PackageReference Include="NLog" Version="4.7.9" />
+    <PackageReference Include="ServiceStack.Text" Version="5.10.4" />
+    <PackageReference Include="SharpZipLib" Version="1.3.1" />
+    <PackageReference Include="System.Xml.XPath" Version="4.3.0" />
+    <PackageReference Include="YamlDotNet" Version="11.0.1" />
   </ItemGroup>
-  <ItemGroup>
-    <PackageReference Include="AlphaFS">
-      <Version>2.2.6</Version>
-    </PackageReference>
-    <PackageReference Include="Crc32.NET">
-      <Version>1.2.0</Version>
-    </PackageReference>
-    <PackageReference Include="FluentValidation">
-      <Version>8.6.1</Version>
-    </PackageReference>
-    <PackageReference Include="NLog">
-      <Version>4.7.9</Version>
-    </PackageReference>
-    <PackageReference Include="ServiceStack.Text">
-      <Version>5.10.4</Version>
-    </PackageReference>
-    <PackageReference Include="SharpZipLib">
-      <Version>1.3.1</Version>
-    </PackageReference>
-    <PackageReference Include="System.Xml.XPath">
-      <Version>4.3.0</Version>
-    </PackageReference>
-    <PackageReference Include="YamlDotNet">
-      <Version>11.0.1</Version>
-    </PackageReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Maps\" />
-  </ItemGroup>
-  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
