@@ -1,0 +1,103 @@
+Author: Andrew Rathbun
+Description: FileDeleteDetected (A file delete was detected)
+EventId: 26
+Channel: Microsoft-Windows-Sysmon/Operational
+Provider: Microsoft-Windows-Sysmon
+Maps:
+  -
+    Property: ExecutableInfo
+    PropertyValue: "%Image%"
+    Values:
+      -
+        Name: Image
+        Value: "/Event/EventData/Data[@Name=\"Image\"]"
+  -
+    Property: PayloadData1
+    PropertyValue: "ProcessID: %ProcessID%, ProcessGUID: %ProcessGUID%"
+    Values:
+      -
+        Name: ProcessGUID
+        Value: "/Event/EventData/Data[@Name=\"ProcessGuid\"]"
+      -
+        Name: ProcessID
+        Value: "/Event/EventData/Data[@Name=\"ProcessId\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "RuleName: %RuleName%"
+    Values:
+      -
+        Name: RuleName
+        Value: "/Event/EventData/Data[@Name=\"RuleName\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "%Hashes%"
+    Values:
+      -
+        Name: Hashes
+        Value: "/Event/EventData/Data[@Name=\"Hashes\"]"
+  -
+    Property: PayloadData4
+    PropertyValue: "TargetFilename: %TargetFilename%"
+    Values:
+      -
+        Name: TargetFilename
+        Value: "/Event/EventData/Data[@Name=\"TargetFilename\"]"
+  -
+    Property: PayloadData5
+    PropertyValue: "IsExecutable: %IsExecutable%"
+    Values:
+      -
+        Name: IsExecutable
+        Value: "/Event/EventData/Data[@Name=\"IsExecutable\"]"
+  -
+    Property: PayloadData6
+    PropertyValue: "Archived: %Archived%"
+    Values:
+      -
+        Name: Archived
+        Value: "/Event/EventData/Data[@Name=\"Archived\"]"
+  -
+    Property: UserName
+    PropertyValue: "%User%"
+    Values:
+      -
+        Name: User
+        Value: "/Event/EventData/Data[@Name=\"User\"]"
+
+# Documentation:
+# https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon#events
+# https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES
+# https://www.blackhillsinfosec.com/a-sysmon-event-id-breakdown/
+# https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/default.aspx - filter on Sysmon
+# https://medium.com/falconforce/sysmon-13-10-filedeletedetected-fe2475cb419e
+#
+# Example Event Data:
+# <Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Sysmon" Guid="5770385f-c22a-43e0-bf4c-06f5698ffbd9" />
+#    <EventID>26</EventID>
+#    <Version>5</Version>
+#    <Level>4</Level>
+#    <Task>23</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8000000000000000</Keywords>
+#    <TimeCreated SystemTime="2020-10-20 11:50:56.9994587" />
+#    <EventRecordID>1081</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="7212" ThreadID="9748" />
+#    <Channel>Microsoft-Windows-Sysmon/Operational</Channel>
+#    <Computer>DESKTOP-NTSSLJD</Computer>
+#    <Security UserID="S-1-5-18" />
+#  </System>
+#  <EventData>
+#    <Data Name="RuleName">-</Data>
+#    <Data Name="UtcTime">2020-10-20 11:50:56.994</Data>
+#    <Data Name="ProcessGuid">23f38d93-cf1f-5f8e-cc08-000000000c00</Data>
+#    <Data Name="ProcessId">9444</Data>
+#    <Data Name="User">DESKTOP-NTSSLJD\den</Data>
+#    <Data Name="Image">C:\Windows\system32\DllHost.exe</Data>
+#    <Data Name="TargetFilename">C:\Users\den\AppData\Local\Temp\IDC1.tmp\[1]consent.exe</Data>
+#    <Data Name="Hashes">SHA1=6298449EB38C20ABFE79C32346258BF4951C1E53,MD5=98F48037163A97285E72A2107F0336CA,SHA256=B26D892448D336EBFAB26F033457D1A2A94E3CD8FBBDA5AE0DBB09E16BE4C84E,IMPHASH=DEA061EF56E13C6D0B065E71A879D9B6</Data>
+#    <Data Name="IsExecutable">True</Data>
+#  </EventData>
+# </Event>
