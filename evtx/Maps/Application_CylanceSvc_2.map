@@ -1,0 +1,94 @@
+Author: Andrew Rathbun
+Description: Cylance alert
+EventId: 2
+Channel: Application
+Provider: CylanceSvc
+Maps:
+  -
+    Property: ExecutableInfo
+    PropertyValue: "File Path: %FilePath%"
+    Values:
+      -
+        Name: FilePath
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=File path: ).*?(?=\n)"
+  -
+    Property: PayloadData1
+    PropertyValue: "%Message%"
+    Values:
+      -
+        Name: Message
+        Value: "/Event/EventData/Data"
+        Refine: "^(?<=).*?(?=\n)"
+  -
+    Property: PayloadData2
+    PropertyValue: "%IpAddress% [%Device%]"
+    Values:
+      -
+        Name: IpAddress
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=IP:).*?(?=;)"
+      -
+        Name: Device
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=Device: ).*?(?=;)"
+  -
+    Property: PayloadData3
+    PropertyValue: "MAC Address:%MAC%"
+    Values:
+      -
+        Name: MAC
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=MAC:).*?(?=\n)"
+  -
+    Property: PayloadData4
+    PropertyValue: "ProcessID: %ProcessID%"
+    Values:
+      -
+        Name: ProcessID
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=Process Id: ).*?(?=\n)"
+  -
+    Property: PayloadData5
+    PropertyValue: "ViolationType: %ViolationType%"
+    Values:
+      -
+        Name: ViolationType
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=Violation Type: ).*?(?=\n)"
+  -
+    Property: PayloadData6
+    PropertyValue: "SHA256:%SHA256%"
+    Values:
+      -
+        Name: SHA256
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=Sha256:).*"
+
+# Documentation:
+# N/A
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="CylanceSvc" />
+#     <EventID Qualifiers="0">2</EventID>
+#     <Level>4</Level>
+#     <Task>2</Task>
+#     <Keywords>0x80000000000000</Keywords>
+#     <TimeCreated SystemTime="2019-05-15 10:32:40.0000000" />
+#     <EventRecordID>178229</EventRecordID>
+#     <Channel>Application</Channel>
+#     <Computer>HOSTNAME.domain.com</Computer>
+#     <Security />
+#   </System>
+#   <EventData>
+#     <Data>A potentially malicious process was Blocked by policy
+# Device: HOSTNAME; IP: 10.2.13.25; MAC: C8-1F-67-34-26-0F
+# File path: c:\Program Files\Microsoft Security Client\MsMpEng.exe
+# Process Id: 679
+# Violation Type: LsassRead, Occurrences: 1
+# Sha256: 774EA0DE962589D3EF3EB079BD54F5C59B9679355742D87185BEE10EF7E45501</Data>
+#     <Binary></Binary>
+#   </EventData>
+# </Event>
