@@ -1,0 +1,98 @@
+Author: Andrew Rathbun
+Description: Cylance alert
+EventId: 1
+Channel: Application
+Provider: CylanceSvc
+Maps:
+  -
+    Property: ExecutableInfo
+    PropertyValue: "File Path: %FilePath%"
+    Values:
+      -
+        Name: FilePath
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=File path: ).*?(?=\n)"
+  -
+    Property: PayloadData1
+    PropertyValue: "%Message%"
+    Values:
+      -
+        Name: Message
+        Value: "/Event/EventData/Data"
+        Refine: "^(?<=).*?(?=\n)"
+  -
+    Property: PayloadData2
+    PropertyValue: "%IpAddress% [%Device%]"
+    Values:
+      -
+        Name: IpAddress
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=IP:).*?(?=;)"
+      -
+        Name: Device
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=Device: ).*?(?=;)"
+  -
+    Property: PayloadData3
+    PropertyValue: "MAC Address:%MAC%"
+    Values:
+      -
+        Name: MAC
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=MAC:).*?(?=\n)"
+  -
+    Property: PayloadData4
+    PropertyValue: "Cylance Score:%CylanceScore%"
+    Values:
+      -
+        Name: CylanceScore
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=Cylance Score:).*?(?=\n)"
+  -
+    Property: PayloadData5
+    PropertyValue: "Running:%Running% | AutoRun:%AutoRun%"
+    Values:
+      -
+        Name: Running
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=Running:).*?(?=,)"
+      -
+        Name: AutoRun
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=Auto Run:).*?(?=\n)"
+  -
+    Property: PayloadData6
+    PropertyValue: "SHA256:%SHA256%"
+    Values:
+      -
+        Name: SHA256
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=Sha256:).*"
+
+# Documentation:
+# N/A
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="CylanceSvc" />
+#     <EventID Qualifiers="0">1</EventID>
+#     <Level>4</Level>
+#     <Task>2</Task>
+#     <Keywords>0x80000000000000</Keywords>
+#     <TimeCreated SystemTime="2019-05-15 10:32:40.0000000" />
+#     <EventRecordID>178229</EventRecordID>
+#     <Channel>Application</Channel>
+#     <Computer>HOSTNAME.domain.com</Computer>
+#     <Security />
+#   </System>
+#   <EventData>
+#     <Data>A threat has been quarantined
+# Device: HOSTNAME; IP: 10.2.11.13; MAC: A4-1F-66-32-26-0F
+# File path: C:\Users\username\AppData\Local\Microsoft\Windows\Temporary Internet Files\Low\Content.IE5\random\ShipmentTracker-123456[1].exe
+# Cylance Score: -13
+# Running: False, Auto Run: False
+# Sha256: 8E5AD8F6707B8FA834DCDC728D83238C2007A6ED6794F77A569FE84358703C6D</Data>
+#     <Binary></Binary>
+#   </EventData>
+# </Event>
