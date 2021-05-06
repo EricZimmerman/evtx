@@ -52,6 +52,7 @@ Lookups:
     Name: Status
     Default: Unknown code
     Values:
+      0xC0000022: a process has requested access to an object, but has not been granted those access rights
       0xC000005E: there are currently no logon servers available to service the logon request
       0xC0000064: user name does not exist
       0xC000006A: user name is correct but the password is wrong
@@ -76,6 +77,7 @@ Lookups:
 # Documentation:
 # https://github.com/defendthehoneypot/incidentresponse#smb-brute-force-login
 # https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-smb/6ab6ca20-b404-41fd-b91a-2ed39e3762ea
+# https://support.microsoft.com/en-us/topic/ntlm-authentication-fails-with-0xc0000022-error-for-windows-server-2012-windows-8-1-and-windows-server-2012-r2-after-update-is-applied-a4b23900-7cc2-2bb9-432d-831c79aea7a3
 #
 # Example Event Data:
 #<Event>
