@@ -54,11 +54,41 @@ Maps:
         Name: TargetImage
         Value: "/Event/EventData/Data[@Name=\"TargetImage\"]"
 
+Lookups:
+  -
+    Name: GrantedAccess
+    Default: Unknown code
+    Values:
+      0x1010: 0x1010 (PROCESS_QUERY_LIMITED_INFORMATION & PROCESS_VM_READ)
+      0x1fffff: 0x1fffff (PROCESS_ALL_ACCESS)
+      0x0002: 0x0002 (PROCESS_CREATE_THREAD)
+      0x0080: 0x0080 (PROCESS_CREATE_PROCESS)
+      0x0040: 0x0040 (PROCESS_DUP_HANDLE)
+      0x0400: 0x0400 (PROCESS_QUERY_INFORMATION)
+      0x1000: 0x1000 (PROCESS_QUERY_LIMITED_INFORMATION)
+      0x0200: 0x0200 (PROCESS_SET_INFORMATION)
+      0x0100: 0x0100 (PROCESS_SET_QUOTA)
+      0x0800: 0x0800 (PROCESS_SUSPEND_RESUME)
+      0x0001: 0x0001 (PROCESS_TERMINATE)
+      0x0008: 0x0008 (PROCESS_VM_OPERATION)
+      0x0010: 0x0010 (PROCESS_VM_READ)
+      0x0020: 0x0020 (PROCESS_VM_WRITE)
+      0x00100000L: 0x00100000L (SYNCHRONIZE)
+      0x1410: 0x1410 (Possible lsass.exe exploitation)
+      0x143A: 0x143A (Possible lsass.exe exploitation)
+      0x1438: 0x1438 (Possible lsass.exe exploitation)
+      0x1400: 0x1400 (Possible lsass.exe exploitation)
+      0x0820: 0x0820 (Possible process injection)
+
 # Documentation:
 # https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon#events
 # https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES
 # https://www.blackhillsinfosec.com/a-sysmon-event-id-breakdown/
 # https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/default.aspx - filter on Sysmon
+# https://docs.microsoft.com/en-us/windows/win32/procthread/process-security-and-access-rights?redirectedfrom=MSDN
+# https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for_22.html
+# https://github.com/trustedsec/SysmonCommunityGuide/blob/master/process-access.md
+# https://docs.splunksecurityessentials.com/content-detail/detect_credential_dumping_through_lsass_access/
 #
 # Example Event Data:
 # <Event>
