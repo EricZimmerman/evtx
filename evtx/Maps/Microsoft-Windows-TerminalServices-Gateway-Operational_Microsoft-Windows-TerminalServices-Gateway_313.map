@@ -1,0 +1,60 @@
+Author: Andrew Rathbun and Matt Arbaugh
+Description: "Remote Desktop Services: User has initiated an inbound connection"
+EventId: 313
+Channel: Microsoft-Windows-TerminalServices-Gateway/Operational
+Provider: Microsoft-Windows-TerminalServices-Gateway
+Maps:
+  -
+    Property: UserName
+    PropertyValue: "%Username%"
+    Values:
+      -
+        Name: Username
+        Value: "/Event/UserData/EventInfo/Username"
+  -
+    Property: RemoteHost
+    PropertyValue: "%Address%"
+    Values:
+      -
+        Name: Address
+        Value: "/Event/UserData/EventXML/Address"
+  -
+    Property: PayloadData1
+    PropertyValue: "%Username% on client computer %IpAddress% has initiated an inbound connection that has yet to be authenticated"
+    Values:
+      -
+        Name: Username
+        Value: "/Event/UserData/EventInfo/Username"
+      -
+        Name: IpAddress
+        Value: "/Event/UserData/EventInfo/IpAddress"
+
+# Documentation:
+# http://c-nergy.be/blog/?p=8187
+# https://social.technet.microsoft.com/Forums/en-US/33d980c9-5c3a-43d7-a6e9-72bed9cbf165/rds-2016-gateway-error-event-id-312-quotthe-user-quotabcxyzcomquot-on-client-computer?forum=winserverTS
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-TerminalServices-Gateway" Guid="4d5ae6a1-c7c8-4e6d-b840-4d8080b42e1b" />
+#     <EventID>313</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>5</Task>
+#     <Opcode>30</Opcode>
+#     <Keywords>0x4020000001000000</Keywords>
+#     <TimeCreated SystemTime="2021-05-16 20:13:17.4272057" />
+#     <EventRecordID>1251305</EventRecordID>
+#     <Correlation ActivityID="3fb80caa-2356-43c8-9991-b852526f2500" />
+#     <Execution ProcessID="2040" ThreadID="1888" />
+#     <Channel>Microsoft-Windows-TerminalServices-Gateway/Operational</Channel>
+#     <Computer>HOSTNAME.domain.com</Computer>
+#     <Security UserID="S-1-5-20" />
+#   </System>
+#   <UserData>
+#     <EventInfo>
+#       <Username>username@DOMAIN</Username>
+#       <IpAddress>172.16.2.13</IpAddress>
+#     </EventInfo>
+#   </UserData>
+# </Event>
