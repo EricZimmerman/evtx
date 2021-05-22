@@ -1,0 +1,87 @@
+Author: Andrew Rathbun
+Description: "Remote Desktop Services: User meets resource authorization policy requirements needed to connect to TS Gateway server"
+EventId: 200
+Channel: Microsoft-Windows-TerminalServices-Gateway/Operational
+Provider: Microsoft-Windows-TerminalServices-Gateway
+Maps:
+  -
+    Property: UserName
+    PropertyValue: "%Username%"
+    Values:
+      -
+        Name: Username
+        Value: "/Event/UserData/EventInfo/Username"
+  -
+    Property: RemoteHost
+    PropertyValue: "%Address%"
+    Values:
+      -
+        Name: Address
+        Value: "/Event/UserData/EventXML/Address"
+  -
+    Property: PayloadData1
+    PropertyValue: "%Username% on client computer %IpAddress% met resource authorization policy requirements and was therefore authorized to access the TS Gateway server"
+    Values:
+      -
+        Name: Username
+        Value: "/Event/UserData/EventInfo/Username"
+      -
+        Name: IpAddress
+        Value: "/Event/UserData/EventInfo/IpAddress"
+  -
+    Property: PayloadData4
+    PropertyValue: "ErrorCode: %ErrorCode%"
+    Values:
+      -
+        Name: ErrorCode
+        Value: "/Event/UserData/EventInfo/ErrorCode"
+  -
+    Property: PayloadData5
+    PropertyValue: "ConnectionProtocol: %ConnectionProtocol%"
+    Values:
+      -
+        Name: ConnectionProtocol
+        Value: "/Event/UserData/EventInfo/ConnectionProtocol"
+  -
+    Property: PayloadData6
+    PropertyValue: "AuthType: %AuthType%"
+    Values:
+      -
+        Name: AuthType
+        Value: "/Event/UserData/EventInfo/AuthType"
+
+# Documentation:
+# https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-r2-and-2008/cc775349(v=ws.10)
+# https://kb.eventtracker.com/evtpass/evtpages/EventId_200_Microsoft-Windows-TerminalServices-Gateway_67344.asp
+# http://c-nergy.be/blog/?p=8187
+# https://system32.eventsentry.com/codes/field/Windows
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-TerminalServices-Gateway" Guid="4d5ae6a1-c7c8-4e6d-b840-4d8080b42e1b" />
+#     <EventID>200</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>5</Task>
+#     <Opcode>30</Opcode>
+#     <Keywords>0x4020000001000000</Keywords>
+#     <TimeCreated SystemTime="2021-05-16 20:13:17.4272057" />
+#     <EventRecordID>1251305</EventRecordID>
+#     <Correlation ActivityID="3fb80caa-2356-43c8-9991-b852526f2500" />
+#     <Execution ProcessID="2040" ThreadID="1888" />
+#     <Channel>Microsoft-Windows-TerminalServices-Gateway/Operational</Channel>
+#     <Computer>HOSTNAME.domain.com</Computer>
+#     <Security UserID="S-1-5-20" />
+#   </System>
+#   <UserData>
+#     <EventInfo>
+#       <Username>DOMAIN\username</Username>
+#       <IpAddress>72.16.2.13</IpAddress>
+#       <AuthType>NTLM</AuthType>
+#       <Resource></Resource>
+#       <ConnectionProtocol>HTTP</ConnectionProtocol>
+#       <ErrorCode>0</ErrorCode>
+#     </EventInfo>
+#   </UserData>
+# </Event>
