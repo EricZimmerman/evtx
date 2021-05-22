@@ -34,7 +34,7 @@ Maps:
   -
     Property: PayloadData2
     PropertyValue: "Before %Username% disconnected, the client transferred %BytesTransfered% bytes and received %BytesReceived% bytes"
-    Values: 
+    Values:
       -
         Name: Username
         Value: "/Event/UserData/EventInfo/Username"
