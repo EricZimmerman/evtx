@@ -1,5 +1,5 @@
 Author: Andrew Rathbun
-Description: Application crash on launch
+Description: Application Crash on Launch
 EventId: 4
 Channel: Microsoft-Windows-WER-Diag/Operational
 Provider: "Microsoft-Windows-WER-Diag"
