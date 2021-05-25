@@ -24,11 +24,21 @@ Lookups:
     Default: Unknown code
     Values:
       0: No additional information is available (i.e. the user has closed RDP window)
+      1: The disconnection was initiated by an administrative tool on the server in another session
+      2: The disconnection was due to a forced logoff initiated by an administrative tool on the server in another session
+      3: The idle session limit timer on the server has elapsed
+      4: The active session limit timer on the server has elapsed
       5: The client's connection was replaced by another connection (i.e. a user reconnected to a previous RDP session)
-      11: User activity has initiated the disconnect
+      6: The server ran out of available memory resources
+      7: The server denied the connection
+      9: The user cannot connect to the server due to insufficient access privileges
+      10: The server does not accept saved user credentials and requires that the user enter their credentials for each connection
+      11: The disconnection was initiated by the user disconnecting his or her session on the server or by an administrative tool on the server
+      12: The disconnection was initiated by the user logging off his or her session on the server
 
 # Documentation:
 # https://ponderthebits.com/2018/02/windows-rdp-related-event-logs-identification-tracking-and-investigation/
+# https://social.technet.microsoft.com/wiki/contents/articles/37874.rds-session-host-server-disconnect-codes.aspx
 # http://woshub.com/rdp-connection-logs-forensics-windows/
 # https://community.spiceworks.com/topic/550908-terminal-services-disconnections-reason-codes
 #
