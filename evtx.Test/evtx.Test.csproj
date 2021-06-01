@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net461</TargetFramework>
+    <TargetFrameworks>net46;net5.0</TargetFrameworks>
     <AssemblyTitle>evtx.Test</AssemblyTitle>
     <Product>evtx.Test</Product>
     <Copyright>Copyright ©  2019</Copyright>
@@ -12,16 +12,11 @@
     <PackageReference Include="System.Net.Http" Version="4.*" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="System.Configuration" />
-    <Reference Include="System.ServiceModel" />
-    <Reference Include="System.Transactions" />
-  </ItemGroup>
-  <ItemGroup>
     <ProjectReference Include="..\evtx\evtx.csproj" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="NFluent" Version="2.7.1" />
-    <PackageReference Include="NLog" Version="4.7.9" />
-    <PackageReference Include="NUnit" Version="3.13.1" />
+    <PackageReference Include="NFluent" Version="2.7.2" />
+    <PackageReference Include="NLog" Version="4.7.10" />
+    <PackageReference Include="NUnit" Version="3.13.2" />
   </ItemGroup>
 </Project>
