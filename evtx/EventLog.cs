@@ -110,7 +110,7 @@ namespace evtx
             EventLogMaps = new Dictionary<string, EventLogMap>();
 
             var mapFiles =
-                Directory.EnumerateFileSystemEntries(mapPath, "*.MAP").ToList();
+                Directory.EnumerateFileSystemEntries(mapPath, "*.map").ToList();
 
             var l = LogManager.GetLogger("LoadMaps");
 
