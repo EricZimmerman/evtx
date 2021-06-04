@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
-using Alphaleonis.Win32.Filesystem;
 using FluentValidation.Results;
 using Force.Crc32;
 using NLog;
@@ -11,9 +10,6 @@ using ServiceStack;
 using ServiceStack.Text;
 using YamlDotNet.Core;
 using YamlDotNet.Serialization;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using File = Alphaleonis.Win32.Filesystem.File;
-using Path = Alphaleonis.Win32.Filesystem.Path;
 
 //TODO rename project to EventLog?
 namespace evtx
@@ -113,20 +109,8 @@ namespace evtx
         {
             EventLogMaps = new Dictionary<string, EventLogMap>();
 
-            var f = new DirectoryEnumerationFilters();
-            f.InclusionFilter = fsei => fsei.Extension.ToUpperInvariant() == ".MAP";
-
-            f.RecursionFilter = null; //entryInfo => !entryInfo.IsMountPoint && !entryInfo.IsSymbolicLink;
-
-            f.ErrorFilter = (errorCode, errorMessage, pathProcessed) => true;
-
-            var dirEnumOptions =
-                DirectoryEnumerationOptions.Files |
-                DirectoryEnumerationOptions.SkipReparsePoints | DirectoryEnumerationOptions.ContinueOnException |
-                DirectoryEnumerationOptions.BasicSearch;
-
             var mapFiles =
-                Directory.EnumerateFileSystemEntries(mapPath, dirEnumOptions, f).ToList();
+                Directory.EnumerateFileSystemEntries(mapPath, "*.map").ToList();
 
             var l = LogManager.GetLogger("LoadMaps");
 
