@@ -1,0 +1,137 @@
+Author: Andrew Rathbun
+Description: Reopen failed
+EventId: 1016
+Channel: Microsoft-Windows-SMBServer/Operational
+Provider: Microsoft-Windows-SMBServer
+Maps:
+  -
+    Property: Username
+    PropertyValue: "%UserName%"
+    Values:
+      -
+        Name: UserName
+        Value: "/Event/UserData/EventData/UserName"
+  -
+    Property: RemoteHost
+    PropertyValue: "ClientName: %ClientName%"
+    Values:
+      -
+        Name: ClientName
+        Value: "/Event/UserData/EventData/ClientName"
+  -
+    Property: ExecutableInfo
+    PropertyValue: "FileName: %FileName%"
+    Values:
+      -
+        Name: FileName
+        Value: "/Event/UserData/EventData/FileName"
+  -
+    Property: PayloadData1
+    PropertyValue: "ShareName: %ShareName%"
+    Values:
+      -
+        Name: ShareName
+        Value: "/Event/UserData/EventData/ShareName"  
+  -
+    Property: PayloadData2
+    PropertyValue: "Status: %Status%"
+    Values:
+      -
+        Name: Status
+        Value: "/Event/UserData/EventData/Status"
+  -
+    Property: PayloadData5
+    PropertyValue: "DurableHandle: %DurableHandle%"
+    Values:
+      -
+        Name: DurableHandle
+        Value: "/Event/UserData/EventData/DurableHandle"
+  -
+    Property: PayloadData6
+    PropertyValue: "ResilientHandle: %ResilientHandle%"
+    Values:
+      -
+        Name: ResilientHandle
+        Value: "/Event/UserData/EventData/ResilientHandle"
+
+Lookups:
+  -
+    Name: Status
+    Default: Unknown code
+    Values:
+      0x00000000: STATUS_SUCCESS - The client request is successful.                                                                                                                                                                                                                                     
+      0x00010002: STATUS_INVALID_SMB - An invalid SMB client request is received by the server.                                                                                                                                                                                                          
+      0x00050002: STATUS_SMB_BAD_TID - The client request received by the server contains an invalid TID value.                                                                                                                                                                                          
+      0x00160002: STATUS_SMB_BAD_COMMAND - The client request received by the server contains an unknown SMB command code.                                                                                                                                                                               
+      0x005B0002: STATUS_SMB_BAD_UID - The client request to the server contains an invalid UID value.                                                                                                                                                                                                   
+      0x00FB0002: STATUS_SMB_USE_STANDARD - The client request received by the server is for a non-standard SMB operation (for example, an SMB_COM_READ_MPX request on a non-disk share). The client SHOULD send another request with a different SMB command to perform this operation.                 
+      0x80000005: STATUS_BUFFER_OVERFLOW - The data was too large to fit into the specified buffer.                                                                                                                                                                                                      
+      0x80000006: STATUS_NO_MORE_FILES - No more files were found that match the file specification.                                                                                                                                                                                                     
+      0x8000002D: STATUS_STOPPED_ON_SYMLINK - The create operation stopped after reaching a symbolic link.                                                                                                                                                                                               
+      0xC0000002: STATUS_NOT_IMPLEMENTED - The requested operation is not implemented.                                                                                                                                                                                                                   
+      0xC000000D: STATUS_INVALID_PARAMETER - The parameter specified in the request is not valid.                                                                                                                                                                                                        
+      0xC000000E: STATUS_NO_SUCH_DEVICE - A device that does not exist was specified.                                                                                                                                                                                                                    
+      0xC0000010: STATUS_INVALID_DEVICE_REQUEST - The specified request is not a valid operation for the target device.                                                                                                                                                                                  
+      0xC0000016: STATUS_MORE_PROCESSING_REQUIRED - If extended security has been negotiated, then this error code can be returned in the SMB_COM_SESSION_SETUP_ANDX response from the server to indicate that additional authentication information is to be exchanged. See section 2.2.4.6 for details.
+      0xC0000022: STATUS_ACCESS_DENIED - The client did not have the required permission needed for the operation.                                                                                                                                                                                       
+      0xC0000023: STATUS_BUFFER_TOO_SMALL - The buffer is too small to contain the entry. No information has been written to the buffer.                                                                                                                                                                 
+      0xC0000034: STATUS_OBJECT_NAME_NOT_FOUND - The object name is not found.                                                                                                                                                                                                                           
+      0xC0000035: STATUS_OBJECT_NAME_COLLISION - The object name already exists.                                                                                                                                                                                                                         
+      0xC000003A: STATUS_OBJECT_PATH_NOT_FOUND - The path to the directory specified was not found. This error is also returned on a create request if the operation requires the creation of more than one new directory level for the path specified.                                                  
+      0xC00000A5: STATUS_BAD_IMPERSONATION_LEVEL - A specified impersonation level is invalid. This error is also used to indicate that a required impersonation level was not provided.                                                                                                                 
+      0xC00000B5: STATUS_IO_TIMEOUT - The specified I/O operation was not completed before the time-out period expired.                                                                                                                                                                                  
+      0xC00000BA: STATUS_FILE_IS_A_DIRECTORY - The file that was specified as a target is a directory and the caller specified that it could be anything but a directory.                                                                                                                                
+      0xC00000BB: STATUS_NOT_SUPPORTED - The client request is not supported.                                                                                                                                                                                                                            
+      0xC00000C9: STATUS_NETWORK_NAME_DELETED - The network name specified by the client has been deleted on the server. This error is returned if the client specifies an incorrect TID or the share on the server represented by the TID was deleted.                                                  
+      0xC0000203: STATUS_USER_SESSION_DELETED - The user session specified by the client has been deleted on the server. This error is returned by the server if the client sends an incorrect UID.                                                                                                      
+      0xC000035C: STATUS_NETWORK_SESSION_EXPIRED - The client's session has expired; therefore, the client MUST re-authenticate to continue accessing remote resources.                                                                                                                                  
+      0xC000205A: STATUS_SMB_TOO_MANY_UIDS - The client has requested too many UID values from the server or the client already has an SMB session setup with this UID value.                                                                                                                            
+
+# Documentation:
+# https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-smb/6ab6ca20-b404-41fd-b91a-2ed39e3762ea
+# Event Viewer Guidance: The client attempted to reopen a continuously available handle, but the attempt failed. This typically indicates a problem with the network or underlying file being re-opened.
+#
+# Example Event Data:
+#Event>
+# <System>
+#   <Provider Name="Microsoft-Windows-SMBServer" Guid="d48ce617-33a2-4bc3-a5c7-11aa4f29619e" />
+#   <EventID>1016</EventID>
+#   <Version>0</Version>
+#   <Level>2</Level>
+#   <Task>1016</Task>
+#   <Opcode>0</Opcode>
+#   <Keywords>0x2000000000000008</Keywords>
+#   <TimeCreated SystemTime="2017-10-27 04:00:58.6467996" />
+#   <EventRecordID>560</EventRecordID>
+#   <Correlation />
+#   <Execution ProcessID="4" ThreadID="1364" />
+#   <Channel>Microsoft-Windows-SMBServer/Operational</Channel>
+#   <Computer>HOSTNAME.domain.com</Computer>
+#   <Security UserID="S-1-5-18" />
+# </System>
+# <UserData>
+#   <EventData>
+#     <Status>0xC0000034</Status>
+#     <TranslatedStatus>0xC0000034</TranslatedStatus>
+#     <RKFStatus>0x0</RKFStatus>
+#     <TranslatedRKFStatus>0x0</TranslatedRKFStatus>
+#     <ConnectionGUID>c9679dae-3005-0000-b42d-50c90530d201</ConnectionGUID>
+#     <ClientNameLength>14</ClientNameLength>
+#     <ClientName>\\10.1.100.179</ClientName>
+#     <ClientAddressLength>128</ClientAddressLength>
+#     <ClientAddress>02-00-E5-79-0A-01-64-B7-00-00-00-00-00-00-00-00-00-00-FF-FF-0A-01-64-B7-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00</ClientAddress>
+#     <ShareNameLength>11</ShareNameLength>
+#     <ShareName>Departments</ShareName>
+#     <UserNameLength>11</UserNameLength>
+#     <UserName>DOMAIN\username</UserName>
+#     <SessionId>0x440000067901</SessionId>
+#     <FileNameLength>90</FileNameLength>
+#     <FileName>Folder1\Folder2\Folder3\File1.ext</FileName>
+#     <DurableHandle>False</DurableHandle>
+#     <ResilientHandle>False</ResilientHandle>
+#     <PersistentHandle>False</PersistentHandle>
+#     <ResumeKey>e676794d-9af8-11e6-a930-2c44fd2bf7ec</ResumeKey>
+#     <Reason>1</Reason>
+#   </EventData>
+# </UserData>
+#/Event>

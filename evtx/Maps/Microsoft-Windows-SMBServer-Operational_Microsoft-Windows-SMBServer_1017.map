@@ -1,0 +1,87 @@
+Author: Andrew Rathbun
+Description: Handle scavenged
+EventId: 1017
+Channel: Microsoft-Windows-SMBServer/Operational
+Provider: Microsoft-Windows-SMBServer
+Maps:
+  -
+    Property: ExecutableInfo
+    PropertyValue: "FileName: %FileName%"
+    Values:
+      -
+        Name: FileName
+        Value: "/Event/UserData/EventData/FileName"
+  -
+    Property: PayloadData1
+    PropertyValue: "ShareName: %ShareName%"
+    Values:
+      -
+        Name: ShareName
+        Value: "/Event/UserData/EventData/ShareName"
+  -
+    Property: PayloadData3
+    PropertyValue: "PersistentFileID: %PersistentFID%"
+    Values:
+      -
+        Name: PersistentFID
+        Value: "/Event/UserData/EventData/PersistentFID"
+  -
+    Property: PayloadData4
+    PropertyValue: "VolatileFileID: %VolatileFID%"
+    Values:
+      -
+        Name: VolatileFID
+        Value: "/Event/UserData/EventData/VolatileFID"
+  -
+    Property: PayloadData5
+    PropertyValue: "DurableHandle: %DurableHandle%"
+    Values:
+      -
+        Name: DurableHandle
+        Value: "/Event/UserData/EventData/DurableHandle"
+  -
+    Property: PayloadData6
+    PropertyValue: "ResilientHandle: %ResilientHandle%"
+    Values:
+      -
+        Name: ResilientHandle
+        Value: "/Event/UserData/EventData/ResilientHandle"
+
+# Documentation:
+# https://serverfault.com/questions/759359/difference-between-durable-file-handles-resilient-file-handles-and-persistent-f
+# https://wiki.samba.org/index.php/SMB3_kernel_status#durable_handles
+# https://wiki.samba.org/index.php/Samba3/SMB2#Resilient_File_Handles
+# Event Viewer Guidance: The server closed a handle that was previously reserved for a client after 60 seconds. You should expect this event on a computer that is continuously available where a client did not gracefully close its session. For instance, this may occur when the client unexpectedly restarted.
+#
+# Example Event Data:
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-SMBServer" Guid="d48ce617-33a2-4bc3-a5c7-11aa4f29619e" />
+#    <EventID>1017</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>1017</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x2000000000000008</Keywords>
+#    <TimeCreated SystemTime="2017-08-02 20:31:41.7566798" />
+#    <EventRecordID>506</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="4" ThreadID="5796" />
+#    <Channel>Microsoft-Windows-SMBServer/Operational</Channel>
+#    <Computer>HOSTNAME.domain.com</Computer>
+#    <Security UserID="S-1-5-18" />
+#  </System>
+#  <UserData>
+#    <EventData>
+#      <DurableHandle>True</DurableHandle>
+#      <ResilientHandle>False</ResilientHandle>
+#      <PersistentFID>0x1000679180</PersistentFID>
+#      <VolatileFID>0x10FFFFFFFF</VolatileFID>
+#      <ResumeKey>b7a70b03-5818-11e6-a91a-a213a1b67900</ResumeKey>
+#      <ShareNameLength>11</ShareNameLength>
+#      <ShareName>Departments</ShareName>
+#      <FileNameLength>28</FileNameLength>
+#      <FileName>NAMEOFSHARE\NAMEOFDOCUMENT.ext</FileName>
+#    </EventData>
+#  </UserData>
+#</Event>
