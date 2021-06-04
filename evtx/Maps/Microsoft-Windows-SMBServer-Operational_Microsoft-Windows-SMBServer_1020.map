@@ -6,11 +6,18 @@ Provider: Microsoft-Windows-SMBServer
 Maps:
   -
     Property: Username
-    PropertyValue: "%Username%"
+    PropertyValue: "%UserName%"
     Values:
       -
-        Name: Username
-        Value: "/Event/UserData/EventData/Username"
+        Name: UserName
+        Value: "/Event/UserData/EventData/UserName"
+  -
+    Property: RemoteHost
+    PropertyValue: "ClientName: %ClientName%"
+    Values:
+      -
+        Name: ClientName
+        Value: "/Event/UserData/EventData/ClientName"
   -
     Property: ExecutableInfo
     PropertyValue: "FileName: %FileName%"
@@ -20,32 +27,25 @@ Maps:
         Value: "/Event/UserData/EventData/FileName"
   -
     Property: PayloadData1
+    PropertyValue: "ShareName: %ShareName%"
+    Values:
+      -
+        Name: ShareName
+        Value: "/Event/UserData/EventData/ShareName"
+  -
+    Property: PayloadData2
     PropertyValue: "The threshold is %Threshold% milliseconds (15 seconds)"
     Values:
       -
         Name: Threshold
         Value: "/Event/UserData/EventData/Threshold"
   -
-    Property: PayloadData2
+    Property: PayloadData3
     PropertyValue: "The I/O operation took %Duration% milliseconds"
     Values:
       -
         Name: Duration
         Value: "/Event/UserData/EventData/Duration"
-  -
-    Property: PayloadData3
-    PropertyValue: "ClientName: %ClientName%"
-    Values:
-      -
-        Name: ClientName
-        Value: "/Event/UserData/EventData/ClientName"
-  -
-    Property: PayloadData4
-    PropertyValue: "ShareName: %ShareName%"
-    Values:
-      -
-        Name: ShareName
-        Value: "/Event/UserData/EventData/ShareName"
 
 # Documentation:
 # https://docs.microsoft.com/en-us/troubleshoot/windows-server/networking/troubleshoot-event-id-1020-warnings-file-server
