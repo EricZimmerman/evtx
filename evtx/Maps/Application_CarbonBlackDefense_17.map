@@ -1,0 +1,35 @@
+Author: Tony Knutson
+Description: Carbon Black Defense
+EventId: 17
+Channel: Application
+Provider: CbDefense
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "Data: %Data%"
+    Values:
+      -
+        Name: Data
+        Value: "/Event/EventData/Data"
+
+# Documentation:
+# https://community.carbonblack.com/t5/Knowledge-Base/CB-Defense-Repeated-Event-ID-17-events-for-the-Background-Scan/ta-p/67350
+
+#<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <System>
+#   <Provider Name="CbDefense" />
+#   <EventID Qualifiers="16386">17</EventID>
+#   <Level>4</Level>
+#   <Task>0</Task>
+#   <Keywords>0x80000000000000</Keywords>
+#   <TimeCreated SystemTime="2021-06-05T19:12:48.657326800Z" />
+#   <EventRecordID>106592</EventRecordID>
+#   <Channel>Application</Channel>
+#   <Computer>hostname.domain</Computer>
+#   <Security />
+# </System>
+# <EventData>
+#   <Data>CbDefense</Data>
+#   <Data>The application C:\program files (x86)\google\chrome\application\chrome.exe attempted to establish a TCP/443 connection to IP_Address from IP_Address. The operation was blocked by Carbon Black Cloud</Data>
+#  </EventData>
+# </Event>
