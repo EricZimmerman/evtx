@@ -29,7 +29,6 @@ Maps:
         Name: Version_number
         Value: "/Event/EventData/Data[@Name=\"Version_number\"]"
 
-
 #<Event>
 #  <System>
 #    <Provider Name="Splashtop-Splashtop Streamer-Remote Session" Guid="66a2ea53-fc6c-42e5-9176-18749ab2ca11" />
@@ -54,8 +53,3 @@ Maps:
 #    <Data Name="Version_number">3.4.4.0</Data>
 #  </EventData>
 #</Event>
-
-
-
-
-
