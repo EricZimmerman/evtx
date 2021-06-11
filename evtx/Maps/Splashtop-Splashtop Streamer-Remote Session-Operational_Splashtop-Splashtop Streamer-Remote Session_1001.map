@@ -1,0 +1,54 @@
+Author: Phill Moore
+Description: Splashtop session disconnected
+EventId: 1001
+Channel: Splashtop-Splashtop Streamer-Remote Session/Operational
+Provider: Splashtop-Splashtop Streamer-Remote Session
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "Duration: %duration%"
+    Values:
+      -
+        Name: duration
+        Value: "/Event/EventData/Data[@Name=\"Duration_Time\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "SessionID: %SessionID%"
+    Values:
+      -
+        Name: SessionID
+        Value: "/Event/EventData/Data[@Name=\"Session_ID\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "Product version: %Version_number%"
+    Values:
+      -
+        Name: Version_number
+        Value: "/Event/EventData/Data[@Name=\"Version_number\"]"
+
+# Documentation
+# N/A
+#
+#<Event>
+#  <System>
+#    <Provider Name="Splashtop-Splashtop Streamer-Remote Session" Guid="66a2ea53-fc6c-42e5-9176-18749ab2ca11" />
+#    <EventID>1001</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>0</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8000000000000000</Keywords>
+#    <TimeCreated SystemTime="2001-11-12 21:18:55.4183505" />
+#    <EventRecordID>2</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="3884" ThreadID="1896" />
+#    <Channel>Splashtop-Splashtop Streamer-Remote Session/Operational</Channel>
+#    <Computer>HOSTNAME</Computer>
+#    <Security UserID="S-1-5-18" />
+#  </System>
+#  <EventData>
+#    <Data Name="Session_ID">12345</Data>
+#    <Data Name="Duration_Time">00:00:07</Data>
+#    <Data Name="Version_number">3.4.4.0</Data>
+#  </EventData>
+#</Event>

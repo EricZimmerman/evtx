@@ -1,0 +1,58 @@
+Author: Phill Moore
+Description: Splashtop session connected
+EventId: 1000
+Channel: Splashtop-Splashtop Streamer-Remote Session/Operational
+Provider: Splashtop-Splashtop Streamer-Remote Session
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "SPID: %SPID% - SRC Name: %SRC_Name%"
+    Values:
+      -
+        Name: SPID
+        Value: "/Event/EventData/Data[@Name=\"SPID\"]"
+      -
+        Name: SRC_Name
+        Value: "/Event/EventData/Data[@Name=\"SRC_Name\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "SessionID: %SessionID%"
+    Values:
+      -
+        Name: SessionID
+        Value: "/Event/EventData/Data[@Name=\"Session_ID\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "Product version: %Version_number%"
+    Values:
+      -
+        Name: Version_number
+        Value: "/Event/EventData/Data[@Name=\"Version_number\"]"
+
+# Documentation
+# N/A
+#
+#<Event>
+#  <System>
+#    <Provider Name="Splashtop-Splashtop Streamer-Remote Session" Guid="66a2ea53-fc6c-42e5-9176-18749ab2ca11" />
+#    <EventID>1000</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>0</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8000000000000000</Keywords>
+#    <TimeCreated SystemTime="2021-03-11 21:18:52.6891739" />
+#    <EventRecordID>1</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="3884" ThreadID="5708" />
+#    <Channel>Splashtop-Splashtop Streamer-Remote Session/Operational</Channel>
+#    <Computer>COMPUTERNAME</Computer>
+#    <Security UserID="S-1-5-18" />
+#  </System>
+#  <EventData>
+#    <Data Name="Session_ID">671410472</Data>
+#    <Data Name="SPID">aa@aaaa.com</Data>
+#    <Data Name="SRC_Name">source name</Data>
+#    <Data Name="Version_number">3.4.4.0</Data>
+#  </EventData>
+#</Event>
