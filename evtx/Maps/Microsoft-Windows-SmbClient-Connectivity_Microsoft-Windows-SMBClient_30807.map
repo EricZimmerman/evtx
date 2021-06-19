@@ -1,0 +1,66 @@
+Author: Andrew Rathbun
+Description: The connection to the share was lost
+EventId: 30807
+Channel: "Microsoft-Windows-SmbClient/Connectivity"
+Provider: Microsoft-Windows-SMBClient
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "ServerName: %ServerName%"
+    Values:
+      -
+        Name: ServerName
+        Value: "/Event/EventData/Data[@Name=\"ServerName\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "Status: %Status%"
+    Values:
+      -
+        Name: Status
+        Value: "/Event/EventData/Data[@Name=\"Status\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "SessionId: %SessionId%"
+    Values:
+      -
+        Name: SessionId
+        Value: "/Event/EventData/Data[@Name=\"SessionId\"]"
+  -
+    Property: PayloadData4
+    PropertyValue: "Address: %Address%"
+    Values:
+      -
+        Name: Address
+        Value: "/Event/EventData/Data[@Name=\"Address\"]"
+
+# Documentation:
+# https://windowsbb.com/threads/256606/
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-SMBClient" Guid="988c59c5-0a1c-45b6-a555-0c62276e327d" />
+#     <EventID>30807</EventID>
+#     <Version>2</Version>
+#     <Level>3</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x400000000000040</Keywords>
+#     <TimeCreated SystemTime="2020-09-30 12:20:27.2339658" />
+#     <EventRecordID>52</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="4" ThreadID="192" />
+#     <Channel>Microsoft-Windows-SmbClient/Connectivity</Channel>
+#     <Computer>HOSTNAME.domain.com</Computer>
+#     <Security />
+#   </System>
+#   <EventData>
+#     <Data Name="Status">3267915996</Data>
+#     <Data Name="SessionId">26386799066665</Data>
+#     <Data Name="TreeId">1</Data>
+#     <Data Name="ServerNameLength">12</Data>
+#     <Data Name="ServerName">\HOSTNAME\abc$</Data>
+#     <Data Name="AddressLength">0</Data>
+#     <Data Name="Address"></Data>
+#   </EventData>
+# </Event>
