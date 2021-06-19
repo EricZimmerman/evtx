@@ -1,0 +1,59 @@
+Author: Andrew Rathbun
+Description: DCOM was unable to communicate with the computer
+EventId: 10028
+Channel: System
+Provider: Microsoft-Windows-DistributedCOM
+Maps:
+  -
+    Property: RemoteHost
+    PropertyValue: "%IpAddress%"
+    Values:
+      -
+        Name: IpAddress
+        Value: "/Event/EventData/Data[@Name=\"param1\"]"
+  -
+    Property: ExecutableInfo
+    PropertyValue: "%Process%"
+    Values:
+      -
+        Name: Process
+        Value: "/Event/EventData/Data[@Name=\"param3\"]"
+  -
+    Property: PayloadData1
+    PropertyValue: "ProcessID: %ProcessID%"
+    Values:
+      -
+        Name: ProcessID
+        Value: "/Event/EventData/Data[@Name=\"param2\"]"
+
+# Documentation:
+# https://support.solarwinds.com/SuccessCenter/s/article/Event-10028-DCOM-was-unable-to-communicate-with-the-computer?language=en_US
+# https://social.technet.microsoft.com/Forums/ie/en-US/5dd7322f-a3f5-4d86-9886-8702cbc9b4b4/dcom-was-unable-to-communicate-error-id-event-10028?forum=winserver8gen
+# https://www.eventid.net/display-eventid-10028-source-Microsoft-Windows-DistributedCOM-eventno-11243-phase-1.htm
+#
+# Example Event Data:
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-DistributedCOM" Guid="{1B562E86-B7AA-4131-BADC-B6F36791407E}" EventSourceName="DCOM" />
+#    <EventID Qualifiers="0">10028</EventID>
+#    <Version>0</Version>
+#    <Level>2</Level>
+#    <Task>0</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8080000000000000</Keywords>
+#    <TimeCreated SystemTime="2021-05-27 09:44:52.123456" />
+#    <EventRecordID>123456</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="468" ThreadID="16376" />
+#    <Channel>System</Channel>
+#    <Computer>HOSTNAME.domain.com</Computer>
+#    <Security UserID="S-1-5-21-789336798-1326574676-1801667931-12345" />
+#  </System>
+#  <EventData>
+#    <Data Name="param1">10.23.255.79</Data>
+#    <Data Name="param2">    4679</Data>
+#    <Data Name="param3">C:\Users\username\AppData\Local\Temp\Advanced Port Scanner 2\advanced_port_scanner.exe</Data>
+#    <Data Name="param4">{8BC3F05E-D86B-11D0-A075-00C679B68820}</Data>
+#    <Binary>ec d1 ce d4 68 52 82 02 19 44 52 67 9a 17 22 ec 2d ec 17 10 fa 0a a1 aa 00 ec d2 ce d4 68 52 82 02 19 44 52 67 9a 17 22 ec 18 de c1 44 2f a0 aa 1a a0 10 10 12 34 5e cd 3c ed 46 85 28 20 21 94 45 26 79 a1 72 2e c1 8d ec 32 3f a0 aa 0e cd 4c ed 46 85 28 20 21 94 45 26 79 a1 23 7e c1 8d ec 31 3f a0 aa 0e cd 5c ed 46 85 28 20 21 94 45 26 79 a1 00 60 ec 18 de c3 11 fa 0a a3 aa 01 35 aa 10 aa 2f e0 15 0a 06 79 00 00 ec d6 ce d4 68 52 82 02 19 44 52 67 9a 10 06 0e c1 8d ec 31 8f a0 aa 00</Binary>
+#  </EventData>
+#</Event>
