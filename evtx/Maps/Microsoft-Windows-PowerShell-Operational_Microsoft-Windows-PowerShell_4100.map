@@ -11,7 +11,7 @@ Maps:
       -
         Name: User
         Value: "/Event/EventData/Data[@Name=\"ContextInfo\"]"
-        Refine: "(?<=User = ).*(?=,         )"
+        Refine: "(?<=  User = ).*?(?=,)"
   -
     Property: PayloadData1
     PropertyValue: "Severity = %Severity%"
