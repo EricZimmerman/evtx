@@ -1,0 +1,68 @@
+Author: Andrew Rathbun
+Description: Adding a printer driver
+EventId: 316
+Channel: "Microsoft-Windows-PrintService/Operational"
+Provider: Microsoft-Windows-PrintService
+Maps:
+  -
+    Property: ExecutableInfo
+    PropertyValue: "%Param4%"
+    Values:
+      -
+        Name: Param4
+        Value: "/Event/UserData/DriverAdded/Param4"
+  -
+    Property: PayloadData1
+    PropertyValue: "PrinterDriver: %Param1%"
+    Values:
+      -
+        Name: Param1
+        Value: "/Event/UserData/DriverAdded/Param1"
+  -
+    Property: PayloadData2
+    PropertyValue: "OperatingSystem: %Param2% %Param3%"
+    Values:
+      -
+        Name: Param2
+        Value: "/Event/UserData/DriverAdded/Param2"
+      -
+        Name: Param3
+        Value: "/Event/UserData/DriverAdded/Param3"
+
+# Documentation:
+# https://www.bleepingcomputer.com/news/security/public-windows-printnightmare-0-day-exploit-allows-domain-takeover/
+# Example message from Windows Event Viewer: Printer driver 1234 for Windows x64 Version-3 was added or updated. Files:- UNIDRV.DLL, DLL-U-C-Me-Now.dll, DLL-U-C-Me-Now.dll. No user action is required.
+#
+# Param1 --> Printer Driver
+# Param2 --> Operating System
+# Param3 --> Operating System Version
+# Param4 --> Files Added or Updated
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-PrintService" Guid="747ef6fd-e535-4d16-b510-42c90f6873a1" />
+#     <EventID>316</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>8</Task>
+#     <Opcode>11</Opcode>
+#     <Keywords>0x4000000000000679</Keywords>
+#     <TimeCreated SystemTime="2021-05-30 15:22:15.9708006" />
+#     <EventRecordID>2</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="2980" ThreadID="6728" />
+#     <Channel>Microsoft-Windows-PrintService/Operational</Channel>
+#     <Computer>HOSTNAME</Computer>
+#     <Security UserID="S-1-5-18" />
+#   </System>
+#   <UserData>
+#     <DriverAdded>
+#       <Param1>1234</Param1>
+#       <Param2>Windows x64</Param2>
+#       <Param3>Version-3</Param3>
+#       <Param4>UNIDRV.DLL, kernelbase.dll, not-a-real-payload.dll</Param4>
+#     </DriverAdded>
+#   </UserData>
+# </Event>
+# <Event>
