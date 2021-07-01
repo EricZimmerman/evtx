@@ -1,4 +1,4 @@
-Author: Barrie Hill barrie0482@gmail.com
+Author: Barrie Hill barrie0482@gmail.com/esecrpm
 Description: Printing a document
 EventId: 307
 Channel: "Microsoft-Windows-PrintService/Operational"
@@ -31,7 +31,7 @@ Maps:
     Values:
       -
         Name: DocumentName
-        Value: "/Event/UserData/DocumentPrinted/Param6"
+        Value: "/Event/UserData/DocumentPrinted/Param2"
   -
     Property: PayloadData5
     PropertyValue: "Size in Bytes: %Bytes%"
@@ -48,14 +48,17 @@ Maps:
         Value: "/Event/UserData/DocumentPrinted/Param8"
 
 # Documentation:
-# https://eventlogxp.com/blog/how-to-track-printer-usage-with-event-logs/
+# https://eventlogxp.com/blog/how-to-track-printer-usage-with-event-logs
+#
+# The document name is not recorded in the event record until enabled via Group Policy
+# https://social.technet.microsoft.com/Forums/ie/en-US/12e60098-1f46-4c6e-8b10-9c816dadb2b2/kb-fix-for-print-document-name-in-event-logs-on-server-2012-and-server-2012r2?forum=winserverprint
 #
 # Param1 --> Document Number
-# Param2 --> Event Operation
+# Param2 --> Document Name
 # Param3 --> PrintUser
 # Param4 --> PrintHost
 # Param5 --> Printer Name
-# Param6 --> Document Name
+# Param6 --> Printer Port
 # Param7 --> Document size in Bytes
 # Param8 --> Number of Pages
 #
