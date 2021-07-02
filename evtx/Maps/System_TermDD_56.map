@@ -5,12 +5,12 @@ Channel: System
 Provider: TermDD
 Maps:
   -
-Property: PayloadData1
-PropertyValue: "Data: %Data%"
-Values:
-  -
-Name: Data
-Value: "/Event/EventData/Data"
+    Property: PayloadData1
+    PropertyValue: "Data: %Data%"
+    Values:
+      -
+        Name: Data
+        Value: "/Event/EventData/Data"
 
 # Documentation:
 # https://techcommunity.microsoft.com/t5/ask-the-performance-team/the-curious-case-of-event-id-56-with-source-termdd/ba-p/374553
