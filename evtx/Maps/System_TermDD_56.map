@@ -4,11 +4,11 @@ EventId: 56
 Channel: System
 Provider: TermDD
 Maps:
--
+  -
 Property: PayloadData1
 PropertyValue: "Data: %Data%"
 Values:
--
+  -
 Name: Data
 Value: "/Event/EventData/Data"
 
@@ -17,7 +17,7 @@ Value: "/Event/EventData/Data"
 # Remember you will need to decode the binary (the documentation above explains it) to actually figure out WHAT it was trying to do.
 # However, these are basically "frozen" RDP connections.
 
-#- <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
 #    <Provider Name="TermDD" />
 #    <EventID Qualifiers="49162">56</EventID>
