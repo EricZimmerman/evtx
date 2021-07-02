@@ -27,12 +27,12 @@ Maps:
 #    <TimeCreated SystemTime="2021-06-01T12:13:20.176180300Z" /> 
 #    <EventRecordID>163487</EventRecordID> 
 #    <Channel>System</Channel> 
-#    <Computer>TONJC-CM.TON-Judicial.local</Computer> 
+#    <Computer></Computer> 
 #    <Security /> 
 #    </System>
 #    <EventData>
 #     <Data>\Device\Termdd</Data> 
-#     <Data>167.248.133.39</Data> 
-#     <Binary>009F040002002C000000000038000AC00000000038000AC00000000000000000000000000000000008030980</Binary> 
+#     <Data>IP ADDRESS</Data> 
+#     <Binary>STATUS CODE IN BINARY</Binary> 
 #    </EventData>
 #  </Event>
