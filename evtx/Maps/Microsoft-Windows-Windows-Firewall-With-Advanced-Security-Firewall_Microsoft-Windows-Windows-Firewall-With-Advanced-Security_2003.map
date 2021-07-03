@@ -1,5 +1,5 @@
-Author: Hyun Yi @hyuunnn | MODIFIED by Tony Knutson 7/2/2021
-Description: The firewall has enabled/disabled.
+Author: Hyun Yi @hyuunnn, Tony Knutson
+Description: The firewall has enabled/disabled
 EventId: 2003
 Channel: Microsoft-Windows-Windows Firewall With Advanced Security/Firewall
 Provider: Microsoft-Windows-Windows Firewall With Advanced Security
