@@ -1,9 +1,23 @@
-Author: Hyun Yi @hyuunnn
-Description: The firewall has enabled/disabled.
+Author: Hyun Yi @hyuunnn, Tony Knutson
+Description: The firewall has enabled/disabled
 EventId: 2003
 Channel: Microsoft-Windows-Windows Firewall With Advanced Security/Firewall
 Provider: Microsoft-Windows-Windows Firewall With Advanced Security
 Maps:
+  -
+    Property: ExecutableInfo
+    PropertyValue: "%ModifyingApplication%"
+    Values:
+      -
+        Name: ModifyingApplication
+        Value: "/Event/EventData/Data[@Name=\"ModifyingApplication\"]"
+  -
+    Property: Username
+    PropertyValue: "%ModifyingUser%"
+    Values:
+      -
+        Name: ModifyingUser
+        Value: "/Event/EventData/Data[@Name=\"ModifyingUser\"]"
   -
     Property: PayloadData1
     PropertyValue: "SettingValue: %SettingValue%"
@@ -11,6 +25,7 @@ Maps:
       -
         Name: SettingValue
         Value: "/Event/EventData/Data[@Name=\"SettingValue\"]"
+
 Lookups:
   -
     Name: SettingValue
