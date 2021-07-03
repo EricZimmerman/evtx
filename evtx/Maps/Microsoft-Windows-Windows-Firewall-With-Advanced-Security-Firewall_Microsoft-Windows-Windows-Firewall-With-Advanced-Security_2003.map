@@ -5,11 +5,18 @@ Channel: Microsoft-Windows-Windows Firewall With Advanced Security/Firewall
 Provider: Microsoft-Windows-Windows Firewall With Advanced Security
 Maps:
   -
-    Property: Username
-    PropertyValue: "%Username%"
+    Property: ExecutableInfo
+    PropertyValue: "%ModifyingApplication%"
     Values:
       -
-        Name: Username
+        Name: ModifyingApplication
+        Value: "/Event/EventData/Data[@Name=\"ModifyingApplication\"]"
+  -
+    Property: Username
+    PropertyValue: "%ModifyingUser%"
+    Values:
+      -
+        Name: ModifyingUser
         Value: "/Event/EventData/Data[@Name=\"ModifyingUser\"]"
   -
     Property: PayloadData1
@@ -18,13 +25,7 @@ Maps:
       -
         Name: SettingValue
         Value: "/Event/EventData/Data[@Name=\"SettingValue\"]"
-  -
-    Property: PayloadData2
-    PropertyValue: "%PayloadData2%"
-    Values:
-      -
-        Name: PayloadData2
-        Value: "/Event/EventData/Data[@Name=\"ModifyingApplication\"]"
+
 Lookups:
   -
     Name: SettingValue
