@@ -13,10 +13,9 @@ Maps:
         Value: "/Event/EventData/Data"
         Refine: "(?<=, )[^,\\d]+(?=,)"
 
-# Valid properties include:
-# 
-# PayloadData1
-
+# Documentation
+# N/A
+#
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
 #     <Provider Name="acvpnui" /> 
