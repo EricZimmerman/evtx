@@ -1,0 +1,35 @@
+Author: esecrpm
+Description: Cisco AnyConnect VPN Active Interface Addresses
+EventId: 2072
+Channel: "Cisco AnyConnect Secure Mobility Client"
+Provider: acvpnagent
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "%PayloadData1%"
+    Values:
+      -
+        Name: PayloadData1
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=, )[^,\\d]+(?=,)"
+
+# Documentation
+# N/A
+#
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#   <System>
+#     <Provider Name="acvpnagent" />
+#     <EventID Qualifiers="25600">2072</EventID>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Keywords>0x80000000000000</Keywords>
+#     <TimeCreated SystemTime="2020-10-09T11:59:43.2405786Z" />
+#     <EventRecordID>7519</EventRecordID>
+#     <Channel>Cisco AnyConnect Secure Mobility Client</Channel>
+#     <Computer>foobar</Computer>
+#     <Security />
+#   </System>
+#   <EventData>
+#     <Data>IP addresses from active interfaces: Ethernet: 10.1.1.1, FE80::1234</Data>
+#   </EventData>
+# </Event>

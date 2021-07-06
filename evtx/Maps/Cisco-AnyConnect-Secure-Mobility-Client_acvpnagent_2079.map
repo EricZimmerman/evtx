@@ -1,0 +1,35 @@
+Author: esecrpm
+Description: Cisco AnyConnect VPN Host Configuration
+EventId: 2079
+Channel: "Cisco AnyConnect Secure Mobility Client"
+Provider: acvpnagent
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "%PayloadData1%"
+    Values:
+      -
+        Name: PayloadData1
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=, )[^,\\d]+(?=,)"
+
+# Documentation
+# N/A
+#
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#   <System>
+#     <Provider Name="acvpnagent" />
+#     <EventID Qualifiers="25600">2079</EventID>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Keywords>0x80000000000000</Keywords>
+#     <TimeCreated SystemTime="2020-10-08T21:36:58.4956470Z" />
+#     <EventRecordID>7373</EventRecordID>
+#     <Channel>Cisco AnyConnect Secure Mobility Client</Channel>
+#     <Computer>foobar</Computer>
+#     <Security />
+#   </System>
+#   <EventData>
+#     <Data>Host Configuration: Public address: N/A Potential public addresses: Private Address: 10.1.1.1/8 Private IPv6 Address: FE80::1234/126 (auto-generated) Remote Peers: 2.1.1.1 (TCP port 443, UDP port 443), 2.1.1.1 (TCP port 80) Private Networks: none Private IPv6 Networks: none Public Networks: none Public IPv6 Networks: none Tunnel Mode: no Tunnel all DNS: no</Data>
+#   </EventData>
+# </Event>

@@ -1,0 +1,35 @@
+Author: esecrpm
+Description: Cisco AnyConnect VPN message sent to user
+EventId: 3021
+Channel: "Cisco AnyConnect Secure Mobility Client"
+Provider: acvpnui
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "%PayloadData1%"
+    Values:
+      -
+        Name: PayloadData1
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=, )[^,\\d]+(?=,)"
+
+# Documentation
+# N/A
+#
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#   <System>
+#     <Provider Name="acvpnui" />
+#     <EventID Qualifiers="25600">3021</EventID>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Keywords>0x80000000000000</Keywords>
+#     <TimeCreated SystemTime="2020-10-08T15:58:28.7588300Z" />
+#     <EventRecordID>7050</EventRecordID>
+#     <Channel>Cisco AnyConnect Secure Mobility Client</Channel>
+#     <Computer>foobar</Computer>
+#     <Security />
+#   </System>
+#   <EventData>
+#      <Data>Message type information sent to the user: Establishing VPN session...</Data>
+#   </EventData>
+# </Event>
