@@ -13,25 +13,25 @@ Maps:
         Value: "/Event/UserData/DocumentPrinted/Param3"
   -
     Property: PayloadData2
-    PropertyValue: "Print Host: %PrintHost%"
-    Values:
-      -
-        Name: PrintHost
-        Value: "/Event/UserData/DocumentPrinted/Param4"
-  -
-    Property: PayloadData3
     PropertyValue: "Printer Name: %PrinterName%"
     Values:
       -
         Name: PrinterName
         Value: "/Event/UserData/DocumentPrinted/Param5"
   -
-    Property: PayloadData4
+    Property: PayloadData3
     PropertyValue: "Document Name: %DocumentName%"
     Values:
       -
         Name: DocumentName
         Value: "/Event/UserData/DocumentPrinted/Param2"
+  -
+    Property: PayloadData4
+    PropertyValue: "Printer Port: %PrinterPort%"
+    Values:
+      -
+        Name: PrinterPort
+        Value: "/Event/UserData/DocumentPrinted/Param4"
   -
     Property: PayloadData5
     PropertyValue: "Size in Bytes: %Bytes%"
