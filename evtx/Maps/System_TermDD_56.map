@@ -1,0 +1,38 @@
+Author: Tony Knutson
+Description: TermDD
+EventId: 56
+Channel: System
+Provider: TermDD
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "Data: %Data%"
+    Values:
+      -
+        Name: Data
+        Value: "/Event/EventData/Data"
+
+# Documentation:
+# https://techcommunity.microsoft.com/t5/ask-the-performance-team/the-curious-case-of-event-id-56-with-source-termdd/ba-p/374553
+# Remember you will need to decode the binary (the documentation above explains it) to actually figure out WHAT it was trying to do.
+# However, these are basically "frozen" RDP connections.
+
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#   <System>
+#    <Provider Name="TermDD" />
+#    <EventID Qualifiers="49162">56</EventID>
+#    <Level>2</Level>
+#    <Task>0</Task>
+#    <Keywords>0x80000000000000</Keywords>
+#    <TimeCreated SystemTime="2021-06-01T12:13:20.176180300Z" />
+#    <EventRecordID>163487</EventRecordID>
+#    <Channel>System</Channel>
+#    <Computer></Computer>
+#    <Security />
+#    </System>
+#    <EventData>
+#     <Data>\Device\Termdd</Data>
+#     <Data>IP ADDRESS</Data>
+#     <Binary>STATUS CODE IN BINARY</Binary>
+#    </EventData>
+#  </Event>

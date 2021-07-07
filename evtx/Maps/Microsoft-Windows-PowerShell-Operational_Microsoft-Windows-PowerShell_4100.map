@@ -1,0 +1,92 @@
+Author: Andrew Rathbun
+Description: Executing pipeline
+EventId: 4100
+Channel: "Microsoft-Windows-PowerShell/Operational"
+Provider: Microsoft-Windows-PowerShell
+Maps:
+  -
+    Property: UserName
+    PropertyValue: "%User%"
+    Values:
+      -
+        Name: User
+        Value: "/Event/EventData/Data[@Name=\"ContextInfo\"]"
+        Refine: "(?<=  User = ).*?(?=,)"
+  -
+    Property: PayloadData1
+    PropertyValue: "Severity = %Severity%"
+    Values:
+      -
+        Name: Severity
+        Value: "/Event/EventData/Data[@Name=\"ContextInfo\"]"
+        Refine: "(?<=Severity = ).*(?=,         Host Name)"
+  -
+    Property: PayloadData2
+    PropertyValue: "Command Name: %CommandName%"
+    Values:
+      -
+        Name: CommandName
+        Value: "/Event/EventData/Data[@Name=\"ContextInfo\"]"
+        Refine: "(?<=Command Name = ).*(?=,         Command Type)"
+  -
+    Property: PayloadData3
+    PropertyValue: "CommandType: %CommandType%"
+    Values:
+      -
+        Name: CommandType
+        Value: "/Event/EventData/Data[@Name=\"ContextInfo\"]"
+        Refine: "(?<=Command Type = ).*(?=,         Script Name)"
+  -
+    Property: PayloadData4
+    PropertyValue: "Script Name: %ScriptName%"
+    Values:
+      -
+        Name: ScriptName
+        Value: "/Event/EventData/Data[@Name=\"ContextInfo\"]"
+        Refine: "(?<=Script Name = ).*(?=,         Command Path)"
+  -
+    Property: PayloadData5
+    PropertyValue: "HostApplication: %HostApplication%"
+    Values:
+      -
+        Name: HostApplication
+        Value: "/Event/EventData/Data[@Name=\"ContextInfo\"]"
+        Refine: "(?<=Host Application = ).*(?=,         Engine Version)"
+  -
+    Property: PayloadData6
+    PropertyValue: "Host Name: %HostName%"
+    Values:
+      -
+        Name: HostName
+        Value: "/Event/EventData/Data[@Name=\"ContextInfo\"]"
+        Refine: "(?<=Host Name = ).*(?=,         Host Version)"
+
+# Documentation:
+# https://www.myeventlog.com/search/show/976
+# http://eventopedia.cloudapp.net/default.aspx?LogType=Windows+Event+Log&LogName=Microsoft-Windows-PowerShell%2FOperational&EventID=4100&action=go
+# https://static1.squarespace.com/static/552092d5e4b0661088167e5c/t/59c1814829f18782e24f1fe2/1505853768977/Windows+PowerShell+Logging+Cheat+Sheet+ver+Sept+2017+v2.1.pdf
+#
+# Example Event Data:
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-PowerShell" Guid="a0c1853b-5c40-4b15-8766-3cf6798f985a" />
+#    <EventID>4100</EventID>
+#    <Version>1</Version>
+#    <Level>3</Level>
+#    <Task>106</Task>
+#    <Opcode>19</Opcode>
+#    <Keywords>0x0</Keywords>
+#    <TimeCreated SystemTime="2021-05-11 12:15:09.7936797" />
+#    <EventRecordID>167340</EventRecordID>
+#    <Correlation ActivityID="d01b00f3-0e95-000c-341d-1ckjhg50ed701" />
+#    <Execution ProcessID="3732" ThreadID="8972" />
+#    <Channel>Microsoft-Windows-PowerShell/Operational</Channel>
+#    <Computer>HOSTNAME.domain.com</Computer>
+#    <Security UserID="S-1-5-21-1123545945-19945682763-6826793330-16794" />
+#  </System>
+#  <EventData>
+#    <Data Name="ContextInfo">        Severity = Warning,         Host Name = ConsoleHost,         Host Version = 4.0,         Host ID = 2ed08e6b-9048-4bfe-a06b-3b567920bde4a,         Host Application = powershell -ExecutionPolicy ByPass -FILE C:\Users\username\AppData\Local\5da531d1a4694f6799819de13aac2c08.ps1,         Engine Version = 4.0,         Runspace ID = 35f1b751-df3f-480f-b705-5be201b68ede,         Pipeline ID = 1,         Command Name = Add-Type,         Command Type = Cmdlet,         Script Name = C:\Windows\ltsvc\packages\ABC123465\SpeculationControl.psm1,         Command Path = ,         Sequence Number = 15,         User = DOMAIN\username,         Shell ID = Microsoft.PowerShell, </Data>
+#    <Data Name="UserData"></Data>
+#    <Data Name="Payload">Error Message = Cannot add type. Compilation errors occurred., Fully Qualified Error ID = COMPILER_ERRORS,Microsoft.PowerShell.Commands.AddTypeCommand, </Data>
+#  </EventData>
+#</Event>

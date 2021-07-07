@@ -1,0 +1,35 @@
+Author: esecrpm
+Description: Cisco AnyConnect VPN client's public address
+EventId: 2085
+Channel: "Cisco AnyConnect Secure Mobility Client"
+Provider: acvpnagent
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "%PayloadData1%"
+    Values:
+      -
+        Name: PayloadData1
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=, )[^,\\d]+(?=,)"
+
+# Documentation
+# N/A
+#
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#   <System>
+#     <Provider Name="acvpnagent" />
+#     <EventID Qualifiers="25600">2085</EventID>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Keywords>0x80000000000000</Keywords>
+#     <TimeCreated SystemTime="2021-02-02T13:01:47.262480100Z" />
+#     <EventRecordID>198651</EventRecordID>
+#     <Channel>Cisco AnyConnect Secure Mobility Client</Channel>
+#     <Computer>foobar</Computer>
+#     <Security />
+#   </System>
+#   <EventData>
+#     <Data>The client's public address is now set to 192.168.1.1</Data>
+#   </EventData>
+# </Event>

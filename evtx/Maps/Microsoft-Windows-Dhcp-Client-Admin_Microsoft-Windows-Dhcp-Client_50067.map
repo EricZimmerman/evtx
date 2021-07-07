@@ -1,0 +1,50 @@
+Author: esecrpm
+Description: Windows DHCP Client WiFi SSID Received
+EventId: 50067
+Channel: "Microsoft-Windows-Dhcp-Client/Admin"
+Provider: Microsoft-Windows-Dhcp-Client
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "SSID: %PayloadData1%"
+    Values:
+      -
+        Name: PayloadData1
+        Value: "/Event/EventData/Data[@Name=\"NetworkHint\"]"
+        Refine: "(?<=, )[^,\\d]+(?=,)"
+  -
+    Property: PayloadData2
+    PropertyValue: "MAC Address: %PayloadData2%"
+    Values:
+      -
+        Name: PayloadData2
+        Value: "/Event/EventData/Data[@Name=\"HWAddress\"]"
+        Refine: "(?<=, )[^,\\d]+(?=,)"
+
+# Documentation
+# N/A
+#
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#   <System>
+#     <Provider Name="Microsoft-Windows-Dhcp-Client" Guid="{15a7a4f8-0072-4eab-abad-f98a4d666aed}" />
+#     <EventID>50067</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>3</Task>
+#     <Opcode>57</Opcode>
+#     <Keywords>0x4000000000000000</Keywords>
+#     <TimeCreated SystemTime="2020-10-08T22:11:09.9522595Z" />
+#     <EventRecordID>30</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="1912" ThreadID="2308" />
+#     <Channel>Microsoft-Windows-Dhcp-Client/Admin</Channel>
+#     <Computer>foobar</Computer>
+#     <Security UserID="S-1-5-19" />
+#   </System>
+#   <EventData>
+#     <Data Name="NetworkHintString">WiFi_SSID</Data>
+#     <Data Name="NetworkHint">576946695F53534944</Data>
+#     <Data Name="HWLength">6</Data>
+#     <Data Name="HWAddress">001122334455</Data>
+#   </EventData>
+# </Event>
