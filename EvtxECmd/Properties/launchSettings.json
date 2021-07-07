@@ -1,0 +1,9 @@
+{
+  "profiles": {
+    "Start": {
+      "commandName": "Project",
+      "commandLineArgs": "-d \"C:\\Temp\\*\" --csv c:\\temp",
+      "ErrorString": "Error reading JObject from JsonReader. Path '', line 0, position 0."
+    }
+  }
+}
