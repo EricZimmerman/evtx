@@ -568,7 +568,7 @@ namespace EvtxECmd
             {
                 if (File.Exists(_fluentCommandLineParser.Object.File) == false)
                 {
-                    _logger.Warn($"'{_fluentCommandLineParser.Object.File}' does not exist! Exiting");
+                    _logger.Warn($"\t'{_fluentCommandLineParser.Object.File}' does not exist! Exiting");
                     return;
                 }
 
@@ -602,6 +602,12 @@ namespace EvtxECmd
             }
             else
             {
+                if (Directory.Exists(_fluentCommandLineParser.Object.Directory) == false)
+                {
+                    _logger.Warn($"\t'{_fluentCommandLineParser.Object.Directory}' does not exist! Exiting");
+                    return;
+                }
+
                 _logger.Info($"Looking for event log files in '{_fluentCommandLineParser.Object.Directory}'");
                 _logger.Info("");
 

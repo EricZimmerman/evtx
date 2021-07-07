@@ -27,6 +27,6 @@
     <PackageReference Include="NLog" Version="4.7.10" />
     <PackageReference Include="ServiceStack.Text" Version="5.11.0" />
     <PackageReference Include="System.Xml.XPath" Version="4.3.0" />
-    <PackageReference Include="YamlDotNet" Version="11.1.1" />
+    <PackageReference Include="YamlDotNet" Version="11.2.1" />
   </ItemGroup>
 </Project>
