@@ -13,7 +13,7 @@ Maps:
         Value: "/Event/EventData/Data"
         Refine: "(?<=, )[^,\\d]+(?=,)"
 
-# Documentation
+# Documentation:
 # N/A
 #
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
