@@ -1,10 +1,10 @@
-# Event log maps
+# EvtxECmd Maps
 
 Map files are used to convert the EventData (the unique part of an event) to a more standardized format. Map files are specific to a certain type of event log, such as Security, Application, etc.
 
-Because different event logs may reuse Event IDs, maps need to be specific to a certain kind of log. This specificity is done by using a unique identifier for a given event log, the Channel. We will see more about this in a moment.
+Because different event logs may reuse Event IDs, Maps need to be specific to a certain kind of log. This specificity is done by using a unique identifier for a given event log, the Channel. We will see more about this in a moment.
 
-Once you know what event log and Event ID you want to make a map for, the first thing to do is dump the log's records to XML, using EvtxECmd.exe as follows:
+Once you know what event log and Event ID you want to make a Map for, the first thing to do is dump the log's records to XML, using EvtxECmd.exe as follows:
 
 ```
 EvtxECmd.exe -f <your eventlog> --xml c:\temp\xml
@@ -64,49 +64,49 @@ When the command finishes, open the generated xml file in c:\temp\ and find your
 
 Just about everything in the `<System>` element is normalized by default, but if you want to include anything from there you can do so using the techniques we will see below.
 
-In most cases, the data in the <EventData> block is what you want to process. This is where xpath queries come into play.
+In most cases, the data in the `<EventData>` block is what you want to process. This is where xpath queries come into play.
 
-So let's take a look at a map to make things a bit more clear.
+So let's take a look at a Map to make things a bit more clear.
 
-In the example below, there are four header properties that describe the map: who wrote it, what its for, the Channel, and the Event ID the map corresponds to.
+In the example below, there are four header properties that describe the Map: who wrote it, what its for, the Channel, and the Event ID the Map corresponds to.
 
-The Channel and Event ID property are what make a map unique, not the name of the file. As long as the map ends with '.map' it will be processed.
+The Channel and Event ID property are what make a Map unique, not the name of the file. As long as the Map ends with '.Map' it will be processed.
 
 The Channel is a useful identifier for a given log type. It can be seen in the `<Channel>` element ("Security" in the example above).
 
-The Maps collection contains configurations for how to look for data in an events EventData and extract out particular properties into variables. These variables are then combined and mapped to the event record's first class properties.
+The Maps collection contains configurations for how to look for data in an events EventData and extract out particular properties into variables. These variables are then combined and Mapped to the event record's first class properties.
 
-For example, consider the first map, for `UserName`, below.
+For example, consider the first Map, for `UserName`, below.
 
 The `PropertyValue` defines the pattern that will be used to build the final value that will be assigned to the UserName field in the CSV. Variables in patterns are surrounded by % on both sides, so we see two variables defined: `%domain%` and `%user%`
 
-In the map entries `Values` collection, we actually populate these variables by giving the value a name (domain in the first case) and an xpath query that will be used to set the value for the variable (`"/Event/EventData/Data[@Name=\"SubjectDomainName\"]"` in the first case).
+In the Map entries `Values` collection, we actually populate these variables by giving the value a name (domain in the first case) and an xpath query that will be used to set the value for the variable (`"/Event/EventData/Data[@Name=\"SubjectDomainName\"]"` in the first case).
 
-When a map is processed, each map entry has its `Values` items processed so the variables are populated with data. Then the `PropertyValue` is updated and the variables are replaced with the actual values. This final PropertyValue is then updated in the event record which then ends up in the CSV/JSON, etc.
+When a Map is processed, each Map entry has its `Values` items processed so the variables are populated with data. Then the `PropertyValue` is updated and the variables are replaced with the actual values. This final PropertyValue is then updated in the event record which then ends up in the CSV/JSON, etc.
 
-It is that simple! Be sure to surround things in double quotes and/or escape quotes as in the examples. When in doubt, test your map against real data!
+It is that simple! Be sure to surround things in double quotes and/or escape quotes as in the examples. When in doubt, test your Map against real data!
 
-NOTE! The filenames for maps should be in the following format:
+NOTE! The filenames for Maps should be in the following format:
 
-Channel-Name_Provider-Name_EventID.map
+`Channel-Name_Provider-Name_EventID.Map`
 
-Where Channel is EXACTLY what is in the XML <Channel> element with any '/' characters, hyphens, or spaces replaced with a hyphen. Hyphens are the catch all for each element of the map filename.
+Where Channel is EXACTLY what is in the XML `<Channel>` element with any '/' characters, hyphens, or spaces replaced with a hyphen. Hyphens are the catch all for each element of the Map filename.
 
 Only underscores should separate each element (Channel Name, Provider Name, EventID). Hyphens separates words. Underscores separate elements.
 
-For example, for Event ID '201' and Channel 'Microsoft-Windows-TaskScheduler/Operational' the file should be named:
+For example, for Event ID `201` and Channel `Microsoft-Windows-TaskScheduler/Operational` the file should be named:
 
-`Microsoft-Windows-TaskScheduler-Operational_Microsoft-Windows-TaskScheduler_201.map`
+`Microsoft-Windows-TaskScheduler-Operational_Microsoft-Windows-TaskScheduler_201.Map`
 
 `Provider` is now mandatory. Provider is used at the header level and looks like this:
 
 `Provider: "Microsoft-Windows-Power-Troubleshooter"`
 
-This lets you further narrow down when a map will be used. Every map will have a working example of this now.
+This lets you further narrow down when a Map will be used. Every Map will have a working example of this now.
 
 As of v06 or so, you can also add optional properties such as `Lookups`.
 
-Lookups allow you to define lookup tables that match one value and replace them with another. Here is an example, also from System_1.map:
+Lookups allow you to define lookup tables that match one value and replace them with another. Here is an example, also from `System_Microsoft-Windows-Kernel-General_1.Map`:
 
 Lookups:
 ```
@@ -133,7 +133,7 @@ The name of the lookup table determines when it will be used and should match th
         Value: "/Event/EventData/Data[@Name=\"WakeSourceType\"]"
 ```
 
-Here, when the map is applied, the numerical value for WakeSourceType is filtered through the Lookup with the same name, and the value is updated to reflect the more human readable version. If you want BOTH the original value and  the lookup value, simply reference the original using a different Name under Values, then reference that adjusted name as a variable, like this:
+Here, when the Map is applied, the numerical value for WakeSourceType is filtered through the Lookup with the same name, and the value is updated to reflect the more human readable version. If you want BOTH the original value and  the lookup value, simply reference the original using a different Name under Values, then reference that adjusted name as a variable, like this:
 ```
   -
     Property: PayloadData2
@@ -147,7 +147,7 @@ Here, when the map is applied, the numerical value for WakeSourceType is filtere
         Value: "/Event/EventData/Data[@Name=\"WakeSourceType\"]"
 ```
 
-here is another example of a map:
+here is another example of a Map:
 
 ---- START MAP HERE ----
 ```
@@ -192,32 +192,30 @@ Maps:
 ```
 ---- END MAP HERE ----
 
+Map files are read in order, alphabetically. This means you can create your own alternative Maps to the default by doing the following:
 
-Map files are read in order, alphabetically. This means you can create your own alternative maps to the default by doing the following:
-
-1. make a copy of the map you want to modify
-2. name it the same as the map you are interested in, but prepend 1_ to the front of the filename.
-3. edit the new map to meet your needs
+1. make a copy of the Map you want to modify
+2. name it the same as the Map you are interested in, but prepend 1_ to the front of the filename.
+3. edit the new Map to meet your needs
 
 Example:
 
-Security_4624.map is copied and renamed to:
+`Security_Microsoft-Windows-Security-Auditing_4624.Map` is copied and renamed to:
 
-1_Security_4624.map
+`1_Security_Microsoft-Windows-Security-Auditing_4624.Map`
 
-Edit 1_Security_4624.map and make your changes
+Edit `1_Security_Microsoft-Windows-Security-Auditing_4624.Map` and make your changes
 
-When the maps are loaded, since 1_Security_4624.map comes before 4624.map, only the one with your changes will be loaded.
+When the Maps are loaded, since `1_Security_Microsoft-Windows-Security-Auditing_4624.Map` comes before `Security_Microsoft-Windows-Security-Auditing_4624.Map`, only the one with your changes will be loaded.
 
-This also allows you to update default maps without having your customizations blown away every time there is an update.
+This also allows you to update default Maps without having your customizations blown away every time there is an update.
 
 TIPS:
 
-If you are looking to make an Application.evtx map, please include a Provider as they are many instances where the same event ID number is used for multiple providers. I've personally observed 4 Providers use Event ID 1 which without a Provider being listed for that map it made all 4 events, regardless of Provider, be mapped incorrectly. When in doubt, add a Provider to your map. Follow a template from a previously created map to ensure it's made correctly.
+If you are looking to make an Application.evtx Map, please include a Provider as they are many instances where the same event ID number is used for multiple providers. I've personally observed 4 Providers use Event ID 1 which without a Provider being listed for that Map it made all 4 events, regardless of Provider, be Mapped incorrectly. When in doubt, add a Provider to your Map. Follow a template from a previously created Map to ensure it's made correctly.
 
 UPDATE: As of December 2020, Provider is now mandatory to avoid the above issue!
 
 # Updating Documentation
 
-If you are looking for a way to contribute without making a map, search across the contents of all maps for "N/A" and try to find documentation for any of the maps in the repository. Ideally, each map will have as much documentation as possible that exists for that specific event. This can serve as a good reference for anyone using the tool as well as a learning tool for students and those new to the field.
-
+If you are looking for a way to contribute without making a Map, search across the contents of all Maps for "N/A" and try to find documentation for any of the Maps in the repository. Ideally, each Map will have as much documentation as possible that exists for that specific event. This can serve as a good reference for anyone using the tool as well as a learning tool for students and those new to the field.
