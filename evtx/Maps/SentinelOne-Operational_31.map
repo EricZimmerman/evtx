@@ -1,0 +1,56 @@
+Author: Tony Knutson
+Description: Sentinel Threat Detected
+EventId: 31
+Channel: "SentinelOne/Operational"
+Provider: SentinelOne
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "Program: %Name%"
+    Values:
+      -
+        Name: Name
+        Value: "/Event/EventData/Data[@Name=\"Name\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "%Path%"
+    Values:
+      -
+        Name: Path
+        Value: "/Event/EventData/Data[@Name=\"Path\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "%DetectionEngine%"
+    Values:
+      -
+        Name: DetectionEngine
+        Value: "/Event/EventData/Data[@Name=\"DetectionEngine\"]"
+
+# Documentation:
+# N/A
+#
+# Example Event Data:
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#  <System>
+#  <Provider Name="SentinelOne" Guid="{GUID}" />
+#  <EventID>31</EventID>
+#  <Version>0</Version>
+#  <Level>3</Level>
+#  <Task>1</Task>
+#  <Opcode>0</Opcode>
+#  <Keywords>0x8000000000000000</Keywords>
+#  <TimeCreated SystemTime="YYYY-MM-DD hh:mm:ss.0000" />
+#  <EventRecordID>305</EventRecordID>
+#  <Correlation />
+#  <Execution ProcessID="1132" ThreadID="2472" />
+#  <Channel>SentinelOne/Operational</Channel>
+#  <Computer>COMPUTERNAME</Computer>
+#  <Security UserID="S-1-5-18" />
+#  </System>
+# <EventData>
+#  <Data Name="TrueContextID">745B8EA53F832640</Data>
+#  <Data Name="Name">name</Data>
+#  <Data Name="Path">PATH</Data>
+#  <Data Name="DetectionEngine">windows.reputation</Data>
+#  </EventData>
+#  </Event>

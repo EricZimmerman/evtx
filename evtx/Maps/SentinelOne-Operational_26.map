@@ -1,0 +1,39 @@
+Author: Tony Knutson
+Description: File Quarantine Already Quarantined
+EventId: 26
+Channel: "SentinelOne/Operational"
+Provider: SentinelOne
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "%FilePath%"
+    Values:
+      -
+        Name: FilePath
+        Value: "/Event/EventData/Data[@Name=\"FilePath\"]"
+
+# Documentation:
+# N/A
+#
+# Example Event Data:
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#   <System>
+#    	<Provider Name="SentinelOne" Guid="{GUID ID}" />
+#    	<EventID>26</EventID>
+#    	<Version>0</Version>
+#    	<Level>3</Level>
+#    	<Task>1</Task>
+#    	<Opcode>0</Opcode>
+#    	<Keywords>0x8000000000000000</Keywords>
+#    	<TimeCreated SystemTime="YYYY-MM-DDTHH:MM:00.0000Z" />
+#  	<EventRecordID>491</EventRecordID>
+#  	<Correlation />
+#  	<Execution ProcessID="12020" ThreadID="8276" />
+#  	<Channel>SentinelOne/Operational</Channel>
+#  	<Computer>COMPUTERNAME</Computer>
+#  	<Security UserID="SID" />
+#    </System>
+#    <EventData>
+#       <Data Name="FilePath">PATH TO THE FILE</Data>
+#    </EventData>
+#  </Event>

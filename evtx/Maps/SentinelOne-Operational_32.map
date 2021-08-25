@@ -1,0 +1,48 @@
+Author: Tony Knutson
+Description: Sentinel Mitigation Report
+EventId: 32
+Channel: "SentinelOne/Operational"
+Provider: SentinelOne
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "Action: %Action%"
+    Values:
+      -
+        Name: Action
+        Value: "/Event/EventData/Data[@Name=\"Action\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "Result: %Result%"
+    Values:
+      -
+        Name: Result
+        Value: "/Event/EventData/Data[@Name=\"Result\"]"
+
+# Documentation:
+# N/A
+#
+# Example Event Data:
+#- <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#- <System>
+#  <Provider Name="SentinelOne" Guid="{GUID}" />
+#  <EventID>32</EventID>
+#  <Version>0</Version>
+#  <Level>3</Level>
+#  <Task>1</Task>
+#  <Opcode>0</Opcode>
+#  <Keywords>0x8000000000000000</Keywords>
+#  <TimeCreated SystemTime="YYYY-MM-DD hh:mm:ss" />
+#  <EventRecordID>253</EventRecordID>
+#  <Correlation />
+#  <Execution ProcessID="1132" ThreadID="2472" />
+#  <Channel>SentinelOne/Operational</Channel>
+#  <Computer>COMPUTER NAME</Computer>
+#  <Security UserID="S-1-5-18" />
+#  </System>
+#- <EventData>
+#  <Data Name="TrueContextID">D69E3E5659219301</Data>
+#  <Data Name="Action">Quarantine</Data>
+#  <Data Name="Result">Success</Data>
+#  </EventData>
+#  </Event>

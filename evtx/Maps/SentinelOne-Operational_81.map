@@ -1,0 +1,74 @@
+Author: Tony Knutson
+Description: Sentinel Scan Ended
+EventId: 81
+Channel: "SentinelOne/Operational"
+Provider: SentinelOne
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "ScanStartTime: %ScanStartTime%"
+    Values:
+      -
+        Name: ScanStartTime
+        Value: "/Event/EventData/Data[@Name=\"ScanStartTime\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "ScanStopTime: %ScanStopTime%"
+    Values:
+      -
+        Name: ScanStopTime
+        Value: "/Event/EventData/Data[@Name=\"ScanStopTime\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "ScannedPath: %ScannedPath%"
+    Values:
+      -
+        Name: ScannedPath
+        Value: "/Event/EventData/Data[@Name=\"ScannedPath\"]"
+  -
+    Property: PayloadData4
+    PropertyValue: "%Result%"
+    Values:
+      -
+        Name: Result
+        Value: "/Event/EventData/Data[@Name=\"Result\"]"
+  -
+    Property: PayloadData5
+    PropertyValue: "MaliciousCount: %MaliciousCount%"
+    Values:
+      -
+        Name: MaliciousCount
+        Value: "/Event/EventData/Data[@Name=\"MaliciousCount\"]"
+
+# Documentation:
+# N/A
+#
+# Example Event Data:
+#- <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#- <System>
+#  <Provider Name="SentinelOne" Guid="{GUID}" />
+#  <EventID>81</EventID>
+#  <Version>0</Version>
+#  <Level>4</Level>
+#  <Task>1</Task>
+#  <Opcode>0</Opcode>
+#  <Keywords>0x8000000000000000</Keywords>
+#  <TimeCreated SystemTime="YYYY-MM-DD hh:mm:ss" />
+#  <EventRecordID>333</EventRecordID>
+#  <Correlation />
+#  <Execution ProcessID="1132" ThreadID="2428" />
+#  <Channel>SentinelOne/Operational</Channel>
+#  <Computer>COMPUTER NAME</Computer>
+#  <Security UserID="S-1-5-18" />
+# </System>
+#- <EventData>
+#  <Data Name="ScanStartTime">YYYY-MM-DD hh:mm:ss</Data>
+#  <Data Name="ScanEndTime">YYYY-MM-DD hh:mm:ss</Data>
+#  <Data Name="ScannedPath">All Volumes</Data>
+#  <Data Name="TriggerType">Management</Data>
+#  <Data Name="ScannedCount">NN</Data>
+#  <Data Name="MaliciousCount">NN</Data>
+# <Data Name="ExcludedMaliciousCount">NN</Data>
+#  <Data Name="Status">Completed</Data>
+# </EventData>
+#  </Event>
