@@ -13,8 +13,10 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"FilePath\"]"
 
 # Documentation:
+# N/A
 #
-#- <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# Example Event Data:
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>
 #    	<Provider Name="SentinelOne" Guid="{GUID ID}" />
 #    	<EventID>26</EventID>
