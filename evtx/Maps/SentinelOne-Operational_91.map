@@ -28,6 +28,7 @@ Maps:
 
 # Documentation:
 # Script Logging Attempted
+#
 # Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #  <System>
