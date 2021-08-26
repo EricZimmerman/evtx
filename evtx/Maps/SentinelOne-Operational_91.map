@@ -1,0 +1,56 @@
+Author: Tony Knutson
+Description: Sentinel Remote Script Logging
+EventId: 91
+Channel: "SentinelOne/Operational"
+Provider: SentinelOne
+Maps:
+  -
+    Property: ExecutableInfo
+    PropertyValue: "ScriptName: %ScriptName%"
+    Values:
+      -
+        Name: ScriptName
+        Value: "/Event/EventData/Data[@Name=\"ScriptName\"]"
+  -
+    Property: PayloadData1
+    PropertyValue: "StartTime: %StartTime%"
+    Values:
+      -
+        Name: StartTime
+        Value: "/Event/EventData/Data[@Name=\"StartTime\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "Duration: %Duration%"
+    Values:
+      -
+        Name: Duration
+        Value: "/Event/EventData/Data[@Name=\"Duration\"]"
+
+# Documentation:
+# Script Logging Attempted
+#
+# Example Event Data:
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#  <System>
+#  <Provider Name="SentinelOne" Guid="{GUID}" />
+#  <EventID>31</EventID>
+#  <Version>0</Version>
+#  <Level>3</Level>
+#  <Task>1</Task>
+#  <Opcode>0</Opcode>
+#  <Keywords>0x8000000000000000</Keywords>
+#  <TimeCreated SystemTime="YYYY-MM-DD hh:mm:ss.0000" />
+#  <EventRecordID>305</EventRecordID>
+#  <Correlation />
+#  <Execution ProcessID="1132" ThreadID="2472" />
+#  <Channel>SentinelOne/Operational</Channel>
+#  <Computer>COMPUTERNAME</Computer>
+#  <Security UserID="S-1-5-18" />
+#  </System>
+# <EventData>
+#  <Data Name="ScriptName">SCRIPTNAME</Data>
+#  <Data Name="StartTime">YYYY-MM-DD hh:mm:ss</Data>
+#  <Data Name="Duration">SSSS/Data>
+#  <Data Name="ExitCode">0</Data>
+#  </EventData>
+#  </Event>
