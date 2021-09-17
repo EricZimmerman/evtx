@@ -5,12 +5,12 @@ Channel: "Microsoft-Windows-SMBServer/Security"
 Provider: "Microsoft-Windows-SMBServer"
 Maps:
   -
-    Property: Username
-    PropertyValue: "%Username%"
+    Property: UserName
+    PropertyValue: "%UserName%"
     Values:
       -
-        Name: Username
-        Value: "/Event/UserData/EventData/Username"
+        Name: UserName
+        Value: "/Event/UserData/EventData/UserName"
   -
     Property: RemoteHost
     PropertyValue: "%ClientName%"
@@ -52,32 +52,24 @@ Lookups:
     Name: Status
     Default: Unknown code
     Values:
-      0xC0000022: a process has requested access to an object, but has not been granted those access rights
-      0xC000005E: there are currently no logon servers available to service the logon request
-      0xC0000064: user name does not exist
-      0xC000006A: user name is correct but the password is wrong
-      0xC000006D: the cause is either a bad username or authentication information
-      0xC000006E: referenced user name and authentication information are valid, but some user account restriction has prevented successful authentication (such as time-of-day restrictions)
-      0xC000006F: user logon outside authorized hours
-      0xC0000070: user logon from unauthorized workstation
-      0xC0000071: user logon with expired password
-      0xC0000072: user logon to account disabled by administrator
-      0xC00000DC: indicates the Sam Server was in the wrong state to perform the desired operation
-      0xC000035C: the client's session has expired; therefore, the client MUST re-authenticate to continue accessing remote resources
-      0xC0000133: clocks between DC and other computer too far out of sync
-      0xC000015B: the user has not been granted the requested logon type (also called the logon right) at this machine
-      0xC000018C: the logon request failed because the trust relationship between the primary domain and the trusted domain failed
-      0xC0000192: an attempt was made to logon, but the Netlogon service was not started
-      0xC0000193: user logon with expired account
-      0xC0000224: user is required to change password at next logon
-      0xC0000225: evidently a bug in Windows and not a risk
-      0xC0000234: user is currently locked out
-      0x0: Status OK
+      0xC000003A: The share path does not reference a valid resource
+      0xC000006D: The server rejected the client logon attempt.
+      0xC0000205: The server is out of resources. Out of memory or TIDs.
+      0xC00000CC: The server is temporarily paused.
+      0xC00000CF: The server is temporarily paused.
+      0xC00000D0: The server has no more connections available.
+      0xC000000D: Tree connect request after request to end session or internal error.
+      0x00010002: Invalid SMB. Not enough parameter bytes were sent. Did the client omit a session setup?
+      0xC000006D: Incorrect password during logon attempt.
+      0xC0000022: The user is not authorized to access the resource.
+      0xC00000CC: The share path is not valid.
+      0xC00000CB: Resource type invalid. Value of Service field in the request was invalid.
+      0x005B0002: The UID supplied is not defined to the session.
 
 # Documentation:
 # https://github.com/defendthehoneypot/incidentresponse#smb-brute-force-login
-# https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-smb/6ab6ca20-b404-41fd-b91a-2ed39e3762ea
 # https://support.microsoft.com/en-us/topic/ntlm-authentication-fails-with-0xc0000022-error-for-windows-server-2012-windows-8-1-and-windows-server-2012-r2-after-update-is-applied-a4b23900-7cc2-2bb9-432d-831c79aea7a3
+# https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cifs/f9a8a713-1c53-4fb0-908e-625389840cf8
 #
 # Example Event Data:
 #<Event>
