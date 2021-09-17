@@ -55,14 +55,13 @@ Lookups:
       0xC000003A: The share path does not reference a valid resource
       0xC000006D: The server rejected the client logon attempt.
       0xC0000205: The server is out of resources. Out of memory or TIDs.
-      0xC00000CC: The server is temporarily paused.
+      0xC00000CC: The server is temporarily paused or the share path is not valid.
       0xC00000CF: The server is temporarily paused.
       0xC00000D0: The server has no more connections available.
       0xC000000D: Tree connect request after request to end session or internal error.
       0x00010002: Invalid SMB. Not enough parameter bytes were sent. Did the client omit a session setup?
       0xC000006D: Incorrect password during logon attempt.
       0xC0000022: The user is not authorized to access the resource.
-      0xC00000CC: The share path is not valid.
       0xC00000CB: Resource type invalid. Value of Service field in the request was invalid.
       0x005B0002: The UID supplied is not defined to the session.
 
