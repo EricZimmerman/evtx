@@ -32,6 +32,7 @@ Maps:
 # Documentation:
 # https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4713
 # https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4713
+# https://www.socinvestigation.com/threat-hunting-using-windows-security-log/
 #
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 # <System>
