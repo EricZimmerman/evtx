@@ -3,51 +3,47 @@ Description: Kaspersky AV Detection
 EventId: 302
 Channel: "Kaspersky Endpoint Security"
 Provider: "avp"
-Maps: 
-  -     
+Maps:
+  -
     Property: ExecutableInfo
     PropertyValue: "%ExecutableInfo%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ExecutableInfo
         Value: "/Event/EventData/Data"
         Refine: "(?<=Object name:).*?(?=\n)"
   -
     Property: UserName
     PropertyValue: "%UserName%"
-    Values: 
-      - 
+    Values:
+      -
         Name: UserName
         Value: "/Event/EventData/Data"
         Refine: "(?<=User:).*?(?=\n)"
   -
     Property: PayloadData1
     PropertyValue: "%PayloadData1%"
-    Values: 
-      - 
+    Values:
+      -
         Name: PayloadData1
         Value: "/Event/EventData/Data"
         Refine: "(?<=Type:).*?(?=\n)"
   -
     Property: PayloadData2
     PropertyValue: "%PayloadData2%"
-    Values: 
-      - 
+    Values:
+      -
         Name: PayloadData2
         Value: "/Event/EventData/Data"
         Refine: MD5:\s([a-zA-Z0-9]+)\b
   -
     Property: PayloadData3
     PropertyValue: "%PayloadData3%"
-    Values: 
-      - 
+    Values:
+      -
         Name: PayloadData3
         Value: "/Event/EventData/Data"
-        Refine: "(?<=Path to object:).*?(?=\n)" 
-     
-
-
-
+        Refine: "(?<=Path to object:).*?(?=\n)"
 
 #<Event>
 # <System>
