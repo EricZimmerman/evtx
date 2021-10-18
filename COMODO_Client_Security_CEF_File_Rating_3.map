@@ -3,12 +3,12 @@ Description: COMODO Security CEF Client
 EventId: 3
 Channel: "COMODO Client - Security CEF"
 Provider: "File Rating"
-Maps: 
-  -     
+Maps:
+  -
     Property: ExecutableInfo
     PropertyValue: "%ExecutableInfo%"
-    Values: 
-      - 
+    Values:
+      -
         Name: ExecutableInfo
         Value: "/Event/EventData/Data"
         Refine: \bfilePath=([a-zA-Z0-9_\\.\&\;\-\(\):])+(\.[a-zA-Z0-9]{3,4})\b
@@ -28,7 +28,7 @@ Maps:
         Name: PayloadData2
         Value: "/Event/EventData/Data"
         Refine: act=([a-zA-Z0-9]+)\b
-  - 
+  -
     Property: PayloadData3
     PropertyValue: "%PayloadData3%"
     Values:
