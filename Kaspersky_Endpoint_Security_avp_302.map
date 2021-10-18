@@ -1,0 +1,83 @@
+Author: Peter Snyder
+Description: Kaspersky AV Detection
+EventId: 302
+Channel: "Kaspersky Endpoint Security"
+Provider: "avp"
+Maps: 
+  -     
+    Property: ExecutableInfo
+    PropertyValue: "%ExecutableInfo%"
+    Values: 
+      - 
+        Name: ExecutableInfo
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=Object name:).*?(?=\n)"
+  -
+    Property: UserName
+    PropertyValue: "%UserName%"
+    Values: 
+      - 
+        Name: UserName
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=User:).*?(?=\n)"
+  -
+    Property: PayloadData1
+    PropertyValue: "%PayloadData1%"
+    Values: 
+      - 
+        Name: PayloadData1
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=Type:).*?(?=\n)"
+  -
+    Property: PayloadData2
+    PropertyValue: "%PayloadData2%"
+    Values: 
+      - 
+        Name: PayloadData2
+        Value: "/Event/EventData/Data"
+        Refine: MD5:\s([a-zA-Z0-9]+)\b
+  -
+    Property: PayloadData3
+    PropertyValue: "%PayloadData3%"
+    Values: 
+      - 
+        Name: PayloadData3
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=Path to object:).*?(?=\n)" 
+     
+
+
+
+
+#<Event>
+# <System>
+#   <Provider Name="avp" />
+#   <EventID Qualifiers="49154">302</EventID>
+#   <Level>2</Level>
+#   <Task>0</Task>
+#   <Keywords>0x80000000000000</Keywords>
+#   <TimeCreated SystemTime="2021-03-09 22:45:42.1360033" />
+#   <EventRecordID>319</EventRecordID>
+#   <Channel>Kaspersky Endpoint Security</Channel>
+#   <Computer>HOSTNAME.domain.local</Computer>
+#   <Security />
+# </System>
+# <EventData>
+#   <Data>Event type: Malicious object detected
+#User: DOMAIN\username (Initiator)
+#Component: Virus Scan
+#Result description: Detected
+#Type: Trojan
+#Name: Packed.Win32.Dico.gen
+#Threat level: Heuristic Analysis
+#Precision: High
+#Object type: File
+#Path to object: #C:\Windows\ServiceProfiles\NetworkService\AppData\Local\Microsoft\Windows\DeliveryOptimization\Cache\536a1568cd6c2f4af7d40fbcdfc1a7470588a7c5\d84296fb77c73420ce30cf9d8103488b0440eadb65a99be4d7fba982dc214d3f//Power#DVD14/Custom/Lang/DAN/Help
+#Object name: PowerDVD_Help.exe
+#Reason: Expert analysis
+#Database release date: 3/9/2021 12:40:00 PM
+#SHA256: 4759DF3CBD27505CB91B468E1EA2B6FA2617B936BC30CF2153C09E7EAA6F4A8A
+#MD5: D6B5DED5557753E1B257DBC3C472597A</Data>
+#   <Binary></Binary>
+# </EventData>
+#</Event>

@@ -1,0 +1,65 @@
+Author: Peter Snyder
+Description: COMODO Security CEF Client
+EventId: 3
+Channel: "COMODO Client - Security CEF"
+Provider: "File Rating"
+Maps: 
+  -     
+    Property: ExecutableInfo
+    PropertyValue: "%ExecutableInfo%"
+    Values: 
+      - 
+        Name: ExecutableInfo
+        Value: "/Event/EventData/Data"
+        Refine: \bfilePath=([a-zA-Z0-9_\\.\&\;\-\(\):])+(\.[a-zA-Z0-9]{3,4})\b
+  -
+    Property: PayloadData1
+    PropertyValue: "%PayloadData1%"
+    Values:
+      -
+        Name: PayloadData1
+        Value: "/Event/EventData/Data"
+        Refine: \bfileHash=([a-zA-Z0-9]+)\b
+  -
+    Property: PayloadData2
+    PropertyValue: "%PayloadData2%"
+    Values:
+      -
+        Name: PayloadData2
+        Value: "/Event/EventData/Data"
+        Refine: act=([a-zA-Z0-9]+)\b
+  - 
+    Property: PayloadData3
+    PropertyValue: "%PayloadData3%"
+    Values:
+      -
+        Name: PayloadData3
+        Value: "/Event/EventData/Data"
+        Refine: dvc=(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)
+  -
+    Property: PayloadData4
+    PropertyValue: "%PayloadData4%"
+    Values:
+      -
+        Name: PayloadData4
+        Value: "/Event/EventData/Data"
+        Refine: fname=([a-zA-Z0-9_\\.\&\;\-\(\):])+(\.[a-zA-Z0-9]{3,4})\b
+
+#<Event>
+# <System>
+#   <Provider Name="File Rating" />
+#   <EventID Qualifiers="16384">3</EventID>
+#   <Level>4</Level>
+#   <Task>0</Task>
+#   <Keywords>0x80000000000000</Keywords>
+#   <TimeCreated SystemTime="2021-06-13 03:22:03.3502016" />
+#   <EventRecordID>724549</EventRecordID>
+#   <Channel>COMODO Client - Security CEF</Channel>
+#   <Computer>hostname.domain.com</Computer>
+#   <Security />
+# </System>
+#  <EventData>
+#   <Data>Jun 13 2021 03:22:03 0000 JPDC2016-2 CEF:0|comodo|cis.cas.endpoint|12.7.1.8539|9FB5B608-55DE-4704-A02C-71BD45426149|Rating Info|5|filePath=C:\Program Files\Microsoft Monitoring Agent\Agent\Health Service State\Monitoring Host Temporary Files\FileName.vbs #fname=FileName.vbs act=Added cat=rating reason=COMODO cs1Label=old_rating cs1=Unrecognized cs2Label=new_rating cs2=Unrecognized cs3Label=src_rating cs3=FLS cs4Label=status cs4=0 fileHash=E56BB8E025E0B1DD89EFF01180D7ACCBA597AC1A dvchost=hostname.domain.com dvc=127.0.0.1 #deviceExternalId=96966028D15B1C8E4B0C5CBCE3A34E446DEC474B </Data>
+#   <Binary></Binary>
+# </EventData>
+#</Event>

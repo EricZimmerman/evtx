@@ -1,0 +1,78 @@
+Author: Peter Snyder
+Description: Kaspersky AV Detection
+EventId: 362
+Channel: "Kaspersky Endpoint Security"
+Provider: "avp"
+Maps: 
+  -     
+    Property: ExecutableInfo
+    PropertyValue: "%ExecutableInfo%"
+    Values: 
+      - 
+        Name: ExecutableInfo
+        Value: "/Event/EventData/Data"
+        Refine: Object\\Path\:.*?\n
+  -
+    Property: UserName
+    PropertyValue: "%UserName%"
+    Values: 
+      - 
+        Name: UserName
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=User:).*?(?=\n)"
+  -
+    Property: PayloadData1
+    PropertyValue: "%PayloadData1%"
+    Values: 
+      - 
+        Name: PayloadData1
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=Type:).*?(?=\n)"
+  -
+    Property: PayloadData2
+    PropertyValue: "%PayloadData2%"
+    Values: 
+      - 
+        Name: PayloadData2
+        Value: "/Event/EventData/Data"
+        Refine: Application\\Name\:.*?\n 
+     
+
+
+
+
+#<Event>
+# <System>
+#   <Provider Name="avp" />
+#   <EventID Qualifiers="49154">362</EventID>
+#   <Level>2</Level>
+#   <Task>0</Task>
+#   <Keywords>0x80000000000000</Keywords>
+#   <TimeCreated SystemTime="2020-02-28 13:37:03.0223965" />
+#   <EventRecordID>89</EventRecordID>
+#   <Channel>Kaspersky Endpoint Security</Channel>
+#   <Computer>hostname.domain.local</Computer>
+#   <Security />
+# </System>
+# <EventData>
+#   <Data>Event type:     Dangerous link blocked
+#Application:     Microsoft Edge Content Process
+#Application\Name:     MicrosoftEdgeCP.exe
+#Application\Path:     C:\Windows\System32\
+#Application\Process ID:     7756
+#User:     domain\user (Active user)
+#Component:     Web Threat Protection
+#Result\Description:     Blocked
+#Result\Type:     Malicious link
+#Result\Name:     baddomain.com
+#Result\Threat level:     High
+#Result\Precision:     Exactly
+#Object:     baddomain.com
+#Object\Type:     Web page
+#Object\Path:     baddomain.com
+#Object\Name:     baddomain.com
+#Reason:     Automatic analysis
+#Database release date:     2/28/2020 1:47:00 AM
+#</Data>
+#    <Binary></Binary>
+# </EventData>

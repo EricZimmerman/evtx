@@ -1,0 +1,67 @@
+Author: Peter Snyder
+Description: McAfee Endpoint Detection
+EventId: 3
+Channel: "Application"
+Provider: "McAfee Endpoint Security"
+Maps: 
+  -     
+    Property: PayloadData1
+    PropertyValue: "%PayloadData1%"
+    Values: 
+      - 
+        Name: PayloadData1
+        Value: "/Event/EventData/Data"
+        Refine: EventID=(\d{1,4})\b
+  -
+    Property: PayloadData2
+    PropertyValue: "%PayloadData2%"
+    Values: 
+      - 
+        Name: PayloadData2
+        Value: "/Event/EventData/Data"
+        Refine: (\S+ (ran|file).*(Trojan|detected|blocked|executed).*.)
+
+
+
+#<Event>
+# <System>
+#   <Provider Name="McAfee Endpoint Security" />
+#   <EventID Qualifiers="8192">3</EventID>
+#   <Level>2</Level>
+#   <Task>0</Task>
+#   <Keywords>0x80000000000000</Keywords>
+#   <TimeCreated SystemTime="2021-06-15 07:28:19.0000000" />
+#   <EventRecordID>522596</EventRecordID>
+#   <Channel>Application</Channel>
+#   <Computer>hostname.domain.com</Computer>
+#   <Security UserID="S-1-5-18" />
+# </System>
+# <EventData>
+#   <Data>EventID=1428
+
+#domain\username ran on-demand scan "Quick Scan", which detected the threat Trojan named Cobalt/Shell.a!mem while scanning C:\Windows\SysWOW64\rundll32.exe but the file can't be deleted because it's locked. The #file will be deleted when the file isn't locked. To identify the process locking the file, see KB85494.</Data>
+#   <Binary></Binary>
+# </EventData>
+#</Event>
+#
+#________________________________________
+#<Event>
+# <System>
+#   <Provider Name="McAfee Endpoint Security" />
+#   <EventID Qualifiers="8192">3</EventID>
+#   <Level>2</Level>
+#   <Task>0</Task>
+#   <Keywords>0x80000000000000</Keywords>
+#   <TimeCreated SystemTime="2021-06-18 20:09:09.0000000" />
+#   <EventRecordID>522679</EventRecordID>
+#   <Channel>Application</Channel>
+#   <Computer>hostname.domain.com</Computer>
+#   <Security UserID="S-1-5-18" />
+# </System>
+# <EventData>
+#   <Data>EventID=1027
+
+#domain\username ran C:\Windows\explorer.exe, which attempted to access C:\Windows\S5S.exe. The Trojan named Packed-GDT!EA62D92F33DA was detected and deleted.</Data>
+#   <Binary></Binary>
+# </EventData>
+#</Event>
