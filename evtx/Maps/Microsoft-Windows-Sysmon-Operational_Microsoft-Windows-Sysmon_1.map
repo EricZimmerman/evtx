@@ -4,7 +4,13 @@ EventId: 1
 Channel: Microsoft-Windows-Sysmon/Operational
 Provider: Microsoft-Windows-Sysmon
 Maps:
-
+  -
+    Property: UserName
+    PropertyValue: "ParentUser: %ParentUser%"
+    Values:
+      -
+        Name: ParentUser
+        Value: "/Event/EventData/Data[@Name=\"ParentUser\"]"
   -
     Property: ExecutableInfo
     PropertyValue: "%CommandLine%"

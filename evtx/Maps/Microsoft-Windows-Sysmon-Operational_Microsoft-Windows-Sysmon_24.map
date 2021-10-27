@@ -5,6 +5,13 @@ Channel: Microsoft-Windows-Sysmon/Operational
 Provider: Microsoft-Windows-Sysmon
 Maps:
   -
+    Property: UserName
+    PropertyValue: "%User%"
+    Values:
+      -
+        Name: User
+        Value: "/Event/EventData/Data[@Name=\"User\"]"
+  -
     Property: ExecutableInfo
     PropertyValue: "%Image%"
     Values:
