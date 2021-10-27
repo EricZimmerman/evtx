@@ -5,6 +5,16 @@ Channel: Microsoft-Windows-Sysmon/Operational
 Provider: Microsoft-Windows-Sysmon
 Maps:
   -
+    Property: UserName
+    PropertyValue: "SourceUser: %SourceUser% | TargetUser: %TargetUser%"
+    Values:
+      -
+        Name: SourceUser
+        Value: "/Event/EventData/Data[@Name=\"SourceUser\"]"
+      -
+        Name: TargetUser
+        Value: "/Event/EventData/Data[@Name=\"TargetUser\"]"
+  -
     Property: ExecutableInfo
     PropertyValue: "CallTrace: %CallTrace%"
     Values:
