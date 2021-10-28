@@ -1,5 +1,5 @@
 Author: Eric Zimmerman saericzimmerman@gmail.com and Andrew Rathbun
-Description: Process tracking
+Description: A new process has been created
 EventId: 4688
 Channel: Security
 Provider: Microsoft-Windows-Security-Auditing
@@ -30,11 +30,28 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"ProcessId\"]"
   -
     Property: PayloadData3
+    PropertyValue: "Parent PID: %ProcessId%"
+    Values:
+      -
+        Name: ProcessId
+        Value: "/Event/EventData/Data[@Name=\"NewProcessId\"]"
+  -
+    Property: PayloadData4
     PropertyValue: "Mandatory label: %MandatoryLabel%"
     Values:
       -
         Name: MandatoryLabel
         Value: "/Event/EventData/Data[@Name=\"MandatoryLabel\"]"
+  -
+    Property: PayloadData5
+    PropertyValue: "Target User: %targetDomain%\\%targetUser%"
+    Values:
+      -
+        Name: targetDomain
+        Value: "/Event/EventData/Data[@Name=\"TargetDomainName\"]"
+      -
+        Name: targetUser
+        Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
   -
     Property: ExecutableInfo
     PropertyValue: "%NewProcessName% %CommandLine%"
