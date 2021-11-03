@@ -1,0 +1,36 @@
+Author: Andrew Rathbun
+Description: Carbon Black Defense
+EventId: 1
+Channel: Application
+Provider: CbDefense
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "Data: %Data%"
+    Values:
+      -
+        Name: Data
+        Value: "/Event/EventData/Data"
+
+# Documentation:
+# https://community.carbonblack.com/t5/Knowledge-Base/CB-Defense-Repeated-Event-ID-17-events-for-the-Background-Scan/ta-p/67350
+
+#<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <Event>
+#  <System>
+#    <Provider Name="CbDefense" />
+#    <EventID Qualifiers="32770">1</EventID>
+#    <Level>3</Level>
+#    <Task>0</Task>
+#    <Keywords>0x80000000000000</Keywords>
+#    <TimeCreated SystemTime="2021-07-22 10:07:04.0000000" />
+#    <EventRecordID>79686</EventRecordID>
+#    <Channel>Application</Channel>
+#    <Computer>HOSTNAME</Computer>
+#    <Security />
+#  </System>
+#  <EventData>
+#    <Data>CbDefense, CbDefense Debug Port has been opened</Data>
+#    <Binary></Binary>
+#  </EventData>
+# </Event>

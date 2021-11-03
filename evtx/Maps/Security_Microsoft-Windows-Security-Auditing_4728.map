@@ -1,0 +1,90 @@
+Author: Paul Elliott (cluelessatcoding@outlook.com)
+Description: A member was added to a security-enabled global group
+EventId: 4728
+Channel: Security
+Provider: Microsoft-Windows-Security-Auditing
+Maps:
+  -
+    Property: UserName
+    PropertyValue: "%domain%\\%user% (%sid%)"
+    Values:
+      -
+        Name: domain
+        Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
+      -
+        Name: user
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
+      -
+        Name: sid
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserSid\"]"
+  -
+    Property: PayloadData1
+    PropertyValue: "Target: %TargetDomainName%\\%TargetUserName% (%TargetSid%)"
+    Values:
+      -
+        Name: TargetUserName
+        Value: "/Event/EventData/Data[@Name=\"TargetUserName\"]"
+      -
+        Name: TargetDomainName
+        Value: "/Event/EventData/Data[@Name=\"TargetDomainName\"]"
+      -
+        Name: TargetSid
+        Value: "/Event/EventData/Data[@Name=\"TargetSid\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "Member: %MemberName%"
+    Values:
+      -
+        Name: MemberName
+        Value: "/Event/EventData/Data[@Name=\"MemberName\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "MemberSid: %MemberSid%"
+    Values:
+      -
+        Name: MemberSid
+        Value: "/Event/EventData/Data[@Name=\"MemberSid\"]"
+  -
+    Property: PayloadData4
+    PropertyValue: "SubjectLogonId: %SubjectLogonId%"
+    Values:
+      -
+        Name: SubjectLogonId
+        Value: "/Event/EventData/Data[@Name=\"SubjectLogonId\"]"
+
+# Documentation:
+# https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4728
+# https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4728
+# https://www.socinvestigation.com/threat-hunting-using-windows-security-log/
+#
+# Example Event Data:
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <System>
+# <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-a5ba-3e3b0328c30d}" />
+# <EventID>4728</EventID>
+# <Version>0</Version>
+# <Level>0</Level>
+# <Task>13826</Task>
+# <Opcode>0</Opcode>
+# <Keywords>0x8020000000000000</Keywords>
+# <TimeCreated SystemTime="2021-01-22T08:20:34.3953497Z" />
+# <EventRecordID>193106491</EventRecordID>
+# <Correlation />
+# <Execution ProcessID="676" ThreadID="6176" />
+# <Channel>Security</Channel>
+# <Computer>DC01.Contoso.com</Computer>
+# <Security />
+# </System>
+# <EventData>
+#  <Data Name="MemberName">CN=Joe Bloggs,OU=Office,OU=Country,DC=Contoso,DC=Com</Data>
+#  <Data Name="MemberSid">S-1-5-21-1234567890-1234567890-123456789-12345</Data>
+#  <Data Name="TargetUserName">The_Group</Data>
+#  <Data Name="TargetDomainName">CONTOSO</Data>
+#  <Data Name="TargetSid">S-1-5-21-1234567890-1234567890-123456789-12346</Data>
+#  <Data Name="SubjectUserSid">S-1-5-21-1234567890-1234567890-123456789-12347</Data>
+#  <Data Name="SubjectUserName">admin.fred</Data>
+#  <Data Name="SubjectDomainName">CONTOSO</Data>
+#  <Data Name="SubjectLogonId">0xabcdef</Data>
+#  <Data Name="PrivilegeList">-</Data>
+# </EventData>
+# </Event>

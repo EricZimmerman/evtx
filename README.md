@@ -1,5 +1,12 @@
 # EvtxECmd
 
+This repo that contains all the Maps used by Eric Zimmerman's EvtxECmd.
+
+## Ongoing Projects
+
+ * [EvtxECmd Maps Ideas](https://github.com/EricZimmerman/evtx/projects/1) - Development roadmap for EvtxECmd Maps. Please feel free to contribute by adding ideas or by finishing tasks in the `To Do` column. Any help is appreciated! 
+
+
 ## Command Line Interface
 
     EvtxECmd version 0.6.5.0
