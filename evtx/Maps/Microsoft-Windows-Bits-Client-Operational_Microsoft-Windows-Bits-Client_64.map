@@ -1,37 +1,31 @@
-Author: Tony Knutson 
-Description: BITS Job Configured to Launch, but failed will continue to try 
+Author: Tony Knutson
+Description: BITS Job Configured to Launch, but failed will continue to try
 EventId: 64
 Channel: Microsoft-Windows-Bits-Client/Operational
 Provider: Microsoft-Windows-Bits-Client
 Maps:
   -
     Property: PayloadData1
+    PropertyValue: "Job: %Job%"
+    Values:
+      -
+        Name: Job
+        Value: "/Event/EventData/Data[@Name=\"Job\"]"
+  -
+    Property: PayloadData2
     PropertyValue: "Program Path: %Pgm%"
     Values:
       -
         Name: Pgm
         Value: "/Event/EventData/Data[@Name=\"Pgm\"]"
   -
-    Property: PayloadData2
+    Property: PayloadData3
     PropertyValue: "URL: %url%"
     Values:
       -
         Name: url
         Value: "/Event/EventData/Data[@Name=\"Url\"]"
-  -
-    Property: PayloadData3
-    PropertyValue: "hr: %hr%"
-    Values:
-      -
-        Name: hr
-        Value: "/Event/EventData/Data[@Name=\"hr\"]"
-  -
-    Property: PayloadData4
-    PropertyValue: "Job: %Job%"
-    Values:
-      -
-        Name: Job
-        Value: "/Event/EventData/Data[@Name=\"Job\"]"
+
 
 # Documentation:
 # https://www.sans.org/reading-room/whitepapers/forensics/bits-forensics-39195
