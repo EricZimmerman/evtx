@@ -42,25 +42,25 @@ Maps:
 # Example Event Data:
 #<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 # <System>
-#  <Provider Name="Microsoft-Windows-Bits-Client" Guid="{GUID}" /> 
-#  <EventID>64</EventID> 
-#  <Version>0</Version> 
-#  <Level>3</Level> 
-#  <Task>0</Task> 
-#  <Opcode>0</Opcode> 
-#  <Keywords>0x4000000000000000</Keywords> 
-#  <TimeCreated SystemTime="YYYY-MM-DD hh:mm:ssZ" /> 
-#  <EventRecordID>505</EventRecordID> 
-#  <Correlation /> 
-#  <Execution ProcessID="8696" ThreadID="4068" /> 
-#  <Channel>Microsoft-Windows-Bits-Client/Operational</Channel> 
-#  <Computer>COMPUTER NAME</Computer> 
-#  <Security UserID="S-1-5-18" /> 
+#  <Provider Name="Microsoft-Windows-Bits-Client" Guid="{GUID}" />
+#  <EventID>64</EventID>
+#  <Version>0</Version>
+#  <Level>3</Level>
+#  <Task>0</Task>
+#  <Opcode>0</Opcode>
+#  <Keywords>0x4000000000000000</Keywords>
+#  <TimeCreated SystemTime="YYYY-MM-DD hh:mm:ssZ" />
+#  <EventRecordID>505</EventRecordID>
+#  <Correlation />
+#  <Execution ProcessID="8696" ThreadID="4068" />
+#  <Channel>Microsoft-Windows-Bits-Client/Operational</Channel>
+#  <Computer>COMPUTER NAME</Computer>
+#  <Security UserID="S-1-5-18" />
 #  </System>
 # <EventData>
-#  <Data Name="Job">NAME OF THE JOB</Data> 
-#  <Data Name="Url">https://microsoft.com/update.exe</Data> 
-#  <Data Name="Pgm">PROGRAM NAME</Data> 
-#  <Data Name="hr">2147942402</Data> 
+#  <Data Name="Job">NAME OF THE JOB</Data>
+#  <Data Name="Url">https://microsoft.com/update.exe</Data>
+#  <Data Name="Pgm">PROGRAM NAME</Data>
+#  <Data Name="hr">2147942402</Data>
 # </EventData>
 #</Event>
