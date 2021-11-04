@@ -1,0 +1,60 @@
+Author: Tony Knutson
+Description: BITS Job Configured to Launch, but failed will continue to try
+EventId: 64
+Channel: Microsoft-Windows-Bits-Client/Operational
+Provider: Microsoft-Windows-Bits-Client
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "Job: %Job%"
+    Values:
+      -
+        Name: Job
+        Value: "/Event/EventData/Data[@Name=\"Job\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "Program Path: %Pgm%"
+    Values:
+      -
+        Name: Pgm
+        Value: "/Event/EventData/Data[@Name=\"Pgm\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "URL: %url%"
+    Values:
+      -
+        Name: url
+        Value: "/Event/EventData/Data[@Name=\"Url\"]"
+
+
+# Documentation:
+# https://www.sans.org/reading-room/whitepapers/forensics/bits-forensics-39195
+# https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-r2-and-2008/cc734695(v=ws.10)
+# https://www.adash.org/jfb/Training247/Bit_Deep_Dive_Tshoot.htm
+# https://docs.microsoft.com/de-de/security-updates/windowsupdateservices/18127392
+#
+# Example Event Data:
+#<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <System>
+#  <Provider Name="Microsoft-Windows-Bits-Client" Guid="{GUID}" />
+#  <EventID>64</EventID>
+#  <Version>0</Version>
+#  <Level>3</Level>
+#  <Task>0</Task>
+#  <Opcode>0</Opcode>
+#  <Keywords>0x4000000000000000</Keywords>
+#  <TimeCreated SystemTime="YYYY-MM-DD hh:mm:ssZ" />
+#  <EventRecordID>505</EventRecordID>
+#  <Correlation />
+#  <Execution ProcessID="8696" ThreadID="4068" />
+#  <Channel>Microsoft-Windows-Bits-Client/Operational</Channel>
+#  <Computer>COMPUTER NAME</Computer>
+#  <Security UserID="S-1-5-18" />
+#  </System>
+# <EventData>
+#  <Data Name="Job">NAME OF THE JOB</Data>
+#  <Data Name="Url">https://microsoft.com/update.exe</Data>
+#  <Data Name="Pgm">PROGRAM NAME</Data>
+#  <Data Name="hr">2147942402</Data>
+# </EventData>
+#</Event>
