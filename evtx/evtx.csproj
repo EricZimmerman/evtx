@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net46;net5.0</TargetFrameworks>
+    <TargetFrameworks>net46;net5.0;net6.0</TargetFrameworks>
     <AssemblyTitle>evtx parser</AssemblyTitle>
     <Company>Eric R. Zimmerman</Company>
     <Product>evtx parser</Product>
