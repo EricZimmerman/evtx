@@ -56,7 +56,7 @@ Maps:
 # Frankly, there is too much data to fit within 6 PayloadData columns. As always, all data is in the Payload column but there isn't enough room to map out all the information cleanly.
 #
 # SCSI SerialNumber is not always the same as iSerialNumber (found in USBSTOR registry key).  This is a secondary serial number.
-# Search for the RegistryID within the SYSTEM hive to match with the proper USBSTOR key and iSerialNumber. 
+# Search for the RegistryID within the SYSTEM hive to match with the proper USBSTOR key and iSerialNumber.
 #
 # Example Event Data:
 # <Event>
