@@ -1,0 +1,40 @@
+Author: Andrew Rathbun
+Description: Installer Exited
+EventId: 1042
+Channel: Application
+Provider: "MsiInstaller"
+Maps:
+  -
+    Property: ExecutableInfo
+    PropertyValue: "%ExecutableInfo%"
+    Values:
+      -
+        Name: ExecutableInfo
+        Value: "/Event/EventData/Data"
+        Refine: ^[\w,\s-]+\.[A-Za-z]{3}$
+
+# Documentation
+# https://docs.logrhythm.com/docs/devices/ms-windows-event-log-sources/ms-windows-event-logging-xml-application/evid-1040-1042-msiinstaller
+#
+# <Event>
+#   <System>
+#     <Provider Name="MsiInstaller" />
+#     <EventID Qualifiers="0">1042</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x80000000000000</Keywords>
+#     <TimeCreated SystemTime="2021-10-19 20:08:07.0705421" />
+#     <EventRecordID>40856</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="38288" ThreadID="0" />
+#     <Channel>Application</Channel>
+#     <Computer>hostname</Computer>
+#     <Security UserID="S-1-5-18" />
+#   </System>
+#   <EventData>
+#     <Data>c:\program files\microsoft office\root\integration\c2rint.16.msi, 20616, (NULL), (NULL), (NULL), (NULL)</Data>
+#     <Binary></Binary>
+#   </EventData>
+# </Event>
