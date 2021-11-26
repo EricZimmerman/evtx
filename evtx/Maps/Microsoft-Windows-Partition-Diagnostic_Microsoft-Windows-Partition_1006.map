@@ -1,4 +1,4 @@
-Author: Mark Hallman mark.hallman@gmail.com, Hyun Yi @hyuunnn, Andrew Rathbun
+Author: Mark Hallman mark.hallman@gmail.com, Hyun Yi @hyuunnn, Andrew Rathbun, Chad Tilbury
 Description: USB Insertion/Removal
 EventId: 1006
 Channel: "Microsoft-Windows-Partition/Diagnostic"
@@ -27,18 +27,18 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"Manufacturer\"]"
   -
     Property: PayloadData4
-    PropertyValue: "SerialNumber: %SerialNumber%"
+    PropertyValue: "SCSI SerialNumber: %SerialNumber%"
     Values:
       -
         Name: SerialNumber
         Value: "/Event/EventData/Data[@Name=\"SerialNumber\"]"
   -
     Property: PayloadData5
-    PropertyValue: "DiskId: %DiskId%"
+    PropertyValue: "RegistryId: %RegistryId%"
     Values:
       -
-        Name: DiskId
-        Value: "/Event/EventData/Data[@Name=\"DiskId\"]"
+        Name: RegistryId
+        Value: "/Event/EventData/Data[@Name=\"RegistryId\"]"
   -
     Property: PayloadData6
     PropertyValue: "ParentId: %ParentId%"
@@ -54,6 +54,9 @@ Maps:
 # https://forensixchange.com/posts/19_08_03_usb_storage_forensics_1/
 # https://docs.microsoft.com/en-us/previous-versions/windows/desktop/stormgmt/msft-physicaldisk (BusType)
 # Frankly, there is too much data to fit within 6 PayloadData columns. As always, all data is in the Payload column but there isn't enough room to map out all the information cleanly.
+#
+# SCSI SerialNumber is not always the same as iSerialNumber (found in USBSTOR registry key).  This is a secondary serial number.
+# Search for the RegistryID within the SYSTEM hive to match with the proper USBSTOR key and iSerialNumber.
 #
 # Example Event Data:
 # <Event>

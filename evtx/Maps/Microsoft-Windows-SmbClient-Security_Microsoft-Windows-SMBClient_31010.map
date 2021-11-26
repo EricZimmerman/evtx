@@ -1,0 +1,58 @@
+Author: Paul Elliott
+Description: The SMB client failed to connect to the share
+EventId: 31010
+Channel: "Microsoft-Windows-SmbClient/Security"
+Provider: Microsoft-Windows-SMBClient
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "Share Name: %ShareName%"
+    Values:
+      -
+        Name: ShareName
+        Value: "/Event/EventData/Data[@Name=\"ShareName\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "Reason: %Reason%"
+    Values:
+      -
+        Name: Reason
+        Value: "/Event/EventData/Data[@Name=\"Reason\"]"
+
+Lookups:
+  -
+    Name: Reason
+    Default: Unknown code
+    Values:
+      12: Access Denied.
+
+# Documentation:
+# N/A
+#
+# Example Event Data:
+#  <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#   <System>
+#    <Provider Name="Microsoft-Windows-SMBClient" Guid="{988c59c5-0a1c-45b6-a555-0c62276e327d}" />
+#    <EventID>31010</EventID>
+#    <Version>0</Version>
+#    <Level>2</Level>
+#    <Task>0</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x200000000000100</Keywords>
+#    <TimeCreated SystemTime="1999-12-31T23:59:59.6168183Z" />
+#    <EventRecordID>123456</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="0" ThreadID="0" />
+#    <Channel>Microsoft-Windows-SmbClient/Security</Channel>
+#    <Computer>machine.domain.tld</Computer>
+#    <Security />
+#   </System>
+#   <EventData>
+#    <Data Name="Reason">12</Data>
+#    <Data Name="Status">3221225506</Data>
+#    <Data Name="ShareNameLength">17</Data>
+#    <Data Name="ShareName">\fileserver\share</Data>
+#    <Data Name="ObjectNameLength">0</Data>
+#    <Data Name="ObjectName" />
+#   </EventData>
+#  </Event>
