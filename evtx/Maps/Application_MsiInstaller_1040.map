@@ -15,7 +15,7 @@ Maps:
 
 # Documentation
 # https://docs.logrhythm.com/docs/devices/ms-windows-event-log-sources/ms-windows-event-logging-xml-application/evid-1040-1042-msiinstaller
-# 
+#
 # <Event>
 #   <System>
 #     <Provider Name="MsiInstaller" />
