@@ -91,9 +91,9 @@ Lookups:
     Name: LayerName
     Default: Unknown code
     Values:
-	    "%%14597": Transport
+      "%%14597": Transport
       "%%14601": ICMP Error
-	    "%%14608": Resource Assignment
+      "%%14608": Resource Assignment
       "%%14609": Listen
       "%%14610": Receive/Accept
       "%%14611": Connect
