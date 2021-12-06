@@ -1,6 +1,6 @@
-Author: Eric Zimmerman saericzimmerman@gmail.com
-Description: The Windows Filtering Platform has allowed a connection
-EventId: 5156
+Author: Jason Ballard
+Description: The Windows Filtering Platform has blocked a connection
+EventId: 5157
 Channel: Security
 Provider: Microsoft-Windows-Security-Auditing
 Maps:
@@ -69,18 +69,18 @@ Lookups:
       1: Internet Control Message Protocol (ICMP)
       6: Transmission Control Protocol (TCP)
       17: User Datagram Protocol (UDP)
+      3: Gateway-Gateway Protocol (GGP)
+      8: Exterior Gateway Protocol (EGP)
+      12: PARC Universal Packet Protocol (PUP)
+      20: Host Monitoring Protocol (HMP)
+      27: Reliable Datagram Protocol (RDP)
+      46: Reservation Protocol (RSVP) QoS
       47: General Routing Encapsulation (PPTP data over GRE)
       51: Authentication Header (AH) IPSec
       50: Encapsulation Security Payload (ESP) IPSec
-      8: Exterior Gateway Protocol (EGP)
-      3: Gateway-Gateway Protocol (GGP)
-      20: Host Monitoring Protocol (HMP)
-      88: Internet Group Management Protocol (IGMP)
       66: MIT Remote Virtual Disk (RVD)
+      88: Internet Group Management Protocol (IGMP)
       89: OSPF Open Shortest Path First
-      12: PARC Universal Packet Protocol (PUP)
-      27: Reliable Datagram Protocol (RDP)
-      46: Reservation Protocol (RSVP) QoS
   -
     Name: Direction
     Default: Unknown code
@@ -94,44 +94,46 @@ Lookups:
       "%%14597": Transport
       "%%14601": ICMP Error
       "%%14608": Resource Assignment
-      "%%14609": Listen
+      "%%14609": Listens
       "%%14610": Receive/Accept
       "%%14611": Connect
 
 # Documentation:
-# https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5156
-# https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-5156
+# https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-5157
+# https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5157
 #
-# Example Event Data:
-# <Event>
-# <System>
-# <Provider Name="Microsoft-Windows-Security-Auditing" Guid="54849625-5478-4994-a5ba-3e3b0328c30d" />
-# <EventID>5156</EventID>
+# This event documents each time WFP allows a program to connect to another process (on the same or a remote computer) on a TCP or UDP port.
+# Process ID can be correlated with 4688 Events
+#
+# - <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# - <System>
+# <Provider Name="Microsoft-Windows-Security-Auditing" Guid="{54849625-5478-4994-A5BA-3E3B0328C30D}" />
+# <EventID>5157</EventID>
 # <Version>1</Version>
 # <Level>0</Level>
 # <Task>12810</Task>
 # <Opcode>0</Opcode>
-# <Keywords>0x8020000000000000</Keywords>
-# <TimeCreated SystemTime="2019-03-19 23:35:08.7860165" />
-# <EventRecordID>452812</EventRecordID>
+# <Keywords>0x8010000000000000</Keywords>
+# <TimeCreated SystemTime="2015-09-22T03:46:51.662750400Z" />
+# <EventRecordID>304390</EventRecordID>
 # <Correlation />
-# <Execution ProcessID="4" ThreadID="60" />
+# <Execution ProcessID="4" ThreadID="4520" />
 # <Channel>Security</Channel>
-# <Computer>PC01.example.corp</Computer>
+# <Computer>DC01.contoso.local</Computer>
 # <Security />
 # </System>
-# <EventData>
-# <Data Name="ProcessID">812</Data>
-# <Data Name="Application">\device\harddiskvolume1\windows\system32\svchost.exe</Data>
-# <Data Name="Direction">%%14593</Data>
-# <Data Name="SourceAddress">fe80::80ac:4126:fa58:1b81</Data>
-# <Data Name="SourcePort">546</Data>
-# <Data Name="DestAddress">ff02::1:2</Data>
-# <Data Name="DestPort">547</Data>
-# <Data Name="Protocol">17</Data>
-# <Data Name="FilterRTID">65853</Data>
-# <Data Name="LayerName">%%14611</Data>
-# <Data Name="LayerRTID">50</Data>
+# - <EventData>
+# <Data Name="ProcessID">4556</Data>
+# <Data Name="Application">\\device\\harddiskvolume2\\documents\\listener.exe</Data>
+# <Data Name="Direction">%%14592</Data>
+# <Data Name="SourceAddress">10.0.0.10</Data>
+# <Data Name="SourcePort">3333</Data>
+# <Data Name="DestAddress">10.0.0.100</Data>
+# <Data Name="DestPort">49218</Data>
+# <Data Name="Protocol">6</Data>
+# <Data Name="FilterRTID">110398</Data>
+# <Data Name="LayerName">%%14610</Data>
+# <Data Name="LayerRTID">44</Data>
 # <Data Name="RemoteUserID">S-1-0-0</Data>
 # <Data Name="RemoteMachineID">S-1-0-0</Data>
 # </EventData>
