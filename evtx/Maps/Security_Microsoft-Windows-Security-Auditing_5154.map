@@ -73,38 +73,38 @@ Lookups:
       "%%14609": Listen
       "%%14610": Receive/Accept
       "%%14611": Connect
-      
+
 # Documentation:
 # https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5154
 # https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-5154
 #
 # This event documents each time WFP allows a program to begin listening on a TCP or UDP port for incoming connections and documents the program, port and filter that allowed it.
 #
-#<Event>
-#  <System>
-#    <Provider Name="Microsoft-Windows-Security-Auditing" Guid="54849625-5478-4994-a5ba-3e3b0328c30d" />
-#    <EventID>5154</EventID>
-#    <Version>0</Version>
-#    <Level>0</Level>
-#    <Task>12810</Task>
-#    <Opcode>0</Opcode>
-#    <Keywords>0x8020000000000000</Keywords>
-#    <TimeCreated SystemTime="2021-12-06 07:35:44.3515332" />
-#    <EventRecordID>173889</EventRecordID>
-#    <Correlation />
-#    <Execution ProcessID="4" ThreadID="10016" />
-#    <Channel>Security</Channel>
-#    <Computer>1337-H4x0r</Computer>
-#    <Security />
-#  </System>
-#  <EventData>
-#    <Data Name="ProcessId">728</Data>
-#    <Data Name="Application">\device\harddiskvolume3\windows\system32\services.exe</Data>
-#    <Data Name="SourceAddress">::</Data>
-#    <Data Name="SourcePort">49669</Data>
-#    <Data Name="Protocol">6</Data>
-#    <Data Name="FilterRTID">0</Data>
-#    <Data Name="LayerName">%%14609</Data>
-#    <Data Name="LayerRTID">42</Data>
-#  </EventData>
-#</Event>
+# <Event>
+# <System>
+# <Provider Name="Microsoft-Windows-Security-Auditing" Guid="54849625-5478-4994-a5ba-3e3b0328c30d" />
+# <EventID>5154</EventID>
+# <Version>0</Version>
+# <Level>0</Level>
+# <Task>12810</Task>
+# <Opcode>0</Opcode>
+# <Keywords>0x8020000000000000</Keywords>
+# <TimeCreated SystemTime="2021-12-06 07:35:44.3515332" />
+# <EventRecordID>173889</EventRecordID>
+# <Correlation />
+# <Execution ProcessID="4" ThreadID="10016" />
+# <Channel>Security</Channel>
+# <Computer>1337-H4x0r</Computer>
+# <Security />
+# </System>
+# <EventData>
+# <Data Name="ProcessId">728</Data>
+# <Data Name="Application">\device\harddiskvolume3\windows\system32\services.exe</Data>
+# <Data Name="SourceAddress">::</Data>
+# <Data Name="SourcePort">49669</Data>
+# <Data Name="Protocol">6</Data>
+# <Data Name="FilterRTID">0</Data>
+# <Data Name="LayerName">%%14609</Data>
+# <Data Name="LayerRTID">42</Data>
+# </EventData>
+# </Event>
