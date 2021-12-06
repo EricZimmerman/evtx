@@ -67,20 +67,20 @@ Lookups:
     Default: Unknown code
     Values:
       1: Internet Control Message Protocol (ICMP)
-	  6: Transmission Control Protocol (TCP)
-	  17: User Datagram Protocol (UDP)
-	  3: Gateway-Gateway Protocol (GGP)
-	  8: Exterior Gateway Protocol (EGP)
-	  12: PARC Universal Packet Protocol (PUP)
-	  20: Host Monitoring Protocol (HMP)
-	  27: Reliable Datagram Protocol (RDP)
-	  46: Reservation Protocol (RSVP) QoS
-	  47: General Routing Encapsulation (PPTP data over GRE)
-	  51: Authentication Header (AH) IPSec
-	  50: Encapsulation Security Payload (ESP) IPSec
-	  66: MIT Remote Virtual Disk (RVD)
-	  88: Internet Group Management Protocol (IGMP)
-	  89: OSPF Open Shortest Path First
+      6: Transmission Control Protocol (TCP)
+      17: User Datagram Protocol (UDP)
+      3: Gateway-Gateway Protocol (GGP)
+      8: Exterior Gateway Protocol (EGP)
+      12: PARC Universal Packet Protocol (PUP)
+      20: Host Monitoring Protocol (HMP)
+      27: Reliable Datagram Protocol (RDP)
+      46: Reservation Protocol (RSVP) QoS
+      47: General Routing Encapsulation (PPTP data over GRE)
+      51: Authentication Header (AH) IPSec
+      50: Encapsulation Security Payload (ESP) IPSec
+      66: MIT Remote Virtual Disk (RVD)
+      88: Internet Group Management Protocol (IGMP)
+      89: OSPF Open Shortest Path First
   -
     Name: Direction
     Default: Unknown code
@@ -94,7 +94,7 @@ Lookups:
       "%%14597": Transport
       "%%14601": ICMP Error
       "%%14608": Resource Assignment
-      "%%14609": Listen
+      "%%14609": Listens
       "%%14610": Receive/Accept
       "%%14611": Connect
 
