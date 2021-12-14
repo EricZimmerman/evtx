@@ -11,6 +11,7 @@
     <AssemblyVersion>0.6.6.0</AssemblyVersion>
     <LangVersion>10</LangVersion>
     <FileVersion>0.6.6.0</FileVersion>
+    <Version>0.6.6.0</Version>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <PropertyGroup>
@@ -26,7 +27,6 @@
     <PackageReference Include="System.Threading.Tasks" Version="4.*" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.*" />
     <PackageReference Include="Microsoft.CSharp" Version="4.*" />
-    
   </ItemGroup>
   <ItemGroup>
     <Reference Include="RawCopy_ERZ_2_2_32">
