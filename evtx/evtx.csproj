@@ -11,8 +11,6 @@
     <AssemblyVersion>1.0.1.1</AssemblyVersion>
     <FileVersion>1.0.1.1</FileVersion>
     <Version>1.0.1.1</Version>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
