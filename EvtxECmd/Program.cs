@@ -15,7 +15,7 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
-using Alphaleonis.Win32.Filesystem;
+
 using Alphaleonis.Win32.Security;
 using CsvHelper.Configuration;
 using evtx;
@@ -29,11 +29,17 @@ using RawCopy;
 using ServiceStack;
 using ServiceStack.Text;
 using CsvWriter = CsvHelper.CsvWriter;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using EventLog = evtx.EventLog;
+
+#if !NET6_0
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
-using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+#else
+using Path = System.IO.Path;
+using Directory = System.IO.Directory;
+using File = System.IO.File;
+#endif
 
 namespace EvtxECmd
 {
@@ -70,7 +76,7 @@ namespace EvtxECmd
             @" EvtxECmd.exe -f ""C:\Temp\Application.evtx"" --csv ""c:\temp\out""" + "\r\n\t " +
             @" EvtxECmd.exe -f ""C:\Temp\Application.evtx"" --json ""c:\temp\jsonout""" + "\r\n\t " +
             "\r\n\t" +
-            "  Short options (single letter) are prefixed with a single dash. Long commands are prefixed with two dashes\r\n";
+            "  Short options (single letter) are prefixed with a single dash. Long commands are prefixed with two dashes";
 
         private static RootCommand _rootCommand;
         
@@ -86,28 +92,89 @@ namespace EvtxECmd
             {
                 new Option<string>(
                     "-f",
-                    "File to process ($MFT | $J | $Boot | $SDS). Required"),
+                    "File to process. This or -d is required"),
 
                 new Option<string>(
-                    "-m",
-                    "$MFT file to use when -f points to a $J file (Use this to resolve parent path in $J CSV output).\r\n"),
+                    "-d",
+                    "Directory to process that contains evtx files. This or -f is required"),
+              
+                new Option<string>(
+                    "--csv",
+                    "Directory to save CSV formatted results to"),
 
+                new Option<string>(
+                    "--csvf",
+                    "File name to save CSV formatted results to. When present, overrides default name"),
+                
                 new Option<string>(
                     "--json",
-                    "Directory to save JSON formatted results to. This or --csv required unless --de or --body is specified"),
+                    "Directory to save JSON formatted results to"),
 
                 new Option<string>(
                     "--jsonf",
                     "File name to save JSON formatted results to. When present, overrides default name"),
 
                 new Option<string>(
-                    "--csv",
-                    "Directory to save CSV formatted results to. This or --json required unless --de or --body is specified"),
+                    "--xml",
+                    "Directory to save XML formatted results to"),
 
                 new Option<string>(
-                    "--csvf",
-                    "File name to save CSV formatted results to. When present, overrides default name\r\n"),
+                    "--xmlf",
+                    "File name to save XML formatted results to. When present, overrides default name"),
+
+                new Option<string>(
+                    "--dt",
+                    getDefaultValue:()=>"yyyy-MM-dd HH:mm:ss.fffffff",
+                    "The custom date/time format to use when displaying time stamps"),
+
+                new Option<string>(
+                    "--inc",
+                    "List of Event IDs to process. All others are ignored. Overrides --exc Format is 4624,4625,5410"),
+
+                new Option<string>(
+                    "--exc",
+                    "List of Event IDs to IGNORE. All others are included. Format is 4624,4625,5410"),
+
+                new Option<string>(
+                    "--sd",
+                    "Start date for including events (UTC). Anything OLDER than this is dropped. Format should match --dt"),
+
+                new Option<string>(
+                    "--ed",
+                    "End date for including events (UTC). Anything NEWER than this is dropped. Format should match --dt"),
                 
+                new Option<bool>(
+                    "--fj",
+                    () => false,
+                    "When true, export all available data when using --json"),
+                
+                new Option<int>(
+                    "-tdt",getDefaultValue:()=>1,
+                    "The number of seconds to use for time discrepancy detection"),
+                
+                new Option<bool>(
+                    "--met",
+                    () => false,
+                    "When true, show metrics about processed event log"),
+                
+                new Option<string>(
+                    "--maps",
+                    "The path where event maps are located. Defaults to 'Maps' folder where program was executed"),
+
+                new Option<bool>(
+                    "--vss",
+                    () => false,
+                    "Process all Volume Shadow Copies that exist on drive specified by -f or -d"),
+                
+                new Option<bool>(
+                    "--dedupe",
+                    () => false,
+                    "Deduplicate -f or -d & VSCs based on SHA-1. First file found wins"),
+                
+                new Option<bool>(
+                    "--sync",
+                    () => false,
+                    "If true, the latest maps from https://github.com/EricZimmerman/evtx/tree/master/evtx/Maps are downloaded and local maps updated"),
                 
                 new Option<bool>(
                     "--debug",
@@ -180,6 +247,12 @@ namespace EvtxECmd
             }
 
             LogManager.ReconfigExistingLoggers();
+            
+            if (vss & !RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                vss = false;
+                _logger.Warn($"--vss not supported on non-Windows platforms. Disabling...");
+            }
 
             if (vss & (IsAdministrator() == false))
             {
@@ -522,9 +595,9 @@ namespace EvtxECmd
                 _logger.Info($"Looking for event log files in '{d}'");
                 _logger.Info("");
 
-                TODO Add !NET6.0 thing here
+#if !NET6_0
                 
-                var directoryEnumerationFilters = new DirectoryEnumerationFilters
+                var directoryEnumerationFilters = new Alphaleonis.Win32.Filesystem.DirectoryEnumerationFilters
                 {
                     InclusionFilter = fsei => fsei.Extension.ToUpperInvariant() == ".EVTX",
                     RecursionFilter = entryInfo => !entryInfo.IsMountPoint && !entryInfo.IsSymbolicLink,
@@ -532,13 +605,27 @@ namespace EvtxECmd
                 };
 
                 var dirEnumOptions =
-                    DirectoryEnumerationOptions.Files | DirectoryEnumerationOptions.Recursive |
-                    DirectoryEnumerationOptions.SkipReparsePoints | DirectoryEnumerationOptions.ContinueOnException |
-                    DirectoryEnumerationOptions.BasicSearch;
+                    Alphaleonis.Win32.Filesystem.DirectoryEnumerationOptions.Files | Alphaleonis.Win32.Filesystem.DirectoryEnumerationOptions.Recursive |
+                    Alphaleonis.Win32.Filesystem.DirectoryEnumerationOptions.SkipReparsePoints | Alphaleonis.Win32.Filesystem.DirectoryEnumerationOptions.ContinueOnException |
+                    Alphaleonis.Win32.Filesystem.DirectoryEnumerationOptions.BasicSearch;
 
                 var files2 =
                     Directory.EnumerateFileSystemEntries(Path.GetFullPath(d), dirEnumOptions, directoryEnumerationFilters);
 
+                #else
+
+                var enumerationOptions = new EnumerationOptions
+                {
+                    IgnoreInaccessible = true,
+                    MatchCasing = MatchCasing.CaseInsensitive,
+                    RecurseSubdirectories = true,
+                    AttributesToSkip = 0
+                };
+                        
+               var files2 =
+                    Directory.EnumerateFileSystemEntries(d, "*.evtx",enumerationOptions);
+                #endif
+                
                 if (_swXml == null && _swJson == null && _swCsv == null)
                 {
                     //no need for maps
@@ -626,7 +713,15 @@ namespace EvtxECmd
                     {
                         Directory.Delete(directory);
                     }
-                    Directory.Delete(VssDir,true,true);
+                    
+                    #if !NET6_0
+                        Directory.Delete(VssDir,true,true);
+                    #else
+                        Directory.Delete(VssDir,true);
+                    #endif
+                    
+                    
+                    
                 }
             }
         }
@@ -680,9 +775,9 @@ namespace EvtxECmd
 
             var newMaps = Directory.GetFiles(newMapPath);
 
-            var newlocalMaps = new List<string>();
+            var newLocalMaps = new List<string>();
 
-            var updatedlocalMaps = new List<string>();
+            var updatedLocalMaps = new List<string>();
 
             if (File.Exists(Path.Combine(orgMapPath, "Security_4624.map")))
             {
@@ -709,36 +804,38 @@ namespace EvtxECmd
                 if (File.Exists(dest) == false)
                 {
                     //new target
-                    newlocalMaps.Add(mName);
+                    newLocalMaps.Add(mName);
                 }
                 else
                 {
                     //current destination file exists, so compare to new
-                    var fiNew = new FileInfo(newMap);
-                    var fi = new FileInfo(dest);
+                    var fiNew = new Alphaleonis.Win32.Filesystem.FileInfo(newMap);
+                    var fi = new Alphaleonis.Win32.Filesystem.FileInfo(dest);
 
                     if (fiNew.GetHash(HashType.SHA1) != fi.GetHash(HashType.SHA1))
                     {
                         //updated file
-                        updatedlocalMaps.Add(mName);
-                      
+                        updatedLocalMaps.Add(mName);
                     }
                 }
 
-                File.Copy(newMap, dest, CopyOptions.None);
+                #if !NET6_0
+                    File.Copy(newMap, dest, Alphaleonis.Win32.Filesystem.CopyOptions.None);
+                #else
+                    File.Copy(newMap,dest,true);
+                #endif
+                
             }
 
-            
-
-            if (newlocalMaps.Count > 0 || updatedlocalMaps.Count > 0)
+            if (newLocalMaps.Count > 0 || updatedLocalMaps.Count > 0)
             {
                 _logger.Fatal("Updates found!");
                 Console.WriteLine();
 
-                if (newlocalMaps.Count > 0)
+                if (newLocalMaps.Count > 0)
                 {
                     _logger.Error("New maps");
-                    foreach (var newLocalMap in newlocalMaps)
+                    foreach (var newLocalMap in newLocalMaps)
                     {
                         _logger.Info(Path.GetFileNameWithoutExtension(newLocalMap));
                     }
@@ -746,10 +843,10 @@ namespace EvtxECmd
                     Console.WriteLine();
                 }
 
-                if (updatedlocalMaps.Count > 0)
+                if (updatedLocalMaps.Count > 0)
                 {
                     _logger.Error("Updated maps");
-                    foreach (var um in updatedlocalMaps)
+                    foreach (var um in updatedLocalMaps)
                     {
                         _logger.Info(Path.GetFileNameWithoutExtension(um));
                     }
@@ -795,6 +892,12 @@ namespace EvtxECmd
             catch (Exception)
             {
                 //file is in use
+
+                if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    _logger.Fatal("\r\nRaw disk reads not supported on non-Windows platformsExiting!!\r\n");
+                    Environment.Exit(0);
+                }
                 
                 if (Helper.IsAdministrator() == false)
                 {
