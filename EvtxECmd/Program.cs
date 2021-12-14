@@ -8,14 +8,13 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Net;
-using System.Net.Http;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
-
+using Alphaleonis.Win32.Filesystem;
 using Alphaleonis.Win32.Security;
 using CsvHelper.Configuration;
 using evtx;
@@ -30,11 +29,12 @@ using ServiceStack;
 using ServiceStack.Text;
 using CsvWriter = CsvHelper.CsvWriter;
 using EventLog = evtx.EventLog;
-
+using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
 #if !NET6_0
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
+
 #else
 using Path = System.IO.Path;
 using Directory = System.IO.Directory;
@@ -64,7 +64,7 @@ namespace EvtxECmd
         private static int _droppedEvents;
 
         private static readonly string VssDir = @"C:\____vssMount";
-        
+
         private static readonly string Header =
             $"EvtxECmd version {Assembly.GetExecutingAssembly().GetName().Version}" +
             "\r\n\r\nAuthor: Eric Zimmerman (saericzimmerman@gmail.com)" +
@@ -73,13 +73,15 @@ namespace EvtxECmd
         private static readonly string Footer =
             @"Examples: EvtxECmd.exe -f ""C:\Temp\Application.evtx"" --csv ""c:\temp\out"" --csvf MyOutputFile.csv" +
             "\r\n\t " +
-            @" EvtxECmd.exe -f ""C:\Temp\Application.evtx"" --csv ""c:\temp\out""" + "\r\n\t " +
-            @" EvtxECmd.exe -f ""C:\Temp\Application.evtx"" --json ""c:\temp\jsonout""" + "\r\n\t " +
+            @"   EvtxECmd.exe -f ""C:\Temp\Application.evtx"" --csv ""c:\temp\out""" + "\r\n\t " +
+            @"   EvtxECmd.exe -f ""C:\Temp\Application.evtx"" --json ""c:\temp\jsonout""" + "\r\n\t " +
             "\r\n\t" +
-            "  Short options (single letter) are prefixed with a single dash. Long commands are prefixed with two dashes";
+            "    Short options (single letter) are prefixed with a single dash. Long commands are prefixed with two dashes";
 
         private static RootCommand _rootCommand;
-        
+
+        private static readonly HashSet<string> _seenHashes = new HashSet<string>();
+
         private static async Task Main(string[] args)
         {
             ExceptionlessClient.Default.Startup("tYeWS6A5K5uItgpB44dnNy2qSb2xJxiQWRRGWebq");
@@ -97,7 +99,7 @@ namespace EvtxECmd
                 new Option<string>(
                     "-d",
                     "Directory to process that contains evtx files. This or -f is required"),
-              
+
                 new Option<string>(
                     "--csv",
                     "Directory to save CSV formatted results to"),
@@ -105,7 +107,7 @@ namespace EvtxECmd
                 new Option<string>(
                     "--csvf",
                     "File name to save CSV formatted results to. When present, overrides default name"),
-                
+
                 new Option<string>(
                     "--json",
                     "Directory to save JSON formatted results to"),
@@ -124,7 +126,7 @@ namespace EvtxECmd
 
                 new Option<string>(
                     "--dt",
-                    getDefaultValue:()=>"yyyy-MM-dd HH:mm:ss.fffffff",
+                    getDefaultValue: () => "yyyy-MM-dd HH:mm:ss.fffffff",
                     "The custom date/time format to use when displaying time stamps"),
 
                 new Option<string>(
@@ -142,40 +144,41 @@ namespace EvtxECmd
                 new Option<string>(
                     "--ed",
                     "End date for including events (UTC). Anything NEWER than this is dropped. Format should match --dt"),
-                
+
                 new Option<bool>(
                     "--fj",
                     () => false,
                     "When true, export all available data when using --json"),
-                
+
                 new Option<int>(
-                    "-tdt",getDefaultValue:()=>1,
+                    "--tdt", () => 1,
                     "The number of seconds to use for time discrepancy detection"),
-                
+
                 new Option<bool>(
                     "--met",
                     () => false,
                     "When true, show metrics about processed event log"),
-                
+
                 new Option<string>(
                     "--maps",
+                    () => Path.Combine(BaseDirectory, "Maps"),
                     "The path where event maps are located. Defaults to 'Maps' folder where program was executed"),
 
                 new Option<bool>(
                     "--vss",
                     () => false,
                     "Process all Volume Shadow Copies that exist on drive specified by -f or -d"),
-                
+
                 new Option<bool>(
                     "--dedupe",
                     () => false,
                     "Deduplicate -f or -d & VSCs based on SHA-1. First file found wins"),
-                
+
                 new Option<bool>(
                     "--sync",
                     () => false,
                     "If true, the latest maps from https://github.com/EricZimmerman/evtx/tree/master/evtx/Maps are downloaded and local maps updated"),
-                
+
                 new Option<bool>(
                     "--debug",
                     () => false,
@@ -186,17 +189,16 @@ namespace EvtxECmd
                     () => false,
                     "Show trace information during processing")
             };
-            
-            
+
+
             _rootCommand.Description = Header + "\r\n\r\n" + Footer;
 
             _rootCommand.Handler = CommandHandler.Create(DoWork);
 
             await _rootCommand.InvokeAsync(args);
-
         }
 
-        private static void DoWork(string f, string d, string csv, string csvf, string json, string jsonf, string xml, string xmlf, string dt, string inc, string exc, string sd, string ed, bool fj, int tdt,bool met, string maps, bool vss, bool dedupe, bool sync, bool debug, bool trace)
+        private static void DoWork(string f, string d, string csv, string csvf, string json, string jsonf, string xml, string xmlf, string dt, string inc, string exc, string sd, string ed, bool fj, int tdt, bool met, string maps, bool vss, bool dedupe, bool sync, bool debug, bool trace)
         {
             if (sync)
             {
@@ -229,7 +231,6 @@ namespace EvtxECmd
             _logger.Info("");
             _logger.Info($"Command line: {string.Join(" ", Environment.GetCommandLineArgs().Skip(1))}\r\n");
 
-           
 
             if (IsAdministrator() == false)
             {
@@ -247,7 +248,7 @@ namespace EvtxECmd
             }
 
             LogManager.ReconfigExistingLoggers();
-            
+
             if (vss & !RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 vss = false;
@@ -296,7 +297,7 @@ namespace EvtxECmd
                 var outFile = Path.Combine(json, outName);
 
                 _logger.Warn($"json output will be saved to '{outFile}'\r\n");
-                
+
                 try
                 {
                     _swJson = new StreamWriter(outFile, false, Encoding.UTF8);
@@ -353,7 +354,7 @@ namespace EvtxECmd
 
             if (sd.IsNullOrEmpty() == false)
             {
-                if (DateTimeOffset.TryParse(sd,null,DateTimeStyles.AssumeUniversal, out var dateTimeOffset))
+                if (DateTimeOffset.TryParse(sd, null, DateTimeStyles.AssumeUniversal, out var dateTimeOffset))
                 {
                     _startDate = dateTimeOffset;
                     _logger.Info($"Setting Start date to '{_startDate.Value.ToUniversalTime().ToString(dt)}'");
@@ -363,9 +364,10 @@ namespace EvtxECmd
                     _logger.Warn($"Could not parse '{sd}' to a valud datetime! Events will not be filtered by Start date!");
                 }
             }
+
             if (ed.IsNullOrEmpty() == false)
             {
-                if (DateTimeOffset.TryParse(ed,null,DateTimeStyles.AssumeUniversal, out var dateTimeOffset))
+                if (DateTimeOffset.TryParse(ed, null, DateTimeStyles.AssumeUniversal, out var dateTimeOffset))
                 {
                     _endDate = dateTimeOffset;
                     _logger.Info($"Setting End date to '{_endDate.Value.ToUniversalTime().ToString(dt)}'");
@@ -418,17 +420,16 @@ namespace EvtxECmd
 
                     var opt = new CsvConfiguration(CultureInfo.InvariantCulture)
                     {
-                    ShouldUseConstructorParameters = _ => false
+                        ShouldUseConstructorParameters = _ => false
                     };
 
-                    _csvWriter = new CsvWriter(_swCsv,opt);
+                    _csvWriter = new CsvWriter(_swCsv, opt);
                 }
                 catch (Exception)
                 {
                     _logger.Error($"Unable to open '{outFile}'! Is it in use? Exiting!\r\n");
                     Environment.Exit(0);
                 }
-
 
 
                 var foo = _csvWriter.Context.AutoMap<EventRecord>();
@@ -441,7 +442,7 @@ namespace EvtxECmd
                 // {
                 //   
                 // }
-                
+
                 foo.Map(t => t.RecordPosition).Ignore();
                 foo.Map(t => t.Size).Ignore();
                 foo.Map(t => t.Timestamp).Ignore();
@@ -488,7 +489,7 @@ namespace EvtxECmd
             {
                 _logger.Debug($"Loading maps from '{Path.GetFullPath(maps)}'");
                 var errors = EventLog.LoadMaps(Path.GetFullPath(maps));
-                
+
                 if (errors)
                 {
                     return;
@@ -542,7 +543,7 @@ namespace EvtxECmd
                 }
 
 
-                Helper.MountVss(driveLetter,VssDir);
+                Helper.MountVss(driveLetter, VssDir);
                 Console.WriteLine();
             }
 
@@ -565,7 +566,7 @@ namespace EvtxECmd
 
                 dedupe = false;
 
-                ProcessFile(Path.GetFullPath(f),dedupe,dt,fj,met);
+                ProcessFile(Path.GetFullPath(f), dedupe, dt, fj, met);
 
                 if (vss)
                 {
@@ -579,7 +580,7 @@ namespace EvtxECmd
                         var newPath = Path.Combine(vssDir, stem);
                         if (File.Exists(newPath))
                         {
-                            ProcessFile(newPath,dedupe,dt,fj,met);
+                            ProcessFile(newPath, dedupe, dt, fj, met);
                         }
                     }
                 }
@@ -596,8 +597,8 @@ namespace EvtxECmd
                 _logger.Info("");
 
 #if !NET6_0
-                
-                var directoryEnumerationFilters = new Alphaleonis.Win32.Filesystem.DirectoryEnumerationFilters
+
+                var directoryEnumerationFilters = new DirectoryEnumerationFilters
                 {
                     InclusionFilter = fsei => fsei.Extension.ToUpperInvariant() == ".EVTX",
                     RecursionFilter = entryInfo => !entryInfo.IsMountPoint && !entryInfo.IsSymbolicLink,
@@ -605,15 +606,14 @@ namespace EvtxECmd
                 };
 
                 var dirEnumOptions =
-                    Alphaleonis.Win32.Filesystem.DirectoryEnumerationOptions.Files | Alphaleonis.Win32.Filesystem.DirectoryEnumerationOptions.Recursive |
-                    Alphaleonis.Win32.Filesystem.DirectoryEnumerationOptions.SkipReparsePoints | Alphaleonis.Win32.Filesystem.DirectoryEnumerationOptions.ContinueOnException |
-                    Alphaleonis.Win32.Filesystem.DirectoryEnumerationOptions.BasicSearch;
+                    DirectoryEnumerationOptions.Files | DirectoryEnumerationOptions.Recursive |
+                    DirectoryEnumerationOptions.SkipReparsePoints | DirectoryEnumerationOptions.ContinueOnException |
+                    DirectoryEnumerationOptions.BasicSearch;
 
                 var files2 =
                     Directory.EnumerateFileSystemEntries(Path.GetFullPath(d), dirEnumOptions, directoryEnumerationFilters);
 
-                #else
-
+#else
                 var enumerationOptions = new EnumerationOptions
                 {
                     IgnoreInaccessible = true,
@@ -624,18 +624,18 @@ namespace EvtxECmd
                         
                var files2 =
                     Directory.EnumerateFileSystemEntries(d, "*.evtx",enumerationOptions);
-                #endif
-                
+#endif
+
                 if (_swXml == null && _swJson == null && _swCsv == null)
                 {
                     //no need for maps
                     _logger.Debug("Clearing map collection since no output specified");
                     EventLog.EventLogMaps.Clear();
                 }
-                
+
                 foreach (var file in files2)
                 {
-                    ProcessFile(file,dedupe,dt,fj,met);
+                    ProcessFile(file, dedupe, dt, fj, met);
                 }
 
                 if (vss)
@@ -651,16 +651,15 @@ namespace EvtxECmd
 
                         var target = Path.Combine(vssDir, stem);
 
-                        _logger.Fatal($"\r\nSearching 'VSS{target.Replace($"{VssDir}\\","")}' for event logs...");
+                        _logger.Fatal($"\r\nSearching 'VSS{target.Replace($"{VssDir}\\", "")}' for event logs...");
 
                         var vssFiles = Helper.GetFilesFromPath(target, true, "*.evtx");
 
                         foreach (var file in vssFiles)
                         {
-                            ProcessFile(file,dedupe,dt,fj,met);
-                        }                        
+                            ProcessFile(file, dedupe, dt, fj, met);
+                        }
                     }
-
                 }
             }
 
@@ -679,7 +678,7 @@ namespace EvtxECmd
             {
                 _logger.Error($"Error when flushing output files to disk! Error message: {e.Message}");
             }
-            
+
 
             sw.Stop();
             _logger.Info("");
@@ -713,20 +712,15 @@ namespace EvtxECmd
                     {
                         Directory.Delete(directory);
                     }
-                    
-                    #if !NET6_0
-                        Directory.Delete(VssDir,true,true);
-                    #else
+
+#if !NET6_0
+                    Directory.Delete(VssDir, true, true);
+#else
                         Directory.Delete(VssDir,true);
-                    #endif
-                    
-                    
-                    
+#endif
                 }
             }
         }
-        
-        private static readonly HashSet<string> _seenHashes = new HashSet<string>();
 
         private static async void UpdateFromRepo()
         {
@@ -742,13 +736,11 @@ namespace EvtxECmd
                 File.Delete(archivePath);
             }
 
-            using (var client = new HttpClient())
+            using (var client = new WebClient())
             {
                 ServicePointManager.Expect100Continue = true;
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-               var foo =  await client.GetStreamAsync(new Uri("https://github.com/EricZimmerman/evtx/archive/master.zip"));
-               
-               File.WriteAllBytes(archivePath,await foo.ReadFullyAsync());
+                client.DownloadFile("https://github.com/EricZimmerman/evtx/archive/master.zip", archivePath);
             }
 
             var fff = new FastZip();
@@ -769,7 +761,7 @@ namespace EvtxECmd
                 File.Delete(archivePath);
             }
 
-            var newMapPath = Path.Combine(BaseDirectory, "evtx-master","evtx", "Maps");
+            var newMapPath = Path.Combine(BaseDirectory, "evtx-master", "evtx", "Maps");
 
             var orgMapPath = Path.Combine(BaseDirectory, "Maps");
 
@@ -784,8 +776,8 @@ namespace EvtxECmd
                 _logger.Warn($"Old map format found. Zipping to '!!oldMaps.zip' and cleaning up old maps");
                 //old maps found, so zip em first
                 var oldZip = Path.Combine(orgMapPath, "!!oldMaps.zip");
-                fff.CreateZip(oldZip,orgMapPath,false,@"\.map$");
-                foreach (var m in Directory.GetFiles(orgMapPath,"*.map"))
+                fff.CreateZip(oldZip, orgMapPath, false, @"\.map$");
+                foreach (var m in Directory.GetFiles(orgMapPath, "*.map"))
                 {
                     File.Delete(m);
                 }
@@ -809,8 +801,8 @@ namespace EvtxECmd
                 else
                 {
                     //current destination file exists, so compare to new
-                    var fiNew = new Alphaleonis.Win32.Filesystem.FileInfo(newMap);
-                    var fi = new Alphaleonis.Win32.Filesystem.FileInfo(dest);
+                    var fiNew = new FileInfo(newMap);
+                    var fi = new FileInfo(dest);
 
                     if (fiNew.GetHash(HashType.SHA1) != fi.GetHash(HashType.SHA1))
                     {
@@ -819,12 +811,11 @@ namespace EvtxECmd
                     }
                 }
 
-                #if !NET6_0
-                    File.Copy(newMap, dest, Alphaleonis.Win32.Filesystem.CopyOptions.None);
-                #else
+#if !NET6_0
+                File.Copy(newMap, dest, CopyOptions.None);
+#else
                     File.Copy(newMap,dest,true);
-                #endif
-                
+#endif
             }
 
             if (newLocalMaps.Count > 0 || updatedLocalMaps.Count > 0)
@@ -895,10 +886,10 @@ namespace EvtxECmd
 
                 if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 {
-                    _logger.Fatal("\r\nRaw disk reads not supported on non-Windows platformsExiting!!\r\n");
+                    _logger.Fatal("\r\nRaw disk reads not supported on non-Windows platforms! Exiting!!\r\n");
                     Environment.Exit(0);
                 }
-                
+
                 if (Helper.IsAdministrator() == false)
                 {
                     _logger.Fatal("\r\nAdministrator privileges not found! Exiting!!\r\n");
@@ -926,7 +917,7 @@ namespace EvtxECmd
             {
                 if (dedupe)
                 {
-                    var sha = Helper.GetSha1FromStream(fileS,0);
+                    var sha = Helper.GetSha1FromStream(fileS, 0);
                     fileS.Seek(0, SeekOrigin.Begin);
                     if (_seenHashes.Contains(sha))
                     {
@@ -949,12 +940,11 @@ namespace EvtxECmd
 
                 foreach (var eventRecord in evt.GetEventRecords())
                 {
-           
-
                     if (seenRecords % 10 == 0)
                     {
-                        Console.Title = $"Processing chunk {eventRecord.ChunkNumber:N0} of {evt.ChunkCount} % complete: {(eventRecord.ChunkNumber/(double)evt.ChunkCount):P} Records found: {seenRecords:N0}";
-                    }   
+                        Console.Title = $"Processing chunk {eventRecord.ChunkNumber:N0} of {evt.ChunkCount} % complete: {(eventRecord.ChunkNumber / (double)evt.ChunkCount):P} Records found: {seenRecords:N0}";
+                    }
+
                     if (_includeIds.Count > 0)
                     {
                         if (_includeIds.Contains(eventRecord.EventId) == false)
@@ -1002,18 +992,17 @@ namespace EvtxECmd
                     }
                     else
                     {
-                        eventRecord.SourceFile = file;    
+                        eventRecord.SourceFile = file;
                     }
-                    
+
                     try
                     {
-                       
                         var xdo = new XmlDocument();
                         xdo.LoadXml(eventRecord.Payload);
 
                         var payOut = JsonConvert.SerializeXmlNode(xdo);
                         eventRecord.Payload = payOut;
-                        
+
 
                         _csvWriter?.WriteRecord(eventRecord);
                         _csvWriter?.NextRecord();
@@ -1034,7 +1023,7 @@ namespace EvtxECmd
                                 {
                                     xml = eventRecord.ConvertPayloadToXml();
                                 }
-                             
+
                                 jsOut = GetPayloadAsJson(xml);
                             }
 
@@ -1046,7 +1035,7 @@ namespace EvtxECmd
                     catch (Exception e)
                     {
                         _logger.Error($"Error processing record #{eventRecord.RecordNumber}: {e.Message}");
-                        evt.ErrorRecords.Add(21,e.Message);
+                        evt.ErrorRecords.Add(21, e.Message);
                     }
                 }
 
@@ -1057,7 +1046,7 @@ namespace EvtxECmd
                     var fn = file;
                     if (file.StartsWith(VssDir))
                     {
-                        fn=$"VSS{file.Replace($"{VssDir}\\", "")}";
+                        fn = $"VSS{file.Replace($"{VssDir}\\", "")}";
                     }
 
                     _errorFiles.Add(fn, evt.ErrorRecords.Count);
@@ -1088,7 +1077,7 @@ namespace EvtxECmd
                     {
                         if (_includeIds.Count > 0)
                         {
-                            if (_includeIds.Contains((int) esEventIdMetric.Key) == false)
+                            if (_includeIds.Contains((int)esEventIdMetric.Key) == false)
                             {
                                 //it is NOT in the list, so skip
                                 continue;
@@ -1096,7 +1085,7 @@ namespace EvtxECmd
                         }
                         else if (_excludeIds.Count > 0)
                         {
-                            if (_excludeIds.Contains((int) esEventIdMetric.Key))
+                            if (_excludeIds.Contains((int)esEventIdMetric.Key))
                             {
                                 //it IS in the list, so skip
                                 continue;
@@ -1112,7 +1101,7 @@ namespace EvtxECmd
                 var fn = file;
                 if (file.StartsWith(VssDir))
                 {
-                    fn=$"VSS{file.Replace($"{VssDir}\\", "")}";
+                    fn = $"VSS{file.Replace($"{VssDir}\\", "")}";
                 }
 
                 if (e.Message.Contains("Invalid signature! Expected 'ElfFile"))
@@ -1141,7 +1130,7 @@ namespace EvtxECmd
             {
                 return true;
             }
-            
+
             var identity = WindowsIdentity.GetCurrent();
             var principal = new WindowsPrincipal(identity);
             return principal.IsInRole(WindowsBuiltInRole.Administrator);
@@ -1171,6 +1160,4 @@ namespace EvtxECmd
             LogManager.Configuration = config;
         }
     }
-
-   
 }
