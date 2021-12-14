@@ -1,29 +1,29 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net46;net5.0;net6.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net5.0;net6.0</TargetFrameworks>
     <AssemblyTitle>evtx parser</AssemblyTitle>
     <Company>Eric R. Zimmerman</Company>
     <Product>evtx parser</Product>
     <Description>Parses Windows event logs (evtx format)</Description>
-    <Copyright>Copyright ©  2021</Copyright>
+    <Copyright>Copyright © 2022</Copyright>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <AssemblyVersion>1.0.1.1</AssemblyVersion>
-    <FileVersion>1.0.1.1</FileVersion>
-    <Version>1.0.1.1</Version>
+    <AssemblyVersion>1.1.0.0</AssemblyVersion>
+    <LangVersion>10</LangVersion>
+    <FileVersion>1.1.0.0</FileVersion>
+    <Version>1.1.0.0</Version>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.IO.Compression" Version="4.*" />
     <PackageReference Include="System.Data.DataSetExtensions" Version="4.*" />
     <PackageReference Include="Microsoft.CSharp" Version="4.*" />
-    <PackageReference Include="System.Net.Http" Version="4.*" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Crc32.NET" Version="1.2.0" />
-    <PackageReference Include="FluentValidation" Version="8.6.1" />
-    <PackageReference Include="NLog" Version="4.7.10" />
-    <PackageReference Include="ServiceStack.Text" Version="5.11.0" />
+    <PackageReference Include="FluentValidation" Version="10.3.6" />
+    <PackageReference Include="NLog" Version="4.7.13" />
+    <PackageReference Include="ServiceStack.Text" Version="5.13.2" />
     <PackageReference Include="System.Xml.XPath" Version="4.3.0" />
     <PackageReference Include="YamlDotNet" Version="11.2.1" />
   </ItemGroup>

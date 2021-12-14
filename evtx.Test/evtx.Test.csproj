@@ -1,9 +1,10 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>net46;net5.0;net6.0</TargetFrameworks>
+    <TargetFrameworks>netstandard2.0;net5.0;net6.0</TargetFrameworks>
     <AssemblyTitle>evtx.Test</AssemblyTitle>
     <Product>evtx.Test</Product>
-    <Copyright>Copyright ©  2019</Copyright>
+    <Copyright>Copyright © 2022</Copyright>
+    <LangVersion>10</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.IO.Compression" Version="4.*" />
@@ -16,7 +17,7 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="NFluent" Version="2.7.2" />
-    <PackageReference Include="NLog" Version="4.7.10" />
+    <PackageReference Include="NLog" Version="4.7.13" />
     <PackageReference Include="NUnit" Version="3.13.2" />
   </ItemGroup>
 </Project>
