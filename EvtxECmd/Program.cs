@@ -742,7 +742,7 @@ namespace EvtxECmd
                 ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
                 client.DownloadFile("https://github.com/EricZimmerman/evtx/archive/master.zip", archivePath);
             }
-
+ 
             var fff = new FastZip();
 
             if (Directory.Exists(Path.Combine(BaseDirectory, "Maps")) == false)
