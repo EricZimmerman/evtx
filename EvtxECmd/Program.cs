@@ -653,7 +653,7 @@ namespace EvtxECmd
 
                         _logger.Fatal($"\r\nSearching 'VSS{target.Replace($"{VssDir}\\", "")}' for event logs...");
 
-                        var vssFiles = Helper.GetFilesFromPath(target, true, "*.evtx");
+                        var vssFiles = Helper.GetFilesFromPath(target, "*.evtx", true);
 
                         foreach (var file in vssFiles)
                         {
@@ -909,7 +909,7 @@ namespace EvtxECmd
                     file
                 };
 
-                var rawFiles = Helper.GetFiles(files);
+                var rawFiles = Helper.GetRawFiles(files);
                 fileS = rawFiles.First().FileStream;
             }
 
