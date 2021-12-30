@@ -70,4 +70,6 @@ All of Eric Zimmerman's tools can be downloaded [here](https://ericzimmerman.git
 
 # Special Thanks
 
-Open Source Development funding and support provided by the following contributors: [SANS Institute](http://sans.org/) and [SANS DFIR](http://dfir.sans.org/).
+Open Source Development funding and support provided by the following contributors: 
+- [SANS Institute](http://sans.org/) and [SANS DFIR](http://dfir.sans.org/).
+- [Tines](https://www.tines.com/?utm_source=oss&utm_medium=sponsorship&utm_campaign=ericzimmerman)
