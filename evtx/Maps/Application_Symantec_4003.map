@@ -1,0 +1,39 @@
+Author: Chris Kudless chris.kudless@gmail.com
+Description: Symantec Web and Cloud Access Protection Disabled
+EventId: 4003
+Channel: Application
+Provider: "Symantec WSS Traffic Redirection"
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "Name: %Data%"
+    Values:
+      -
+        Name: Data
+        Value: "/Event/EventData/Data"
+
+# Documentation:
+# https://techdocs.broadcom.com/us/en/symantec-security-software/endpoint-security-and-management/endpoint-protection/all/Using-policies-to-manage-security/configuring-network-traffic-redirection.html
+# https://techdocs.broadcom.com/us/en/symantec-security-software/endpoint-security-and-management/endpoint-protection/all/Using-policies-to-manage-security/configuring-network-traffic-redirection/wss-traffic-redirection-v124663579-d59e307.html
+# https://techdocs.broadcom.com/us/en/symantec-security-software/endpoint-security-and-management/endpoint-protection/all/Using-policies-to-manage-security/configuring-network-traffic-redirection/Verifying-that-Network-Traffic-Redirection-is-enabled-on-the-client.html
+#
+#
+# Example Event Data:
+# <Event>
+# <System>
+#    <Provider Name="Symantec WSS Traffic Redirection" />
+#    <EventID Qualifiers="33023">4003</EventID>
+#    <Level>3</Level>
+#    <Task>0</Task>
+#    <Keywords>0x80000000000000</Keywords>
+#    <TimeCreated SystemTime="2021-11-24 21:51:05.0000000" />
+#    <EventRecordID>25360637</EventRecordID>
+#    <Channel>Application</Channel>
+#    <Computer>HPDESKTOP1</Computer>
+#    <Security />
+#  </System>
+#  <EventData>
+#    <Data>Web and Cloud Access Protection disabled.</Data>
+#    <Binary></Binary>
+#  </EventData>
+#</Event>
