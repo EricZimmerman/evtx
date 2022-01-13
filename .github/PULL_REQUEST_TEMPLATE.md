@@ -3,7 +3,7 @@
 Please include a summary of the change and (if applicable) which issue is fixed.
 
 ## Checklist:
-Please replace every instance of `[ ]` with `[X]`
+Please replace every instance of `[ ]` with `[X]` OR click on the checkboxes after you submit your PR
 
 - [ ] I have ensured a `Provider` is listed for the new Map(s) being submitted
 - [ ] I have ensured the filename(s) of any new Map(s) being submitted follows the approved format, i.e. `Channel-Name_Provider-Name_EventID.map`. In summary, all spaces and special characters are replaced with a hyphen with an underscore separates Channel Name, Provider Name, and Event ID
