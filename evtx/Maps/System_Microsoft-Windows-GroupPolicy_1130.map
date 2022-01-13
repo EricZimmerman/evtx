@@ -1,0 +1,75 @@
+Author: Chris Kudless chris.kudless@gmail.com
+Description: Group Policy Script Failure
+EventId: 1130
+Channel: System
+Provider: Microsoft-Windows-GroupPolicy
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "Command String: %GPOScriptCommandString%"
+    Values:
+      -
+        Name: GPOScriptCommandString
+        Value: "/Event/EventData/Data[@Name=\"GPOScriptCommandString\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "Error: %ErrorDescription%"
+    Values:
+      -
+        Name: ErrorDescription
+        Value: "/Event/EventData/Data[@Name=\"ErrorDescription\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "GPO: %GPODisplayName%"
+    Values:
+      -
+        Name: GPODisplayName
+        Value: "/Event/EventData/Data[@Name=\"GPODisplayName\"]"
+  -
+    Property: PayloadData4
+    PropertyValue: "GPO Path: %GPOFileSystemPath%"
+    Values:
+      -
+        Name: GPOFileSystemPath
+        Value: "/Event/EventData/Data[@Name=\"GPOFileSystemPath\"]"
+  -
+    Property: PayloadData5
+    PropertyValue: "Error Code: %ErrorCode%"
+    Values:
+      -
+        Name: ErrorCode
+        Value: "/Event/EventData/Data[@Name=\"ErrorCode\"]"
+
+# Documentation:
+# https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc727309(v=ws.10)?redirectedfrom=MSDN
+# https://kb.eventtracker.com/evtpass/evtpages/EventId_1130_Microsoft-Windows-GroupPolicy_64357.asp
+#
+# Example Event Data:
+#Event>
+# <System>
+#   <Provider Name="Microsoft-Windows-GroupPolicy" Guid="aea1b4fa-97d1-45f2-a64c-4d69fffd92c9" />
+#   <EventID>1130</EventID>
+#   <Version>0</Version>
+#   <Level>2</Level>
+#   <Task>0</Task>
+#   <Opcode>0</Opcode>
+#   <Keywords>0x8000000000000000</Keywords>
+#   <TimeCreated SystemTime="2021-10-08 16:23:31.0330266" />
+#   <EventRecordID>71924</EventRecordID>
+#   <Correlation ActivityID="30b37d6b-18c8-490f-b116-0faf3183ea2c" />
+#   <Execution ProcessID="1132" ThreadID="4008" />
+#   <Channel>System</Channel>
+#   <Computer>HOST1.company.corp</Computer>
+#   <Security UserID="S-1-5-18" />
+# </System>
+# <EventData>
+#   <Data Name="SupportInfo1">0</Data>
+#   <Data Name="SupportInfo2">0</Data>
+#   <Data Name="ErrorCode">2</Data>
+#   <Data Name="ErrorDescription">The system cannot find the file specified. </Data>
+#   <Data Name="ScriptType">0</Data>
+#   <Data Name="GPODisplayName">Default Domain Policy</Data>
+#   <Data Name="GPOFileSystemPath">\\COMPANY.corp\sysvol\COMPANY.corp\Policies\{31B2F340-016D-11D2-945F-00C04FB984F9}\Machine</Data>
+#   <Data Name="GPOScriptCommandString">badness.bat</Data>
+# </EventData>
+#/Event>
