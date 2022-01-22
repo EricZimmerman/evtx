@@ -1,16 +1,15 @@
 ﻿using System.Collections.Generic;
 using evtx.Tags;
 
-namespace evtx
+namespace evtx;
+
+public interface IBinXml
 {
-    public interface IBinXml
-    {
-        long RecordPosition { get; }
+    long RecordPosition { get; }
 
-        long Size { get; }
+    long Size { get; }
 
-        TagBuilder.BinaryTag TagType { get; }
+    TagBuilder.BinaryTag TagType { get; }
 
-        string AsXml(List<SubstitutionArrayEntry> substitutionEntries, long parentOffset);
-    }
+    string AsXml(List<SubstitutionArrayEntry> substitutionEntries, long parentOffset);
 }

@@ -1,47 +1,45 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using NLog;
+using Serilog;
 
-namespace evtx.Tags
+namespace evtx.Tags;
+
+public class NormalSubstitution : IBinXml
 {
-    public class NormalSubstitution : IBinXml
+    public NormalSubstitution(long recordPosition, BinaryReader dataStream)
     {
-        public NormalSubstitution(long recordPosition, BinaryReader dataStream)
-        {
-            var l = LogManager.GetLogger("BuildTag");
-            RecordPosition = recordPosition;
-            Size = 4;
+        RecordPosition = recordPosition;
+        Size = 4;
 
-            SubstitutionId = dataStream.ReadInt16();
-            ValueType = (TagBuilder.ValueType) dataStream.ReadByte();
+        SubstitutionId = dataStream.ReadInt16();
+        ValueType = (TagBuilder.ValueType) dataStream.ReadByte();
 
-            l.Trace(this);
-        }
+        Log.Verbose("{This}",this);
+    }
 
-        public short SubstitutionId { get; }
-        public TagBuilder.ValueType ValueType { get; }
+    public short SubstitutionId { get; }
+    public TagBuilder.ValueType ValueType { get; }
 
-        public long RecordPosition { get; }
-        public long Size { get; }
+    public long RecordPosition { get; }
+    public long Size { get; }
 
-        public string AsXml(List<SubstitutionArrayEntry> substitutionEntries, long parentOffset)
-        {
+    public string AsXml(List<SubstitutionArrayEntry> substitutionEntries, long parentOffset)
+    {
 //            var subEntry = substitutionEntries.Single(t => t.Position == SubstitutionId);
 //            if (subEntry.ValType == TagBuilder.ValueType.NullType)
 //            {
 //                return "";
 //            }
-            var val = substitutionEntries.Single(t => t.Position == SubstitutionId).GetDataAsString();
+        var val = substitutionEntries.Single(t => t.Position == SubstitutionId).GetDataAsString();
 
-            return val;
-        }
+        return val;
+    }
 
-        public TagBuilder.BinaryTag TagType => TagBuilder.BinaryTag.NormalSubstitution;
+    public TagBuilder.BinaryTag TagType => TagBuilder.BinaryTag.NormalSubstitution;
 
-        public override string ToString()
-        {
-            return $"Normal substitution. Id: {SubstitutionId} Value type: {ValueType}";
-        }
+    public override string ToString()
+    {
+        return $"Normal substitution. Id: {SubstitutionId} Value type: {ValueType}";
     }
 }

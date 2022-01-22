@@ -1,23 +1,22 @@
 ﻿using System.Collections.Generic;
 
-namespace evtx.Tags
+namespace evtx.Tags;
+
+public class EndElementTag : IBinXml
 {
-    public class EndElementTag : IBinXml
+    public EndElementTag(long recordPosition)
     {
-        public EndElementTag(long recordPosition)
-        {
-            RecordPosition = recordPosition;
-            Size = 1;
-        }
-
-        public long RecordPosition { get; }
-        public long Size { get; }
-
-        public string AsXml(List<SubstitutionArrayEntry> substitutionEntries, long parentOffset)
-        {
-            return "/>";
-        }
-
-        public TagBuilder.BinaryTag TagType => TagBuilder.BinaryTag.EndElementTag;
+        RecordPosition = recordPosition;
+        Size = 1;
     }
+
+    public long RecordPosition { get; }
+    public long Size { get; }
+
+    public string AsXml(List<SubstitutionArrayEntry> substitutionEntries, long parentOffset)
+    {
+        return "/>";
+    }
+
+    public TagBuilder.BinaryTag TagType => TagBuilder.BinaryTag.EndElementTag;
 }

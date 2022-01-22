@@ -14,39 +14,43 @@ using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
-using Alphaleonis.Win32.Filesystem;
+
 using Alphaleonis.Win32.Security;
 using CsvHelper.Configuration;
 using evtx;
 using Exceptionless;
 using ICSharpCode.SharpZipLib.Zip;
 using Newtonsoft.Json;
-using NLog;
-using NLog.Config;
-using NLog.Targets;
 using RawCopy;
+using Serilog;
+using Serilog.Core;
+using Serilog.Events;
 using ServiceStack;
 using ServiceStack.Text;
 using CsvWriter = CsvHelper.CsvWriter;
 using EventLog = evtx.EventLog;
-using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
+
 #if !NET6_0
+using Alphaleonis.Win32.Filesystem;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
-
+using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
 #else
 using Path = System.IO.Path;
 using Directory = System.IO.Directory;
 using File = System.IO.File;
+using Fileinfo = System.IO.FileInfo;
 #endif
 
-namespace EvtxECmd
-{
+
+namespace EvtxECmd;
+
     internal class Program
     {
-        private static Logger _logger;
 
+        private static string _activeDateTimeFormat;
+        
         private static readonly string BaseDirectory = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 
         private static Dictionary<string, int> _errorFiles;
@@ -82,13 +86,41 @@ namespace EvtxECmd
 
         private static readonly HashSet<string> _seenHashes = new HashSet<string>();
 
+        class DateTimeOffsetFormatter : IFormatProvider, ICustomFormatter
+        {
+            private readonly IFormatProvider _innerFormatProvider;
+
+            public DateTimeOffsetFormatter(IFormatProvider innerFormatProvider)
+            {
+                _innerFormatProvider = innerFormatProvider;
+            }
+
+            public object GetFormat(Type formatType)
+            {
+                return formatType == typeof(ICustomFormatter) ? this : _innerFormatProvider.GetFormat(formatType);
+            }
+
+            public string Format(string format, object arg, IFormatProvider formatProvider)
+            {
+                if (arg is DateTimeOffset)
+                {
+                    var size = (DateTimeOffset)arg;
+                    return size.ToString(_activeDateTimeFormat);
+                }
+
+                var formattable = arg as IFormattable;
+                if (formattable != null)
+                {
+                    return formattable.ToString(format, _innerFormatProvider);
+                }
+
+                return arg.ToString();
+            }
+        }
+        
         private static async Task Main(string[] args)
         {
             ExceptionlessClient.Default.Startup("tYeWS6A5K5uItgpB44dnNy2qSb2xJxiQWRRGWebq");
-
-            SetupNLog();
-
-            _logger = LogManager.GetLogger("EvtxECmd");
 
             _rootCommand = new RootCommand
             {
@@ -156,7 +188,7 @@ namespace EvtxECmd
 
                 new Option<bool>(
                     "--met",
-                    () => false,
+                    () => true,
                     "When true, show metrics about processed event log"),
 
                 new Option<string>(
@@ -171,7 +203,7 @@ namespace EvtxECmd
 
                 new Option<bool>(
                     "--dedupe",
-                    () => false,
+                    () => true,
                     "Deduplicate -f or -d & VSCs based on SHA-1. First file found wins"),
 
                 new Option<bool>(
@@ -200,16 +232,43 @@ namespace EvtxECmd
 
         private static void DoWork(string f, string d, string csv, string csvf, string json, string jsonf, string xml, string xmlf, string dt, string inc, string exc, string sd, string ed, bool fj, int tdt, bool met, string maps, bool vss, bool dedupe, bool sync, bool debug, bool trace)
         {
+            var levelSwitch = new LoggingLevelSwitch();
+
+            _activeDateTimeFormat = dt;
+        
+            var formatter  =
+                new DateTimeOffsetFormatter(CultureInfo.CurrentCulture);
+
+            var template = "{Message:lj}{NewLine}{Exception}";
+
+            if (debug)
+            {
+                levelSwitch.MinimumLevel = LogEventLevel.Debug;
+                template = "[{Timestamp:HH:mm:ss.fff} {Level:u3}] {Message:lj}{NewLine}{Exception}";
+            }
+
+            if (trace)
+            {
+                levelSwitch.MinimumLevel = LogEventLevel.Verbose;
+                template = "[{Timestamp:HH:mm:ss.fff} {Level:u3}] {Message:lj}{NewLine}{Exception}";
+            }
+        
+            var conf = new LoggerConfiguration()
+                .WriteTo.Console(outputTemplate: template,formatProvider: formatter)
+                .MinimumLevel.ControlledBy(levelSwitch);
+      
+            Log.Logger = conf.CreateLogger();
+            
             if (sync)
             {
                 try
                 {
-                    _logger.Info(Header);
+                    Log.Information("{Header}",Header);
                     UpdateFromRepo();
                 }
                 catch (Exception e)
                 {
-                    _logger.Error(e, $"There was an error checking for updates: {e.Message}");
+                    Log.Error(e, "There was an error checking for updates: {Message}",e.Message);
                 }
 
                 Environment.Exit(0);
@@ -223,41 +282,33 @@ namespace EvtxECmd
 
                 helpBld.Write(hc);
 
-                _logger.Warn("-f or -d is required. Exiting");
+                Log.Warning("-f or -d is required. Exiting");
+                Console.WriteLine();
                 return;
             }
 
-            _logger.Info(Header);
-            _logger.Info("");
-            _logger.Info($"Command line: {string.Join(" ", Environment.GetCommandLineArgs().Skip(1))}\r\n");
-
+            Log.Information("{Header}",Header);
+            Console.WriteLine();
+            Log.Information("Command line: {Args}",string.Join(" ", Environment.GetCommandLineArgs().Skip(1)));
+            Console.WriteLine();
 
             if (IsAdministrator() == false)
             {
-                _logger.Fatal("Warning: Administrator privileges not found!\r\n");
+                Log.Warning("Warning: Administrator privileges not found!");
+                Console.WriteLine();
             }
-
-            if (debug)
-            {
-                LogManager.Configuration.LoggingRules.First().EnableLoggingForLevel(LogLevel.Debug);
-            }
-
-            if (trace)
-            {
-                LogManager.Configuration.LoggingRules.First().EnableLoggingForLevel(LogLevel.Trace);
-            }
-
-            LogManager.ReconfigExistingLoggers();
-
+           
             if (vss & !RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
                 vss = false;
-                _logger.Warn($"--vss not supported on non-Windows platforms. Disabling...");
+                Log.Warning("{Vss} not supported on non-Windows platforms. Disabling...","--vss");
+                Console.WriteLine();
             }
 
             if (vss & (IsAdministrator() == false))
             {
-                _logger.Error("--vss is present, but administrator rights not found. Exiting\r\n");
+                Log.Error("--vss is present, but administrator rights not found. Exiting","--vss");
+                Console.WriteLine();
                 return;
             }
 
@@ -272,17 +323,17 @@ namespace EvtxECmd
             {
                 if (Directory.Exists(json) == false)
                 {
-                    _logger.Warn(
-                        $"Path to '{json}' doesn't exist. Creating...");
+                    Log.Information("Path to {Json} doesn't exist. Creating...",json);
 
                     try
                     {
                         Directory.CreateDirectory(json);
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        _logger.Fatal(
-                            $"Unable to create directory '{json}'. Does a file with the same name exist? Exiting");
+                        Log.Fatal(ex,
+                            "Unable to create directory {Json}. Does a file with the same name exist? Exiting",json);
+                        Console.WriteLine();
                         return;
                     }
                 }
@@ -296,15 +347,17 @@ namespace EvtxECmd
 
                 var outFile = Path.Combine(json, outName);
 
-                _logger.Warn($"json output will be saved to '{outFile}'\r\n");
+                Log.Information("json output will be saved to {OutFile}",outFile);
+                Console.WriteLine();
 
                 try
                 {
                     _swJson = new StreamWriter(outFile, false, Encoding.UTF8);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    _logger.Error($"Unable to open '{outFile}'! Is it in use? Exiting!\r\n");
+                    Log.Error(ex,"Unable to open {OutFile}! Is it in use? Exiting!",outFile);
+                    Console.WriteLine();
                     Environment.Exit(0);
                 }
 
@@ -315,17 +368,16 @@ namespace EvtxECmd
             {
                 if (Directory.Exists(xml) == false)
                 {
-                    _logger.Warn(
-                        $"Path to '{xml}' doesn't exist. Creating...");
+                    Log.Information("Path to {Xml} doesn't exist. Creating...",xml);
 
                     try
                     {
                         Directory.CreateDirectory(xml);
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        _logger.Fatal(
-                            $"Unable to create directory '{xml}'. Does a file with the same name exist? Exiting");
+                        Log.Fatal(ex,
+                            "Unable to create directory {Xml}. Does a file with the same name exist? Exiting",xml);
                         return;
                     }
                 }
@@ -339,15 +391,17 @@ namespace EvtxECmd
 
                 var outFile = Path.Combine(xml, outName);
 
-                _logger.Warn($"XML output will be saved to '{outFile}'\r\n");
+                Log.Information("XML output will be saved to {OutFile}",outFile);
+                Console.WriteLine();
 
                 try
                 {
                     _swXml = new StreamWriter(outFile, false, Encoding.UTF8);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    _logger.Error($"Unable to open '{outFile}'! Is it in use? Exiting!\r\n");
+                    Log.Error(ex,"Unable to open {OutFile}! Is it in use? Exiting!",outFile);
+                    Console.WriteLine();
                     Environment.Exit(0);
                 }
             }
@@ -357,11 +411,11 @@ namespace EvtxECmd
                 if (DateTimeOffset.TryParse(sd, null, DateTimeStyles.AssumeUniversal, out var dateTimeOffset))
                 {
                     _startDate = dateTimeOffset;
-                    _logger.Info($"Setting Start date to '{_startDate.Value.ToUniversalTime().ToString(dt)}'");
+                    Log.Information("Setting Start date to {StartDate}",_startDate.Value);
                 }
                 else
                 {
-                    _logger.Warn($"Could not parse '{sd}' to a valud datetime! Events will not be filtered by Start date!");
+                   Log.Warning("Could not parse {Sd} to a valid datetime! Events will not be filtered by Start date!",sd);
                 }
             }
 
@@ -370,17 +424,17 @@ namespace EvtxECmd
                 if (DateTimeOffset.TryParse(ed, null, DateTimeStyles.AssumeUniversal, out var dateTimeOffset))
                 {
                     _endDate = dateTimeOffset;
-                    _logger.Info($"Setting End date to '{_endDate.Value.ToUniversalTime().ToString(dt)}'");
+                    Log.Information("Setting End date to {EndDate}",_endDate.Value);
                 }
                 else
                 {
-                    _logger.Warn($"Could not parse '{ed}' to a valud datetime! Events will not be filtered by End date!");
+                    Log.Warning("Could not parse {Ed} to a valid datetime! Events will not be filtered by End date!",ed);
                 }
             }
 
             if (_startDate.HasValue || _endDate.HasValue)
             {
-                _logger.Info("");
+                Console.WriteLine();
             }
 
 
@@ -388,17 +442,17 @@ namespace EvtxECmd
             {
                 if (Directory.Exists(csv) == false)
                 {
-                    _logger.Warn(
-                        $"Path to '{csv}' doesn't exist. Creating...");
+                    Log.Information(
+                        "Path to {Csv} doesn't exist. Creating...",csv);
 
                     try
                     {
                         Directory.CreateDirectory(csv);
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        _logger.Fatal(
-                            $"Unable to create directory '{csv}'. Does a file with the same name exist? Exiting");
+                        Log.Fatal(ex,
+                            "Unable to create directory {Csv}. Does a file with the same name exist? Exiting",csv);
                         return;
                     }
                 }
@@ -412,7 +466,8 @@ namespace EvtxECmd
 
                 var outFile = Path.Combine(csv, outName);
 
-                _logger.Warn($"CSV output will be saved to '{outFile}'\r\n");
+                Log.Information("CSV output will be saved to {OutFile}",outFile);
+                Console.WriteLine();
 
                 try
                 {
@@ -425,23 +480,15 @@ namespace EvtxECmd
 
                     _csvWriter = new CsvWriter(_swCsv, opt);
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    _logger.Error($"Unable to open '{outFile}'! Is it in use? Exiting!\r\n");
+                    Log.Error(ex,"Unable to open {OutFile}! Is it in use? Exiting!",outFile);
+                    Console.WriteLine();
                     Environment.Exit(0);
                 }
 
 
                 var foo = _csvWriter.Context.AutoMap<EventRecord>();
-
-                // if (_fluentCommandLineParser.Object.PayloadAsJson == false)
-                // {
-                //     foo.Map(t => t.Payload).Ignore();
-                // }
-                // else
-                // {
-                //   
-                // }
 
                 foo.Map(t => t.RecordPosition).Ignore();
                 foo.Map(t => t.Size).Ignore();
@@ -482,12 +529,11 @@ namespace EvtxECmd
 
             if (Directory.Exists(maps) == false)
             {
-                _logger.Warn(
-                    $"Maps directory '{maps}' does not exist! Event ID maps will not be loaded!!");
+                Log.Warning("Maps directory {Maps} does not exist! Event ID maps will not be loaded!!",maps);
             }
             else
             {
-                _logger.Debug($"Loading maps from '{Path.GetFullPath(maps)}'");
+                Log.Debug("Loading maps from {Path}",Path.GetFullPath(maps));
                 var errors = EventLog.LoadMaps(Path.GetFullPath(maps));
 
                 if (errors)
@@ -495,7 +541,7 @@ namespace EvtxECmd
                     return;
                 }
 
-                _logger.Info($"Maps loaded: {EventLog.EventLogMaps.Count:N0}");
+                Log.Information("Maps loaded: {Count:N0}",EventLog.EventLogMaps.Count);
             }
 
             _includeIds = new HashSet<int>();
@@ -553,14 +599,15 @@ namespace EvtxECmd
             {
                 if (File.Exists(f) == false)
                 {
-                    _logger.Warn($"\t'{f}' does not exist! Exiting");
+                    Log.Warning("\t{F} does not exist! Exiting",f);
+                    Console.WriteLine();
                     return;
                 }
 
                 if (_swXml == null && _swJson == null && _swCsv == null)
                 {
                     //no need for maps
-                    _logger.Debug("Clearing map collection since no output specified");
+                    Log.Debug("Clearing map collection since no output specified");
                     EventLog.EventLogMaps.Clear();
                 }
 
@@ -589,12 +636,13 @@ namespace EvtxECmd
             {
                 if (Directory.Exists(d) == false)
                 {
-                    _logger.Warn($"\t'{d}' does not exist! Exiting");
+                    Log.Warning("\t{D} does not exist! Exiting",d);
+                    Console.WriteLine();
                     return;
                 }
 
-                _logger.Info($"Looking for event log files in '{d}'");
-                _logger.Info("");
+                Log.Information("Looking for event log files in {D}",d);
+                Console.WriteLine();
 
 #if !NET6_0
 
@@ -629,7 +677,7 @@ namespace EvtxECmd
                 if (_swXml == null && _swJson == null && _swCsv == null)
                 {
                     //no need for maps
-                    _logger.Debug("Clearing map collection since no output specified");
+                    Log.Debug("Clearing map collection since no output specified");
                     EventLog.EventLogMaps.Clear();
                 }
 
@@ -651,7 +699,8 @@ namespace EvtxECmd
 
                         var target = Path.Combine(vssDir, stem);
 
-                        _logger.Fatal($"\r\nSearching 'VSS{target.Replace($"{VssDir}\\", "")}' for event logs...");
+                        Console.WriteLine();
+                        Log.Information("Searching {Vss} for event logs...",$"VSS{target.Replace($"{VssDir}\\", "")}");
 
                         var vssFiles = Helper.GetFilesFromPath(target, "*.evtx", true);
 
@@ -676,32 +725,33 @@ namespace EvtxECmd
             }
             catch (Exception e)
             {
-                _logger.Error($"Error when flushing output files to disk! Error message: {e.Message}");
+                Log.Error(e,"Error when flushing output files to disk! Error message: {Message}",e.Message);
             }
-
 
             sw.Stop();
-            _logger.Info("");
+            Console.WriteLine();
 
-            var suff = string.Empty;
-            if (_fileCount != 1)
+            if (_fileCount == 1)
             {
-                suff = "s";
+                Log.Information("Processed {FileCount:N0} file in {TotalSeconds:N4} seconds",_fileCount,sw.Elapsed.TotalSeconds);    
             }
-
-            _logger.Error(
-                $"Processed {_fileCount:N0} file{suff} in {sw.Elapsed.TotalSeconds:N4} seconds\r\n");
+            else
+            {
+                Log.Information("Processed {FileCount:N0} files in {TotalSeconds:N4} seconds",_fileCount,sw.Elapsed.TotalSeconds);
+            }
+            
+            Console.WriteLine();
 
             if (_errorFiles.Count > 0)
             {
-                _logger.Info("");
-                _logger.Error("Files with errors");
+                Console.WriteLine();
+                Log.Information("Files with errors");
                 foreach (var errorFile in _errorFiles)
                 {
-                    _logger.Info($"'{errorFile.Key}' error count: {errorFile.Value:N0}");
+                    Log.Information("{Key} error count: {Value:N0}",errorFile.Key,errorFile.Value);
                 }
 
-                _logger.Info("");
+                Console.WriteLine();
             }
 
             if (vss)
@@ -722,12 +772,11 @@ namespace EvtxECmd
             }
         }
 
-        private static async void UpdateFromRepo()
+        private static void UpdateFromRepo()
         {
             Console.WriteLine();
 
-            _logger.Info(
-                "Checking for updated maps at https://github.com/EricZimmerman/evtx/tree/master/evtx/Maps...");
+            Log.Information("Checking for updated maps at {Url}...","https://github.com/EricZimmerman/evtx/tree/master/evtx/Maps");
             Console.WriteLine();
             var archivePath = Path.Combine(BaseDirectory, "____master.zip");
 
@@ -735,7 +784,6 @@ namespace EvtxECmd
             {
                 File.Delete(archivePath);
             }
-
             using (var client = new WebClient())
             {
                 ServicePointManager.Expect100Continue = true;
@@ -773,7 +821,7 @@ namespace EvtxECmd
 
             if (File.Exists(Path.Combine(orgMapPath, "Security_4624.map")))
             {
-                _logger.Warn($"Old map format found. Zipping to '!!oldMaps.zip' and cleaning up old maps");
+                Log.Warning("Old map format found. Zipping to {Old} and cleaning up old maps","!!oldMaps.zip");
                 //old maps found, so zip em first
                 var oldZip = Path.Combine(orgMapPath, "!!oldMaps.zip");
                 fff.CreateZip(oldZip, orgMapPath, false, @"\.map$");
@@ -801,14 +849,23 @@ namespace EvtxECmd
                 else
                 {
                     //current destination file exists, so compare to new
-                    var fiNew = new FileInfo(newMap);
-                    var fi = new FileInfo(dest);
 
-                    if (fiNew.GetHash(HashType.SHA1) != fi.GetHash(HashType.SHA1))
+                    var s1 = new StreamReader(newMap);
+                    var newSha = Helper.GetSha1FromStream(s1.BaseStream, 0);
+
+                    var s2 = new StreamReader(dest);
+                    
+                    var destSha = Helper.GetSha1FromStream(s2.BaseStream, 0);
+                    
+                    s2.Close();
+                    s1.Close();
+                
+                    if (newSha != destSha)
                     {
                         //updated file
                         updatedLocalMaps.Add(mName);
-                    }
+                    }    
+                    
                 }
 
 #if !NET6_0
@@ -820,15 +877,15 @@ namespace EvtxECmd
 
             if (newLocalMaps.Count > 0 || updatedLocalMaps.Count > 0)
             {
-                _logger.Fatal("Updates found!");
+                Log.Information("Updates found!");
                 Console.WriteLine();
 
                 if (newLocalMaps.Count > 0)
                 {
-                    _logger.Error("New maps");
+                    Log.Information("New maps");
                     foreach (var newLocalMap in newLocalMaps)
                     {
-                        _logger.Info(Path.GetFileNameWithoutExtension(newLocalMap));
+                        Log.Information("{File}",Path.GetFileNameWithoutExtension(newLocalMap));
                     }
 
                     Console.WriteLine();
@@ -836,10 +893,10 @@ namespace EvtxECmd
 
                 if (updatedLocalMaps.Count > 0)
                 {
-                    _logger.Error("Updated maps");
+                    Log.Information("Updated maps");
                     foreach (var um in updatedLocalMaps)
                     {
-                        _logger.Info(Path.GetFileNameWithoutExtension(um));
+                        Log.Information("{File}",Path.GetFileNameWithoutExtension(um));
                     }
 
                     Console.WriteLine();
@@ -850,7 +907,7 @@ namespace EvtxECmd
             else
             {
                 Console.WriteLine();
-                _logger.Info("No new maps available");
+                Log.Information("No new maps available");
                 Console.WriteLine();
             }
 
@@ -861,17 +918,19 @@ namespace EvtxECmd
         {
             if (File.Exists(file) == false)
             {
-                _logger.Warn($"'{file}' does not exist! Skipping");
+                Log.Warning("{File} does not exist! Skipping",file);
                 return;
             }
 
             if (file.StartsWith(VssDir))
             {
-                _logger.Warn($"\r\nProcessing 'VSS{file.Replace($"{VssDir}\\", "")}'");
+                Console.WriteLine();
+                Log.Information("Processing {Vss}",$"VSS{file.Replace($"{VssDir}\\", "")}");
             }
             else
             {
-                _logger.Warn($"\r\nProcessing '{file}'...");
+                Console.WriteLine();
+                Log.Information("Processing {File}...",file);
             }
 
             Stream fileS;
@@ -886,23 +945,28 @@ namespace EvtxECmd
 
                 if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 {
-                    _logger.Fatal("\r\nRaw disk reads not supported on non-Windows platforms! Exiting!!\r\n");
+                    Console.WriteLine();
+                    Log.Fatal("Raw disk reads not supported on non-Windows platforms! Exiting!!");
+                    Console.WriteLine();
                     Environment.Exit(0);
                 }
 
                 if (Helper.IsAdministrator() == false)
                 {
-                    _logger.Fatal("\r\nAdministrator privileges not found! Exiting!!\r\n");
+                    Console.WriteLine();
+                    Log.Fatal("Administrator privileges not found! Exiting!!");
+                    Console.WriteLine();
                     Environment.Exit(0);
                 }
 
                 if (file.StartsWith("\\\\"))
                 {
-                    _logger.Fatal($"Raw access across UNC shares is not supported! Run locally on the system or extract logs via other means and try again. Exiting");
+                    Log.Fatal($"Raw access across UNC shares is not supported! Run locally on the system or extract logs via other means and try again. Exiting");
                     Environment.Exit(0);
                 }
 
-                _logger.Warn($"\r\n'{file}' is in use. Rerouting...");
+                Console.WriteLine();
+                Log.Warning("{File} is in use. Rerouting...",file);
 
                 var files = new List<string>
                 {
@@ -921,7 +985,7 @@ namespace EvtxECmd
                     fileS.Seek(0, SeekOrigin.Begin);
                     if (_seenHashes.Contains(sha))
                     {
-                        _logger.Debug($"Skipping '{file}' as a file with SHA-1 '{sha}' has already been processed");
+                        Log.Debug("Skipping {File} as a file with SHA-1 {Sha} has already been processed",file,sha);
                         return;
                     }
 
@@ -931,7 +995,7 @@ namespace EvtxECmd
                 EventLog.LastSeenTicks = 0;
                 var evt = new EventLog(fileS);
 
-                _logger.Info($"Chunk count: {evt.ChunkCount:N0}, Iterating records...");
+                Log.Information("Chunk count: {ChunkCount:N0}, Iterating records...",evt.ChunkCount);
 
                 var seenRecords = 0;
 
@@ -969,7 +1033,7 @@ namespace EvtxECmd
                         if (eventRecord.TimeCreated < _startDate.Value)
                         {
                             //too old
-                            _logger.Debug($"Dropping record Id '{eventRecord.EventRecordId}' with timestamp '{eventRecord.TimeCreated.ToUniversalTime().ToString(dt)}' as its too old.");
+                            Log.Debug("Dropping record Id {EventRecordId} with timestamp {TimeCreated} as its too old",eventRecord.EventRecordId,eventRecord.TimeCreated);
                             _droppedEvents += 1;
                             continue;
                         }
@@ -980,7 +1044,7 @@ namespace EvtxECmd
                         if (eventRecord.TimeCreated > _endDate.Value)
                         {
                             //too new
-                            _logger.Debug($"Dropping record Id '{eventRecord.EventRecordId}' with timestamp '{eventRecord.TimeCreated.ToUniversalTime().ToString(dt)}' as its too new.");
+                            Log.Debug("Dropping record Id {EventRecordId} with timestamp {TimeCreated} as its too new",eventRecord.EventRecordId,eventRecord.TimeCreated);
                             _droppedEvents += 1;
                             continue;
                         }
@@ -1002,7 +1066,6 @@ namespace EvtxECmd
 
                         var payOut = JsonConvert.SerializeXmlNode(xdo);
                         eventRecord.Payload = payOut;
-
 
                         _csvWriter?.WriteRecord(eventRecord);
                         _csvWriter?.NextRecord();
@@ -1034,7 +1097,7 @@ namespace EvtxECmd
                     }
                     catch (Exception e)
                     {
-                        _logger.Error($"Error processing record #{eventRecord.RecordNumber}: {e.Message}");
+                        Log.Error("Error processing record #{RecordNumber}: {Message}",eventRecord.RecordNumber,e.Message);
                         evt.ErrorRecords.Add(21, e.Message);
                     }
                 }
@@ -1054,25 +1117,27 @@ namespace EvtxECmd
 
                 _fileCount += 1;
 
-                _logger.Info("");
-                _logger.Fatal("Event log details");
-                _logger.Info(evt);
+                Console.WriteLine();
+                Log.Information("Event log details");
+                Log.Information("{Evt}",evt);
 
-                _logger.Info($"Records included: {seenRecords:N0} Errors: {evt.ErrorRecords.Count:N0} Events dropped: {_droppedEvents:N0}");
+                Log.Information("Records included: {SeenRecords:N0} Errors: {ErrorRecordsCount:N0} Events dropped: {DroppedEvents:N0}",seenRecords,evt.ErrorRecords.Count,_droppedEvents);
 
                 if (evt.ErrorRecords.Count > 0)
                 {
-                    _logger.Warn("\r\nErrors");
+                    Console.WriteLine();
+                    Log.Information("Errors");
                     foreach (var evtErrorRecord in evt.ErrorRecords)
                     {
-                        _logger.Info($"Record #{evtErrorRecord.Key}: Error: {evtErrorRecord.Value}");
+                        Log.Information("Record #{Key}: Error: {Value}",evtErrorRecord.Key,evtErrorRecord.Value);
                     }
                 }
 
                 if (met && evt.EventIdMetrics.Count > 0)
                 {
-                    _logger.Fatal("\r\nMetrics (including dropped events)");
-                    _logger.Warn("Event ID\tCount");
+                    Console.WriteLine();
+                    Log.Information("Metrics (including dropped events)");
+                    Log.Information("Event ID\tCount");
                     foreach (var esEventIdMetric in evt.EventIdMetrics.OrderBy(t => t.Key))
                     {
                         if (_includeIds.Count > 0)
@@ -1092,7 +1157,7 @@ namespace EvtxECmd
                             }
                         }
 
-                        _logger.Info($"{esEventIdMetric.Key}\t\t{esEventIdMetric.Value:N0}");
+                        Log.Information("{Key}\t\t{Value:N0}",esEventIdMetric.Key,esEventIdMetric.Value);
                     }
                 }
             }
@@ -1106,11 +1171,11 @@ namespace EvtxECmd
 
                 if (e.Message.Contains("Invalid signature! Expected 'ElfFile"))
                 {
-                    _logger.Info($"'{fn}' is not an evtx file! Message: {e.Message} Skipping...");
+                    Log.Information("{Fn} is not an evtx file! Message: {Message} Skipping...",fn,e.Message);
                 }
                 else
                 {
-                    _logger.Error($"Error processing '{fn}'! Message: {e.Message}");
+                    Log.Error("Error processing {Fn}! Message: {Message}",fn,e.Message);
                 }
             }
 
@@ -1136,28 +1201,5 @@ namespace EvtxECmd
             return principal.IsInRole(WindowsBuiltInRole.Administrator);
         }
 
-        private static void SetupNLog()
-        {
-            if (File.Exists(Path.Combine(BaseDirectory, "Nlog.config")))
-            {
-                return;
-            }
-
-            var config = new LoggingConfiguration();
-            var loglevel = LogLevel.Info;
-
-            var layout = @"${message}";
-
-            var consoleTarget = new ColoredConsoleTarget();
-
-            config.AddTarget("console", consoleTarget);
-
-            consoleTarget.Layout = layout;
-
-            var rule1 = new LoggingRule("*", loglevel, consoleTarget);
-            config.LoggingRules.Add(rule1);
-
-            LogManager.Configuration = config;
-        }
+       
     }
-}

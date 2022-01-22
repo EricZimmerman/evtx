@@ -1,39 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using NLog;
+using Serilog;
 
-namespace evtx.Tags
+namespace evtx.Tags;
+
+public class StartOfBXmlStream : IBinXml
 {
-    public class StartOfBXmlStream : IBinXml
+    public StartOfBXmlStream(long recordPosition, BinaryReader dataStream)
     {
-        public StartOfBXmlStream(long recordPosition, BinaryReader dataStream)
-        {
-            RecordPosition = recordPosition;
-            Size = 4;
+        RecordPosition = recordPosition;
+        Size = 4;
 
-            MajorVer = dataStream.ReadByte();
+        MajorVer = dataStream.ReadByte();
 
-            MinorVer = dataStream.ReadByte();
+        MinorVer = dataStream.ReadByte();
 
-            Flags = dataStream.ReadByte();
+        Flags = dataStream.ReadByte();
 
-            var l = LogManager.GetLogger("BuildTag");
-            l.Trace($"Major: {MajorVer} Minor: {MinorVer} Flags: {Flags}");
-        }
-
-        public int MajorVer { get; }
-        public int MinorVer { get; }
-        public int Flags { get; }
-
-        public long RecordPosition { get; }
-        public long Size { get; }
-
-        public string AsXml(List<SubstitutionArrayEntry> substitutionEntries, long parentOffset)
-        {
-            throw new NotImplementedException();
-        }
-
-        public TagBuilder.BinaryTag TagType => TagBuilder.BinaryTag.StartOfBXmlStream;
+        Log.Verbose("Major: {MajorVer} Minor: {MinorVer} Flags: {Flags}",MajorVer,MinorVer,Flags);
     }
+
+    public int MajorVer { get; }
+    public int MinorVer { get; }
+    public int Flags { get; }
+
+    public long RecordPosition { get; }
+    public long Size { get; }
+
+    public string AsXml(List<SubstitutionArrayEntry> substitutionEntries, long parentOffset)
+    {
+        throw new NotImplementedException();
+    }
+
+    public TagBuilder.BinaryTag TagType => TagBuilder.BinaryTag.StartOfBXmlStream;
 }
