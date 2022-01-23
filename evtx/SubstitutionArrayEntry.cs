@@ -35,7 +35,7 @@ public class SubstitutionArrayEntry
                 s = Regex.Replace(s, @"\p{C}+", ", ");
                 return s;
             case TagBuilder.ValueType.AnsiStringType:
-                var sa = Encoding.GetEncoding(1252).GetString(DataBytes).Trim('\0');
+                var sa = CodePagesEncodingProvider.Instance.GetEncoding(1252)!.GetString(DataBytes).Trim('\0');
                 sa = Regex.Replace(sa, @"\p{C}+", ", ");
                 return sa;
             case TagBuilder.ValueType.Int8Type:
@@ -100,7 +100,7 @@ public class SubstitutionArrayEntry
                 return string.Join(", ", tsu).Trim('\0');
 
             case TagBuilder.ValueType.ArrayAsciiString:
-                var tsa = Encoding.GetEncoding(1252).GetString(DataBytes)
+                var tsa = CodePagesEncodingProvider.Instance.GetEncoding(1252)!.GetString(DataBytes)
                     .Split(new[] {'\0'}, StringSplitOptions.RemoveEmptyEntries);
                 return string.Join(", ", tsa).Trim('\0');
 
