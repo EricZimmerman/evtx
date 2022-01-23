@@ -19,5 +19,6 @@
     <PackageReference Include="ServiceStack.Text" Version="5.13.2" />
     <PackageReference Include="System.Xml.XPath" Version="4.3.0" />
     <PackageReference Include="YamlDotNet" Version="11.2.1" />
+      <PackageReference Include="System.Text.Encoding.CodePages" Version="6.0.0" />
   </ItemGroup>
 </Project>
