@@ -16,7 +16,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="AlphaFS.New" Version="2.3.0" />
-    <PackageReference Include="ERZHelpers" Version="1.1.1.2" />
+    <PackageReference Include="ERZHelpers" Version="1.3.0.0" />
     <PackageReference Include="SharpZipLib" Version="1.3.3" />
     <PackageReference Include="System.CommandLine" Version="2.0.0-beta2.21617.1" />
     <PackageReference Include="System.CommandLine.NamingConventionBinder" Version="2.0.0-beta2.21617.1" />
