@@ -1,5 +1,5 @@
 Author: peter.snyder@kroll.com, Hyun Yi @hyuunnn
-Description: FW rule modified to exception list
+Description: A rule has been modified in the Windows Defender Firewall exception list
 EventId: 2005
 Channel: Microsoft-Windows-Windows Firewall With Advanced Security/Firewall
 Provider: Microsoft-Windows-Windows Firewall With Advanced Security
