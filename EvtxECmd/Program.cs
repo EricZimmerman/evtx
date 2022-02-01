@@ -7,15 +7,12 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Net;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
 using System.Xml;
-
-using Alphaleonis.Win32.Security;
 using CsvHelper.Configuration;
 using evtx;
 using Exceptionless;
@@ -40,7 +37,6 @@ using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
 using Path = System.IO.Path;
 using Directory = System.IO.Directory;
 using File = System.IO.File;
-using Fileinfo = System.IO.FileInfo;
 #endif
 
 
@@ -84,7 +80,7 @@ namespace EvtxECmd;
 
         private static RootCommand _rootCommand;
 
-        private static readonly HashSet<string> _seenHashes = new HashSet<string>();
+        private static readonly HashSet<string> SeenHashes = new HashSet<string>();
 
         class DateTimeOffsetFormatter : IFormatProvider, ICustomFormatter
         {
@@ -307,7 +303,7 @@ namespace EvtxECmd;
 
             if (vss & (IsAdministrator() == false))
             {
-                Log.Error("--vss is present, but administrator rights not found. Exiting","--vss");
+                Log.Error("{Vss} is present, but administrator rights not found. Exiting","--vss");
                 Console.WriteLine();
                 return;
             }
@@ -613,7 +609,7 @@ namespace EvtxECmd;
 
                 dedupe = false;
 
-                ProcessFile(Path.GetFullPath(f), dedupe, dt, fj, met);
+                ProcessFile(Path.GetFullPath(f), dedupe,  fj, met);
 
                 if (vss)
                 {
@@ -627,7 +623,7 @@ namespace EvtxECmd;
                         var newPath = Path.Combine(vssDir, stem);
                         if (File.Exists(newPath))
                         {
-                            ProcessFile(newPath, dedupe, dt, fj, met);
+                            ProcessFile(newPath, dedupe,  fj, met);
                         }
                     }
                 }
@@ -683,7 +679,7 @@ namespace EvtxECmd;
 
                 foreach (var file in files2)
                 {
-                    ProcessFile(file, dedupe, dt, fj, met);
+                    ProcessFile(file, dedupe,  fj, met);
                 }
 
                 if (vss)
@@ -706,7 +702,7 @@ namespace EvtxECmd;
 
                         foreach (var file in vssFiles)
                         {
-                            ProcessFile(file, dedupe, dt, fj, met);
+                            ProcessFile(file, dedupe,  fj, met);
                         }
                     }
                 }
@@ -784,12 +780,14 @@ namespace EvtxECmd;
             {
                 File.Delete(archivePath);
             }
-            using (var client = new WebClient())
-            {
-                ServicePointManager.Expect100Continue = true;
-                ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
-                client.DownloadFile("https://github.com/EricZimmerman/evtx/archive/master.zip", archivePath);
-            }
+            // using (var client = new WebClient())
+            // {
+            //     ServicePointManager.Expect100Continue = true;
+            //     ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+            //     client.DownloadFile("https://github.com/EricZimmerman/evtx/archive/master.zip", archivePath);
+            // }
+            
+            "https://github.com/EricZimmerman/evtx/archive/master.zip".DownloadFileTo(archivePath);
  
             var fff = new FastZip();
 
@@ -914,7 +912,7 @@ namespace EvtxECmd;
             Directory.Delete(Path.Combine(BaseDirectory, "evtx-master"), true);
         }
 
-        private static void ProcessFile(string file, bool dedupe, string dt, bool fj, bool met)
+        private static void ProcessFile(string file, bool dedupe,  bool fj, bool met)
         {
             if (File.Exists(file) == false)
             {
@@ -983,13 +981,13 @@ namespace EvtxECmd;
                 {
                     var sha = Helper.GetSha1FromStream(fileS, 0);
                     fileS.Seek(0, SeekOrigin.Begin);
-                    if (_seenHashes.Contains(sha))
+                    if (SeenHashes.Contains(sha))
                     {
                         Log.Debug("Skipping {File} as a file with SHA-1 {Sha} has already been processed",file,sha);
                         return;
                     }
 
-                    _seenHashes.Add(sha);
+                    SeenHashes.Add(sha);
                 }
 
                 EventLog.LastSeenTicks = 0;
@@ -1189,7 +1187,7 @@ namespace EvtxECmd;
             return JsonConvert.SerializeXmlNode(xdo);
         }
 
-        public static bool IsAdministrator()
+        private static bool IsAdministrator()
         {
             if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
             {
