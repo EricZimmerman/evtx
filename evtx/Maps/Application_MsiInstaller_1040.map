@@ -10,8 +10,8 @@ Maps:
     Values:
       -
         Name: ExecutableInfo
-        Value: "/Event/EventData/Data"
-        Refine: ^[\w,\s-]+\.[A-Za-z]{3}$
+        Value: "/Event/EventData/Data[1]"
+        Refine: ^.[^,]*(?=(\,))
 
 # Documentation
 # https://docs.logrhythm.com/docs/devices/ms-windows-event-log-sources/ms-windows-event-logging-xml-application/evid-1040-1042-msiinstaller
