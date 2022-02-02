@@ -15,6 +15,7 @@ Provider: Provider goes here
 # No empty space between "Provider:" and "Maps:", please.
 # After your last # line at the bottom of the map, hit Enter so there's a blank line underneath your last line of map content.
 # If you're struggling with getting hits when you're making maps, read this awesome guide on XPATH: https://www.altova.com/training/xpath3
+# Another way to hit nodes is to use this: /Event/EventData/Data[1] where 1 = the first node, 2 would be second, 3 would be third, and so on. So for the example at the bottom of this guide, there's over 20 different nodes!
 Maps:
   -
     Property: UserName # UserName --> if at all possible, try to include DOMAIN\username if that information is recorded in the event.
