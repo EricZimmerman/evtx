@@ -27,14 +27,14 @@ Maps:
     Values:
       -
         Name: ProcessId
-        Value: "/Event/EventData/Data[@Name=\"ProcessId\"]"
+        Value: "/Event/EventData/Data[@Name=\"NewProcessId\"]"
   -
     Property: PayloadData3
     PropertyValue: "Parent PID: %ProcessId%"
     Values:
       -
         Name: ProcessId
-        Value: "/Event/EventData/Data[@Name=\"NewProcessId\"]"
+        Value: "/Event/EventData/Data[@Name=\"ProcessId\"]"
   -
     Property: PayloadData4
     PropertyValue: "Mandatory label: %MandatoryLabel%"
