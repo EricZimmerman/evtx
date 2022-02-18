@@ -1,4 +1,4 @@
-                                                      Author: Tony Knutson
+Author: Tony Knutson
 Description: Application is stopping shutdown operation
 EventId: 10001
 Channel: "Application"
