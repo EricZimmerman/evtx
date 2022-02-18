@@ -1,0 +1,43 @@
+Author: Tony Knutson
+Description: Application is stopping shutdown operation
+EventId: 10001
+Channel: "Application"
+Provider: "Microsoft-Windows-Winsrv"
+Maps:
+  -
+    Property: ExecutableInfo
+    PropertyValue: "%AppName%"
+    Values:
+      -
+        Name: AppName
+        Value: "/Event/UserData/VetoAppEvent/AppName"
+
+# Documentation:
+# http://deusexmachina.uk/evdoco/event.php?event=1025
+# A shutdown or hibernation has been requested, but this application, upon receiving the WM_QUERYENDSESSION message, has responded with a zero - meaning no, don't shut me down! I'm not done here yet!.
+#
+# Example Event Data:
+# - <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#  - <System>
+#    <Provider Name="Microsoft-Windows-Winsrv" Guid="{9d55b53d-449b-4824-a637-24f9d69aa02f}" />
+#    <EventID>10001</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>0</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8000000000000000</Keywords>
+#    <TimeCreated SystemTime="2022-01-12T13:19:19.0238592Z" />
+#    <EventRecordID>1648636</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="948" ThreadID="88" />
+#    <Channel>Application</Channel>
+#    <Computer>COMPUTERNAME</Computer>
+#    <Security UserID="S-1-5-18" />
+#  </System>
+#   - <UserData>
+#     <VetoAppEvent xmlns:auto-ns2="http://schemas.microsoft.com/win/2004/08/events" xmlns="http://manifests.microsoft.com/win/2004/08/windows/winsrv">
+#     <AppName>NAME OF PROGRAM</AppName>
+#     <ResponseTime>0</ResponseTime>
+#     </VetoAppEvent>
+#     </UserData>
+#  </Event>
