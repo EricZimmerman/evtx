@@ -1,5 +1,5 @@
 Author: Hyun Yi @hyuunnn
-Description: The time was changed through the Control Panel.
+Description: The time was changed through the Control Panel
 EventId: 20000
 Channel: "Microsoft-Windows-DateTimeControlPanel/Operational"
 Provider: "Microsoft-Windows-DateTimeControlPanel"
