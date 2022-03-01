@@ -29,6 +29,31 @@ Maps:
 # Documentation
 # N/A
 #
+# Event Schema
+# ]]></Template>
+#             </Event>
+#             <Event>
+#                 <Id>1001</Id>
+#                 <Version>0</Version>
+#                 <Channel>Splashtop-Splashtop Streamer-Remote Session/Operational</Channel>
+#                 <Level>Information</Level>
+#                 <Message><![CDATA[
+# The Splashtop remote session (%1) has ended. The remote session lasted %2.
+#
+# App version: %3]]></Message>
+#                 <Template><![CDATA[
+# <template xmlns="http://schemas.microsoft.com/win/2004/08/events">
+#
+#   <data name="Session_ID" inType="win:UnicodeString" outType="xs:string"/>
+#
+#   <data name="Duration_Time" inType="win:UnicodeString" outType="xs:string"/>
+#
+#   <data name="Version_number" inType="win:UnicodeString" outType="xs:string"/>
+#
+# </template>
+#
+#
+# Example Event Data:
 #<Event>
 #  <System>
 #    <Provider Name="Splashtop-Splashtop Streamer-Remote Session" Guid="66a2ea53-fc6c-42e5-9176-18749ab2ca11" />

@@ -9,9 +9,6 @@ public class EventLogMap
     public string Author { get; set; }
     public int EventId { get; set; }
     public string Channel { get; set; }
-    /// <summary>
-    /// Optional field that, when present, will limit the processing of the map to those matching Provider and EventId
-    /// </summary>
     public string Provider { get; set; }
     public string Description { get; set; }
 

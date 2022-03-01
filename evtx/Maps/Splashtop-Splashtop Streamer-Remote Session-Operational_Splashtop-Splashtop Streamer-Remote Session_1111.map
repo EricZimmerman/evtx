@@ -1,0 +1,111 @@
+Author: Andrew Rathbun
+Description: Splashtop file transfer
+EventId: 1111
+Channel: Splashtop-Splashtop Streamer-Remote Session/Operational
+Provider: Splashtop-Splashtop Streamer-Remote Session
+Maps:
+  -
+    Property: RemoteHost
+    PropertyValue: "SRC_Name: %SRC_Name%"
+    Values:
+      -
+        Name: SRC_Name
+        Value: "/Event/EventData/Data[@Name=\"SRC_Name\"]"
+  -
+    Property: ExecutableInfo
+    PropertyValue: "File_Name: %File_Name%"
+    Values:
+      -
+        Name: File_Name
+        Value: "/Event/EventData/Data[@Name=\"File_Name\"]"
+  -
+    Property: PayloadData1
+    PropertyValue: "SRS_Name: %SRS_Name%"
+    Values:
+      -
+        Name: SRS_Name
+        Value: "/Event/EventData/Data[@Name=\"SRS_Name\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "SessionID: %SessionID%"
+    Values:
+      -
+        Name: SessionID
+        Value: "/Event/EventData/Data[@Name=\"Session_ID\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "Product version: %Version_number%"
+    Values:
+      -
+        Name: Version_number
+        Value: "/Event/EventData/Data[@Name=\"Version_number\"]"
+  -
+    Property: PayloadData4
+    PropertyValue: "SRS_Path: %SRS_Path%"
+    Values:
+      -
+        Name: SRS_Path
+        Value: "/Event/EventData/Data[@Name=\"SRS_Path\"]"
+  -
+    Property: PayloadData5
+    PropertyValue: "SRC_Path: %SRC_Path%"
+    Values:
+      -
+        Name: SRC_Path
+        Value: "/Event/EventData/Data[@Name=\"SRC_Path\"]"
+  -
+    Property: PayloadData6
+    PropertyValue: "Error_code: %Error_code%"
+    Values:
+      -
+        Name: Error_code
+        Value: "/Event/EventData/Data[@Name=\"Error_code\"]"
+
+# Documentation
+# N/A
+#
+# Event Schema
+# </template>
+#
+# ]]></Template>
+#             </Event>
+#             <Event>
+#                 <Id>1111</Id>
+#                 <Version>0</Version>
+#                 <Channel>Splashtop-Splashtop Streamer-Remote Session/Operational</Channel>
+#                 <Level>Information</Level>
+#                 <Message><![CDATA[
+# A file was transferred during the Splashtop remote session (%1).
+#
+# App version: %2
+#
+# File name: %3
+#
+# From: %4 (%5)
+#
+# To: %6 (%7)
+#
+# Error code: %8]]></Message>
+#                 <Template><![CDATA[
+# <template xmlns="http://schemas.microsoft.com/win/2004/08/events">
+#
+#   <data name="Session_ID" inType="win:UnicodeString" outType="xs:string"/>
+#
+#   <data name="Version_number" inType="win:UnicodeString" outType="xs:string"/>
+#
+#   <data name="File_Name" inType="win:UnicodeString" outType="xs:string"/>
+#
+#   <data name="SRC_Name" inType="win:UnicodeString" outType="xs:string"/>
+#
+#   <data name="SRC_Path" inType="win:UnicodeString" outType="xs:string"/>
+#
+#   <data name="SRS_Name" inType="win:UnicodeString" outType="xs:string"/>
+#
+#   <data name="SRS_Path" inType="win:UnicodeString" outType="xs:string"/>
+#
+#   <data name="Error_code" inType="win:UnicodeString" outType="xs:string"/>
+#
+# </template>
+#
+# Example Event Data:
+# N/A
