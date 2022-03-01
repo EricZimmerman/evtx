@@ -66,7 +66,7 @@ Maps:
 #
 # Event Schema
 # </template>
-# 
+#
 # ]]></Template>
 #             </Event>
 #             <Event>
@@ -84,7 +84,7 @@ Maps:
 # From: %4 (%5)
 #
 # To: %6 (%7)
-# 
+#
 # Error code: %8]]></Message>
 #                 <Template><![CDATA[
 # <template xmlns="http://schemas.microsoft.com/win/2004/08/events">
