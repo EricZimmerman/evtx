@@ -1,0 +1,125 @@
+Author: Andrew Rathbun
+Description: Splashtop file transfer
+EventId: 1100
+Channel: Splashtop-Splashtop Streamer-Remote Session/Operational
+Provider: Splashtop-Splashtop Streamer-Remote Session
+Maps:
+  -
+    Property: RemoteHost
+    PropertyValue: "SRC_Name: %SRC_Name%"
+    Values:
+      -
+        Name: SRC_Name
+        Value: "/Event/EventData/Data[@Name=\"SRC_Name\"]"
+  -
+    Property: ExecutableInfo
+    PropertyValue: "File_Name: %File_Name%"
+    Values:
+      -
+        Name: File_Name
+        Value: "/Event/EventData/Data[@Name=\"File_Name\"]"
+  -
+    Property: PayloadData1
+    PropertyValue: "SRS_Name: %SRS_Name%"
+    Values:
+      -
+        Name: SRS_Name
+        Value: "/Event/EventData/Data[@Name=\"SRS_Name\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "SessionID: %SessionID%"
+    Values:
+      -
+        Name: SessionID
+        Value: "/Event/EventData/Data[@Name=\"Session_ID\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "Product version: %Version_number%"
+    Values:
+      -
+        Name: Version_number
+        Value: "/Event/EventData/Data[@Name=\"Version_number\"]"
+  -
+    Property: PayloadData4
+    PropertyValue: "SRS_Path: %SRS_Path%"
+    Values:
+      -
+        Name: SRS_Path
+        Value: "/Event/EventData/Data[@Name=\"SRS_Path\"]"
+  -
+    Property: PayloadData5
+    PropertyValue: "SRC_Path: %SRC_Path%"
+    Values:
+      -
+        Name: SRC_Path
+        Value: "/Event/EventData/Data[@Name=\"SRC_Path\"]"
+
+# Documentation
+# N/A
+#
+# Event Schema
+# ]]></Template>
+#             </Event>
+#             <Event>
+#                 <Id>1100</Id>
+#                 <Version>0</Version>
+#                 <Channel>Splashtop-Splashtop Streamer-Remote Session/Operational</Channel>
+#                 <Level>Information</Level>
+#                 <Message><![CDATA[
+# A file was transferred during the Splashtop remote session (%1).
+#
+# App version: %2
+#
+# File name: %3
+#
+# From: %4 (%5)
+#
+# To: %6 (%7)
+#
+# Error code: N/A]]></Message>
+#                 <Template><![CDATA[
+# <template xmlns="http://schemas.microsoft.com/win/2004/08/events">
+#
+#   <data name="Session_ID" inType="win:UnicodeString" outType="xs:string"/>
+#
+#   <data name="Version_number" inType="win:UnicodeString" outType="xs:string"/>
+#
+#   <data name="File_Name" inType="win:UnicodeString" outType="xs:string"/>
+#
+#   <data name="SRS_Name" inType="win:UnicodeString" outType="xs:string"/>
+#
+#   <data name="SRS_Path" inType="win:UnicodeString" outType="xs:string"/>
+#
+#   <data name="SRC_Name" inType="win:UnicodeString" outType="xs:string"/>
+#
+#   <data name="SRC_Path" inType="win:UnicodeString" outType="xs:string"/>
+#
+# </template>
+#
+# Example Event Data:
+#<Event>
+#  <System>
+#    <Provider Name="Splashtop-Splashtop Streamer-Remote Session" Guid="66a2ea53-fc6c-42e5-9176-18749ab2ca11" />
+#    <EventID>1100</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>0</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8000000000000000</Keywords>
+#    <TimeCreated SystemTime="2022-02-23 01:46:30.123456" />
+#    <EventRecordID>2</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="6208" ThreadID="8520" />
+#    <Channel>Splashtop-Splashtop Streamer-Remote Session/Operational</Channel>
+#    <Computer>HOSTNAME.domain</Computer>
+#    <Security UserID="S-1-5-18" />
+#  </System>
+#  <EventData>
+#    <Data Name="Session_ID">456090679</Data>
+#    <Data Name="Version_number">3.5.0.0</Data>
+#    <Data Name="File_Name">Advanced_IP_Scanner_2.5.3850.exe</Data>
+#    <Data Name="SRS_Name">VICTIMHOSTNAME</Data>
+#    <Data Name="SRS_Path">C:</Data>
+#    <Data Name="SRC_Name">BADGUYHOSTNAME</Data>
+#    <Data Name="SRC_Path">N/A</Data>
+#  </EventData>
