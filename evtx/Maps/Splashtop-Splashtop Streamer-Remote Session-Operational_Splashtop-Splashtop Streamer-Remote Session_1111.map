@@ -108,29 +108,4 @@ Maps:
 # </template>
 #
 # Example Event Data:
-#<Event>
-#  <System>
-#    <Provider Name="Splashtop-Splashtop Streamer-Remote Session" Guid="66a2ea53-fc6c-42e5-9176-18749ab2ca11" />
-#    <EventID>1101</EventID>
-#    <Version>0</Version>
-#    <Level>4</Level>
-#    <Task>0</Task>
-#    <Opcode>0</Opcode>
-#    <Keywords>0x8000000000000000</Keywords>
-#    <TimeCreated SystemTime="2022-02-23 01:46:30.123456" />
-#    <EventRecordID>2</EventRecordID>
-#    <Correlation />
-#    <Execution ProcessID="6208" ThreadID="8520" />
-#    <Channel>Splashtop-Splashtop Streamer-Remote Session/Operational</Channel>
-#    <Computer>HOSTNAME.domain</Computer>
-#    <Security UserID="S-1-5-18" />
-#  </System>
-#  <EventData>
-#    <Data Name="Session_ID">456090679</Data>
-#    <Data Name="Version_number">3.5.0.0</Data>
-#    <Data Name="File_Name">Advanced_IP_Scanner_2.5.3850.exe</Data>
-#    <Data Name="SRC_Name">BADGUYHOSTNAME</Data>
-#    <Data Name="SRC_Path">N/A</Data>
-#    <Data Name="SRS_Name">VICTIMHOSTNAME</Data>
-#    <Data Name="SRS_Path">C:</Data>
-#  </EventData>
+# N/A
