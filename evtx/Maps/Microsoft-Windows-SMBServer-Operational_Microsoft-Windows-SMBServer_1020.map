@@ -19,13 +19,6 @@ Maps:
         Name: ClientName
         Value: "/Event/UserData/EventData/ClientName"
   -
-    Property: ExecutableInfo
-    PropertyValue: "FileName: %FileName%"
-    Values:
-      -
-        Name: FileName
-        Value: "/Event/UserData/EventData/FileName"
-  -
     Property: PayloadData1
     PropertyValue: "ShareName: %ShareName%"
     Values:
@@ -34,13 +27,20 @@ Maps:
         Value: "/Event/UserData/EventData/ShareName"
   -
     Property: PayloadData2
+    PropertyValue: "FileName: %FileName%"
+    Values:
+      -
+        Name: FileName
+        Value: "/Event/UserData/EventData/FileName"
+  -
+    Property: PayloadData3
     PropertyValue: "The threshold is %Threshold% milliseconds (15 seconds)"
     Values:
       -
         Name: Threshold
         Value: "/Event/UserData/EventData/Threshold"
   -
-    Property: PayloadData3
+    Property: PayloadData4
     PropertyValue: "The I/O operation took %Duration% milliseconds"
     Values:
       -
