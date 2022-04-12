@@ -54,6 +54,12 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"Protocol\"]"
 Lookups:
   -
+    Name: Direction
+    Default: Unknown code
+    Values:
+      1: Inbound
+      2: Outbound
+  -
     Name: Action
     Default: Unknown code
     Values:
