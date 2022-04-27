@@ -1,5 +1,5 @@
 Author: cluelessatcoding@outlook.com
-Description: WMI Query Error 
+Description: WMI Query Error
 EventId: 5858
 Channel: Microsoft-Windows-WMI-Activity/Operational
 Provider: Microsoft-Windows-WMI-Activity
@@ -173,7 +173,7 @@ Lookups:
       0x80044009: WBEMMOF_E_EXPECTED_OPEN_PAREN - Expected an open parenthesis.
       0x8004400A: WBEMMOF_E_UNRECOGNIZED_TOKEN - Unexpected token in the file.
       0x8004400B: WBEMMOF_E_UNRECOGNIZED_TYPE - Unrecognized or unsupported type identifier.
-      0x8004400B: WBEMMOF_E_EXPECTED_PROPERTY_NAME - Expected property or method name.
+      0x8004400C: WBEMMOF_E_EXPECTED_PROPERTY_NAME - Expected property or method name.
       0x8004400D: WBEMMOF_E_TYPEDEF_NOT_SUPPORTED - Typedefs and enumerated types are not supported.
       0x8004400E: WBEMMOF_E_UNEXPECTED_ALIAS - Only a reference to a class object can have an alias value.
       0x8004400F: WBEMMOF_E_UNEXPECTED_ARRAY_INIT - Unexpected array initialization. Arrays must be declared with [].
@@ -231,7 +231,7 @@ Lookups:
 #  <Correlation />
 #  <Execution ProcessID="999" ThreadID="1234" />
 #  <Channel>Microsoft-Windows-WMI-Activity/Operational</Channel>
-#  <Computer>server.domain.tld</Computer> 
+#  <Computer>server.domain.tld</Computer>
 #  <Security UserID="S-1-5-18" />
 #  </System>
 #- <UserData>
