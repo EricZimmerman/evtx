@@ -45,7 +45,7 @@ Maps:
 # https://kb.eventtracker.com/evtpass/evtpages/EventId_1130_Microsoft-Windows-GroupPolicy_64357.asp
 #
 # Example Event Data:
-#Event>
+# <Event>
 # <System>
 #   <Provider Name="Microsoft-Windows-GroupPolicy" Guid="aea1b4fa-97d1-45f2-a64c-4d69fffd92c9" />
 #   <EventID>1130</EventID>
@@ -72,4 +72,4 @@ Maps:
 #   <Data Name="GPOFileSystemPath">\\COMPANY.corp\sysvol\COMPANY.corp\Policies\{31B2F340-016D-11D2-945F-00C04FB984F9}\Machine</Data>
 #   <Data Name="GPOScriptCommandString">badness.bat</Data>
 # </EventData>
-#/Event>
+# </Event>
