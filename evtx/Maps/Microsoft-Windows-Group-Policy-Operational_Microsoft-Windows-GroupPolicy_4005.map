@@ -48,12 +48,12 @@ Maps:
         Name: ReasonForSyncProcessing
         Value: "/Event/EventData/Data[@Name=\"ReasonForSyncProcessing\"]"
 
-#Documentation:
+# Documentation:
 # Starting manual processing of policy for user {PrincipalSamName}. Activity id: {PolicyActivityId}
 #
-#Example Event Data:
-#- <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
-#- <System>
+# Example Event Data:
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <System>
 #  <Provider Name="Microsoft-Windows-GroupPolicy" Guid="{aea1b4fa-97d1-45f2-a64c-4d69fffd92c9}" />
 #  <EventID>4005</EventID>
 #  <Version>1</Version>
@@ -69,7 +69,7 @@ Maps:
 #  <Computer>COMPUTER NAME</Computer>
 #  <Security UserID="SID" />
 #  </System>
-#- <EventData>
+# <EventData>
 #  <Data Name="PolicyActivityId">{384ca94a-510c-4ce3-b104-9ef593805492}</Data>
 #  <Data Name="PrincipalSamName">USERNAME</Data>
 #  <Data Name="IsMachine">0</Data>

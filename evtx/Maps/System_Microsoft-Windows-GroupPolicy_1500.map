@@ -13,12 +13,12 @@ Maps:
         Name: DCName
         Value: "/Event/EventData/Data[@Name=\"DCName\"]"
 
-#Documentation:
+# Documentation:
 # https://intelligentsystemsmonitoring.com/knowledgebase/windows-operating-system/event-id-application-of-group-policy-16706/#:~:text=Group%20Policy%20uses%20the%20information,sharing%20the%20previous%20collected%20information
 #
-#Example Event Data:
-#- <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
-#- <System>
+# Example Event Data:
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <System>
 #  <Provider Name="Microsoft-Windows-GroupPolicy" Guid="{aea1b4fa-97d1-45f2-a64c-4d69fffd92c9}" />
 #  <EventID>1500</EventID>
 #  <Version>0</Version>
@@ -34,7 +34,7 @@ Maps:
 #  <Computer>COMPUTER NAME</Computer>
 #  <Security UserID="S-1-5-18" />
 #  </System>
-#- <EventData>
+# <EventData>
 #  <Data Name="SupportInfo1">1</Data>
 #  <Data Name="SupportInfo2">4292</Data>
 #  <Data Name="ProcessingMode">0</Data>
