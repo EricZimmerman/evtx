@@ -1,0 +1,44 @@
+Author: Tony Knutson
+Description: Group Policy Settings processed successfully for COMPUTER
+EventId: 1500
+Channel: System
+Provider: Microsoft-Windows-GroupPolicy
+Maps:
+
+  -
+    Property: PayloadData1
+    PropertyValue: "%DCName%"
+    Values:
+      -
+        Name: DCName
+        Value: "/Event/EventData/Data[@Name=\"DCName\"]"
+
+# Documentation:
+# https://intelligentsystemsmonitoring.com/knowledgebase/windows-operating-system/event-id-application-of-group-policy-16706/#:~:text=Group%20Policy%20uses%20the%20information,sharing%20the%20previous%20collected%20information
+#
+# Example Event Data:
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <System>
+#  <Provider Name="Microsoft-Windows-GroupPolicy" Guid="{aea1b4fa-97d1-45f2-a64c-4d69fffd92c9}" />
+#  <EventID>1500</EventID>
+#  <Version>0</Version>
+#  <Level>4</Level>
+#  <Task>0</Task>
+#  <Opcode>1</Opcode>
+#  <Keywords>0x8000000000000000</Keywords>
+#  <TimeCreated SystemTime="2022-02-03T15:58:40.9798617Z" />
+#  <EventRecordID>49779</EventRecordID>
+#  <Correlation ActivityID="{af33d9fd-fadd-4fb2-b25f-8f43fb1d80b8}" />
+#  <Execution ProcessID="13068" ThreadID="16392" />
+#  <Channel>System</Channel>
+#  <Computer>COMPUTER NAME</Computer>
+#  <Security UserID="S-1-5-18" />
+#  </System>
+# <EventData>
+#  <Data Name="SupportInfo1">1</Data>
+#  <Data Name="SupportInfo2">4292</Data>
+#  <Data Name="ProcessingMode">0</Data>
+#  <Data Name="ProcessingTimeInMilliseconds">11797</Data>
+#  <Data Name="DCName">DOMAIN ATTEMPTING TO JOIN</Data>
+#  </EventData>
+#  </Event>
