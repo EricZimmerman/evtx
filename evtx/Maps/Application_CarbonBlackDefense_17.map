@@ -14,8 +14,8 @@ Maps:
 
 # Documentation:
 # https://community.carbonblack.com/t5/Knowledge-Base/CB-Defense-Repeated-Event-ID-17-events-for-the-Background-Scan/ta-p/67350
-
-#<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 # <System>
 #   <Provider Name="CbDefense" />
 #   <EventID Qualifiers="16386">17</EventID>

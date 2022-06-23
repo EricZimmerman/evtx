@@ -217,8 +217,8 @@ Lookups:
 # https://docs.microsoft.com/en-gb/windows/win32/wmisdk/wmi-error-constants
 #
 # Example Event Data:
-#<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
-#- <System>
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <System>
 #  <Provider Name="Microsoft-Windows-WMI-Activity" Guid="{1418ef04-b0b4-4623-bf7e-d74ab47bbdaa}" />
 #  <EventID>5858</EventID>
 #  <Version>0</Version>
@@ -234,8 +234,8 @@ Lookups:
 #  <Computer>server.domain.tld</Computer>
 #  <Security UserID="S-1-5-18" />
 #  </System>
-#- <UserData>
-#- <Operation_ClientFailure xmlns="http://manifests.microsoft.com/win/2006/windows/WMI">
+# <UserData>
+# <Operation_ClientFailure xmlns="http://manifests.microsoft.com/win/2006/windows/WMI">
 #  <Id>{1234ABCD-12AB-12AB-12AB-123456ABCDEF}</Id>
 #  <ClientMachine>SERVER</ClientMachine>
 #  <User />

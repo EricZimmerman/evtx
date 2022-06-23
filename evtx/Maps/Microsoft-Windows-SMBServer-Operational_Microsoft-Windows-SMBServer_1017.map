@@ -54,7 +54,7 @@ Maps:
 # Event Viewer Guidance: The server closed a handle that was previously reserved for a client after 60 seconds. You should expect this event on a computer that is continuously available where a client did not gracefully close its session. For instance, this may occur when the client unexpectedly restarted.
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-SMBServer" Guid="d48ce617-33a2-4bc3-a5c7-11aa4f29619e" />
 #    <EventID>1017</EventID>
@@ -84,4 +84,4 @@ Maps:
 #      <FileName>NAMEOFSHARE\NAMEOFDOCUMENT.ext</FileName>
 #    </EventData>
 #  </UserData>
-#</Event>
+# </Event>

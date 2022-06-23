@@ -70,7 +70,7 @@ Lookups:
 # https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cifs/f9a8a713-1c53-4fb0-908e-625389840cf8
 #
 # Example Event Data:
-#<Event>
+# <Event>
 # <Event>
 #   <System>
 #     <Provider Name="Microsoft-Windows-SMBServer" Guid="d48ce617-33a2-4bc3-a5c7-11aa4f29619e" />
