@@ -1,5 +1,5 @@
 Author: Tony Knutson
-Description: Absence of network connectivity 
+Description: Absence of network connectivity
 EventId: 1129
 Channel: System
 Provider: Microsoft-Windows-GroupPolicy
