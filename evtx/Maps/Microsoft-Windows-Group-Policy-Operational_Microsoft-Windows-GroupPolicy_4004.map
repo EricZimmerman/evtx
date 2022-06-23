@@ -69,7 +69,7 @@ Maps:
 #  <Computer>COMPUTER</Computer>
 #  <Security UserID="S-1-5-18" />
 #  </System>
-#- <EventData>
+# <EventData>
 #  <Data Name="PolicyActivityId">{41242399-fbd6-42f2-a8ce-48300011574d}</Data>
 #  <Data Name="PrincipalSamName">USERNAME</Data>
 #  <Data Name="IsMachine">1</Data>
