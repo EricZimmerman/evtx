@@ -91,7 +91,7 @@ Maps:
 #
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Splashtop-Splashtop Streamer-Remote Session" Guid="66a2ea53-fc6c-42e5-9176-18749ab2ca11" />
 #    <EventID>1000</EventID>
@@ -114,4 +114,4 @@ Maps:
 #    <Data Name="SRC_Name">source name</Data>
 #    <Data Name="Version_number">3.4.4.0</Data>
 #  </EventData>
-#</Event>
+# </Event>
