@@ -20,12 +20,12 @@ Maps:
         Name: OperationDescription
         Value: "/Event/EventData/Data[@Name=\"OperationDescription\"]"
 
-#Documentation:
+# Documentation:
 # https://kb.eventtracker.com/evtpass/evtpages/EventId_1501_Microsoft-Windows-GroupPolicy_62070.asp#:~:text=The%20Group%20Policy%20settings%20for,successful%20processing%20of%20Group%20Policy.
 #
-#Example Event Data:
-#- <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
-#- <System>
+# Example Event Data:
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <System>
 #  <Provider Name="Microsoft-Windows-GroupPolicy" Guid="{aea1b4fa-97d1-45f2-a64c-4d69fffd92c9}" />
 #  <EventID>4017</EventID>
 #  <Version>0</Version>
@@ -41,7 +41,7 @@ Maps:
 #  <Computer>COMPUTER NAME</Computer>
 #  <Security UserID="S-1-5-18" />
 #  </System>
-#- <EventData>
+# <EventData>
 #  <Data Name="OperationDescription">%%4119</Data>
 #  <Data Name="Parameter">DOMAIN</Data>
 #  </EventData>

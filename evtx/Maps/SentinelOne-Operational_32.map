@@ -23,8 +23,8 @@ Maps:
 # N/A
 #
 # Example Event Data:
-#- <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
-#- <System>
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <System>
 #  <Provider Name="SentinelOne" Guid="{GUID}" />
 #  <EventID>32</EventID>
 #  <Version>0</Version>
@@ -40,7 +40,7 @@ Maps:
 #  <Computer>COMPUTER NAME</Computer>
 #  <Security UserID="S-1-5-18" />
 #  </System>
-#- <EventData>
+# <EventData>
 #  <Data Name="TrueContextID">D69E3E5659219301</Data>
 #  <Data Name="Action">Quarantine</Data>
 #  <Data Name="Result">Success</Data>

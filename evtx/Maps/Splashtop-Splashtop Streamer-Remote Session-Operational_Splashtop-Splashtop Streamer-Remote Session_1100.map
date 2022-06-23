@@ -97,7 +97,7 @@ Maps:
 # </template>
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Splashtop-Splashtop Streamer-Remote Session" Guid="66a2ea53-fc6c-42e5-9176-18749ab2ca11" />
 #    <EventID>1100</EventID>

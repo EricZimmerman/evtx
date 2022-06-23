@@ -92,7 +92,7 @@ Lookups:
 # Event Viewer Guidance: The client attempted to reopen a continuously available handle, but the attempt failed. This typically indicates a problem with the network or underlying file being re-opened.
 #
 # Example Event Data:
-#Event>
+# <Event>
 # <System>
 #   <Provider Name="Microsoft-Windows-SMBServer" Guid="d48ce617-33a2-4bc3-a5c7-11aa4f29619e" />
 #   <EventID>1016</EventID>
@@ -134,4 +134,4 @@ Lookups:
 #     <Reason>1</Reason>
 #   </EventData>
 # </UserData>
-#/Event>
+# </Event>

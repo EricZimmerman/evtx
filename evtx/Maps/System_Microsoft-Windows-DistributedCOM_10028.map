@@ -32,7 +32,7 @@ Maps:
 # https://www.eventid.net/display-eventid-10028-source-Microsoft-Windows-DistributedCOM-eventno-11243-phase-1.htm
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-DistributedCOM" Guid="{1B562E86-B7AA-4131-BADC-B6F36791407E}" EventSourceName="DCOM" />
 #    <EventID Qualifiers="0">10028</EventID>
@@ -56,4 +56,4 @@ Maps:
 #    <Data Name="param4">{8BC3F05E-D86B-11D0-A075-00C679B68820}</Data>
 #    <Binary>ec d1 ce d4 68 52 82 02 19 44 52 67 9a 17 22 ec 2d ec 17 10 fa 0a a1 aa 00 ec d2 ce d4 68 52 82 02 19 44 52 67 9a 17 22 ec 18 de c1 44 2f a0 aa 1a a0 10 10 12 34 5e cd 3c ed 46 85 28 20 21 94 45 26 79 a1 72 2e c1 8d ec 32 3f a0 aa 0e cd 4c ed 46 85 28 20 21 94 45 26 79 a1 23 7e c1 8d ec 31 3f a0 aa 0e cd 5c ed 46 85 28 20 21 94 45 26 79 a1 00 60 ec 18 de c3 11 fa 0a a3 aa 01 35 aa 10 aa 2f e0 15 0a 06 79 00 00 ec d6 ce d4 68 52 82 02 19 44 52 67 9a 10 06 0e c1 8d ec 31 8f a0 aa 00</Binary>
 #  </EventData>
-#</Event>
+# </Event>

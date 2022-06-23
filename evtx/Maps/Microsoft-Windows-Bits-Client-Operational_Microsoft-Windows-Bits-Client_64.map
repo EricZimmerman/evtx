@@ -34,7 +34,7 @@ Maps:
 # https://docs.microsoft.com/de-de/security-updates/windowsupdateservices/18127392
 #
 # Example Event Data:
-#<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 # <System>
 #  <Provider Name="Microsoft-Windows-Bits-Client" Guid="{GUID}" />
 #  <EventID>64</EventID>
@@ -57,4 +57,4 @@ Maps:
 #  <Data Name="Pgm">PROGRAM NAME</Data>
 #  <Data Name="hr">2147942402</Data>
 # </EventData>
-#</Event>
+# </Event>
