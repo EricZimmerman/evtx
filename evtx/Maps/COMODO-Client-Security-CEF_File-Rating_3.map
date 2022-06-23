@@ -45,7 +45,11 @@ Maps:
         Value: "/Event/EventData/Data"
         Refine: fname=([a-zA-Z0-9_\\.\&\;\-\(\):])+(\.[a-zA-Z0-9]{3,4})\b
 
-#<Event>
+# Documentation:
+# N/A
+#
+# Example Event Data:
+# <Event>
 # <System>
 #   <Provider Name="File Rating" />
 #   <EventID Qualifiers="16384">3</EventID>
@@ -62,4 +66,4 @@ Maps:
 #   <Data>Jun 13 2021 03:22:03 0000 HOSTNAME CEF:0|comodo|cis.cas.endpoint|12.7.1.8539|9FB5B608-55DE-4704-A02C-71BD45426149|Rating Info|5|filePath=C:\Program Files\Microsoft Monitoring Agent\Agent\Health Service State\Monitoring Host Temporary Files\FileName.vbs #fname=FileName.vbs act=Added cat=rating reason=COMODO cs1Label=old_rating cs1=Unrecognized cs2Label=new_rating cs2=Unrecognized cs3Label=src_rating cs3=FLS cs4Label=status cs4=0 fileHash=E56BB8E025E0B1DD89EFF01180D7ACCBA597AC1A dvchost=hostname.domain.com dvc=127.0.0.1 #deviceExternalId=96966028D15B1C8E4B0C5CBCE3A34E446DEC474B </Data>
 #   <Binary></Binary>
 # </EventData>
-#</Event>
+# </Event>
