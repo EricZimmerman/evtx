@@ -47,11 +47,11 @@ Maps:
         Name: StartTime
         Value: "/Event/EventData/Data[@Name=\"StartTime\"]"
 
-#Documentation:
+# Documentation:
 #
-#Example Event Data:
-#- <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
-#- <System>
+# Example Event Data:
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <System>
 #  <Provider Name="Microsoft-Windows-Diagnostics-Performance" Guid="{cfc18ec0-96b1-4eba-961b-622caee05b0a}" />
 #  <EventID>101</EventID>
 #  <Version>1</Version>
@@ -67,7 +67,7 @@ Maps:
 #  <Computer>COMPUTER NAME</Computer>
 #  <Security UserID="S-1-5-19" />
 #  </System>
-#- <EventData>
+# <EventData>
 #  <Data Name="StartTime">2022-06-16T15:01:58.9212636Z</Data>
 #  <Data Name="NameLength">12</Data>
 #  <Data Name="Name">svchost.exe</Data>
@@ -80,7 +80,7 @@ Maps:
 #  <Data Name="PathLength">32</Data>
 #  <Data Name="Path">C:\Windows\System32\svchost.exe</Data>
 #  <Data Name="ProductNameLength">37</Data>
-#  <Data Name="ProductName">Microsoft® Windows® Operating System</Data>
+#  <Data Name="ProductName">MicrosoftÂ® WindowsÂ® Operating System</Data>
 #  <Data Name="CompanyNameLength">22</Data>
 #  <Data Name="CompanyName">Microsoft Corporation</Data>
 #  </EventData>
