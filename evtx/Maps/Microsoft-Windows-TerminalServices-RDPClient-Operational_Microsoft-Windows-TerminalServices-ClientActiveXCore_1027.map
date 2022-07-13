@@ -12,6 +12,13 @@ Maps:
         Name: DomainName
         Value: "/Event/EventData/Data[@Name=\"DomainName\"]"
   -
+    Property: PayloadData2
+    PropertyValue: "Session ID: %SessionId%"
+    Values:
+      -
+        Name: SessionId
+        Value: "/Event/EventData/Data[@Name=\"SessionId\"]"
+  -
     Property: PayloadData6
     PropertyValue: "ActivityID: %ActivityID%"
     Values:
