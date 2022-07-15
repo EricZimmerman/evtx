@@ -1,0 +1,39 @@
+Author: Gabriele Zambelli @gazambelli
+Description: NTDS the database engine detached a database
+EventId: 327
+Channel: Application
+Provider: ESENT
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "Database: %Database%"
+    Values:
+      -
+        Name: Database
+        Value: "/Event/EventData/Data"
+        Refine: "[a-zA-Z]{1}:.*\\.[a-zA-Z]{3,5}"
+
+# Documentation:
+# Windows Events Attack Samples: https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES
+# https://blog.menasec.net/2019/11/forensics-traces-of-ntdsdit-dumping.html
+# https://docs.microsoft.com/en-us/troubleshoot/windows-server/performance/esent-event-327-326
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="ESENT" />
+#     <EventID Qualifiers="0">327</EventID>
+#     <Level>4</Level>
+#     <Task>1</Task>
+#     <Keywords>0x80000000000000</Keywords>
+#     <TimeCreated SystemTime="2019-11-26 23:55:02.0000000" />
+#     <EventRecordID>1971</EventRecordID>
+#     <Channel>Application</Channel>
+#     <Computer>DC1.insecurebank.local</Computer>
+#     <Security />
+#   </System>
+#   <EventData>
+#     <Data>NTDS, 3392, 2, C:\Users\bob\Desktop\test\Folder\ntds\Active Directory\ntds.dit, 0, [1] 0.000, [2] 0.000, [3] 0.000, [4] 0.110, [5] 0.000, [6] 0.015, [7] 0.000, [8] 0.000, [9] 0.000, [10] 0.266, [11] 0.000, [12] 0.000., 0 0</Data>
+#     <Binary></Binary>
+#   </EventData>
+# </Event>
