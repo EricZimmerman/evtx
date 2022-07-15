@@ -1,5 +1,5 @@
-Author: Mark Hallman mark.hallman@gmail.com, Hyun Yi @hyuunnn, Andrew Rathbun, Chad Tilbury
-Description: USB Insertion/Removal
+Author: Mark Hallman mark.hallman@gmail.com, Hyun Yi @hyuunnn, Andrew Rathbun, Chad Tilbury, Gabriele Zambelli
+Description: USB/VHD Insertion/Removal
 EventId: 1006
 Channel: "Microsoft-Windows-Partition/Diagnostic"
 Provider: Microsoft-Windows-Partition
@@ -46,6 +46,13 @@ Maps:
       -
         Name: ParentId
         Value: "/Event/EventData/Data[@Name=\"ParentId\"]"
+  -
+    Property: ExecutableInfo
+    PropertyValue: "Location: %Location%"
+    Values:
+      -
+        Name: Location
+        Value: "/Event/EventData/Data[@Name=\"Location\"]"
 
 # Documentation:
 # https://www.atropos4n6.com/windows/extract-vsns-that-reside-in-windows-partition4diagnostic-evtx/
@@ -159,4 +166,100 @@ Maps:
 #    <Data Name="Vbr3Size">0</Data>
 #    <Data Name="Vbr3"></Data>
 #  </EventData>
+# </Event>
+#
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-Partition" Guid="412bdff2-a8c4-470d-8f33-63fe0d8c20e2" />
+#     <EventID>1006</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x8000000000000000</Keywords>
+#     <TimeCreated SystemTime="2022-06-18 18:08:56.2583872" />
+#     <EventRecordID>8</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="4" ThreadID="6140" />
+#     <Channel>Microsoft-Windows-Partition/Diagnostic</Channel>
+#     <Computer>VMWIN10</Computer>
+#     <Security UserID="S-1-5-18" />
+#   </System>
+#   <EventData>
+#     <Data Name="Version">3</Data>
+#     <Data Name="DiskNumber">1</Data>
+#     <Data Name="Flags">8208</Data>
+#     <Data Name="Characteristics">256</Data>
+#     <Data Name="IsSystemCritical">False</Data>
+#     <Data Name="PagingCount">0</Data>
+#     <Data Name="HibernationCount">0</Data>
+#     <Data Name="DumpCount">0</Data>
+#     <Data Name="BytesPerSector">512</Data>
+#     <Data Name="Capacity">5368709120</Data>
+#     <Data Name="BusType">15</Data>
+#     <Data Name="Manufacturer">Msft</Data>
+#     <Data Name="Model">Virtual Disk</Data>
+#     <Data Name="Revision">1.0</Data>
+#     <Data Name="SerialNumber">NULL</Data>
+#     <Data Name="Location">C:\Users\Administrator\Documents\TEST.vhdx</Data>
+#     <Data Name="ParentId">{8e7bd593-6e6c-4c52-86a6-77175494dd8e}\MsVhdHba\1&amp;amp;3030e83&amp;amp;0&amp;amp;01</Data>
+#     <Data Name="IoctlSupport">59903</Data>
+#     <Data Name="IdFlags">4</Data>
+#     <Data Name="DiskId">07040c5a-d416-d0d8-a712-aaa26504f23f</Data>
+#     <Data Name="AdapterId">38f6b6ae-ef2a-11ec-a14b-000c2931d7bf</Data>
+#     <Data Name="RegistryId">38f6b6af-ef2a-11ec-a14b-000c2931d7bf</Data>
+#     <Data Name="PoolId">00000000-0000-0000-0000-000000000000</Data>
+#     <Data Name="FirmwareSupportsUpgrade">True</Data>
+#     <Data Name="FirmwareSlotCount">1</Data>
+#     <Data Name="StorageIdCount">2</Data>
+#     <Data Name="StorageIdCodeSet">1</Data>
+#     <Data Name="StorageIdType">3</Data>
+#     <Data Name="StorageIdAssociation">0</Data>
+#     <Data Name="StorageIdBytes">16</Data>
+#     <Data Name="StorageId">60-02-24-80-0D-B5-E4-FA-29-F5-69-0A-86-D4-A7-B2</Data>
+#     <Data Name="WriteCacheType">2</Data>
+#     <Data Name="WriteCacheEnabled">2</Data>
+#     <Data Name="WriteCacheChangeable">2</Data>
+#     <Data Name="WriteThroughSupported">1</Data>
+#     <Data Name="FlushCacheSupported">True</Data>
+#     <Data Name="IsPowerProtected">False</Data>
+#     <Data Name="NVCacheEnabled">False</Data>
+#     <Data Name="BytesPerLogicalSector">512</Data>
+#     <Data Name="BytesPerPhysicalSector">4096</Data>
+#     <Data Name="BytesOffsetForSectorAlignment">0</Data>
+#     <Data Name="IncursSeekPenalty">False</Data>
+#     <Data Name="IsTrimSupported">True</Data>
+#     <Data Name="IsThinProvisioned">True</Data>
+#     <Data Name="OptimalUnmapGranularity">33554432</Data>
+#     <Data Name="UnmapAlignment">0</Data>
+#     <Data Name="NumberOfLogicalCopies">0</Data>
+#     <Data Name="NumberOfPhysicalCopies">0</Data>
+#     <Data Name="FaultTolerance">0</Data>
+#     <Data Name="NumberOfColumns">0</Data>
+#     <Data Name="InterleaveBytes">0</Data>
+#     <Data Name="HybridSupported">False</Data>
+#     <Data Name="HybridCacheBytes">0</Data>
+#     <Data Name="AdapterMaximumTransferBytes">8388608</Data>
+#     <Data Name="AdapterMaximumTransferPages">4294967295</Data>
+#     <Data Name="AdapterAlignmentMask">1</Data>
+#     <Data Name="AdapterSerialNumber">NULL</Data>
+#     <Data Name="PortDriver">1</Data>
+#     <Data Name="UserRemovalPolicy">False</Data>
+#     <Data Name="PartitionStyle">0</Data>
+#     <Data Name="PartitionCount">0</Data>
+#     <Data Name="PartitionTableBytes">48</Data>
+#     <Data Name="PartitionTable">00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00</Data>
+#     <Data Name="MbrBytes">512</Data>
+#     <Data Name="Mbr">00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00-00</Data>
+#     <Data Name="Vbr0Bytes">0</Data>
+#     <Data Name="Vbr0"></Data>
+#     <Data Name="Vbr1Bytes">0</Data>
+#     <Data Name="Vbr1"></Data>
+#     <Data Name="Vbr2Bytes">0</Data>
+#     <Data Name="Vbr2"></Data>
+#     <Data Name="Vbr3Size">0</Data>
+#     <Data Name="Vbr3"></Data>
+#   </EventData>
 # </Event>

@@ -49,6 +49,20 @@ Maps:
         Name: TargetLogonId
         Value: "/Event/EventData/Data[@Name=\"TargetLogonId\"]"
   -
+    Property: PayloadData4
+    PropertyValue: "AuthenticationPackageName: %AuthenticationPackageName%"
+    Values:
+      -
+        Name: AuthenticationPackageName
+        Value: "/Event/EventData/Data[@Name=\"AuthenticationPackageName\"]"
+  -
+    Property: PayloadData5
+    PropertyValue: "LogonProcessName: %LogonProcessName%"
+    Values:
+      -
+        Name: LogonProcessName
+        Value: "/Event/EventData/Data[@Name=\"LogonProcessName\"]"
+  -
     Property: ExecutableInfo
     PropertyValue: "%ProcessName%"
     Values:

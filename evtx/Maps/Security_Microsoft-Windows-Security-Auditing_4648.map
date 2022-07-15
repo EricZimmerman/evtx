@@ -55,6 +55,13 @@ Maps:
       -
         Name: ProcessId
         Value: "/Event/EventData/Data[@Name=\"ProcessId\"]"
+  -
+    Property: PayloadData4
+    PropertyValue: "TargetInfo: %TargetInfo%"
+    Values:
+      -
+        Name: TargetInfo
+        Value: "/Event/EventData/Data[@Name=\"TargetInfo\"]"
 
 # Documentation:
 # https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4648

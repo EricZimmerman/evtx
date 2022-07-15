@@ -39,7 +39,20 @@ Maps:
       -
         Name: SubjectLogonId
         Value: "/Event/EventData/Data[@Name=\"SubjectLogonId\"]"
-
+  -
+    Property: PayloadData4
+    PropertyValue: "CountOfCredentialsReturned: %CountOfCredentialsReturned%"
+    Values:
+      -
+        Name: CountOfCredentialsReturned
+        Value: "/Event/EventData/Data[@Name=\"CountOfCredentialsReturned\"]"
+  -
+    Property: PayloadData6
+    PropertyValue: "ActivityID: %ActivityID%"
+    Values:
+      -
+        Name: ActivityID
+        Value: "/Event/System/Correlation/@ActivityID"
 
 # Documentation:
 # https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5379
