@@ -13,6 +13,8 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"TimezoneBiasHour\"]"
 
 # Documentation:
+# https://github.com/nasbench/EVTX-ETW-Resources/search?l=CSV&p=20&q=TimezoneBiasHour
+#
 # <Event>
 #   <System>
 #     <Provider Name="Microsoft-Windows-RemoteDesktopServices-RdpCoreTS" Guid="1139c61b-b549-4251-8ed3-27250a1edec8" />
