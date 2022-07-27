@@ -30,6 +30,7 @@ Maps:
 # https://cyber-tls.blogspot.com/2019/08/rdp.html
 # https://social.technet.microsoft.com/wiki/contents/articles/37847.rdp-direct-connection-with-nla-remote-desktop-client-event-logs.aspx
 # https://nullsec.us/windows-rdp-related-event-logs-the-client-side-of-the-story/
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-TerminalServices-ClientActiveXCore.csv
 #
 # Example Event Data:
 # Connected to domain (SERVER-01) with session 12.
