@@ -98,6 +98,7 @@ Lookups:
 # https://docs.microsoft.com/en-us/windows/win32/procthread/process-security-and-access-rights?redirectedfrom=MSDN
 # https://cyberwardog.blogspot.com/2017/03/chronicles-of-threat-hunter-hunting-for_22.html
 # https://github.com/trustedsec/SysmonCommunityGuide/blob/master/process-access.md
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/ThirdParty/Microsoft-Windows-Sysmon.csv
 # https://docs.splunksecurityessentials.com/content-detail/detect_credential_dumping_through_lsass_access/
 #
 # Example Event Data:
