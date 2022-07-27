@@ -30,6 +30,7 @@ Maps:
 # https://answers.microsoft.com/en-us/windows/forum/windows_7-performance/critical-error-100-in-event-viewer/f606bf89-3b71-4695-a26a-3eaffd31eade
 # https://social.technet.microsoft.com/wiki/contents/articles/11559.event-id-100-windows-diagnostics-performance.aspx
 # https://eventlogxp.com/blog/windows-boot-performance-diagnostics-1/
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-Diagnostics-Performance.csv
 #
 # Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
