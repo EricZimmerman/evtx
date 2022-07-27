@@ -69,6 +69,7 @@ Lookups:
 # Documentation:
 # Windows Events Attack Samples: https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES
 # https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4741
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-Security-Auditing.csv
 #
 # Example Event Data:
 # <Event>

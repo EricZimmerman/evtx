@@ -57,6 +57,7 @@ Maps:
 # Documentation:
 # https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5379
 # https://www.socinvestigation.com/windows-event-id-5379-to-detect-malicious-password-protected-file-unlock/
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-Security-Auditing.csv
 #
 # Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
