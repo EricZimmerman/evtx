@@ -77,6 +77,7 @@ Lookups:
 # Documentation:
 # https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5158
 # https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-5158
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-Security-Auditing.csv
 #
 # This event is logged every time a client or server application binds to a port.  Binding is the first step in TCP/UDP communications.
 # For server applications, subsequent to this event you will see 5154 or 5031 when the server attempts to begin listening on the port.

@@ -77,6 +77,7 @@ Lookups:
 # Documentation:
 # https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=5159
 # https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-5159
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-Security-Auditing.csv
 #
 # This event is logged every time WFP prevents a client or server application binds to a port.  Binding is the first step in TCP or UDP communications.
 #
