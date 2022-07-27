@@ -15,6 +15,7 @@ Maps:
 # Documentation:
 # A connection from the client computer with an IP address of 172.x.x.x failed because the user name or password is not correct.
 # https://purerds.org/remote-desktop-security/auditing-remote-desktop-services-logon-failures-1/
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-RemoteDesktopServices-RdpCoreTS.csv
 #
 # Example Event Data:
 # <Event>
