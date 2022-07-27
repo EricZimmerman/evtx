@@ -49,6 +49,7 @@ Maps:
 
 # Documentation:
 # https://docs.microsoft.com/en-us/windows/security/threat-protection/windows-defender-application-control/applocker/using-event-viewer-with-applocker
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-AppLocker.csv
 #
 # Example Event Data:
 # <Event>
