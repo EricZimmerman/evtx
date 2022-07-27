@@ -14,6 +14,7 @@ Maps:
 
 # Documentation:
 # https://www.koreascience.or.kr/article/JAKO201820765436652.pdf (Table 9. Event IDs for Log On/Off)
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-User%20Profiles%20Service.csv
 #
 # Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">

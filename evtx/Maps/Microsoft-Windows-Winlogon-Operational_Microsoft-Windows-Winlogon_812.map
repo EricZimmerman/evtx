@@ -38,6 +38,7 @@ Lookups:
 # https://nasbench.medium.com/finding-forensic-goodness-in-obscure-windows-event-logs-60e978ea45a3
 # https://superuser.com/questions/1614690/how-to-find-when-a-user-is-started-and-ended-a-session-on-computer-based-on-wind
 # https://github.com/repnz/etw-providers-docs/blob/master/Manifests-Win7-7600/Microsoft-Windows-Winlogon.xml
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-Winlogon.csv
 #
 # Example Event Data:
 # <Event>

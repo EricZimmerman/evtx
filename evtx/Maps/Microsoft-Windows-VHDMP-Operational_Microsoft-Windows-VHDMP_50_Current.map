@@ -27,7 +27,7 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"TargetVhdFileName\"]"
 
 # Documentation:
-# N/A
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-VHDMP.csv
 #
 # Example Event Data:
 # <Event>

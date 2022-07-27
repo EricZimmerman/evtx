@@ -15,6 +15,7 @@ Maps:
 # Documentation:
 # https://www.mrhobbits.com/2019/09/28/determining-when-windows10-detected-internet-was-available/
 # https://superuser.com/questions/1415160/sudden-loss-of-internet-access-windows-10
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-UniversalTelemetryClient.csv
 #
 # Example Event Data:
 # <Event>
