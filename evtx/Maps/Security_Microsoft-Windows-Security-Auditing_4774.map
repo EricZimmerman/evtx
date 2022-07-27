@@ -14,7 +14,8 @@ Maps:
 
 # Documentation:
 # https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=4774
-# https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4774# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-Security-Auditing.csv
+# https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4774
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-Security-Auditing.csv
 # Per Microsoft, success events do not generate.
 # This map is in place in case this event does come across in logs so the Map Description field will be populated.
 #
