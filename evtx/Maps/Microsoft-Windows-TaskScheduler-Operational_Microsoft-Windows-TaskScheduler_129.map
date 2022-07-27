@@ -30,6 +30,7 @@ Maps:
 # http://intelligentsystemsmonitoring.com/knowledgebase/windows-operating-system/event-id-task-monitoring-and-control-12716/
 # https://www.cyprich.com/2017/03/29/common-task-scheduler-event-ids/
 # https://mnaoumov.wordpress.com/2014/05/15/task-scheduler-event-ids/
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-TaskScheduler.csv
 #
 # Example Event Data:
 # <Event>

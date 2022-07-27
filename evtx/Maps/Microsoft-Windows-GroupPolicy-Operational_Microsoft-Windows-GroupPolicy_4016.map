@@ -37,6 +37,7 @@ Maps:
 # Documentation:
 # Events 4016 and 5016 show the start and end of processing of groups of policies, including how long it took to apply each one in the end event.
 # https://itworldjd.wordpress.com/2014/03/10/gpo-troubleshooting-using-log-files-on-win7-and-win-2008-r2/
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-GroupPolicy.csv
 #
 # Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">

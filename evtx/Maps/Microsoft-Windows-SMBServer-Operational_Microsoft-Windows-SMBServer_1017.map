@@ -52,6 +52,7 @@ Maps:
 # https://wiki.samba.org/index.php/SMB3_kernel_status#durable_handles
 # https://wiki.samba.org/index.php/Samba3/SMB2#Resilient_File_Handles
 # Event Viewer Guidance: The server closed a handle that was previously reserved for a client after 60 seconds. You should expect this event on a computer that is continuously available where a client did not gracefully close its session. For instance, this may occur when the client unexpectedly restarted.
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-SMBServer.csv
 #
 # Example Event Data:
 # <Event>

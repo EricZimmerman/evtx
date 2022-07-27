@@ -28,6 +28,7 @@ Maps:
 
 # Documentation:
 # https://www.hecfblog.com/2018/09/daily-blog-474-application-experience.html
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-Application-Experience.csv
 #
 # Example Event Data:
 # <Event>

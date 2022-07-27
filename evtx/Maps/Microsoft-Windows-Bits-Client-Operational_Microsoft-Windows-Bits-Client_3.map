@@ -40,6 +40,7 @@ Maps:
 # https://docs.microsoft.com/de-de/security-updates/windowsupdateservices/18127392
 # https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-r2-and-2008/cc734695(v=ws.10)
 # https://www.sans.org/reading-room/whitepapers/forensics/bits-forensics-39195
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-Bits-Client.csv
 #
 # Example Event Data:
 # <Event>

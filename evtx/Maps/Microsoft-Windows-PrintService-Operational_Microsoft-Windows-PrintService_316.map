@@ -31,6 +31,7 @@ Maps:
 
 # Documentation:
 # https://www.bleepingcomputer.com/news/security/public-windows-printnightmare-0-day-exploit-allows-domain-takeover/
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-PrintService.csv
 # Example message from Windows Event Viewer: Printer driver 1234 for Windows x64 Version-3 was added or updated. Files:- UNIDRV.DLL, DLL-U-C-Me-Now.dll, DLL-U-C-Me-Now.dll. No user action is required.
 #
 # Param1 --> Printer Driver

@@ -14,6 +14,7 @@ Maps:
 
 # Documentation:
 # https://www.action1.com/kb/changing-the-time-zone-in-CMD-Windows-10.html
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-TZUtil.csv
 #
 # Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">

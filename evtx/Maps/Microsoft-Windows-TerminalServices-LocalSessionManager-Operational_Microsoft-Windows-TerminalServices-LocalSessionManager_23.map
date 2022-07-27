@@ -26,6 +26,7 @@ Maps:
 # http://woshub.com/rdp-connection-logs-forensics-windows/
 # https://countuponsecurity.com/2015/11/25/digital-forensics-supertimeline-event-logs-part-ii/
 # https://frsecure.com/blog/rdp-connection-event-logs/
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-TerminalServices-LocalSessionManager.csv
 #
 # Example Event Data:
 # <Event>

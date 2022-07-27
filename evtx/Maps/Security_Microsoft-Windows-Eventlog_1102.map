@@ -24,6 +24,7 @@ Maps:
 
 # Documentation:
 # https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-1102
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-Eventlog.csv
 #
 # Example Event Data:
 # <Event>

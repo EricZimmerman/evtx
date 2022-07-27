@@ -23,6 +23,7 @@ Maps:
 # https://resources.infosecinstitute.com/topic/powershell-remoting-artifacts-part-1/
 # https://nsfocusglobal.com/Attack-and-Defense-Around-PowerShell-Event-Logging
 # https://www.powershellmagazine.com/2014/07/16/investigating-powershell-attacks/
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-WinRM.csv
 #
 # Example Event Data:
 #  <EventData>

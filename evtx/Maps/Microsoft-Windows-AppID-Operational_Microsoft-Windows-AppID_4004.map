@@ -27,7 +27,7 @@ Maps:
         Value: "/Event/UserData/FilePathPublisherNameAndStatusData/Status"
 
 # Documentation:
-# N/A
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-AppID.csv
 #
 # Example Event Data:
 # <Event>

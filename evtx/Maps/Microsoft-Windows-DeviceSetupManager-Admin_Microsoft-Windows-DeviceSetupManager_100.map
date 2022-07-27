@@ -22,6 +22,7 @@ Maps:
 # Documentation:
 # https://cyberforensicator.com/wp-content/uploads/2017/09/USB-Storage-Device-Forensics-for-Windows-10.pdf
 # https://forensixchange.com/posts/19_08_03_usb_storage_forensics_1/
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-DeviceSetupManager.csv
 # https://www.swiftforensics.com/2013/11/event-log-entries-for-devices-in.html
 # This event directly precedes a 112 event.
 #

@@ -62,6 +62,7 @@ Maps:
 
 # Documentation:
 # https://github.com/OTRF/OSSEM/blob/master/data_dictionaries/windows/powershell/events/event-4103.md
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-PowerShell.csv
 #
 # Example Event Data:
 # <Event>

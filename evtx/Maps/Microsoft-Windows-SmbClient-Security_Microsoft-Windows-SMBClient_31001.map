@@ -72,6 +72,7 @@ Lookups:
 
 # Documentation:
 # Failure Information: https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4625
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-SMBClient.csv
 #
 # Example Event Data:
 # <Event>

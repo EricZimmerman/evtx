@@ -41,6 +41,7 @@ Lookups:
 # https://social.technet.microsoft.com/wiki/contents/articles/37874.rds-session-host-server-disconnect-codes.aspx
 # http://woshub.com/rdp-connection-logs-forensics-windows/
 # https://community.spiceworks.com/topic/550908-terminal-services-disconnections-reason-codes
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-TerminalServices-LocalSessionManager.csv
 #
 # Example Event Data:
 # <Event

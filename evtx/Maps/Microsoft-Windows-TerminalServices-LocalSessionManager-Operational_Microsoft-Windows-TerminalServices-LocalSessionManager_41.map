@@ -27,7 +27,7 @@ Maps:
         Value: "/Event/System/Correlation/@ActivityID"
 
 # Documentation:
-# N/A
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-TerminalServices-LocalSessionManager.csv
 #
 # Example Event Data:
 # <Event>
