@@ -68,6 +68,7 @@ Lookups:
 # https://github.com/defendthehoneypot/incidentresponse#smb-brute-force-login
 # https://support.microsoft.com/en-us/topic/ntlm-authentication-fails-with-0xc0000022-error-for-windows-server-2012-windows-8-1-and-windows-server-2012-r2-after-update-is-applied-a4b23900-7cc2-2bb9-432d-831c79aea7a3
 # https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cifs/f9a8a713-1c53-4fb0-908e-625389840cf8
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-SMBServer.csv
 #
 # Example Event Data:
 # <Event>

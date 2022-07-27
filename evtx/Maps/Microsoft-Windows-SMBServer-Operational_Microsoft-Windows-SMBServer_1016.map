@@ -90,6 +90,7 @@ Lookups:
 # Documentation:
 # https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-smb/6ab6ca20-b404-41fd-b91a-2ed39e3762ea
 # Event Viewer Guidance: The client attempted to reopen a continuously available handle, but the attempt failed. This typically indicates a problem with the network or underlying file being re-opened.
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-SMBServer.csv
 #
 # Example Event Data:
 # <Event>

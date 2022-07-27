@@ -1804,6 +1804,7 @@ Lookups:
 
 # Documentation:
 # SMB::StatusCode (base/protocols/smb/const-nt-status.zeek): https://docs.zeek.org/en/master/scripts/base/protocols/smb/consts.zeek.html
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-SMBClient.csv
 #
 # Example Event Data:
 # <Event>
