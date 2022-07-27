@@ -50,6 +50,7 @@ Maps:
 
 # Documentation:
 # Starting manual processing of policy for computer {PrincipalSamName}. Activity id: {PolicyActivityId}
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-GroupPolicy.csv
 #
 # Example Event Data:
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
