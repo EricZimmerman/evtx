@@ -45,6 +45,7 @@ Maps:
 # https://www.mcbsys.com/blog/2016/08/stordiag-errors-after-windows-10-upgrade/
 # https://www.windowsphoneinfo.com/threads/event-507-completing-a-failed-non-readwrite-scsi-srb-request.275718/
 # https://answers.microsoft.com/en-us/windows/forum/all/event-507-completing-a-failed-non-readwrite-scsi/9f900bc9-8a7d-4a89-a197-d1728af9e59e
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-StorDiag.csv
 #
 # Example Event Data:
 # <Event>

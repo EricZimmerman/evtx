@@ -23,6 +23,7 @@ Maps:
 # https://kb.eventtracker.com/evtpass/evtpages/EventId_141_Microsoft-Windows-TaskScheduler_66040.asp
 # https://mnaoumov.wordpress.com/2014/05/15/task-scheduler-event-ids/
 # https://twitter.com/matthewdunwoody/status/1174430169811050499
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-TaskScheduler.csv
 #
 # Example Event Data:
 # <Event>
