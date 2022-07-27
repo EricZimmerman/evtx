@@ -205,11 +205,11 @@ Lookups:
       0x80044029: WBEMMOF_E_EXPECTED_BRACE_OR_BAD_TYPE - The final brace and semi-colon for a class are missing.
       0x8004402A: WBEMMOF_E_UNSUPPORTED_CIMV22_QUAL_VALUE - A CIM version 2.2 feature is not supported for a qualifier value.
       0x8004402B: WBEMMOF_E_UNSUPPORTED_CIMV22_DATA_TYPE - The CIM version 2.2 data type is not supported.
-      0x8004402C: WBEMMOF_E_INVALID_DELETEINSTANCE_SYNTAX - The delete instance syntax is not valid. It should be #pragma DeleteInstance("instancepath", FAIL|NOFAIL)
+      0x8004402C: WBEMMOF_E_INVALID_DELETEINSTANCE_SYNTAX - The delete instance syntax is not valid. It should be pragma DeleteInstance("instancepath", FAIL|NOFAIL)
       0x8004402D: WBEMMOF_E_INVALID_QUALIFIER_SYNTAX - The qualifier syntax is not valid. It should be qualifiername:type=value,scope(class|instance), flavorname.
       0x8004402E: WBEMMOF_E_QUALIFIER_USED_OUTSIDE_SCOPE - The qualifier is used outside of its scope.
       0x8004402F: WBEMMOF_E_ERROR_CREATING_TEMP_FILE - Error creating temporary file. The temporary file is an intermediate stage in the MOF compilation.
-      0x80044030: WBEMMOF_E_ERROR_INVALID_INCLUDE_FILE - A file included in the MOF by the preprocessor command #include is not valid.
+      0x80044030: WBEMMOF_E_ERROR_INVALID_INCLUDE_FILE - A file included in the MOF by the preprocessor command include is not valid.
       0x80044031: WBEMMOF_E_INVALID_DELETECLASS_SYNTAX - The syntax for the preprocessor commands pragma deleteinstance or pragma deleteclass is not valid.
 
 # Documentation:
