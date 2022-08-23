@@ -1,0 +1,100 @@
+Author: Gabriele Zambelli @gazambelli
+Description: FileBlockExecutable (An executable was blocked)
+EventId: 27
+Channel: Microsoft-Windows-Sysmon/Operational
+Provider: Microsoft-Windows-Sysmon
+Maps:
+  -
+    Property: ExecutableInfo
+    PropertyValue: "%Image%"
+    Values:
+      -
+        Name: Image
+        Value: "/Event/EventData/Data[@Name=\"Image\"]"
+  -
+    Property: PayloadData1
+    PropertyValue: "ProcessID: %ProcessID%, ProcessGUID: %ProcessGUID%"
+    Values:
+      -
+        Name: ProcessGUID
+        Value: "/Event/EventData/Data[@Name=\"ProcessGuid\"]"
+      -
+        Name: ProcessID
+        Value: "/Event/EventData/Data[@Name=\"ProcessId\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "RuleName: %RuleName%"
+    Values:
+      -
+        Name: RuleName
+        Value: "/Event/EventData/Data[@Name=\"RuleName\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "%Hashes%"
+    Values:
+      -
+        Name: Hashes
+        Value: "/Event/EventData/Data[@Name=\"Hashes\"]"
+  -
+    Property: PayloadData4
+    PropertyValue: "TargetFilename: %TargetFilename%"
+    Values:
+      -
+        Name: TargetFilename
+        Value: "/Event/EventData/Data[@Name=\"TargetFilename\"]"
+  -
+    Property: PayloadData5
+    PropertyValue: "IsExecutable: %IsExecutable%"
+    Values:
+      -
+        Name: IsExecutable
+        Value: "/Event/EventData/Data[@Name=\"IsExecutable\"]"
+  -
+    Property: PayloadData6
+    PropertyValue: "Archived: %Archived%"
+    Values:
+      -
+        Name: Archived
+        Value: "/Event/EventData/Data[@Name=\"Archived\"]"
+  -
+    Property: UserName
+    PropertyValue: "%User%"
+    Values:
+      -
+        Name: User
+        Value: "/Event/EventData/Data[@Name=\"User\"]"
+
+# Documentation:
+# https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon#event-filtering-entries
+# https://www.blackhillsinfosec.com/a-sysmon-event-id-breakdown/
+# https://medium.com/@olafhartong/sysmon-14-0-fileblockexecutable-13d7ba3dff3e
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-Sysmon" Guid="5770385f-c22a-43e0-bf4c-06f5698ffbd9" />
+#     <EventID>27</EventID>
+#     <Version>5</Version>
+#     <Level>4</Level>
+#     <Task>27</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x8000000000000000</Keywords>
+#     <TimeCreated SystemTime="2022-08-23 06:36:04.1164538" />
+#     <EventRecordID>66</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="18500" ThreadID="23716" />
+#     <Channel>Microsoft-Windows-Sysmon/Operational</Channel>
+#     <Computer>VMWIN10</Computer>
+#     <Security UserID="S-1-5-18" />
+#   </System>
+#   <EventData>
+#     <Data Name="RuleName">-</Data>
+#     <Data Name="UtcTime">2022-08-23 06:36:04.115</Data>
+#     <Data Name="ProcessGuid">079ec07f-0ce3-62fc-2101-00000000c900</Data>
+#     <Data Name="ProcessId">9336</Data>
+#     <Data Name="User">VMWIN10\user</Data>
+#     <Data Name="Image">C:\Windows\Explorer.EXE</Data>
+#     <Data Name="TargetFilename">C:\Users\user\Downloads\nc.exe</Data>
+#     <Data Name="Hashes">SHA256=E8FBEC25DB4F9D95B5E8F41CCA51A4B32BE8674A4DEA7A45B6F7AEB22DBC38DB</Data>
+#   </EventData>
+# </Event>
