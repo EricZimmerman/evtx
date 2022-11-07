@@ -1,0 +1,66 @@
+Author: Tony Knutson
+Description: Windows Firewall unable to notify user of blocked application
+EventId: 2011
+Channel: Microsoft-Windows-Windows Firewall With Advanced Security/Firewall
+Provider: Microsoft-Windows-Windows Firewall With Advanced Security
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "%ModifyingUser%"
+    Values:
+      -
+        Name: ModifyingUser
+        Value: "/Event/EventData/Data[@Name=\"ModifyingUser\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "%ApplicationPath%"
+    Values:
+      -
+        Name: ApplicationPath
+        Value: "/Event/EventData/Data[@Name=\"ApplicationPath\"]"
+  -
+    Property: PayloadData4
+    PropertyValue: "Protocol: %Protocol%"
+    Values:
+      -
+        Name: Protocol
+        Value: "/Event/EventData/Data[@Name=\"Protocol\"]"
+Lookups:
+  -
+    Name: Protocol
+    Default: Unknown code
+    Values:
+      6: TCP
+      17: UDP
+      256: All
+
+# Documentation:
+# https://kb.eventtracker.com/evtpass/evtPages/EventId_2011_Microsoft-Windows-WindowsFirewallwithAdvancedS_65744.asp
+#
+#  <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#   <System>
+#     <Provider Name="Microsoft-Windows-Windows Firewall With Advanced Security" Guid="{d1bc9aff-2abf-4d71-9146-ecb2a986eb85}" />
+#     <EventID>2011</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x8000000000000000</Keywords>
+#     <TimeCreated SystemTime="" />
+#     <EventRecordID>13547</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="2244" ThreadID="4172" />
+#     <Channel>Microsoft-Windows-Windows Firewall With Advanced Security/Firewall</Channel>
+#     <Computer>HOSTNAME</Computer>
+#     <Security UserID="S-1-5-19" />
+#   </System>
+#   <EventData>
+#    <Data Name="ReasonCode">64</Data>
+#    <Data Name="ApplicationPath">PATH</Data>
+#    <Data Name="IPVersion">0</Data>
+#    <Data Name="Protocol">6</Data>
+#    <Data Name="Port">5405</Data>
+#    <Data Name="ProcessId">11072</Data>
+#    <Data Name="ModifyingUser">SID EXECUTING</Data>
+#    </EventData>
+#  </Event>
