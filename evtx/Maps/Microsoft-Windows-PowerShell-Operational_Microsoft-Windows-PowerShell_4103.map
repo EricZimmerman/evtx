@@ -61,7 +61,7 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"Payload\"]"
 
 # Documentation:
-# https://github.com/OTRF/OSSEM/blob/master/data_dictionaries/windows/powershell/events/event-4103.md
+# https://github.com/OTRF/OSSEM-DD/blob/afd9b27897346dfa3b3f43d2d403c3f5c5f86214/windows/powershell/events/event-4103.yml
 # https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-PowerShell.csv
 #
 # Example Event Data:
