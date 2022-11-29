@@ -13,11 +13,11 @@ Maps:
         Value: "/Event/UserData/EventInfo/Username"
   -
     Property: RemoteHost
-    PropertyValue: "%Address%"
+    PropertyValue: "%IpAddress%"
     Values:
       -
-        Name: Address
-        Value: "/Event/UserData/EventXML/Address"
+        Name: IpAddress
+        Value: "/Event/UserData/EventInfo/IpAddress"
   -
     Property: PayloadData1
     PropertyValue: "%Username% on client computer %IpAddress% has initiated an outbound connection that has yet to be authenticated"
