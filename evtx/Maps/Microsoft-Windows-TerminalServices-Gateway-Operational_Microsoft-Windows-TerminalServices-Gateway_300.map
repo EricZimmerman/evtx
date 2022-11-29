@@ -13,11 +13,11 @@ Maps:
         Value: "/Event/UserData/EventInfo/Username"
   -
     Property: RemoteHost
-    PropertyValue: "%Address%"
+    PropertyValue: "%IpAddress%"
     Values:
       -
-        Name: Address
-        Value: "/Event/UserData/EventXML/Address"
+        Name: IpAddress
+        Value: "/Event/UserData/EventInfo/IpAddress"
   -
     Property: PayloadData1
     PropertyValue: "%Username% on client computer %IpAddress% met resource authorization policy requirements and was therefore authorized to connect to %Resource%"
