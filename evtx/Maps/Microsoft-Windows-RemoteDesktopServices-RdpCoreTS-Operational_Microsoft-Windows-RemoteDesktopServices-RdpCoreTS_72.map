@@ -1,0 +1,46 @@
+Author: Gabriele Zambelli @gazambelli
+Description: RDP Interface method called
+EventId: 72
+Channel: "Microsoft-Windows-RemoteDesktopServices-RdpCoreTS/Operational"
+Provider: Microsoft-Windows-RemoteDesktopServices-RdpCoreTS
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "MethodName: %MethodName%"
+    Values:
+      -
+        Name: MethodName
+        Value: "/Event/EventData/Data[@Name=\"MethodName\"]"
+  -
+    Property: PayloadData6
+    PropertyValue: "ActivityID: %ActivityID%"
+    Values:
+      -
+        Name: ActivityID
+        Value: "/Event/System/Correlation/@ActivityID"
+
+# Documentation:
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-RemoteDesktopServices-RdpCoreTS.csv
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-RemoteDesktopServices-RdpCoreTS" Guid="1139c61b-b549-4251-8ed3-27250a1edec8" />
+#     <EventID>72</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>4</Task>
+#     <Opcode>13</Opcode>
+#     <Keywords>0x4000000000000000</Keywords>
+#     <TimeCreated SystemTime="2022-04-23 11:44:37.3566971" />
+#     <EventRecordID>11409</EventRecordID>
+#     <Correlation ActivityID="f4208bf0-2762-4e4d-aaa4-c2ff68b20000" />
+#     <Execution ProcessID="64" ThreadID="1988" />
+#     <Channel>Microsoft-Windows-RemoteDesktopServices-RdpCoreTS/Operational</Channel>
+#     <Computer>HOSTNAME</Computer>
+#     <Security UserID="S-1-5-20" />
+#   </System>
+#   <EventData>
+#     <Data Name="MethodName">OnDisconnected(server initiated)</Data>
+#   </EventData>
+# </Event>

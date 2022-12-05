@@ -1,0 +1,83 @@
+Author: Tony Knutson
+Description: Starting manual processing of policy for USER
+EventId: 4005
+Channel: Microsoft-Windows-GroupPolicy/Operational
+Provider: Microsoft-Windows-GroupPolicy
+Maps:
+
+  -
+    Property: UserName
+    PropertyValue: "%PrincipalSamName%"
+    Values:
+      -
+        Name: PrincipalSamName
+        Value: "/Event/EventData/Data[@Name=\"PrincipalSamName\"]"
+  -
+    Property: PayloadData1
+    PropertyValue: "DomainJoined: %IsDomainJoined%"
+    Values:
+      -
+        Name: IsDomainJoined
+        Value: "/Event/EventData/Data[@Name=\"IsDomainJoined\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "BackgroundProcessing: %IsBackgroundProcessing%"
+    Values:
+      -
+        Name: IsBackgroundProcessing
+        Value: "/Event/EventData/Data[@Name=\"IsBackgroundProcessing\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "AsyncProcessing: %IsAsyncProcessing%"
+    Values:
+      -
+        Name: IsAsyncProcessing
+        Value: "/Event/EventData/Data[@Name=\"IsAsyncProcessing\"]"
+  -
+    Property: PayloadData4
+    PropertyValue: "ServiceRestart: %IsServiceRestart%"
+    Values:
+      -
+        Name: IsServiceRestart
+        Value: "/Event/EventData/Data[@Name=\"IsServiceRestart\"]"
+  -
+    Property: PayloadData5
+    PropertyValue: "Reasonforsyncing: %ReasonForSyncProcessing%"
+    Values:
+      -
+        Name: ReasonForSyncProcessing
+        Value: "/Event/EventData/Data[@Name=\"ReasonForSyncProcessing\"]"
+
+# Documentation:
+# Starting manual processing of policy for user {PrincipalSamName}. Activity id: {PolicyActivityId}
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-GroupPolicy.csv
+#
+# Example Event Data:
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <System>
+#  <Provider Name="Microsoft-Windows-GroupPolicy" Guid="{aea1b4fa-97d1-45f2-a64c-4d69fffd92c9}" />
+#  <EventID>4005</EventID>
+#  <Version>1</Version>
+#  <Level>4</Level>
+#  <Task>0</Task>
+#  <Opcode>1</Opcode>
+#  <Keywords>0x4000000000000000</Keywords>
+#  <TimeCreated SystemTime="2022-05-22T21:47:54.4303572Z" />
+#  <EventRecordID>511656</EventRecordID>
+#  <Correlation ActivityID="{384ca94a-510c-4ce3-b104-9ef593805492}" />
+#  <Execution ProcessID="8188" ThreadID="10916" />
+#  <Channel>Microsoft-Windows-GroupPolicy/Operational</Channel>
+#  <Computer>COMPUTER NAME</Computer>
+#  <Security UserID="SID" />
+#  </System>
+# <EventData>
+#  <Data Name="PolicyActivityId">{384ca94a-510c-4ce3-b104-9ef593805492}</Data>
+#  <Data Name="PrincipalSamName">USERNAME</Data>
+#  <Data Name="IsMachine">0</Data>
+#  <Data Name="IsDomainJoined">false</Data>
+#  <Data Name="IsBackgroundProcessing">true</Data>
+#  <Data Name="IsAsyncProcessing">false</Data>
+#  <Data Name="IsServiceRestart">false</Data>
+#  <Data Name="ReasonForSyncProcessing">0</Data>
+#  </EventData>
+# </Event>

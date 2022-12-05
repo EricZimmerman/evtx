@@ -23,6 +23,7 @@ Maps:
 # https://social.technet.microsoft.com/Forums/Azure/en-US/793156d6-4dbd-430d-af37-fb0a503264f4/event-id-26-application-pop-up?forum=winservergen
 # https://social.technet.microsoft.com/Forums/en-US/6bccbb97-07a1-435e-9e0e-93291b2e1b03/server-2003-r2-showing-regular-event-id-26-application-popup-errors?forum=winservergen
 # https://social.technet.microsoft.com/Forums/en-US/c56e3a4e-7687-4348-8c7b-bae3b56c642b/event-id-26-source-application-popup?forum=winservergen
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Application%20Popup.csv
 #
 # Example Event Data:
 # <Event>

@@ -1,0 +1,45 @@
+Author: Tony Knutson
+Description: Absence of network connectivity
+EventId: 1129
+Channel: System
+Provider: Microsoft-Windows-GroupPolicy
+Maps:
+
+  -
+    Property: PayloadData1
+    PropertyValue: "%ErrorDescription%"
+    Values:
+      -
+        Name: ErrorDescription
+        Value: "/Event/EventData/Data[@Name=\"ErrorDescription\"]"
+
+# Documentation:
+# https://social.technet.microsoft.com/wiki/contents/articles/1416.event-id-1129-microsoft-windows-grouppolicy.aspx
+#
+# Example Event Data:
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <System>
+#  <Provider Name="Microsoft-Windows-GroupPolicy" Guid="{aea1b4fa-97d1-45f2-a64c-4d69fffd92c9}" />
+#  <EventID>1129</EventID>
+#  <Version>0</Version>
+#  <Level>2</Level>
+#  <Task>0</Task>
+#  <Opcode>0</Opcode>
+#  <Keywords>0x8000000000000000</Keywords>
+#  <TimeCreated SystemTime="2022-05-25T12:34:56.4316540Z" />
+#  <EventRecordID>72378</EventRecordID>
+#  <Correlation ActivityID="{b3fc2d9d-ec32-4ca4-836f-c5e8d9874573}" />
+#  <Execution ProcessID="7488" ThreadID="7840" />
+#  <Channel>System</Channel>
+#  <Computer>COMPUTER</Computer>
+#  <Security UserID="S-1-5-18" />
+#  </System>
+# <EventData>
+#  <Data Name="SupportInfo1">1</Data>
+#  <Data Name="SupportInfo2">2057</Data>
+#  <Data Name="ProcessingMode">0</Data>
+#  <Data Name="ProcessingTimeInMilliseconds">15000</Data>
+#  <Data Name="ErrorCode">1222</Data>
+#  <Data Name="ErrorDescription">The network is not present or not started.</Data>
+#  </EventData>
+# </Event>

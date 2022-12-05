@@ -1,0 +1,41 @@
+Author: Gabriele Zambelli @gazambelli
+Description: MSSQLSERVER Audit event
+EventId: 33205
+Channel: Application
+Provider: MSSQLSERVER
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "Raw Audit Event: %AuditEvent%"
+    Values:
+      -
+        Name: AuditEvent
+        Value: "/Event/EventData/Data"
+
+
+# Documentation:
+# Windows Events Attack Samples: https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES
+# Detecting High Risk Behavior via Basic Event Log Analysis: https://github.com/NetSPI/PowerUpSQL/wiki/SQL-Server-Detective-Control-Cheat-Sheet
+# Understanding a sample SQL audit event: https://www.ultimatewindowssecurity.com/sqlserver/auditlog/sampleevent.aspx
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="MSSQLSERVER" />
+#     <EventID Qualifiers="16384">33205</EventID>
+#     <Level>0</Level>
+#     <Task>5</Task>
+#     <Keywords>0xA0000000000000</Keywords>
+#     <TimeCreated SystemTime="2019-11-04 09:27:26.3150666" />
+#     <EventRecordID>9693</EventRecordID>
+#     <Channel>Application</Channel>
+#     <Computer>MSEDGEWIN10</Computer>
+#     <Security />
+#   </System>
+#   <EventData>
+#     <Data>audit_schema_version:1 event_time:2019-11-04 09:27:26.1750932 sequence_number:1 action_id:EX  succeeded:true is_column_permission:false session_id:58 server_principal_id:266 database_principal_id:1 target_server_principal_id:0 target_database_principal_id:0 object_id:-1008137134 user_defined_event_id:0 transaction_id:14356 class_type:X duration_milliseconds:0 response_rows:0 affected_rows:0 client_ip:10.0.2.17 permission_bitmask:00000000000000000000000000000020 sequence_group_id:AE51063D-49C6-4990-A00D-6A3833CFECA0 session_server_principal_name:root server_principal_name:root server_principal_sid:8867c003d7407345abb6e4ed81382626 database_principal_name:dbo target_server_principal_name: target_server_principal_sid: target_database_principal_name: server_instance_name:MSEDGEWIN10 database_name:master schema_name:sys object_name:xp_cmdshell statement:EXEC master..xp_cmdshell 'Whoami' additional_information: user_defined_information: application_name:.Net SqlClient Data Provider
+# </Data>
+#     <Binary></Binary>
+#   </EventData>
+# </Event>
+# <Event>

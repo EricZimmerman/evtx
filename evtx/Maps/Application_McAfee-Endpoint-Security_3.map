@@ -21,7 +21,10 @@ Maps:
         Value: "/Event/EventData/Data"
         Refine: (\S+ (ran|file).*(Trojan|detected|blocked|executed).*.)
 
-#<Event>
+# Documentation:
+# N/A
+#
+# Example Event Data:
 # <System>
 #   <Provider Name="McAfee Endpoint Security" />
 #   <EventID Qualifiers="8192">3</EventID>
@@ -40,10 +43,10 @@ Maps:
 # domain\username ran on-demand scan "Quick Scan", which detected the threat Trojan named Cobalt/Shell.a!mem while scanning C:\Windows\SysWOW64\rundll32.exe but the file can't be deleted because it's locked. The #file will be deleted when the file isn't locked. To identify the process locking the file, see KB85494.</Data>
 #   <Binary></Binary>
 # </EventData>
-#</Event>
+# </Event>
 #
-#________________________________________
-#<Event>
+# ________________________________________
+# <Event>
 # <System>
 #   <Provider Name="McAfee Endpoint Security" />
 #   <EventID Qualifiers="8192">3</EventID>
@@ -62,4 +65,4 @@ Maps:
 # domain\username ran C:\Windows\explorer.exe, which attempted to access C:\Windows\S5S.exe. The Trojan named Packed-GDT!EA62D92F33DA was detected and deleted.</Data>
 #   <Binary></Binary>
 # </EventData>
-#</Event>
+# </Event>

@@ -27,7 +27,7 @@ Lookups:
       12: Access Denied.
 
 # Documentation:
-# N/A
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-SMBClient.csv
 #
 # Example Event Data:
 #  <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">

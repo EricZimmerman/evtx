@@ -1,0 +1,58 @@
+Author: Gabriele Zambelli @gazambelli
+Description: "SMB Client: The client re-established its session to the server"
+EventId: 30806
+Channel: "Microsoft-Windows-SmbClient/Connectivity"
+Provider: Microsoft-Windows-SMBClient
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "TargetServerAddress: %Address%"
+    Values:
+      -
+        Name: Address
+        Value: "/Event/EventData/Data[@Name=\"Address\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "TargetServerName: %ServerName%"
+    Values:
+      -
+        Name: ServerName
+        Value: "/Event/EventData/Data[@Name=\"ServerName\"]"
+  -
+    Property: PayloadData4
+    PropertyValue: "SessionId: %SessionId%"
+    Values:
+      -
+        Name: SessionId
+        Value: "/Event/EventData/Data[@Name=\"SessionId\"]"
+
+# Documentation:
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-SMBClient.csv
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-SMBClient" Guid="988c59c5-0a1c-45b6-a555-0c62276e327d" />
+#     <EventID>30806</EventID>
+#     <Version>2</Version>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x400000000000040</Keywords>
+#     <TimeCreated SystemTime="2018-11-13 10:08:12.7591797" />
+#     <EventRecordID>71</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="4" ThreadID="1012" />
+#     <Channel>Microsoft-Windows-SmbClient/Connectivity</Channel>
+#     <Computer>HOSTNAME</Computer>
+#     <Security />
+#   </System>
+#   <EventData>
+#     <Data Name="Status">0</Data>
+#     <Data Name="SessionId">52776558133260</Data>
+#     <Data Name="TreeId">0</Data>
+#     <Data Name="ServerNameLength">17</Data>
+#     <Data Name="ServerName">\SERVERNAME.local</Data>
+#     <Data Name="AddressLength">16</Data>
+#     <Data Name="Address">port IP address in hex</Data>
+#   </EventData>

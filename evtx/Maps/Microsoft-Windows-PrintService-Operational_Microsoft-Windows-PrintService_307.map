@@ -49,6 +49,7 @@ Maps:
 
 # Documentation:
 # https://eventlogxp.com/blog/how-to-track-printer-usage-with-event-logs
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-PrintService.csv
 # The document name is not recorded in the event record until enabled via Group Policy
 # https://social.technet.microsoft.com/Forums/ie/en-US/12e60098-1f46-4c6e-8b10-9c816dadb2b2/kb-fix-for-print-document-name-in-event-logs-on-server-2012-and-server-2012r2?forum=winserverprint
 #

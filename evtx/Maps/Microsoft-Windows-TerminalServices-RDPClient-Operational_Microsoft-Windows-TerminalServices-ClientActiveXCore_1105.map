@@ -1,0 +1,37 @@
+Author: Gabriele Zambelli @gazambelli
+Description: RDP the multi-transport connection has been disconnected
+EventId: 1105
+Channel: Microsoft-Windows-TerminalServices-RDPClient/Operational
+Provider: Microsoft-Windows-TerminalServices-ClientActiveXCore
+Maps:
+  -
+    Property: PayloadData6
+    PropertyValue: "ActivityID: %ActivityID%"
+    Values:
+      -
+        Name: ActivityID
+        Value: "/Event/System/Correlation/@ActivityID"
+
+# Documentation:
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-TerminalServices-ClientActiveXCore.csv
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-TerminalServices-ClientActiveXCore" Guid="28aa95bb-d444-4719-a36f-40462168127e" />
+#     <EventID>1105</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>101</Task>
+#     <Opcode>10</Opcode>
+#     <Keywords>0x4000000000000000</Keywords>
+#     <TimeCreated SystemTime="2022-02-07 20:55:05.6941087" />
+#     <EventRecordID>5</EventRecordID>
+#     <Correlation ActivityID="b2a18fda-2606-46c1-9ab8-b4c86dd20000" />
+#     <Execution ProcessID="7024" ThreadID="6964" />
+#     <Channel>Microsoft-Windows-TerminalServices-RDPClient/Operational</Channel>
+#     <Computer>HOSTNAME</Computer>
+#     <Security UserID="S-1-5-21-1018296586-1262379815-4003437281-500" />
+#   </System>
+#   <EventData></EventData>
+# </Event>

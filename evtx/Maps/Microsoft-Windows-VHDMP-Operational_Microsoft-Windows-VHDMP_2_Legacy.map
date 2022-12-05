@@ -1,4 +1,4 @@
-Author: Phill Moore
+Author: Phill Moore, Gabriele Zambelli
 Description: A VHD has been removed
 EventId: 2
 Channel: "Microsoft-Windows-VHDMP/Operational"
@@ -14,9 +14,18 @@ Maps:
       -
         Name: VhdNumber
         Value: "/Event/EventData/Data[@Name=\"VhdDiskNumber\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "VhdName: %VhdName%"
+    Values:
+      -
+        Name: VhdName
+        Value: "/Event/EventData/Data[@Name=\"VhdFileName\"]"
 
 # Documentation:
 # https://nasbench.medium.com/finding-forensic-goodness-in-obscure-windows-event-logs-60e978ea45a3
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-VHDMP.csv
+# This legacy map applies to Windows 8 / Windows Server 2012. The channel name "Microsoft-Windows-VHDMP/Operational" was renamed to "Microsoft-Windows-VHDMP-Operational" in more recent operating systems.
 #
 # Example Event Data:
 # <Event>

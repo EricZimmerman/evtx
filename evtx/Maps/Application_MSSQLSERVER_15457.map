@@ -1,0 +1,47 @@
+Author: Gabriele Zambelli @gazambelli
+Description: MSSQLSERVER Configuration change
+EventId: 15457
+Channel: Application
+Provider: MSSQLSERVER
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "Configuration option %Option% changed from %ChangedFrom% to %ChangedTo%"
+    Values:
+      -
+        Name: Option
+        Value: "/Event/EventData/Data"
+        Refine: "^[a-zA-Z0-9 _-]{3,50}(?=,)"
+      -
+        Name: ChangedFrom
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=, ).*(?=,)"
+      -
+        Name: ChangedTo
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=, )[0-9]{1}$"
+
+
+# Documentation:
+# Windows Events Attack Samples: https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES
+# Detecting High Risk Behavior via Basic Event Log Analysis: https://github.com/NetSPI/PowerUpSQL/wiki/SQL-Server-Detective-Control-Cheat-Sheet#3
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="MSSQLSERVER" />
+#     <EventID Qualifiers="16384">15457</EventID>
+#     <Level>4</Level>
+#     <Task>2</Task>
+#     <Keywords>0x80000000000000</Keywords>
+#     <TimeCreated SystemTime="2019-11-04 09:27:26.1586215" />
+#     <EventRecordID>9692</EventRecordID>
+#     <Channel>Application</Channel>
+#     <Computer>MSEDGEWIN10</Computer>
+#     <Security />
+#   </System>
+#   <EventData>
+#     <Data>xp_cmdshell, 0, 1</Data>
+#     <Binary>61-3C-00-00-0A-00-00-00-0C-00-00-00-4D-00-53-00-45-00-44-00-47-00-45-00-57-00-49-00-4E-00-31-00-30-00-00-00-07-00-00-00-6D-00-61-00-73-00-74-00-65-00-72-00-00-00</Binary>
+#   </EventData>
+# </Event>

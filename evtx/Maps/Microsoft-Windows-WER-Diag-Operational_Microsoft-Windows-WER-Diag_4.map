@@ -35,6 +35,7 @@ Maps:
 
 # Documentation:
 # https://docs.microsoft.com/en-us/windows/win32/wer/about-wer
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-WER-Diag.csv
 #
 # I've personally seen malicious executables being recorded in these events given that malware is inherently unstable and meant to cause destruction on the host system.
 #

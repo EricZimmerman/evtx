@@ -1,0 +1,56 @@
+Author: Gabriele Zambelli @gazambelli
+Description: RDP Begin session arbitration
+EventId: 41
+Channel: Microsoft-Windows-TerminalServices-LocalSessionManager/Operational
+Provider: Microsoft-Windows-TerminalServices-LocalSessionManager
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "Target: %User%"
+    Values:
+      -
+        Name: User
+        Value: "/Event/UserData/EventXML/User"
+  -
+    Property: PayloadData2
+    PropertyValue: "Session ID: %SessionID%"
+    Values:
+      -
+        Name: SessionID
+        Value: "/Event/UserData/EventXML/SessionID"
+  -
+    Property: PayloadData6
+    PropertyValue: "ActivityID: %ActivityID%"
+    Values:
+      -
+        Name: ActivityID
+        Value: "/Event/System/Correlation/@ActivityID"
+
+# Documentation:
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-TerminalServices-LocalSessionManager.csv
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-TerminalServices-LocalSessionManager" Guid="5d896912-022d-40aa-a3a8-4fa5515c76d7" />
+#     <EventID>41</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x1000000000000000</Keywords>
+#     <TimeCreated SystemTime="2020-10-25 18:43:45.0236615" />
+#     <EventRecordID>33</EventRecordID>
+#     <Correlation ActivityID="61a55000-55e5-1017-0000-000000000000" />
+#     <Execution ProcessID="820" ThreadID="3196" />
+#     <Channel>Microsoft-Windows-TerminalServices-LocalSessionManager/Operational</Channel>
+#     <Computer>HOSTNAME</Computer>
+#     <Security UserID="S-1-5-18" />
+#   </System>
+#   <UserData>
+#     <EventXML>
+#       <User>HOSTNAME\Administrator</User>
+#       <SessionID>1</SessionID>
+#     </EventXML>
+#   </UserData>
+# </Event>

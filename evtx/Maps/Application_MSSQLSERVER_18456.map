@@ -1,0 +1,56 @@
+Author: Gabriele Zambelli @gazambelli
+Description: MSSQLSERVER Login failed
+EventId: 18456
+Channel: Application
+Provider: MSSQLSERVER
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "Target: %User%"
+    Values:
+      -
+        Name: User
+        Value: "/Event/EventData/Data"
+        Refine: "^[a-zA-Z0-9_#-]{2,50}(?=,)"
+  -
+    Property: PayloadData2
+    PropertyValue: "%Reason%"
+    Values:
+      -
+        Name: Reason
+        Value: "/Event/EventData/Data"
+        Refine: "Reason.*(?=,)"
+  -
+    Property: PayloadData3
+    PropertyValue: "%Client%"
+    Values:
+      -
+        Name: Client
+        Value: "/Event/EventData/Data"
+        Refine: "CLIENT.*(?=])"
+
+
+# Documentation:
+# Windows Events Attack Samples: https://github.com/sbousseaden/EVTX-ATTACK-SAMPLES
+# Detecting High Risk Behavior via Basic Event Log Analysis: https://github.com/NetSPI/PowerUpSQL/wiki/SQL-Server-Detective-Control-Cheat-Sheet
+# https://docs.microsoft.com/en-us/sql/relational-databases/errors-events/mssqlserver-18456-database-engine-error?view=sql-server-ver16
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="MSSQLSERVER" />
+#     <EventID Qualifiers="49152">18456</EventID>
+#     <Level>0</Level>
+#     <Task>4</Task>
+#     <Keywords>0x90000000000000</Keywords>
+#     <TimeCreated SystemTime="2019-11-04 13:46:01.2798252" />
+#     <EventRecordID>13035</EventRecordID>
+#     <Channel>Application</Channel>
+#     <Computer>MSEDGEWIN10</Computer>
+#     <Security />
+#   </System>
+#   <EventData>
+#     <Data>root,  Reason: Password did not match that for the login provided.,  [CLIENT: 10.0.2.17]</Data>
+#     <Binary>18-48-00-00-0E-00-00-00-0C-00-00-00-4D-00-53-00-45-00-44-00-47-00-45-00-57-00-49-00-4E-00-31-00-30-00-00-00-07-00-00-00-6D-00-61-00-73-00-74-00-65-00-72-00-00-00</Binary>
+#   </EventData>
+# </Event>

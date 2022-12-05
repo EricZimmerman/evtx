@@ -1,0 +1,39 @@
+Author: Andrew Rathbun
+Description: Client timezone bias from UTC
+EventId: 104
+Channel: Microsoft-Windows-RemoteDesktopServices-RdpCoreTS/Operational
+Provider: Microsoft-Windows-RemoteDesktopServices-RdpCoreTS
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "TimeZoneBias: %TimezoneBiasHour%"
+    Values:
+      -
+        Name: TimezoneBiasHour
+        Value: "/Event/EventData/Data[@Name=\"TimezoneBiasHour\"]"
+
+# Documentation:
+# https://github.com/nasbench/EVTX-ETW-Resources/search?l=CSV&p=20&q=TimezoneBiasHour
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-RemoteDesktopServices-RdpCoreTS.csv
+#
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-RemoteDesktopServices-RdpCoreTS" Guid="1139c61b-b549-4251-8ed3-27250a1edec8" />
+#     <EventID>104</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>4</Task>
+#     <Opcode>15</Opcode>
+#     <Keywords>0x4000000000000000</Keywords>
+#     <TimeCreated SystemTime="2022-06-19 22:13:24.3764706" />
+#     <EventRecordID>147284</EventRecordID>
+#     <Correlation ActivityID="f420b856-485f-46cb-bc3f-fc215da30000" />
+#     <Execution ProcessID="1337" ThreadID="5832" />
+#     <Channel>Microsoft-Windows-RemoteDesktopServices-RdpCoreTS/Operational</Channel>
+#     <Computer>HOSTNAME.domain</Computer>
+#     <Security UserID="S-1-5-20" />
+#   </System>
+#   <EventData>
+#     <Data Name="TimezoneBiasHour">[-7]</Data>
+#   </EventData>
+# </Event>

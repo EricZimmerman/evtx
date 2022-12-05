@@ -32,9 +32,10 @@ Maps:
 # https://docs.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-r2-and-2008/cc734695(v=ws.10)
 # https://www.adash.org/jfb/Training247/Bit_Deep_Dive_Tshoot.htm
 # https://docs.microsoft.com/de-de/security-updates/windowsupdateservices/18127392
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-Bits-Client.csv
 #
 # Example Event Data:
-#<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 # <System>
 #  <Provider Name="Microsoft-Windows-Bits-Client" Guid="{GUID}" />
 #  <EventID>64</EventID>
@@ -57,4 +58,4 @@ Maps:
 #  <Data Name="Pgm">PROGRAM NAME</Data>
 #  <Data Name="hr">2147942402</Data>
 # </EventData>
-#</Event>
+# </Event>

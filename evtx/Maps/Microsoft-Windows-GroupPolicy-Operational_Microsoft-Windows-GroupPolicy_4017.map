@@ -1,0 +1,49 @@
+Author: Tony Knutson
+Description: Making LDAP calls to connect and bind to Active Directory
+EventId: 4017
+Channel: Microsoft-Windows-GroupPolicy/Operational
+Provider: Microsoft-Windows-GroupPolicy
+Maps:
+
+  -
+    Property: PayloadData1
+    PropertyValue: "Domain: %Parameter%"
+    Values:
+      -
+        Name: Parameter
+        Value: "/Event/EventData/Data[@Name=\"Parameter\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "Description: %OperationDescription%"
+    Values:
+      -
+        Name: OperationDescription
+        Value: "/Event/EventData/Data[@Name=\"OperationDescription\"]"
+
+# Documentation:
+# https://kb.eventtracker.com/evtpass/evtpages/EventId_1501_Microsoft-Windows-GroupPolicy_62070.asp#:~:text=The%20Group%20Policy%20settings%20for,successful%20processing%20of%20Group%20Policy.
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-GroupPolicy.csv
+#
+# Example Event Data:
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <System>
+#  <Provider Name="Microsoft-Windows-GroupPolicy" Guid="{aea1b4fa-97d1-45f2-a64c-4d69fffd92c9}" />
+#  <EventID>4017</EventID>
+#  <Version>0</Version>
+#  <Level>4</Level>
+#  <Task>0</Task>
+#  <Opcode>0</Opcode>
+#  <Keywords>0x4000000000000000</Keywords>
+#  <TimeCreated SystemTime="2022-05-24T00:34:22.9179272Z" />
+#  <EventRecordID>513752</EventRecordID>
+#  <Correlation ActivityID="{6d8cc6ce-e631-493b-a5d0-2905e6dad63c}" />
+#  <Execution ProcessID="7780" ThreadID="14132" />
+#  <Channel>Microsoft-Windows-GroupPolicy/Operational</Channel>
+#  <Computer>COMPUTER NAME</Computer>
+#  <Security UserID="S-1-5-18" />
+#  </System>
+# <EventData>
+#  <Data Name="OperationDescription">%%4119</Data>
+#  <Data Name="Parameter">DOMAIN</Data>
+#  </EventData>
+#  </Event>

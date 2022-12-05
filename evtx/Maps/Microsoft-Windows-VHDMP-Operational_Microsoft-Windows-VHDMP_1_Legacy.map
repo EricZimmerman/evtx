@@ -1,0 +1,52 @@
+Author: Phill Moore, Hyun Yi @hyuunnn, Gabriele Zambelli
+Description: A VHD has been created
+EventId: 1
+Channel: "Microsoft-Windows-VHDMP/Operational"
+Provider: Microsoft-Windows-VHDMP
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "The VHD %VhdName% has been created (surfaced) as disk number %VhdNumber%"
+    Values:
+      -
+        Name: VhdName
+        Value: "/Event/EventData/Data[@Name=\"VhdFileName\"]"
+      -
+        Name: VhdNumber
+        Value: "/Event/EventData/Data[@Name=\"VhdDiskNumber\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "VhdName: %VhdName%"
+    Values:
+      -
+        Name: VhdName
+        Value: "/Event/EventData/Data[@Name=\"VhdFileName\"]"
+
+# Documentation:
+# https://nasbench.medium.com/finding-forensic-goodness-in-obscure-windows-event-logs-60e978ea45a3
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-VHDMP.csv
+# This legacy map applies to Windows 8 / Windows Server 2012. The channel name "Microsoft-Windows-VHDMP/Operational" was renamed to "Microsoft-Windows-VHDMP-Operational" in more recent operating systems.
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-VHDMP" Guid="e2816346-87f4-4f85-95c3-0c79409aa89d" />
+#     <EventID>1</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x8000000000000000</Keywords>
+#     <TimeCreated SystemTime="2022-07-11 14:02:51.0410456" />
+#     <EventRecordID>1</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="4" ThreadID="3868" />
+#     <Channel>Microsoft-Windows-VHDMP/Operational</Channel>
+#     <Computer>WIN-QSQO10V59K4</Computer>
+#     <Security UserID="S-1-5-18" />
+#   </System>
+#   <EventData>
+#     <Data Name="VhdFileName">C:\Users\Administrator\Desktop\TEST.vhdx</Data>
+#     <Data Name="VhdDiskNumber">1</Data>
+#   </EventData>
+# </Event>

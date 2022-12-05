@@ -58,6 +58,7 @@ Maps:
 # https://docs.microsoft.com/en-us/windows-hardware/drivers/install/driver-rank-ranges--windows-vista-and-later-
 # https://www.eventid.net/displayqueue.asp?eventid=400
 # https://forensixchange.com/posts/19_08_03_usb_storage_forensics_1/
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-Kernel-PnP.csv
 #
 # Example Event Data:
 # <Event>

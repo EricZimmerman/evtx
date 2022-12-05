@@ -45,7 +45,11 @@ Maps:
         Value: "/Event/EventData/Data"
         Refine: "(?<=Path to object:).*?(?=\n)"
 
-#<Event>
+# Documentation:
+# N/A
+#
+# Example Event Data:
+# <Event>
 # <System>
 #   <Provider Name="avp" />
 #   <EventID Qualifiers="49154">302</EventID>
@@ -60,20 +64,20 @@ Maps:
 # </System>
 # <EventData>
 #   <Data>Event type: Malicious object detected
-#User: DOMAIN\username (Initiator)
-#Component: Virus Scan
-#Result description: Detected
-#Type: Trojan
-#Name: Packed.Win32.Dico.gen
-#Threat level: Heuristic Analysis
-#Precision: High
-#Object type: File
-#Path to object: #C:\Windows\ServiceProfiles\NetworkService\AppData\Local\Microsoft\Windows\DeliveryOptimization\Cache\536a1568cd6c2f4af7d40fbcdfc1a7470588a7c5\d84296fb77c73420ce30cf9d8103488b0440eadb65a99be4d7fba982dc214d3f//Power#DVD14/Custom/Lang/DAN/Help
-#Object name: PowerDVD_Help.exe
-#Reason: Expert analysis
-#Database release date: 3/9/2021 12:40:00 PM
-#SHA256: 4759DF3CBD27505CB91B468E1EA2B6FA2617B936BC30CF2153C09E7EAA6F4A8A
-#MD5: D6B5DED5557753E1B257DBC3C472597A</Data>
+# User: DOMAIN\username (Initiator)
+# Component: Virus Scan
+# Result description: Detected
+# Type: Trojan
+# Name: Packed.Win32.Dico.gen
+# Threat level: Heuristic Analysis
+# Precision: High
+# Object type: File
+# Path to object: #C:\Windows\ServiceProfiles\NetworkService\AppData\Local\Microsoft\Windows\DeliveryOptimization\Cache\536a1568cd6c2f4af7d40fbcdfc1a7470588a7c5\d84296fb77c73420ce30cf9d8103488b0440eadb65a99be4d7fba982dc214d3f//Power#DVD14/Custom/Lang/DAN/Help
+# Object name: PowerDVD_Help.exe
+# Reason: Expert analysis
+# Database release date: 3/9/2021 12:40:00 PM
+# SHA256: 4759DF3CBD27505CB91B468E1EA2B6FA2617B936BC30CF2153C09E7EAA6F4A8A
+# MD5: D6B5DED5557753E1B257DBC3C472597A</Data>
 #   <Binary></Binary>
 # </EventData>
-#</Event>
+# </Event>

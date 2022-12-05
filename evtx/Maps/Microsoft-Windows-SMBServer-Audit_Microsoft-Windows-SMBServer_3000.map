@@ -14,6 +14,7 @@ Maps:
 
 # Documentation:
 # http://woshub.com/how-to-disable-smb-1-0-in-windows-10-server-2016/
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-SMBServer.csv
 #
 # Example Event Data:
 # <Event>

@@ -1,0 +1,44 @@
+Author: Tony Knutson
+Description: Group Policy Settings processed successfully for USER
+EventId: 1501
+Channel: System
+Provider: Microsoft-Windows-GroupPolicy
+Maps:
+
+  -
+    Property: PayloadData1
+    PropertyValue: "%DCName%"
+    Values:
+      -
+        Name: DCName
+        Value: "/Event/EventData/Data[@Name=\"DCName\"]"
+
+# Documentation:
+# https://kb.eventtracker.com/evtpass/evtpages/EventId_1501_Microsoft-Windows-GroupPolicy_62070.asp#:~:text=The%20Group%20Policy%20settings%20for,successful%20processing%20of%20Group%20Policy.
+#
+# Example Event Data:
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <System>
+#  <Provider Name="Microsoft-Windows-GroupPolicy" Guid="{aea1b4fa-97d1-45f2-a64c-4d69fffd92c9}" />
+#  <EventID>1501</EventID>
+#  <Version>0</Version>
+#  <Level>4</Level>
+#  <Task>0</Task>
+#  <Opcode>1</Opcode>
+#  <Keywords>0x8000000000000000</Keywords>
+#  <TimeCreated SystemTime="2022-03-28T08:21:42.6842597Z" />
+#  <EventRecordID>64750</EventRecordID>
+#  <Correlation ActivityID="{4fdc215e-2233-471b-a1fa-12b7d78e5961}" />
+#  <Execution ProcessID="1508" ThreadID="6528" />
+#  <Channel>System</Channel>
+#  <Computer>COMPUTER NAME</Computer>
+#  <Security UserID="SID" />
+#  </System>
+# <EventData>
+#  <Data Name="SupportInfo1">1</Data>
+#  <Data Name="SupportInfo2">4292</Data>
+#  <Data Name="ProcessingMode">0</Data>
+#  <Data Name="ProcessingTimeInMilliseconds">7579</Data>
+#  <Data Name="DCName">DOMAIN NAME</Data>
+#  </EventData>
+#  </Event>

@@ -43,6 +43,7 @@ Maps:
 # Documentation:
 # https://answers.microsoft.com/en-us/windows/forum/windows_8-hardware/event-410-kernel-pnp-logged-for-my-keyboard-the/36772d4b-8217-473e-8ffe-9e0b6b7f4cfa
 # https://forensixchange.com/posts/19_08_03_usb_storage_forensics_1/
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-Kernel-PnP.csv
 #
 # Example Event Data:
 # <Event>

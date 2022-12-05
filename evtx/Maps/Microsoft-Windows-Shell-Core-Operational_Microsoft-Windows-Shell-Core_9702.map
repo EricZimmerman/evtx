@@ -14,6 +14,7 @@ Maps:
 
 # Documentation:
 # https://www.geoffchappell.com/notes/windows/shell/events/core.htm
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-Shell-Core.csv
 #
 # Example Event Data:
 # <Event>

@@ -21,6 +21,7 @@ Maps:
 
 # Documentation:
 # https://www.darkoperator.com/blog/2017/10/14/basics-of-tracking-wmi-activity
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-WMI-Activity.csv
 # Indicates time of wmiprvse execution and path to provider DLL - attackers sometimes install malicious WMI provider DLLs
 #
 # Example Event Data:

@@ -22,7 +22,7 @@ Maps:
         Refine: "(?<=, )[^,\\d]+(?=,)"
 
 # Documentation
-# N/A
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-Dhcp-Client.csv
 #
 # <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
 #   <System>

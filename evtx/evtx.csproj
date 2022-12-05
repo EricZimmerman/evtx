@@ -14,9 +14,9 @@
   </PropertyGroup>
     <ItemGroup>
     <PackageReference Include="Crc32.NET" Version="1.2.0" />
-    <PackageReference Include="FluentValidation" Version="10.3.6" />
-      <PackageReference Include="Serilog" Version="2.10.0" />
-    <PackageReference Include="ServiceStack.Text" Version="6.0.2" />
+    <PackageReference Include="FluentValidation" Version="11.0.3" />
+      <PackageReference Include="Serilog" Version="2.11.0" />
+    <PackageReference Include="ServiceStack.Text" Version="6.1.0" />
     <PackageReference Include="System.Xml.XPath" Version="4.3.0" />
     <PackageReference Include="YamlDotNet" Version="11.2.1" />
       <PackageReference Include="System.Text.Encoding.CodePages" Version="6.0.0" />

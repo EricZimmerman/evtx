@@ -27,7 +27,7 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"Version_number\"]"
 
 # Documentation
-# N/A
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/ThirdParty/Splashtop-Splashtop%20Business%20app-Remote%20Session.csv
 #
 # Event Schema
 # ]]></Template>
@@ -54,7 +54,7 @@ Maps:
 #
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Splashtop-Splashtop Streamer-Remote Session" Guid="66a2ea53-fc6c-42e5-9176-18749ab2ca11" />
 #    <EventID>1001</EventID>
@@ -76,4 +76,4 @@ Maps:
 #    <Data Name="Duration_Time">00:00:07</Data>
 #    <Data Name="Version_number">3.4.4.0</Data>
 #  </EventData>
-#</Event>
+# </Event>

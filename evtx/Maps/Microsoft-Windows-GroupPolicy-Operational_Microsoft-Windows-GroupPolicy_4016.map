@@ -1,0 +1,69 @@
+Author: Tony Knutson
+Description: List of applicable Group Policy objects
+EventId: 4016
+Channel: Microsoft-Windows-GroupPolicy/Operational
+Provider: Microsoft-Windows-GroupPolicy
+Maps:
+
+  -
+    Property: PayloadData1
+    PropertyValue: "GPO Title: %DescriptionString%"
+    Values:
+      -
+        Name: DescriptionString
+        Value: "/Event/EventData/Data[@Name=\"DescriptionString\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "GPO List: %ApplicableGPOList%"
+    Values:
+      -
+        Name: ApplicableGPOList
+        Value: "/Event/EventData/Data[@Name=\"ApplicableGPOList\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "GPOChange: %IsGPOListChanged%"
+    Values:
+      -
+        Name: IsGPOListChanged
+        Value: "/Event/EventData/Data[@Name=\"IsGPOListChanged\"]"
+  -
+    Property: PayloadData4
+    PropertyValue: "CSEExtensionName: %CSEExtensionName%"
+    Values:
+      -
+        Name: CSEExtensionName
+        Value: "/Event/EventData/Data[@Name=\"CSEExtensionName\"]"
+
+# Documentation:
+# Events 4016 and 5016 show the start and end of processing of groups of policies, including how long it took to apply each one in the end event.
+# https://itworldjd.wordpress.com/2014/03/10/gpo-troubleshooting-using-log-files-on-win7-and-win-2008-r2/
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-GroupPolicy.csv
+#
+# Example Event Data:
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <System>
+#  <Provider Name="Microsoft-Windows-GroupPolicy" Guid="{aea1b4fa-97d1-45f2-a64c-4d69fffd92c9}" />
+#  <EventID>4016</EventID>
+#  <Version>0</Version>
+#  <Level>4</Level>
+#  <Task>0</Task>
+#  <Opcode>1</Opcode>
+#  <Keywords>0x4000000000000000</Keywords>
+#  <TimeCreated SystemTime="2022-05-24T13:05:59.3535687Z" />
+#  <EventRecordID>515206</EventRecordID>
+#  <Correlation ActivityID="{a5fbeca3-6758-456e-9209-c120909df110}" />
+#  <Execution ProcessID="9748" ThreadID="11076" />
+#  <Channel>Microsoft-Windows-GroupPolicy/Operational</Channel>
+#  <Computer>COMPUTER</Computer>
+#  <Security UserID="S-1-5-18" />
+#  </System>
+# <EventData>
+#  <Data Name="CSEExtensionId">{35378eac-683f-11d2-a89a-00c04fbbcfa2}</Data>
+#  <Data Name="CSEExtensionName">Registry</Data>
+#  <Data Name="IsExtensionAsyncProcessing">false</Data>
+#  <Data Name="IsGPOListChanged">true</Data>
+#  <Data Name="GPOListStatusString">%%4102</Data>
+#  <Data Name="DescriptionString">GPO TITLE</Data>
+#  <Data Name="ApplicableGPOList"><GPO ID=" LIST OF GPO’s>
+#  </EventData>
+#  </Event>

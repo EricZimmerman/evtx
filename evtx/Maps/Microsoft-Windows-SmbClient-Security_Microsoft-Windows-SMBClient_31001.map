@@ -1,0 +1,107 @@
+Author: Gabriele Zambelli @gazambelli
+Description: "SMB Client: DiagReasonISC"
+EventId: 31001
+Channel: Microsoft-Windows-SmbClient/Security
+Provider: Microsoft-Windows-SMBClient
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "Target: %UserName%"
+    Values:
+      -
+        Name: UserName
+        Value: "/Event/EventData/Data[@Name=\"UserName\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "TargetServerName: %ServerName%"
+    Values:
+      -
+        Name: ServerName
+        Value: "/Event/EventData/Data[@Name=\"ServerName\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "Status: %Status%"
+    Values:
+      -
+        Name: Status
+        Value: "/Event/EventData/Data[@Name=\"Status\"]"
+
+Lookups:
+  -
+    Name: Status
+    Default: Unknown code
+    Values:
+      0xC000005E: there are currently no logon servers available to service the logon request
+      3221225566: there are currently no logon servers available to service the logon request
+      0xC0000064: user name does not exist
+      3221225572: user name does not exist
+      0xC000006A: user name is correct but the password is wrong
+      3221225578: user name is correct but the password is wrong
+      0xC000006D: the cause is either a bad username or authentication information
+      3221225581: the cause is either a bad username or authentication information
+      0xC000006E: some user account restriction has prevented successful authentication
+      3221225582: some user account restriction has prevented successful authentication
+      0xC000006F: user logon outside authorized hours
+      3221225583: user logon outside authorized hours
+      0xC0000070: user logon from unauthorized workstation
+      3221225584: user logon from unauthorized workstation
+      0xC0000071: user logon with expired password
+      3221225585: user logon with expired password
+      0xC0000072: user logon to account disabled by administrator
+      3221225586: user logon to account disabled by administrator
+      0xC00000DC: indicates the Sam Server was in the wrong state to perform the desired operation
+      3221225692: indicates the Sam Server was in the wrong state to perform the desired operation
+      0xC0000133: clocks between DC and other computer too far out of sync
+      3221225779: clocks between DC and other computer too far out of sync
+      0xC000015B: the user has not been granted the requested logon type at this machine
+      3221225819: the user has not been granted the requested logon type at this machine
+      0xC000018C: the trust relationship between the primary domain and the trusted domain failed
+      3221225868: the trust relationship between the primary domain and the trusted domain failed
+      0xC0000192: an attempt was made to logon, but the Netlogon service was not started.
+      3221225874: an attempt was made to logon, but the Netlogon service was not started.
+      0xC0000193: user logon with expired account
+      3221225875: user logon with expired account
+      0xC0000224: user is required to change password at next logon
+      3221226020: user is required to change password at next logon
+      0xC0000225: evidently a bug in Windows and not a risk
+      3221226021: evidently a bug in Windows and not a risk
+      0xC0000234: user is currently locked out
+      3221226036: user is currently locked out
+      0x0: Status OK
+      0: Status OK
+
+# Documentation:
+# Failure Information: https://docs.microsoft.com/en-us/windows/security/threat-protection/auditing/event-4625
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-SMBClient.csv
+#
+# Example Event Data:
+# <Event>
+# <System>
+# <Provider Name="Microsoft-Windows-SMBClient" Guid="988c59c5-0a1c-45b6-a555-0c62276e327d" />
+# <EventID>31001</EventID>
+# <Version>0</Version>
+# <Level>2</Level>
+# <Task>0</Task>
+# <Opcode>0</Opcode>
+# <Keywords>0x200000000000080</Keywords>
+# <TimeCreated SystemTime="2022-08-20 14:12:22.7316532" />
+# <EventRecordID>22</EventRecordID>
+# <Correlation />
+# <Execution ProcessID="4" ThreadID="4912" />
+# <Channel>Microsoft-Windows-SmbClient/Security</Channel>
+# <Computer>HOSTNAME</Computer>
+# <Security UserID="S-1-5-18" />
+# </System>
+# <EventData>
+#   <Data Name="Reason">10</Data>
+#   <Data Name="Status">3221225581</Data>
+#   <Data Name="SecurityStatus">3221225581</Data>
+#   <Data Name="LogonId">474190795</Data>
+#   <Data Name="ServerNameLength">17</Data>
+#   <Data Name="ServerName">\SERVERNAME.local</Data>
+#   <Data Name="PrincipalNameLength">21</Data>
+#   <Data Name="PrincipalName">cifs/SERVERNAME.local</Data>
+#   <Data Name="UserNameLength">8</Data>
+#   <Data Name="UserName">USERNAME</Data>
+# </EventData>
+# </Event>

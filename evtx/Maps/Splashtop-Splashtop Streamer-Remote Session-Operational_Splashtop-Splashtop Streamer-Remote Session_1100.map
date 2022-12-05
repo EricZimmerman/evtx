@@ -55,7 +55,7 @@ Maps:
         Value: "/Event/EventData/Data[@Name=\"SRC_Path\"]"
 
 # Documentation
-# N/A
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/ThirdParty/Splashtop-Splashtop%20Business%20app-Remote%20Session.csv
 #
 # Event Schema
 # ]]></Template>
@@ -97,7 +97,7 @@ Maps:
 # </template>
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Splashtop-Splashtop Streamer-Remote Session" Guid="66a2ea53-fc6c-42e5-9176-18749ab2ca11" />
 #    <EventID>1100</EventID>

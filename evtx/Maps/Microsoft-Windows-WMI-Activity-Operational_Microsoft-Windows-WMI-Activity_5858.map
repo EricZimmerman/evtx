@@ -205,20 +205,21 @@ Lookups:
       0x80044029: WBEMMOF_E_EXPECTED_BRACE_OR_BAD_TYPE - The final brace and semi-colon for a class are missing.
       0x8004402A: WBEMMOF_E_UNSUPPORTED_CIMV22_QUAL_VALUE - A CIM version 2.2 feature is not supported for a qualifier value.
       0x8004402B: WBEMMOF_E_UNSUPPORTED_CIMV22_DATA_TYPE - The CIM version 2.2 data type is not supported.
-      0x8004402C: WBEMMOF_E_INVALID_DELETEINSTANCE_SYNTAX - The delete instance syntax is not valid. It should be #pragma DeleteInstance("instancepath", FAIL|NOFAIL)
+      0x8004402C: WBEMMOF_E_INVALID_DELETEINSTANCE_SYNTAX - The delete instance syntax is not valid. It should be pragma DeleteInstance("instancepath", FAIL|NOFAIL)
       0x8004402D: WBEMMOF_E_INVALID_QUALIFIER_SYNTAX - The qualifier syntax is not valid. It should be qualifiername:type=value,scope(class|instance), flavorname.
       0x8004402E: WBEMMOF_E_QUALIFIER_USED_OUTSIDE_SCOPE - The qualifier is used outside of its scope.
       0x8004402F: WBEMMOF_E_ERROR_CREATING_TEMP_FILE - Error creating temporary file. The temporary file is an intermediate stage in the MOF compilation.
-      0x80044030: WBEMMOF_E_ERROR_INVALID_INCLUDE_FILE - A file included in the MOF by the preprocessor command #include is not valid.
+      0x80044030: WBEMMOF_E_ERROR_INVALID_INCLUDE_FILE - A file included in the MOF by the preprocessor command include is not valid.
       0x80044031: WBEMMOF_E_INVALID_DELETECLASS_SYNTAX - The syntax for the preprocessor commands pragma deleteinstance or pragma deleteclass is not valid.
 
 # Documentation:
 # https://www.darkoperator.com/blog/2017/10/14/basics-of-tracking-wmi-activity
 # https://docs.microsoft.com/en-gb/windows/win32/wmisdk/wmi-error-constants
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-WMI-Activity.csv
 #
 # Example Event Data:
-#<Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
-#- <System>
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <System>
 #  <Provider Name="Microsoft-Windows-WMI-Activity" Guid="{1418ef04-b0b4-4623-bf7e-d74ab47bbdaa}" />
 #  <EventID>5858</EventID>
 #  <Version>0</Version>
@@ -234,8 +235,8 @@ Lookups:
 #  <Computer>server.domain.tld</Computer>
 #  <Security UserID="S-1-5-18" />
 #  </System>
-#- <UserData>
-#- <Operation_ClientFailure xmlns="http://manifests.microsoft.com/win/2006/windows/WMI">
+# <UserData>
+# <Operation_ClientFailure xmlns="http://manifests.microsoft.com/win/2006/windows/WMI">
 #  <Id>{1234ABCD-12AB-12AB-12AB-123456ABCDEF}</Id>
 #  <ClientMachine>SERVER</ClientMachine>
 #  <User />

@@ -49,9 +49,10 @@ Maps:
 
 # Documentation:
 # https://docs.microsoft.com/en-us/troubleshoot/windows-server/networking/troubleshoot-event-id-1020-warnings-file-server
+# https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-SMBServer.csv
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-SMBServer" Guid="d48ce617-33a2-4bc3-a5c7-11aa4f29619e" />
 #    <EventID>1020</EventID>
@@ -91,4 +92,4 @@ Maps:
 #      <TunneledControl>0</TunneledControl>
 #    </EventData>
 #  </UserData>
-#</Event>
+# </Event>
