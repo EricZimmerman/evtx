@@ -15,8 +15,8 @@ Maps:
 
 # Documentation:
 # 13Cubed - Detecting NTDS.DIT Theft - ESENT Event Logs
-# 	https://urldefense.com/v3/__https://www.youtube.com/watch?v=rioVumJB0Fo&t=2s__;!!LrwELaEne27E!6MlBeTlBoYUFQT6QNGNk9M4d5pB8PgowHZlEFQlvx8bG80XdY3lBL7E4_ZWGzLP8emG4nWqyhcF8CckoKkRdzKNPVJidrw$ 
-# 
+# 	https://urldefense.com/v3/__https://www.youtube.com/watch?v=rioVumJB0Fo&t=2s__;!!LrwELaEne27E!6MlBeTlBoYUFQT6QNGNk9M4d5pB8PgowHZlEFQlvx8bG80XdY3lBL7E4_ZWGzLP8emG4nWqyhcF8CckoKkRdzKNPVJidrw$
+#
 # Example Event Data:
 # <Event>
 #  <System>
@@ -35,4 +35,4 @@ Maps:
 #    <Data>lsass, 9248,R,98, C:\Windows\NTDS\ntds.dit, C:\ProgramData\ntds.dit</Data>
 #    <Binary></Binary>
 #  </EventData>
-#</Event>
+# </Event>
