@@ -1,0 +1,38 @@
+Author: David Graham david.c.graham@gmail.com
+Description: NTDS database location change was detected
+EventId: 216
+Channel: Application
+Provider: ESENT
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "Database: %Database%"
+    Values:
+      -
+        Name: Database
+        Value: "/Event/EventData/Data"
+        Refine: "[a-zA-Z]{1}:.*\\.[a-zA-Z]{3,5}"
+
+# Documentation:
+# 13Cubed - Detecting NTDS.DIT Theft - ESENT Event Logs
+# 	https://urldefense.com/v3/__https://www.youtube.com/watch?v=rioVumJB0Fo&t=2s__;!!LrwELaEne27E!6MlBeTlBoYUFQT6QNGNk9M4d5pB8PgowHZlEFQlvx8bG80XdY3lBL7E4_ZWGzLP8emG4nWqyhcF8CckoKkRdzKNPVJidrw$
+#
+# Example Event Data:
+# <Event>
+#  <System>
+#    <Provider Name="ESENT" />
+#    <EventID Qualifiers="0">216</EventID>
+#    <Level>4</Level>
+#    <Task>3</Task>
+#    <Keywords>0x80000000000000</Keywords>
+#    <TimeCreated SystemTime="2022-11-10 03:00:50.7707674" />
+#    <EventRecordID>812385</EventRecordID>
+#    <Channel>Application</Channel>
+#    <Computer>DC.VICTIM_SERVER.local</Computer>
+#    <Security />
+#  </System>
+#  <EventData>
+#    <Data>lsass, 9248,R,98, C:\Windows\NTDS\ntds.dit, C:\ProgramData\ntds.dit</Data>
+#    <Binary></Binary>
+#  </EventData>
+# </Event>
