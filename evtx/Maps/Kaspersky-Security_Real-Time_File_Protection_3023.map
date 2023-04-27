@@ -11,4 +11,6 @@ Maps:
       -
         Name: DetectionInformation
         Value: "/Event/EventData/Data"
-        
+
+# Documentation:
+# N/A
