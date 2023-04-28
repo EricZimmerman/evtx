@@ -1,0 +1,49 @@
+Author: Andrew Rathbun
+Description: Defender uploaded a file for further analysis
+EventId: 2050
+Channel: Microsoft-Windows-Windows Defender/Operational
+Provider: Microsoft-Windows-Windows Defender
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "SHA256: %Sha256%"
+    Values:
+      -
+        Name: Sha256
+        Value: "/Event/EventData/Data[@Name=\"Sha256\"]"
+  -
+    Property: ExecutableInfo
+    PropertyValue: "%Filename%"
+    Values:
+      -
+        Name: Filename
+        Value: "/Event/EventData/Data[@Name=\"Filename\"]"
+
+# Documentation:
+# N/A
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-Windows Defender" Guid="11cd958a-c507-4ef3-b3f2-5fd9dfbd2c78" />
+#     <EventID>2050</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x8000000000000000</Keywords>
+#     <TimeCreated SystemTime="2022-02-19 01:13:39.3131234" />
+#     <EventRecordID>56774</EventRecordID>
+#     <Correlation ActivityID="eeabc537-e19e-4238-bb37-dd1dc23486cb" />
+#     <Execution ProcessID="3454" ThreadID="11252" />
+#     <Channel>Microsoft-Windows-Windows Defender/Operational</Channel>
+#     <Computer>hostname.DOMAIN</Computer>
+#     <Security UserID="S-1-5-18" />
+#   </System>
+#   <EventData>
+#     <Data Name="Product Name">Microsoft Defender Antivirus</Data>
+#     <Data Name="Product Version">4.18.2303.8</Data>
+#     <Data Name="Filename">C:\evil.exe</Data>
+#     <Data Name="Sha256">abcd38c2b76aaebd3cf08eb47eaa721abce297799e9410195fc7abcce123456</Data>
+#   </EventData>
+# </Event>
