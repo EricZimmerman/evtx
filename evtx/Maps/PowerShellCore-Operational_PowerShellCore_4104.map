@@ -38,7 +38,7 @@ Maps:
 #     <Execution ProcessID="35496" ThreadID="99876" />
 #     <Channel>PowerShellCore/Operational</Channel>
 #     <Computer>HOSTNAME</Computer>
-#     <Security UserID="S-1-5-21-3735441246-2017897385-317953719-1001" />
+#     <Security UserID="S-1-5-21-3735441246-2011234385-317123419-1001" />
 #   </System>
 #   <EventData>
 #     <Data Name="MessageNumber">1</Data>
