@@ -1,0 +1,50 @@
+Author: Andrew Rathbun
+Description: Contains contents of scripts run
+EventId: 4104
+Channel: "PowerShellCore/Operational"
+Provider: PowerShellCore
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "Path: %Path%"
+    Values:
+      -
+        Name: Path
+        Value: "/Event/EventData/Data[@Name=\"Path\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "ScriptBlockText: %ScriptBlockText%"
+    Values:
+      -
+        Name: ScriptBlockText
+        Value: "/Event/EventData/Data[@Name=\"ScriptBlockText\"]"
+
+# Documentation:
+# Very similar to PowerShell:4104 events, but for PowerShellCore
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="PowerShellCore" Guid="f90714a8-5509-434a-bf6d-b1624c8a19a2" />
+#     <EventID>4104</EventID>
+#     <Version>1</Version>
+#     <Level>3</Level>
+#     <Task>2</Task>
+#     <Opcode>15</Opcode>
+#     <Keywords>0x0</Keywords>
+#     <TimeCreated SystemTime="2022-04-11 18:34:28.123456" />
+#     <EventRecordID>1484</EventRecordID>
+#     <Correlation ActivityID="02b3985e-6848-000e-d894-b80241234901" />
+#     <Execution ProcessID="35496" ThreadID="99876" />
+#     <Channel>PowerShellCore/Operational</Channel>
+#     <Computer>HOSTNAME</Computer>
+#     <Security UserID="S-1-5-21-3735441246-2011234385-317123419-1001" />
+#   </System>
+#   <EventData>
+#     <Data Name="MessageNumber">1</Data>
+#     <Data Name="MessageTotal">7</Data>
+#     <Data Name="ScriptBlockText">, #requires -version 3.0, try { Microsoft.PowerShell.Core\Set-StrictMode <SNIP>
+#     <Data Name="ScriptBlockId">c79abe83-17c9-4e04-9de2-fbbd12321d38</Data>
+#     <Data Name="Path"></Data>
+#   </EventData>
+# </Event>
