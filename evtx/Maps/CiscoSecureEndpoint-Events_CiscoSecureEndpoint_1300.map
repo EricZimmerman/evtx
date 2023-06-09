@@ -1,0 +1,64 @@
+Author: Andrew Rathbun
+Description: Cisco Secure Endpoint Detection
+EventId: 1300
+Channel: "CiscoSecureEndpoint/Events"
+Provider: CiscoSecureEndpoint
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "DetectionName: %DetectionName%"
+    Values:
+      -
+        Name: DetectionName
+        Value: "/Event/EventData/Data[@Name=\"DetectionName\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "ParentName: %ParentName%"
+    Values:
+      -
+        Name: ParentName
+        Value: "/Event/EventData/Data[@Name=\"ParentName\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "DetectionId: %DetectionId%"
+    Values:
+      -
+        Name: DetectionId
+        Value: "/Event/EventData/Data[@Name=\"DetectionId\"]"
+  -
+    Property: ExecutableInfo
+    PropertyValue: "%DetectedFilePath%"
+    Values:
+      -
+        Name: DetectedFilePath
+        Value: "/Event/EventData/Data[@Name=\"DetectedFilePath\"]"
+
+# Documentation:
+# N/A
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="CiscoSecureEndpoint" Guid="0643104d-3c79-4ed5-9ed4-cd8e803fea9c" />
+#     <EventID>1300</EventID>
+#     <Version>1</Version>
+#     <Level>4</Level>
+#     <Task>10</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x8000000000000000</Keywords>
+#     <TimeCreated SystemTime="2022-03-05 19:12:53.1234567" />
+#     <EventRecordID>19</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="1234" ThreadID="5678" />
+#     <Channel>CiscoSecureEndpoint/Events</Channel>
+#     <Computer>HOSTNAME.domain.com</Computer>
+#     <Security UserID="S-1-5-18" />
+#   </System>
+#   <EventData>
+#     <Data Name="DetectionName">IL:Trojan.MSILZilla.6459</Data>
+#     <Data Name="DetectionId">719612345678907012</Data>
+#     <Data Name="ParentName">powershell.exe</Data>
+#     <Data Name="DetectedFilePath">C:\ProgramData\evil.exe</Data>
+#     <Data Name="DetectionEngine">64</Data>
+#   </EventData>
+# </Event>
