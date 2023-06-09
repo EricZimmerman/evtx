@@ -1,0 +1,71 @@
+Author: Andrew Rathbun
+Description: Cisco Secure Endpoint Detection
+EventId: 100
+Channel: "CiscoSecureEndpoint/Events"
+Provider: CiscoSecureEndpoint
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "ThreatModule: %ThreatModule%"
+    Values:
+      -
+        Name: ThreatModule
+        Value: "/Event/EventData/Data[@Name=\"AttackInfo\"]"
+        Refine: "(?<=\"threat_module_s\":\")(.*?)(?=\",\"threat_sub_module_s\")"
+  -
+    Property: PayloadData2
+    PropertyValue: "ParentProcessName: %ParentProcessName%"
+    Values:
+      -
+        Name: ParentProcessName
+        Value: "/Event/EventData/Data[@Name=\"ParentProcessName\"]"
+
+  -
+    Property: ExecutableInfo
+    PropertyValue: "%ProcessName%"
+    Values:
+      -
+        Name: ProcessName
+        Value: "/Event/EventData/Data[@Name=\"ProcessName\"]"
+
+  -
+    Property: UserName
+    PropertyValue: "%UserName%"
+    Values:
+      -
+        Name: UserName
+        Value: "/Event/EventData/Data[@Name=\"AttackInfo\"]"
+        Refine: "(?<=\"u\":\")(.*?)(?=\")"
+
+# Documentation:
+# N/A
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="CiscoSecureEndpoint" Guid="0643104d-3c79-4ed5-9ed4-cd8e803fea9c" />
+#     <EventID>100</EventID>
+#     <Version>1</Version>
+#     <Level>4</Level>
+#     <Task>10</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x8000000000000000</Keywords>
+#     <TimeCreated SystemTime="2022-03-05 19:12:53.1234567" />
+#     <EventRecordID>19</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="1234" ThreadID="5678" />
+#     <Channel>CiscoSecureEndpoint/Events</Channel>
+#     <Computer>HOSTNAME.domain.com</Computer>
+#     <Security UserID="S-1-5-18" />
+#   </System>
+#   <EventData>
+#    <Data Name="PID">1548</Data>
+#    <Data Name="TimeStamp">1675861234</Data>
+#    <Data Name="ProcessName">C:\programdata\evil.exe</Data>
+#    <Data Name="AttackInfo">{"afps":"C:\\programdata\\evil.exe","ams":"kernel32.dll","at":"2022-10-08 12:13:33","bas":"0x00007FFA54171234","edvs":"5.3.11.13","sfs":[""],"sus":[""],"threat_module_s":"Shellcode","threat_sub_module_s":"PEB","u":"username@DOMAIN"}</Data>
+#    <Data Name="SuspiciousFiles"></Data>
+#    <Data Name="ParentProcessName">C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe</Data>
+#    <Data Name="ParentProcessPID">1234</Data>
+#    <Data Name="ScriptControlBadDll"></Data>
+#   </EventData>
+# </Event>
