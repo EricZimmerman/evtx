@@ -1,0 +1,19 @@
+Author: Phill Moore
+Description: Threat detected (Real-time file protection)
+EventId: 3203
+Channel: "Kaspersky Security"
+Provider: "Real-Time File Protection"
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "%DetectionInformation%"
+    Values:
+      -
+        Name: DetectionInformation
+        Value: "/Event/EventData/Data"
+
+# Documentation:
+# N/A
+#
+# Example Event Data:
+# N/A
