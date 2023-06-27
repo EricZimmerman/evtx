@@ -2,7 +2,7 @@ Author: Phill Moore
 Description: A new Hyper-V VM was created
 EventId: 13002
 Channel: "Microsoft-Windows-Hyper-V-VMMS-Admin"
-Provider: Microsoft-Windows-Hyper-V-Worker
+Provider: Microsoft-Windows-Hyper-V-VMMS
 Maps:
   -
     Property: PayloadData1
