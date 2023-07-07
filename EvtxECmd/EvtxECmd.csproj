@@ -10,6 +10,7 @@
     <Copyright>Eric Zimmerman</Copyright>
     <LangVersion>10</LangVersion>
     <Version>1.5.0.0</Version>
+    <IsPackable>false</IsPackable>
   </PropertyGroup>
   <PropertyGroup>
     <ApplicationIcon>IDCard.ico</ApplicationIcon>

@@ -3,13 +3,22 @@
     <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
     <AssemblyTitle>evtx parser</AssemblyTitle>
     <Company>Eric R. Zimmerman</Company>
+    <Authors>Eric R. Zimmerman</Authors>
     <Product>evtx parser</Product>
     <Description>Parses Windows event logs (evtx format)</Description>
     <Copyright>Eric Zimmerman</Copyright>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <LangVersion>10</LangVersion>
-    <Version>1.1.1.0</Version>
+    <Version>1.2.0</Version>
+
+
+    <PackageTags>evtx, event logs</PackageTags>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageIcon>icon.png</PackageIcon>
+    <GenerateDocumentationFile>True</GenerateDocumentationFile>
+    <!-- If all members are not documented, you can disable the compiler warnings -->
+    <NoWarn>$(NoWarn);CS1591</NoWarn>
     
   </PropertyGroup>
     <ItemGroup>
@@ -20,5 +29,16 @@
     <PackageReference Include="System.Xml.XPath" Version="4.3.0" />
     <PackageReference Include="YamlDotNet" Version="13.1.1" />
       <PackageReference Include="System.Text.Encoding.CodePages" Version="7.0.0" />
+
+      <None Include="../README.md" Pack="true" PackagePath=""/>
+      <None Include="../icon.png" Pack="true" PackagePath=""/>
+      <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+      <PackageReference Include="MinVer" Version="4.3.0">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
   </ItemGroup>
 </Project>
