@@ -7,11 +7,11 @@
     <Product>evtx parser</Product>
     <Description>Parses Windows event logs (evtx format)</Description>
     <Copyright>Eric Zimmerman</Copyright>
+    <PackageProjectUrl>https://github.com/EricZimmerman/evtx</PackageProjectUrl>
     
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <LangVersion>10</LangVersion>
     <Version>1.2.0</Version>
-
 
     <PackageTags>evtx, event logs</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
