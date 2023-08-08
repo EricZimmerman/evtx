@@ -6,7 +6,7 @@ Provider: Microsoft-Windows-Hyper-V-Worker
 Maps:
   -
     Property: PayloadData1
-    PropertyValue: "%VmName% was reset by the guest operating system. (Virtual machine ID %VmId%)"
+    PropertyValue: "'%VmName%' was reset by the guest operating system. (Virtual machine ID %VmId%)"
     Values:
       -
         Name: VmName
@@ -15,7 +15,7 @@ Maps:
         Name: VmId
         Value: "/Event/UserData/VmlEventLog/VmId"
 
-# Documentation:
+# Documentation
 # https://p0w3rsh3ll.wordpress.com/tag/hyper-v/
 #
 # Example Event Data:

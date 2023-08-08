@@ -1,37 +1,44 @@
-Author: Phill Moore
-Description: Hyper-V VM started successfully
-EventId: 18500
+Author: Suyash Tripathi
+Description: Hyper-V VM was shut down
+EventId: 18504
 Channel: "Microsoft-Windows-Hyper-V-Worker-Admin"
 Provider: Microsoft-Windows-Hyper-V-Worker
 Maps:
   -
     Property: PayloadData1
-    PropertyValue: "'%VmName%' started successfully. (Virtual machine ID %VmId%)"
+    PropertyValue: "'%VmName%' was shut down using the Shutdown Integration Component. (Virtual machine ID %VmId%)"
     Values:
-      -
-        Name: VmId
-        Value: "/Event/UserData/VmlEventLog/VmId"
       -
         Name: VmName
         Value: "/Event/UserData/VmlEventLog/VmName"
+      -
+        Name: VmId
+        Value: "/Event/UserData/VmlEventLog/VmId"
+  -
+    Property: PayloadData2
+    PropertyValue: "Shutdown reason: '%Reason%'"
+    Values:
+      -
+        Name: Reason
+        Value: "/Event/UserData/VmlEventLog/Reason"
 
 # Documentation
-# https://p0w3rsh3ll.wordpress.com/tag/hyper-v/
+# N/A
 #
 # Example Event Data:
 # <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Hyper-V-Worker" Guid="51ddfa29-d5c8-4803-be4b-2ecb715570fe" />
-#    <EventID>18500</EventID>
+#    <EventID>18504</EventID>
 #    <Version>0</Version>
 #    <Level>4</Level>
 #    <Task>0</Task>
 #    <Opcode>0</Opcode>
 #    <Keywords>0x8000000000000000</Keywords>
-#    <TimeCreated SystemTime="2023-08-04 00:45:04.2627283" />
-#    <EventRecordID>149</EventRecordID>
-#    <Correlation ActivityID="d78a7212-c596-0000-c349-8ed796c5d901" />
-#    <Execution ProcessID="6460" ThreadID="1180" />
+#    <TimeCreated SystemTime="2023-08-04 01:03:04.5528173" />
+#    <EventRecordID>170</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="2012" ThreadID="3236" />
 #    <Channel>Microsoft-Windows-Hyper-V-Worker-Admin</Channel>
 #    <Computer>WIN-1234</Computer>
 #    <Security UserID="S-1-5-83-1-1570674725-1260853619-2008740250-1715473044" />
@@ -40,6 +47,8 @@ Maps:
 #    <VmlEventLog>
 #      <VmName>VM TOTAL</VmName>
 #      <VmId>5D9E9825-1973-4B27-9AF1-BA77940A4066</VmId>
+#      <Force>False</Force>
+#      <Reason></Reason>
 #    </VmlEventLog>
 #  </UserData>
 # </Event>
