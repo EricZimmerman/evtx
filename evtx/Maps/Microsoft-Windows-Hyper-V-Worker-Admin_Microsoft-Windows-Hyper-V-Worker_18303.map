@@ -1,12 +1,12 @@
-Author: Phill Moore
-Description: A new Hyper-V VM was created
-EventId: 13002
+Author: Suyash Tripathi
+Description: Hyper-V VM was exported
+EventId: 18303
 Channel: "Microsoft-Windows-Hyper-V-VMMS-Admin"
 Provider: Microsoft-Windows-Hyper-V-VMMS
 Maps:
   -
     Property: PayloadData1
-    PropertyValue: "A new virtual machine %VmName% was created. (Virtual machine ID %VmId%)"
+    PropertyValue: "'%VmName%' was successfully exported. (Virtual machine ID %VmId%)"
     Values:
       -
         Name: VmName
@@ -19,27 +19,28 @@ Maps:
 # N/A
 #
 # Example Event Data:
-# <Event>
+#<Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Hyper-V-VMMS" Guid="6066f867-7ca1-4418-85fd-36e3f9c0600c" />
-#    <EventID>13002</EventID>
+#    <EventID>18303</EventID>
 #    <Version>0</Version>
 #    <Level>4</Level>
 #    <Task>0</Task>
 #    <Opcode>0</Opcode>
 #    <Keywords>0x8000000000000000</Keywords>
-##    <TimeCreated SystemTime="2023-08-02 05:47:11.0063997" />
-#    <EventRecordID>45</EventRecordID>
-#    <Correlation />
-#    <Execution ProcessID="1628" ThreadID="3288" />
+#    <TimeCreated SystemTime="2023-08-04 00:03:46.7723285" />
+#    <EventRecordID>96</EventRecordID>
+#    <Correlation ActivityID="d78a7212-c596-0003-fab3-8dd796c5d901" />
+#    <Execution ProcessID="1728" ThreadID="5364" />
 #    <Channel>Microsoft-Windows-Hyper-V-VMMS-Admin</Channel>
-#    <Computer>WIN-N4SBH71JDM6</Computer>
+#    <Computer>WIN-1234</Computer>
 #    <Security UserID="S-1-5-18" />
 #  </System>
 #  <UserData>
-##    <VmlEventLog>
-#      <VmName>Test VM</VmName>
-#      <VmId>30B40FA3-E42E-4C34-9223-50599E748D6B</VmId>
+#    <VmlEventLog>
+#      <VmName>Temp VM</VmName>
+#      <VmId>866D7BD1-67F0-4A88-B9CB-638ACA45B57C</VmId>
 #    </VmlEventLog>
 #  </UserData>
 #</Event>
+

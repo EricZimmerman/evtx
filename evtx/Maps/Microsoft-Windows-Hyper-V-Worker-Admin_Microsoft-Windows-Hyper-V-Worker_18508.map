@@ -6,7 +6,7 @@ Provider: Microsoft-Windows-Hyper-V-Worker
 Maps:
   -
     Property: PayloadData1
-    PropertyValue: "%VmName% was shut down by the guest operating system. (Virtual machine ID %VmId%)"
+    PropertyValue: "'%VmName%' was shut down by the guest operating system. (Virtual machine ID %VmId%)"
     Values:
       -
         Name: VmName
@@ -14,9 +14,40 @@ Maps:
       -
         Name: VmId
         Value: "/Event/UserData/VmlEventLog/VmId"
+  -
+    Property: PayloadData2
+    PropertyValue: "Shutdown reason: '%Reason%'"
+    Values:
+      -
+        Name: VmName
+        Value: "/Event/UserData/VmlEventLog/Reason"
+
 
 # Documentation:
 # https://p0w3rsh3ll.wordpress.com/tag/hyper-v/
 #
 # Example Event Data:
-# N/A
+#<Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Hyper-V-Worker" Guid="51ddfa29-d5c8-4803-be4b-2ecb715570fe" />
+#    <EventID>18508</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>0</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8000000000000000</Keywords>
+#    <TimeCreated SystemTime="2023-08-04 02:07:10.1532019" />
+#    <EventRecordID>185</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="852" ThreadID="3028" />
+#    <Channel>Microsoft-Windows-Hyper-V-Worker-Admin</Channel>
+#    <Computer>WIN-1234</Computer>
+#    <Security UserID="S-1-5-83-1-3336743379-1228142038-307014030-1792769160" />
+#  </System>
+#  <UserData>
+#    <VmlEventLog>
+#      <VmName>New Windows VM</VmName>
+#      <VmId>C6E2A9D3-F5D6-4933-8EA9-4C12887CDB6A</VmId>
+#    </VmlEventLog>
+#  </UserData>
+#</Event>
