@@ -19,7 +19,7 @@ Maps:
 # N/A
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Hyper-V-VMMS" Guid="6066f867-7ca1-4418-85fd-36e3f9c0600c" />
 #    <EventID>13003</EventID>
@@ -42,4 +42,4 @@ Maps:
 #      <VmId>8EB9FA6A-98BF-4B32-A74A-A420AE683997</VmId>
 #    </VmlEventLog>
 #  </UserData>
-#</Event>
+# </Event>

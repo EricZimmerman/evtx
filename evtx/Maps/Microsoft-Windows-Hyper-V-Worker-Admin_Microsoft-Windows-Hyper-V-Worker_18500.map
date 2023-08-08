@@ -15,11 +15,11 @@ Maps:
         Name: VmName
         Value: "/Event/UserData/VmlEventLog/VmName"
 
-# Documentation:
+# Documentation
 # https://p0w3rsh3ll.wordpress.com/tag/hyper-v/
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Hyper-V-Worker" Guid="51ddfa29-d5c8-4803-be4b-2ecb715570fe" />
 #    <EventID>18500</EventID>
@@ -42,4 +42,4 @@ Maps:
 #      <VmId>5D9E9825-1973-4B27-9AF1-BA77940A4066</VmId>
 #    </VmlEventLog>
 #  </UserData>
-#</Event>
+# </Event>

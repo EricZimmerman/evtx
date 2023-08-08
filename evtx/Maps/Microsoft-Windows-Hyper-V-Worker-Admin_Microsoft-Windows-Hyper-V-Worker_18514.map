@@ -15,7 +15,7 @@ Maps:
         Name: VmId
         Value: "/Event/UserData/VmlEventLog/VmId"
 
-# Documentation:
+# Documentation
 # https://p0w3rsh3ll.wordpress.com/tag/hyper-v/
 #
 # Example Event Data:

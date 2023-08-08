@@ -22,11 +22,11 @@ Maps:
         Name: Reason
         Value: "/Event/UserData/VmlEventLog/Reason"
 
-# Documentation:
+# Documentation
 # N/A
 #
 # Example Event Data:
-#<Event>
+# <Event>
 #  <System>
 #    <Provider Name="Microsoft-Windows-Hyper-V-Worker" Guid="51ddfa29-d5c8-4803-be4b-2ecb715570fe" />
 #    <EventID>18504</EventID>
@@ -51,4 +51,4 @@ Maps:
 #      <Reason></Reason>
 #    </VmlEventLog>
 #  </UserData>
-#</Event>
+# </Event>
