@@ -19,7 +19,7 @@ Maps:
     PropertyValue: "Shutdown reason: '%Reason%'"
     Values:
       -
-        Name: VmName
+        Name: Reason
         Value: "/Event/UserData/VmlEventLog/Reason"
 
 
