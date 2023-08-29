@@ -1,9 +1,9 @@
-Author: Andrew Rathbun : 
+Author: Andrew Rathbun
 Description: Carbon Black Defense
 EventId: 33
 Channel: Application
 Provider: CbDefense
-Maps: 
+Maps:
   -
     Property: PayloadData1
     PropertyValue: "Data: %Data%"
