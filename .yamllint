@@ -4,28 +4,70 @@ yaml-files:
   - '*.map'
 
 rules:
+  # Enforces consistent usage of braces {} for inline mappings
   braces: enable
+
+  # Enforces consistent usage of brackets [] for inline sequences
   brackets: enable
+
+  # Ensures colons are used correctly in key-value pairs, as per YAML's specifications
   colons: enable
+
+  # Ensures that commas are used correctly in YAML files
   commas: enable
+
+  # Flags comments that are problematic, but set to warning level
   comments:
     level: warning
+
+  # Flags inconsistent indentation in comments, but set to warning level
   comments-indentation:
     level: warning
+
+  # Disables requirement for a '...' to signify the end of a document
   document-end: disable
+
+  # Disables requirement for '---' at the start of a document
   document-start: disable
+
+  # Enforces consistent usage of empty lines between blocks
   empty-lines: enable
+
+  # Disables the check for empty values in YAML files
   empty-values: disable
+
+  # Enforces correct usage of hyphens for list items
   hyphens: enable
+
+  # Ensures that the indentation in YAML files is consistent
   indentation: enable
+
+  # Checks that keys within a mapping are unique
   key-duplicates: enable
+
+  # Disables the rule for key ordering within a mapping
   key-ordering: disable
+
+  # Disables line length check
   line-length: disable
+
+  # Enables the requirement for a new line at the end of the file
   new-line-at-end-of-file: enable
+
+  # Disables the check for Unix-style newlines (LF)
   new-lines: disable
+
+  # Disables the check for octal values in YAML files
   octal-values: disable
+
+  # Disables the rule for enforcing quoted strings
   quoted-strings: disable
+
+  # Checks for trailing whitespaces at the end of lines
   trailing-spaces: enable
+
+  # Flags truthy values (e.g., 'yes', 'no', 'true', 'false') but set to warning level
+  # Also disables check for keys
   truthy:
     check-keys: false
     level: warning
