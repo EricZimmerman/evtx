@@ -1,0 +1,98 @@
+Author: Phill Moore
+Description: Network Policy Server granted access to a user
+EventId: 6272
+Channel: Security
+Provider: Microsoft-Windows-Security-Auditing
+Maps:
+  -
+    Property: RemoteHost
+    PropertyValue: "%ipAddress%"
+    Values:
+      -
+        Name: ipAddress
+        Value: "/Event/EventData/Data[@Name=\"CallingStationID\"]"
+  -
+    Property: UserName
+    PropertyValue: "%domain%\\%user% (%sid%)"
+    Values:
+      -
+        Name: domain
+        Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
+      -
+        Name: user
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
+      -
+        Name: sid
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserSid\"]"
+  -
+    Property: PayloadData1
+    PropertyValue: "%clientname% (%clientipaddress%)"
+    Values:
+      -
+        Name: clientname
+        Value: "/Event/EventData/Data[@Name=\"ClientName\"]"
+      -
+        Name: clientipaddress
+        Value: "/Event/EventData/Data[@Name=\"ClientIPAddress\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "Policy name: %ProxyPolicyName%"
+    Values:
+      -
+        Name: ProxyPolicyName
+        Value: "/Event/EventData/Data[@Name=\"ProxyPolicyName\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "Auth Server: %AuthenticationServer%"
+    Values:
+      -
+        Name: AuthenticationServer
+        Value: "/Event/EventData/Data[@Name=\"AuthenticationServer\"]"
+
+# Documentation:
+# https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=6272
+#
+# Example Event Data:
+# <Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Security-Auditing" Guid="54849625-5478-4994-a5ba-3e3b0328c30d" />
+#    <EventID>6272</EventID>
+#    <Version>2</Version>
+#    <Level>0</Level>
+#    <Task>12552</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8020000000000000</Keywords>
+#    <TimeCreated SystemTime="XXXXX 07:05:42.5818615" />
+#    <EventRecordID>18469426</EventRecordID>
+#    <Correlation ActivityID="d2996340-cd6a-0001-4a63-99d26acdd901" />
+#    <Execution ProcessID="592" ThreadID="3292" />
+#    <Channel>Security</Channel>
+#    <Computer>XXXXXX</Computer>
+#    <Security />
+#  </System>
+#  <EventData>
+#    <Data Name="SubjectUserSid">S-1-1234</Data>
+#    <Data Name="SubjectUserName">username</Data>
+#    <Data Name="SubjectDomainName">domain</Data>
+#    <Data Name="FullyQualifiedSubjectUserName">userfqdn</Data>
+#    <Data Name="SubjectMachineSID">S-1-0-0</Data>
+#    <Data Name="SubjectMachineName">-</Data>
+#    <Data Name="FullyQualifiedSubjectMachineName">-</Data>
+#    <Data Name="CalledStationID">internalIP</Data>
+#    <Data Name="CallingStationID">remoteIP</Data>
+#    <Data Name="NASIPv4Address">internalIP</Data>
+#    <Data Name="NASIPv6Address">-</Data>
+#    <Data Name="NASIdentifier">-</Data>
+#    <Data Name="NASPortType">Virtual</Data>
+#    <Data Name="NASPort">199852032</Data>
+#    <Data Name="ClientName">XXX</Data>
+#    <Data Name="ClientIPAddress">internalIP</Data>
+#    <Data Name="ProxyPolicyName">Use Windows authentication for all users</Data>
+#    <Data Name="NetworkPolicyName">POLICYNAME</Data>
+#    <Data Name="AuthenticationProvider">Windows</Data>
+#    <Data Name="AuthenticationServer">XXXXXXXXXXXX</Data>
+#    <Data Name="AuthenticationType">PAP</Data>
+#    <Data Name="EAPType">-</Data>
+#    <Data Name="AccountSessionIdentifier">-</Data>
+#    <Data Name="LoggingResult">Accounting information was written to the local log file.</Data>
+#  </EventData>

@@ -19,4 +19,27 @@ Maps:
 # https://p0w3rsh3ll.wordpress.com/tag/hyper-v/
 #
 # Example Event Data:
-# N/A
+# <Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Hyper-V-Worker" Guid="51ddfa29-d5c8-4803-be4b-2ecb715570fe" />
+#    <EventID>18502</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>0</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8000000000000000</Keywords>
+#    <TimeCreated SystemTime="2023-08-04 00:46:06.8273384" />
+#    <EventRecordID>152</EventRecordID>
+#    <Correlation />
+#    <Execution ProcessID="6460" ThreadID="1076" />
+#    <Channel>Microsoft-Windows-Hyper-V-Worker-Admin</Channel>
+#    <Computer>WIN-1234</Computer>
+#    <Security UserID="S-1-5-83-1-1570674725-1260853619-2008740250-1715473044" />
+#  </System>
+#  <UserData>
+#    <VmlEventLog>
+#      <VmName>VM TOTAL</VmName>
+#      <VmId>5D9E9825-1973-4B27-9AF1-BA77940A4066</VmId>
+#    </VmlEventLog>
+#  </UserData>
+# </Event>

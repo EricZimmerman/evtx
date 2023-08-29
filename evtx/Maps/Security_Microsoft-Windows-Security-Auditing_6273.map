@@ -1,0 +1,108 @@
+Author: Phill Moore
+Description: Network Policy Server denied access to a user
+EventId: 6273
+Channel: Security
+Provider: Microsoft-Windows-Security-Auditing
+Maps:
+  -
+    Property: RemoteHost
+    PropertyValue: "%ipAddress%"
+    Values:
+      -
+        Name: ipAddress
+        Value: "/Event/EventData/Data[@Name=\"CallingStationID\"]"
+  -
+    Property: UserName
+    PropertyValue: "%domain%\\%user% (%sid%)"
+    Values:
+      -
+        Name: domain
+        Value: "/Event/EventData/Data[@Name=\"SubjectDomainName\"]"
+      -
+        Name: user
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserName\"]"
+      -
+        Name: sid
+        Value: "/Event/EventData/Data[@Name=\"SubjectUserSid\"]"
+  -
+    Property: PayloadData1
+    PropertyValue: "%clientname% (%clientipaddress%)"
+    Values:
+      -
+        Name: clientname
+        Value: "/Event/EventData/Data[@Name=\"ClientName\"]"
+      -
+        Name: clientipaddress
+        Value: "/Event/EventData/Data[@Name=\"ClientIPAddress\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "Policy name: %ProxyPolicyName%"
+    Values:
+      -
+        Name: ProxyPolicyName
+        Value: "/Event/EventData/Data[@Name=\"ProxyPolicyName\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "Auth Server: %AuthenticationServer%"
+    Values:
+      -
+        Name: AuthenticationServer
+        Value: "/Event/EventData/Data[@Name=\"AuthenticationServer\"]"
+  -
+    Property: PayloadData4
+    PropertyValue: "%FailureReason%"
+    Values:
+      -
+        Name: FailureReason
+        Value: "/Event/EventData/Data[@Name=\"Reason\"]"
+
+# Documentation:
+# https://www.ultimatewindowssecurity.com/securitylog/encyclopedia/event.aspx?eventid=6272
+#
+# Example Event Data:
+# <Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Security-Auditing" Guid="54849625-5478-4994-a5ba-3e3b0328c30d" />
+#    <EventID>6273</EventID>
+#    <Version>2</Version>
+#    <Level>0</Level>
+#    <Task>12552</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x8010000000000000</Keywords>
+#    <TimeCreated SystemTime="XXXX 07:22:15.3559155" />
+#    <EventRecordID>18469434</EventRecordID>
+#    <Correlation ActivityID="d2996340-cd6a-0001-4a63-99d26acdd901" />
+#    <Execution ProcessID="592" ThreadID="3984" />
+#    <Channel>Security</Channel>
+#    <Computer>XXXXXX</Computer>
+#    <Security />
+#  </System>
+#  <EventData>
+#    <Data Name="SubjectUserSid">S-1-0-0</Data>
+#    <Data Name="SubjectUserName">username</Data>
+#    <Data Name="SubjectDomainName">domain</Data>
+#    <Data Name="FullyQualifiedSubjectUserName">fqdn</Data>
+#    <Data Name="SubjectMachineSID">S-1-0-0</Data>
+#    <Data Name="SubjectMachineName">-</Data>
+#    <Data Name="FullyQualifiedSubjectMachineName">-</Data>
+#    <Data Name="CalledStationID">internalip</Data>
+#    <Data Name="CallingStationID">remoteip</Data>
+#    <Data Name="NASIPv4Address">internalip</Data>
+#    <Data Name="NASIPv6Address">-</Data>
+#    <Data Name="NASIdentifier">-</Data>
+#    <Data Name="NASPortType">Virtual</Data>
+#    <Data Name="NASPort">109666304</Data>
+#    <Data Name="ClientName">XXX</Data>
+#    <Data Name="ClientIPAddress">internalip</Data>
+#    <Data Name="ProxyPolicyName">Use Windows authentication for all users</Data>
+#    <Data Name="NetworkPolicyName">-</Data>
+#    <Data Name="AuthenticationProvider">Windows</Data>
+#    <Data Name="AuthenticationServer">XXXXXXXXXXXX</Data>
+#    <Data Name="AuthenticationType">PAP</Data>
+#    <Data Name="EAPType">-</Data>
+#    <Data Name="AccountSessionIdentifier">-</Data>
+#    <Data Name="ReasonCode">16</Data>
+#    <Data Name="Reason">Authentication failed due to a user credentials mismatch. Either the user name provided does not map to an existing user account or the password was incorrect.</Data>
+#    <Data Name="LoggingResult">Accounting information was written to the local log file.</Data>
+#  </EventData>
+# </Event>
