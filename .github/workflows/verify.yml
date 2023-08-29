@@ -5,5 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Change directory
+        run: cd evtx/Maps
       - name: yaml-lint
         uses: ibiqlik/action-yamllint@v3
