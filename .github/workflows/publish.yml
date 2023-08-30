@@ -26,7 +26,7 @@ jobs:
   create_nuget:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+    - uses: actions/checkout@v3
       with:
         fetch-depth: 0 # Get all history to allow automatic versioning using MinVer
 
@@ -47,7 +47,7 @@ jobs:
 
   validate_nuget:
     runs-on: ubuntu-latest
-    needs: [create_nuget]
+    needs: [ create_nuget ]
     steps:
       # Install the .NET SDK indicated in the global.json file
       - name: Setup .NET
@@ -72,7 +72,7 @@ jobs:
   run_test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+    - uses: actions/checkout@v3
     - name: Setup .NET
       uses: actions/setup-dotnet@v3
     - name: Run tests
@@ -84,7 +84,7 @@ jobs:
     # You can update this logic if you want to manage releases differently
     if: github.event_name == 'release'
     runs-on: ubuntu-latest
-    needs: [validate_nuget, run_test]
+    needs: [ validate_nuget, run_test ]
     steps:
       # Download the NuGet package created in the previous job
       - uses: actions/download-artifact@v3
