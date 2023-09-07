@@ -46,6 +46,13 @@ Maps:
       -
         Name: SessionId
         Value: "/Event/UserData/EventData/SessionId"
+  -
+    Property: PayloadData5
+    PropertyValue: "SPN: %SPN%"
+    Values:
+      -
+        Name: SPN
+        Value: "/Event/UserData/EventData/SPN"
 
 Lookups:
   -
@@ -63,12 +70,16 @@ Lookups:
       0xC0000022: The user is not authorized to access the resource.
       0xC00000CB: Resource type invalid. Value of Service field in the request was invalid.
       0x005B0002: The UID supplied is not defined to the session.
+      0xC0000072: User account on the target machine is disabled or has expired.
 
 # Documentation:
 # https://github.com/defendthehoneypot/incidentresponse#smb-brute-force-login
 # https://support.microsoft.com/en-us/topic/ntlm-authentication-fails-with-0xc0000022-error-for-windows-server-2012-windows-8-1-and-windows-server-2012-r2-after-update-is-applied-a4b23900-7cc2-2bb9-432d-831c79aea7a3
 # https://docs.microsoft.com/en-us/openspecs/windows_protocols/ms-cifs/f9a8a713-1c53-4fb0-908e-625389840cf8
+# https://learn.microsoft.com/en-us/openspecs/windows_protocols/ms-cifs/8f11e0f3-d545-46cc-97e6-f00569e3e1bc
 # https://github.com/nasbench/EVTX-ETW-Resources/blob/main/ETWProvidersCSVs/Internal/Microsoft-Windows-SMBServer.csv
+# https://learn.microsoft.com/en-us/windows/security/threat-protection/security-policy-settings/microsoft-network-server-server-spn-target-name-validation-level
+# SPN = Service Principal Name
 #
 # Example Event Data:
 # <Event>
@@ -102,6 +113,8 @@ Lookups:
 #       <UserName></UserName>
 #       <ClientNameLength>16</ClientNameLength>
 #       <ClientName>\\10.123.123.123</ClientName>
+#       <SPN>session setup failed before the SPN could be queried</SPN>
+#       <SPNValidationPolicy>0</SPNValidationPolicy>
 #     </EventData>
 #   </UserData>
 # </Event>
