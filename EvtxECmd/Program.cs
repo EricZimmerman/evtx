@@ -543,30 +543,44 @@ namespace EvtxECmd;
             _includeIds = new HashSet<int>();
             _excludeIds = new HashSet<int>();
 
-            if (exc.IsNullOrEmpty() == false)
+            void HandleSegment(string segment, HashSet<int> idSet)
             {
-                var excSegs = exc.Split(',');
-
-                foreach (var incSeg in excSegs)
+                if (segment.Contains('-'))
                 {
-                    if (int.TryParse(incSeg, out var goodId))
+                    var rangeParts = segment.Split('-');
+                    if (int.TryParse(rangeParts[0], out var start) && int.TryParse(rangeParts[1], out var end))
                     {
-                        _excludeIds.Add(goodId);
+                        for (int i = start; i <= end; i++)
+                        {
+                            idSet.Add(i);
+                        }
+                    }
+                }
+                else
+                {
+                    if (int.TryParse(segment, out var goodId))
+                    {
+                        idSet.Add(goodId);
                     }
                 }
             }
 
-            if (inc.IsNullOrEmpty() == false)
+            if (!string.IsNullOrEmpty(exc))
+            {
+                var excSegs = exc.Split(',');
+                foreach (var excSeg in excSegs)
+                {
+                    HandleSegment(excSeg, _excludeIds);
+                }
+            }
+
+            if (!string.IsNullOrEmpty(inc))
             {
                 _excludeIds.Clear();
                 var incSegs = inc.Split(',');
-
                 foreach (var incSeg in incSegs)
                 {
-                    if (int.TryParse(incSeg, out var goodId))
-                    {
-                        _includeIds.Add(goodId);
-                    }
+                    HandleSegment(incSeg, _includeIds);
                 }
             }
 
