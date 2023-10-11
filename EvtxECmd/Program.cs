@@ -550,7 +550,10 @@ namespace EvtxECmd;
                     var rangeParts = segment.Split('-');
                     if (int.TryParse(rangeParts[0], out var start) && int.TryParse(rangeParts[1], out var end))
                     {
-                        for (int i = start; i <= end; i++)
+                        int lowerBound = Math.Min(start, end);
+                        int upperBound = Math.Max(start, end);
+            
+                        for (int i = lowerBound; i <= upperBound; i++)
                         {
                             idSet.Add(i);
                         }
