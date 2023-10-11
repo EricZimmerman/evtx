@@ -23,11 +23,11 @@
   </PropertyGroup>
     <ItemGroup>
     <PackageReference Include="Crc32.NET" Version="1.2.0" />
-    <PackageReference Include="FluentValidation" Version="11.6.0" />
+    <PackageReference Include="FluentValidation" Version="11.7.1" />
       <PackageReference Include="Serilog" Version="3.0.1" />
-    <PackageReference Include="ServiceStack.Text" Version="6.9.0" />
+    <PackageReference Include="ServiceStack.Text" Version="6.11.0" />
     <PackageReference Include="System.Xml.XPath" Version="4.3.0" />
-    <PackageReference Include="YamlDotNet" Version="13.1.1" />
+    <PackageReference Include="YamlDotNet" Version="13.7.0" />
       <PackageReference Include="System.Text.Encoding.CodePages" Version="7.0.0" />
 
       <None Include="../README.md" Pack="true" PackagePath=""/>
