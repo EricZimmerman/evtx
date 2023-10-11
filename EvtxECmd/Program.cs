@@ -1,4 +1,15 @@
-﻿using System;
+﻿#if !NET6_0
+using Alphaleonis.Win32.Filesystem;
+using Directory = Alphaleonis.Win32.Filesystem.Directory;
+using File = Alphaleonis.Win32.Filesystem.File;
+using Path = Alphaleonis.Win32.Filesystem.Path;
+using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
+#else
+using Path = System.IO.Path;
+using Directory = System.IO.Directory;
+using File = System.IO.File;
+#endif
+using System;
 using System.Collections.Generic;
 using System.CommandLine;
 using System.CommandLine.Help;
@@ -25,19 +36,6 @@ using Serilog.Events;
 using ServiceStack;
 using ServiceStack.Text;
 using CsvWriter = CsvHelper.CsvWriter;
-using EventLog = evtx.EventLog;
-
-#if !NET6_0
-using Alphaleonis.Win32.Filesystem;
-using Directory = Alphaleonis.Win32.Filesystem.Directory;
-using File = Alphaleonis.Win32.Filesystem.File;
-using Path = Alphaleonis.Win32.Filesystem.Path;
-using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
-#else
-using Path = System.IO.Path;
-using Directory = System.IO.Directory;
-using File = System.IO.File;
-#endif
 
 
 namespace EvtxECmd;
@@ -159,11 +157,11 @@ namespace EvtxECmd;
 
                 new Option<string>(
                     "--inc",
-                    "List of Event IDs to process. All others are ignored. Overrides --exc Format is 4624,4625,5410"),
+                    "List of Event IDs to process. All others are ignored. Overrides --exc Format is 4624,4625,5410,5500-5600"),
 
                 new Option<string>(
                     "--exc",
-                    "List of Event IDs to IGNORE. All others are included. Format is 4624,4625,5410"),
+                    "List of Event IDs to IGNORE. All others are included. Format is 4624,4625,5410,5500-5600"),
 
                 new Option<string>(
                     "--sd",
@@ -224,6 +222,33 @@ namespace EvtxECmd;
             _rootCommand.Handler = CommandHandler.Create(DoWork);
 
             await _rootCommand.InvokeAsync(args);
+        }
+
+        private static HashSet<int> GetRange(string input)
+        {
+            var segs = input.Split('-');
+
+            var sGood = int.TryParse(segs[0], out var s);
+            var sEnd = int.TryParse(segs[1], out var e);
+
+            if (sGood == false)
+            {
+                throw new FormatException($"{segs[0]} is not an integer");
+            }
+            
+            if (sEnd == false)
+            {
+                throw new FormatException($"{segs[1]} is not an integer");
+            }
+
+            var r = new HashSet<int>();
+
+            for (var i = s; i <= e; i++)
+            {
+                r.Add(i);
+            }
+
+            return r;
         }
 
         private static void DoWork(string f, string d, string csv, string csvf, string json, string jsonf, string xml, string xmlf, string dt, string inc, string exc, string sd, string ed, bool fj, int tdt, bool met, string maps, bool vss, bool dedupe, bool sync, bool debug, bool trace)
@@ -546,9 +571,19 @@ namespace EvtxECmd;
             if (exc.IsNullOrEmpty() == false)
             {
                 var excSegs = exc.Split(',');
-
+                
                 foreach (var incSeg in excSegs)
                 {
+                    if (incSeg.Contains('-'))
+                    {
+                        var incRange = GetRange(incSeg);
+                        foreach (var ir in incRange)
+                        {
+                            _excludeIds.Add(ir);
+                        }
+                        continue;
+                    }
+                        
                     if (int.TryParse(incSeg, out var goodId))
                     {
                         _excludeIds.Add(goodId);
@@ -563,6 +598,16 @@ namespace EvtxECmd;
 
                 foreach (var incSeg in incSegs)
                 {
+                    if (incSeg.Contains('-'))
+                    {
+                        var incRange = GetRange(incSeg);
+                        foreach (var ir in incRange)
+                        {
+                            _includeIds.Add(ir);
+                        }
+                        continue;
+                    }
+                    
                     if (int.TryParse(incSeg, out var goodId))
                     {
                         _includeIds.Add(goodId);
