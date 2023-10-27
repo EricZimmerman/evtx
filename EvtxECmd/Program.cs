@@ -555,14 +555,14 @@ namespace EvtxECmd;
             else
             {
                 Log.Debug("Loading maps from {Path}",Path.GetFullPath(maps));
-                var errors = EventLog.LoadMaps(Path.GetFullPath(maps));
+                var errors = evtx.EventLog.LoadMaps(Path.GetFullPath(maps));
 
                 if (errors)
                 {
                     return;
                 }
 
-                Log.Information("Maps loaded: {Count:N0}",EventLog.EventLogMaps.Count);
+                Log.Information("Maps loaded: {Count:N0}",evtx.EventLog.EventLogMaps.Count);
             }
 
             _includeIds = new HashSet<int>();
@@ -634,7 +634,7 @@ namespace EvtxECmd;
                 Console.WriteLine();
             }
 
-            EventLog.TimeDiscrepancyThreshold = tdt;
+            evtx.EventLog.TimeDiscrepancyThreshold = tdt;
 
             if (f.IsNullOrEmpty() == false)
             {
@@ -649,7 +649,7 @@ namespace EvtxECmd;
                 {
                     //no need for maps
                     Log.Debug("Clearing map collection since no output specified");
-                    EventLog.EventLogMaps.Clear();
+                    evtx.EventLog.EventLogMaps.Clear();
                 }
 
                 dedupe = false;
@@ -719,7 +719,7 @@ namespace EvtxECmd;
                 {
                     //no need for maps
                     Log.Debug("Clearing map collection since no output specified");
-                    EventLog.EventLogMaps.Clear();
+                    evtx.EventLog.EventLogMaps.Clear();
                 }
 
                 foreach (var file in files2)
@@ -1035,8 +1035,8 @@ namespace EvtxECmd;
                     SeenHashes.Add(sha);
                 }
 
-                EventLog.LastSeenTicks = 0;
-                var evt = new EventLog(fileS);
+                evtx.EventLog.LastSeenTicks = 0;
+                var evt = new evtx.EventLog(fileS);
 
                 Log.Information("Chunk count: {ChunkCount:N0}, Iterating records...",evt.ChunkCount);
 
