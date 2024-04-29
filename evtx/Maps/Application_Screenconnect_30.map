@@ -10,7 +10,7 @@ Maps:
     Values:
       -
         Name: ExecutablePath
-        Value:  "/Event/EventData/Data"
+        Value: "/Event/EventData/Data"
         Refine: "Executable Path: (.*)"
   -
     Property: PayloadData1
@@ -44,7 +44,7 @@ Maps:
 #   </System>
 #   <EventData>
 #     <Data>Your host has ended the remote session. This application will now close.
-# 
+#
 # Version: 23.8.6.8735
 # Executable Path: C:\Program Files (x86)\ScreenConnect Client (XXXXXXXXX)\ScreenConnect.ClientService.exe
 # </Data>
