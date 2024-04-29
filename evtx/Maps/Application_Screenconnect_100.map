@@ -1,0 +1,53 @@
+Author: Phill Moore
+Description: Session connected
+EventId: 100
+Channel: Application
+Provider: Screenconnect
+Maps:
+  -
+    Property: ExecutableInfo
+    PropertyValue: "%ExecutablePath%"
+    Values:
+      -
+        Name: ExecutablePath
+        Value: "/Event/EventData/Data"
+        Refine: "Executable Path: (.*)"
+  -
+    Property: PayloadData1
+    PropertyValue: "%message%"
+    Values:
+      -
+        Name: message
+        Value: "/Event/EventData/Data"
+        Refine: "^(.*)"
+
+# Documentation:
+# N/A if no link(s) can be found. One link per line, please.
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="ScreenConnect" />
+#     <EventID Qualifiers="0">100</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x80000000000000</Keywords>
+#     <TimeCreated SystemTime="2024-02-26 03:25:21.6791347" />
+#     <EventRecordID>55884</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="5316" ThreadID="0" />
+#     <Channel>Application</Channel>
+#     <Computer>COMPUTER</Computer>
+#     <Security />
+#   </System>
+#   <EventData>
+#     <Data>USERNAME Connected
+#
+# Version: 23.8.6.8735
+# Executable Path: C:\Program Files (x86)\ScreenConnect Client (XXXXX)\ScreenConnect.ClientService.exe
+# </Data>
+#     <Binary></Binary>
+#   </EventData>
+# </Event>

@@ -1,0 +1,62 @@
+Author: Phill Moore
+Description: Transferred files with action
+EventId: 201
+Channel: Application
+Provider: Screenconnect
+Maps:
+  -
+    Property: ExecutableInfo
+    PropertyValue: "%ExecutablePath%"
+    Values:
+      -
+        Name: ExecutablePath
+        Value: "/Event/EventData/Data"
+        Refine: "Executable Path: (.*)"
+  -
+    Property: PayloadData1
+    PropertyValue: "Action: %action%"
+    Values:
+      -
+        Name: action
+        Value: "/Event/EventData/Data"
+        Refine: "'([^']*)':"
+  -
+    Property: PayloadData2
+    PropertyValue: "Transferred File: %transferredFile%"
+    Values:
+      -
+        Name: transferredFile
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=^.*(?:\r\n?|\n)).+"
+
+# Documentation:
+# N/A if no link(s) can be found. One link per line, please.
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="ScreenConnect" />
+#     <EventID Qualifiers="0">201</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x80000000000000</Keywords>
+#     <TimeCreated SystemTime="2024-02-25 21:54:32.0244362" />
+#     <EventRecordID>55737</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="5316" ThreadID="0" />
+#     <Channel>Application</Channel>
+#     <Computer>COMPUTER</Computer>
+#     <Security />
+#   </System>
+#   <EventData>
+#     <Data>Transferred files with action 'RunElevated':
+# file.exe
+#
+# Version: 23.8.6.8735
+# Executable Path: C:\Program Files (x86)\ScreenConnect Client (XXXXXXXXX)\ScreenConnect.ClientService.exe
+# </Data>
+#     <Binary></Binary>
+#   </EventData>
+# </Event>

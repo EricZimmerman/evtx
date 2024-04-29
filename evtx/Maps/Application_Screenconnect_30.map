@@ -1,0 +1,53 @@
+Author: Phill Moore
+Description: Screenconnect error - Your host has ended the remote session.
+EventId: 30
+Channel: Application
+Provider: Screenconnect
+Maps:
+  -
+    Property: ExecutableInfo
+    PropertyValue: "%ExecutablePath%"
+    Values:
+      -
+        Name: ExecutablePath
+        Value: "/Event/EventData/Data"
+        Refine: "Executable Path: (.*)"
+  -
+    Property: PayloadData1
+    PropertyValue: "%message%"
+    Values:
+      -
+        Name: message
+        Value: "/Event/EventData/Data"
+        Refine: "^(.*)"
+
+# Documentation:
+# N/A if no link(s) can be found. One link per line, please.
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="ScreenConnect" />
+#     <EventID Qualifiers="0">30</EventID>
+#     <Version>0</Version>
+#     <Level>2</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x80000000000000</Keywords>
+#     <TimeCreated SystemTime="2024-02-26 05:30:17.3931449" />
+#     <EventRecordID>55944</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="5064" ThreadID="0" />
+#     <Channel>Application</Channel>
+#     <Computer>COMPUTER</Computer>
+#     <Security />
+#   </System>
+#   <EventData>
+#     <Data>Your host has ended the remote session. This application will now close.
+#
+# Version: 23.8.6.8735
+# Executable Path: C:\Program Files (x86)\ScreenConnect Client (XXXXXXXXX)\ScreenConnect.ClientService.exe
+# </Data>
+#     <Binary></Binary>
+#   </EventData>
+# </Event>
