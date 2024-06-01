@@ -40,9 +40,9 @@ Maps:
 #   </System>
 #   <EventData>
 #     <Data>2  2024-01-06  18:57:21+00:00  user-pc  User-PC\User  F-Secure Anti-Virus
-#  Malicious code found in file C:\Users\User\Downloads\mimikatz_trunk\Win32\mimilove.exe. 
-#  Infection: Heuristic.HEUR/AGEN.1221331 
-#  Action: The file was deleted. 
+#  Malicious code found in file C:\Users\User\Downloads\mimikatz_trunk\Win32\mimilove.exe.
+#  Infection: Heuristic.HEUR/AGEN.1221331
+#  Action: The file was deleted.
 #
 # </Data>
 #     <Binary></Binary>
