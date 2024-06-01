@@ -43,7 +43,7 @@ Maps:
 #  Malicious code found in file C:\Users\User\Downloads\mimikatz_trunk\Win32\mimilove.exe. 
 #  Infection: Heuristic.HEUR/AGEN.1221331 
 #  Action: The file was deleted. 
-# 
+#
 # </Data>
 #     <Binary></Binary>
 #   </EventData>
