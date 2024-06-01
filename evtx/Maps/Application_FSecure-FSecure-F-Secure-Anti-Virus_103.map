@@ -1,0 +1,50 @@
+Author: Reece394
+Description: F-Secure Anti-Virus Detection
+EventId: 103
+Channel: "Application"
+Provider: "FSecure-FSecure-F-Secure Anti-Virus"
+Maps:
+  -
+    Property: UserName
+    PropertyValue: "%UserName%"
+    Values:
+      -
+        Name: UserName
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=^([^  ]*  ){4})[^  ]+"
+  -
+    Property: PayloadData1
+    PropertyValue: "%PayloadData1%"
+    Values:
+      -
+        Name: PayloadData1
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=\n )(.*)"
+
+# Documentation:
+# N/A
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="FSecure-FSecure-F-Secure Anti-Virus" />
+#     <EventID Qualifiers="49152">103</EventID>
+#     <Level>2</Level>
+#     <Task>0</Task>
+#     <Keywords>0x80000000000000</Keywords>
+#     <TimeCreated SystemTime="2024-01-06 18:57:22.0000000" />
+#     <EventRecordID>732</EventRecordID>
+#     <Channel>Application</Channel>
+#     <Computer>User-PC</Computer>
+#     <Security />
+#   </System>
+#   <EventData>
+#     <Data>2  2024-01-06  18:57:21+00:00  user-pc  User-PC\User  F-Secure Anti-Virus
+#  Malicious code found in file C:\Users\User\Downloads\mimikatz_trunk\Win32\mimilove.exe.
+#  Infection: Heuristic.HEUR/AGEN.1221331
+#  Action: The file was deleted.
+#
+# </Data>
+#     <Binary></Binary>
+#   </EventData>
+# </Event>

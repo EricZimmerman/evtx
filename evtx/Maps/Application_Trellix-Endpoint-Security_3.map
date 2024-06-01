@@ -1,0 +1,51 @@
+Author: Peter Snyder, Reece394
+Description: Trellix Endpoint Detection
+EventId: 3
+Channel: "Application"
+Provider: "Trellix Endpoint Security"
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "%PayloadData1%"
+    Values:
+      -
+        Name: PayloadData1
+        Value: "/Event/EventData/Data"
+        Refine: EventID=(\d{1,4})\b
+  -
+    Property: PayloadData2
+    PropertyValue: "%PayloadData2%"
+    Values:
+      -
+        Name: PayloadData2
+        Value: "/Event/EventData/Data"
+        Refine: (\S+ (ran|file).*(Trojan|detected|blocked|executed).*.)
+
+# Documentation:
+# N/A
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="Trellix Endpoint Security" />
+#     <EventID Qualifiers="8192">3</EventID>
+#     <Version>0</Version>
+#     <Level>2</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x80000000000000</Keywords>
+#     <TimeCreated SystemTime="2024-01-03 23:29:00.6240345" />
+#     <EventRecordID>811</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="3584" ThreadID="0" />
+#     <Channel>Application</Channel>
+#     <Computer>DESKTOP-8EB4LCL</Computer>
+#     <Security UserID="S-1-5-18" />
+#   </System>
+#   <EventData>
+#     <Data>EventID=1027
+#
+# DESKTOP-8EB4LCL\User ran C:\Program Files\7-Zip\7zG.exe, which attempted to access C:\Users\User\Downloads\1a69f2fcfe5b35bf44ea42a1efe89f18f6b0d522cbbea5c51bae93aff7d3188b\1a69f2fcfe5b35bf44ea42a1efe89f18f6b0d522cbbea5c51bae93aff7d3188b.exe. The Trojan named Artemis!5FE4EA367CEE was detected and deleted.</Data>
+#     <Binary></Binary>
+#   </EventData>
+# </Event>
