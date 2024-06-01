@@ -44,7 +44,7 @@ Maps:
 #   </System>
 #   <EventData>
 #     <Data>EventID=1027
-# 
+#
 # DESKTOP-8EB4LCL\User ran C:\Program Files\7-Zip\7zG.exe, which attempted to access C:\Users\User\Downloads\1a69f2fcfe5b35bf44ea42a1efe89f18f6b0d522cbbea5c51bae93aff7d3188b\1a69f2fcfe5b35bf44ea42a1efe89f18f6b0d522cbbea5c51bae93aff7d3188b.exe. The Trojan named Artemis!5FE4EA367CEE was detected and deleted.</Data>
 #     <Binary></Binary>
 #   </EventData>
