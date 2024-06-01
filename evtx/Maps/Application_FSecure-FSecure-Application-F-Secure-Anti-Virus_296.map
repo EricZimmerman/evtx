@@ -1,0 +1,56 @@
+Author: Reece394
+Description: F-Secure Anti-Virus - Spyware detected
+EventId: 296
+Channel: "Application"
+Provider: "FSecure-FSecure Application-F-Secure Anti-Virus"
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "%PayloadData1%"
+    Values:
+      -
+        Name: PayloadData1
+        Value: "/Event/EventData/Data[@Name=\"MessageText\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "%PayloadData2%"
+    Values:
+      -
+        Name: PayloadData2
+        Value: "/Event/EventData/Data[@Name=\"UserName\"]"
+
+# Documentation:
+# N/A
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="FSecure-FSecure Application-F-Secure Anti-Virus" Guid="14226663-5b17-4fcc-b09b-4d2644e4a1e7" />
+#     <EventID>296</EventID>
+#     <Version>0</Version>
+#     <Level>1</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x8000000000000000</Keywords>
+#     <TimeCreated SystemTime="2024-01-06 20:23:11.0000017" />
+#     <EventRecordID>698</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="3096" ThreadID="2272" />
+#     <Channel>Application</Channel>
+#     <Computer>User-PC</Computer>
+#     <Security UserID="S-1-5-18" />
+#   </System>
+#   <EventData>
+#     <Data Name="MessageText">Spyware detected: , Type: riskware , Family:  , Name: Hack-Tool:W32/Mimikatz.G , Object: C:\Users\User\Downloads\mimikatz_trunk\Win32\mimidrv.sys , </Data>
+#     <Data Name="TrapTimestamp">1704572591</Data>
+#     <Data Name="TrapId">296</Data>
+#     <Data Name="TrapNumber">3</Data>
+#     <Data Name="Severity">5</Data>
+#     <Data Name="HostName">user-pc</Data>
+#     <Data Name="UserName">User-PC\User</Data>
+#     <Data Name="ProductOID">1.3.6.1.4.1.2213.12</Data>
+#     <Data Name="ProductName">F-Secure Anti-Virus</Data>
+#     <Data Name="ParamCount">4</Data>
+#     <Data Name="Param">riskware, Hack-Tool:W32/Mimikatz.G, C:\Users\User\Downloads\mimikatz_trunk\Win32\mimidrv.sys</Data>
+#   </EventData>
+# </Event>
