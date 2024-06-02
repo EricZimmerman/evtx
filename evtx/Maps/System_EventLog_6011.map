@@ -1,0 +1,47 @@
+Author: Reece394
+Description: System Name Changed
+EventId: 6011
+Channel: System
+Provider: EventLog
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "The NetBIOS name and DNS host name of this machine have been changed from %OriginalName% to %NewName%"
+    Values:
+      -
+        Name: OriginalName
+        Value: "/Event/EventData/Data"
+        Refine: "^(.*?)(?=,|$)"
+      -
+        Name: NewName
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=, ).*"
+
+# Documentation:
+# http://eventopedia.cloudapp.net/EventDetails.aspx?id=a4c6ad3e-0b56-40ea-aa6d-c84adcf24897
+# https://community.spiceworks.com/t/finding-old-computer-name-from-dc/826502
+# https://learn.microsoft.com/en-us/answers/questions/1060679/recall-previous-device-names-on-endpoint-manager
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="EventLog" />
+#     <EventID Qualifiers="32768">6011</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x80000000000000</Keywords>
+#     <TimeCreated SystemTime="2024-05-28 00:46:49.8687258" />
+#     <EventRecordID>148</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="2592" ThreadID="2676" />
+#     <Channel>System</Channel>
+#     <Computer>DESKTOP-F3BMVE4</Computer>
+#     <Security />
+#   </System>
+#   <EventData>
+#     <Data>WIN-76PGSVBIM7I, DESKTOP-F3BMVE4</Data>
+#     <Binary></Binary>
+#   </EventData>
+# </Event>
