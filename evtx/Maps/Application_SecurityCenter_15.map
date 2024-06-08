@@ -1,0 +1,45 @@
+Author: Reece394
+Description: Windows Security Center State Changed
+EventId: 15
+Channel: Application
+Provider: SecurityCenter
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "Updated %Name% status successfully to %State%."
+    Values:
+      -
+        Name: Name
+        Value: "/Event/EventData/Data"
+        Refine: "^(.*?)(?=,)"
+      -
+        Name: State
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=, ).*"
+
+# Documentation:
+# https://isc.sans.edu/diary/rss/30980
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="SecurityCenter" />
+#     <EventID Qualifiers="0">15</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x80000000000000</Keywords>
+#     <TimeCreated SystemTime="2024-06-01 01:50:28.8518116" />
+#     <EventRecordID>418</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="1160" ThreadID="0" />
+#     <Channel>Application</Channel>
+#     <Computer>DESKTOP-F3BMVE4</Computer>
+#     <Security />
+#   </System>
+#   <EventData>
+#     <Data>Windows Defender, SECURITY_PRODUCT_STATE_ON</Data>
+#     <Binary></Binary>
+#   </EventData>
+# </Event>
