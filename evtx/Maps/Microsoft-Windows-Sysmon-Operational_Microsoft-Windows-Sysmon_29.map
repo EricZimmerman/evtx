@@ -1,0 +1,85 @@
+Author: Gabriele Zambelli @gazambelli, Reece394
+Description: FileExecutableDetected (An executable file was created)
+EventId: 29
+Channel: Microsoft-Windows-Sysmon/Operational
+Provider: Microsoft-Windows-Sysmon
+Maps:
+  -
+    Property: ExecutableInfo
+    PropertyValue: "%Image%"
+    Values:
+      -
+        Name: Image
+        Value: "/Event/EventData/Data[@Name=\"Image\"]"
+  -
+    Property: PayloadData1
+    PropertyValue: "ProcessID: %ProcessID%, ProcessGUID: %ProcessGUID%"
+    Values:
+      -
+        Name: ProcessGUID
+        Value: "/Event/EventData/Data[@Name=\"ProcessGuid\"]"
+      -
+        Name: ProcessID
+        Value: "/Event/EventData/Data[@Name=\"ProcessId\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "RuleName: %RuleName%"
+    Values:
+      -
+        Name: RuleName
+        Value: "/Event/EventData/Data[@Name=\"RuleName\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "%Hashes%"
+    Values:
+      -
+        Name: Hashes
+        Value: "/Event/EventData/Data[@Name=\"Hashes\"]"
+  -
+    Property: PayloadData4
+    PropertyValue: "TargetFilename: %TargetFilename%"
+    Values:
+      -
+        Name: TargetFilename
+        Value: "/Event/EventData/Data[@Name=\"TargetFilename\"]"
+  -
+    Property: UserName
+    PropertyValue: "%User%"
+    Values:
+      -
+        Name: User
+        Value: "/Event/EventData/Data[@Name=\"User\"]"
+
+# Documentation:
+# https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon#event-filtering-entries
+# https://www.blackhillsinfosec.com/a-sysmon-event-id-breakdown/
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-Sysmon" Guid="5770385f-c22a-43e0-bf4c-06f5698ffbd9" />
+#     <EventID>29</EventID>
+#     <Version>5</Version>
+#     <Level>4</Level>
+#     <Task>29</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x8000000000000000</Keywords>
+#     <TimeCreated SystemTime="2024-06-09 20:06:54.8816479" />
+#     <EventRecordID>207</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="3480" ThreadID="5516" />
+#     <Channel>Microsoft-Windows-Sysmon/Operational</Channel>
+#     <Computer>COMP-RENAME</Computer>
+#     <Security UserID="S-1-5-18" />
+#   </System>
+#   <EventData>
+#     <Data Name="RuleName">-</Data>
+#     <Data Name="UtcTime">2024-06-09 20:06:54.873</Data>
+#     <Data Name="ProcessGuid">cb130dc6-0280-6666-9900-000000000c00</Data>
+#     <Data Name="ProcessId">6152</Data>
+#     <Data Name="User">COMP-RENAME\User</Data>
+#     <Data Name="Image">C:\Program Files (x86)\VMware\VMware Tools\vmtoolsd.exe</Data>
+#     <Data Name="TargetFilename">C:\Users\User\AppData\Local\Temp\vmware-User\VMwareDnD\13ca370c\7z2406-arm64.exe</Data>
+#     <Data Name="Hashes">SHA1=95C4B6D4F484A5F176015C5145E450BBCDB99638,MD5=78453556058A0421D6F4C77C353C3559,SHA256=43AC4903AC5BA7219C665637E71917C6A2C2F8E515344E1EE04C263B8F5C934D,IMPHASH=C3ED9FDA23EC13D6EF6214BC963B0FB3</Data>
+#   </EventData>
+# </Event>
