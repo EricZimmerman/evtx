@@ -54,7 +54,7 @@ jobs:
         uses: actions/setup-dotnet@v3
 
       # Download the NuGet package created in the previous job
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4.1.7
         with:
           name: nuget
           path: ${{ env.NuGetDirectory }}
@@ -87,7 +87,7 @@ jobs:
     needs: [ validate_nuget, run_test ]
     steps:
       # Download the NuGet package created in the previous job
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4.1.7
         with:
           name: nuget
           path: ${{ env.NuGetDirectory }}
