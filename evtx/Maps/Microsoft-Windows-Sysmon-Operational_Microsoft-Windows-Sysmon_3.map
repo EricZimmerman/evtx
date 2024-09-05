@@ -57,6 +57,13 @@ Maps:
       -
         Name: User
         Value: "/Event/EventData/Data[@Name=\"User\"]"
+  -
+    Property: ExecutableInfo
+    PropertyValue: "%Image%"
+    Values:
+      -
+        Name: Image
+        Value: "/Event/EventData/Data[@Name=\"Image\"]"
 
 # Documentation:
 # https://docs.microsoft.com/en-us/sysinternals/downloads/sysmon#events
