@@ -10,7 +10,7 @@ Maps:
     Values:
       -
         Name: PayloadData1
-        Value: "/Event/EventData/Data[@Name=\"NetworkHint\"]"
+        Value: "/Event/EventData/Data[@Name=\"NetworkHintString\"]"
         Refine: "(?<=, )[^,\\d]+(?=,)"
   -
     Property: PayloadData2
@@ -42,8 +42,8 @@ Maps:
 #     <Security UserID="S-1-5-19" />
 #   </System>
 #   <EventData>
-#     <Data Name="NetworkHintString">WiFi_SSID</Data>
-#     <Data Name="NetworkHint">576946695F53534944</Data>
+#     <Data Name="NetworkHintString">WiFi_SSID_String</Data>
+#     <Data Name="NetworkHint">576946695F535349445F537472696E67</Data>
 #     <Data Name="HWLength">6</Data>
 #     <Data Name="HWAddress">001122334455</Data>
 #   </EventData>
