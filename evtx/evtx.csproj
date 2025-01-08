@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net6.0</TargetFrameworks>
+    <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyTitle>evtx parser</AssemblyTitle>
     <Company>Eric R. Zimmerman</Company>
     <Authors>Eric R. Zimmerman</Authors>
@@ -11,7 +11,7 @@
     
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <LangVersion>10</LangVersion>
-    <Version>1.2.0</Version>
+    <Version>1.3.0</Version>
 
     <PackageTags>evtx, event logs</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
@@ -23,20 +23,21 @@
   </PropertyGroup>
     <ItemGroup>
     <PackageReference Include="Crc32.NET" Version="1.2.0" />
-    <PackageReference Include="FluentValidation" Version="11.7.1" />
-      <PackageReference Include="Serilog" Version="3.0.1" />
-    <PackageReference Include="ServiceStack.Text" Version="6.11.0" />
+    <PackageReference Include="FluentValidation" Version="11.11.0" />
+      <PackageReference Include="Serilog" Version="4.2.0" />
+    <PackageReference Include="ServiceStack.Text" Version="8.5.2" />
+    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
     <PackageReference Include="System.Xml.XPath" Version="4.3.0" />
-    <PackageReference Include="YamlDotNet" Version="13.7.0" />
-      <PackageReference Include="System.Text.Encoding.CodePages" Version="7.0.0" />
+    <PackageReference Include="YamlDotNet" Version="16.3.0" />
+      <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.0" />
 
       <None Include="../README.md" Pack="true" PackagePath=""/>
       <None Include="../icon.png" Pack="true" PackagePath=""/>
-      <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.1.1">
+      <PackageReference Include="DotNet.ReproducibleBuilds" Version="1.2.25">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>
-      <PackageReference Include="MinVer" Version="4.3.0">
+      <PackageReference Include="MinVer" Version="6.0.0">
         <PrivateAssets>all</PrivateAssets>
         <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
       </PackageReference>

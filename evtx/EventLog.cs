@@ -168,7 +168,7 @@ public class EventLog
                 var lines = File.ReadLines(mapFile).ToList();
                 var fileContents = mapFile.ReadAllText();
 
-                var badLine = lines[se.Start.Line - 1];
+                var badLine = lines[(int)(se.Start.Line - 1)];
                 Console.WriteLine();
                 Log.Fatal("Bad line (or close to it) {BadLine} has invalid data at column {Column}",badLine,se.Start.Column);
 
