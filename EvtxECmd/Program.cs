@@ -1,4 +1,4 @@
-﻿#if !NET6_0
+﻿#if !NET6_0_OR_GREATER
 using Alphaleonis.Win32.Filesystem;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
@@ -555,14 +555,14 @@ namespace EvtxECmd;
             else
             {
                 Log.Debug("Loading maps from {Path}",Path.GetFullPath(maps));
-                var errors = evtx.EventLog.LoadMaps(Path.GetFullPath(maps));
+                var errors = EventLog.LoadMaps(Path.GetFullPath(maps));
 
                 if (errors)
                 {
                     return;
                 }
 
-                Log.Information("Maps loaded: {Count:N0}",evtx.EventLog.EventLogMaps.Count);
+                Log.Information("Maps loaded: {Count:N0}",EventLog.EventLogMaps.Count);
             }
 
             _includeIds = new HashSet<int>();
@@ -634,7 +634,7 @@ namespace EvtxECmd;
                 Console.WriteLine();
             }
 
-            evtx.EventLog.TimeDiscrepancyThreshold = tdt;
+            EventLog.TimeDiscrepancyThreshold = tdt;
 
             if (f.IsNullOrEmpty() == false)
             {
@@ -649,7 +649,7 @@ namespace EvtxECmd;
                 {
                     //no need for maps
                     Log.Debug("Clearing map collection since no output specified");
-                    evtx.EventLog.EventLogMaps.Clear();
+                    EventLog.EventLogMaps.Clear();
                 }
 
                 dedupe = false;
@@ -685,7 +685,7 @@ namespace EvtxECmd;
                 Log.Information("Looking for event log files in {D}",d);
                 Console.WriteLine();
 
-#if !NET6_0
+#if !NET6_0_OR_GREATER
 
                 var directoryEnumerationFilters = new DirectoryEnumerationFilters
                 {
@@ -719,7 +719,7 @@ namespace EvtxECmd;
                 {
                     //no need for maps
                     Log.Debug("Clearing map collection since no output specified");
-                    evtx.EventLog.EventLogMaps.Clear();
+                    EventLog.EventLogMaps.Clear();
                 }
 
                 foreach (var file in files2)
@@ -804,7 +804,7 @@ namespace EvtxECmd;
                         Directory.Delete(directory);
                     }
 
-#if !NET6_0
+#if !NET6_0_OR_GREATER
                     Directory.Delete(VssDir, true, true);
 #else
                         Directory.Delete(VssDir,true);
@@ -911,7 +911,7 @@ namespace EvtxECmd;
                     
                 }
 
-#if !NET6_0
+#if !NET6_0_OR_GREATER
                 File.Copy(newMap, dest, CopyOptions.None);
 #else
                     File.Copy(newMap,dest,true);
@@ -1035,8 +1035,8 @@ namespace EvtxECmd;
                     SeenHashes.Add(sha);
                 }
 
-                evtx.EventLog.LastSeenTicks = 0;
-                var evt = new evtx.EventLog(fileS);
+                EventLog.LastSeenTicks = 0;
+                var evt = new EventLog(fileS);
 
                 Log.Information("Chunk count: {ChunkCount:N0}, Iterating records...",evt.ChunkCount);
 
