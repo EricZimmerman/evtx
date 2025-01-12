@@ -17,10 +17,11 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="AlphaFS.New" Version="2.3.0" />
-    <PackageReference Include="ERZHelpers" Version="1.5.2" />
+    <PackageReference Include="ERZHelpers" Version="1.5.3" />
     <PackageReference Include="SharpZipLib" Version="1.4.2" />
     <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
     <PackageReference Include="System.CommandLine.NamingConventionBinder" Version="2.0.0-beta4.22272.1" />
+
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\evtx\evtx.csproj" />
