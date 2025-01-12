@@ -9,7 +9,7 @@ This repo that contains all the Maps used by Eric Zimmerman's EvtxECmd.
 
 ## Command Line Interface
 
-    EvtxECmd version 0.6.5.0
+    EvtxECmd 
     
     Author: Eric Zimmerman (saericzimmerman@gmail.com)
     https://github.com/EricZimmerman/evtx
@@ -66,7 +66,7 @@ Use the [Guide](https://github.com/EricZimmerman/evtx/blob/master/evtx/Maps/!Cha
 
 # Download Eric Zimmerman's Tools
 
-All of Eric Zimmerman's tools can be downloaded [here](https://ericzimmerman.github.io/#!index.md). Use the [Get-ZimmermanTools](https://f001.backblazeb2.com/file/EricZimmermanTools/Get-ZimmermanTools.zip) PowerShell script to automate the download and updating of the EZ Tools suite. Additionally, you can automate each of these tools using [KAPE](https://www.kroll.com/en/services/cyber-risk/incident-response-litigation-support/kroll-artifact-parser-extractor-kape)!
+All of Eric Zimmerman's tools can be downloaded [here](https://ericzimmerman.github.io/#!index.md). 
 
 # Special Thanks
 
