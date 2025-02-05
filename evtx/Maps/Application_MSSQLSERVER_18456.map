@@ -11,7 +11,7 @@ Maps:
       -
         Name: User
         Value: "/Event/EventData/Data"
-        Refine: "^[a-zA-Z0-9_#-]{2,50}(?=,)"
+        Refine: "^[a-zA-Z0-9_#-.\\\\]{2,50}(?=,)"
   -
     Property: PayloadData2
     PropertyValue: "%Reason%"
