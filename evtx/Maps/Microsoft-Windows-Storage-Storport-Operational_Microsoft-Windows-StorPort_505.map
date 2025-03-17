@@ -39,6 +39,17 @@ Maps:
       -
         Name: BusType
         Value: "/Event/EventData/Data[@Name=\"BusType\"]"
+  -
+    Property: PayloadData6
+    PropertyValue: "TotalReadBytes: %TotalReadBytes% | TotalWriteBytes: %TotalWriteBytes%"
+    Values:
+      -
+        Name: TotalReadBytes
+        Value: "/Event/EventData/Data[@Name=\"TotalReadBytes\"]"
+      -
+        Name: TotalWriteBytes
+        Value: "/Event/EventData/Data[@Name=\"TotalWriteBytes\"]"
+
 Lookups:
   -
     Name: BusType
