@@ -1,0 +1,39 @@
+Author: esecrpm
+Description: Connection to secure gateway established
+EventId: 2044
+Channel: "Cisco Secure Client - AnyConnect VPN"
+Provider: csc_vpnagent
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "%PayloadData1%"
+    Values:
+      -
+        Name: PayloadData1
+        Value: "/Event/EventData/Data"
+        Refine: "(?<=, )[^,\\d]+(?=,)"
+
+# Documentation
+# N/A
+#
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#   <System>
+#     <Provider Name="csc_vpnagent" />
+#     <EventID Qualifiers="25600">2044</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x80000000000000</Keywords>
+#     <TimeCreated SystemTime="2020-10-08T15:58:49.2901037Z" />
+#     <EventRecordID>7188</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="4932" ThreadID="0" />
+#     <Channel>Cisco Secure Client - AnyConnect VPN</Channel>
+#     <Computer>foobar</Computer>
+#     <Security />
+#   </System>
+#   <EventData>
+#     <Data>The Primary DTLS/SSL connection to the secure gateway has been established.</Data>
+#   </EventData>
+# </Event>

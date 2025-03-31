@@ -1,0 +1,38 @@
+Author: esecrpm
+Description: IP Addresses of active interfaces
+EventId: 2073
+Channel: "Cisco Secure Client - AnyConnect VPN"
+Provider: csc_vpnagent
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "%Data%"
+    Values:
+      -
+        Name: Data
+        Value: "/Event/EventData/Data"
+
+# Documentation
+# N/A
+#
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#   <System>
+#     <Provider Name="csc_vpnagent" />
+#     <EventID Qualifiers="25600">2073</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x80000000000000</Keywords>
+#     <TimeCreated SystemTime="2020-10-08T15:58:49.2901037Z" />
+#     <EventRecordID>7188</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="0" ThreadID="0" />
+#     <Channel>Cisco Secure Client - AnyConnect VPN</Channel>
+#     <Computer>foobar</Computer>
+#     <Security />
+#   </System>
+#   <EventData>
+#     <Data>IP Addresses from active interfaces: Wi-Fi: 192.168.1.1, 2605:A601:A6A7:9D00:nnnn:nnnn:nnnn:nnnn, FE80:0:0:0:nnnn:nnnn:nnnn:nnnn</Data>
+#   </EventData>
+# </Event>
