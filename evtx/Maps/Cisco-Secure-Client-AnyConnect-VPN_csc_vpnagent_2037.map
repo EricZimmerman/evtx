@@ -1,5 +1,5 @@
 Author: esecrpm
-Description: The VPN connection is terminated
+Description: VPN connection terminated
 EventId: 2037
 Channel: "Cisco Secure Client - AnyConnect VPN"
 Provider: csc_vpnagent
