@@ -1,5 +1,5 @@
 Author: esecrpm
-Description: The VPN connection has been established
+Description: VPN connection established
 EventId: 2039
 Channel: "Cisco Secure Client - AnyConnect VPN"
 Provider: csc_vpnagent
