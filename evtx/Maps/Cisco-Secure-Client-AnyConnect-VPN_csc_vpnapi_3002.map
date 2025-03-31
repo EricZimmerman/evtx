@@ -1,0 +1,38 @@
+Author: esecrpm
+Description: Initiating VPN connection to the secure gateway
+EventId: 3002
+Channel: "Cisco Secure Client - AnyConnect VPN"
+Provider: csc_vpnapi
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "%Data%"
+    Values:
+      -
+        Name: Data
+        Value: "/Event/EventData/Data"
+
+# Documentation
+# N/A
+#
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+#   <System>
+#     <Provider Name="csc_vpnapi" />
+#     <EventID Qualifiers="25600">3002</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>0</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x80000000000000</Keywords>
+#     <TimeCreated SystemTime="2020-10-08T15:58:49.2901037Z" />
+#     <EventRecordID>7188</EventRecordID>
+#     <Correlation />
+#     <Execution ProcessID="0" ThreadID="0" />
+#     <Channel>Cisco Secure Client - AnyConnect VPN</Channel>
+#     <Computer>foobar</Computer>
+#     <Security />
+#   </System>
+#   <EventData>
+#     <Data>VPN SESSION START: Initiating VPN connection to the secure gateway https://vpngateway.company.com</Data>
+#   </EventData>
+# </Event>
