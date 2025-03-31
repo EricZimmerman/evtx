@@ -1,5 +1,5 @@
 Author: esecrpm
-Description: IP Addresses from active interfaces
+Description: IP Addresses of active interfaces
 EventId: 2073
 Channel: "Cisco Secure Client - AnyConnect VPN"
 Provider: csc_vpnagent
