@@ -1,5 +1,5 @@
 Author: esecrpm
-Description: The client's public addresses is now set
+Description: The client's public address is now set
 EventId: 2086
 Channel: "Cisco Secure Client - AnyConnect VPN"
 Provider: csc_vpnagent
