@@ -1,5 +1,5 @@
 Author: Andrew Rathbun
-Description: Volumne statistics
+Description: Volume statistics
 EventId: 5120
 Channel: Varonis
 Provider: "VrnsCifsQueueReport"
