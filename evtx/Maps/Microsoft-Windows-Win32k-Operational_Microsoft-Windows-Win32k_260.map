@@ -1,0 +1,49 @@
+Author: Andrew Rathbun
+Description: A program was executed
+EventId: 260
+Channel: Microsoft-Windows-Win32k/Operational
+Provider: Microsoft-Windows-Win32k
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "Blocked: %Blocked%"
+    Values:
+      -
+        Name: Blocked
+        Value: "/Event/EventData/Data[@Name=\"Blocked\"]"
+  -
+    Property: ExecutableInfo
+    PropertyValue: "%SourceProcessName%"
+    Values:
+      -
+        Name: SourceProcessName
+        Value: "/Event/EventData/Data[@Name=\"SourceProcessName\"]"
+
+# Documentation:
+# N/A
+#
+# Example Event Data:
+# <Event>
+#  <System>
+#    <Provider Name="Microsoft-Windows-Win32k" Guid="8c416c79-d49b-4f01-a467-e56d3aa8234c" />
+#    <EventID>260</EventID>
+#    <Version>0</Version>
+#    <Level>4</Level>
+#    <Task>260</Task>
+#    <Opcode>0</Opcode>
+#    <Keywords>0x100000100000000</Keywords>
+#    <TimeCreated SystemTime="2025-04-12 15:43:16.1867980" />
+#    <EventRecordID>23456</EventRecordID>
+#    <Correlation ActivityID="8c679c79-d49b-4f01-abcd-e56d3679234c" />
+#    <Execution ProcessID="12148" ThreadID="19124" />
+#    <Channel>Microsoft-Windows-Win32k/Operational</Channel>
+#    <Computer>hostname.DOMAIN</Computer>
+#    <Security UserID="S-1-5-21-123456789-123456789-123456789-123456" />
+#  </System>
+#  <EventData>
+#    <Data Name="SourceProcessName">C:\Users\testuser\AppData\Roaming\MobaXterm\slash\bin\MobaRTE.exe</Data>
+#    <Data Name="SourceType">1</Data>
+#    <Data Name="FontSourcePath"></Data>
+#    <Data Name="Blocked">True</Data>
+#  </EventData>
+# </Event>
