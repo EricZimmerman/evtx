@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: EZ Tools Manuals
+    url: https://leanpub.com/eztoolsmanuals
+    about: Please refer to the EZ Tools Manuals book for more information.
+  - name: EricZimmerman/Issues
+    url: https://github.com/EricZimmerman/Issues
+    about: Please report issues with Eric Zimmerman's software here if this repo isn't the most applicable.
