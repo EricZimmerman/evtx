@@ -65,7 +65,7 @@ body:
     id: example-event-data
     attributes:
       label: Example Event Data
-      description: Please provide an example of the event you want a Map created for. This can be found by pasting the contents of the Payload cell from EvtxECmd's CSV output.
+      description: Please provide an example of the event you want a Map created for. This can be found by pasting the contents of the Payload cell from EvtxECmd's CSV output. Ideally, double-click on the Payload cell of interest and use the Format button in Timeline Explorer before pasting here.
       render: xml
       placeholder: |
         {      
@@ -114,3 +114,4 @@ body:
     validations:
 
       required: false
+
