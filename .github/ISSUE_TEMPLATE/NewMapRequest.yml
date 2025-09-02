@@ -1,10 +1,14 @@
-﻿name: New EvtxECmd Map Request
+?name: New EvtxECmd Map Request
 description: Request for an EvtxECmd Map to be made for a currently unmapped event ID.
 title: "[New Map Request]: Channel/Provider:ID"
 labels: ["new map request", "needs triage"]
 assignees:
   - AndrewRathbun
 body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this Map request!
   - type: input
     id: contact
     attributes:
@@ -26,7 +30,7 @@ body:
     attributes:
       label: Channel
       description: Please provide the Channel of the event ID of interest.
-      placeholder: ex. System  
+      placeholder: ex. System
     validations:
       required: true
   - type: input
@@ -36,7 +40,7 @@ body:
       description: Please provide the Event ID of interest.
       placeholder: ex. 7045
     validations:
-      required: true  
+      required: true
   - type: checkboxes
     id: existing-map
     attributes:
@@ -49,10 +53,10 @@ body:
     id: existing-provider-csv
     attributes:
       label: Is there an existing CSV for this specific Event Log Provider?
-      description: Please search to see if there is a pre-existing CSV for this Provider. https://github.com/nasbench/EVTX-ETW-Resources/tree/main/ETWProvidersCSVs
+      description: Please search to see if a pre-existing CSV exists for this Provider. https://github.com/nasbench/EVTX-ETW-Resources/tree/main/ETWProvidersCSVs
       options:
         - label: I have searched the existing Provider CSVs from the EVTX-ETW-Resources repo
-          required: true
+          required: false
   - type: input
     id: existing-provider-csv-link
     attributes:
@@ -68,10 +72,10 @@ body:
       description: Please provide an example of the event you want a Map created for. This can be found by pasting the contents of the Payload cell from EvtxECmd's CSV output. Ideally, double-click on the Payload cell of interest and use the Format button in Timeline Explorer before pasting here.
       render: xml
       placeholder: |
-        {      
-          EventData: 
+        {
+          EventData:
           {
-            Data: 
+            Data:
             [
               {
                 @Name: ServiceName,
@@ -105,7 +109,7 @@ body:
       description: Tell us why this particular event deserves to be mapped in EvtxECmd.
       placeholder: How has this event helped in your investigation? What does this event tell the examiner?
     validations:
-      required: false  
+      required: false
   - type: textarea
     id: anything-else
     attributes:
