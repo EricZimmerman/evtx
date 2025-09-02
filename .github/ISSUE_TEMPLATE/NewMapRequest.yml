@@ -1,4 +1,4 @@
-?name: New EvtxECmd Map Request
+name: New EvtxECmd Map Request
 description: Request for an EvtxECmd Map to be made for a currently unmapped event ID.
 title: "[New Map Request]: Channel/Provider:ID"
 labels: ["new map request", "needs triage"]
@@ -118,4 +118,5 @@ body:
     validations:
 
       required: false
+
 
