@@ -1,0 +1,40 @@
+Author: Andrew Rathbun
+Description: Creating WSMan Session
+EventId: 6
+Channel: "Microsoft-Windows-WinRM/Operational"
+Provider: Microsoft-Windows-WinRM
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "Connection: %connection%"
+    Values:
+      -
+        Name: connection
+        Value: "/Event/EventData/Data[@Name=\"connection\"]"
+
+# Documentation:
+# https://resources.infosecinstitute.com/topic/powershell-remoting-artifacts-part-1/
+# https://raw.githubusercontent.com/nasbench/EVTX-ETW-Resources/refs/heads/main/ETWProvidersCSVs/Internal/Microsoft-Windows-WinRM.csv
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-WinRM" Guid="a7975c8f-ac13-49f1-87da-5a984a4ab417" />
+#     <EventID>6</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>3</Task>
+#     <Opcode>1</Opcode>
+#     <Keywords>0x4000000000000002</Keywords>
+#     <TimeCreated SystemTime="2020-07-30 21:18:53.1833517" />
+#     <EventRecordID>823</EventRecordID>
+#     <Correlation ActivityID="2dd9e487-1bdf-40f1-b222-be8e9d0516c8" />
+#     <Execution ProcessID="20688" ThreadID="21304" />
+#     <Channel>Microsoft-Windows-WinRM/Operational</Channel>
+#     <Computer>Andrew-Personal-Desktop</Computer>
+#     <Security UserID="S-1-5-21-2507465465-2372827616-1507098901-1001" />
+#   </System>
+#   <EventData>
+#     <Data Name="connection">Andrew-SP4/wsman?PSVersion=5.1.19041.1</Data>
+#   </EventData>
+# </Event>
