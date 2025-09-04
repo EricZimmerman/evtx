@@ -1,0 +1,40 @@
+Author: Andrew Rathbun
+Description: Creating WSMan shell on server with ResourceUri
+EventId: 91
+Channel: "Microsoft-Windows-WinRM/Operational"
+Provider: Microsoft-Windows-WinRM
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "ResourceUri: %resourceUri%"
+    Values:
+      -
+        Name: resourceUri
+        Value: "/Event/EventData/Data[@Name=\"resourceUri\"]"
+
+# Documentation:
+# https://resources.infosecinstitute.com/topic/powershell-remoting-artifacts-part-1/
+# https://raw.githubusercontent.com/nasbench/EVTX-ETW-Resources/refs/heads/main/ETWProvidersCSVs/Internal/Microsoft-Windows-WinRM.csv
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-WinRM" Guid="a7975c8f-ac13-49f1-87da-5a984a4ab417" />
+#     <EventID>91</EventID>
+#     <Version>0</Version>
+#     <Level>4</Level>
+#     <Task>9</Task>
+#     <Opcode>0</Opcode>
+#     <Keywords>0x4000000000000004</Keywords>
+#     <TimeCreated SystemTime="2025-03-21 00:02:31.123456" />
+#     <EventRecordID>679</EventRecordID>
+#     <Correlation ActivityID="61asd50f-467a-1201-8749-3b617a13abc01" />
+#     <Execution ProcessID="1234" ThreadID="112" />
+#     <Channel>Microsoft-Windows-WinRM/Operational</Channel>
+#     <Computer>HOSTNAME-.DOMAIN.local</Computer>
+#     <Security UserID="S-1-5-21-1679126543-180235051-12459516791-1189" />
+#   </System>
+#   <EventData>
+#     <Data Name="resourceUri">http://schemas.microsoft.com/powershell/Microsoft.PowerShell (DOMAIN\ThreatActor clientIP: 192.168.1.234)</Data>
+#   </EventData>
+# </Event>
