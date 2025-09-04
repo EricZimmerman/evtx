@@ -31,7 +31,7 @@ Maps:
 #     <Correlation ActivityID="61asd50f-467a-1201-8749-3b617a13abc01" />
 #     <Execution ProcessID="1234" ThreadID="112" />
 #     <Channel>Microsoft-Windows-WinRM/Operational</Channel>
-#     <Computer>HOSTNAME-.DOMAIN.local</Computer>
+#     <Computer>HOSTNAME.DOMAIN.local</Computer>
 #     <Security UserID="S-1-5-21-1679126543-180235051-12459516791-1189" />
 #   </System>
 #   <EventData>
