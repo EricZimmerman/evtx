@@ -1,9 +1,8 @@
-﻿#if !NET6_0_OR_GREATER
+﻿#if !NET9_0_OR_GREATER
 using Alphaleonis.Win32.Filesystem;
 using Directory = Alphaleonis.Win32.Filesystem.Directory;
 using File = Alphaleonis.Win32.Filesystem.File;
 using Path = Alphaleonis.Win32.Filesystem.Path;
-using FileInfo = Alphaleonis.Win32.Filesystem.FileInfo;
 #else
 using Path = System.IO.Path;
 using Directory = System.IO.Directory;
@@ -13,7 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.CommandLine;
 using System.CommandLine.Help;
-using System.CommandLine.NamingConventionBinder;
+using System.CommandLine.Invocation;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -36,6 +35,7 @@ using Serilog.Events;
 using ServiceStack;
 using ServiceStack.Text;
 using CsvWriter = CsvHelper.CsvWriter;
+using EventLog = evtx.EventLog;
 
 
 namespace EvtxECmd;
@@ -64,7 +64,7 @@ namespace EvtxECmd;
         private static readonly string VssDir = @"C:\____vssMount";
 
         private static readonly string Header =
-            $"EvtxECmd version {Assembly.GetExecutingAssembly().GetName().Version}" +
+            $"EvtxECmd version {Assembly.GetExecutingAssembly().GetName().Version.ToString(3)}" +
             "\r\n\r\nAuthor: Eric Zimmerman (saericzimmerman@gmail.com)" +
             "\r\nhttps://github.com/EricZimmerman/evtx";
 
@@ -116,112 +116,184 @@ namespace EvtxECmd;
         {
             ExceptionlessClient.Default.Startup("tYeWS6A5K5uItgpB44dnNy2qSb2xJxiQWRRGWebq");
 
+            var fOpt = new Option<string>("-f")
+            {
+                Description = "File to process. Either this or -d is required"
+            };
+        
+            var dOpt = new Option<string>("-d")
+            {
+                Description = "Directory to recursively process. Either this or -f is required"
+            };
+            
+            var csvOpt = new Option<string>(
+                "--csv")
+            {
+                Description = "Directory to save CSV formatted results to. Be sure to include the full path in double quotes"
+        
+            };
+
+            var csvfOpt = new Option<string>(
+                "--csvf")
+            {
+                Description   = "File name to save CSV formatted results to. When present, overrides default name\r\n"
+            };
+        
+            var jsonOpt = new Option<string>(
+                "--json")
+            {
+                Description = "Directory to save JSON formatted results to. Be sure to include the full path in double quotes"
+        
+            };
+
+            var jsonfOpt = new Option<string>(
+                "--jsonf")
+            {
+                Description   = "File name to save JSON formatted results to. When present, overrides default name"
+            };
+            
+            var xmlOpt = new Option<string>(
+                "--xml")
+            {
+                Description = "Directory to save XML formatted results to"
+        
+            };
+
+            var xmlfOpt = new Option<string>(
+                "--xmlf")
+            {
+                Description   = "File name to save XML formatted results to. When present, overrides default name"
+            };
+            
+            var dtOpt = new Option<string>(
+                "--dt"){
+                Description =        "The custom date/time format to use when displaying time stamps. See https://goo.gl/CNVq0k for options. Default is: yyyy-MM-dd HH:mm:ss.fffffff",
+                DefaultValueFactory = _ => "yyyy-MM-dd HH:mm:ss.fffffff"
+            };
+            
+          
+           
+            
+            var incOpt = new Option<string>(
+                "--inc")
+            {
+                Description   = "List of Event IDs to process. All others are ignored. Overrides --exc Format is 4624,4625,5410,5500-5600"
+            };
+            
+            var excOpt = new Option<string>(
+                "--exc")
+            {
+                Description   = "List of Event IDs to IGNORE. All others are included. Format is 4624,4625,5410,5500-5600"
+            };
+            
+            var sdOpt = new Option<string>(
+                "--sd")
+            {
+                Description   = "Start date for including events (UTC). Anything OLDER than this is dropped. Format should match --dt"
+            };
+            
+            var edOpt = new Option<string>(
+                "--ed")
+            {
+                Description   = "End date for including events (UTC). Anything NEWER than this is dropped. Format should match --dt"
+            };
+            
+            
+            var fjOpt = new Option<bool>("--fj")
+            {
+                Description = "When true, export all available data when using --json",
+                DefaultValueFactory = _ => false
+            };
+            
+            var tdtOpt = new Option<int>("--tdt")
+            {
+                Description = "The number of seconds to use for time discrepancy detection. Default is 1",
+                DefaultValueFactory = _ => 1
+            };
+            
+            
+            var metOpt = new Option<bool>("--met")
+            {
+                Description = "When true, show metrics about processed event lo. Default is true",
+                DefaultValueFactory = _ => true
+            };
+            
+            var mapsOpt = new Option<string>(
+                "--maps")
+            {
+                Description   = "The path where event maps are located. Defaults to 'Maps' folder where program was executed",
+                DefaultValueFactory = _ => Path.Combine(BaseDirectory, "Maps")
+            };
+            
+            var vssOpt = new Option<bool>("--vss")
+            {
+                Description = "Process all Volume Shadow Copies that exist on drive specified by -f or -d",
+                DefaultValueFactory = _ => false
+            };
+            
+            
+            var dedupeOpt = new Option<bool>("--dedupe")
+            {
+                Description = "Deduplicate -f or -d & VSCs based on SHA-1. First file found wins",
+                DefaultValueFactory = _ => false
+            };
+            
+            var syncOpt = new Option<bool>("--sync")
+            {
+                Description = "If true, the latest maps from https://github.com/EricZimmerman/evtx/tree/master/evtx/Maps are downloaded and local maps updated",
+                DefaultValueFactory = _ => false
+            };
+
+            
+            var debugOpt = new Option<bool>("--debug")
+            {
+                Description = "Show debug information during processing",
+                DefaultValueFactory = _ => false
+            };
+            var traceOpt = new Option<bool>("--trace")
+            {
+                Description = "Show trace information during processing",
+                DefaultValueFactory = _ => false
+            };
+            
             _rootCommand = new RootCommand
             {
-                new Option<string>(
-                    "-f",
-                    "File to process. This or -d is required"),
+                fOpt,
+                dOpt,
+                csvOpt,
+                csvfOpt,
+                jsonOpt,
+                jsonfOpt,
+                xmlOpt,
+                xmlfOpt,
+                dtOpt,
+                incOpt,
+                excOpt,
+                sdOpt,
+                edOpt,
+                fjOpt,
+                tdtOpt,
+                metOpt,
+                mapsOpt,
+                vssOpt,
+                dedupeOpt,
+             syncOpt,
+             debugOpt,
+             traceOpt
 
-                new Option<string>(
-                    "-d",
-                    "Directory to process that contains evtx files. This or -f is required"),
-
-                new Option<string>(
-                    "--csv",
-                    "Directory to save CSV formatted results to"),
-
-                new Option<string>(
-                    "--csvf",
-                    "File name to save CSV formatted results to. When present, overrides default name"),
-
-                new Option<string>(
-                    "--json",
-                    "Directory to save JSON formatted results to"),
-
-                new Option<string>(
-                    "--jsonf",
-                    "File name to save JSON formatted results to. When present, overrides default name"),
-
-                new Option<string>(
-                    "--xml",
-                    "Directory to save XML formatted results to"),
-
-                new Option<string>(
-                    "--xmlf",
-                    "File name to save XML formatted results to. When present, overrides default name"),
-
-                new Option<string>(
-                    "--dt",
-                    getDefaultValue: () => "yyyy-MM-dd HH:mm:ss.fffffff",
-                    "The custom date/time format to use when displaying time stamps"),
-
-                new Option<string>(
-                    "--inc",
-                    "List of Event IDs to process. All others are ignored. Overrides --exc Format is 4624,4625,5410,5500-5600"),
-
-                new Option<string>(
-                    "--exc",
-                    "List of Event IDs to IGNORE. All others are included. Format is 4624,4625,5410,5500-5600"),
-
-                new Option<string>(
-                    "--sd",
-                    "Start date for including events (UTC). Anything OLDER than this is dropped. Format should match --dt"),
-
-                new Option<string>(
-                    "--ed",
-                    "End date for including events (UTC). Anything NEWER than this is dropped. Format should match --dt"),
-
-                new Option<bool>(
-                    "--fj",
-                    () => false,
-                    "When true, export all available data when using --json"),
-
-                new Option<int>(
-                    "--tdt", () => 1,
-                    "The number of seconds to use for time discrepancy detection"),
-
-                new Option<bool>(
-                    "--met",
-                    () => true,
-                    "When true, show metrics about processed event log"),
-
-                new Option<string>(
-                    "--maps",
-                    () => Path.Combine(BaseDirectory, "Maps"),
-                    "The path where event maps are located. Defaults to 'Maps' folder where program was executed"),
-
-                new Option<bool>(
-                    "--vss",
-                    () => false,
-                    "Process all Volume Shadow Copies that exist on drive specified by -f or -d"),
-
-                new Option<bool>(
-                    "--dedupe",
-                    () => true,
-                    "Deduplicate -f or -d & VSCs based on SHA-1. First file found wins"),
-
-                new Option<bool>(
-                    "--sync",
-                    () => false,
-                    "If true, the latest maps from https://github.com/EricZimmerman/evtx/tree/master/evtx/Maps are downloaded and local maps updated"),
-
-                new Option<bool>(
-                    "--debug",
-                    () => false,
-                    "Show debug information during processing"),
-
-                new Option<bool>(
-                    "--trace",
-                    () => false,
-                    "Show trace information during processing")
             };
 
 
             _rootCommand.Description = Header + "\r\n\r\n" + Footer;
 
-            _rootCommand.Handler = CommandHandler.Create(DoWork);
+            _rootCommand.SetAction(result => DoWork(result.GetValue(fOpt), result.GetValue(dOpt), result.GetValue(csvOpt),
+                result.GetValue(csvfOpt), result.GetValue(jsonOpt), result.GetValue(jsonfOpt), result.GetValue(xmlOpt),
+                result.GetValue(xmlfOpt),result.GetValue(dtOpt),result.GetValue(incOpt),result.GetValue(excOpt),result.GetValue(sdOpt),result.GetValue(edOpt),
+                result.GetValue(fjOpt),result.GetValue(tdtOpt),result.GetValue(metOpt),result.GetValue(mapsOpt),
+                result.GetValue(vssOpt),result.GetValue(dedupeOpt),result.GetValue(syncOpt),result.GetValue(debugOpt),result.GetValue(traceOpt)));
 
-            await _rootCommand.InvokeAsync(args);
+
+            var foo = _rootCommand.Parse(args).InvokeAsync();
         }
 
         private static HashSet<int> GetRange(string input)
@@ -298,12 +370,9 @@ namespace EvtxECmd;
             if (f.IsNullOrEmpty() &&
                 d.IsNullOrEmpty())
             {
-                var helpBld = new HelpBuilder(LocalizationResources.Instance, Console.WindowWidth);
-                var hc = new HelpContext(helpBld, _rootCommand, Console.Out);
-
-                helpBld.Write(hc);
-
-                Log.Warning("-f or -d is required. Exiting");
+                var aaa = new CustomHelpAction(new HelpAction());
+                aaa.Invoke(_rootCommand.Parse("-f or -d is required. Exiting is required. Exiting"));
+              
                 Console.WriteLine();
                 return;
             }
@@ -1244,5 +1313,23 @@ namespace EvtxECmd;
             return principal.IsInRole(WindowsBuiltInRole.Administrator);
         }
 
+        private class CustomHelpAction : SynchronousCommandLineAction
+        {
+            private readonly HelpAction _defaultHelp;
+
+            public CustomHelpAction(HelpAction action)
+            {
+                _defaultHelp = action;
+            }
+
+            public override int Invoke(ParseResult parseResult)
+            {
+                var result = _defaultHelp.Invoke(parseResult);
+
+                Log.Warning("{Msg}", string.Join(" ",parseResult.Tokens));
+
+                return result;
+            }
+        }
        
     }

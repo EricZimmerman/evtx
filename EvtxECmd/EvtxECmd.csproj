@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFrameworks>net462;net6.0;net9.0</TargetFrameworks>
+    <TargetFrameworks>net472;net9.0</TargetFrameworks>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <AssemblyTitle>EvtxECmd</AssemblyTitle>
     <Company>Eric R. Zimmerman</Company>
@@ -9,7 +9,7 @@
     <Description>Event log parser command line</Description>
     <Copyright>Eric Zimmerman</Copyright>
     <LangVersion>10</LangVersion>
-    <Version>1.5.2</Version>
+    <Version>2026.5.0</Version>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <PropertyGroup>
@@ -17,11 +17,9 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="AlphaFS.New" Version="2.3.0" />
-    <PackageReference Include="ERZHelpers" Version="1.5.3" />
+    <PackageReference Include="ERZHelpers" Version="2026.5.3" />
     <PackageReference Include="SharpZipLib" Version="1.4.2" />
-    <PackageReference Include="System.CommandLine" Version="2.0.0-beta4.22272.1" />
-    <PackageReference Include="System.CommandLine.NamingConventionBinder" Version="2.0.0-beta4.22272.1" />
-
+    <PackageReference Include="System.CommandLine" Version="2.0.7" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\evtx\evtx.csproj" />
@@ -34,18 +32,18 @@
     <PackageReference Include="Costura.Fody" Version="6.0.0">
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>
-    <PackageReference Include="CsvHelper" Version="33.0.1" />
-    <PackageReference Include="Exceptionless" Version="6.0.4" />
-    <PackageReference Include="Fody" Version="6.9.1">
+    <PackageReference Include="CsvHelper" Version="33.1.0" />
+    <PackageReference Include="Exceptionless" Version="6.1.0" />
+    <PackageReference Include="Fody" Version="6.9.3">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="Serilog" Version="4.2.0" />
-    <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
-    <PackageReference Include="ServiceStack.Text" Version="8.5.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
+    <PackageReference Include="Serilog" Version="4.3.1" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
+    <PackageReference Include="ServiceStack.Text" Version="10.0.6" />
     <PackageReference Include="System.Private.Uri" Version="4.3.2" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="9.0.0" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.7" />
     
   </ItemGroup>
 </Project>
