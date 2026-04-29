@@ -1,0 +1,100 @@
+Author: "Vikas Singh"
+Description: "NTFS Volume Mount – Volume successfully mounted"
+EventId: 4
+Channel: "Microsoft-Windows-Ntfs/Operational"
+Provider: "Microsoft-Windows-Ntfs"
+
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "DevicePath: %DeviceName%"
+    Values:
+      -
+        Name: DeviceName
+        Value: "/Event/EventData/Data[@Name=\"DeviceName\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "CorrelationId: %VolumeCorrelationId%"
+    Values:
+      -
+        Name: VolumeCorrelationId
+        Value: "/Event/EventData/Data[@Name=\"VolumeCorrelationId\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "IsBootVolume: %IsBootVolume%"
+    Values:
+      -
+        Name: IsBootVolume
+        Value: "/Event/EventData/Data[@Name=\"IsBootVolume\"]"
+  -
+    Property: PayloadData4
+    PropertyValue: "MountDuration: %MountDuration%"
+    Values:
+      -
+        Name: MountDuration
+        Value: "/Event/EventData/Data[@Name=\"MountDuration\"]"
+
+# Documentation
+# https://vikas891.github.io/posts/secrets-and-shadows/
+#
+# Example Event Data:
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <System>
+#   <Provider Name="Microsoft-Windows-Ntfs" Guid="{3ff37a1c-a68d-4d6e-8c9b-f79e8b16c482}" />
+#   <EventID>4</EventID>
+#   <Version>1</Version>
+#   <Level>4</Level>
+#   <Task>6</Task>
+#   <Opcode>0</Opcode>
+#   <Keywords>0x4001000000000020</Keywords>
+#   <TimeCreated SystemTime="2026-04-29T05:34:23.6477058Z" />
+#   <EventRecordID>32</EventRecordID>
+#   <Correlation />
+#   <Execution ProcessID="4" ThreadID="112" />
+#   <Channel>Microsoft-Windows-Ntfs/Operational</Channel>
+#   <Computer>DC.lab.local</Computer>
+#   <Security UserID="S-1-5-18" />
+#   </System>
+# <EventData>
+#   <Data Name="VolumeCorrelationId">{2ecf0fe7-438c-11f1-b0ac-000c29ecf0a7}</Data>
+#   <Data Name="VolumeIdLength">0</Data>
+#   <Data Name="VolumeId" />
+#   <Data Name="VolumeLabelLength">0</Data>
+#   <Data Name="VolumeLabel" />
+#   <Data Name="DeviceNameLength">33</Data>
+#   <Data Name="DeviceName">\Device\HarddiskVolumeShadowCopy1</Data>
+#   <Data Name="DeviceGuid">{00000000-0000-0000-0000-000000000000}</Data>
+#   <Data Name="VendorIdLength">0</Data>
+#   <Data Name="VendorId" />
+#   <Data Name="ProductIdLength">0</Data>
+#   <Data Name="ProductId" />
+#   <Data Name="ProductRevisionLength">0</Data>
+#   <Data Name="ProductRevision" />
+#   <Data Name="DeviceSerialNumberLength">0</Data>
+#   <Data Name="DeviceSerialNumber" />
+#   <Data Name="BusType">0</Data>
+#   <Data Name="AdapterSerialNumberLength">0</Data>
+#   <Data Name="AdapterSerialNumber" />
+#   <Data Name="Vcb">0x0</Data>
+#   <Data Name="MountDurationUs">16338</Data>
+#   <Data Name="MountDuration">16 ms</Data>
+#   <Data Name="LongestStage">7</Data>
+#   <Data Name="LongestStageDuration">16 ms</Data>
+#   <Data Name="LongestStagePercentage">100</Data>
+#   <Data Name="SecondLongestStage">0</Data>
+#   <Data Name="SecondLongestStageDuration">0 us</Data>
+#   <Data Name="SecondLongestStagePercentage">0</Data>
+#   <Data Name="RestartApplied">false</Data>
+#   <Data Name="IsBootVolume">false</Data>
+#   <Data Name="Stage1DurationUs">0</Data>
+#   <Data Name="Stage2DurationUs">0</Data>
+#   <Data Name="Stage3DurationUs">0</Data>
+#   <Data Name="Stage4DurationUs">0</Data>
+#   <Data Name="Stage5DurationUs">0</Data>
+#   <Data Name="Stage6DurationUs">0</Data>
+#   <Data Name="Stage7DurationUs">16338</Data>
+#   <Data Name="Stage8DurationUs">0</Data>
+#   <Data Name="Stage9DurationUs">0</Data>
+#   <Data Name="Stage10DurationUs">0</Data>
+#   </EventData>
+# </Event>

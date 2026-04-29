@@ -1,0 +1,88 @@
+Author: "Vikas Singh"
+Description: "NTFS Volume Allocation Analysis – Cached runs and layout statistics"
+EventId: 10
+Channel: "Microsoft-Windows-Ntfs/Operational"
+Provider: "Microsoft-Windows-Ntfs"
+
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "DevicePath: %DeviceName%"
+    Values:
+      -
+        Name: DeviceName
+        Value: "/Event/EventData/Data[@Name=\"DeviceName\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "CorrelationId: %VolumeCorrelationId%"
+    Values:
+      -
+        Name: VolumeCorrelationId
+        Value: "/Event/EventData/Data[@Name=\"VolumeCorrelationId\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "VolumeSize: %LongestRunCachedStr%"
+    Values:
+      -
+        Name: LongestRunCachedStr
+        Value: "/Event/EventData/Data[@Name=\"LongestRunCachedStr\"]"
+  -
+    Property: PayloadData4
+    PropertyValue: "MediaType: %MediaType% (1=Fixed)"
+    Values:
+      -
+        Name: MediaType
+        Value: "/Event/EventData/Data[@Name=\"MediaType\"]"
+
+# Documentation
+# https://vikas891.github.io/posts/secrets-and-shadows/
+#
+# Example Event Data:
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <System>
+#   <Provider Name="Microsoft-Windows-Ntfs" Guid="{3ff37a1c-a68d-4d6e-8c9b-f79e8b16c482}" />
+#   <EventID>10</EventID>
+#   <Version>0</Version>
+#   <Level>4</Level>
+#   <Task>0</Task>
+#   <Opcode>0</Opcode>
+#   <Keywords>0x4000000000200000</Keywords>
+#   <TimeCreated SystemTime="2026-04-29T05:34:23.6476351Z" />
+#   <EventRecordID>31</EventRecordID>
+#   <Correlation />
+#   <Execution ProcessID="4" ThreadID="128" />
+#   <Channel>Microsoft-Windows-Ntfs/Operational</Channel>
+#   <Computer>DC.lab.local</Computer>
+#   <Security UserID="S-1-5-18" />
+#   </System>
+# <EventData>
+#   <Data Name="VolumeCorrelationId">{2ecf0fe7-438c-11f1-b0ac-000c29ecf0a7}</Data>
+#   <Data Name="VolumeId" />
+#   <Data Name="VolumeLabel" />
+#   <Data Name="DeviceName">\Device\HarddiskVolumeShadowCopy1</Data>
+#   <Data Name="DeviceGuid">{00000000-0000-0000-0000-000000000000}</Data>
+#   <Data Name="VendorId" />
+#   <Data Name="ProductId" />
+#   <Data Name="ProductRevision" />
+#   <Data Name="DeviceSerialNumber" />
+#   <Data Name="BusType">0</Data>
+#   <Data Name="AdapterSerialNumber" />
+#   <Data Name="MediaType">1</Data>
+#   <Data Name="RunsCached">154</Data>
+#   <Data Name="LongestRunCached">47543382016</Data>
+#   <Data Name="LongestRunCachedStr">44.28 GB</Data>
+#   <Data Name="MostPopulatedBinCount">62</Data>
+#   <Data Name="MostPopulatedBinMinLength">0</Data>
+#   <Data Name="MostPopulatedBinMinLengthStr">0 Bytes</Data>
+#   <Data Name="MostPopulatedBinMaxLength">4096</Data>
+#   <Data Name="MostPopulatedBinMaxLengthStr">4 KB</Data>
+#   <Data Name="TotalCachedRuns">1</Data>
+#   <Data Name="CachedRunsLogged">1</Data>
+#   <Data Name="CachedRunsAlignment">1</Data>
+#   <Data Name="RunsInCachedRuns">154</Data>
+#   <Data Name="LongestRunInCachedRuns">47543382016</Data>
+#   <Data Name="MostPopulatedBinCountInCachedRuns">62</Data>
+#   <Data Name="MostPopulatedBinMinLengthInCachedRuns">0</Data>
+#   <Data Name="MostPopulatedBinMaxLengthInCachedRuns">4096</Data>
+#   </EventData>
+# </Event>

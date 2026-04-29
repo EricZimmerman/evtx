@@ -1,0 +1,76 @@
+Author: "Vikas Singh"
+Description: "NTFS Volume Bitmap Scan – Full volume bitmap read and validation"
+EventId: 9
+Channel: "Microsoft-Windows-Ntfs/Operational"
+Provider: "Microsoft-Windows-Ntfs"
+
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "DevicePath: %DeviceName%"
+    Values:
+      -
+        Name: DeviceName
+        Value: "/Event/EventData/Data[@Name=\"DeviceName\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "CorrelationId: %VolumeCorrelationId%"
+    Values:
+      -
+        Name: VolumeCorrelationId
+        Value: "/Event/EventData/Data[@Name=\"VolumeCorrelationId\"]"
+  -
+    Property: PayloadData3
+    PropertyValue: "ReasonCode: %Reason%"
+    Values:
+      -
+        Name: Reason
+        Value: "/Event/EventData/Data[@Name=\"Reason\"]"
+
+# Documentation
+# https://vikas891.github.io/posts/secrets-and-shadows/
+#
+# Example Event Data:
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <System>
+#   <Provider Name="Microsoft-Windows-Ntfs" Guid="{3ff37a1c-a68d-4d6e-8c9b-f79e8b16c482}" />
+#   <EventID>9</EventID>
+#   <Version>0</Version>
+#   <Level>4</Level>
+#   <Task>0</Task>
+#   <Opcode>0</Opcode>
+#   <Keywords>0x4000000000200000</Keywords>
+#   <TimeCreated SystemTime="2026-04-29T05:34:23.6476274Z" />
+#   <EventRecordID>30</EventRecordID>
+#   <Correlation />
+#   <Execution ProcessID="4" ThreadID="128" />
+#   <Channel>Microsoft-Windows-Ntfs/Operational</Channel>
+#   <Computer>DC.lab.local</Computer>
+#   <Security UserID="S-1-5-18" />
+#   </System>
+# <EventData>
+#   <Data Name="VolumeCorrelationId">{2ecf0fe7-438c-11f1-b0ac-000c29ecf0a7}</Data>
+#   <Data Name="VolumeIdLength">0</Data>
+#   <Data Name="VolumeId" />
+#   <Data Name="VolumeLabelLength">0</Data>
+#   <Data Name="VolumeLabel" />
+#   <Data Name="DeviceNameLength">33</Data>
+#   <Data Name="DeviceName">\Device\HarddiskVolumeShadowCopy1</Data>
+#   <Data Name="DeviceGuid">{00000000-0000-0000-0000-000000000000}</Data>
+#   <Data Name="VendorIdLength">0</Data>
+#   <Data Name="VendorId" />
+#   <Data Name="ProductIdLength">0</Data>
+#   <Data Name="ProductId" />
+#   <Data Name="ProductRevisionLength">0</Data>
+#   <Data Name="ProductRevision" />
+#   <Data Name="DeviceSerialNumberLength">0</Data>
+#   <Data Name="DeviceSerialNumber" />
+#   <Data Name="BusType">0</Data>
+#   <Data Name="AdapterSerialNumberLength">0</Data>
+#   <Data Name="AdapterSerialNumber" />
+#   <Data Name="DurationUs">10680</Data>
+#   <Data Name="InputFlags">0xe</Data>
+#   <Data Name="Reason">1</Data>
+#   <Data Name="Flags">0x10</Data>
+#   </EventData>
+# </Event>
