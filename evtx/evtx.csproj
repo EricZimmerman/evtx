@@ -28,7 +28,7 @@
     <PackageReference Include="ServiceStack.Text" Version="10.0.6" />
     <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
     <PackageReference Include="System.Xml.XPath" Version="4.3.0" />
-    <PackageReference Include="YamlDotNet" Version="17.0.1" />
+    <PackageReference Include="YamlDotNet" Version="17.1.0" />
       <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.7" />
 
       <None Include="../README.md" Pack="true" PackagePath=""/>
