@@ -214,7 +214,7 @@ namespace EvtxECmd;
             
             var metOpt = new Option<bool>("--met")
             {
-                Description = "When true, show metrics about processed event lo. Default is true",
+                Description = "When true, show metrics about processed event log. Default is true",
                 DefaultValueFactory = _ => true
             };
             
@@ -235,7 +235,7 @@ namespace EvtxECmd;
             var dedupeOpt = new Option<bool>("--dedupe")
             {
                 Description = "Deduplicate -f or -d & VSCs based on SHA-1. First file found wins",
-                DefaultValueFactory = _ => false
+                DefaultValueFactory = _ => true
             };
             
             var syncOpt = new Option<bool>("--sync")
