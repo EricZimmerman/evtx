@@ -1,45 +1,42 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <AssemblyTitle>evtx parser</AssemblyTitle>
-    <Company>Eric R. Zimmerman</Company>
     <Authors>Eric R. Zimmerman</Authors>
+    <Company>Eric R. Zimmerman</Company>
     <Product>evtx parser</Product>
     <Description>Parses Windows event logs (evtx format)</Description>
     <Copyright>Eric Zimmerman</Copyright>
     <PackageProjectUrl>https://github.com/EricZimmerman/evtx</PackageProjectUrl>
-    
+    <RepositoryUrl>https://github.com/EricZimmerman/evtx</RepositoryUrl>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <LangVersion>10</LangVersion>
-    <Version>2026.5.0</Version>
 
     <PackageTags>evtx, event logs</PackageTags>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>icon.png</PackageIcon>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <!-- If all members are not documented, you can disable the compiler warnings -->
-    <NoWarn>$(NoWarn);CS1591</NoWarn>
-    
+    <NoWarn>$(NoWarn);CS1591;CS1573</NoWarn>
   </PropertyGroup>
-    <ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="evtx.Test" />
     <PackageReference Include="Crc32.NET" Version="1.2.0" />
-    <PackageReference Include="FluentValidation" Version="11.11.0" />
-      <PackageReference Include="Serilog" Version="4.3.1" />
-    <PackageReference Include="ServiceStack.Text" Version="10.0.6" />
-    <PackageReference Include="System.Text.RegularExpressions" Version="4.3.1" />
-    <PackageReference Include="System.Xml.XPath" Version="4.3.0" />
+    <PackageReference Include="FluentValidation" Version="11.12.0" />
+    <PackageReference Include="Serilog" Version="4.4.0" />
+    <PackageReference Include="ServiceStack.Text" Version="10.4.0" />
     <PackageReference Include="YamlDotNet" Version="17.1.0" />
-      <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.7" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.13" />
 
-      <None Include="../README.md" Pack="true" PackagePath=""/>
-      <None Include="../icon.png" Pack="true" PackagePath=""/>
-      <PackageReference Include="DotNet.ReproducibleBuilds" Version="2.0.2">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
-      <PackageReference Include="MinVer" Version="7.0.0">
-        <PrivateAssets>all</PrivateAssets>
-        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-      </PackageReference>
+    <None Include="../README.md" Pack="true" PackagePath="" />
+    <None Include="../icon.png" Pack="true" PackagePath="" />
+    <PackageReference Include="DotNet.ReproducibleBuilds" Version="2.0.5">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="MinVer" Version="8.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
   </ItemGroup>
 </Project>

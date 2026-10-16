@@ -1,0 +1,14 @@
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: monthly
+  - package-ecosystem: nuget
+    directory: /
+    schedule:
+      interval: monthly
+    ignore:
+      # FluentAssertions 8.x requires a commercial license; stay on 7.x
+      - dependency-name: FluentAssertions
+        versions: [">= 8.0.0"]

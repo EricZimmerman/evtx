@@ -1,0 +1,8 @@
+<Solution>
+  <Configurations>
+    <Platform Name="Any CPU" />
+  </Configurations>
+  <Project Path="evtx/evtx.csproj" />
+  <Project Path="EvtxECmd/EvtxECmd.csproj" />
+  <Project Path="evtx.Test/evtx.Test.csproj" />
+</Solution>

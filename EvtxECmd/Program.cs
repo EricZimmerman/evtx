@@ -22,12 +22,10 @@ using System.Runtime.InteropServices;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
-using System.Xml;
 using CsvHelper.Configuration;
 using evtx;
 using Exceptionless;
 using ICSharpCode.SharpZipLib.Zip;
-using Newtonsoft.Json;
 using RawCopy;
 using Serilog;
 using Serilog.Core;
@@ -112,7 +110,7 @@ namespace EvtxECmd;
             }
         }
         
-        private static async Task Main(string[] args)
+        private static async Task<int> Main(string[] args)
         {
             ExceptionlessClient.Default.Startup("tYeWS6A5K5uItgpB44dnNy2qSb2xJxiQWRRGWebq");
 
@@ -293,7 +291,11 @@ namespace EvtxECmd;
                 result.GetValue(vssOpt),result.GetValue(dedupeOpt),result.GetValue(syncOpt),result.GetValue(debugOpt),result.GetValue(traceOpt)));
 
 
-            var foo = _rootCommand.Parse(args).InvokeAsync();
+            var exitCode = await _rootCommand.Parse(args).InvokeAsync();
+
+            Log.CloseAndFlush();
+
+            return exitCode;
         }
 
         private static HashSet<int> GetRange(string input)
@@ -323,7 +325,8 @@ namespace EvtxECmd;
             return r;
         }
 
-        private static void DoWork(string f, string d, string csv, string csvf, string json, string jsonf, string xml, string xmlf, string dt, string inc, string exc, string sd, string ed, bool fj, int tdt, bool met, string maps, bool vss, bool dedupe, bool sync, bool debug, bool trace)
+        /// <returns>The exit code: 0, or 1 for invalid arguments, files that could not be processed, or output that could not be written</returns>
+        private static int DoWork(string f, string d, string csv, string csvf, string json, string jsonf, string xml, string xmlf, string dt, string inc, string exc, string sd, string ed, bool fj, int tdt, bool met, string maps, bool vss, bool dedupe, bool sync, bool debug, bool trace)
         {
             var levelSwitch = new LoggingLevelSwitch();
 
@@ -362,19 +365,20 @@ namespace EvtxECmd;
                 catch (Exception e)
                 {
                     Log.Error(e, "There was an error checking for updates: {Message}",e.Message);
+                    return 1;
                 }
 
-                Environment.Exit(0);
+                return 0;
             }
 
             if (f.IsNullOrEmpty() &&
                 d.IsNullOrEmpty())
             {
                 var aaa = new CustomHelpAction(new HelpAction());
-                aaa.Invoke(_rootCommand.Parse("-f or -d is required. Exiting is required. Exiting"));
+                aaa.Invoke(_rootCommand.Parse("-f or -d is required. Exiting"));
               
                 Console.WriteLine();
-                return;
+                return 1;
             }
 
             Log.Information("{Header}",Header);
@@ -399,7 +403,7 @@ namespace EvtxECmd;
             {
                 Log.Error("{Vss} is present, but administrator rights not found. Exiting","--vss");
                 Console.WriteLine();
-                return;
+                return 1;
             }
 
             var sw = new Stopwatch();
@@ -424,7 +428,7 @@ namespace EvtxECmd;
                         Log.Fatal(ex,
                             "Unable to create directory {Json}. Does a file with the same name exist? Exiting",json);
                         Console.WriteLine();
-                        return;
+                        return 1;
                     }
                 }
 
@@ -448,7 +452,7 @@ namespace EvtxECmd;
                 {
                     Log.Error(ex,"Unable to open {OutFile}! Is it in use? Exiting!",outFile);
                     Console.WriteLine();
-                    Environment.Exit(0);
+                    return 1;
                 }
 
                 JsConfig.DateHandler = DateHandler.ISO8601;
@@ -468,7 +472,7 @@ namespace EvtxECmd;
                     {
                         Log.Fatal(ex,
                             "Unable to create directory {Xml}. Does a file with the same name exist? Exiting",xml);
-                        return;
+                        return 1;
                     }
                 }
 
@@ -492,7 +496,7 @@ namespace EvtxECmd;
                 {
                     Log.Error(ex,"Unable to open {OutFile}! Is it in use? Exiting!",outFile);
                     Console.WriteLine();
-                    Environment.Exit(0);
+                    return 1;
                 }
             }
 
@@ -543,7 +547,7 @@ namespace EvtxECmd;
                     {
                         Log.Fatal(ex,
                             "Unable to create directory {Csv}. Does a file with the same name exist? Exiting",csv);
-                        return;
+                        return 1;
                     }
                 }
 
@@ -574,7 +578,7 @@ namespace EvtxECmd;
                 {
                     Log.Error(ex,"Unable to open {OutFile}! Is it in use? Exiting!",outFile);
                     Console.WriteLine();
-                    Environment.Exit(0);
+                    return 1;
                 }
 
 
@@ -611,6 +615,8 @@ namespace EvtxECmd;
                 foo.Map(t => t.SourceFile).Index(22);
                 foo.Map(t => t.Keywords).Index(23);
                 foo.Map(t => t.Payload).Index(24);
+                //appended after the existing columns
+                foo.Map(t => t.RenderingInfo).Index(26);
 
                 _csvWriter.Context.RegisterClassMap(foo);
                 _csvWriter.WriteHeader<EventRecord>();
@@ -628,7 +634,7 @@ namespace EvtxECmd;
 
                 if (errors)
                 {
-                    return;
+                    return 1;
                 }
 
                 Log.Information("Maps loaded: {Count:N0}",EventLog.EventLogMaps.Count);
@@ -711,7 +717,7 @@ namespace EvtxECmd;
                 {
                     Log.Warning("\t{F} does not exist! Exiting",f);
                     Console.WriteLine();
-                    return;
+                    return 1;
                 }
 
                 if (_swXml == null && _swJson == null && _swCsv == null)
@@ -748,7 +754,7 @@ namespace EvtxECmd;
                 {
                     Log.Warning("\t{D} does not exist! Exiting",d);
                     Console.WriteLine();
-                    return;
+                    return 1;
                 }
 
                 Log.Information("Looking for event log files in {D}",d);
@@ -772,16 +778,17 @@ namespace EvtxECmd;
                     Directory.EnumerateFileSystemEntries(Path.GetFullPath(d), dirEnumOptions, directoryEnumerationFilters);
 
 #else
+                //files only; reparse points (junctions, links) are skipped so loops cannot occur
                 var enumerationOptions = new EnumerationOptions
                 {
                     IgnoreInaccessible = true,
                     MatchCasing = MatchCasing.CaseInsensitive,
                     RecurseSubdirectories = true,
-                    AttributesToSkip = 0
+                    AttributesToSkip = FileAttributes.ReparsePoint
                 };
                         
                var files2 =
-                    Directory.EnumerateFileSystemEntries(d, "*.evtx",enumerationOptions);
+                    Directory.EnumerateFiles(d, "*.evtx",enumerationOptions);
 #endif
 
                 if (_swXml == null && _swJson == null && _swCsv == null)
@@ -836,6 +843,7 @@ namespace EvtxECmd;
             catch (Exception e)
             {
                 Log.Error(e,"Error when flushing output files to disk! Error message: {Message}",e.Message);
+                _outputFailed = true;
             }
 
             sw.Stop();
@@ -880,7 +888,15 @@ namespace EvtxECmd;
 #endif
                 }
             }
+
+            return _failedFiles > 0 || _outputFailed ? 1 : 0;
         }
+
+        /// <summary>Files that could not be opened or processed</summary>
+        private static int _failedFiles;
+
+        /// <summary>An output file could not be written</summary>
+        private static bool _outputFailed;
 
         private static void UpdateFromRepo()
         {
@@ -1031,6 +1047,7 @@ namespace EvtxECmd;
             if (File.Exists(file) == false)
             {
                 Log.Warning("{File} does not exist! Skipping",file);
+                _failedFiles += 1;
                 return;
             }
 
@@ -1058,23 +1075,26 @@ namespace EvtxECmd;
                 if (!RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
                 {
                     Console.WriteLine();
-                    Log.Fatal("Raw disk reads not supported on non-Windows platforms! Exiting!!");
+                    Log.Error("{File} could not be opened, and raw disk reads are not supported on non-Windows platforms. Skipping",file);
                     Console.WriteLine();
-                    Environment.Exit(0);
+                    _failedFiles += 1;
+                    return;
                 }
 
                 if (Helper.IsAdministrator() == false)
                 {
                     Console.WriteLine();
-                    Log.Fatal("Administrator privileges not found! Exiting!!");
+                    Log.Error("{File} is in use, and administrator privileges are needed to read it raw. Skipping",file);
                     Console.WriteLine();
-                    Environment.Exit(0);
+                    _failedFiles += 1;
+                    return;
                 }
 
                 if (file.StartsWith("\\\\"))
                 {
-                    Log.Fatal($"Raw access across UNC shares is not supported! Run locally on the system or extract logs via other means and try again. Exiting");
-                    Environment.Exit(0);
+                    Log.Error("{File} is in use, and raw access across UNC shares is not supported! Run locally on the system or extract logs via other means and try again. Skipping",file);
+                    _failedFiles += 1;
+                    return;
                 }
 
                 Console.WriteLine();
@@ -1105,7 +1125,12 @@ namespace EvtxECmd;
                 }
 
                 EventLog.LastSeenTicks = 0;
-                var evt = new EventLog(fileS);
+                var evt = new EventLog(fileS)
+                {
+                    //built while chunks are parsed in parallel
+                    PreparePayloadJson = _csvWriter != null || (_swJson != null && fj == false),
+                    PrepareXml = _swXml != null
+                };
 
                 Log.Information("Chunk count: {ChunkCount:N0}, Iterating records...",evt.ChunkCount);
 
@@ -1173,11 +1198,11 @@ namespace EvtxECmd;
 
                     try
                     {
-                        var xdo = new XmlDocument();
-                        xdo.LoadXml(eventRecord.Payload);
-
-                        var payOut = JsonConvert.SerializeXmlNode(xdo);
-                        eventRecord.Payload = payOut;
+                        if (_csvWriter != null || _swJson != null)
+                        {
+                            //the same JSON Json.NET gave for the payload XML, without parsing it
+                            eventRecord.Payload = eventRecord.PayloadAsJson();
+                        }
 
                         _csvWriter?.WriteRecord(eventRecord);
                         _csvWriter?.NextRecord();
@@ -1194,12 +1219,7 @@ namespace EvtxECmd;
                             var jsOut = eventRecord.ToJson();
                             if (fj)
                             {
-                                if (xml.IsNullOrEmpty())
-                                {
-                                    xml = eventRecord.ConvertPayloadToXml();
-                                }
-
-                                jsOut = GetPayloadAsJson(xml);
+                                jsOut = eventRecord.EventAsJson();
                             }
 
                             _swJson.WriteLine(jsOut);
@@ -1210,7 +1230,8 @@ namespace EvtxECmd;
                     catch (Exception e)
                     {
                         Log.Error("Error processing record #{RecordNumber}: {Message}",eventRecord.RecordNumber,e.Message);
-                        evt.ErrorRecords.Add(21, e.Message);
+                        //this used to always use key 21, so a second error ended the whole file
+                        evt.ErrorRecords[eventRecord.RecordNumber] = e.Message;
                     }
                 }
 
@@ -1289,16 +1310,11 @@ namespace EvtxECmd;
                 {
                     Log.Error("Error processing {Fn}! Message: {Message}",fn,e.Message);
                 }
+
+                _failedFiles += 1;
             }
 
             fileS?.Close();
-        }
-
-        public static string GetPayloadAsJson(string xmlPayload)
-        {
-            var xdo = new XmlDocument();
-            xdo.LoadXml(xmlPayload);
-            return JsonConvert.SerializeXmlNode(xdo);
         }
 
         private static bool IsAdministrator()

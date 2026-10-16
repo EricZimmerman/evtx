@@ -1,0 +1,31 @@
+Author: Eric Zimmerman
+Description: SSH error
+EventId: 2
+Channel: "OpenSSH/Admin"
+Provider: OpenSSH
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "%Process%"
+    Values:
+      -
+        Name: Process
+        Value: "/Event/EventData/Data[@Name=\"process\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "%Payload%"
+    Values:
+      -
+        Name: Payload
+        Value: "/Event/EventData/Data[@Name=\"payload\"]"
+
+# Documentation:
+# Win32-OpenSSH logs critical (event id 1) and error (event id 2) messages to OpenSSH/Admin, and the rest to OpenSSH/Operational
+# https://github.com/EricZimmerman/evtx/issues/253
+#
+# Example Event Data:
+# <EventData>
+# <Data Name="process">sshd</Data>
+# <Data Name="payload">error: connect to 192.168.21.12 port 445 failed: No error</Data>
+# </EventData>
+# </Event>

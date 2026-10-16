@@ -1,20 +1,25 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
-    <TargetFramework>net9.0</TargetFramework>
-    <AssemblyTitle>evtx.Test</AssemblyTitle>
-    <Product>evtx.Test</Product>
-    <Copyright>Eric Zimmerman</Copyright>
+    <TargetFramework>net10.0</TargetFramework>
     <LangVersion>10</LangVersion>
     <IsPackable>false</IsPackable>
+    <Copyright>Eric Zimmerman</Copyright>
   </PropertyGroup>
-
   <ItemGroup>
-    <ProjectReference Include="..\evtx\evtx.csproj" />
+    <PackageReference Include="FluentAssertions" Version="[7.2.2,8.0.0)" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="18.11.0" />
+    <PackageReference Include="NUnit" Version="5.0.0" />
+    <PackageReference Include="NUnit3TestAdapter" Version="6.3.1" />
+    <PackageReference Include="Crc32.NET" Version="1.2.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.4" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="NFluent" Version="3.1.0" />
-    <PackageReference Include="Serilog" Version="4.3.1" />
-    <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
-    <PackageReference Include="NUnit" Version="4.6.0" />
+    <ProjectReference Include="..\evtx\evtx.csproj" />
+    <!-- CliTests run the built EvtxECmd.dll, which this copies next to the tests -->
+    <ProjectReference Include="..\EvtxECmd\EvtxECmd.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TestFiles/**" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="../evtx/Maps/**" LinkBase="Maps" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

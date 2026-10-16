@@ -2,10 +2,13 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.ExceptionServices;
 using System.Text;
+using System.Threading.Tasks;
 using FluentValidation.Results;
 using Force.Crc32;
 using Serilog;
+using Serilog.Events;
 using ServiceStack;
 using ServiceStack.Text;
 using YamlDotNet.Core;
@@ -25,7 +28,7 @@ public class EventLog
     }
 
     private const long EventSignature = 0x00656c6946666c45;
-    private const long ChunkSignature = 0x6B6E6843666C45;
+    private const long ChunkSignature = 0x006B6E6843666C45; //ElfChnk\0
 
     public static long LastSeenTicks;
 
@@ -43,39 +46,59 @@ public class EventLog
     {
         _stream = fileStream;
 
-        var headerBytes = new byte[4096];
-        fileStream.Read(headerBytes, 0, 4096);
+        var headerBytes = new byte[HeaderBlockSize];
+        var read = ReadFully(fileStream, headerBytes);
 
-        if (BitConverter.ToInt64(headerBytes, 0) != EventSignature)
+        if (read < 0x80 || BitConverter.ToInt64(headerBytes, 0) != EventSignature)
         {
-            throw new Exception("Invalid signature! Expected 'ElfFile'");
+            throw new EventLogParseException("Invalid signature! Expected 'ElfFile'", 0, "FileHeader");
         }
 
         FirstChunkNumber = BitConverter.ToInt64(headerBytes, 0x8);
         LastChunkNumber = BitConverter.ToInt64(headerBytes, 0x10);
 
         NextRecordId = BitConverter.ToInt64(headerBytes, 0x18);
-        var unusedSize = BitConverter.ToInt32(headerBytes, 0x20);
+        HeaderSize = BitConverter.ToInt32(headerBytes, 0x20);
 
         MinorVersion = BitConverter.ToInt16(headerBytes, 0x24);
         MajorVersion = BitConverter.ToInt16(headerBytes, 0x26);
 
-        var unusedHeaderSize = BitConverter.ToInt16(headerBytes, 0x28);
+        HeaderBlockLength = BitConverter.ToUInt16(headerBytes, 0x28);
         ChunkCount = BitConverter.ToUInt16(headerBytes, 0x2A);
 
         Flags = (EventLogFlag) BitConverter.ToInt32(headerBytes, 0x78);
 
+        //the CRC covers the first 0x78 bytes
         Crc = BitConverter.ToInt32(headerBytes, 0x7C);
-
-        var inputArray = new byte[120 + 4];
-        Buffer.BlockCopy(headerBytes, 0, inputArray, 0, 120);
-
-        Crc32Algorithm.ComputeAndWriteToEnd(inputArray); // last 4 bytes contains CRC
-        CalculatedCrc = BitConverter.ToInt32(inputArray, inputArray.Length - 4);
+        CalculatedCrc = (int) Crc32Algorithm.Compute(headerBytes, 0, 0x78);
 
         ErrorRecords = new Dictionary<long, string>();
     }
 
+    private const int HeaderBlockSize = 0x1000;
+
+    private static int ReadFully(Stream stream, byte[] buffer)
+    {
+        var read = 0;
+        while (read < buffer.Length)
+        {
+            var n = stream.Read(buffer, read, buffer.Length - read);
+            if (n == 0)
+            {
+                break;
+            }
+
+            read += n;
+        }
+
+        return read;
+    }
+
+    /// <summary>0x80</summary>
+    public int HeaderSize { get; }
+
+    /// <summary>0x1000: the header block chunks start after</summary>
+    public ushort HeaderBlockLength { get; }
 
     public DateTimeOffset? EarliestTimestamp { get; private set; }
     public DateTimeOffset? LatestTimestamp { get; private set; }
@@ -103,6 +126,8 @@ public class EventLog
 
     public Dictionary<long, string> ErrorRecords { get; }
 
+    /// <summary>Loads every *.map in <paramref name="mapPath" /> into <see cref="EventLogMaps" /></summary>
+    /// <returns>True when one or more maps had errors (they are logged and skipped)</returns>
     public static bool LoadMaps(string mapPath)
     {
         EventLogMaps = new Dictionary<string, EventLogMap>();
@@ -118,33 +143,47 @@ public class EventLog
 
         var errorMaps = new List<string>();
 
-        foreach (var mapFile in mapFiles.OrderBy(t => t))
+        //deserializing is most of the time a run of EvtxECmd on a small log takes, so the maps are read in parallel,
+        //then checked and added in name order as before
+        mapFiles = mapFiles.OrderBy(t => t).ToList();
+        var parsed = new (EventLogMap Map, ExceptionDispatchInfo Error)[mapFiles.Count];
+        Parallel.For(0, mapFiles.Count, i =>
         {
             try
             {
-                var eventMapFile = deserializer.Deserialize<EventLogMap>(File.ReadAllText(mapFile));
+                parsed[i] = (deserializer.Deserialize<EventLogMap>(File.ReadAllText(mapFiles[i])), null);
+            }
+            catch (Exception e)
+            {
+                parsed[i] = (null, ExceptionDispatchInfo.Capture(e));
+            }
+        });
 
-                Log.Verbose("{Map}",eventMapFile.Dump());
+        for (var i = 0; i < mapFiles.Count; i++)
+        {
+            var mapFile = mapFiles[i];
+            try
+            {
+                parsed[i].Error?.Throw();
+                var eventMapFile = parsed[i].Map;
+
+                if (Log.IsEnabled(LogEventLevel.Verbose))
+                {
+                    //Dump is slow, so only when it is logged
+                    Log.Verbose("{Map}",eventMapFile.Dump());
+                }
 
                 var validate = validator.Validate(eventMapFile);
 
                 if (DisplayValidationResults(validate, mapFile))
                 {
-                    if (EventLogMaps.ContainsKey(
-                            $"{eventMapFile.EventId}-{eventMapFile.Channel.ToUpperInvariant()}") == false)
+                    //the same key as records look maps up by (the check used to leave out the provider, so a second
+                    //map for the same event threw instead of being skipped; issue #241)
+                    var mapKey = $"{eventMapFile.EventId}-{eventMapFile.Channel.ToUpperInvariant()}-{eventMapFile.Provider.ToUpperInvariant()}";
+                    if (EventLogMaps.ContainsKey(mapKey) == false)
                     {
                         Log.Debug("{Path} is valid. Adding to maps...",Path.GetFileName(mapFile));
-
-                        // if (eventMapFile.Provider.IsNullOrEmpty() == false)
-                        // {
-                        //     EventLogMaps.Add($"{eventMapFile.EventId}-{eventMapFile.Channel.ToUpperInvariant()}-{eventMapFile.Provider.ToUpperInvariant()}", eventMapFile);
-                        // }
-                        // else
-                        // {
-                        //     
-                        // }
-                        EventLogMaps.Add($"{eventMapFile.EventId}-{eventMapFile.Channel.ToUpperInvariant()}-{eventMapFile.Provider.ToUpperInvariant()}", eventMapFile);    
-                            
+                        EventLogMaps.Add(mapKey, eventMapFile);
                     }
                     else
                     {
@@ -224,7 +263,10 @@ public class EventLog
 
     private static bool DisplayValidationResults(ValidationResult result, string source)
     {
-        Log.Verbose("Performing validation on {Source}: {Result}",source,result.Dump());
+        if (Log.IsEnabled(LogEventLevel.Verbose))
+        {
+            Log.Verbose("Performing validation on {Source}: {Result}",source,result.Dump());
+        }
         if (result.Errors.Count == 0)
         {
             return true;
@@ -263,84 +305,119 @@ public class EventLog
         return sb.ToString();
     }
 
+    /// <summary>
+    ///     Every record in every chunk, in file order. Chunks are independent (each has its own strings and templates),
+    ///     so they are parsed in parallel, a batch at a time
+    /// </summary>
     public IEnumerable<EventRecord> GetEventRecords()
     {
-        //we are at offset 0x1000 and ready to start
-
-        //chunk size == 65536, or 0x10000
-        var chunkBuffer = new byte[0x10000];
-
-        var chunkOffset = _stream.Position;
-        var bytesRead = _stream.Read(chunkBuffer, 0, 0x10000);
-
         EventIdMetrics = new Dictionary<long, int>();
 
+        var ticksForTimeDelta = 10000000L * TimeDiscrepancyThreshold; //10000000 == ticks in a second
+        var batchSize = Math.Max(2, Environment.ProcessorCount * 2);
         var chunkNumber = 0;
-        while (bytesRead > 0)
+        var chunkOffset = _stream.Position;
+        var done = false;
+
+        while (done == false)
         {
-            var chunkSig = BitConverter.ToInt64(chunkBuffer, 0);
-
-            Log.Debug("Processing chunk at offset 0x{ChunkOffset:X}. Events found so far: {TotalEventLogs:N0}",chunkOffset,TotalEventLogs);
-
-            if (chunkSig == ChunkSignature)
+            var buffers = new List<(byte[] Bytes, long Offset, int Number)>(batchSize);
+            while (buffers.Count < batchSize)
             {
-                var ci = new ChunkInfo(chunkBuffer, chunkOffset, chunkNumber);
+                var chunkBuffer = new byte[ChunkInfo.ChunkSize];
+                var bytesRead = ReadFully(_stream, chunkBuffer);
+                if (bytesRead == 0)
+                {
+                    done = true;
+                    break;
+                }
+
+                buffers.Add((chunkBuffer, chunkOffset, chunkNumber));
+                chunkOffset += bytesRead;
+                chunkNumber += 1;
+
+                if (bytesRead < chunkBuffer.Length)
+                {
+                    //a truncated file: the rest of the last chunk is zeros
+                    done = true;
+                    break;
+                }
+            }
+
+            var chunks = new ChunkInfo[buffers.Count];
+            Parallel.For(0, buffers.Count, i =>
+            {
+                var (bytes, offset, number) = buffers[i];
+                if (BitConverter.ToInt64(bytes, 0) != ChunkSignature)
+                {
+                    Log.Verbose("Skipping chunk at 0x{ChunkOffset:X} as it does not have correct signature", offset);
+                    return;
+                }
+
+                Log.Debug("Processing chunk at offset 0x{ChunkOffset:X}", offset);
+                try
+                {
+                    chunks[i] = new ChunkInfo(bytes, offset, number, PreparePayloadJson, PrepareXml);
+                }
+                catch (Exception e)
+                {
+                    Log.Error("Chunk at 0x{ChunkOffset:X} could not be read: {Message}", offset, e.Message);
+                }
+            });
+
+            foreach (var ci in chunks)
+            {
+                if (ci == null)
+                {
+                    continue;
+                }
 
                 foreach (var er in ci.EventRecords)
                 {
-                    if (EarliestTimestamp == null)
+                    if (EarliestTimestamp == null || er.Timestamp.Ticks < EarliestTimestamp.Value.Ticks)
                     {
                         EarliestTimestamp = er.Timestamp;
                     }
-                    else
-                    {
-                        if (er.Timestamp.Ticks < EarliestTimestamp.Value.Ticks)
-                        {
-                            EarliestTimestamp = er.Timestamp;
-                        }
-                    }
 
-                    if (LatestTimestamp == null)
+                    if (LatestTimestamp == null || er.Timestamp.Ticks > LatestTimestamp.Value.Ticks)
                     {
                         LatestTimestamp = er.Timestamp;
                     }
-                    else
+
+                    EventIdMetrics.TryGetValue(er.EventId, out var count);
+                    EventIdMetrics[er.EventId] = count + 1;
+
+                    //ticksForTimeDelta == totalticks for discrepancy value
+                    if (LastSeenTicks > 0 && LastSeenTicks - ticksForTimeDelta > er.TimeCreated.Ticks)
                     {
-                        if (er.Timestamp.Ticks > LatestTimestamp.Value.Ticks)
-                        {
-                            LatestTimestamp = er.Timestamp;
-                        }
+                        Log.Warning("Record #: {RecordNumber} (timestamp: {TimeCreated:yyyy-MM-dd HH:mm:ss.fffffff}): Warning! Time just went backwards! Last seen time before change: {Ts:yyyy-MM-dd HH:mm:ss.fffffff}", er.RecordNumber, er.TimeCreated, new DateTimeOffset(LastSeenTicks, TimeSpan.Zero).ToUniversalTime());
                     }
 
-                    if (EventIdMetrics.ContainsKey(er.EventId) == false)
-                    {
-                        EventIdMetrics.Add(er.EventId, 0);
-                    }
-
-                    EventIdMetrics[er.EventId] += 1;
+                    LastSeenTicks = er.TimeCreated.Ticks;
 
                     yield return er;
                 }
 
                 foreach (var chunkInfoErrorRecord in ci.ErrorRecords)
                 {
-                    ErrorRecords.Add(chunkInfoErrorRecord.Key, chunkInfoErrorRecord.Value);
+                    ErrorRecords[chunkInfoErrorRecord.Key] = chunkInfoErrorRecord.Value;
                 }
 
                 TotalEventLogs += ci.EventRecords.Count;
+                ChunksProcessed += 1;
             }
-            else
-            {
-                Log.Verbose("Skipping chunk at 0x{ChunkOffset:X} as it does not have correct signature",chunkOffset);
-            }
-
-            chunkOffset = _stream.Position;
-            bytesRead = _stream.Read(chunkBuffer, 0, 0x10000);
-
-            chunkNumber += 1;
         }
-
-
-
     }
+
+    /// <summary>
+    ///     Build each record's <see cref="EventRecord.PayloadAsJson" /> while its chunk is parsed (in parallel) instead
+    ///     of when it is asked for
+    /// </summary>
+    public bool PreparePayloadJson { get; set; }
+
+    /// <summary>Write each record's <see cref="EventRecord.ConvertPayloadToXml" /> while its chunk is parsed</summary>
+    public bool PrepareXml { get; set; }
+
+    /// <summary>Chunks that had a chunk signature</summary>
+    public int ChunksProcessed { get; private set; }
 }
