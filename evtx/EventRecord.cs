@@ -432,10 +432,9 @@ public class EventRecord
             {
                 //compiled once; a clone per use, since chunks are parsed in parallel
                 var expression = XPaths.GetOrAdd(me.Value, XPathExpression.Compile).Clone();
-                var propVal = nav.SelectSingleNode(expression);
-                if (propVal != null)
+                var propValue = MapValue(nav, expression);
+                if (propValue != null)
                 {
-                    var propValue = propVal.Value;
 
                     if (me.Refine.IsNullOrEmpty() == false)
                     {
@@ -524,6 +523,46 @@ public class EventRecord
                     Log.Warning("Unknown property name {PropertyToUpdate}! Dropping mapping value of {PropertyValue}", propertyToUpdate, propertyValue);
                     break;
             }
+        }
+    }
+
+    /// <summary>
+    ///     A map value: the first node a path selects, or what an expression evaluates to (issue #99), e.g.
+    ///     <c>round(/Event/EventData/Data[@Name="RemainingCapacity"] div /Event/EventData/Data[@Name="FullChargeCapacity"] * 100)</c>.
+    ///     Null when nothing is selected, or a number can't be calculated (a value is missing or not a number)
+    /// </summary>
+    internal static string MapValue(XPathNavigator nav, XPathExpression expression)
+    {
+        switch (expression.ReturnType)
+        {
+            case XPathResultType.NodeSet:
+                return nav.SelectSingleNode(expression)?.Value;
+            case XPathResultType.Number:
+                var d = (double)nav.Evaluate(expression);
+                if (double.IsNaN(d) || double.IsInfinity(d))
+                {
+                    return null;
+                }
+
+                if (d == 0)
+                {
+                    return "0"; //not "-0"
+                }
+
+                //as XPath's string() writes a number: no exponent, and no decimals for whole numbers
+                return Math.Floor(d) == d && Math.Abs(d) < 1e15
+                    ? d.ToString("0", CultureInfo.InvariantCulture)
+                    : d.ToString("0.###############", CultureInfo.InvariantCulture);
+            case XPathResultType.Boolean:
+                return (bool)nav.Evaluate(expression) ? "true" : "false";
+            default:
+                var result = nav.Evaluate(expression);
+                if (result is XPathNodeIterator nodes)
+                {
+                    return nodes.MoveNext() ? nodes.Current?.Value : null;
+                }
+
+                return Convert.ToString(result, CultureInfo.InvariantCulture);
         }
     }
 

@@ -1,0 +1,49 @@
+Author: Eric Zimmerman
+Description: Power source change
+EventId: 105
+Channel: System
+Provider: Microsoft-Windows-Kernel-Power
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "AcOnline: %AcOnline%"
+    Values:
+      -
+        Name: AcOnline
+        Value: "/Event/EventData/Data[@Name=\"AcOnline\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "RemainingCapacity: %RemainingCapacity% of %FullChargeCapacity%"
+    Values:
+      -
+        Name: RemainingCapacity
+        Value: "/Event/EventData/Data[@Name=\"RemainingCapacity\"]"
+      -
+        Name: FullChargeCapacity
+        Value: "/Event/EventData/Data[@Name=\"FullChargeCapacity\"]"
+
+# Documentation:
+# Logged when the power source changes (AC adapter plugged in or unplugged). Capacities are in mWh.
+# EvtxECmd 2026.10.0 and newer can also calculate the battery level (issue #99), with this Property block:
+#  -
+#    Property: PayloadData3
+#    PropertyValue: "Battery: %Percent%%"
+#    Values:
+#      -
+#        Name: Percent
+#        Value: "round(/Event/EventData/Data[@Name=\"RemainingCapacity\"] div /Event/EventData/Data[@Name=\"FullChargeCapacity\"] * 100)"
+# It is not used here yet: older versions get this map with --sync, and drop the event when a Value is an expression.
+#
+# Example Event Data:
+# <Event>
+#   <System>
+#     <Provider Name="Microsoft-Windows-Kernel-Power" Guid="331c3b3a-2005-44c2-ac5e-77220c37d6b4" />
+#     <EventID>105</EventID>
+#     <Channel>System</Channel>
+#   </System>
+#   <EventData>
+#     <Data Name="AcOnline">False</Data>
+#     <Data Name="RemainingCapacity">56293</Data>
+#     <Data Name="FullChargeCapacity">62654</Data>
+#   </EventData>
+# </Event>

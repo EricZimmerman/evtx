@@ -82,6 +82,18 @@ The `PropertyValue` defines the pattern that will be used to build the final val
 
 In the Map entries `Values` collection, we actually populate these variables by giving the value a name (domain in the first case) and an xpath query that will be used to set the value for the variable (`"/Event/EventData/Data[@Name=\"SubjectDomainName\"]"` in the first case).
 
+A `Value` can also be an XPath expression that calculates something from the event (EvtxECmd 2026.10.0 and newer). Arithmetic (`+`, `-`, `*`, `div`, `mod`) and XPath 1.0 functions such as `round()`, `floor()`, `number()`, `sum()`, `count()`, `concat()` and `substring-before()` all work. For example, the battery level as a percentage, for `System_Microsoft-Windows-Kernel-Power_105.map`:
+
+```
+      -
+        Name: Percent
+        Value: "round(/Event/EventData/Data[@Name=\"RemainingCapacity\"] div /Event/EventData/Data[@Name=\"FullChargeCapacity\"] * 100)"
+```
+
+`round()` rounds to a whole number; for one decimal place use `round(x * 10) div 10`. When a number can't be calculated (a value is missing, is not a number, or a division is by zero), the variable is empty. A `Value` that is not valid XPath is reported when the maps are loaded.
+
+**Don't use expressions in maps submitted here yet.** `--sync` gives every map in this folder to older versions of EvtxECmd too, and they drop an event (as a record error) when a `Value` is an expression. Expressions are fine in your own local maps.
+
 When a Map is processed, each Map entry has its `Values` items processed so the variables are populated with data. Then the `PropertyValue` is updated and the variables are replaced with the actual values. This final PropertyValue is then updated in the event record which then ends up in the CSV/JSON, etc.
 
 It is that simple! Be sure to surround things in double quotes and/or escape quotes as in the examples. When in doubt, test your Map against real data!

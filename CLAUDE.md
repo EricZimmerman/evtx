@@ -50,6 +50,7 @@ The old code built XML text and reloaded it into XmlDocument, XPathDocument and 
 
 - `EventLog.LoadMaps` deserializes every `*.map` in parallel (YamlDotNet is most of a small log's run time), then, in name order, validates it (FluentValidation), and keys it by `EventId-Channel-Provider`. It returns true when a map had errors. A second map for the same key is skipped with a warning (issue #241 was a check that left out the provider, so it threw).
 - A map's `Lookups` translate values; `Maps` combine XPath `Values` into a property with `PropertyValue` (`%name%` placeholders).
+- `EventRecord.MapValue`: a `Value` that is a path gives the first node's text; an expression (issue #99, e.g. `round(a div b * 100)`) gives its result, numbers formatted like XPath's `string()`, NaN/Infinity as not found. XPaths are compiled once and checked when maps load. Older EvtxECmd versions drop the event when a Value is an expression, and `--sync` gives them the repo's maps, so maps in the repo don't use expressions yet.
 
 ## Error model
 

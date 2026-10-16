@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.ExceptionServices;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.XPath;
 using FluentValidation.Results;
 using Force.Crc32;
 using Serilog;
@@ -175,7 +176,7 @@ public class EventLog
 
                 var validate = validator.Validate(eventMapFile);
 
-                if (DisplayValidationResults(validate, mapFile))
+                if (DisplayValidationResults(validate, mapFile) && ValidXPaths(eventMapFile, mapFile))
                 {
                     //the same key as records look maps up by (the check used to leave out the provider, so a second
                     //map for the same event threw instead of being skipped; issue #241)
@@ -259,6 +260,32 @@ public class EventLog
         }
 
         return errorMaps.Count > 0;
+    }
+
+    /// <summary>Every map Value must compile as XPath (a path or an expression); a bad one used to fail each record</summary>
+    private static bool ValidXPaths(EventLogMap map, string source)
+    {
+        var valid = true;
+        foreach (var value in map.Maps?.Where(t => t?.Values != null).SelectMany(t => t.Values) ?? Enumerable.Empty<ValueEntry>())
+        {
+            if (value == null)
+            {
+                continue;
+            }
+
+            try
+            {
+                XPathExpression.Compile(value.Value);
+            }
+            catch (XPathException e)
+            {
+                Console.WriteLine();
+                Log.Error("{Source}: Value {Name} is not a valid XPath ({Value}): {Message}", source, value.Name, value.Value, e.Message);
+                valid = false;
+            }
+        }
+
+        return valid;
     }
 
     private static bool DisplayValidationResults(ValidationResult result, string source)

@@ -101,6 +101,11 @@ prepend `1_` to the filename. Maps load alphabetically, so the `1_…` copy wins
      `%name%` placeholder. `Value` is an XPath expression, normally
      `"/Event/EventData/Data[@Name=\"<FieldName>\"]"`. You can also index by
      position: `/Event/EventData/Data[1]` (first `<Data>` node), `[2]`, etc.
+     It can also be an XPath 1.0 expression that calculates a value, such as
+     `round(/Event/EventData/Data[@Name=\"A\"] div /Event/EventData/Data[@Name=\"B\"] * 100)`
+     (EvtxECmd 2026.10.0+; a number that can't be calculated is empty). Don't
+     use expressions in maps for this repo yet: `--sync` gives them to older
+     versions, which drop the event when a Value is an expression.
    - `Refine:` (optional, on a `Values` entry) — a regex applied to the XPath
      result to extract a substring. Example:
      `Refine: "IPv4 address: [0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}"`.
