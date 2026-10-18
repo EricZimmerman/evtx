@@ -903,22 +903,55 @@ namespace EvtxECmd;
 
             if (vss)
             {
-                if (Directory.Exists(VssDir))
-                {
-                    foreach (var directory in Directory.GetDirectories(VssDir))
-                    {
-                        Directory.Delete(directory);
-                    }
-
-#if !NET6_0_OR_GREATER
-                    Directory.Delete(VssDir, true, true);
-#else
-                        Directory.Delete(VssDir,true);
-#endif
-                }
+                RemoveVssMount();
             }
 
             return _failedFiles > 0 || _outputFailed ? 1 : 0;
+        }
+
+        /// <summary>
+        ///     Removes the links ERZHelpers' MountVss created in VssDir, then VssDir if nothing else is in it. Nothing else
+        ///     is ever deleted (VssDir used to be deleted recursively, with whatever was in it)
+        /// </summary>
+        private static void RemoveVssMount()
+        {
+            if (System.IO.Directory.Exists(VssDir) == false)
+            {
+                return;
+            }
+
+            foreach (var directory in System.IO.Directory.GetDirectories(VssDir))
+            {
+                if ((System.IO.File.GetAttributes(directory) & FileAttributes.ReparsePoint) != FileAttributes.ReparsePoint)
+                {
+                    continue;
+                }
+
+                try
+                {
+                    //Removes the link only, never what it points to
+                    System.IO.Directory.Delete(directory);
+                }
+                catch (Exception e)
+                {
+                    Log.Warning("Unable to remove VSC link {Directory}: {Message}", directory, e.Message);
+                }
+            }
+
+            if (System.IO.Directory.EnumerateFileSystemEntries(VssDir).Any())
+            {
+                Log.Warning("{VssDir} holds items that are not VSC links, so it was left in place", VssDir);
+                return;
+            }
+
+            try
+            {
+                System.IO.Directory.Delete(VssDir);
+            }
+            catch (Exception e)
+            {
+                Log.Warning("Unable to remove {VssDir}: {Message}", VssDir, e.Message);
+            }
         }
 
         /// <summary>Files that could not be opened or processed</summary>
