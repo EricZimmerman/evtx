@@ -1,0 +1,40 @@
+Author: Scott Richardson - SecurIT360.com
+Description: A Quick Assist event was logged
+EventId: 0
+Channel: Application
+Provider: Quick Assist
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "Data: %Data%"
+    Values:
+      -
+        Name: Data
+        Value: "/Event/EventData/Data"
+
+# Documentation:
+# These event logs leave much to be desired and do not nest the data, but include some useful data. I find this article helpful when these:
+# https://inversion6.com/insights/blog/microsoft-quick-assist-an-it-security-primer#:~:text=DISSECTING%20A%20QUICK%20ASSIST%20SESSION%C2%A0
+#
+# Example Event Data:
+# <Event xmlns="http://schemas.microsoft.com/win/2004/08/events/event">
+# <System>
+# <Provider Name="Quick Assist" />
+# <EventID Qualifiers="0">0</EventID>
+# <Version>0</Version>
+# <Level>4</Level>
+# <Task>0</Task>
+# <Opcode>0</Opcode>
+# <Keywords>0x80000000000000</Keywords>
+# <TimeCreated SystemTime="2026-10-02T14:19:03.5923999Z" />
+# <EventRecordID>62942</EventRecordID>
+# <Correlation />
+# <Execution ProcessID="19180" ThreadID="0" />
+# <Channel>Application</Channel>
+# <Computer>computername.domain.com</Computer>
+# <Security />
+# </System>
+# <EventData>
+# <Data>Error: D:\a\_work\1\s\src\win32app\AppWindow.cpp(263)\QuickAssist.exe!00007FF7A427D351: (caller: 00007FF91DD852E6) ReturnHr(1) tid(1bd8) 87BD0005</Data>
+# </EventData>
+# </Event>
