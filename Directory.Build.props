@@ -1,0 +1,11 @@
+<Project>
+  <!-- pdbs inside the assemblies: stack traces (Exceptionless) have file and line numbers, and no .pdb file ships (Eric, 2026-10-20) -->
+  <PropertyGroup>
+    <DebugType>embedded</DebugType>
+    <EmbedUntrackedSources>true</EmbedUntrackedSources>
+  </PropertyGroup>
+  <!-- Release: source paths in the pdbs are /_/... instead of this machine's folders (deterministic, reproducible) -->
+  <PropertyGroup Condition="'$(Configuration)' == 'Release'">
+    <ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
+  </PropertyGroup>
+</Project>
