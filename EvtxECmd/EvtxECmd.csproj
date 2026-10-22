@@ -7,7 +7,7 @@
     <Company>Eric R. Zimmerman</Company>
     <Product>EvtxECmd</Product>
     <Description>Event log parser command line</Description>
-    <Copyright>Eric Zimmerman</Copyright>
+    <Copyright>Eric R. Zimmerman 2027</Copyright>
     <LangVersion>10</LangVersion>
     <Version>2026.10.1</Version>
     <IsPackable>false</IsPackable>

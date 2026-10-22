@@ -3,7 +3,7 @@
     <TargetFramework>net10.0</TargetFramework>
     <LangVersion>10</LangVersion>
     <IsPackable>false</IsPackable>
-    <Copyright>Eric Zimmerman</Copyright>
+    <Copyright>Eric R. Zimmerman 2027</Copyright>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="[7.2.2,8.0.0)" />
