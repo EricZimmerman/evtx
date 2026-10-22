@@ -1294,6 +1294,12 @@ namespace EvtxECmd;
                         Log.Error("Error processing record #{RecordNumber}: {Message}",eventRecord.RecordNumber,e.Message);
                         //this used to always use key 21, so a second error ended the whole file
                         evt.ErrorRecords[eventRecord.RecordNumber] = e.Message;
+
+                        //a write that failed (disk full, ...) is an output error, not a record error, so the exit code is 1
+                        if (e is IOException || e.GetBaseException() is IOException)
+                        {
+                            _outputFailed = true;
+                        }
                     }
                 }
 
