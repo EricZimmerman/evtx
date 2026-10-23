@@ -906,7 +906,7 @@ namespace EvtxECmd;
                 RemoveVssMount();
             }
 
-            return _failedFiles > 0 || _outputFailed ? 1 : 0;
+            return _unreadFiles > 0 || _outputFailed ? 1 : 0;
         }
 
         /// <summary>
@@ -954,8 +954,8 @@ namespace EvtxECmd;
             }
         }
 
-        /// <summary>Files that could not be opened or processed</summary>
-        private static int _failedFiles;
+        /// <summary>Files that could not be opened or read (exit code 1). Damaged files are only reported</summary>
+        private static int _unreadFiles;
 
         /// <summary>An output file could not be written</summary>
         private static bool _outputFailed;
@@ -1109,7 +1109,7 @@ namespace EvtxECmd;
             if (File.Exists(file) == false)
             {
                 Log.Warning("{File} does not exist! Skipping",file);
-                _failedFiles += 1;
+                _unreadFiles += 1;
                 return;
             }
 
@@ -1139,7 +1139,7 @@ namespace EvtxECmd;
                     Console.WriteLine();
                     Log.Error("{File} could not be opened, and raw disk reads are not supported on non-Windows platforms. Skipping",file);
                     Console.WriteLine();
-                    _failedFiles += 1;
+                    _unreadFiles += 1;
                     return;
                 }
 
@@ -1148,14 +1148,14 @@ namespace EvtxECmd;
                     Console.WriteLine();
                     Log.Error("{File} is in use, and administrator privileges are needed to read it raw. Skipping",file);
                     Console.WriteLine();
-                    _failedFiles += 1;
+                    _unreadFiles += 1;
                     return;
                 }
 
                 if (file.StartsWith("\\\\"))
                 {
                     Log.Error("{File} is in use, and raw access across UNC shares is not supported! Run locally on the system or extract logs via other means and try again. Skipping",file);
-                    _failedFiles += 1;
+                    _unreadFiles += 1;
                     return;
                 }
 
@@ -1167,8 +1167,17 @@ namespace EvtxECmd;
                     file
                 };
 
-                var rawFiles = Helper.GetRawFiles(files);
-                fileS = rawFiles.First().FileStream;
+                try
+                {
+                    var rawFiles = Helper.GetRawFiles(files);
+                    fileS = rawFiles.First().FileStream;
+                }
+                catch (Exception e)
+                {
+                    Log.Error("{File} is in use and could not be read raw. Skipping. Error: {Message}",file,e.Message);
+                    _unreadFiles += 1;
+                    return;
+                }
             }
 
             try
@@ -1379,7 +1388,12 @@ namespace EvtxECmd;
                     Log.Error("Error processing {Fn}! Message: {Message}",fn,e.Message);
                 }
 
-                _failedFiles += 1;
+                //a damaged file (not an event log, bad chunks...) is reported, but it is not a failure of the tool (exit code 0).
+                //An error reading the file is (exit code 1)
+                if (e is IOException && !(e is EndOfStreamException))
+                {
+                    _unreadFiles += 1;
+                }
             }
 
             fileS?.Close();

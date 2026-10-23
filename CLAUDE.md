@@ -56,7 +56,7 @@ The old code built XML text and reloaded it into XmlDocument, XPathDocument and 
 
 - `EventLogParseException` (`Offset`, `Field`) means the file is not an event log ("Invalid signature! Expected 'ElfFile'").
 - Everything else is logged (Serilog) and listed in `EventLog.ErrorRecords`/`ChunkInfo.ErrorRecords`, and parsing continues.
-- EvtxECmd returns 1 when an argument is bad, a file fails, or output can't be written, and 0 otherwise.
+- EvtxECmd exit codes are only 0 and 1. 1 is a failure of the tool: a bad argument, a missing -f/-d path, a file that can't be opened or read (in use and not readable raw, IO error), or output that can't be written. Damaged files (not an event log, record errors) are reported and exit 0.
 
 ## Tests
 

@@ -63,8 +63,41 @@ public class CliTests
         var notEvtx = Path.Combine(_dir, "text.evtx");
         File.WriteAllText(notEvtx, "not an event log");
         var (exitCode, output) = Run("-f", notEvtx, "--csv", Out);
-        exitCode.Should().Be(1);
+        // a damaged file is reported, but it is not a failure of the tool
+        exitCode.Should().Be(0);
         output.Should().Contain("is not an evtx file");
+    }
+
+    [Test]
+    public void OutputThatCannotBeWrittenExitsWithOne()
+    {
+        var file = TestFiles.RustSampleFile("security.evtx", _dir);
+        var blocker = Path.Combine(_dir, "blocker");
+        File.WriteAllText(blocker, "");
+
+        Run("-f", file, "--csv", blocker).ExitCode.Should().Be(1);
+    }
+
+    [Test]
+    public void LockedFileExitsWithOne()
+    {
+        if (OperatingSystem.IsWindows() == false)
+        {
+            Assert.Ignore("Windows only");
+        }
+
+        var file = TestFiles.RustSampleFile("security.evtx", _dir);
+
+        using (new FileStream(file, FileMode.Open, FileAccess.Read, FileShare.None))
+        {
+            // not elevated: "administrator privileges are needed to read it raw"; elevated, the raw read of a temp file
+            // either works (0) or fails (1), so only the non-elevated case is checked
+            var (exitCode, output) = Run("-f", file, "--csv", Out);
+            if (output.Contains("administrator privileges are needed"))
+            {
+                exitCode.Should().Be(1);
+            }
+        }
     }
 
     [Test]
