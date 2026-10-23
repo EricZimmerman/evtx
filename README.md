@@ -10,7 +10,7 @@ processed too. Results are exported to CSV, JSON and XML.
 | **Version** | 2026.10.1 |
 | **Download** | [.NET 10](https://download.ericzimmermanstools.com/net/EvtxECmd.zip) (recommended) &middot; [.NET Framework 4.7.2](https://download.ericzimmermanstools.com/EvtxECmd.zip) |
 | **All tools** | [ericzimmerman.github.io](https://ericzimmerman.github.io) or [Get-ZimmermanTools](https://download.ericzimmermanstools.com/Get-ZimmermanTools.zip), which downloads them all and keeps them current |
-| **Changes** | [ChangeLog.txt](https://download.ericzimmermanstools.com/ChangeLog.txt) |
+| **Changes** | [ChangeLog](https://ericzimmerman.github.io/changelog/) |
 | **Issues** | [EricZimmerman/evtx](https://github.com/EricZimmerman/evtx/issues) or [EricZimmerman/Issues](https://github.com/EricZimmerman/Issues/issues) |
 
 ## Requirements
@@ -120,7 +120,7 @@ the event is.
   read raw is skipped instead of ending the run. `--vss` works again.
 - Exit code 1 when the tool fails (it was always 0). Error reports include source file and line numbers.
 
-The full list is in the [ChangeLog](https://download.ericzimmermanstools.com/ChangeLog.txt).
+The full list is in the [ChangeLog](https://ericzimmerman.github.io/changelog/).
 
 ## Building
 
