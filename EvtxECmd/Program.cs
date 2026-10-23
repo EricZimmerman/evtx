@@ -795,29 +795,28 @@ namespace EvtxECmd;
                 {
                     InclusionFilter = fsei => fsei.Extension.ToUpperInvariant() == ".EVTX",
                     RecursionFilter = entryInfo => !entryInfo.IsMountPoint && !entryInfo.IsSymbolicLink,
-                    ErrorFilter = (errorCode, errorMessage, pathProcessed) => true
+                    ErrorFilter = (errorCode, errorMessage, pathProcessed) =>
+                    {
+                        //a folder that can't be read is reported and counted (exit code 1); the rest of the run continues
+                        Log.Error("Unable to read folder {Folder}: {Reason}", pathProcessed, errorMessage);
+                        _unreadFiles += 1;
+                        return true;
+                    }
                 };
 
+                //no ContinueOnException: with it AlphaFS skips folders it can't read without calling ErrorFilter
                 var dirEnumOptions =
                     DirectoryEnumerationOptions.Files | DirectoryEnumerationOptions.Recursive |
-                    DirectoryEnumerationOptions.SkipReparsePoints | DirectoryEnumerationOptions.ContinueOnException |
+                    DirectoryEnumerationOptions.SkipReparsePoints |
                     DirectoryEnumerationOptions.BasicSearch;
 
                 var files2 =
                     Directory.EnumerateFileSystemEntries(Path.GetFullPath(d), dirEnumOptions, directoryEnumerationFilters);
 
 #else
-                //files only; reparse points (junctions, links) are skipped so loops cannot occur
-                var enumerationOptions = new EnumerationOptions
-                {
-                    IgnoreInaccessible = true,
-                    MatchCasing = MatchCasing.CaseInsensitive,
-                    RecurseSubdirectories = true,
-                    AttributesToSkip = FileAttributes.ReparsePoint
-                };
-                        
-               var files2 =
-                    Directory.EnumerateFiles(d, "*.evtx",enumerationOptions);
+                //files only; reparse points (junctions, links) are skipped so loops cannot occur. Folders that can't be
+                //read are reported and counted as they are met
+                var files2 = FindEventLogs(d);
 #endif
 
                 if (_swXml == null && _swJson == null && _swCsv == null)
@@ -954,8 +953,82 @@ namespace EvtxECmd;
             }
         }
 
-        /// <summary>Files that could not be opened or read (exit code 1). Damaged files are only reported</summary>
+        /// <summary>Files or folders that could not be opened or read (exit code 1). Damaged files are only reported</summary>
         private static int _unreadFiles;
+
+#if NET9_0_OR_GREATER
+        /// <summary>
+        ///     *.evtx files under a folder, recursively, as they are found. A folder that can't be read is reported
+        ///     ("Unable to read folder"), counted in <see cref="_unreadFiles" /> and skipped (IgnoreInaccessible skipped it
+        ///     silently)
+        /// </summary>
+        private static IEnumerable<string> FindEventLogs(string directory)
+        {
+            using var finder = new EvtxFinder(directory);
+            while (true)
+            {
+                var more = finder.MoveNext();
+
+                foreach (var (folder, reason) in finder.Unreadable)
+                {
+                    Log.Error("Unable to read folder {Folder}: {Reason}", folder ?? directory, reason);
+                    _unreadFiles += 1;
+                }
+
+                finder.Unreadable.Clear();
+
+                if (!more)
+                {
+                    yield break;
+                }
+
+                yield return finder.Current;
+            }
+        }
+
+        /// <summary>*.evtx files (case-insensitive), skipping reparse points, as Directory.EnumerateFiles did</summary>
+        private sealed class EvtxFinder : System.IO.Enumeration.FileSystemEnumerator<string>
+        {
+            private string _lastRecursed;
+
+            /// <summary>Folders that could not be read (a null folder is the root, reported before the fields were set)</summary>
+            public readonly List<(string Folder, string Reason)> Unreadable = new();
+
+            public EvtxFinder(string directory) : base(directory,
+                new EnumerationOptions
+                {
+                    IgnoreInaccessible = false, RecurseSubdirectories = true, AttributesToSkip = FileAttributes.ReparsePoint
+                })
+            {
+            }
+
+            protected override bool ShouldRecurseIntoEntry(ref System.IO.Enumeration.FileSystemEntry entry)
+            {
+                //the subfolder is opened right after this: an error in ContinueOnError is about it
+                _lastRecursed = entry.ToFullPath();
+                return true;
+            }
+
+            protected override bool ShouldIncludeEntry(ref System.IO.Enumeration.FileSystemEntry entry)
+            {
+                _lastRecursed = null;
+                return !entry.IsDirectory &&
+                       System.IO.Enumeration.FileSystemName.MatchesSimpleExpression("*.evtx", entry.FileName, true);
+            }
+
+            protected override string TransformEntry(ref System.IO.Enumeration.FileSystemEntry entry)
+            {
+                return entry.ToFullPath();
+            }
+
+            protected override bool ContinueOnError(int error)
+            {
+                Unreadable?.Add((_lastRecursed, new System.ComponentModel.Win32Exception(error).Message));
+                _lastRecursed = null;
+                return true;
+            }
+        }
+#endif
 
         /// <summary>An output file could not be written</summary>
         private static bool _outputFailed;

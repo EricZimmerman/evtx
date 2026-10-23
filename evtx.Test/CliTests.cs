@@ -101,6 +101,33 @@ public class CliTests
     }
 
     [Test]
+    public void UnreadableFolderExitsWithOne()
+    {
+        if (!OperatingSystem.IsWindows())
+        {
+            Assert.Ignore("Windows only");
+            return;
+        }
+
+        // A folder under -d that can't be read is reported, the rest is processed, and the exit code is 1
+        var logs = Path.Combine(_dir, "logs");
+        Directory.CreateDirectory(logs);
+        TestFiles.RustSampleFile("Archive-ForwardedEvents-test.evtx", logs);
+        var denied = Path.Combine(logs, "denied");
+        Directory.CreateDirectory(denied);
+        TestFiles.RustSampleFile("security.evtx", denied);
+
+        using (new DeniedFolder(denied))
+        {
+            var (exitCode, output) = Run("-d", logs, "--csv", Out);
+
+            exitCode.Should().Be(1);
+            output.Should().Contain("Unable to read folder " + denied);
+            output.Should().Contain("Archive-ForwardedEvents-test.evtx").And.NotContain("security.evtx");
+        }
+    }
+
+    [Test]
     public void ForwardedEventsToCsvJsonAndXml()
     {
         var file = TestFiles.RustSampleFile("Archive-ForwardedEvents-test.evtx", _dir);
