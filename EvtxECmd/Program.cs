@@ -96,8 +96,9 @@ namespace EvtxECmd;
             {
                 if (arg is DateTimeOffset)
                 {
+                    //an explicit format, such as the log time stamps' HH:mm:ss.fff, is kept; time stamps in messages use --dt
                     var size = (DateTimeOffset)arg;
-                    return size.ToString(_activeDateTimeFormat);
+                    return size.ToString(string.IsNullOrEmpty(format) ? _activeDateTimeFormat : format);
                 }
 
                 var formattable = arg as IFormattable;
@@ -283,6 +284,11 @@ namespace EvtxECmd;
                 Description = "Show trace information during processing",
                 DefaultValueFactory = _ => false
             };
+            var coOpt = new Option<bool>("--co")
+            {
+                Description = "Save all console messages to <timestamp>_EvtxECmd_<version>_ConsoleLog.txt in the output directory (the first of --csv, --json, --xml given)",
+                DefaultValueFactory = _ => false
+            };
             
             _rootCommand = new RootCommand
             {
@@ -307,7 +313,8 @@ namespace EvtxECmd;
                 dedupeOpt,
              syncOpt,
              debugOpt,
-             traceOpt
+             traceOpt,
+             coOpt
 
             };
 
@@ -318,7 +325,7 @@ namespace EvtxECmd;
                 result.GetValue(csvfOpt), result.GetValue(jsonOpt), result.GetValue(jsonfOpt), result.GetValue(xmlOpt),
                 result.GetValue(xmlfOpt),result.GetValue(dtOpt),result.GetValue(incOpt),result.GetValue(excOpt),result.GetValue(sdOpt),result.GetValue(edOpt),
                 result.GetValue(fjOpt),result.GetValue(tdtOpt),result.GetValue(metOpt),result.GetValue(mapsOpt),
-                result.GetValue(vssOpt),result.GetValue(dedupeOpt),result.GetValue(syncOpt),result.GetValue(debugOpt),result.GetValue(traceOpt)));
+                result.GetValue(vssOpt),result.GetValue(dedupeOpt),result.GetValue(syncOpt),result.GetValue(debugOpt),result.GetValue(traceOpt),result.GetValue(coOpt)));
 
 
             var exitCode = await _rootCommand.Parse(args).InvokeAsync();
@@ -356,7 +363,7 @@ namespace EvtxECmd;
         }
 
         /// <returns>The exit code: 0, or 1 for invalid arguments, files that could not be processed, or output that could not be written</returns>
-        private static int DoWork(string f, string d, string csv, string csvf, string json, string jsonf, string xml, string xmlf, string dt, string inc, string exc, string sd, string ed, bool fj, int tdt, bool met, string maps, bool vss, bool dedupe, bool sync, bool debug, bool trace)
+        private static int DoWork(string f, string d, string csv, string csvf, string json, string jsonf, string xml, string xmlf, string dt, string inc, string exc, string sd, string ed, bool fj, int tdt, bool met, string maps, bool vss, bool dedupe, bool sync, bool debug, bool trace, bool co)
         {
             var levelSwitch = new LoggingLevelSwitch();
 
@@ -383,6 +390,14 @@ namespace EvtxECmd;
                 .WriteTo.Console(outputTemplate: template,formatProvider: formatter)
                 .MinimumLevel.ControlledBy(levelSwitch);
       
+            var ts = DateTimeOffset.UtcNow;
+
+            var consoleLog = co ? ConsoleLog.GetPath(ts, csv, json, xml) : null;
+            if (consoleLog != null)
+            {
+                conf.WriteTo.File(consoleLog, outputTemplate: ConsoleLog.Template, formatProvider: formatter);
+            }
+
             Log.Logger = conf.CreateLogger();
             
             if (sync)
@@ -416,6 +431,17 @@ namespace EvtxECmd;
             Log.Information("Command line: {Args}",string.Join(" ", Environment.GetCommandLineArgs().Skip(1)));
             Console.WriteLine();
 
+            if (consoleLog != null)
+            {
+                Log.Information("Console log: {Path}",consoleLog);
+                Console.WriteLine();
+            }
+            else if (co)
+            {
+                Log.Warning("--co: no output directory was given, so the console messages are not saved");
+                Console.WriteLine();
+            }
+
             if (IsAdministrator() == false)
             {
                 Log.Warning("Warning: Administrator privileges not found!");
@@ -438,8 +464,6 @@ namespace EvtxECmd;
 
             var sw = new Stopwatch();
             sw.Start();
-
-            var ts = DateTimeOffset.UtcNow;
 
             _errorFiles = new Dictionary<string, int>();
 

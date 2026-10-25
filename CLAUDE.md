@@ -56,6 +56,7 @@ The old code built XML text and reloaded it into XmlDocument, XPathDocument and 
 
 - `EventLogParseException` (`Offset`, `Field`) means the file is not an event log ("Invalid signature! Expected 'ElfFile'").
 - Everything else is logged (Serilog) and listed in `EventLog.ErrorRecords`/`ChunkInfo.ErrorRecords`, and parsing continues.
+- `--co` (Issues #259, off by default): the console messages also go to `<ts>_EvtxECmd_<version>_ConsoleLog.txt` (`ConsoleLog.cs`; `ts` is the UTC time of the output file names) in the first of `--csv`, `--json`, `--xml`, with the `[HH:mm:ss.fff LVL]` template; without an output directory it is a warning. The same `ConsoleLog.cs` is in every EZ Tools CLI tool. `DateTimeOffsetFormatter` uses `--dt` only when the placeholder has no format of its own (the log template's `{Timestamp:HH:mm:ss.fff}` was shown with `--dt`).
 - EvtxECmd exit codes are only 0 and 1. 1 is a failure of the tool: a bad argument, a missing -f/-d path, a file that can't be opened or read (in use and not readable raw, IO error), a folder under -d that can't be read (reported as "Unable to read folder <path>: <reason>" and the run goes on; net10.0 uses the `EvtxFinder` FileSystemEnumerator, net472 the AlphaFS `ErrorFilter`, without `ContinueOnException`, which would skip such folders without calling it), or output that can't be written. Damaged files (not an event log, record errors) are reported and exit 0.
 
 ## Tests

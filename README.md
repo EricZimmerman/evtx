@@ -7,7 +7,7 @@ processed too. Results are exported to CSV, JSON and XML.
 
 | | |
 |---|---|
-| **Version** | 2026.10.1 |
+| **Version** | 2026.10.2 |
 | **Download** | [.NET 10](https://download.ericzimmermanstools.com/net/EvtxECmd.zip) (recommended) &middot; [.NET Framework 4.7.2](https://download.ericzimmermanstools.com/EvtxECmd.zip) |
 | **All tools** | [ericzimmerman.github.io](https://ericzimmerman.github.io) or [Get-ZimmermanTools](https://download.ericzimmermanstools.com/Get-ZimmermanTools.zip), which downloads them all and keeps them current |
 | **Changes** | [ChangeLog](https://ericzimmerman.github.io/changelog/) |
@@ -48,6 +48,7 @@ Options:
   --sync           If true, the latest maps from https://github.com/EricZimmerman/evtx/tree/master/evtx/Maps are downloaded and local maps updated
   --debug          Show debug information during processing
   --trace          Show trace information during processing
+  --co             Save all console messages to <timestamp>_EvtxECmd_<version>_ConsoleLog.txt in the output directory (the first of --csv, --json, --xml given)
   -?, -h, --help   Show help and usage information
   --version        Show version information
 ```
@@ -106,6 +107,9 @@ the event is.
 
 ## What's new in 2026.10
 
+- 2026.10.2: `--co` saves everything written to the console to `<timestamp>_EvtxECmd_<version>_ConsoleLog.txt` in
+  the output directory (Issues #259); with `--debug` or `--trace` each message shows its time (`HH:mm:ss.fff`) instead of
+  the full date.
 - About 2x faster overall (1,039 logs: 589 s -> 300 s); large logs 2.4-4x faster (128 MB Security log: 16.1 s ->
   6.6 s), and maps load faster.
 - New event log parser, written to MS-EVEN6 and checked against the Rust evtx parser: about 331,000 more records read

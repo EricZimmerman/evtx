@@ -163,4 +163,40 @@ public class CliTests
         var rows = File.ReadAllLines(OutFile(".csv")).Skip(1).ToList();
         rows.Select(t => t.Split(',')[3]).Should().NotBeEmpty().And.OnlyContain(t => t == "4624");
     }
+    [Test]
+    public void ConsoleLog()
+    {
+        // Issues #259: --co saves the console messages to <yyyyMMddHHmmss>_EvtxECmd_<version>_ConsoleLog.txt in the first output directory given
+        var file = TestFiles.RustSampleFile("security.evtx", _dir);
+        var json = Path.Combine(_dir, "json");
+
+        var (exitCode, output) = Run("-f", file, "--csv", Out, "--json", json, "--co");
+        exitCode.Should().Be(0, output);
+        var log = Directory.GetFiles(Out, "*_ConsoleLog.txt").Should().ContainSingle().Subject;
+        Path.GetFileName(log).Should().MatchRegex(@"^\d{14}_EvtxECmd_\d+\.\d+\.\d+_ConsoleLog\.txt$");
+        Directory.GetFiles(json, "*_ConsoleLog.txt").Should().BeEmpty();
+        output.Should().Contain("Console log: " + log);
+        // the same time stamp as the output files
+        Path.GetFileName(OutFile(".csv")).Should().StartWith(Path.GetFileName(log)[..14]);
+        var text = File.ReadAllText(log);
+        text.Should().MatchRegex(@"\[\d\d:\d\d:\d\d\.\d{3} INF\] EvtxECmd version ");
+        text.Should().Contain("Command line: -f ");
+
+        // --json alone: there
+        (exitCode, output) = Run("-f", file, "--json", json, "--co");
+        exitCode.Should().Be(0, output);
+        Directory.GetFiles(json, "*_ConsoleLog.txt").Should().ContainSingle();
+
+        // without --co, none
+        var other = Path.Combine(_dir, "other");
+        (exitCode, output) = Run("-f", file, "--csv", other);
+        exitCode.Should().Be(0, output);
+        Directory.GetFiles(other, "*_ConsoleLog.txt").Should().BeEmpty();
+        output.Should().NotContain("Console log:");
+
+        // no output directory: a warning, and the file is still processed
+        (exitCode, output) = Run("-f", file, "--co");
+        exitCode.Should().Be(0, output);
+        output.Should().Contain("--co: no output directory was given");
+    }
 }
