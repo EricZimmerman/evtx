@@ -166,11 +166,11 @@ public class CliTests
     [Test]
     public void ConsoleLog()
     {
-        // Issues #259: --co saves the console messages to <yyyyMMddHHmmss>_EvtxECmd_<version>_ConsoleLog.txt in the first output directory given
+        // Issues #259: --co (on by default) saves the console messages to <yyyyMMddHHmmss>_EvtxECmd_<version>_ConsoleLog.txt in the first output directory given
         var file = TestFiles.RustSampleFile("security.evtx", _dir);
         var json = Path.Combine(_dir, "json");
 
-        var (exitCode, output) = Run("-f", file, "--csv", Out, "--json", json, "--co");
+        var (exitCode, output) = Run("-f", file, "--csv", Out, "--json", json);
         exitCode.Should().Be(0, output);
         var log = Directory.GetFiles(Out, "*_ConsoleLog.txt").Should().ContainSingle().Subject;
         Path.GetFileName(log).Should().MatchRegex(@"^\d{14}_EvtxECmd_\d+\.\d+\.\d+_ConsoleLog\.txt$");
@@ -187,16 +187,16 @@ public class CliTests
         exitCode.Should().Be(0, output);
         Directory.GetFiles(json, "*_ConsoleLog.txt").Should().ContainSingle();
 
-        // without --co, none
+        // --co false: none
         var other = Path.Combine(_dir, "other");
-        (exitCode, output) = Run("-f", file, "--csv", other);
+        (exitCode, output) = Run("-f", file, "--csv", other, "--co", "false");
         exitCode.Should().Be(0, output);
         Directory.GetFiles(other, "*_ConsoleLog.txt").Should().BeEmpty();
         output.Should().NotContain("Console log:");
 
-        // no output directory: a warning, and the file is still processed
+        // no output directory: no log and no warning, and the file is still processed
         (exitCode, output) = Run("-f", file, "--co");
         exitCode.Should().Be(0, output);
-        output.Should().Contain("--co: no output directory was given");
+        output.Should().NotContain("--co:").And.NotContain("Console log:");
     }
 }

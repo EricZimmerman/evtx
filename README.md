@@ -48,7 +48,7 @@ Options:
   --sync           If true, the latest maps from https://github.com/EricZimmerman/evtx/tree/master/evtx/Maps are downloaded and local maps updated
   --debug          Show debug information during processing
   --trace          Show trace information during processing
-  --co             Save all console messages to <timestamp>_EvtxECmd_<version>_ConsoleLog.txt in the output directory (the first of --csv, --json, --xml given)
+  --co             When true, save all console messages to <timestamp>_EvtxECmd_<version>_ConsoleLog.txt in the output directory (the first of --csv, --json, --xml given). Use --co false to turn it off
   -?, -h, --help   Show help and usage information
   --version        Show version information
 ```
@@ -107,7 +107,7 @@ the event is.
 
 ## What's new in 2026.10
 
-- 2026.10.2: `--co` saves everything written to the console to `<timestamp>_EvtxECmd_<version>_ConsoleLog.txt` in
+- 2026.10.2: `--co` (on by default; `--co false` turns it off) saves everything written to the console to `<timestamp>_EvtxECmd_<version>_ConsoleLog.txt` in
   the output directory (Issues #259); with `--debug` or `--trace` each message shows its time (`HH:mm:ss.fff`) instead of
   the full date.
 - About 2x faster overall (1,039 logs: 589 s -> 300 s); large logs 2.4-4x faster (128 MB Security log: 16.1 s ->

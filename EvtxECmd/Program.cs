@@ -286,8 +286,8 @@ namespace EvtxECmd;
             };
             var coOpt = new Option<bool>("--co")
             {
-                Description = "Save all console messages to <timestamp>_EvtxECmd_<version>_ConsoleLog.txt in the output directory (the first of --csv, --json, --xml given)",
-                DefaultValueFactory = _ => false
+                Description = "When true, save all console messages to <timestamp>_EvtxECmd_<version>_ConsoleLog.txt in the output directory (the first of --csv, --json, --xml given). Use --co false to turn it off",
+                DefaultValueFactory = _ => true
             };
             
             _rootCommand = new RootCommand
@@ -434,11 +434,6 @@ namespace EvtxECmd;
             if (consoleLog != null)
             {
                 Log.Information("Console log: {Path}",consoleLog);
-                Console.WriteLine();
-            }
-            else if (co)
-            {
-                Log.Warning("--co: no output directory was given, so the console messages are not saved");
                 Console.WriteLine();
             }
 
