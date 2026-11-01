@@ -26,7 +26,7 @@
     <PackageReference Include="Serilog" Version="4.4.0" />
     <PackageReference Include="ServiceStack.Text" Version="10.4.0" />
     <PackageReference Include="YamlDotNet" Version="18.1.0" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.13" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.14" />
 
     <None Include="../README.md" Pack="true" PackagePath="" />
     <None Include="../icon.png" Pack="true" PackagePath="" />
