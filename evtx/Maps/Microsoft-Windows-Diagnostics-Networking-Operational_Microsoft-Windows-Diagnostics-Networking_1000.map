@@ -1,0 +1,76 @@
+Author: Dielle De Noon
+Description: NDF started a user requested diagnostics session
+EventId: 1000
+Channel: Microsoft-Windows-Diagnostics-Networking/Operational
+Provider: Microsoft-Windows-Diagnostics-Networking
+Maps:
+  -
+    Property: RemoteHost
+    PropertyValue: "%URL%"
+    Values:
+      -
+        Name: URL
+        Value: "/Event/EventData/Data[@Name=\"HelperClassAttributes\"]"
+        Refine: "(?<=URL=\"?)[^\";]+"
+  -
+    Property: ExecutableInfo
+    PropertyValue: "%AppID%"
+    Values:
+      -
+        Name: AppID
+        Value: "/Event/EventData/Data[@Name=\"HelperClassAttributes\"]"
+        Refine: "(?<=AppID=\"?)[^\";]+"
+  -
+    Property: PayloadData1
+    PropertyValue: "HelperClass: %HelperClassName%"
+    Values:
+      -
+        Name: HelperClassName
+        Value: "/Event/EventData/Data[@Name=\"HelperClassName\"]"
+  -
+    Property: PayloadData2
+    PropertyValue: "Attributes (%NumberOfAttributes%): %HelperClassAttributes%"
+    Values:
+      -
+        Name: NumberOfAttributes
+        Value: "/Event/EventData/Data[@Name=\"NumberOfAttributes\"]"
+      -
+        Name: HelperClassAttributes
+        Value: "/Event/EventData/Data[@Name=\"HelperClassAttributes\"]"
+
+# Documentation:
+# Network Diagnostics Framework (NDF): Windows network troubleshooting, with helper classes for network adapters,
+# wireless connections, SMB shares, web access and more.
+# Event 1000: NDF started a diagnostics session that the user requested. HelperClassAttributes holds the helper
+# class's attributes as "Name=Value; " pairs. With WinInetHelperClass (web access diagnostics, e.g. started by a
+# browser that could not reach a site), URL is the address being diagnosed and AppID is the application that started
+# the diagnosis. RemoteHost and ExecutableInfo are only filled when those
+# attributes are present; PayloadData2 always has the full attribute list.
+# In the Qilin case from the post referenced in the GitHub issue, this event recorded the temp[.]sh URL that was requested.
+# https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc753824(v=ws.10)
+# https://github.com/EricZimmerman/evtx/issues/252
+#
+# Example Event Data:
+# <Event xmlns='http://schemas.microsoft.com/win/2004/08/events/event'>
+# <System>
+# <Provider Name='Microsoft-Windows-Diagnostics-Networking' Guid='{36c23e18-0e66-11d9-bbeb-505054503030}'/>
+# <EventID>1000</EventID>
+# <Version>0</Version>
+# <Level>4</Level>
+# <Task>1</Task>
+# <Opcode>1</Opcode>
+# <Keywords>0x8000400000000001</Keywords>
+# <TimeCreated SystemTime='2025-01-25T18:00:00.0000000Z'/>
+# <EventRecordID>1</EventRecordID>
+# <Correlation ActivityID='{00000000-0000-0000-0000-000000000000}'/>
+# <Execution ProcessID='1234' ThreadID='5678'/>
+# <Channel>Microsoft-Windows-Diagnostics-Networking/Operational</Channel>
+# <Computer>DESKTOP-EXAMPLE</Computer>
+# <Security UserID='S-1-5-21-0000000000-0000000000-0000000000-1001'/>
+# </System>
+# <EventData>
+# <Data Name='HelperClassName'>WinInetHelperClass</Data>
+# <Data Name='NumberOfAttributes'>3</Data>
+# <Data Name='HelperClassAttributes'>URL="https://www.example.com/"; UseWinHTTP=1; AppID="C:\Program Files\Google\Chrome\Application\chrome.exe"; </Data>
+# </EventData>
+# </Event>

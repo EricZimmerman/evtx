@@ -1,0 +1,44 @@
+Author: Dielle De Noon
+Description: NDF completed a user requested diagnostics session
+EventId: 2000
+Channel: Microsoft-Windows-Diagnostics-Networking/Operational
+Provider: Microsoft-Windows-Diagnostics-Networking
+Maps:
+  -
+    Property: PayloadData1
+    PropertyValue: "ResultHR: %ResultHR%"
+    Values:
+      -
+        Name: ResultHR
+        Value: "/Event/EventData/Data[@Name=\"ResultHR\"]"
+
+# Documentation:
+# Network Diagnostics Framework (NDF): Windows network troubleshooting, with helper classes for network adapters,
+# wireless connections, SMB shares, web access and more.
+# Event 2000: NDF stopped because the user requested diagnostics session completed; it closes the session started
+# by event 1000. ResultHR is the HRESULT as a decimal number (0 = S_OK).
+# https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2008-R2-and-2008/cc753824(v=ws.10)
+# https://github.com/EricZimmerman/evtx/issues/252
+#
+# Example Event Data:
+# <Event xmlns='http://schemas.microsoft.com/win/2004/08/events/event'>
+# <System>
+# <Provider Name='Microsoft-Windows-Diagnostics-Networking' Guid='{36c23e18-0e66-11d9-bbeb-505054503030}'/>
+# <EventID>2000</EventID>
+# <Version>0</Version>
+# <Level>4</Level>
+# <Task>2</Task>
+# <Opcode>2</Opcode>
+# <Keywords>0x8000400000000001</Keywords>
+# <TimeCreated SystemTime='2025-01-25T18:00:00.0000000Z'/>
+# <EventRecordID>1</EventRecordID>
+# <Correlation ActivityID='{00000000-0000-0000-0000-000000000000}'/>
+# <Execution ProcessID='1234' ThreadID='5678'/>
+# <Channel>Microsoft-Windows-Diagnostics-Networking/Operational</Channel>
+# <Computer>DESKTOP-EXAMPLE</Computer>
+# <Security UserID='S-1-5-21-0000000000-0000000000-0000000000-1001'/>
+# </System>
+# <EventData>
+# <Data Name='ResultHR'>0</Data>
+# </EventData>
+# </Event>
