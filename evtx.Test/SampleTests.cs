@@ -24,9 +24,10 @@ public class SampleTests
     [TestCase("issue_201.evtx", 1)]
     [TestCase("Archive-ForwardedEvents-test.evtx", 653)]
     [TestCase("MSExchange_Management_wec.evtx", 1)]
-    [TestCase("sample_with_a_bad_chunk_magic.evtx", 270)]
+    //2026.11.1: the walk goes on after a damaged record, as Rust's evtx (upstream 5d0a82b) does: 301 and 449 there too
+    [TestCase("sample_with_a_bad_chunk_magic.evtx", 301)]
     [TestCase("security_bad_string_cache.evtx", 2261)]
-    [TestCase("sample-with-zero-data-size-event.evtx", 335)]
+    [TestCase("sample-with-zero-data-size-event.evtx", 449)]
     [TestCase("sample-with-irregular-bool-values.evtx", 3028)]
     [TestCase("Security_with_size_t.evtx", 636)]
     [TestCase("Application_no_crc32.evtx", 17)]
@@ -48,10 +49,9 @@ public class SampleTests
     [TestCase("new-user-security.evtx", 0, 0, 0)]
     [TestCase("Archive-ForwardedEvents-test.evtx", 0, 0, 0)]
     [TestCase("2-system-Security-dirty.evtx", 0, 0, 0)]
-    //Rust's evtx_dump --recover-records gives these 50 too; the 31 after its damaged record are live records to it
-    [TestCase("sample_with_a_bad_chunk_magic.evtx", 50, 0, 31)]
-    //records 4-117 follow a record with a zero data size, which stops the walk (Rust: live records)
-    [TestCase("sample-with-zero-data-size-event.evtx", 0, 0, 114)]
+    //Rust's evtx_dump --recover-records gives these 50 too; the records after damaged ones are live records (2026.11.1)
+    [TestCase("sample_with_a_bad_chunk_magic.evtx", 50, 0, 0)]
+    [TestCase("sample-with-zero-data-size-event.evtx", 0, 0, 0)]
     [TestCase("Microsoft-Windows-WorkFolders%4WHC.evtx", 0, 2, 0)]
     public void RecoveredRecords(string name, int slack, int cleared, int afterError)
     {

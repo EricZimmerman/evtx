@@ -464,9 +464,9 @@ public class BinXmlTests
     }
 
     [Test]
-    public void RecordsAfterADamagedOneAreMarked()
+    public void RecordsAfterADamagedOneAreRead()
     {
-        //record 2's signature is damaged, so the walk stops; record 3 is still in the live area
+        //record 2's signature is damaged: the walk goes on at record 3 (it used to stop there), as Rust's evtx does
         var b = new EvtxBuilder();
         var chunk = b.Chunk();
         var offset = 0;
@@ -476,10 +476,12 @@ public class BinXmlTests
         chunk.Record(3, When, r => r.FragmentHeader().TemplateInstance(null, offset, SystemValues(3, 3, V.Str("three"))));
         chunk.Poke(second, 0x00, 0x00);
 
-        Parse(b.Build()).Select(t => t.RecordNumber).Should().Equal(1);
+        var records = Parse(b.Build(), out var log);
+        records.Select(t => t.RecordNumber).Should().Equal(1, 3);
+        log.ErrorRecords.Should().ContainSingle().Which.Value.Should().Contain("no record signature");
 
-        var records = Recover(b.Build(), out _);
-        records.Select(t => (t.RecordNumber, t.Recovered)).Should().Equal((1, null), (3, ChunkInfo.RecoveredAfterError));
+        //--rr has nothing more to add: record 2's bytes are not a record
+        Recover(b.Build(), out _).Select(t => (t.RecordNumber, t.Recovered)).Should().Equal((1, null), (3, null));
     }
 
     [Test]

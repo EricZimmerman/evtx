@@ -81,8 +81,18 @@ public class ChunkInfo
         {
             if (BitConverter.ToUInt32(chunkBytes, position) != RecordSignature)
             {
-                Log.Verbose("No record signature at 0x{Offset:X}. Stopping", absoluteOffset + position);
-                break;
+                //damaged data (or the end of the records): go on at the next record that checks out, as Rust's evtx does
+                var next = NextLiveRecord(position + 1, end);
+                if (next < 0)
+                {
+                    Log.Verbose("No record signature at 0x{Offset:X}. Stopping", absoluteOffset + position);
+                    break;
+                }
+
+                Log.Warning("No record signature at 0x{Offset:X}: damaged data up to the next record, at 0x{Next:X}", absoluteOffset + position, absoluteOffset + next);
+                AddError(BitConverter.ToInt64(chunkBytes, next + 8) - 1, $"Damaged data at offset 0x{absoluteOffset + position:X} (no record signature), skipped up to the next record at 0x{absoluteOffset + next:X}");
+                position = next;
+                continue;
             }
 
             var size = BitConverter.ToUInt32(chunkBytes, position + 4);
@@ -90,9 +100,17 @@ public class ChunkInfo
 
             if (size < RecordHeaderSize + 4 || position + (long)size > chunkBytes.Length)
             {
-                Log.Verbose("Record at 0x{Offset:X} has an invalid size 0x{Size:X}. Stopping", absoluteOffset + position, size);
                 AddError(recordNumber, $"Record at offset 0x{absoluteOffset + position:X} has an invalid size (0x{size:X})");
-                break;
+                var next = NextLiveRecord(position + 1, end);
+                if (next < 0)
+                {
+                    Log.Verbose("Record at 0x{Offset:X} has an invalid size 0x{Size:X}. Stopping", absoluteOffset + position, size);
+                    break;
+                }
+
+                Log.Warning("Record at 0x{Offset:X} has an invalid size 0x{Size:X}: going on at the next record, at 0x{Next:X}", absoluteOffset + position, size, absoluteOffset + next);
+                position = next;
+                continue;
             }
 
             try
@@ -143,6 +161,42 @@ public class ChunkInfo
             //after the last record (or where a damaged record stopped the walk): older records the chunk had before
             Recover(position, RecoveredFromSlack, prepareJson, prepareXml);
         }
+    }
+
+    /// <summary>
+    ///     Where the walk goes on after damaged data (2026.11.1, as Rust's evtx): the next record signature from
+    ///     <paramref name="from" /> whose size fits, whose size copy matches, that ends in the live area, that starts by the
+    ///     header's last record offset and whose number is in the header's range (records of the chunk's earlier use, in
+    ///     its slack, are outside that range); -1 when there is none
+    /// </summary>
+    private int NextLiveRecord(int from, int end)
+    {
+        var b = ChunkBytes;
+        var searchEnd = LastRecordOffset >= HeaderSize && LastRecordOffset + 4 <= end ? (int)LastRecordOffset + 4 : end;
+        var i = from;
+        while (i + RecordHeaderSize + 4 <= end && i < searchEnd)
+        {
+            i = Array.IndexOf(b, (byte)0x2A, i, searchEnd - i);
+            if (i < 0 || i + RecordHeaderSize + 4 > end)
+            {
+                return -1;
+            }
+
+            if (BitConverter.ToUInt32(b, i) == RecordSignature)
+            {
+                var size = BitConverter.ToUInt32(b, i + 4);
+                var number = BitConverter.ToInt64(b, i + 8);
+                if (size >= RecordHeaderSize + 4 && i + (long)size <= end && BitConverter.ToUInt32(b, i + (int)size - 4) == size &&
+                    number >= FirstEventRecordIdentifier && number <= LastEventRecordIdentifier)
+                {
+                    return i;
+                }
+            }
+
+            i += 1;
+        }
+
+        return -1;
     }
 
     /// <summary><see cref="EventRecord.Recovered" /> for a record found after the last record of a chunk</summary>
