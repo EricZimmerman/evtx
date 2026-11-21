@@ -128,6 +128,26 @@ public class CliTests
     }
 
     [Test]
+    public void RecoverRecordsAddsAColumnAndASummary()
+    {
+        //Issues #268
+        var file = TestFiles.RustSampleFile("Microsoft-Windows-WorkFolders%4WHC.evtx", _dir);
+
+        var (exitCode, output) = Run("-f", file, "--csv", Out, "--csvf", "plain.csv");
+        exitCode.Should().Be(0, output);
+        File.ReadAllLines(Path.Combine(Out, "plain.csv")).Should().ContainSingle("no records, and no Recovered column without --rr")
+            .Which.Should().EndWith(",Payload,RenderingInfo");
+
+        (exitCode, output) = Run("-f", file, "--csv", Out, "--csvf", "rr.csv", "--json", Out, "--jsonf", "rr.json", "--rr");
+        exitCode.Should().Be(0, output);
+        output.Should().Contain("Recovered records (--rr): 2,").And.Contain("Left out: 0 the same as a live record");
+        var csv = File.ReadAllLines(Path.Combine(Out, "rr.csv"));
+        csv[0].Should().EndWith(",Payload,RenderingInfo,Recovered");
+        csv.Skip(1).Should().HaveCount(2).And.OnlyContain(t => t.EndsWith(",ClearedChunk"));
+        File.ReadAllLines(Path.Combine(Out, "rr.json")).Should().HaveCount(2).And.OnlyContain(t => t.Contains("\"Recovered\":\"ClearedChunk\""));
+    }
+
+    [Test]
     public void ForwardedEventsToCsvJsonAndXml()
     {
         var file = TestFiles.RustSampleFile("Archive-ForwardedEvents-test.evtx", _dir);

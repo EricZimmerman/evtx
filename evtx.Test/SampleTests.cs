@@ -1,3 +1,4 @@
+using System;
 using System.IO;
 using System.Linq;
 using FluentAssertions;
@@ -30,6 +31,7 @@ public class SampleTests
     [TestCase("Security_with_size_t.evtx", 636)]
     [TestCase("Application_no_crc32.evtx", 17)]
     [TestCase("2-system-Security-dirty.evtx", 14621)]
+    [TestCase("Microsoft-Windows-WorkFolders%4WHC.evtx", 0)]
     public void RecordCounts(string name, int expected)
     {
         var log = new EventLog(new MemoryStream(TestFiles.RustSample(name)));
@@ -37,7 +39,56 @@ public class SampleTests
 
         records.Should().HaveCount(expected);
         //sample_with_a_bad_chunk_magic has a record with EventID 0 (as the Rust parser shows it)
-        records.Should().OnlyContain(t => t.EventId >= 0 && t.PayloadAsJson() != null && t.ConvertPayloadToXml().StartsWith("<Event>"));
+        records.All(t => t.EventId >= 0 && t.PayloadAsJson() != null && t.ConvertPayloadToXml().StartsWith("<Event>")).Should().BeTrue();
+    }
+
+    [TestCase("security.evtx", 0, 0, 0)]
+    [TestCase("system.evtx", 0, 0, 0)]
+    [TestCase("sysmon.evtx", 0, 0, 0)]
+    [TestCase("new-user-security.evtx", 0, 0, 0)]
+    [TestCase("Archive-ForwardedEvents-test.evtx", 0, 0, 0)]
+    [TestCase("2-system-Security-dirty.evtx", 0, 0, 0)]
+    //Rust's evtx_dump --recover-records gives these 50 too; the 31 after its damaged record are live records to it
+    [TestCase("sample_with_a_bad_chunk_magic.evtx", 50, 0, 31)]
+    //records 4-117 follow a record with a zero data size, which stops the walk (Rust: live records)
+    [TestCase("sample-with-zero-data-size-event.evtx", 0, 0, 114)]
+    [TestCase("Microsoft-Windows-WorkFolders%4WHC.evtx", 0, 2, 0)]
+    public void RecoveredRecords(string name, int slack, int cleared, int afterError)
+    {
+        //Issues #268: --rr leaves the live records as they are and adds the recovered ones after them
+        var live = new EventLog(new MemoryStream(TestFiles.RustSample(name))).GetEventRecords().Select(t => t.ConvertPayloadToXml()).ToList();
+        var log = new EventLog(new MemoryStream(TestFiles.RustSample(name))) { RecoverRecords = true };
+        var records = log.GetEventRecords().ToList();
+
+        records.Take(live.Count).Select(t => t.ConvertPayloadToXml()).Should().Equal(live);
+        records.Take(live.Count).All(t => t.Recovered == null).Should().BeTrue();
+        var recovered = records.Skip(live.Count).ToList();
+        recovered.Count(t => t.Recovered == ChunkInfo.RecoveredFromSlack).Should().Be(slack);
+        recovered.Count(t => t.Recovered == ChunkInfo.RecoveredFromClearedChunk).Should().Be(cleared);
+        recovered.Count(t => t.Recovered == ChunkInfo.RecoveredAfterError).Should().Be(afterError);
+        recovered.Should().HaveCount(slack + cleared + afterError);
+        recovered.All(t => t.ConvertPayloadToXml().StartsWith("<Event>")).Should().BeTrue();
+        log.RecoveredCount.Should().Be(recovered.Count);
+    }
+
+    [Test]
+    public void ClearedLogRecords()
+    {
+        //forensicmatt/evtx's parse-empty-pages test (now in omerbenamram/evtx's samples): one chunk whose header was
+        //reset, with two records still in it; the values are the ones that test expects for EventRecordID 2
+        var log = new EventLog(new MemoryStream(TestFiles.RustSample("Microsoft-Windows-WorkFolders%4WHC.evtx"))) { RecoverRecords = true };
+        var records = log.GetEventRecords().ToList();
+
+        records.Select(t => t.RecordNumber).Should().Equal(1, 2);
+        var second = records[1];
+        second.EventId.Should().Be(5);
+        second.Provider.Should().Be("Microsoft-Windows-Kernel-WHEA");
+        second.Channel.Should().Be("Microsoft-Windows-Kernel-WHEA/Operational");
+        second.Computer.Should().Be("win10-test");
+        second.TimeCreated.Should().Be(new DateTimeOffset(2018, 5, 4, 18, 19, 22, TimeSpan.Zero).AddTicks(59086));
+        var xml = second.ConvertPayloadToXml();
+        xml.Should().Contain("<Data Name=\"ErrorSourceCount\">4</Data>").And.Contain("<Data Name=\"ErrorSourceTableLength\">4256</Data>");
+        xml.Should().Contain("<Data Name=\"ErrorSourceTable\">D0-CB-5A-DB-0C-9F-FF-FF-C8-55-38-EF-03-F8-FF-FF");
     }
 
     [Test]

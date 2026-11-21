@@ -339,6 +339,11 @@ public class EventLog
     public IEnumerable<EventRecord> GetEventRecords()
     {
         EventIdMetrics = new Dictionary<long, int>();
+        RecoveredCount = RecoveredDuplicatesOfLive = RecoveredDuplicates = RecoveryFailures = 0;
+
+        //--rr: recovered records come after the live ones, so copies of live records can be dropped
+        var live = RecoverRecords ? new HashSet<(ulong, int)>() : null;
+        var recovered = RecoverRecords ? new List<EventRecord>() : null;
 
         var ticksForTimeDelta = 10000000L * TimeDiscrepancyThreshold; //10000000 == ticks in a second
         var batchSize = Math.Max(2, Environment.ProcessorCount * 2);
@@ -384,7 +389,7 @@ public class EventLog
                 Log.Debug("Processing chunk at offset 0x{ChunkOffset:X}", offset);
                 try
                 {
-                    chunks[i] = new ChunkInfo(bytes, offset, number, PreparePayloadJson, PrepareXml);
+                    chunks[i] = new ChunkInfo(bytes, offset, number, PreparePayloadJson, PrepareXml, RecoverRecords);
                 }
                 catch (Exception e)
                 {
@@ -422,7 +427,15 @@ public class EventLog
 
                     LastSeenTicks = er.TimeCreated.Ticks;
 
+                    live?.Add(ContentKey(er));
+
                     yield return er;
+                }
+
+                if (recovered != null)
+                {
+                    recovered.AddRange(ci.RecoveredRecords);
+                    RecoveryFailures += ci.RecoveryFailures;
                 }
 
                 foreach (var chunkInfoErrorRecord in ci.ErrorRecords)
@@ -434,7 +447,57 @@ public class EventLog
                 ChunksProcessed += 1;
             }
         }
+
+        if (recovered == null)
+        {
+            yield break;
+        }
+
+        var seen = new HashSet<(ulong, int)>();
+        foreach (var er in recovered)
+        {
+            var key = ContentKey(er);
+            if (live.Contains(key))
+            {
+                //the same record (number, time and content) as a live one: a copy, nothing new
+                RecoveredDuplicatesOfLive += 1;
+                continue;
+            }
+
+            if (seen.Add(key) == false)
+            {
+                RecoveredDuplicates += 1;
+                continue;
+            }
+
+            RecoveredCount += 1;
+            EventIdMetrics.TryGetValue(er.EventId, out var count);
+            EventIdMetrics[er.EventId] = count + 1;
+            yield return er;
+        }
     }
+
+    /// <summary>
+    ///     Also return the records found in chunk slack and in cleared chunks (<see cref="ChunkInfo.RecoveredRecords" />,
+    ///     Issues #268), after the live records, marked with <see cref="EventRecord.Recovered" />. Recovered records that
+    ///     are the same as a live record, or as another recovered record, are left out (and counted)
+    /// </summary>
+    public bool RecoverRecords { get; set; }
+
+    /// <summary>Recovered records returned (--rr)</summary>
+    public int RecoveredCount { get; private set; }
+
+    /// <summary>Recovered records left out because a live record is the same (record number, time and content)</summary>
+    public int RecoveredDuplicatesOfLive { get; private set; }
+
+    /// <summary>Recovered records left out because another recovered record is the same</summary>
+    public int RecoveredDuplicates { get; private set; }
+
+    /// <summary>Candidates in slack (signature and size copy) that could not be read as records</summary>
+    public int RecoveryFailures { get; private set; }
+
+    /// <summary>Set while the chunks are parsed in parallel (--rr)</summary>
+    private static (ulong, int) ContentKey(EventRecord er) => er.ContentKey ?? er.ComputeContentKey();
 
     /// <summary>
     ///     Build each record's <see cref="EventRecord.PayloadAsJson" /> while its chunk is parsed (in parallel) instead

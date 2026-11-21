@@ -9,7 +9,7 @@
     <Description>Event log parser command line</Description>
     <Copyright>Eric R. Zimmerman 2027</Copyright>
     <LangVersion>10</LangVersion>
-    <Version>2026.10.2</Version>
+    <Version>2026.11.0</Version>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
   <PropertyGroup>

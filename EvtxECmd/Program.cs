@@ -59,6 +59,9 @@ namespace EvtxECmd;
         private static DateTimeOffset? _endDate;
         private static int _droppedEvents;
 
+        /// <summary>--rr (Issues #268)</summary>
+        private static bool _recoverRecords;
+
         private static readonly string VssDir = @"C:\____vssMount";
 
         private static readonly string Header =
@@ -267,6 +270,12 @@ namespace EvtxECmd;
                 DefaultValueFactory = _ => true
             };
             
+            var rrOpt = new Option<bool>("--rr")
+            {
+                Description = "Recover records: also look for event records left in chunk slack and in chunks emptied when the log was cleared. They come after the live records, with a Recovered column (Slack or ClearedChunk); copies of live records are left out",
+                DefaultValueFactory = _ => false
+            };
+
             var syncOpt = new Option<bool>("--sync")
             {
                 Description = "If true, the latest maps from https://github.com/EricZimmerman/evtx/tree/master/evtx/Maps are downloaded and local maps updated",
@@ -311,6 +320,7 @@ namespace EvtxECmd;
                 mapsOpt,
                 vssOpt,
                 dedupeOpt,
+                rrOpt,
              syncOpt,
              debugOpt,
              traceOpt,
@@ -325,7 +335,7 @@ namespace EvtxECmd;
                 result.GetValue(csvfOpt), result.GetValue(jsonOpt), result.GetValue(jsonfOpt), result.GetValue(xmlOpt),
                 result.GetValue(xmlfOpt),result.GetValue(dtOpt),result.GetValue(incOpt),result.GetValue(excOpt),result.GetValue(sdOpt),result.GetValue(edOpt),
                 result.GetValue(fjOpt),result.GetValue(tdtOpt),result.GetValue(metOpt),result.GetValue(mapsOpt),
-                result.GetValue(vssOpt),result.GetValue(dedupeOpt),result.GetValue(syncOpt),result.GetValue(debugOpt),result.GetValue(traceOpt),result.GetValue(coOpt)));
+                result.GetValue(vssOpt),result.GetValue(dedupeOpt),result.GetValue(syncOpt),result.GetValue(debugOpt),result.GetValue(traceOpt),result.GetValue(coOpt),result.GetValue(rrOpt)));
 
 
             var exitCode = await _rootCommand.Parse(args).InvokeAsync();
@@ -363,8 +373,9 @@ namespace EvtxECmd;
         }
 
         /// <returns>The exit code: 0, or 1 for invalid arguments, files that could not be processed, or output that could not be written</returns>
-        private static int DoWork(string f, string d, string csv, string csvf, string json, string jsonf, string xml, string xmlf, string dt, string inc, string exc, string sd, string ed, bool fj, int tdt, bool met, string maps, bool vss, bool dedupe, bool sync, bool debug, bool trace, bool co)
+        private static int DoWork(string f, string d, string csv, string csvf, string json, string jsonf, string xml, string xmlf, string dt, string inc, string exc, string sd, string ed, bool fj, int tdt, bool met, string maps, bool vss, bool dedupe, bool sync, bool debug, bool trace, bool co, bool rr = false)
         {
+            _recoverRecords = rr;
             var levelSwitch = new LoggingLevelSwitch();
 
             _activeDateTimeFormat = dt;
@@ -665,6 +676,16 @@ namespace EvtxECmd;
                 foo.Map(t => t.Payload).Index(24);
                 //appended after the existing columns
                 foo.Map(t => t.RenderingInfo).Index(26);
+
+                //--rr only, so the CSV without it is as it was
+                if (_recoverRecords)
+                {
+                    foo.Map(t => t.Recovered).Index(100);
+                }
+                else
+                {
+                    foo.Map(t => t.Recovered).Ignore();
+                }
 
                 _csvWriter.Context.RegisterClassMap(foo);
                 _csvWriter.WriteHeader<EventRecord>();
@@ -1292,7 +1313,8 @@ namespace EvtxECmd;
                 {
                     //built while chunks are parsed in parallel
                     PreparePayloadJson = _csvWriter != null || (_swJson != null && fj == false),
-                    PrepareXml = _swXml != null
+                    PrepareXml = _swXml != null,
+                    RecoverRecords = _recoverRecords
                 };
 
                 Log.Information("Chunk count: {ChunkCount:N0}, Iterating records...",evt.ChunkCount);
@@ -1424,6 +1446,12 @@ namespace EvtxECmd;
                 Log.Information("{Evt}",evt);
 
                 Log.Information("Records included: {SeenRecords:N0} Errors: {ErrorRecordsCount:N0} Events dropped: {DroppedEvents:N0}",seenRecords,evt.ErrorRecords.Count,_droppedEvents);
+
+                if (_recoverRecords)
+                {
+                    Log.Information("Recovered records (--rr): {Recovered:N0}, included above (Recovered column). Left out: {Live:N0} the same as a live record (record number, time and content), {Copies:N0} copies of another recovered record. {Failed:N0} possible records in slack could not be read",
+                        evt.RecoveredCount,evt.RecoveredDuplicatesOfLive,evt.RecoveredDuplicates,evt.RecoveryFailures);
+                }
 
                 if (evt.ErrorRecords.Count > 0)
                 {

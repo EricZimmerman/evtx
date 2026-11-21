@@ -27,6 +27,13 @@ internal sealed class BinXmlParser
 
     public int TemplateCount => _templates.Count;
 
+    /// <summary>
+    ///     For records recovered from slack (--rr): every substitution of a template must have a value of its declared
+    ///     type (or NullType). A recovered record can point at a template whose bytes were overwritten since; without
+    ///     this it would render under the wrong names
+    /// </summary>
+    public bool Strict { get; set; }
+
     /// <summary>Parses a fragment (a record's event data or a BinXml value) from start up to end</summary>
     public List<Node> ParseFragment(int start, int end, bool inTemplate, int depth) => ParseFragment(start, end, inTemplate, depth, out _);
 
@@ -361,7 +368,95 @@ internal sealed class BinXmlParser
             pos += size;
         }
 
+        if (Strict)
+        {
+            //the instance's template id is the first 4 bytes of the definition's GUID
+            if (templateId != BitConverter.ToUInt32(template.Guid.ToByteArray(), 0))
+            {
+                throw new EventLogParseException($"Template instance id 0x{templateId:X} does not match the template at 0x{template.Offset:X} ({template.Guid})", pos, "TemplateInstance");
+            }
+
+            CheckValues(template, values, pos);
+        }
+
         return new TemplateInstanceNode(template, values);
+    }
+
+    /// <summary>
+    ///     A name that was really written as one: NUL terminated, its stored hash (the low 16 bits of hash * 65599 +
+    ///     each character) matches, and no control characters. A recovered record whose name offsets point into bytes
+    ///     reused since fails this
+    /// </summary>
+    private void CheckName(int offset, int chars, string name)
+    {
+        var nul = offset + 8 + chars * 2;
+        if (chars == 0 || nul + 2 > _b.Length || _b[nul] != 0 || _b[nul + 1] != 0)
+        {
+            throw new EventLogParseException($"Name at 0x{offset:X} is not NUL terminated", offset, "Name");
+        }
+
+        uint hash = 0;
+        foreach (var c in name)
+        {
+            if (char.IsControl(c))
+            {
+                throw new EventLogParseException($"Name at 0x{offset:X} has control characters", offset, "Name");
+            }
+
+            hash = unchecked(hash * 65599 + c);
+        }
+
+        if ((ushort)hash != BitConverter.ToUInt16(_b, offset + 4))
+        {
+            throw new EventLogParseException($"Name at 0x{offset:X} ('{name}') does not match its hash", offset, "Name");
+        }
+    }
+
+    private static void CheckValues(TemplateDefinition template, Value[] values, int pos)
+    {
+        foreach (var s in template.Substitutions)
+        {
+            if (s.Index >= values.Length)
+            {
+                throw new EventLogParseException($"Template at 0x{template.Offset:X} uses value {s.Index}, the record has {values.Length}", pos, "TemplateInstanceData");
+            }
+
+            var type = values[s.Index].Type;
+            if (type != ValueType.NullType && Family(type) != Family(s.Type))
+            {
+                throw new EventLogParseException($"Template at 0x{template.Offset:X} wants {s.Type} for value {s.Index}, the record has {type}", pos, "TemplateInstanceData");
+            }
+        }
+    }
+
+    /// <summary>
+    ///     Types Windows writes for one another (live records have a HexInt64 for a size_t, a UInt16 for a UInt8, one
+    ///     binary value for a binary array): all integers are one family, both string types another, arrays as their
+    ///     element type
+    /// </summary>
+    private static int Family(ValueType type)
+    {
+        var t = (ValueType)((byte)type & 0x7F);
+        switch (t)
+        {
+            case ValueType.Int8Type:
+            case ValueType.UInt8Type:
+            case ValueType.Int16Type:
+            case ValueType.UInt16Type:
+            case ValueType.Int32Type:
+            case ValueType.UInt32Type:
+            case ValueType.Int64Type:
+            case ValueType.UInt64Type:
+            case ValueType.SizeTType:
+            case ValueType.HexInt32Type:
+            case ValueType.HexInt64Type:
+                return 0x100;
+            case ValueType.StringType:
+            case ValueType.AnsiStringType:
+                return 0x101;
+            default:
+                return (int)t;
+        }
     }
 
     /// <summary>The template definition at offset in the chunk: next template offset, GUID, data size, data</summary>
@@ -439,6 +534,12 @@ internal sealed class BinXmlParser
         }
 
         name = Encoding.Unicode.GetString(_b, offset + 8, chars * 2);
+
+        if (Strict)
+        {
+            CheckName(offset, chars, name);
+        }
+
         _names[offset] = name;
         return name;
     }

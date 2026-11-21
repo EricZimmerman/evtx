@@ -48,6 +48,8 @@ public sealed class ChunkBuilder
     private readonly List<long> _numbers = new();
     private int _pos = 0x200;
     private int _lastRecord;
+    private int? _freeSpace;
+    private bool _cleared;
 
     public int Position => _pos;
 
@@ -57,6 +59,20 @@ public sealed class ChunkBuilder
         var start = WriteRecord(number, time, binXml, slack);
         _lastRecord = start;
         _numbers.Add(number);
+        return this;
+    }
+
+    /// <summary>The live records end here (the free space offset); records written after this are slack</summary>
+    public ChunkBuilder EndOfLiveRecords()
+    {
+        _freeSpace = _pos;
+        return this;
+    }
+
+    /// <summary>The header says the chunk is empty, as Windows leaves it when a log is cleared; the records stay</summary>
+    public ChunkBuilder Cleared()
+    {
+        _cleared = true;
         return this;
     }
 
@@ -91,7 +107,14 @@ public sealed class ChunkBuilder
     public byte[] Build()
     {
         Encoding.ASCII.GetBytes("ElfChnk\0").CopyTo(_b, 0);
-        if (_numbers.Count > 0)
+        if (_cleared)
+        {
+            BitConverter.GetBytes(1L).CopyTo(_b, 0x08);
+            BitConverter.GetBytes(-1L).CopyTo(_b, 0x10);
+            BitConverter.GetBytes(-1L).CopyTo(_b, 0x18);
+            BitConverter.GetBytes(-1L).CopyTo(_b, 0x20);
+        }
+        else if (_numbers.Count > 0)
         {
             BitConverter.GetBytes(_numbers[0]).CopyTo(_b, 0x08);
             BitConverter.GetBytes(_numbers[^1]).CopyTo(_b, 0x10);
@@ -104,9 +127,10 @@ public sealed class ChunkBuilder
         }
 
         BitConverter.GetBytes(0x80).CopyTo(_b, 0x28);
-        BitConverter.GetBytes(_lastRecord).CopyTo(_b, 0x2C);
-        BitConverter.GetBytes(_pos).CopyTo(_b, 0x30);
-        BitConverter.GetBytes(Crc32Algorithm.Compute(_b, 0x200, _pos - 0x200)).CopyTo(_b, 0x34);
+        var free = _cleared ? 0x200 : _freeSpace ?? _pos;
+        BitConverter.GetBytes(_cleared ? 0 : _lastRecord).CopyTo(_b, 0x2C);
+        BitConverter.GetBytes(free).CopyTo(_b, 0x30);
+        BitConverter.GetBytes(Crc32Algorithm.Compute(_b, 0x200, free - 0x200)).CopyTo(_b, 0x34);
         var crc = Crc32Algorithm.Compute(_b, 0, 0x78);
         crc = Crc32Algorithm.Append(crc, _b, 0x80, 0x180);
         BitConverter.GetBytes(crc).CopyTo(_b, 0x7C);
@@ -232,17 +256,26 @@ public sealed class ChunkBuilder
     ///     A template instance. With a definition it is written inline (and its offset returned); with only an
     ///     offset, it refers to a definition written earlier in the chunk
     /// </summary>
-    public int TemplateInstance(Action<ChunkBuilder> definition, int definitionOffset, params Val[] values)
+    public int TemplateInstance(Action<ChunkBuilder> definition, int definitionOffset, params Val[] values) =>
+        TemplateInstanceWithId(0x12345678, definition, definitionOffset, values);
+
+    /// <summary>
+    ///     As <see cref="TemplateInstance" />, with the template id: the first 4 bytes of the definition's GUID, as
+    ///     Windows writes them (a different id for a reference makes a record whose template doesn't fit)
+    /// </summary>
+    public int TemplateInstanceWithId(uint templateId, Action<ChunkBuilder> definition, int definitionOffset, params Val[] values)
     {
         Byte(0x0C);
         Byte(0x01);
-        U32(0x12345678);
+        U32(templateId);
         if (definition != null)
         {
             definitionOffset = _pos + 4;
             U32((uint)definitionOffset);
             U32(0); //next template
-            Bytes(Guid.NewGuid().ToByteArray());
+            var guid = Guid.NewGuid().ToByteArray();
+            BitConverter.GetBytes(templateId).CopyTo(guid, 0);
+            Bytes(guid);
             var sizeAt = _pos;
             U32(0);
             var start = _pos;
@@ -332,6 +365,9 @@ public sealed class ChunkBuilder
     }
 
     public void Poke(int offset, params byte[] bytes) => bytes.CopyTo(_b, offset);
+
+    /// <summary>The chunk so far (to find what was written, e.g. a name's offset)</summary>
+    public byte[] Peek() => _b;
 }
 
 /// <summary>A substitution value: its type and bytes, or a writer for BinXml values (written in place)</summary>

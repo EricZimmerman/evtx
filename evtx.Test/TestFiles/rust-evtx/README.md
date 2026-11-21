@@ -9,3 +9,4 @@ The expected record counts are what that parser (evtx_dump 0.12.3) finds.
 - `sample_with_a_bad_chunk_magic.evtx`, `security_bad_string_cache.evtx`, `sample-with-zero-data-size-event.evtx`,
   `sample-with-irregular-bool-values.evtx`, `Security_with_size_t.evtx`, `Application_no_crc32.evtx`
 - `2-system-Security-dirty.evtx`: a dirty log
+- `Microsoft-Windows-WorkFolders%4WHC.evtx`: a cleared log (a chunk whose header says it is empty) with two records left in it; from forensicmatt's parse-empty-pages branch, now in the samples folder (Issues #268, `--rr`)

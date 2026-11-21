@@ -321,4 +321,192 @@ public class BinXmlTests
             }
         }
     }
+
+    // ===== --rr: records in slack and in cleared chunks (Issues #268) =====
+
+    private static List<EventRecord> Recover(byte[] file, out EventLog log)
+    {
+        log = new EventLog(new MemoryStream(file)) { RecoverRecords = true };
+        return log.GetEventRecords().ToList();
+    }
+
+    /// <summary>A chunk with live records 1 and 2 (record 1 defines the template), then <paramref name="slack" /></summary>
+    private static byte[] WithSlack(Action<ChunkBuilder, int> slack)
+    {
+        var b = new EvtxBuilder();
+        var chunk = b.Chunk();
+        var offset = 0;
+        chunk.Record(1, When, r => offset = r.FragmentHeader().TemplateInstance(EventTemplate(Data("User", 8, 0x01)), 0, SystemValues(1, 1, V.Str("live one"))));
+        chunk.Record(2, When, r => r.FragmentHeader().TemplateInstance(null, offset, SystemValues(2, 2, V.Str("live two"))));
+        chunk.EndOfLiveRecords();
+        slack(chunk, offset);
+        return b.Build();
+    }
+
+    [Test]
+    public void SlackRecordsAreRecoveredOnlyWhenAskedFor()
+    {
+        var file = WithSlack((c, offset) => c.HiddenRecord(77, When, r => r.FragmentHeader().TemplateInstance(null, offset, SystemValues(4624, 77, V.Str("older")))));
+
+        Parse(file).Should().HaveCount(2).And.OnlyContain(t => t.Recovered == null);
+
+        var records = Recover(file, out var log);
+        records.Should().HaveCount(3);
+        records.Take(2).Should().OnlyContain(t => t.Recovered == null);
+        records[2].Recovered.Should().Be(ChunkInfo.RecoveredFromSlack);
+        records[2].RecordNumber.Should().Be(77);
+        records[2].EventId.Should().Be(4624);
+        records[2].PayloadAsJson().Should().Contain("older");
+        log.RecoveredCount.Should().Be(1);
+        log.TotalEventLogs.Should().Be(2, "recovered records are counted on their own");
+    }
+
+    [Test]
+    public void ClearedChunksGiveTheirRecords()
+    {
+        //a cleared log: the header is reset, the records are still there
+        var b = new EvtxBuilder();
+        var chunk = b.Chunk();
+        var offset = 0;
+        chunk.Record(5, When, r => offset = r.FragmentHeader().TemplateInstance(EventTemplate(Data("User", 8, 0x01)), 0, SystemValues(104, 5, V.Str("a"))));
+        chunk.Record(6, When, r => r.FragmentHeader().TemplateInstance(null, offset, SystemValues(104, 6, V.Str("b"))));
+        chunk.Cleared();
+        var file = b.Build();
+
+        Parse(file).Should().BeEmpty();
+        var records = Recover(file, out _);
+        records.Select(t => t.RecordNumber).Should().Equal(5, 6);
+        records.Should().OnlyContain(t => t.Recovered == ChunkInfo.RecoveredFromClearedChunk);
+    }
+
+    [Test]
+    public void ATemplateThatDoesNotFitIsNotUsed()
+    {
+        //a slack record whose template id isn't the definition's: the template at that offset was another one
+        var file = WithSlack((c, offset) => c.HiddenRecord(77, When, r => r.FragmentHeader().TemplateInstanceWithId(0xDEADBEEF, null, offset, SystemValues(4624, 77, V.Str("older")))));
+
+        var records = Recover(file, out var log);
+        records.Should().HaveCount(2);
+        log.RecoveryFailures.Should().Be(1);
+    }
+
+    [Test]
+    public void ValuesThatDoNotFitTheTemplateAreNotUsed()
+    {
+        //the template wants a string for value 8, the slack record has a GUID there
+        var file = WithSlack((c, offset) => c.HiddenRecord(77, When, r => r.FragmentHeader().TemplateInstance(null, offset, SystemValues(4624, 77, V.Of(0x0F, new byte[16])))));
+
+        Recover(file, out var log).Should().HaveCount(2);
+        log.RecoveryFailures.Should().Be(1);
+    }
+
+    [Test]
+    public void ANameThatIsNotOneIsNotUsed()
+    {
+        //a slack record with its own template, whose element name's hash no longer matches (bytes reused since)
+        var file = WithSlack((c, _) =>
+        {
+            c.HiddenRecord(77, When, r => r.FragmentHeader().TemplateInstanceWithId(0x0BADF00D, EventTemplate(Data("Zqxname", 8, 0x01)), 0, SystemValues(4624, 77, V.Str("older"))));
+            var bytes = c.Peek();
+            var name = Encoding.Unicode.GetBytes("Zqxname");
+            for (var i = 0x200; i < c.Position; i++)
+            {
+                if (bytes.AsSpan(i, name.Length).SequenceEqual(name))
+                {
+                    c.Poke(i - 4, 0x34, 0x12); //the hash, before the character count
+                    break;
+                }
+            }
+        });
+
+        Recover(file, out var log).Should().HaveCount(2);
+        log.RecoveryFailures.Should().Be(1);
+
+        //the same record with its name intact is recovered
+        var good = WithSlack((c, _) => c.HiddenRecord(77, When, r => r.FragmentHeader().TemplateInstanceWithId(0x0BADF00D, EventTemplate(Data("Zqxname", 8, 0x01)), 0, SystemValues(4624, 77, V.Str("older")))));
+        Recover(good, out _).Should().HaveCount(3);
+    }
+
+    [Test]
+    public void CopiesOfLiveRecordsAreLeftOut()
+    {
+        //record 2 again in slack (its own copy of the template, the same content), and another record twice
+        var file = WithSlack((c, offset) =>
+        {
+            c.HiddenRecord(2, When, r => r.FragmentHeader().TemplateInstance(EventTemplate(Data("User", 8, 0x01)), 0, SystemValues(2, 2, V.Str("live two"))));
+            c.HiddenRecord(9, When, r => r.FragmentHeader().TemplateInstance(null, offset, SystemValues(9, 9, V.Str("nine"))));
+            c.HiddenRecord(9, When, r => r.FragmentHeader().TemplateInstance(null, offset, SystemValues(9, 9, V.Str("nine"))));
+            //the same number and time as live record 1, other content: kept
+            c.HiddenRecord(1, When, r => r.FragmentHeader().TemplateInstance(null, offset, SystemValues(1, 1, V.Str("not the live one"))));
+        });
+
+        var records = Recover(file, out var log);
+
+        records.Where(t => t.Recovered != null).Select(t => t.RecordNumber).Should().Equal(9, 1);
+        log.RecoveredDuplicatesOfLive.Should().Be(1);
+        log.RecoveredDuplicates.Should().Be(1);
+        log.RecoveredCount.Should().Be(2);
+    }
+
+    [Test]
+    public void SlackThatIsNotARecordIsSkipped()
+    {
+        //a signature with a size that runs past the chunk, one whose size copy differs, then a good one
+        var file = WithSlack((c, offset) =>
+        {
+            c.U32(0x00002A2A).U32(0xFFF0).U64(50).U64(0);
+            c.U32(0x00002A2A).U32(0x40).U64(51).U64(0).Bytes(new byte[0x20]).U32(0x44);
+            c.HiddenRecord(77, When, r => r.FragmentHeader().TemplateInstance(null, offset, SystemValues(4624, 77, V.Str("older"))));
+        });
+
+        Recover(file, out var log).Select(t => t.RecordNumber).Should().Equal(1, 2, 77);
+        log.RecoveryFailures.Should().Be(0, "neither was a candidate");
+    }
+
+    [Test]
+    public void RecordsAfterADamagedOneAreMarked()
+    {
+        //record 2's signature is damaged, so the walk stops; record 3 is still in the live area
+        var b = new EvtxBuilder();
+        var chunk = b.Chunk();
+        var offset = 0;
+        chunk.Record(1, When, r => offset = r.FragmentHeader().TemplateInstance(EventTemplate(Data("User", 8, 0x01)), 0, SystemValues(1, 1, V.Str("one"))));
+        var second = chunk.Position;
+        chunk.Record(2, When, r => r.FragmentHeader().TemplateInstance(null, offset, SystemValues(2, 2, V.Str("two"))));
+        chunk.Record(3, When, r => r.FragmentHeader().TemplateInstance(null, offset, SystemValues(3, 3, V.Str("three"))));
+        chunk.Poke(second, 0x00, 0x00);
+
+        Parse(b.Build()).Select(t => t.RecordNumber).Should().Equal(1);
+
+        var records = Recover(b.Build(), out _);
+        records.Select(t => (t.RecordNumber, t.Recovered)).Should().Equal((1, null), (3, ChunkInfo.RecoveredAfterError));
+    }
+
+    [Test]
+    public void RecoveringBadInputDoesNotThrow()
+    {
+        var sample = TestFiles.RustSample("security.evtx");
+        var random = new Random(268);
+        for (var i = 0; i < 20; i++)
+        {
+            var bytes = (byte[])sample.Clone();
+            for (var c = 0; c < 2000; c++)
+            {
+                bytes[random.Next(0x1000, bytes.Length)] = (byte)random.Next(256);
+            }
+
+            //and chunks whose headers say they are empty
+            for (var c = 0x1000; c + 0x20 < bytes.Length; c += 0x10000 * 3)
+            {
+                BitConverter.GetBytes(-1L).CopyTo(bytes, c + 0x18);
+            }
+
+            var log = new EventLog(new MemoryStream(bytes)) { RecoverRecords = true };
+            foreach (var r in log.GetEventRecords())
+            {
+                _ = r.PayloadAsJson();
+                _ = r.ConvertPayloadToXml();
+            }
+        }
+    }
 }

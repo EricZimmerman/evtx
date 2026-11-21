@@ -118,6 +118,33 @@ public class EventRecord
     public bool HiddenRecord { get; set; }
 
     /// <summary>
+    ///     Null for a live record; for one recovered with --rr, where it was found: <see cref="ChunkInfo.RecoveredFromSlack" />,
+    ///     <see cref="ChunkInfo.RecoveredFromClearedChunk" /> or <see cref="ChunkInfo.RecoveredAfterError" />
+    /// </summary>
+    public string Recovered { get; internal set; }
+
+    /// <summary>--rr: <see cref="ComputeContentKey" />, computed while the chunk is parsed</summary>
+    internal (ulong, int)? ContentKey { get; set; }
+
+    /// <summary>
+    ///     FNV-1a hash and length of what tells two records apart: the record number, time, EventRecordID, event id,
+    ///     provider, channel, computer and the payload (as JSON, which the CSV and JSON outputs build anyway)
+    /// </summary>
+    internal (ulong, int) ComputeContentKey()
+    {
+        var text = string.Join("\u0001", RecordNumber.ToString(CultureInfo.InvariantCulture), Timestamp.UtcTicks.ToString(CultureInfo.InvariantCulture),
+            EventRecordId, EventId.ToString(CultureInfo.InvariantCulture), Provider, Channel, Computer, PayloadAsJson());
+        var hash = 14695981039346656037UL;
+        foreach (var c in text)
+        {
+            hash = (hash ^ c) * 1099511628211UL;
+        }
+
+        ContentKey = (hash, text.Length);
+        return ContentKey.Value;
+    }
+
+    /// <summary>
     ///     This should match the Timestamp pulled from the data, but this one is explicitly from the XML via the substitution
     ///     values
     /// </summary>

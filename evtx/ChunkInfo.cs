@@ -20,13 +20,14 @@ public class ChunkInfo
     private const uint RecordSignature = 0x00002A2A;
     private const int RecordHeaderSize = 0x18;
 
-    public ChunkInfo(byte[] chunkBytes, long absoluteOffset, int chunkNumber) : this(chunkBytes, absoluteOffset, chunkNumber, false, false)
+    public ChunkInfo(byte[] chunkBytes, long absoluteOffset, int chunkNumber) : this(chunkBytes, absoluteOffset, chunkNumber, false, false, false)
     {
     }
 
     /// <param name="prepareJson">Build each record's payload JSON now (chunks are parsed in parallel)</param>
     /// <param name="prepareXml">Write each record's XML now</param>
-    internal ChunkInfo(byte[] chunkBytes, long absoluteOffset, int chunkNumber, bool prepareJson, bool prepareXml)
+    /// <param name="recover">Also look for records in the slack after the last record and in chunks whose header was reset (cleared logs): <see cref="RecoveredRecords" /></param>
+    internal ChunkInfo(byte[] chunkBytes, long absoluteOffset, int chunkNumber, bool prepareJson, bool prepareXml, bool recover)
     {
         ChunkBytes = chunkBytes;
         AbsoluteOffset = absoluteOffset;
@@ -34,6 +35,7 @@ public class ChunkInfo
 
         ErrorRecords = new Dictionary<long, string>();
         EventRecords = new List<EventRecord>();
+        RecoveredRecords = new List<EventRecord>();
 
         if (chunkBytes.Length < HeaderSize || BitConverter.ToUInt64(chunkBytes, 0) != ChunkSignature)
         {
@@ -62,7 +64,12 @@ public class ChunkInfo
 
         if (FirstEventRecordIdentifier == -1)
         {
-            //an empty chunk
+            //an empty chunk; one that was in use before the log was cleared still has its old records
+            if (recover)
+            {
+                Recover(HeaderSize, RecoveredFromClearedChunk, prepareJson, prepareXml);
+            }
+
             return;
         }
 
@@ -103,6 +110,12 @@ public class ChunkInfo
 
                 EventRecords.Add(record);
 
+                if (recover)
+                {
+                    //for finding recovered copies of it (in parallel here, not one by one later)
+                    record.ComputeContentKey();
+                }
+
                 if (record.HasHiddenRecord(chunkBytes))
                 {
                     AddHiddenRecord(parser, renderer, record);
@@ -124,6 +137,93 @@ public class ChunkInfo
         }
 
         TemplateCount = parser.TemplateCount;
+
+        if (recover)
+        {
+            //after the last record (or where a damaged record stopped the walk): older records the chunk had before
+            Recover(position, RecoveredFromSlack, prepareJson, prepareXml);
+        }
+    }
+
+    /// <summary><see cref="EventRecord.Recovered" /> for a record found after the last record of a chunk</summary>
+    public const string RecoveredFromSlack = "Slack";
+
+    /// <summary><see cref="EventRecord.Recovered" /> for a record in a chunk whose header says it is empty (a cleared log)</summary>
+    public const string RecoveredFromClearedChunk = "ClearedChunk";
+
+    /// <summary>
+    ///     <see cref="EventRecord.Recovered" /> for a record in the chunk's live area (before the free space offset, its
+    ///     number in the header's range) after a record that could not be read, which stopped the walk
+    /// </summary>
+    public const string RecoveredAfterError = "AfterError";
+
+    /// <summary>
+    ///     Records found by --rr in the chunk's slack or in a cleared chunk (Issues #268). A candidate is a record
+    ///     signature, a size that fits in the chunk and the same size in its last 4 bytes; it is kept when it parses
+    ///     and renders, and its templates fit its values (<see cref="BinXmlParser.Strict" />). They have their own
+    ///     string and template caches, so they never change how the live records render
+    /// </summary>
+    public List<EventRecord> RecoveredRecords { get; }
+
+    /// <summary>Candidates (signature and size copy) that could not be read as records</summary>
+    public int RecoveryFailures { get; private set; }
+
+    private void Recover(int start, string from, bool prepareJson, bool prepareXml)
+    {
+        var b = ChunkBytes;
+        var parser = new BinXmlParser(b) { Strict = true };
+        var renderer = new Renderer(b, parser);
+
+        var i = Math.Max(start, HeaderSize);
+        while (i + RecordHeaderSize + 4 <= b.Length)
+        {
+            i = Array.IndexOf(b, (byte)0x2A, i);
+            if (i < 0 || i + RecordHeaderSize + 4 > b.Length)
+            {
+                break;
+            }
+
+            if (BitConverter.ToUInt32(b, i) != RecordSignature)
+            {
+                i += 1;
+                continue;
+            }
+
+            var size = BitConverter.ToUInt32(b, i + 4);
+            if (size < RecordHeaderSize + 4 || i + (long)size > b.Length || BitConverter.ToUInt32(b, i + (int)size - 4) != size)
+            {
+                i += 1;
+                continue;
+            }
+
+            try
+            {
+                var record = new EventRecord(this, parser, renderer, i, (int)size) { Recovered = from };
+                if (from == RecoveredFromSlack && i < FreeSpaceOffset && i + size <= FreeSpaceOffset &&
+                    record.RecordNumber >= FirstEventRecordIdentifier && record.RecordNumber <= LastEventRecordIdentifier)
+                {
+                    record.Recovered = RecoveredAfterError;
+                }
+
+                if (prepareJson)
+                {
+                    record.PayloadAsJson();
+                }
+
+                //the XML is what duplicates are found by
+                record.ComputeContentKey();
+
+                RecoveredRecords.Add(record);
+                Log.Debug("Recovered record #: {RecordNumber} at 0x{Offset:X} ({From})", record.RecordNumber, AbsoluteOffset + i, from);
+                i += (int)size;
+            }
+            catch (Exception e)
+            {
+                RecoveryFailures += 1;
+                Log.Debug("Possible record at 0x{Offset:X} could not be recovered: {Message}", AbsoluteOffset + i, e.Message);
+                i += 1;
+            }
+        }
     }
 
     public uint LastRecordOffset { get; }

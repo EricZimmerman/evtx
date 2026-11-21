@@ -138,6 +138,43 @@ internal sealed class TemplateDefinition
 
     public Guid Guid { get; }
     public List<Node> Nodes { get; }
+
+    private List<SubstitutionNode> _substitutions;
+
+    /// <summary>Every substitution in the definition (outside nested template instances)</summary>
+    public List<SubstitutionNode> Substitutions => _substitutions ??= Collect();
+
+    private List<SubstitutionNode> Collect()
+    {
+        var found = new List<SubstitutionNode>();
+        var pending = new Stack<Node>(Nodes);
+        while (pending.Count > 0)
+        {
+            switch (pending.Pop())
+            {
+                case SubstitutionNode s:
+                    found.Add(s);
+                    break;
+                case ElementNode e:
+                    foreach (var a in e.Attributes)
+                    {
+                        foreach (var v in a.Value)
+                        {
+                            pending.Push(v);
+                        }
+                    }
+
+                    foreach (var c in e.Content)
+                    {
+                        pending.Push(c);
+                    }
+
+                    break;
+            }
+        }
+
+        return found;
+    }
 }
 
 /// <summary>A substitution value: its type and where its bytes are in the chunk</summary>
