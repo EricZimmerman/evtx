@@ -45,6 +45,7 @@ The old code built XML text and reloaded it into XmlDocument, XPathDocument and 
 - `JsonOutput` matches Json.NET's `SerializeXmlNode`: `@attr`, `#text`, arrays for repeated names, `null` for `<x/>` and `""` for `<x></x>`. The payload uses LF (`PayloadAsJson`); the whole event uses CRLF (`EventAsJson`, for `--fj`).
 - `OutNavigator` is an XPathNavigator over the tree. Maps run their XPath queries against it, with the same values an XPathDocument of the event XML had: no xmlns attributes, whitespace-only text dropped, CRLF in text.
 - `RenderingInfo` (from forwarded events) is JSON, and EvtxECmd writes it as the last CSV column.
+- CSV (CsvHelper 34): `EventRecordCsvWriter` (a `CsvRecordWriter<EventRecord>`, since the library has no CsvHelper attributes) lists the columns in their order, `TimeCreated` in `--dt`, `Recovered` only with `--rr`. `CsvOutput.Options` keeps CsvHelper 33's bytes: True/False, quotes only for a comma, quote, CR/LF or a leading/trailing space (not a tab, which `CsvQuoting.WhenNeededOrWhitespace` would quote), UTF-8 with a BOM.
 - `EventLog.PreparePayloadJson`/`PrepareXml` build the JSON or XML while chunks are parsed in parallel.
 
 ## Maps

@@ -22,7 +22,7 @@ using System.Runtime.InteropServices;
 using System.Security.Principal;
 using System.Text;
 using System.Threading.Tasks;
-using CsvHelper.Configuration;
+using CsvHelper;
 using evtx;
 using Exceptionless;
 using ICSharpCode.SharpZipLib.Zip;
@@ -49,7 +49,6 @@ namespace EvtxECmd;
         private static int _fileCount;
 
         private static CsvWriter _csvWriter;
-        private static StreamWriter _swCsv;
         private static StreamWriter _swJson;
         private static StreamWriter _swXml;
         private static HashSet<int> _includeIds;
@@ -624,14 +623,8 @@ namespace EvtxECmd;
 
                 try
                 {
-                    _swCsv = new StreamWriter(outFile, false, Encoding.UTF8);
-
-                    var opt = new CsvConfiguration(CultureInfo.InvariantCulture)
-                    {
-                        ShouldUseConstructorParameters = _ => false
-                    };
-
-                    _csvWriter = new CsvWriter(_swCsv, opt);
+                    //the same output as CsvHelper 33, UTF-8 with a BOM
+                    _csvWriter = CsvWriter.ToFile(outFile, CsvOutput.Options with { WriteByteOrderMark = true });
                 }
                 catch (Exception ex)
                 {
@@ -640,56 +633,9 @@ namespace EvtxECmd;
                     return 1;
                 }
 
-
-                var foo = _csvWriter.Context.AutoMap<EventRecord>();
-
-                foo.Map(t => t.RecordPosition).Ignore();
-                foo.Map(t => t.Size).Ignore();
-                foo.Map(t => t.Timestamp).Ignore();
-
-                foo.Map(t => t.RecordNumber).Index(0);
-                foo.Map(t => t.EventRecordId).Index(1);
-                foo.Map(t => t.TimeCreated).Index(2);
-                foo.Map(t => t.TimeCreated).Convert(t =>
-                    $"{t.Value.TimeCreated.ToString(dt)}");
-                foo.Map(t => t.EventId).Index(3);
-                foo.Map(t => t.Level).Index(4);
-                foo.Map(t => t.Provider).Index(5);
-                foo.Map(t => t.Channel).Index(6);
-                foo.Map(t => t.ProcessId).Index(7);
-                foo.Map(t => t.ThreadId).Index(8);
-                foo.Map(t => t.Computer).Index(9);
-                foo.Map(t => t.UserId).Index(10);
-                foo.Map(t => t.MapDescription).Index(11);
-                foo.Map(t => t.UserName).Index(12);
-                foo.Map(t => t.RemoteHost).Index(13);
-                foo.Map(t => t.PayloadData1).Index(14);
-                foo.Map(t => t.PayloadData2).Index(15);
-                foo.Map(t => t.PayloadData3).Index(16);
-                foo.Map(t => t.PayloadData4).Index(17);
-                foo.Map(t => t.PayloadData5).Index(18);
-                foo.Map(t => t.PayloadData6).Index(19);
-                foo.Map(t => t.ExecutableInfo).Index(20);
-                foo.Map(t => t.HiddenRecord).Index(21);
-                foo.Map(t => t.SourceFile).Index(22);
-                foo.Map(t => t.Keywords).Index(23);
-                foo.Map(t => t.Payload).Index(24);
-                //appended after the existing columns
-                foo.Map(t => t.RenderingInfo).Index(26);
-
-                //--rr only, so the CSV without it is as it was
-                if (_recoverRecords)
-                {
-                    foo.Map(t => t.Recovered).Index(100);
-                }
-                else
-                {
-                    foo.Map(t => t.Recovered).Ignore();
-                }
-
-                _csvWriter.Context.RegisterClassMap(foo);
+                //EventRecord is a library type: its columns, TimeCreated in the --dt format and Recovered (--rr only, so the CSV without it is as it was)
+                CsvRecordWriter.Register<EventRecord>(_ => new EventRecordCsvWriter(dt, _recoverRecords));
                 _csvWriter.WriteHeader<EventRecord>();
-                _csvWriter.NextRecord();
             }
 
             if (Directory.Exists(maps) == false)
@@ -789,7 +735,7 @@ namespace EvtxECmd;
                     return 1;
                 }
 
-                if (_swXml == null && _swJson == null && _swCsv == null)
+                if (_swXml == null && _swJson == null && _csvWriter == null)
                 {
                     //no need for maps
                     Log.Debug("Clearing map collection since no output specified");
@@ -859,7 +805,7 @@ namespace EvtxECmd;
                 var files2 = FindEventLogs(d);
 #endif
 
-                if (_swXml == null && _swJson == null && _swCsv == null)
+                if (_swXml == null && _swJson == null && _csvWriter == null)
                 {
                     //no need for maps
                     Log.Debug("Clearing map collection since no output specified");
@@ -899,8 +845,7 @@ namespace EvtxECmd;
 
             try
             {
-                _swCsv?.Flush();
-                _swCsv?.Close();
+                _csvWriter?.Dispose();
 
                 _swJson?.Flush();
                 _swJson?.Close();
@@ -1390,7 +1335,6 @@ namespace EvtxECmd;
                         }
 
                         _csvWriter?.WriteRecord(eventRecord);
-                        _csvWriter?.NextRecord();
 
                         var xml = string.Empty;
                         if (_swXml != null)
