@@ -46,7 +46,7 @@
     <PackageReference Include="Serilog.Sinks.Console" Version="6.1.1" />
     <PackageReference Include="Serilog.Sinks.File" Version="7.0.0" />
     <PackageReference Include="ServiceStack.Text" Version="10.5.0" />
-    <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.13" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.15" />
     
   </ItemGroup>
 </Project>
