@@ -42,7 +42,7 @@ Options:
   --fj             When true, export all available data when using --json
   --tdt <tdt>      The number of seconds to use for time discrepancy detection. Default is 1 [default: 1]
   --met            When true, show metrics about processed event log. Default is true
-  --maps <maps>    The path where event maps are located. Defaults to 'Maps' folder where program was executed [default: /home/eric/Projects/evtx/EvtxECmd/bin/Release/net10.0/Maps]
+  --maps <maps>    The path where event maps are located. Defaults to 'Maps' folder where program was executed
   --vss            Process all Volume Shadow Copies that exist on drive specified by -f or -d
   --dedupe         Deduplicate -f or -d & VSCs based on SHA-1. First file found wins
   --rr             Recover records: also look for event records left in chunk slack and in chunks emptied when the log was cleared. They come after the live records, with a Recovered column (Slack or ClearedChunk); copies of live records are left out
