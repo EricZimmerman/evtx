@@ -7,7 +7,7 @@ processed too. Results are exported to CSV, JSON and XML.
 
 | | |
 |---|---|
-| **Version** | 2026.10.2 |
+| **Version** | 2026.11.0 |
 | **Download** | [.NET 10](https://download.ericzimmermanstools.com/net/EvtxECmd.zip) (recommended) &middot; [.NET Framework 4.7.2](https://download.ericzimmermanstools.com/EvtxECmd.zip) |
 | **All tools** | [ericzimmerman.github.io](https://ericzimmerman.github.io) or [Get-ZimmermanTools](https://download.ericzimmermanstools.com/Get-ZimmermanTools.zip), which downloads them all and keeps them current |
 | **Changes** | [ChangeLog](https://ericzimmerman.github.io/changelog/) |
@@ -42,9 +42,10 @@ Options:
   --fj             When true, export all available data when using --json
   --tdt <tdt>      The number of seconds to use for time discrepancy detection. Default is 1 [default: 1]
   --met            When true, show metrics about processed event log. Default is true
-  --maps <maps>    The path where event maps are located. Defaults to 'Maps' folder where program was executed
+  --maps <maps>    The path where event maps are located. Defaults to 'Maps' folder where program was executed [default: /home/eric/Projects/evtx/EvtxECmd/bin/Release/net10.0/Maps]
   --vss            Process all Volume Shadow Copies that exist on drive specified by -f or -d
   --dedupe         Deduplicate -f or -d & VSCs based on SHA-1. First file found wins
+  --rr             Recover records: also look for event records left in chunk slack and in chunks emptied when the log was cleared. They come after the live records, with a Recovered column (Slack or ClearedChunk); copies of live records are left out
   --sync           If true, the latest maps from https://github.com/EricZimmerman/evtx/tree/master/evtx/Maps are downloaded and local maps updated
   --debug          Show debug information during processing
   --trace          Show trace information during processing
@@ -82,6 +83,12 @@ A file that is not an event log is reported and skipped. A damaged chunk or reco
 of the log is still read. Records hidden in the slack of another record (as DanderSpritz's eventlogedit leaves them)
 are returned with `HiddenRecord` set.
 
+With `--rr`, records left in chunk slack and in chunks emptied when the log was cleared are returned too, after the
+live records, with a `Recovered` column at the end of the CSV (`Slack`, `ClearedChunk`, or `AfterError` for records
+after a damaged one; empty for live records). Each is checked against the template and names it uses (name hashes,
+template id, value types), so a record whose template was overwritten is not shown with the wrong field names. Copies
+of live records are left out, and the console says how many were left out and why.
+
 ## Maps
 
 Maps are YAML files, one per event (`Channel_Provider_EventID.map`), that pick values out of an event's XML with XPath
@@ -104,6 +111,14 @@ the event is.
 |---|---|
 | `0` | Success. Damaged event logs, damaged records and files that aren't event logs are reported but are not a failure |
 | `1` | The tool failed: invalid arguments, a missing `-f` or `-d` path, output that can't be written, or event logs or folders it can't open or read. Folders under `-d` that can't be read are reported (`Unable to read folder <path>: <reason>`) and the rest is still processed |
+
+## What's new in 2026.11
+
+- New `--rr` option (recover records): event records left in chunk slack and in chunks emptied when the log was
+  cleared come after the live records, with a new last column, `Recovered` (`Slack`, `ClearedChunk`, or `AfterError`
+  for records after a damaged one). Copies of live records are left out and the summary says how many and why. A
+  record whose template or names were overwritten since is not used, so nothing is shown under the wrong field names
+  (Issues #268). Without `--rr` the output is as it was.
 
 ## What's new in 2026.10
 
